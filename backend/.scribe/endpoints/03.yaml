@@ -68,7 +68,7 @@ endpoints:
         name: type
         description: ''
         required: false
-        example: purchase
+        example: quote
         type: string
         enumValues:
           - purchase
@@ -81,7 +81,7 @@ endpoints:
         name: status
         description: ''
         required: false
-        example: in_review
+        example: sent
         type: string
         enumValues:
           - pending_payment
@@ -109,15 +109,15 @@ endpoints:
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      type: purchase
-      status: in_review
+      type: quote
+      status: sent
       per_page: 1
     fileParameters: []
     responses:
       -
         custom: []
         status: 200
-        content: '{"data":[{"code":"PED-9171","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","company_name":"Aguirre de Sierra e Hijo S.A.S.","nit":"931296562-5","contact_name":"Alexandra Salvador","email":"icalero@example.org","phone":"364 698 0841","city":"Barrancabermeja","address":"Ruela Santiago, 442, 43\u00ba 2\u00ba","delivery_method":"pickup","delivery_method_label":"Recoger en tienda","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-10-25T05:22:55.000000Z","items":[{"id":1,"product_id":1,"sku":"REF-5058-cq","product_name":"Motor trif\u00e1sico 6877 HP","unit":"unidad","quantity":3,"unit_price":3030000,"tax_rate":19,"line_total":9090000,"notes":null}]},{"code":"PED-3733","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","company_name":"Santill\u00e1n de Rosa S.A.S.","nit":"940939506-2","contact_name":"Ona Lozano","email":"alarcon.jaime@example.com","phone":"329 242 1642","city":"Piedecuesta","address":"Carrer Nayara, 342, 1\u00ba E","delivery_method":"pickup","delivery_method_label":"Recoger en tienda","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-10-25T05:22:55.000000Z","items":[{"id":2,"product_id":2,"sku":"REF-9849-tp","product_name":"Motor trif\u00e1sico 1703 HP","unit":"unidad","quantity":2,"unit_price":4569000,"tax_rate":19,"line_total":9138000,"notes":null}]}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"pagination.previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"pagination.next","page":null,"active":false}],"path":"\/","per_page":10,"to":2,"total":2}}'
+        content: '{"data":[{"code":"PED-9171","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","company_name":"Aguirre de Sierra e Hijo S.A.S.","nit":"931296562-5","contact_name":"Alexandra Salvador","email":"icalero@example.org","phone":"364 698 0841","city":"Barrancabermeja","address":"Ruela Santiago, 442, 43\u00ba 2\u00ba","delivery_method":"pickup","delivery_method_label":"Recoger en tienda","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-10-25T17:23:26.000000Z","items":[{"id":3042,"product_id":24,"sku":"REF-5058-cq","product_name":"Motor trif\u00e1sico 6877 HP","unit":"unidad","quantity":3,"unit_price":3030000,"tax_rate":19,"line_total":9090000,"notes":null}]},{"code":"PED-3733","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","company_name":"Santill\u00e1n de Rosa S.A.S.","nit":"940939506-2","contact_name":"Ona Lozano","email":"alarcon.jaime@example.com","phone":"329 242 1642","city":"Piedecuesta","address":"Carrer Nayara, 342, 1\u00ba E","delivery_method":"pickup","delivery_method_label":"Recoger en tienda","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-10-25T17:23:26.000000Z","items":[{"id":3043,"product_id":25,"sku":"REF-9849-tp","product_name":"Motor trif\u00e1sico 1703 HP","unit":"unidad","quantity":2,"unit_price":4569000,"tax_rate":19,"line_total":9138000,"notes":null}]}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"pagination.previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"pagination.next","page":null,"active":false}],"path":"\/","per_page":10,"to":2,"total":2}}'
         headers: []
         description: ''
     responseFields: []
@@ -250,7 +250,7 @@ endpoints:
       -
         custom: []
         status: 201
-        content: '{"data":[{"code":"PED-9775","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","company_name":"Llorente, Aguirre y Sierra e Hijo S.A.S.","nit":"934997057-5","contact_name":"Rosario Cano","email":"isaac34@example.net","phone":"318 740 4954","city":"Gir\u00f3n","address":"R\u00faa Arnau, 798, 4\u00ba","delivery_method":"pickup","delivery_method_label":"Recoger en tienda","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-10-25T05:22:55.000000Z","items":[{"id":1,"product_id":1,"sku":"REF-7365-sc","product_name":"Motor trif\u00e1sico 967 HP","unit":"unidad","quantity":3,"unit_price":2955000,"tax_rate":19,"line_total":8865000,"notes":null}]},{"code":"PED-0568","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","company_name":"Arevalo y Gaona S. de H. S.A.S.","nit":"912797048-1","contact_name":"Dr. Ismael Gal\u00e1n","email":"jon26@example.com","phone":"316 022 6085","city":"Gir\u00f3n","address":"Ronda Rold\u00e1n, 754, \u00c1tico 6\u00ba","delivery_method":"local","delivery_method_label":"Env\u00edo local (Bucaramanga y \u00e1rea metropolitana)","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-10-25T05:22:55.000000Z","items":[{"id":2,"product_id":2,"sku":"REF-3531-ob","product_name":"Motor trif\u00e1sico 6696 HP","unit":"unidad","quantity":3,"unit_price":4362000,"tax_rate":19,"line_total":13086000,"notes":null}]}]}'
+        content: '{"data":[{"code":"PED-9775","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","company_name":"Llorente, Aguirre y Sierra e Hijo S.A.S.","nit":"934997057-5","contact_name":"Rosario Cano","email":"isaac34@example.net","phone":"318 740 4954","city":"Gir\u00f3n","address":"R\u00faa Arnau, 798, 4\u00ba","delivery_method":"pickup","delivery_method_label":"Recoger en tienda","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-10-25T17:23:26.000000Z","items":[{"id":3044,"product_id":26,"sku":"REF-7365-sc","product_name":"Motor trif\u00e1sico 967 HP","unit":"unidad","quantity":3,"unit_price":2955000,"tax_rate":19,"line_total":8865000,"notes":null}]},{"code":"PED-0568","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","company_name":"Arevalo y Gaona S. de H. S.A.S.","nit":"912797048-1","contact_name":"Dr. Ismael Gal\u00e1n","email":"jon26@example.com","phone":"316 022 6085","city":"Gir\u00f3n","address":"Ronda Rold\u00e1n, 754, \u00c1tico 6\u00ba","delivery_method":"local","delivery_method_label":"Env\u00edo local (Bucaramanga y \u00e1rea metropolitana)","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-10-25T17:23:26.000000Z","items":[{"id":3045,"product_id":27,"sku":"REF-3531-ob","product_name":"Motor trif\u00e1sico 6696 HP","unit":"unidad","quantity":3,"unit_price":4362000,"tax_rate":19,"line_total":13086000,"notes":null}]}]}'
         headers: []
         description: ''
       -
@@ -309,7 +309,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"code":"PED-7680","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","company_name":"Baeza de Arredondo S.A.S.","nit":"944731071-9","contact_name":"Olivia Centeno","email":"jalmonte@example.com","phone":"324 049 0034","city":"Barrancabermeja","address":"Traves\u00eda Cristian, 47, 2\u00ba F","delivery_method":"pickup","delivery_method_label":"Recoger en tienda","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-10-25T05:22:55.000000Z","items":[{"id":1,"product_id":1,"sku":"REF-2083-jk","product_name":"Motor trif\u00e1sico 4189 HP","unit":"unidad","quantity":5,"unit_price":3759000,"tax_rate":19,"line_total":18795000,"notes":null}],"status_history":[{"from_status":null,"to_status":"pending_payment","to_status_label":"Pendiente de pago","note":null,"created_at":"2026-10-25T05:22:55.000000Z"}]}}'
+        content: '{"data":{"code":"PED-7680","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","company_name":"Baeza de Arredondo S.A.S.","nit":"944731071-9","contact_name":"Olivia Centeno","email":"jalmonte@example.com","phone":"324 049 0034","city":"Barrancabermeja","address":"Traves\u00eda Cristian, 47, 2\u00ba F","delivery_method":"pickup","delivery_method_label":"Recoger en tienda","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-10-25T17:23:26.000000Z","items":[{"id":3046,"product_id":28,"sku":"REF-2083-jk","product_name":"Motor trif\u00e1sico 4189 HP","unit":"unidad","quantity":5,"unit_price":3759000,"tax_rate":19,"line_total":18795000,"notes":null}],"status_history":[{"from_status":null,"to_status":"pending_payment","to_status_label":"Pendiente de pago","note":null,"created_at":"2026-10-25T17:23:26.000000Z"}]}}'
         headers: []
         description: ''
     responseFields: []
@@ -364,7 +364,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"code":"PED-3724","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","company_name":"Gestora Fonseca-Rosales S.A.S.","nit":"942198886-2","contact_name":"D\u00f1a Victoria Espinal","email":"lucio.noelia@example.org","phone":"305 913 5052","city":"Bucaramanga","address":"Passeig Olivia, 232, 4\u00ba","delivery_method":"national","delivery_method_label":"Env\u00edo nacional","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-10-25T05:22:55.000000Z","items":[{"id":1,"product_id":1,"sku":"REF-0782-pp","product_name":"Motor trif\u00e1sico 5685 HP","unit":"unidad","quantity":1,"unit_price":276000,"tax_rate":19,"line_total":276000,"notes":null}],"status_history":[{"from_status":null,"to_status":"pending_payment","to_status_label":"Pendiente de pago","note":null,"created_at":"2026-10-25T05:22:55.000000Z"}]}}'
+        content: '{"data":{"code":"PED-3724","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","company_name":"Gestora Fonseca-Rosales S.A.S.","nit":"942198886-2","contact_name":"D\u00f1a Victoria Espinal","email":"lucio.noelia@example.org","phone":"305 913 5052","city":"Bucaramanga","address":"Passeig Olivia, 232, 4\u00ba","delivery_method":"national","delivery_method_label":"Env\u00edo nacional","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-10-25T17:23:26.000000Z","items":[{"id":3047,"product_id":29,"sku":"REF-0782-pp","product_name":"Motor trif\u00e1sico 5685 HP","unit":"unidad","quantity":1,"unit_price":276000,"tax_rate":19,"line_total":276000,"notes":null}],"status_history":[{"from_status":null,"to_status":"pending_payment","to_status_label":"Pendiente de pago","note":null,"created_at":"2026-10-25T17:23:26.000000Z"}]}}'
         headers: []
         description: ''
       -

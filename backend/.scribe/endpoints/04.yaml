@@ -143,7 +143,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":[{"id":1,"sku":"REF-9365-mi","name":"Motor trif\u00e1sico 4027 HP","slug":"motor-trifasico-4027-hp","short_description":"Fugiat sunt nihil accusantium harum mollitia.","description":null,"image_url":null,"specs":{"potencia_hp":10,"voltaje_v":220},"unit":"unidad","unit_label":"Unidad","price":3636000,"tax_rate":19,"stock":19,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":1,"name":"Perspiciatis quo","slug":"perspiciatis-quo"},"brand":{"id":1,"name":"Empresa Dom\u00ednguez e Hijo","slug":"empresa-dominguez-e-hijo","logo_url":null},"is_active":true,"created_at":"2026-10-25T05:22:55.000000Z","updated_at":"2026-10-25T05:22:55.000000Z","deleted_at":null},{"id":2,"sku":"REF-0719-qw","name":"Motor trif\u00e1sico 8015 HP","slug":"motor-trifasico-8015-hp","short_description":"Et et modi ipsum nostrum.","description":null,"image_url":null,"specs":{"potencia_hp":5,"voltaje_v":220},"unit":"unidad","unit_label":"Unidad","price":2841000,"tax_rate":19,"stock":22,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":2,"name":"Dolores enim","slug":"dolores-enim"},"brand":{"id":2,"name":"Casanova y Almonte y Asoc.","slug":"casanova-y-almonte-y-asoc","logo_url":null},"is_active":true,"created_at":"2026-10-25T05:22:55.000000Z","updated_at":"2026-10-25T05:22:55.000000Z","deleted_at":null}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"pagination.previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"pagination.next","page":null,"active":false}],"path":"\/","per_page":10,"to":2,"total":2}}'
+        content: '{"data":[{"id":30,"sku":"REF-9365-mi","name":"Motor trif\u00e1sico 4027 HP","slug":"motor-trifasico-4027-hp","short_description":"Fugiat sunt nihil accusantium harum mollitia.","description":null,"image_url":null,"specs":{"voltaje_v":220,"potencia_hp":10},"unit":"unidad","unit_label":"Unidad","price":3636000,"tax_rate":19,"stock":19,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":36,"name":"Perspiciatis quo","slug":"perspiciatis-quo"},"brand":{"id":19,"name":"Empresa Dom\u00ednguez e Hijo","slug":"empresa-dominguez-e-hijo","logo_url":null},"is_active":true,"created_at":"2026-10-25T17:23:26.000000Z","updated_at":"2026-10-25T17:23:26.000000Z","deleted_at":null},{"id":31,"sku":"REF-0719-qw","name":"Motor trif\u00e1sico 8015 HP","slug":"motor-trifasico-8015-hp","short_description":"Et et modi ipsum nostrum.","description":null,"image_url":null,"specs":{"voltaje_v":220,"potencia_hp":5},"unit":"unidad","unit_label":"Unidad","price":2841000,"tax_rate":19,"stock":22,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":37,"name":"Dolores enim","slug":"dolores-enim"},"brand":{"id":20,"name":"Casanova y Almonte y Asoc.","slug":"casanova-y-almonte-y-asoc","logo_url":null},"is_active":true,"created_at":"2026-10-25T17:23:26.000000Z","updated_at":"2026-10-25T17:23:26.000000Z","deleted_at":null}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"pagination.previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"pagination.next","page":null,"active":false}],"path":"\/","per_page":10,"to":2,"total":2}}'
         headers: []
         description: ''
     responseFields: []
@@ -409,7 +409,7 @@ endpoints:
       -
         custom: []
         status: 201
-        content: '{"data":{"id":1,"sku":"REF-7432-uw","name":"Motor trif\u00e1sico 7195 HP","slug":"motor-trifasico-7195-hp","short_description":"Nostrum qui commodi incidunt iure.","description":null,"image_url":null,"specs":{"potencia_hp":5,"voltaje_v":220},"unit":"unidad","unit_label":"Unidad","price":1302000,"tax_rate":19,"stock":13,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":1,"name":"Nostrum omnis","slug":"nostrum-omnis"},"brand":{"id":1,"name":"Asociaci\u00f3n Jaramillo e Hija","slug":"asociacion-jaramillo-e-hija","logo_url":null},"is_active":true,"created_at":"2026-10-25T05:22:55.000000Z","updated_at":"2026-10-25T05:22:55.000000Z","deleted_at":null}}'
+        content: '{"data":{"id":32,"sku":"REF-7432-uw","name":"Motor trif\u00e1sico 7195 HP","slug":"motor-trifasico-7195-hp","short_description":"Nostrum qui commodi incidunt iure.","description":null,"image_url":null,"specs":{"voltaje_v":220,"potencia_hp":5},"unit":"unidad","unit_label":"Unidad","price":1302000,"tax_rate":19,"stock":13,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":38,"name":"Nostrum omnis","slug":"nostrum-omnis"},"brand":{"id":21,"name":"Asociaci\u00f3n Jaramillo e Hija","slug":"asociacion-jaramillo-e-hija","logo_url":null},"is_active":true,"created_at":"2026-10-25T17:23:26.000000Z","updated_at":"2026-10-25T17:23:26.000000Z","deleted_at":null}}'
         headers: []
         description: ''
     responseFields: []
@@ -447,7 +447,7 @@ endpoints:
         name: id
         description: 'The ID of the product.'
         required: true
-        example: 16
+        example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -465,7 +465,7 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 16
+      id: 1
       product: 1
     queryParameters: []
     cleanQueryParameters: []
@@ -476,7 +476,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":1,"sku":"REF-3724-pw","name":"Motor trif\u00e1sico 2878 HP","slug":"motor-trifasico-2878-hp","short_description":"Commodi incidunt iure odit.","description":"Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.","image_url":null,"specs":{"potencia_hp":10,"voltaje_v":440},"unit":"unidad","unit_label":"Unidad","price":1487000,"tax_rate":19,"stock":17,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":1,"name":"Aliquam veniam","slug":"aliquam-veniam"},"brand":{"id":1,"name":"Cab\u00e1n de Llorente S. de H.","slug":"caban-de-llorente-s-de-h","logo_url":null},"is_active":true,"created_at":"2026-10-25T05:22:55.000000Z","updated_at":"2026-10-25T05:22:55.000000Z","deleted_at":null}}'
+        content: '{"data":{"id":33,"sku":"REF-3724-pw","name":"Motor trif\u00e1sico 2878 HP","slug":"motor-trifasico-2878-hp","short_description":"Commodi incidunt iure odit.","description":"Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.","image_url":null,"specs":{"voltaje_v":440,"potencia_hp":10},"unit":"unidad","unit_label":"Unidad","price":1487000,"tax_rate":19,"stock":17,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":39,"name":"Aliquam veniam","slug":"aliquam-veniam"},"brand":{"id":22,"name":"Cab\u00e1n de Llorente S. de H.","slug":"caban-de-llorente-s-de-h","logo_url":null},"is_active":true,"created_at":"2026-10-25T17:23:26.000000Z","updated_at":"2026-10-25T17:23:26.000000Z","deleted_at":null}}'
         headers: []
         description: ''
     responseFields: []
@@ -517,7 +517,7 @@ endpoints:
         name: id
         description: 'The ID of the product.'
         required: true
-        example: 16
+        example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -535,7 +535,7 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 16
+      id: 1
       product: 1
     queryParameters: []
     cleanQueryParameters: []
@@ -688,7 +688,7 @@ endpoints:
         name: is_active
         description: ''
         required: false
-        example: false
+        example: true
         type: boolean
         enumValues: []
         exampleWasSpecified: false
@@ -699,7 +699,7 @@ endpoints:
         name: is_featured
         description: ''
         required: false
-        example: true
+        example: false
         type: boolean
         enumValues: []
         exampleWasSpecified: false
@@ -752,8 +752,8 @@ endpoints:
       cost_price: 18
       tax_rate: 19.0
       stock: 6
-      is_active: false
-      is_featured: true
+      is_active: true
+      is_featured: false
       specs:
         -
           key: k
@@ -763,7 +763,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":1,"sku":"REF-7680-wp","name":"Motor trif\u00e1sico 2977 HP","slug":"motor-trifasico-2977-hp","short_description":"Qui commodi incidunt iure odit.","description":"Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.","image_url":null,"specs":{"potencia_hp":10,"voltaje_v":440},"unit":"unidad","unit_label":"Unidad","price":1487000,"tax_rate":19,"stock":17,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":1,"name":"Corporis dolorem","slug":"corporis-dolorem"},"brand":{"id":1,"name":"Marroqu\u00edn, Ram\u00edrez y Chapa SRL","slug":"marroquin-ramirez-y-chapa-srl","logo_url":null},"is_active":true,"created_at":"2026-10-25T05:22:55.000000Z","updated_at":"2026-10-25T05:22:55.000000Z","deleted_at":null}}'
+        content: '{"data":{"id":34,"sku":"REF-7680-wp","name":"Motor trif\u00e1sico 2977 HP","slug":"motor-trifasico-2977-hp","short_description":"Qui commodi incidunt iure odit.","description":"Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.","image_url":null,"specs":{"voltaje_v":440,"potencia_hp":10},"unit":"unidad","unit_label":"Unidad","price":1487000,"tax_rate":19,"stock":17,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":40,"name":"Corporis dolorem","slug":"corporis-dolorem"},"brand":{"id":23,"name":"Marroqu\u00edn, Ram\u00edrez y Chapa SRL","slug":"marroquin-ramirez-y-chapa-srl","logo_url":null},"is_active":true,"created_at":"2026-10-25T17:23:26.000000Z","updated_at":"2026-10-25T17:23:26.000000Z","deleted_at":null}}'
         headers: []
         description: ''
     responseFields: []
@@ -801,7 +801,7 @@ endpoints:
         name: id
         description: 'The ID of the product.'
         required: true
-        example: 16
+        example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -819,7 +819,7 @@ endpoints:
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 16
+      id: 1
       product: 1
     queryParameters: []
     cleanQueryParameters: []

@@ -25,7 +25,7 @@ Se ponen en el servicio, en **Environment**. Los valores marcados como *secreto*
 | `APP_ENV` | `production` |
 | `APP_KEY` | *secreto*: genera uno con `php artisan key:generate --show` (formato `base64:...`) |
 | `APP_DEBUG` | `false` |
-| `APP_URL` | URL pública del servicio, con `https://` (ej. `https://imagen-electrica-api.onrender.com`) |
+| `APP_URL` | https://imagen-electrica-ecommerce.onrender.com|
 | `APP_TIMEZONE` | `America/Bogota` |
 | `APP_LOCALE` / `APP_FALLBACK_LOCALE` | `es` |
 | `LOG_CHANNEL` | `stderr` (así los logs aparecen en el panel de Render) |
@@ -56,7 +56,7 @@ Se ponen en el servicio, en **Environment**. Los valores marcados como *secreto*
 
 | Variable | Valor |
 |---|---|
-| `SEED_ON_DEPLOY` | `true` solo en el primer despliegue; luego `false` |
+| `SEED_ON_DEPLOY` | `false` |
 | `SEED_ADMIN_EMAIL` | correo del administrador |
 | `SEED_ADMIN_PASSWORD` | *secreto* |
 | `SEED_COMERCIAL_EMAIL` | correo del comercial |

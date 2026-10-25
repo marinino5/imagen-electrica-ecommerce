@@ -26,7 +26,7 @@
             </style>
 
     <script>
-        var tryItOutBaseUrl = "http://localhost:8000";
+        var tryItOutBaseUrl = "https://imagen-electrica-ecommerce.onrender.com";
         var useCsrf = Boolean();
         var csrfUrl = "/sanctum/csrf-cookie";
     </script>
@@ -174,7 +174,7 @@
         <h1 id="introduction">Introduction</h1>
 <p>API REST del e-commerce B2B de Imagen Eléctrica: catálogo público, cuenta del cliente, pedidos y cotizaciones, y gestión de productos para administradores.</p>
 <aside>
-    <strong>Base URL</strong>: <code>http://localhost:8000</code>
+    <strong>Base URL</strong>: <code>https://imagen-electrica-ecommerce.onrender.com</code>
 </aside>
 <pre><code>Todas las rutas están bajo `/api/v1` y responden JSON en español.
 
@@ -208,7 +208,7 @@ Máximo 5 intentos por minuto.</p>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost:8000/api/v1/register" \
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/register" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -228,7 +228,7 @@ Máximo 5 intentos por minuto.</p>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/v1/register"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/register"
 );
 
 const headers = {
@@ -515,7 +515,7 @@ inactivo, 403.</p>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost:8000/api/v1/login" \
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/login" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -527,7 +527,7 @@ inactivo, 403.</p>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/v1/login"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/login"
 );
 
 const headers = {
@@ -698,7 +698,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost:8000/api/v1/logout" \
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/logout" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -706,7 +706,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/v1/logout"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/logout"
 );
 
 const headers = {
@@ -834,7 +834,7 @@ subcategorías (<code>parent_id</code> indica el padre). No requiere token.</p>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/api/v1/categories" \
+    --get "https://imagen-electrica-ecommerce.onrender.com/api/v1/categories" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -846,7 +846,7 @@ subcategorías (<code>parent_id</code> indica el padre). No requiere token.</p>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/v1/categories"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/categories"
 );
 
 const headers = {
@@ -876,7 +876,7 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 1,
+            &quot;id&quot;: 25,
             &quot;parent_id&quot;: null,
             &quot;name&quot;: &quot;Et animi&quot;,
             &quot;slug&quot;: &quot;et-animi&quot;,
@@ -884,7 +884,7 @@ fetch(url, {
             &quot;image_url&quot;: null
         },
         {
-            &quot;id&quot;: 2,
+            &quot;id&quot;: 26,
             &quot;parent_id&quot;: null,
             &quot;name&quot;: &quot;Mollitia modi&quot;,
             &quot;slug&quot;: &quot;mollitia-modi&quot;,
@@ -1041,7 +1041,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/api/v1/brands" \
+    --get "https://imagen-electrica-ecommerce.onrender.com/api/v1/brands" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -1053,7 +1053,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/v1/brands"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/brands"
 );
 
 const headers = {
@@ -1083,13 +1083,13 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 1,
+            &quot;id&quot;: 8,
             &quot;name&quot;: &quot;Llorente, Aguirre y Sierra e Hijo&quot;,
             &quot;slug&quot;: &quot;llorente-aguirre-y-sierra-e-hijo&quot;,
             &quot;logo_url&quot;: null
         },
         {
-            &quot;id&quot;: 2,
+            &quot;id&quot;: 9,
             &quot;name&quot;: &quot;Lim&oacute;n de Uribe S. de H.&quot;,
             &quot;slug&quot;: &quot;limon-de-uribe-s-de-h&quot;,
             &quot;logo_url&quot;: null
@@ -1246,17 +1246,17 @@ solo se vende por cotización. No requiere token.</p>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/api/v1/products?category=motores&amp;brand=siemens&amp;sort=price_asc" \
+    --get "https://imagen-electrica-ecommerce.onrender.com/api/v1/products?category=motores&amp;brand=siemens&amp;sort=price_asc" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
     \"q\": \"b\",
     \"category\": \"n\",
     \"brand\": \"g\",
-    \"sale_mode\": \"on_request\",
+    \"sale_mode\": \"quote\",
     \"featured\": false,
     \"in_stock\": false,
-    \"sort\": \"price_asc\",
+    \"sort\": \"newest\",
     \"per_page\": 16
 }"
 </code></pre></div>
@@ -1264,7 +1264,7 @@ solo se vende por cotización. No requiere token.</p>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/v1/products"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/products"
 );
 
 const params = {
@@ -1284,10 +1284,10 @@ let body = {
     "q": "b",
     "category": "n",
     "brand": "g",
-    "sale_mode": "on_request",
+    "sale_mode": "quote",
     "featured": false,
     "in_stock": false,
-    "sort": "price_asc",
+    "sort": "newest",
     "per_page": 16
 };
 
@@ -1308,7 +1308,7 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 1,
+            &quot;id&quot;: 21,
             &quot;sku&quot;: &quot;REF-0564-yv&quot;,
             &quot;name&quot;: &quot;Motor trif&aacute;sico 4338 HP&quot;,
             &quot;slug&quot;: &quot;motor-trifasico-4338-hp&quot;,
@@ -1316,8 +1316,8 @@ fetch(url, {
             &quot;description&quot;: &quot;Perspiciatis quo omnis nostrum aut adipisci quidem nostrum qui. Incidunt iure odit et et modi ipsum. Omnis autem et consequatur. Dolores enim non facere tempora.&quot;,
             &quot;image_url&quot;: null,
             &quot;specs&quot;: {
-                &quot;potencia_hp&quot;: 10,
-                &quot;voltaje_v&quot;: 220
+                &quot;voltaje_v&quot;: 220,
+                &quot;potencia_hp&quot;: 10
             },
             &quot;unit&quot;: &quot;unidad&quot;,
             &quot;unit_label&quot;: &quot;Unidad&quot;,
@@ -1329,19 +1329,19 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 1,
+                &quot;id&quot;: 27,
                 &quot;name&quot;: &quot;Quis adipisci&quot;,
                 &quot;slug&quot;: &quot;quis-adipisci&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 1,
+                &quot;id&quot;: 10,
                 &quot;name&quot;: &quot;Global Guardado y Asoc.&quot;,
                 &quot;slug&quot;: &quot;global-guardado-y-asoc&quot;,
                 &quot;logo_url&quot;: null
             }
         },
         {
-            &quot;id&quot;: 2,
+            &quot;id&quot;: 22,
             &quot;sku&quot;: &quot;REF-7788-qb&quot;,
             &quot;name&quot;: &quot;Motor trif&aacute;sico 9148 HP&quot;,
             &quot;slug&quot;: &quot;motor-trifasico-9148-hp&quot;,
@@ -1349,8 +1349,8 @@ fetch(url, {
             &quot;description&quot;: &quot;Blanditiis odio veritatis excepturi doloribus delectus fugit. Repudiandae laboriosam est alias tenetur ratione. Voluptate accusamus ut et recusandae. Rerum ex repellendus assumenda et.&quot;,
             &quot;image_url&quot;: null,
             &quot;specs&quot;: {
-                &quot;potencia_hp&quot;: 5,
-                &quot;voltaje_v&quot;: 440
+                &quot;voltaje_v&quot;: 440,
+                &quot;potencia_hp&quot;: 5
             },
             &quot;unit&quot;: &quot;unidad&quot;,
             &quot;unit_label&quot;: &quot;Unidad&quot;,
@@ -1362,12 +1362,12 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 2,
+                &quot;id&quot;: 28,
                 &quot;name&quot;: &quot;Perspiciatis deserunt&quot;,
                 &quot;slug&quot;: &quot;perspiciatis-deserunt&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 2,
+                &quot;id&quot;: 11,
                 &quot;name&quot;: &quot;Grupo Arias-Chac&oacute;n&quot;,
                 &quot;slug&quot;: &quot;grupo-arias-chacon&quot;,
                 &quot;logo_url&quot;: null
@@ -1564,10 +1564,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="sale_mode"                data-endpoint="GETapi-v1-products"
-               value="on_request"
+               value="quote"
                data-component="body">
     <br>
-<p>Example: <code>on_request</code></p>
+<p>Example: <code>quote</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>direct</code></li> <li><code>quote</code></li> <li><code>on_request</code></li></ul>
         </div>
@@ -1622,10 +1622,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="sort"                data-endpoint="GETapi-v1-products"
-               value="price_asc"
+               value="newest"
                data-component="body">
     <br>
-<p>Example: <code>price_asc</code></p>
+<p>Example: <code>newest</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>name</code></li> <li><code>newest</code></li> <li><code>price_asc</code></li> <li><code>price_desc</code></li></ul>
         </div>
@@ -1656,14 +1656,14 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/api/v1/products/motor-trifasico-5-hp" \
+    --get "https://imagen-electrica-ecommerce.onrender.com/api/v1/products/motor-trifasico-5-hp" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/v1/products/motor-trifasico-5-hp"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/products/motor-trifasico-5-hp"
 );
 
 const headers = {
@@ -1687,35 +1687,35 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 1,
-        &quot;sku&quot;: &quot;REF-6806-zm&quot;,
-        &quot;name&quot;: &quot;Motor trif&aacute;sico 2938 HP&quot;,
-        &quot;slug&quot;: &quot;motor-trifasico-2938-hp&quot;,
-        &quot;short_description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;,
-        &quot;description&quot;: &quot;Deserunt aut ab provident perspiciatis quo omnis nostrum. Adipisci quidem nostrum qui commodi incidunt iure. Et et modi ipsum nostrum.&quot;,
+        &quot;id&quot;: 23,
+        &quot;sku&quot;: &quot;REF-0057-nb&quot;,
+        &quot;name&quot;: &quot;Motor trif&aacute;sico 7075 HP&quot;,
+        &quot;slug&quot;: &quot;motor-trifasico-7075-hp&quot;,
+        &quot;short_description&quot;: &quot;Impedit molestiae ut rem est esse.&quot;,
+        &quot;description&quot;: &quot;Sunt suscipit doloribus fugiat ut aut deserunt et. Neque recusandae et ipsam dolorem et ut dicta. Assumenda consequatur ut et sunt quisquam. Repellendus ut eaque alias ratione dolores.&quot;,
         &quot;image_url&quot;: null,
         &quot;specs&quot;: {
-            &quot;potencia_hp&quot;: 5,
-            &quot;voltaje_v&quot;: 220
+            &quot;voltaje_v&quot;: 220,
+            &quot;potencia_hp&quot;: 1
         },
         &quot;unit&quot;: &quot;unidad&quot;,
         &quot;unit_label&quot;: &quot;Unidad&quot;,
-        &quot;price&quot;: 1468000,
+        &quot;price&quot;: 1957000,
         &quot;tax_rate&quot;: 19,
-        &quot;stock&quot;: 8,
+        &quot;stock&quot;: 7,
         &quot;in_stock&quot;: true,
         &quot;sale_mode&quot;: &quot;direct&quot;,
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Aut dolores&quot;,
-            &quot;slug&quot;: &quot;aut-dolores&quot;
+            &quot;id&quot;: 29,
+            &quot;name&quot;: &quot;Aut deserunt&quot;,
+            &quot;slug&quot;: &quot;aut-deserunt&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Manzano de Mendoza&quot;,
-            &quot;slug&quot;: &quot;manzano-de-mendoza&quot;,
+            &quot;id&quot;: 12,
+            &quot;name&quot;: &quot;Nieto y Rico&quot;,
+            &quot;slug&quot;: &quot;nieto-y-rico&quot;,
             &quot;logo_url&quot;: null
         }
     }
@@ -1826,7 +1826,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/api/v1/me" \
+    --get "https://imagen-electrica-ecommerce.onrender.com/api/v1/me" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -1834,7 +1834,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/v1/me"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/me"
 );
 
 const headers = {
@@ -1859,7 +1859,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 1,
+        &quot;id&quot;: 21,
         &quot;name&quot;: &quot;Omar Dom&iacute;nguez&quot;,
         &quot;email&quot;: &quot;arredondo.juana@example.com&quot;,
         &quot;role&quot;: &quot;cliente&quot;,
@@ -1872,7 +1872,7 @@ fetch(url, {
             &quot;address&quot;: &quot;Calle Elizondo, 54, 27&ordm; C&quot;,
             &quot;marketing_opt_in&quot;: false,
             &quot;marketing_opt_in_at&quot;: null,
-            &quot;privacy_accepted_at&quot;: &quot;2026-10-25T05:22:55.000000Z&quot;
+            &quot;privacy_accepted_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;
         }
     }
 }</code>
@@ -1978,7 +1978,7 @@ modifican desde aquí. Solo clientes.</p>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost:8000/api/v1/me" \
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/me" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -1995,7 +1995,7 @@ modifican desde aquí. Solo clientes.</p>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/v1/me"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/me"
 );
 
 const headers = {
@@ -2029,7 +2029,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 1,
+        &quot;id&quot;: 22,
         &quot;name&quot;: &quot;Emilia Murillo&quot;,
         &quot;email&quot;: &quot;juribe@example.org&quot;,
         &quot;role&quot;: &quot;cliente&quot;,
@@ -2042,7 +2042,7 @@ fetch(url, {
             &quot;address&quot;: &quot;Pla&ccedil;a Juana, 979, 27&ordm; A&quot;,
             &quot;marketing_opt_in&quot;: false,
             &quot;marketing_opt_in_at&quot;: null,
-            &quot;privacy_accepted_at&quot;: &quot;2026-10-25T05:22:55.000000Z&quot;
+            &quot;privacy_accepted_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;
         }
     }
 }</code>
@@ -2235,13 +2235,13 @@ muestra las de otros clientes.</p>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/api/v1/orders?type=quote&amp;status=new&amp;per_page=10" \
+    --get "https://imagen-electrica-ecommerce.onrender.com/api/v1/orders?type=quote&amp;status=new&amp;per_page=10" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"type\": \"purchase\",
-    \"status\": \"in_review\",
+    \"type\": \"quote\",
+    \"status\": \"sent\",
     \"per_page\": 1
 }"
 </code></pre></div>
@@ -2249,7 +2249,7 @@ muestra las de otros clientes.</p>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/v1/orders"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/orders"
 );
 
 const params = {
@@ -2267,8 +2267,8 @@ const headers = {
 };
 
 let body = {
-    "type": "purchase",
-    "status": "in_review",
+    "type": "quote",
+    "status": "sent",
     "per_page": 1
 };
 
@@ -2311,11 +2311,11 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-10-25T05:22:55.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 1,
-                    &quot;product_id&quot;: 1,
+                    &quot;id&quot;: 3042,
+                    &quot;product_id&quot;: 24,
                     &quot;sku&quot;: &quot;REF-5058-cq&quot;,
                     &quot;product_name&quot;: &quot;Motor trif&aacute;sico 6877 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
@@ -2350,11 +2350,11 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-10-25T05:22:55.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 2,
-                    &quot;product_id&quot;: 2,
+                    &quot;id&quot;: 3043,
+                    &quot;product_id&quot;: 25,
                     &quot;sku&quot;: &quot;REF-9849-tp&quot;,
                     &quot;product_name&quot;: &quot;Motor trif&aacute;sico 1703 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
@@ -2533,10 +2533,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="type"                data-endpoint="GETapi-v1-orders"
-               value="purchase"
+               value="quote"
                data-component="body">
     <br>
-<p>Example: <code>purchase</code></p>
+<p>Example: <code>quote</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>purchase</code></li> <li><code>quote</code></li></ul>
         </div>
@@ -2547,10 +2547,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="status"                data-endpoint="GETapi-v1-orders"
-               value="in_review"
+               value="sent"
                data-component="body">
     <br>
-<p>Example: <code>in_review</code></p>
+<p>Example: <code>sent</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>pending_payment</code></li> <li><code>paid</code></li> <li><code>shipped</code></li> <li><code>delivered</code></li> <li><code>new</code></li> <li><code>in_review</code></li> <li><code>sent</code></li> <li><code>accepted</code></li> <li><code>rejected</code></li> <li><code>cancelled</code></li></ul>
         </div>
@@ -2587,7 +2587,7 @@ al recoger o al superar la compra mínima configurada.</p>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost:8000/api/v1/orders" \
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/orders" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -2608,7 +2608,7 @@ al recoger o al superar la compra mínima configurada.</p>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/v1/orders"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/orders"
 );
 
 const headers = {
@@ -2669,11 +2669,11 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-10-25T05:22:55.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 1,
-                    &quot;product_id&quot;: 1,
+                    &quot;id&quot;: 3044,
+                    &quot;product_id&quot;: 26,
                     &quot;sku&quot;: &quot;REF-7365-sc&quot;,
                     &quot;product_name&quot;: &quot;Motor trif&aacute;sico 967 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
@@ -2708,11 +2708,11 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-10-25T05:22:55.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 2,
-                    &quot;product_id&quot;: 2,
+                    &quot;id&quot;: 3045,
+                    &quot;product_id&quot;: 27,
                     &quot;sku&quot;: &quot;REF-3531-ob&quot;,
                     &quot;product_name&quot;: &quot;Motor trif&aacute;sico 6696 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
@@ -2926,7 +2926,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/api/v1/orders/PED-0001" \
+    --get "https://imagen-electrica-ecommerce.onrender.com/api/v1/orders/PED-0001" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -2934,7 +2934,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/v1/orders/PED-0001"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/orders/PED-0001"
 );
 
 const headers = {
@@ -2981,11 +2981,11 @@ fetch(url, {
         &quot;notes&quot;: null,
         &quot;expires_at&quot;: null,
         &quot;paid_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-10-25T05:22:55.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
         &quot;items&quot;: [
             {
-                &quot;id&quot;: 1,
-                &quot;product_id&quot;: 1,
+                &quot;id&quot;: 3046,
+                &quot;product_id&quot;: 28,
                 &quot;sku&quot;: &quot;REF-2083-jk&quot;,
                 &quot;product_name&quot;: &quot;Motor trif&aacute;sico 4189 HP&quot;,
                 &quot;unit&quot;: &quot;unidad&quot;,
@@ -3002,7 +3002,7 @@ fetch(url, {
                 &quot;to_status&quot;: &quot;pending_payment&quot;,
                 &quot;to_status_label&quot;: &quot;Pendiente de pago&quot;,
                 &quot;note&quot;: null,
-                &quot;created_at&quot;: &quot;2026-10-25T05:22:55.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;
             }
         ]
     }
@@ -3122,7 +3122,7 @@ pedido pendiente de pago o una cotización nueva; en cualquier otro estado respo
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PATCH \
-    "http://localhost:8000/api/v1/orders/COT-0001/cancel" \
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/orders/COT-0001/cancel" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -3130,7 +3130,7 @@ pedido pendiente de pago o una cotización nueva; en cualquier otro estado respo
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/v1/orders/COT-0001/cancel"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/orders/COT-0001/cancel"
 );
 
 const headers = {
@@ -3177,11 +3177,11 @@ fetch(url, {
         &quot;notes&quot;: null,
         &quot;expires_at&quot;: null,
         &quot;paid_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-10-25T05:22:55.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
         &quot;items&quot;: [
             {
-                &quot;id&quot;: 1,
-                &quot;product_id&quot;: 1,
+                &quot;id&quot;: 3047,
+                &quot;product_id&quot;: 29,
                 &quot;sku&quot;: &quot;REF-0782-pp&quot;,
                 &quot;product_name&quot;: &quot;Motor trif&aacute;sico 5685 HP&quot;,
                 &quot;unit&quot;: &quot;unidad&quot;,
@@ -3198,7 +3198,7 @@ fetch(url, {
                 &quot;to_status&quot;: &quot;pending_payment&quot;,
                 &quot;to_status_label&quot;: &quot;Pendiente de pago&quot;,
                 &quot;note&quot;: null,
-                &quot;created_at&quot;: &quot;2026-10-25T05:22:55.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;
             }
         ]
     }
@@ -3330,7 +3330,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/api/v1/admin/products?q=motor&amp;category_id=2&amp;brand_id=1&amp;sale_mode=direct&amp;stock=low&amp;status=active&amp;per_page=10" \
+    --get "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/products?q=motor&amp;category_id=2&amp;brand_id=1&amp;sale_mode=direct&amp;stock=low&amp;status=active&amp;per_page=10" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -3343,7 +3343,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/v1/admin/products"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/products"
 );
 
 const params = {
@@ -3386,7 +3386,7 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 1,
+            &quot;id&quot;: 30,
             &quot;sku&quot;: &quot;REF-9365-mi&quot;,
             &quot;name&quot;: &quot;Motor trif&aacute;sico 4027 HP&quot;,
             &quot;slug&quot;: &quot;motor-trifasico-4027-hp&quot;,
@@ -3394,8 +3394,8 @@ fetch(url, {
             &quot;description&quot;: null,
             &quot;image_url&quot;: null,
             &quot;specs&quot;: {
-                &quot;potencia_hp&quot;: 10,
-                &quot;voltaje_v&quot;: 220
+                &quot;voltaje_v&quot;: 220,
+                &quot;potencia_hp&quot;: 10
             },
             &quot;unit&quot;: &quot;unidad&quot;,
             &quot;unit_label&quot;: &quot;Unidad&quot;,
@@ -3407,23 +3407,23 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 1,
+                &quot;id&quot;: 36,
                 &quot;name&quot;: &quot;Perspiciatis quo&quot;,
                 &quot;slug&quot;: &quot;perspiciatis-quo&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 1,
+                &quot;id&quot;: 19,
                 &quot;name&quot;: &quot;Empresa Dom&iacute;nguez e Hijo&quot;,
                 &quot;slug&quot;: &quot;empresa-dominguez-e-hijo&quot;,
                 &quot;logo_url&quot;: null
             },
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-10-25T05:22:55.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-10-25T05:22:55.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
             &quot;deleted_at&quot;: null
         },
         {
-            &quot;id&quot;: 2,
+            &quot;id&quot;: 31,
             &quot;sku&quot;: &quot;REF-0719-qw&quot;,
             &quot;name&quot;: &quot;Motor trif&aacute;sico 8015 HP&quot;,
             &quot;slug&quot;: &quot;motor-trifasico-8015-hp&quot;,
@@ -3431,8 +3431,8 @@ fetch(url, {
             &quot;description&quot;: null,
             &quot;image_url&quot;: null,
             &quot;specs&quot;: {
-                &quot;potencia_hp&quot;: 5,
-                &quot;voltaje_v&quot;: 220
+                &quot;voltaje_v&quot;: 220,
+                &quot;potencia_hp&quot;: 5
             },
             &quot;unit&quot;: &quot;unidad&quot;,
             &quot;unit_label&quot;: &quot;Unidad&quot;,
@@ -3444,19 +3444,19 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 2,
+                &quot;id&quot;: 37,
                 &quot;name&quot;: &quot;Dolores enim&quot;,
                 &quot;slug&quot;: &quot;dolores-enim&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 2,
+                &quot;id&quot;: 20,
                 &quot;name&quot;: &quot;Casanova y Almonte y Asoc.&quot;,
                 &quot;slug&quot;: &quot;casanova-y-almonte-y-asoc&quot;,
                 &quot;logo_url&quot;: null
             },
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-10-25T05:22:55.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-10-25T05:22:55.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
             &quot;deleted_at&quot;: null
         }
     ],
@@ -3708,7 +3708,7 @@ unidad en el nombre. Un producto de venta directa necesita precio.</p>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost:8000/api/v1/admin/products" \
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/products" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -3742,7 +3742,7 @@ unidad en el nombre. Un producto de venta directa necesita precio.</p>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/v1/admin/products"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/products"
 );
 
 const headers = {
@@ -3793,7 +3793,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 1,
+        &quot;id&quot;: 32,
         &quot;sku&quot;: &quot;REF-7432-uw&quot;,
         &quot;name&quot;: &quot;Motor trif&aacute;sico 7195 HP&quot;,
         &quot;slug&quot;: &quot;motor-trifasico-7195-hp&quot;,
@@ -3801,8 +3801,8 @@ fetch(url, {
         &quot;description&quot;: null,
         &quot;image_url&quot;: null,
         &quot;specs&quot;: {
-            &quot;potencia_hp&quot;: 5,
-            &quot;voltaje_v&quot;: 220
+            &quot;voltaje_v&quot;: 220,
+            &quot;potencia_hp&quot;: 5
         },
         &quot;unit&quot;: &quot;unidad&quot;,
         &quot;unit_label&quot;: &quot;Unidad&quot;,
@@ -3814,19 +3814,19 @@ fetch(url, {
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 1,
+            &quot;id&quot;: 38,
             &quot;name&quot;: &quot;Nostrum omnis&quot;,
             &quot;slug&quot;: &quot;nostrum-omnis&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 1,
+            &quot;id&quot;: 21,
             &quot;name&quot;: &quot;Asociaci&oacute;n Jaramillo e Hija&quot;,
             &quot;slug&quot;: &quot;asociacion-jaramillo-e-hija&quot;,
             &quot;logo_url&quot;: null
         },
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-10-25T05:22:55.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-10-25T05:22:55.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -4168,7 +4168,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/api/v1/admin/products/16" \
+    --get "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/products/1" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -4176,7 +4176,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/v1/admin/products/16"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/products/1"
 );
 
 const headers = {
@@ -4201,7 +4201,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 1,
+        &quot;id&quot;: 33,
         &quot;sku&quot;: &quot;REF-3724-pw&quot;,
         &quot;name&quot;: &quot;Motor trif&aacute;sico 2878 HP&quot;,
         &quot;slug&quot;: &quot;motor-trifasico-2878-hp&quot;,
@@ -4209,8 +4209,8 @@ fetch(url, {
         &quot;description&quot;: &quot;Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.&quot;,
         &quot;image_url&quot;: null,
         &quot;specs&quot;: {
-            &quot;potencia_hp&quot;: 10,
-            &quot;voltaje_v&quot;: 440
+            &quot;voltaje_v&quot;: 440,
+            &quot;potencia_hp&quot;: 10
         },
         &quot;unit&quot;: &quot;unidad&quot;,
         &quot;unit_label&quot;: &quot;Unidad&quot;,
@@ -4222,19 +4222,19 @@ fetch(url, {
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 1,
+            &quot;id&quot;: 39,
             &quot;name&quot;: &quot;Aliquam veniam&quot;,
             &quot;slug&quot;: &quot;aliquam-veniam&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 1,
+            &quot;id&quot;: 22,
             &quot;name&quot;: &quot;Cab&aacute;n de Llorente S. de H.&quot;,
             &quot;slug&quot;: &quot;caban-de-llorente-s-de-h&quot;,
             &quot;logo_url&quot;: null
         },
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-10-25T05:22:55.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-10-25T05:22:55.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -4331,10 +4331,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-v1-admin-products--id-"
-               value="16"
+               value="1"
                data-component="url">
     <br>
-<p>The ID of the product. Example: <code>16</code></p>
+<p>The ID of the product. Example: <code>1</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>product</code></b>&nbsp;&nbsp;
@@ -4365,7 +4365,7 @@ se envían <code>is_active</code>, <code>is_featured</code> o <code>specs</code>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost:8000/api/v1/admin/products/16" \
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/products/1" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -4383,8 +4383,8 @@ se envían <code>is_active</code>, <code>is_featured</code> o <code>specs</code>
     \"cost_price\": 18,
     \"tax_rate\": 19,
     \"stock\": 6,
-    \"is_active\": false,
-    \"is_featured\": true,
+    \"is_active\": true,
+    \"is_featured\": false,
     \"specs\": [
         {
             \"key\": \"k\",
@@ -4397,7 +4397,7 @@ se envían <code>is_active</code>, <code>is_featured</code> o <code>specs</code>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/v1/admin/products/16"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/products/1"
 );
 
 const headers = {
@@ -4420,8 +4420,8 @@ let body = {
     "cost_price": 18,
     "tax_rate": 19,
     "stock": 6,
-    "is_active": false,
-    "is_featured": true,
+    "is_active": true,
+    "is_featured": false,
     "specs": [
         {
             "key": "k",
@@ -4446,7 +4446,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 1,
+        &quot;id&quot;: 34,
         &quot;sku&quot;: &quot;REF-7680-wp&quot;,
         &quot;name&quot;: &quot;Motor trif&aacute;sico 2977 HP&quot;,
         &quot;slug&quot;: &quot;motor-trifasico-2977-hp&quot;,
@@ -4454,8 +4454,8 @@ fetch(url, {
         &quot;description&quot;: &quot;Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.&quot;,
         &quot;image_url&quot;: null,
         &quot;specs&quot;: {
-            &quot;potencia_hp&quot;: 10,
-            &quot;voltaje_v&quot;: 440
+            &quot;voltaje_v&quot;: 440,
+            &quot;potencia_hp&quot;: 10
         },
         &quot;unit&quot;: &quot;unidad&quot;,
         &quot;unit_label&quot;: &quot;Unidad&quot;,
@@ -4467,19 +4467,19 @@ fetch(url, {
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 1,
+            &quot;id&quot;: 40,
             &quot;name&quot;: &quot;Corporis dolorem&quot;,
             &quot;slug&quot;: &quot;corporis-dolorem&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 1,
+            &quot;id&quot;: 23,
             &quot;name&quot;: &quot;Marroqu&iacute;n, Ram&iacute;rez y Chapa SRL&quot;,
             &quot;slug&quot;: &quot;marroquin-ramirez-y-chapa-srl&quot;,
             &quot;logo_url&quot;: null
         },
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-10-25T05:22:55.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-10-25T05:22:55.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -4580,10 +4580,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="PUTapi-v1-admin-products--id-"
-               value="16"
+               value="1"
                data-component="url">
     <br>
-<p>The ID of the product. Example: <code>16</code></p>
+<p>The ID of the product. Example: <code>1</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>product</code></b>&nbsp;&nbsp;
@@ -4774,7 +4774,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>is_featured</code></b>&nbsp;&nbsp;
@@ -4796,7 +4796,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>true</code></p>
+<p>Example: <code>false</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
         <details>
@@ -4850,7 +4850,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost:8000/api/v1/admin/products/16" \
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/products/1" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -4858,7 +4858,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/v1/admin/products/16"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/products/1"
 );
 
 const headers = {
@@ -4974,10 +4974,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="DELETEapi-v1-admin-products--id-"
-               value="16"
+               value="1"
                data-component="url">
     <br>
-<p>The ID of the product. Example: <code>16</code></p>
+<p>The ID of the product. Example: <code>1</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>product</code></b>&nbsp;&nbsp;

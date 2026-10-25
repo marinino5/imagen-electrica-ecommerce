@@ -3,7 +3,7 @@
 API REST del e-commerce B2B de Imagen Eléctrica: catálogo público, cuenta del cliente, pedidos y cotizaciones, y gestión de productos para administradores.
 
 <aside>
-    <strong>Base URL</strong>: <code>http://localhost:8000</code>
+    <strong>Base URL</strong>: <code>https://imagen-electrica-ecommerce.onrender.com</code>
 </aside>
 
     Todas las rutas están bajo `/api/v1` y responden JSON en español.
