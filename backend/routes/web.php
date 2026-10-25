@@ -4,6 +4,10 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\OrderAssignmentController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\OrderPricingController;
+use App\Http\Controllers\Admin\OrderStatusController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SearchController;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +37,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Buscador global (productos): lo usan admin y comercial
         Route::get('search', SearchController::class)->name('search');
+
+        // Pedidos y cotizaciones: admin y comercial
+        Route::resource('orders', OrderController::class)->only(['index', 'show']);
+        Route::patch('orders/{order}/status', OrderStatusController::class)->name('orders.status');
+        Route::patch('orders/{order}/assignment', OrderAssignmentController::class)->name('orders.assignment');
+        Route::put('orders/{order}/prices', OrderPricingController::class)->name('orders.prices');
 
         // Catálogo: solo admin
         Route::middleware('role:admin')->group(function () {

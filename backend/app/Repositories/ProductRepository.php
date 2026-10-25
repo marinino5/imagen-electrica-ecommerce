@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Repositories\Concerns\EscapesLike;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductRepository
@@ -96,5 +97,22 @@ class ProductRepository
     public function slugExists(string $slug): bool
     {
         return Product::withTrashed()->where('slug', $slug)->exists();
+    }
+
+    /**
+     * Trae los productos (incluso eliminados) bloqueados hasta que termine
+     * la transacción, para que dos pagos simultáneos no descuenten el mismo stock.
+     *
+     * @param  array<int, int>  $ids
+     * @return Collection<int, Product>
+     */
+    public function lockMany(array $ids): Collection
+    {
+        return Product::withTrashed()->whereKey($ids)->lockForUpdate()->get()->keyBy('id');
+    }
+
+    public function decrementStock(Product $product, int $quantity): void
+    {
+        $product->decrement('stock', $quantity);
     }
 }

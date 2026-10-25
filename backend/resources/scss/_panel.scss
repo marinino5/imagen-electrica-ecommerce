@@ -447,3 +447,8 @@ $sidebar-link-color: rgba($brand-white, .72);
     padding: .25rem;
     object-fit: contain;
 }
+
+// Campo de precio dentro de la tabla de productos de una cotización
+.price-input {
+    max-width: 10rem;
+}

@@ -40,6 +40,23 @@ enum OrderStatus: string
         };
     }
 
+    /** Texto del botón que lleva a este estado ("Confirmar pago", "Cancelar"...). */
+    public function actionLabel(): string
+    {
+        return match ($this) {
+            self::PendingPayment => 'Volver a pendiente de pago',
+            self::Paid => 'Confirmar pago',
+            self::Shipped => 'Marcar como enviado',
+            self::Delivered => 'Marcar como entregado',
+            self::New => 'Volver a nueva',
+            self::InReview => 'Iniciar revisión',
+            self::Sent => 'Enviar al cliente',
+            self::Accepted => 'Marcar como aceptada',
+            self::Rejected => 'Marcar como rechazada',
+            self::Cancelled => 'Cancelar',
+        };
+    }
+
     /**
      * Estado con el que nace cada tipo de solicitud.
      */
