@@ -437,3 +437,9 @@ $sidebar-link-color: rgba($brand-white, .72);
 .form-card {
     max-width: 48rem;
 }
+
+// Logos de marca: se ven completos, sin recortar
+.thumb-contain {
+    padding: .25rem;
+    object-fit: contain;
+}
