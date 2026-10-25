@@ -1,0 +1,29 @@
+.whatsapp {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: var(--z-whatsapp);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 56px;
+  padding: 0 16px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: var(--shadow-lg);
+  transition: transform 0.2s var(--ease);
+}
+.whatsapp:hover {
+  transform: translateY(-2px);
+}
+.whatsapp__label {
+  display: none;
+}
+@media (min-width: 768px) {
+  .whatsapp__label {
+    display: inline;
+  }
+}

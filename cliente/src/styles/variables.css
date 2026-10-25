@@ -1,0 +1,68 @@
+/* ============================================================
+   Variables de diseño — único lugar donde se definen colores,
+   tipografía, radios y sombras. El resto de los CSS usa var(--x).
+   ============================================================ */
+:root {
+  /* Marca */
+  --primary: #513e84;
+  --primary-dark: #463671;
+  --ink: #261c3e;
+  --accent: #ee7c36; /* botones: siempre con texto --ink */
+  --accent-strong: #f26a00; /* solo títulos grandes y la línea de corriente */
+  --surface: #f6f4f9;
+  --surface-2: #e9e3f4;
+  --muted: #6e6178;
+  --white: #ffffff;
+  --border: #e3dded;
+
+  /* Estados (texto sobre blanco con contraste AA) */
+  --success: #1e7a3c;
+  --success-bg: #e6f4ea;
+  --danger: #b3261e;
+  --danger-bg: #fdecea;
+  --warning-bg: #fff4d6;
+  --warning-ink: #6b4e00;
+
+  /* Transparencias derivadas de la marca */
+  --overlay-hero: linear-gradient(180deg, rgb(38 28 62 / 0.55) 0%, rgb(81 62 132 / 0.55) 55%, rgb(38 28 62 / 0.85) 100%);
+  --overlay-ink: rgb(38 28 62 / 0.82);
+  --glass-bg: rgb(255 255 255 / 0.14);
+  --glass-border: rgb(255 255 255 / 0.28);
+  --on-dark-muted: rgb(255 255 255 / 0.78);
+  --on-dark-line: rgb(255 255 255 / 0.18);
+
+  /* Tipografía */
+  --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fs-hero: clamp(2.5rem, 6.5vw + 0.5rem, 5.5rem);
+  --fs-h2: clamp(2rem, 3.4vw + 0.6rem, 3.4rem);
+  --fs-h3: 1.35rem;
+
+  /* Forma */
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 2px rgb(38 28 62 / 0.08), 0 1px 3px rgb(38 28 62 / 0.06);
+  --shadow: 0 6px 20px rgb(38 28 62 / 0.1);
+  --shadow-lg: 0 18px 48px rgb(38 28 62 / 0.22);
+
+  /* Layout */
+  --container: 1240px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --topbar-h: 36px;
+  --header-h: 72px;
+  --section-y: clamp(56px, 8vw, 104px);
+
+  /* Capas */
+  --z-header: 50;
+  --z-whatsapp: 45;
+  --z-drawer: 70;
+  --z-modal: 80;
+  --z-toast: 90;
+
+  /* Movimiento */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}

@@ -1,0 +1,333 @@
+/* ---------- Franja de marcas ---------- */
+.brands {
+  padding-block: 22px;
+  background: var(--primary);
+  color: var(--white);
+  overflow: hidden;
+}
+.brands__label {
+  margin-bottom: 12px;
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--on-dark-muted);
+}
+.brands__viewport {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.brands__track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+.brands__viewport:hover .brands__track {
+  animation-play-state: paused;
+}
+.brands__group {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 56px;
+  margin: 0;
+  padding: 0 28px;
+  list-style: none;
+}
+.brands__name {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  color: var(--white);
+  opacity: 0.92;
+}
+.brands__logo {
+  width: auto;
+  height: 32px;
+  filter: brightness(0) invert(1);
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .brands__track {
+    animation: none;
+    width: auto;
+    justify-content: center;
+  }
+  .brands__group {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px 40px;
+  }
+  .brands__group[aria-hidden='true'] {
+    display: none;
+  }
+  .brands__viewport {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+}
+
+/* ---------- Carruseles (Embla) ---------- */
+.embla {
+  overflow: hidden;
+}
+.embla__container {
+  display: flex;
+  gap: 20px;
+  touch-action: pan-y pinch-zoom;
+}
+.embla__slide {
+  flex: none;
+  min-width: 0;
+}
+.embla__slide--line {
+  width: min(78vw, 300px);
+}
+.embla__slide--product {
+  width: min(78vw, 285px);
+  padding-block: 6px 14px; /* deja ver la sombra de la tarjeta */
+}
+.arrows {
+  display: flex;
+  gap: 8px;
+}
+.arrow {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1.5px solid var(--primary);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--primary);
+  transition: background 0.2s, color 0.2s;
+}
+.arrow:hover:not(:disabled) {
+  background: var(--primary);
+  color: var(--white);
+}
+.arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.section-head__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.rail-skeleton {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+/* ---------- Tarjetas de línea ---------- */
+.line-card {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--primary);
+  color: var(--white);
+  text-decoration: none;
+  user-select: none;
+}
+.line-card img,
+.line-card__fallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease);
+}
+.line-card__fallback {
+  background: linear-gradient(160deg, var(--primary), var(--ink));
+}
+.line-card:hover img {
+  transform: scale(1.08);
+}
+.line-card__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 35%, var(--overlay-ink) 100%);
+}
+.line-card__body {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 20px;
+}
+.line-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--white);
+}
+.line-card__count {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: var(--on-dark-muted);
+}
+.line-card__more {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: var(--on-dark-muted);
+}
+.line-card__more span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  color: var(--accent);
+}
+/* Con mouse: subcategorías y "Ver productos" aparecen al pasar; en táctil se ven siempre */
+@media (hover: hover) {
+  .line-card__more {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.4s var(--ease), opacity 0.3s;
+  }
+  .line-card:hover .line-card__more,
+  .line-card:focus-visible .line-card__more {
+    max-height: 120px;
+    opacity: 1;
+  }
+}
+
+/* ---------- Mosaico de aplicaciones ---------- */
+.bento {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+.bento__item {
+  min-height: 220px;
+}
+.bento__link {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  padding: 22px;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(150deg, var(--primary), var(--ink));
+  color: var(--white);
+  text-decoration: none;
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.bento__item--b .bento__link {
+  background: linear-gradient(150deg, var(--primary-dark), var(--primary));
+}
+.bento__item--c .bento__link {
+  background: linear-gradient(150deg, var(--ink), var(--primary-dark));
+}
+.bento__item--e .bento__link {
+  background: linear-gradient(150deg, var(--primary), var(--primary-dark));
+}
+.bento__link:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.bento__placeholder {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  padding: 8px 12px;
+  border: 1.5px dashed var(--glass-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  color: var(--on-dark-muted);
+}
+.bento__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 50%, var(--overlay-ink) 100%);
+}
+.bento__title {
+  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1;
+}
+@media (min-width: 640px) {
+  .bento {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .bento__item--a {
+    grid-column: 1 / -1;
+  }
+}
+@media (min-width: 1024px) {
+  .bento {
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: 270px;
+  }
+  .bento__item--a { grid-column: span 5; }
+  .bento__item--b { grid-column: span 4; }
+  .bento__item--c { grid-column: span 3; }
+  .bento__item--d { grid-column: span 7; }
+  .bento__item--e { grid-column: span 5; }
+}
+
+/* ---------- Franja de confianza ---------- */
+.trust {
+  padding-block: 40px;
+}
+.trust__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px 16px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  list-style: none;
+  text-align: center;
+}
+.trust__list li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-weight: 600;
+}
+.trust__list svg {
+  color: var(--primary);
+}
+.trust__value {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--primary);
+}
+@media (min-width: 768px) {
+  .trust__list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

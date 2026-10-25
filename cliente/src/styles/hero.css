@@ -1,0 +1,221 @@
+.hero {
+  position: relative;
+  display: flex;
+  min-height: max(640px, 92svh);
+  color: var(--white);
+  background: var(--ink);
+}
+.hero__media,
+.hero__slide,
+.hero__kenburns,
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+}
+.hero__kenburns video,
+.hero__kenburns img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero__media {
+  overflow: hidden; /* recorta el zoom Ken Burns sin cortar el desplegable del buscador */
+}
+.hero__overlay {
+  background: var(--overlay-hero);
+}
+
+/* ---- Barras de progreso ---- */
+.hero__progress {
+  position: absolute;
+  z-index: 3;
+  top: calc(var(--topbar-h) + var(--header-h) + 10px);
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: min(var(--container), 100%);
+  padding-inline: var(--gutter);
+  transform: translateX(-50%);
+}
+.bar {
+  position: relative;
+  flex: 1;
+  height: 18px; /* zona táctil; la barra visible es más delgada */
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.bar::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 7px;
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--on-dark-line);
+}
+.bar span {
+  position: absolute;
+  left: 0;
+  top: 7px;
+  height: 4px;
+  width: 0;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+}
+.bar.is-done span {
+  width: 100%;
+}
+.bar.is-active span {
+  animation: bar-fill linear forwards;
+}
+.bar.is-paused span {
+  animation-play-state: paused;
+}
+@keyframes bar-fill {
+  to {
+    width: 100%;
+  }
+}
+.hero__pause {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-pill);
+  background: var(--glass-bg);
+  color: var(--white);
+}
+
+/* ---- Contenido ---- */
+.hero__inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 32px;
+  padding-top: calc(var(--topbar-h) + var(--header-h) + 56px);
+  padding-bottom: 56px;
+}
+.hero__content {
+  max-width: 760px;
+}
+.hero__title {
+  font-size: var(--fs-hero);
+  color: var(--white);
+}
+.hero__title em {
+  display: block;
+  font-style: normal;
+  color: var(--accent);
+}
+.hero__text {
+  max-width: 52ch;
+  margin: 18px 0 26px;
+  font-size: 1.1rem;
+  color: var(--on-dark-muted);
+}
+.hero__btn-primary {
+  border-color: var(--glass-border);
+}
+.hero__search {
+  margin-top: 36px;
+}
+
+/* ---- Tarjeta de vidrio (escritorio) ---- */
+.glass-card {
+  justify-self: end;
+  width: 320px;
+  padding: 20px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-lg);
+}
+.glass-card__tag {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: var(--ink);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.glass-card img {
+  width: 100%;
+  height: 160px;
+  margin-bottom: 12px;
+  border-radius: var(--radius);
+  object-fit: cover;
+}
+.glass-card__brand {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--on-dark-muted);
+}
+.glass-card h3 {
+  margin: 4px 0 10px;
+  min-height: 2.6em;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--white);
+}
+.glass-card .price {
+  margin-bottom: 14px;
+}
+.glass-card .price small,
+.glass-card .price--quote {
+  color: var(--on-dark-muted);
+}
+.glass-card__dots {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 8px;
+}
+.glass-card__dots button {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.glass-card__dots button::after {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border-radius: 50%;
+  background: var(--on-dark-line);
+}
+.glass-card__dots button.is-on::after {
+  background: var(--accent);
+}
+
+@media (min-width: 1024px) {
+  .hero__inner {
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 56px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Sin avance automático: las barras muestran la diapositiva activa completa */
+  .bar.is-active span {
+    animation: none;
+    width: 100%;
+  }
+}
