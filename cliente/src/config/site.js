@@ -5,6 +5,8 @@ const phones = ['+57 301 742 3427', '+57 315 111 1184']
 // PENDIENTE: confirmar el número de WhatsApp oficial. Mientras tanto se usa el primer teléfono.
 const whatsapp = import.meta.env.VITE_WHATSAPP_NUMBER ?? phones[0].replace(/\D/g, '')
 
+const whatsappLink = (text) => `https://wa.me/${whatsapp}?text=${encodeURIComponent(text)}`
+
 const dialable = (phone) => phone.replace(/[^\d+]/g, '')
 
 export const site = {
@@ -15,7 +17,10 @@ export const site = {
   city: 'Bucaramanga, Santander',
   phones: phones.map((label) => ({ label, href: `tel:${dialable(label)}` })),
   email: import.meta.env.VITE_EMAIL ?? 'info@imagenelectrica.com',
-  whatsappUrl: `https://wa.me/${whatsapp}?text=${encodeURIComponent('Hola, quiero información sobre sus productos.')}`,
+  whatsappUrl: whatsappLink('Hola, quiero información sobre sus productos.'),
+  whatsappLink,
+  // Mapa de Google embebido con la dirección (iframe, sin clave de API)
+  mapUrl: `https://www.google.com/maps?q=${encodeURIComponent('Cra 18 No 24-32, Bucaramanga, Santander')}&output=embed`,
   social: {
     facebook: 'https://facebook.com/imagenelectrica',
     instagram: 'https://instagram.com/imagenelectrica1824',

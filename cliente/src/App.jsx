@@ -7,7 +7,6 @@ import { CartProvider } from './context/CartContext'
 import Layout from './components/layout/Layout'
 import RequireAuth from './components/RequireAuth'
 import Home from './pages/Home'
-import Pending from './pages/Pending'
 import NotFound from './pages/NotFound'
 
 // El inicio carga de inmediato; el resto de páginas se descargan al visitarlas
@@ -16,6 +15,10 @@ const Cart = lazy(() => import('./pages/Cart'))
 const Login = lazy(() => import('./pages/Login'))
 const Register = lazy(() => import('./pages/Register'))
 const Account = lazy(() => import('./pages/Account'))
+const ComoComprar = lazy(() => import('./pages/ComoComprar'))
+const Nosotros = lazy(() => import('./pages/Nosotros'))
+const Contacto = lazy(() => import('./pages/Contacto'))
+const PoliticaDatos = lazy(() => import('./pages/PoliticaDatos'))
 
 export default function App() {
   return (
@@ -33,10 +36,10 @@ export default function App() {
                 <Route path="ingresar" element={<Login />} />
                 <Route path="crear-cuenta" element={<Register />} />
                 <Route path="mi-cuenta" element={<RequireAuth><Account /></RequireAuth>} />
-                <Route path="como-comprar" element={<Pending title="Cómo comprar" />} />
-                <Route path="nosotros" element={<Pending title="Nosotros" />} />
-                <Route path="contacto" element={<Pending title="Contacto" />} />
-                <Route path="politica-datos" element={<Pending title="Política de datos" />} />
+                <Route path="como-comprar" element={<ComoComprar />} />
+                <Route path="nosotros" element={<Nosotros />} />
+                <Route path="contacto" element={<Contacto />} />
+                <Route path="politica-datos" element={<PoliticaDatos />} />
                 <Route path="*" element={<NotFound />} />
               </Route>
             </Routes>

@@ -1,0 +1,63 @@
+/* Fondo global: degradado de la marca con arcos en las esquinas, fijo detrás del contenido */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: var(--page-bg);
+  pointer-events: none;
+}
+.backdrop__corner {
+  position: absolute;
+  width: clamp(420px, 56vw, 820px);
+  aspect-ratio: 1;
+}
+.backdrop__corner--tr {
+  top: 0;
+  right: 0;
+  transform-origin: top right;
+}
+.backdrop__corner--bl {
+  bottom: 0;
+  left: 0;
+}
+.backdrop__rings {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+/* El centro de los anillos queda en la esquina de la pantalla: solo se ve un cuarto */
+.backdrop__rings--orange {
+  transform: translate(50%, -50%);
+  opacity: 0.2;
+}
+.backdrop__rings--violet {
+  transform: translate(-50%, 50%);
+  opacity: 0.16;
+}
+.backdrop__dots {
+  position: absolute;
+  width: 170px;
+  height: 130px;
+  background-image: radial-gradient(var(--dot) 2.5px, transparent 3px);
+  background-size: 22px 22px;
+  opacity: 0.7;
+}
+.backdrop__dots--orange {
+  --dot: var(--orange-soft);
+  top: 28%;
+  right: 38%;
+}
+.backdrop__dots--lavender {
+  --dot: var(--primary);
+  bottom: 30%;
+  left: 36%;
+  opacity: 0.18;
+}
+@media (max-width: 640px) {
+  .backdrop__dots {
+    display: none;
+  }
+}

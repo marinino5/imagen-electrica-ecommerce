@@ -146,12 +146,14 @@
 }
 .cart__layout {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 32px;
   margin-top: 28px;
 }
 .cart__lists {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
   gap: 32px;
   align-content: start;
 }
@@ -164,6 +166,7 @@
 }
 .lines {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 12px;
   margin: 0;
   padding: 0;
@@ -260,7 +263,7 @@
 }
 @media (min-width: 960px) {
   .cart__layout {
-    grid-template-columns: 1.5fr 1fr;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
   }
   .cart__side {
     position: sticky;
@@ -418,4 +421,64 @@
   flex-wrap: wrap;
   gap: 8px 32px;
   margin: 16px 0 0;
+}
+
+/* ---- Bloques en tarjetas blancas sobre el fondo global ---- */
+.cart__block,
+.account__orders {
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+.cart__side {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+.account__head {
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  border-radius: var(--radius-lg);
+}
+.account__head .page-lead {
+  margin: 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+.profile {
+  border-radius: var(--radius-lg);
+}
+.cart,
+.account {
+  padding-top: 48px;
+}
+.cart__layout {
+  margin-top: 0;
+}
+.order.card {
+  box-shadow: none;
+}
+
+@media (max-width: 480px) {
+  .line {
+    grid-template-columns: 56px minmax(0, 1fr) auto;
+    padding: 10px;
+  }
+  .line img,
+  .line__ph {
+    width: 56px;
+    height: 56px;
+  }
+  .line__qty .input {
+    width: 56px;
+    padding-inline: 4px;
+  }
+  .line__qty .icon-btn {
+    width: 32px;
+    height: 32px;
+  }
+  .cart__block,
+  .account__orders {
+    padding: 14px;
+  }
 }

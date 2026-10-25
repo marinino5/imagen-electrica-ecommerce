@@ -32,7 +32,10 @@ export function AddButton({ product, quantity = 1, block = false, size }) {
   )
 }
 
-export default function ProductCard({ product, onQuickView }) {
+const pad = (n) => String(n).padStart(2, '0')
+
+// index/total (opcionales) muestran la etiqueta "01 / 08" del catálogo
+export default function ProductCard({ product, onQuickView, index, total }) {
   const { data: categories } = useCategories()
   const stock = availability(product)
   const image = productImage(product, categories)
@@ -40,7 +43,11 @@ export default function ProductCard({ product, onQuickView }) {
 
   return (
     <article className="pcard card">
-      <div className="pcard__media">
+      <div className={`pcard__media ${product.image_url ? 'pcard__media--photo' : ''}`}>
+        {/* Fondo del catálogo: círculo lavanda, arco naranja arriba a la izquierda y curva violeta abajo a la derecha */}
+        <span className="pcard__circle" aria-hidden="true" />
+        <span className="pcard__arc" aria-hidden="true" />
+        <span className="pcard__curve" aria-hidden="true" />
         {image ? (
           <img src={image} alt="" width="480" height="360" loading="lazy" />
         ) : (
@@ -56,6 +63,7 @@ export default function ProductCard({ product, onQuickView }) {
       </div>
 
       <div className="pcard__body">
+        {index !== undefined && <p className="pcard__idx" aria-hidden="true">{pad(index + 1)} / {pad(total)}</p>}
         <p className="pcard__meta">
           {product.brand?.name && <span className="pcard__brand">{product.brand.name}</span>}
           <span>Ref. {product.sku}</span>

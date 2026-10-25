@@ -7,6 +7,7 @@ import { useApi } from '../hooks/useApi'
 import { formatCOP, formatDate, formatQty } from '../lib/format'
 import ErrorState from '../components/ui/ErrorState'
 import EmptyState from '../components/ui/EmptyState'
+import PageHeader from '../components/ui/PageHeader'
 import '../styles/pages.css'
 
 const tabs = [
@@ -64,10 +65,11 @@ export default function Account() {
   const orders = data?.data ?? []
 
   return (
+    <>
+    <PageHeader title="Mi" accent="cuenta" crumbs={[{ label: 'Mi cuenta' }]} />
     <div className="container account">
-      <header className="account__head">
+      <header className="card account__head">
         <div>
-          <h1 className="page-title">Mi <em>cuenta</em></h1>
           {customer && (
             <p className="page-lead">
               {customer.type === 'company'
@@ -90,7 +92,8 @@ export default function Account() {
         </dl>
       )}
 
-      <h2 className="block-title">Mis pedidos y cotizaciones</h2>
+      <section className="card account__orders" aria-labelledby="h-pedidos">
+      <h2 id="h-pedidos" className="block-title">Mis pedidos y cotizaciones</h2>
       <div className="tabs" role="tablist" aria-label="Filtrar por tipo">
         {tabs.map((t) => (
           <button key={t.value} type="button" role="tab" aria-selected={type === t.value} className={type === t.value ? 'is-active' : ''} onClick={() => setType(t.value)}>
@@ -109,6 +112,8 @@ export default function Account() {
       {!loading && !error && orders.length > 0 && (
         <ul className="orders">{orders.map((o) => <OrderRow key={o.code} order={o} />)}</ul>
       )}
+      </section>
     </div>
+    </>
   )
 }

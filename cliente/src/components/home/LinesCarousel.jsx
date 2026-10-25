@@ -23,16 +23,18 @@ function layoutFor(count) {
   })
 }
 
-function LineTile({ root, total, size }) {
+const pad = (n) => String(n).padStart(2, '0')
+
+function LineTile({ root, total, size, index, count }) {
   const image = lineImage(root.slug)
   return (
     <Link to={`/productos?category=${root.slug}`} className={`line-tile ${size ? `line-tile--${size}` : ''}`}>
-      <span className="line-tile__arc" aria-hidden="true" />
       <span className="line-tile__media">
         {image ? <img src={image} alt="" width="640" height="480" loading="lazy" draggable="false" /> : <span className="line-tile__fallback" />}
       </span>
       <span className="line-tile__body">
         <span>
+          <small className="line-tile__idx" aria-hidden="true">{pad(index + 1)} / {pad(count)}</small>
           <strong>{root.name}</strong>
           <small>{total} {total === 1 ? 'producto' : 'productos'}</small>
         </span>
@@ -71,7 +73,7 @@ export default function LinesCarousel() {
               const total = children.reduce((sum, c) => sum + (c.products_count ?? 0), root.products_count ?? 0)
               return (
                 <Reveal key={root.id} delay={(i % 4) * 0.05} className={`bento-lines__cell ${layout[i] === 'big' ? 'is-big' : layout[i]}`}>
-                  <LineTile root={root} total={total} size={layout[i] === 'big' ? 'big' : ''} />
+                  <LineTile root={root} total={total} size={layout[i] === 'big' ? 'big' : ''} index={i} count={categories.roots.length} />
                 </Reveal>
               )
             })}

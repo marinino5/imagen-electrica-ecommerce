@@ -8,6 +8,7 @@ import { useCategories } from '../hooks/useCategories'
 import { productImage } from '../lib/catalog'
 import { formatCOP } from '../lib/format'
 import Field from '../components/ui/Field'
+import PageHeader from '../components/ui/PageHeader'
 import '../styles/pages.css'
 
 const deliveryOptions = [
@@ -59,9 +60,11 @@ function Line({ line, showPrice }) {
 
 function OrderResult({ orders }) {
   return (
+    <>
+    <PageHeader title="Solicitud" accent="enviada" crumbs={[{ label: 'Carrito' }]} />
     <section className="page-narrow">
       <CheckCircle2 size={44} className="ok-icon" aria-hidden="true" />
-      <h1 className="page-title">¡Solicitud enviada!</h1>
+      <h2 className="page-title">¡Gracias!</h2>
       <p className="page-lead">
         {orders.length > 1
           ? 'Tu carrito tenía productos de compra directa y de cotización, así que creamos dos solicitudes.'
@@ -83,6 +86,7 @@ function OrderResult({ orders }) {
         <Link to="/productos" className="btn btn--ghost">Seguir comprando</Link>
       </div>
     </section>
+    </>
   )
 }
 
@@ -101,12 +105,15 @@ export default function Cart() {
 
   if (lines.length === 0) {
     return (
-      <section className="page-narrow">
-        <ShoppingCart size={44} className="ok-icon" aria-hidden="true" />
-        <h1 className="page-title">Tu carrito está vacío</h1>
-        <p className="page-lead">Agrega productos para comprarlos en línea o solicitar una cotización.</p>
-        <Link to="/productos" className="btn btn--primary">Explorar productos</Link>
-      </section>
+      <>
+        <PageHeader title="Tu" accent="carrito" crumbs={[{ label: 'Carrito' }]} />
+        <section className="page-narrow">
+          <ShoppingCart size={44} className="ok-icon" aria-hidden="true" />
+          <h2 className="page-title">Tu carrito está vacío</h2>
+          <p className="page-lead">Agrega productos para comprarlos en línea o solicitar una cotización.</p>
+          <Link to="/productos" className="btn btn--primary">Explorar productos</Link>
+        </section>
+      </>
     )
   }
 
@@ -137,12 +144,13 @@ export default function Cart() {
   const details = error?.kind === 'validation' ? [...new Set(Object.values(error.errors).flat())] : []
 
   return (
+    <>
+    <PageHeader title="Tu" accent="carrito" crumbs={[{ label: 'Carrito' }]} />
     <div className="container cart">
-      <h1 className="page-title">Tu <em>carrito</em></h1>
 
       <div className="cart__layout">
         <div className="cart__lists">
-          <section aria-labelledby="h-compra">
+          <section className="card cart__block" aria-labelledby="h-compra">
             <h2 id="h-compra" className="block-title"><ShoppingCart size={20} aria-hidden="true" /> Compra directa</h2>
             {purchaseLines.length === 0 ? (
               <p className="muted-box">No tienes productos de compra en línea.</p>
@@ -154,7 +162,7 @@ export default function Cart() {
             )}
           </section>
 
-          <section id="cotizacion" aria-labelledby="h-cot">
+          <section id="cotizacion" className="card cart__block" aria-labelledby="h-cot">
             <h2 id="h-cot" className="block-title"><FileText size={20} aria-hidden="true" /> Para cotizar</h2>
             {quoteLines.length === 0 ? (
               <p className="muted-box">No tienes productos para cotizar.</p>
@@ -210,13 +218,14 @@ export default function Cart() {
             </button>
           ) : (
             <div className="login-gate">
-              <p>Para enviar tu solicitud necesitas una cuenta empresarial.</p>
-              <Link to="/ingresar" state={{ from: location.pathname }} className="btn btn--primary btn--block">Ingresar</Link>
+              <p>Para enviar tu solicitud necesitas una cuenta.</p>
+              <Link to="/ingresar" state={{ from: location.pathname }} className="btn btn--accent btn--block">Ingresar</Link>
               <Link to="/crear-cuenta" state={{ from: location.pathname }} className="btn btn--ghost btn--block">Crear cuenta</Link>
             </div>
           )}
         </form>
       </div>
     </div>
+    </>
   )
 }

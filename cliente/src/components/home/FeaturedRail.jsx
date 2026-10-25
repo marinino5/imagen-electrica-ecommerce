@@ -42,9 +42,9 @@ export default function FeaturedRail({ featured }) {
         {!loading && !error && products.length > 0 && (
           <div className="embla" ref={emblaRef}>
             <div className="embla__container">
-              {products.map((p) => (
+              {products.map((p, i) => (
                 <div className="embla__slide embla__slide--product" key={p.id}>
-                  <ProductCard product={p} onQuickView={setQuick} />
+                  <ProductCard product={p} onQuickView={setQuick} index={i} total={products.length} />
                 </div>
               ))}
             </div>

@@ -1,31 +1,28 @@
 import { Zap } from 'lucide-react'
 import '../../styles/auth.css'
 
-// Pantalla dividida de crear cuenta e ingresar: a la izquierda la fachada con el mensaje encima,
-// a la derecha el formulario. Pasa por debajo del encabezado flotante.
+// Crear cuenta e ingresar: a la izquierda el mensaje y los beneficios en mini tarjetas (sobre el fondo global),
+// a la derecha el formulario en una tarjeta blanca. En celular va primero el formulario.
 export default function AuthShell({ eyebrow, title, accent, benefits = [], children }) {
   return (
-    <section className="auth">
-      <aside className="auth__visual">
-        <img src="/img/fachada.webp" alt="" width="1200" height="900" fetchPriority="high" />
-        <span className="auth__shade" aria-hidden="true" />
+    <section className="container auth">
+      <aside className="auth__intro">
         <span className="auth__arc" aria-hidden="true" />
-        <div className="auth__copy">
-          <p className="eyebrow"><Zap size={14} aria-hidden="true" /> {eyebrow}</p>
-          <h1 className="display">{title} <em>{accent}</em></h1>
-          {benefits.length > 0 && (
-            <ul>
-              {benefits.map(({ icon: Icon, text }) => (
-                <li key={text}>
-                  <Icon size={20} aria-hidden="true" />
-                  <span>{text}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+        <p className="eyebrow"><Zap size={14} aria-hidden="true" /> {eyebrow}</p>
+        <h1 className="display">{title} <em>{accent}</em></h1>
+        <p className="auth__lead">Para personas y empresas</p>
+        {benefits.length > 0 && (
+          <ul className="auth__benefits">
+            {benefits.map(({ icon: Icon, text }) => (
+              <li key={text}>
+                <span className="auth__icon"><Icon size={20} aria-hidden="true" /></span>
+                <span>{text}</span>
+              </li>
+            ))}
+          </ul>
+        )}
       </aside>
-      <div className="auth__panel">{children}</div>
+      <div className="auth__card card">{children}</div>
     </section>
   )
 }

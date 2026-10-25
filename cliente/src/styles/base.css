@@ -15,7 +15,7 @@ body {
   font-size: 1rem;
   line-height: 1.55;
   color: var(--ink);
-  background: var(--white);
+  background: var(--lavender); /* respaldo; el degradado lo pinta BrandBackdrop */
   -webkit-font-smoothing: antialiased;
   overflow-x: clip; /* los arcos decorativos asoman fuera de la pantalla sin crear scroll horizontal */
 }
@@ -107,7 +107,11 @@ button {
 }
 /* Climas: claro (blanco y lavanda), marca (violeta) y profundo (ink) */
 .section--light {
-  background: var(--grad-light);
+  background: transparent; /* se ve el fondo global (--page-bg) */
+}
+#root {
+  position: relative;
+  isolation: isolate;
 }
 .section--lavender {
   background: var(--lavender);
