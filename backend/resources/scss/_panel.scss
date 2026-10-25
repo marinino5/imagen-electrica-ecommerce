@@ -13,23 +13,24 @@ $sidebar-link-color: rgba($brand-white, .72);
     min-width: 0;
 }
 
-/* ---------- Barra lateral (clara) ---------- */
+/* ---------- Barra lateral (violeta) ---------- */
 
 .admin-sidebar {
     // Variables del offcanvas de Bootstrap (menú deslizable en celular)
-    --bs-offcanvas-bg: #{$brand-surface};
-    --bs-offcanvas-color: #{$brand-ink};
+    --bs-offcanvas-bg: #{$brand-primary};
+    --bs-offcanvas-color: #{$brand-white};
     --bs-offcanvas-width: #{$sidebar-width};
 
-    background-color: $brand-surface;
-    border-right: 1px solid $brand-lavender;
-    color: $brand-ink;
+    background-color: $brand-primary;
+    // Degradado suave hacia un violeta más oscuro abajo
+    background-image: linear-gradient(180deg, $brand-primary 0%, $brand-primary-deep 100%);
+    color: $brand-white;
 
     @include media-breakpoint-up(lg) {
         position: sticky;
         top: 0;
         // .offcanvas-lg deja el fondo transparente en escritorio con !important
-        background-color: $brand-surface !important;
+        background-color: $brand-primary !important;
         display: flex;
         flex-direction: column;
         flex: 0 0 auto;
@@ -53,15 +54,15 @@ $sidebar-link-color: rgba($brand-white, .72);
     align-items: center;
     gap: .5rem;
     width: 100%;
-    color: $brand-muted;
+    color: rgba($brand-white, .78);
     text-decoration: none;
 
     &:hover {
-        color: $brand-primary;
+        color: $brand-white;
     }
 }
 
-// Logo a color directo sobre el fondo lavanda, sin placa
+// Logo blanco directo sobre el violeta, sin placa
 .sidebar-logo {
     display: block;
     width: 8rem;
@@ -79,7 +80,7 @@ $sidebar-link-color: rgba($brand-white, .72);
 .sidebar-section {
     margin: 1.5rem 0 .5rem;
     padding: 0 .875rem;
-    color: $brand-muted;
+    color: rgba($brand-white, .72);
     font-size: .7rem;
     font-weight: 600;
     letter-spacing: .1em;
@@ -95,7 +96,7 @@ $sidebar-link-color: rgba($brand-white, .72);
     margin-bottom: .125rem;
     padding: .65rem .875rem;
     border-radius: $border-radius;
-    color: $brand-ink;
+    color: $brand-white;
     font-weight: 500;
     text-decoration: none;
     white-space: nowrap;
@@ -103,20 +104,20 @@ $sidebar-link-color: rgba($brand-white, .72);
 
     .bi {
         flex-shrink: 0;
-        color: $brand-primary;
+        color: $brand-white;
         font-size: 1.15rem;
     }
 
     &:hover,
     &:focus-visible {
-        background-color: rgba($brand-lavender, .6);
-        color: $brand-ink;
+        background-color: rgba($brand-white, .08);
+        color: $brand-white;
     }
 
-    // Ítem activo: fondo lavanda y barra naranja a la izquierda
+    // Ítem activo: fondo blanco al 12% y barra naranja a la izquierda
     &.active {
-        background-color: $brand-lavender;
-        color: $brand-ink;
+        background-color: rgba($brand-white, .12);
+        color: $brand-white;
         font-weight: 600;
 
         &::before {
@@ -138,7 +139,7 @@ $sidebar-link-color: rgba($brand-white, .72);
     gap: .75rem;
     margin-top: auto;
     padding: 1rem .25rem .25rem;
-    border-top: 1px solid $brand-lavender;
+    border-top: 1px solid rgba($brand-white, .15);
 }
 
 .sidebar-user-info {
@@ -146,7 +147,7 @@ $sidebar-link-color: rgba($brand-white, .72);
     line-height: 1.2;
 
     .name {
-        color: $brand-ink;
+        color: $brand-white;
         font-weight: 600;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -177,11 +178,11 @@ $sidebar-link-color: rgba($brand-white, .72);
 
 .sidebar-logout {
     margin-left: auto;
-    color: $brand-primary;
+    color: rgba($brand-white, .85);
 
     &:hover,
     &:focus-visible {
-        color: $brand-ink;
+        color: $brand-white;
     }
 }
 
@@ -203,7 +204,7 @@ $sidebar-link-color: rgba($brand-white, .72);
             margin: 1rem .5rem;
             padding: 0;
             overflow: hidden;
-            background-color: $brand-lavender;
+            background-color: rgba($brand-white, .15);
             color: transparent;
         }
 
