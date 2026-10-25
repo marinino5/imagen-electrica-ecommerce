@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\OrderPricingController;
 use App\Http\Controllers\Admin\OrderStatusController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\SearchController;
 use Illuminate\Support\Facades\Route;
 
@@ -44,7 +45,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::patch('orders/{order}/assignment', OrderAssignmentController::class)->name('orders.assignment');
         Route::put('orders/{order}/prices', OrderPricingController::class)->name('orders.prices');
 
-        // Catálogo: solo admin
+        // Catálogo y análisis: solo admin
         Route::middleware('role:admin')->group(function () {
             Route::resource('categories', CategoryController::class)->except('show');
             Route::resource('brands', BrandController::class)->except('show');
@@ -52,6 +53,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
             // Los productos eliminados (borrado lógico) no los resuelve la ruta sin withTrashed
             Route::patch('products/{product}/restore', [ProductController::class, 'restore'])
                 ->withTrashed()->name('products.restore');
+
+            // Análisis: reportes con costos y ganancia, solo admin
+            Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
+            Route::get('reports/export', [ReportController::class, 'export'])->name('reports.export');
         });
     });
 });

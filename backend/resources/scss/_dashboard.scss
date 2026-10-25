@@ -44,6 +44,12 @@
         line-height: 1;
     }
 
+    // Cifras largas ($ 12.345.678) en Reportes
+    .stat-value-sm {
+        font-size: 2rem;
+        overflow-wrap: anywhere;
+    }
+
     .stat-label {
         color: $brand-ink;
         font-weight: 600;
@@ -84,6 +90,11 @@
 .chart-box {
     position: relative;
     height: 17rem;
+
+    // Gráfico mensual de Reportes: más alto para que quepan 12 meses y 4 series
+    &.chart-box-lg {
+        height: 22rem;
+    }
 }
 
 /* Tablas del dashboard */

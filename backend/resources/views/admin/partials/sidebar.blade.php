@@ -9,12 +9,15 @@
         ],
     ];
 
-    // El catálogo solo lo administra el rol admin
+    // El catálogo y los reportes (con costos) solo los ve el rol admin
     if ($isAdmin) {
         $sections['Catálogo'] = [
             ['admin.products.index', 'admin.products.*', 'box-seam', 'Productos'],
             ['admin.categories.index', 'admin.categories.*', 'diagram-3', 'Categorías'],
             ['admin.brands.index', 'admin.brands.*', 'award', 'Marcas'],
+        ];
+        $sections['Análisis'] = [
+            ['admin.reports.index', 'admin.reports.*', 'graph-up-arrow', 'Reportes'],
         ];
     }
 @endphp

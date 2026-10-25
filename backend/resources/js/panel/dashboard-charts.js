@@ -10,15 +10,12 @@ import {
     Tooltip,
 } from 'chart.js';
 
+import { applyDefaults, css, palette } from './chart-theme';
+
 // Solo se registran las piezas de Chart.js que usan la dona y las barras.
 Chart.register(ArcElement, BarController, BarElement, CategoryScale, DoughnutController, Legend, LinearScale, Tooltip);
 
-// Los colores salen de las variables CSS definidas en _base.scss (paleta de marca).
-const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-const palette = () => Array.from({ length: 10 }, (_, i) => css(`--ie-chart-${i + 1}`));
 const colorsByType = { purchase: '--bs-primary', quote: '--bs-accent' };
-
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /**
  * Escribe el total en el centro de la dona. Usa el área real del gráfico,
@@ -44,18 +41,6 @@ const centerTotal = {
         ctx.restore();
     },
 };
-
-function applyDefaults() {
-    Chart.defaults.font.family = css('--bs-body-font-family');
-    Chart.defaults.color = css('--bs-secondary-color');
-    Chart.defaults.animation = reducedMotion ? false : Chart.defaults.animation;
-    Chart.defaults.plugins.legend.labels.usePointStyle = true;
-    Chart.defaults.plugins.legend.labels.boxWidth = 8;
-    Chart.defaults.plugins.legend.labels.boxHeight = 8;
-    Chart.defaults.plugins.tooltip.backgroundColor = css('--bs-dark');
-    Chart.defaults.plugins.tooltip.padding = 10;
-    Chart.defaults.plugins.tooltip.cornerRadius = 8;
-}
 
 /** Dona: solicitudes por estado. */
 function statusChart(canvas, { labels, data }) {
