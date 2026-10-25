@@ -123,4 +123,22 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Usuarios iniciales (seeders)
+    |--------------------------------------------------------------------------
+    |
+    | Credenciales de los usuarios que crea `php artisan db:seed`. Las
+    | contraseñas se definen solo en el .env, nunca en el repositorio.
+    |
+    */
+
+    'seed' => [
+        'admin_email' => env('SEED_ADMIN_EMAIL', 'admin@imagenelectrica.test'),
+        'admin_password' => env('SEED_ADMIN_PASSWORD'),
+        'comercial_email' => env('SEED_COMERCIAL_EMAIL', 'comercial@imagenelectrica.test'),
+        'comercial_password' => env('SEED_COMERCIAL_PASSWORD'),
+        'customer_password' => env('SEED_CUSTOMER_PASSWORD'),
+    ],
+
 ];
