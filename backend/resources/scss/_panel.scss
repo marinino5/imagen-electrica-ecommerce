@@ -407,3 +407,33 @@ $sidebar-link-color: rgba($brand-white, .72);
         margin-bottom: 0;
     }
 }
+
+/* ---------- Listados y formularios del CRUD ---------- */
+
+// Miniatura cuadrada de categorías y productos
+.thumb {
+    display: block;
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    background-color: $brand-white;
+    object-fit: cover;
+}
+
+.thumb-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $brand-surface;
+    color: $brand-muted;
+}
+
+.thumb-lg {
+    width: 7rem;
+    height: 7rem;
+}
+
+.form-card {
+    max-width: 48rem;
+}

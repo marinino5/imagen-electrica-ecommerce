@@ -2,12 +2,14 @@
 // (menú lateral en celular, menús desplegables).
 import 'bootstrap';
 
+import { initConfirmForms } from './panel/confirm';
 import { initLoginForm } from './panel/login';
 import { initSidebar } from './panel/sidebar';
 import { initToasts } from './panel/toasts';
 
 initSidebar();
 initToasts();
+initConfirmForms();
 initLoginForm();
 
 // Chart.js solo se descarga en las páginas que tienen gráficos.

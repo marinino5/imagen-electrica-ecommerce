@@ -36,7 +36,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Catálogo: solo admin
         Route::middleware('role:admin')->group(function () {
-            Route::resource('categories', CategoryController::class)->only('index');
+            Route::resource('categories', CategoryController::class)->except('show');
             Route::resource('brands', BrandController::class)->only('index');
             Route::resource('products', ProductController::class)->only(['index', 'show']);
         });
