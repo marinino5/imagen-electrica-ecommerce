@@ -31,7 +31,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":1,"name":"Omar Dom\u00ednguez","email":"arredondo.juana@example.com","role":"cliente","customer":{"company_name":"Calero de Zamora S.A.S.","nit":"990122162-7","contact_name":"Sr. H\u00e9ctor Zelaya","phone":"379 091 5066","city":"Gir\u00f3n","address":"Calle Elizondo, 54, 27\u00ba C","marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T05:22:55.000000Z"}}}'
+        content: '{"data":{"id":21,"name":"Omar Dom\u00ednguez","email":"arredondo.juana@example.com","role":"cliente","customer":{"company_name":"Calero de Zamora S.A.S.","nit":"990122162-7","contact_name":"Sr. H\u00e9ctor Zelaya","phone":"379 091 5066","city":"Gir\u00f3n","address":"Calle Elizondo, 54, 27\u00ba C","marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T17:23:26.000000Z"}}}'
         headers: []
         description: ''
     responseFields: []
@@ -146,7 +146,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":1,"name":"Emilia Murillo","email":"juribe@example.org","role":"cliente","customer":{"company_name":"Rivas y Sevilla SA S.A.S.","nit":"968210674-8","contact_name":"Adri\u00e1n Cavazos Hijo","phone":"315 175 7680","city":"Barrancabermeja","address":"Pla\u00e7a Juana, 979, 27\u00ba A","marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T05:22:55.000000Z"}}}'
+        content: '{"data":{"id":22,"name":"Emilia Murillo","email":"juribe@example.org","role":"cliente","customer":{"company_name":"Rivas y Sevilla SA S.A.S.","nit":"968210674-8","contact_name":"Adri\u00e1n Cavazos Hijo","phone":"315 175 7680","city":"Barrancabermeja","address":"Pla\u00e7a Juana, 979, 27\u00ba A","marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T17:23:26.000000Z"}}}'
         headers: []
         description: ''
     responseFields: []

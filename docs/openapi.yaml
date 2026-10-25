@@ -5,7 +5,7 @@ info:
   version: 1.0.0
 servers:
   -
-    url: 'http://localhost:8000'
+    url: 'https://imagen-electrica-ecommerce.onrender.com'
 tags:
   -
     name: Autenticación
@@ -329,14 +329,14 @@ paths:
                 example:
                   data:
                     -
-                      id: 1
+                      id: 25
                       parent_id: null
                       name: 'Et animi'
                       slug: et-animi
                       description: 'Et fugiat sunt nihil accusantium.'
                       image_url: null
                     -
-                      id: 2
+                      id: 26
                       parent_id: null
                       name: 'Mollitia modi'
                       slug: mollitia-modi
@@ -376,14 +376,14 @@ paths:
                     type: array
                     example:
                       -
-                        id: 1
+                        id: 25
                         parent_id: null
                         name: 'Et animi'
                         slug: et-animi
                         description: 'Et fugiat sunt nihil accusantium.'
                         image_url: null
                       -
-                        id: 2
+                        id: 26
                         parent_id: null
                         name: 'Mollitia modi'
                         slug: mollitia-modi
@@ -394,7 +394,7 @@ paths:
                       properties:
                         id:
                           type: integer
-                          example: 1
+                          example: 25
                         parent_id:
                           type: string
                           example: null
@@ -524,12 +524,12 @@ paths:
                 example:
                   data:
                     -
-                      id: 1
+                      id: 8
                       name: 'Llorente, Aguirre y Sierra e Hijo'
                       slug: llorente-aguirre-y-sierra-e-hijo
                       logo_url: null
                     -
-                      id: 2
+                      id: 9
                       name: 'Limón de Uribe S. de H.'
                       slug: limon-de-uribe-s-de-h
                       logo_url: null
@@ -567,12 +567,12 @@ paths:
                     type: array
                     example:
                       -
-                        id: 1
+                        id: 8
                         name: 'Llorente, Aguirre y Sierra e Hijo'
                         slug: llorente-aguirre-y-sierra-e-hijo
                         logo_url: null
                       -
-                        id: 2
+                        id: 9
                         name: 'Limón de Uribe S. de H.'
                         slug: limon-de-uribe-s-de-h
                         logo_url: null
@@ -581,7 +581,7 @@ paths:
                       properties:
                         id:
                           type: integer
-                          example: 1
+                          example: 8
                         name:
                           type: string
                           example: 'Llorente, Aguirre y Sierra e Hijo'
@@ -734,7 +734,7 @@ paths:
                 example:
                   data:
                     -
-                      id: 1
+                      id: 21
                       sku: REF-0564-yv
                       name: 'Motor trifásico 4338 HP'
                       slug: motor-trifasico-4338-hp
@@ -742,8 +742,8 @@ paths:
                       description: 'Perspiciatis quo omnis nostrum aut adipisci quidem nostrum qui. Incidunt iure odit et et modi ipsum. Omnis autem et consequatur. Dolores enim non facere tempora.'
                       image_url: null
                       specs:
-                        potencia_hp: 10
                         voltaje_v: 220
+                        potencia_hp: 10
                       unit: unidad
                       unit_label: Unidad
                       price: 3775000
@@ -754,16 +754,16 @@ paths:
                       sale_mode_label: 'Venta directa'
                       is_featured: false
                       category:
-                        id: 1
+                        id: 27
                         name: 'Quis adipisci'
                         slug: quis-adipisci
                       brand:
-                        id: 1
+                        id: 10
                         name: 'Global Guardado y Asoc.'
                         slug: global-guardado-y-asoc
                         logo_url: null
                     -
-                      id: 2
+                      id: 22
                       sku: REF-7788-qb
                       name: 'Motor trifásico 9148 HP'
                       slug: motor-trifasico-9148-hp
@@ -771,8 +771,8 @@ paths:
                       description: 'Blanditiis odio veritatis excepturi doloribus delectus fugit. Repudiandae laboriosam est alias tenetur ratione. Voluptate accusamus ut et recusandae. Rerum ex repellendus assumenda et.'
                       image_url: null
                       specs:
-                        potencia_hp: 5
                         voltaje_v: 440
+                        potencia_hp: 5
                       unit: unidad
                       unit_label: Unidad
                       price: 1181000
@@ -783,11 +783,11 @@ paths:
                       sale_mode_label: 'Venta directa'
                       is_featured: false
                       category:
-                        id: 2
+                        id: 28
                         name: 'Perspiciatis deserunt'
                         slug: perspiciatis-deserunt
                       brand:
-                        id: 2
+                        id: 11
                         name: 'Grupo Arias-Chacón'
                         slug: grupo-arias-chacon
                         logo_url: null
@@ -825,7 +825,7 @@ paths:
                     type: array
                     example:
                       -
-                        id: 1
+                        id: 21
                         sku: REF-0564-yv
                         name: 'Motor trifásico 4338 HP'
                         slug: motor-trifasico-4338-hp
@@ -833,8 +833,8 @@ paths:
                         description: 'Perspiciatis quo omnis nostrum aut adipisci quidem nostrum qui. Incidunt iure odit et et modi ipsum. Omnis autem et consequatur. Dolores enim non facere tempora.'
                         image_url: null
                         specs:
-                          potencia_hp: 10
                           voltaje_v: 220
+                          potencia_hp: 10
                         unit: unidad
                         unit_label: Unidad
                         price: 3775000
@@ -845,16 +845,16 @@ paths:
                         sale_mode_label: 'Venta directa'
                         is_featured: false
                         category:
-                          id: 1
+                          id: 27
                           name: 'Quis adipisci'
                           slug: quis-adipisci
                         brand:
-                          id: 1
+                          id: 10
                           name: 'Global Guardado y Asoc.'
                           slug: global-guardado-y-asoc
                           logo_url: null
                       -
-                        id: 2
+                        id: 22
                         sku: REF-7788-qb
                         name: 'Motor trifásico 9148 HP'
                         slug: motor-trifasico-9148-hp
@@ -862,8 +862,8 @@ paths:
                         description: 'Blanditiis odio veritatis excepturi doloribus delectus fugit. Repudiandae laboriosam est alias tenetur ratione. Voluptate accusamus ut et recusandae. Rerum ex repellendus assumenda et.'
                         image_url: null
                         specs:
-                          potencia_hp: 5
                           voltaje_v: 440
+                          potencia_hp: 5
                         unit: unidad
                         unit_label: Unidad
                         price: 1181000
@@ -874,11 +874,11 @@ paths:
                         sale_mode_label: 'Venta directa'
                         is_featured: false
                         category:
-                          id: 2
+                          id: 28
                           name: 'Perspiciatis deserunt'
                           slug: perspiciatis-deserunt
                         brand:
-                          id: 2
+                          id: 11
                           name: 'Grupo Arias-Chacón'
                           slug: grupo-arias-chacon
                           logo_url: null
@@ -887,7 +887,7 @@ paths:
                       properties:
                         id:
                           type: integer
-                          example: 1
+                          example: 21
                         sku:
                           type: string
                           example: REF-0564-yv
@@ -910,12 +910,12 @@ paths:
                         specs:
                           type: object
                           properties:
-                            potencia_hp:
-                              type: integer
-                              example: 10
                             voltaje_v:
                               type: integer
                               example: 220
+                            potencia_hp:
+                              type: integer
+                              example: 10
                         unit:
                           type: string
                           example: unidad
@@ -948,7 +948,7 @@ paths:
                           properties:
                             id:
                               type: integer
-                              example: 1
+                              example: 27
                             name:
                               type: string
                               example: 'Quis adipisci'
@@ -960,7 +960,7 @@ paths:
                           properties:
                             id:
                               type: integer
-                              example: 1
+                              example: 10
                             name:
                               type: string
                               example: 'Global Guardado y Asoc.'
@@ -1074,7 +1074,7 @@ paths:
                 sale_mode:
                   type: string
                   description: ''
-                  example: on_request
+                  example: quote
                   enum:
                     - direct
                     - quote
@@ -1093,7 +1093,7 @@ paths:
                 sort:
                   type: string
                   description: ''
-                  example: price_asc
+                  example: newest
                   enum:
                     - name
                     - newest
@@ -1121,33 +1121,33 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 1
-                    sku: REF-6806-zm
-                    name: 'Motor trifásico 2938 HP'
-                    slug: motor-trifasico-2938-hp
-                    short_description: 'Et fugiat sunt nihil accusantium.'
-                    description: 'Deserunt aut ab provident perspiciatis quo omnis nostrum. Adipisci quidem nostrum qui commodi incidunt iure. Et et modi ipsum nostrum.'
+                    id: 23
+                    sku: REF-0057-nb
+                    name: 'Motor trifásico 7075 HP'
+                    slug: motor-trifasico-7075-hp
+                    short_description: 'Impedit molestiae ut rem est esse.'
+                    description: 'Sunt suscipit doloribus fugiat ut aut deserunt et. Neque recusandae et ipsam dolorem et ut dicta. Assumenda consequatur ut et sunt quisquam. Repellendus ut eaque alias ratione dolores.'
                     image_url: null
                     specs:
-                      potencia_hp: 5
                       voltaje_v: 220
+                      potencia_hp: 1
                     unit: unidad
                     unit_label: Unidad
-                    price: 1468000
+                    price: 1957000
                     tax_rate: 19
-                    stock: 8
+                    stock: 7
                     in_stock: true
                     sale_mode: direct
                     sale_mode_label: 'Venta directa'
                     is_featured: false
                     category:
-                      id: 1
-                      name: 'Aut dolores'
-                      slug: aut-dolores
+                      id: 29
+                      name: 'Aut deserunt'
+                      slug: aut-deserunt
                     brand:
-                      id: 1
-                      name: 'Manzano de Mendoza'
-                      slug: manzano-de-mendoza
+                      id: 12
+                      name: 'Nieto y Rico'
+                      slug: nieto-y-rico
                       logo_url: null
                 properties:
                   data:
@@ -1155,22 +1155,22 @@ paths:
                     properties:
                       id:
                         type: integer
-                        example: 1
+                        example: 23
                       sku:
                         type: string
-                        example: REF-6806-zm
+                        example: REF-0057-nb
                       name:
                         type: string
-                        example: 'Motor trifásico 2938 HP'
+                        example: 'Motor trifásico 7075 HP'
                       slug:
                         type: string
-                        example: motor-trifasico-2938-hp
+                        example: motor-trifasico-7075-hp
                       short_description:
                         type: string
-                        example: 'Et fugiat sunt nihil accusantium.'
+                        example: 'Impedit molestiae ut rem est esse.'
                       description:
                         type: string
-                        example: 'Deserunt aut ab provident perspiciatis quo omnis nostrum. Adipisci quidem nostrum qui commodi incidunt iure. Et et modi ipsum nostrum.'
+                        example: 'Sunt suscipit doloribus fugiat ut aut deserunt et. Neque recusandae et ipsam dolorem et ut dicta. Assumenda consequatur ut et sunt quisquam. Repellendus ut eaque alias ratione dolores.'
                       image_url:
                         type: string
                         example: null
@@ -1178,12 +1178,12 @@ paths:
                       specs:
                         type: object
                         properties:
-                          potencia_hp:
-                            type: integer
-                            example: 5
                           voltaje_v:
                             type: integer
                             example: 220
+                          potencia_hp:
+                            type: integer
+                            example: 1
                       unit:
                         type: string
                         example: unidad
@@ -1192,13 +1192,13 @@ paths:
                         example: Unidad
                       price:
                         type: integer
-                        example: 1468000
+                        example: 1957000
                       tax_rate:
                         type: integer
                         example: 19
                       stock:
                         type: integer
-                        example: 8
+                        example: 7
                       in_stock:
                         type: boolean
                         example: true
@@ -1216,25 +1216,25 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 1
+                            example: 29
                           name:
                             type: string
-                            example: 'Aut dolores'
+                            example: 'Aut deserunt'
                           slug:
                             type: string
-                            example: aut-dolores
+                            example: aut-deserunt
                       brand:
                         type: object
                         properties:
                           id:
                             type: integer
-                            example: 1
+                            example: 12
                           name:
                             type: string
-                            example: 'Manzano de Mendoza'
+                            example: 'Nieto y Rico'
                           slug:
                             type: string
-                            example: manzano-de-mendoza
+                            example: nieto-y-rico
                           logo_url:
                             type: string
                             example: null
@@ -1266,7 +1266,7 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 1
+                    id: 21
                     name: 'Omar Domínguez'
                     email: arredondo.juana@example.com
                     role: cliente
@@ -1279,14 +1279,14 @@ paths:
                       address: 'Calle Elizondo, 54, 27º C'
                       marketing_opt_in: false
                       marketing_opt_in_at: null
-                      privacy_accepted_at: '2026-10-25T05:22:55.000000Z'
+                      privacy_accepted_at: '2026-10-25T17:23:26.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: integer
-                        example: 1
+                        example: 21
                       name:
                         type: string
                         example: 'Omar Domínguez'
@@ -1326,7 +1326,7 @@ paths:
                             nullable: true
                           privacy_accepted_at:
                             type: string
-                            example: '2026-10-25T05:22:55.000000Z'
+                            example: '2026-10-25T17:23:26.000000Z'
       tags:
         - 'Mi cuenta'
     put:
@@ -1343,7 +1343,7 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 1
+                    id: 22
                     name: 'Emilia Murillo'
                     email: juribe@example.org
                     role: cliente
@@ -1356,14 +1356,14 @@ paths:
                       address: 'Plaça Juana, 979, 27º A'
                       marketing_opt_in: false
                       marketing_opt_in_at: null
-                      privacy_accepted_at: '2026-10-25T05:22:55.000000Z'
+                      privacy_accepted_at: '2026-10-25T17:23:26.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: integer
-                        example: 1
+                        example: 22
                       name:
                         type: string
                         example: 'Emilia Murillo'
@@ -1403,7 +1403,7 @@ paths:
                             nullable: true
                           privacy_accepted_at:
                             type: string
-                            example: '2026-10-25T05:22:55.000000Z'
+                            example: '2026-10-25T17:23:26.000000Z'
       tags:
         - 'Mi cuenta'
       requestBody:
@@ -1512,11 +1512,11 @@ paths:
                       notes: null
                       expires_at: null
                       paid_at: null
-                      created_at: '2026-10-25T05:22:55.000000Z'
+                      created_at: '2026-10-25T17:23:26.000000Z'
                       items:
                         -
-                          id: 1
-                          product_id: 1
+                          id: 3042
+                          product_id: 24
                           sku: REF-5058-cq
                           product_name: 'Motor trifásico 6877 HP'
                           unit: unidad
@@ -1548,11 +1548,11 @@ paths:
                       notes: null
                       expires_at: null
                       paid_at: null
-                      created_at: '2026-10-25T05:22:55.000000Z'
+                      created_at: '2026-10-25T17:23:26.000000Z'
                       items:
                         -
-                          id: 2
-                          product_id: 2
+                          id: 3043
+                          product_id: 25
                           sku: REF-9849-tp
                           product_name: 'Motor trifásico 1703 HP'
                           unit: unidad
@@ -1617,11 +1617,11 @@ paths:
                         notes: null
                         expires_at: null
                         paid_at: null
-                        created_at: '2026-10-25T05:22:55.000000Z'
+                        created_at: '2026-10-25T17:23:26.000000Z'
                         items:
                           -
-                            id: 1
-                            product_id: 1
+                            id: 3042
+                            product_id: 24
                             sku: REF-5058-cq
                             product_name: 'Motor trifásico 6877 HP'
                             unit: unidad
@@ -1653,11 +1653,11 @@ paths:
                         notes: null
                         expires_at: null
                         paid_at: null
-                        created_at: '2026-10-25T05:22:55.000000Z'
+                        created_at: '2026-10-25T17:23:26.000000Z'
                         items:
                           -
-                            id: 2
-                            product_id: 2
+                            id: 3043
+                            product_id: 25
                             sku: REF-9849-tp
                             product_name: 'Motor trifásico 1703 HP'
                             unit: unidad
@@ -1741,13 +1741,13 @@ paths:
                           nullable: true
                         created_at:
                           type: string
-                          example: '2026-10-25T05:22:55.000000Z'
+                          example: '2026-10-25T17:23:26.000000Z'
                         items:
                           type: array
                           example:
                             -
-                              id: 1
-                              product_id: 1
+                              id: 3042
+                              product_id: 24
                               sku: REF-5058-cq
                               product_name: 'Motor trifásico 6877 HP'
                               unit: unidad
@@ -1761,10 +1761,10 @@ paths:
                             properties:
                               id:
                                 type: integer
-                                example: 1
+                                example: 3042
                               product_id:
                                 type: integer
-                                example: 1
+                                example: 24
                               sku:
                                 type: string
                                 example: REF-5058-cq
@@ -1878,7 +1878,7 @@ paths:
                 type:
                   type: string
                   description: ''
-                  example: purchase
+                  example: quote
                   enum:
                     - purchase
                     - quote
@@ -1886,7 +1886,7 @@ paths:
                 status:
                   type: string
                   description: ''
-                  example: in_review
+                  example: sent
                   enum:
                     - pending_payment
                     - paid
@@ -1941,11 +1941,11 @@ paths:
                       notes: null
                       expires_at: null
                       paid_at: null
-                      created_at: '2026-10-25T05:22:55.000000Z'
+                      created_at: '2026-10-25T17:23:26.000000Z'
                       items:
                         -
-                          id: 1
-                          product_id: 1
+                          id: 3044
+                          product_id: 26
                           sku: REF-7365-sc
                           product_name: 'Motor trifásico 967 HP'
                           unit: unidad
@@ -1977,11 +1977,11 @@ paths:
                       notes: null
                       expires_at: null
                       paid_at: null
-                      created_at: '2026-10-25T05:22:55.000000Z'
+                      created_at: '2026-10-25T17:23:26.000000Z'
                       items:
                         -
-                          id: 2
-                          product_id: 2
+                          id: 3045
+                          product_id: 27
                           sku: REF-3531-ob
                           product_name: 'Motor trifásico 6696 HP'
                           unit: unidad
@@ -2017,11 +2017,11 @@ paths:
                         notes: null
                         expires_at: null
                         paid_at: null
-                        created_at: '2026-10-25T05:22:55.000000Z'
+                        created_at: '2026-10-25T17:23:26.000000Z'
                         items:
                           -
-                            id: 1
-                            product_id: 1
+                            id: 3044
+                            product_id: 26
                             sku: REF-7365-sc
                             product_name: 'Motor trifásico 967 HP'
                             unit: unidad
@@ -2053,11 +2053,11 @@ paths:
                         notes: null
                         expires_at: null
                         paid_at: null
-                        created_at: '2026-10-25T05:22:55.000000Z'
+                        created_at: '2026-10-25T17:23:26.000000Z'
                         items:
                           -
-                            id: 2
-                            product_id: 2
+                            id: 3045
+                            product_id: 27
                             sku: REF-3531-ob
                             product_name: 'Motor trifásico 6696 HP'
                             unit: unidad
@@ -2141,13 +2141,13 @@ paths:
                           nullable: true
                         created_at:
                           type: string
-                          example: '2026-10-25T05:22:55.000000Z'
+                          example: '2026-10-25T17:23:26.000000Z'
                         items:
                           type: array
                           example:
                             -
-                              id: 1
-                              product_id: 1
+                              id: 3044
+                              product_id: 26
                               sku: REF-7365-sc
                               product_name: 'Motor trifásico 967 HP'
                               unit: unidad
@@ -2161,10 +2161,10 @@ paths:
                             properties:
                               id:
                                 type: integer
-                                example: 1
+                                example: 3044
                               product_id:
                                 type: integer
-                                example: 1
+                                example: 26
                               sku:
                                 type: string
                                 example: REF-7365-sc
@@ -2300,11 +2300,11 @@ paths:
                     notes: null
                     expires_at: null
                     paid_at: null
-                    created_at: '2026-10-25T05:22:55.000000Z'
+                    created_at: '2026-10-25T17:23:26.000000Z'
                     items:
                       -
-                        id: 1
-                        product_id: 1
+                        id: 3046
+                        product_id: 28
                         sku: REF-2083-jk
                         product_name: 'Motor trifásico 4189 HP'
                         unit: unidad
@@ -2319,7 +2319,7 @@ paths:
                         to_status: pending_payment
                         to_status_label: 'Pendiente de pago'
                         note: null
-                        created_at: '2026-10-25T05:22:55.000000Z'
+                        created_at: '2026-10-25T17:23:26.000000Z'
                 properties:
                   data:
                     type: object
@@ -2396,13 +2396,13 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-10-25T05:22:55.000000Z'
+                        example: '2026-10-25T17:23:26.000000Z'
                       items:
                         type: array
                         example:
                           -
-                            id: 1
-                            product_id: 1
+                            id: 3046
+                            product_id: 28
                             sku: REF-2083-jk
                             product_name: 'Motor trifásico 4189 HP'
                             unit: unidad
@@ -2416,10 +2416,10 @@ paths:
                           properties:
                             id:
                               type: integer
-                              example: 1
+                              example: 3046
                             product_id:
                               type: integer
-                              example: 1
+                              example: 28
                             sku:
                               type: string
                               example: REF-2083-jk
@@ -2453,7 +2453,7 @@ paths:
                             to_status: pending_payment
                             to_status_label: 'Pendiente de pago'
                             note: null
-                            created_at: '2026-10-25T05:22:55.000000Z'
+                            created_at: '2026-10-25T17:23:26.000000Z'
                         items:
                           type: object
                           properties:
@@ -2473,7 +2473,7 @@ paths:
                               nullable: true
                             created_at:
                               type: string
-                              example: '2026-10-25T05:22:55.000000Z'
+                              example: '2026-10-25T17:23:26.000000Z'
       tags:
         - 'Pedidos y cotizaciones (cliente)'
     parameters:
@@ -2522,11 +2522,11 @@ paths:
                     notes: null
                     expires_at: null
                     paid_at: null
-                    created_at: '2026-10-25T05:22:55.000000Z'
+                    created_at: '2026-10-25T17:23:26.000000Z'
                     items:
                       -
-                        id: 1
-                        product_id: 1
+                        id: 3047
+                        product_id: 29
                         sku: REF-0782-pp
                         product_name: 'Motor trifásico 5685 HP'
                         unit: unidad
@@ -2541,7 +2541,7 @@ paths:
                         to_status: pending_payment
                         to_status_label: 'Pendiente de pago'
                         note: null
-                        created_at: '2026-10-25T05:22:55.000000Z'
+                        created_at: '2026-10-25T17:23:26.000000Z'
                 properties:
                   data:
                     type: object
@@ -2618,13 +2618,13 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-10-25T05:22:55.000000Z'
+                        example: '2026-10-25T17:23:26.000000Z'
                       items:
                         type: array
                         example:
                           -
-                            id: 1
-                            product_id: 1
+                            id: 3047
+                            product_id: 29
                             sku: REF-0782-pp
                             product_name: 'Motor trifásico 5685 HP'
                             unit: unidad
@@ -2638,10 +2638,10 @@ paths:
                           properties:
                             id:
                               type: integer
-                              example: 1
+                              example: 3047
                             product_id:
                               type: integer
-                              example: 1
+                              example: 29
                             sku:
                               type: string
                               example: REF-0782-pp
@@ -2675,7 +2675,7 @@ paths:
                             to_status: pending_payment
                             to_status_label: 'Pendiente de pago'
                             note: null
-                            created_at: '2026-10-25T05:22:55.000000Z'
+                            created_at: '2026-10-25T17:23:26.000000Z'
                         items:
                           type: object
                           properties:
@@ -2695,7 +2695,7 @@ paths:
                               nullable: true
                             created_at:
                               type: string
-                              example: '2026-10-25T05:22:55.000000Z'
+                              example: '2026-10-25T17:23:26.000000Z'
         422:
           description: 'Estado que no permite cancelar'
           content:
@@ -2805,7 +2805,7 @@ paths:
                 example:
                   data:
                     -
-                      id: 1
+                      id: 30
                       sku: REF-9365-mi
                       name: 'Motor trifásico 4027 HP'
                       slug: motor-trifasico-4027-hp
@@ -2813,8 +2813,8 @@ paths:
                       description: null
                       image_url: null
                       specs:
-                        potencia_hp: 10
                         voltaje_v: 220
+                        potencia_hp: 10
                       unit: unidad
                       unit_label: Unidad
                       price: 3636000
@@ -2825,20 +2825,20 @@ paths:
                       sale_mode_label: 'Venta directa'
                       is_featured: false
                       category:
-                        id: 1
+                        id: 36
                         name: 'Perspiciatis quo'
                         slug: perspiciatis-quo
                       brand:
-                        id: 1
+                        id: 19
                         name: 'Empresa Domínguez e Hijo'
                         slug: empresa-dominguez-e-hijo
                         logo_url: null
                       is_active: true
-                      created_at: '2026-10-25T05:22:55.000000Z'
-                      updated_at: '2026-10-25T05:22:55.000000Z'
+                      created_at: '2026-10-25T17:23:26.000000Z'
+                      updated_at: '2026-10-25T17:23:26.000000Z'
                       deleted_at: null
                     -
-                      id: 2
+                      id: 31
                       sku: REF-0719-qw
                       name: 'Motor trifásico 8015 HP'
                       slug: motor-trifasico-8015-hp
@@ -2846,8 +2846,8 @@ paths:
                       description: null
                       image_url: null
                       specs:
-                        potencia_hp: 5
                         voltaje_v: 220
+                        potencia_hp: 5
                       unit: unidad
                       unit_label: Unidad
                       price: 2841000
@@ -2858,17 +2858,17 @@ paths:
                       sale_mode_label: 'Venta directa'
                       is_featured: false
                       category:
-                        id: 2
+                        id: 37
                         name: 'Dolores enim'
                         slug: dolores-enim
                       brand:
-                        id: 2
+                        id: 20
                         name: 'Casanova y Almonte y Asoc.'
                         slug: casanova-y-almonte-y-asoc
                         logo_url: null
                       is_active: true
-                      created_at: '2026-10-25T05:22:55.000000Z'
-                      updated_at: '2026-10-25T05:22:55.000000Z'
+                      created_at: '2026-10-25T17:23:26.000000Z'
+                      updated_at: '2026-10-25T17:23:26.000000Z'
                       deleted_at: null
                   links:
                     first: '/?page=1'
@@ -2904,7 +2904,7 @@ paths:
                     type: array
                     example:
                       -
-                        id: 1
+                        id: 30
                         sku: REF-9365-mi
                         name: 'Motor trifásico 4027 HP'
                         slug: motor-trifasico-4027-hp
@@ -2912,8 +2912,8 @@ paths:
                         description: null
                         image_url: null
                         specs:
-                          potencia_hp: 10
                           voltaje_v: 220
+                          potencia_hp: 10
                         unit: unidad
                         unit_label: Unidad
                         price: 3636000
@@ -2924,20 +2924,20 @@ paths:
                         sale_mode_label: 'Venta directa'
                         is_featured: false
                         category:
-                          id: 1
+                          id: 36
                           name: 'Perspiciatis quo'
                           slug: perspiciatis-quo
                         brand:
-                          id: 1
+                          id: 19
                           name: 'Empresa Domínguez e Hijo'
                           slug: empresa-dominguez-e-hijo
                           logo_url: null
                         is_active: true
-                        created_at: '2026-10-25T05:22:55.000000Z'
-                        updated_at: '2026-10-25T05:22:55.000000Z'
+                        created_at: '2026-10-25T17:23:26.000000Z'
+                        updated_at: '2026-10-25T17:23:26.000000Z'
                         deleted_at: null
                       -
-                        id: 2
+                        id: 31
                         sku: REF-0719-qw
                         name: 'Motor trifásico 8015 HP'
                         slug: motor-trifasico-8015-hp
@@ -2945,8 +2945,8 @@ paths:
                         description: null
                         image_url: null
                         specs:
-                          potencia_hp: 5
                           voltaje_v: 220
+                          potencia_hp: 5
                         unit: unidad
                         unit_label: Unidad
                         price: 2841000
@@ -2957,24 +2957,24 @@ paths:
                         sale_mode_label: 'Venta directa'
                         is_featured: false
                         category:
-                          id: 2
+                          id: 37
                           name: 'Dolores enim'
                           slug: dolores-enim
                         brand:
-                          id: 2
+                          id: 20
                           name: 'Casanova y Almonte y Asoc.'
                           slug: casanova-y-almonte-y-asoc
                           logo_url: null
                         is_active: true
-                        created_at: '2026-10-25T05:22:55.000000Z'
-                        updated_at: '2026-10-25T05:22:55.000000Z'
+                        created_at: '2026-10-25T17:23:26.000000Z'
+                        updated_at: '2026-10-25T17:23:26.000000Z'
                         deleted_at: null
                     items:
                       type: object
                       properties:
                         id:
                           type: integer
-                          example: 1
+                          example: 30
                         sku:
                           type: string
                           example: REF-9365-mi
@@ -2998,12 +2998,12 @@ paths:
                         specs:
                           type: object
                           properties:
-                            potencia_hp:
-                              type: integer
-                              example: 10
                             voltaje_v:
                               type: integer
                               example: 220
+                            potencia_hp:
+                              type: integer
+                              example: 10
                         unit:
                           type: string
                           example: unidad
@@ -3036,7 +3036,7 @@ paths:
                           properties:
                             id:
                               type: integer
-                              example: 1
+                              example: 36
                             name:
                               type: string
                               example: 'Perspiciatis quo'
@@ -3048,7 +3048,7 @@ paths:
                           properties:
                             id:
                               type: integer
-                              example: 1
+                              example: 19
                             name:
                               type: string
                               example: 'Empresa Domínguez e Hijo'
@@ -3064,10 +3064,10 @@ paths:
                           example: true
                         created_at:
                           type: string
-                          example: '2026-10-25T05:22:55.000000Z'
+                          example: '2026-10-25T17:23:26.000000Z'
                         updated_at:
                           type: string
-                          example: '2026-10-25T05:22:55.000000Z'
+                          example: '2026-10-25T17:23:26.000000Z'
                         deleted_at:
                           type: string
                           example: null
@@ -3181,7 +3181,7 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 1
+                    id: 32
                     sku: REF-7432-uw
                     name: 'Motor trifásico 7195 HP'
                     slug: motor-trifasico-7195-hp
@@ -3189,8 +3189,8 @@ paths:
                     description: null
                     image_url: null
                     specs:
-                      potencia_hp: 5
                       voltaje_v: 220
+                      potencia_hp: 5
                     unit: unidad
                     unit_label: Unidad
                     price: 1302000
@@ -3201,17 +3201,17 @@ paths:
                     sale_mode_label: 'Venta directa'
                     is_featured: false
                     category:
-                      id: 1
+                      id: 38
                       name: 'Nostrum omnis'
                       slug: nostrum-omnis
                     brand:
-                      id: 1
+                      id: 21
                       name: 'Asociación Jaramillo e Hija'
                       slug: asociacion-jaramillo-e-hija
                       logo_url: null
                     is_active: true
-                    created_at: '2026-10-25T05:22:55.000000Z'
-                    updated_at: '2026-10-25T05:22:55.000000Z'
+                    created_at: '2026-10-25T17:23:26.000000Z'
+                    updated_at: '2026-10-25T17:23:26.000000Z'
                     deleted_at: null
                 properties:
                   data:
@@ -3219,7 +3219,7 @@ paths:
                     properties:
                       id:
                         type: integer
-                        example: 1
+                        example: 32
                       sku:
                         type: string
                         example: REF-7432-uw
@@ -3243,12 +3243,12 @@ paths:
                       specs:
                         type: object
                         properties:
-                          potencia_hp:
-                            type: integer
-                            example: 5
                           voltaje_v:
                             type: integer
                             example: 220
+                          potencia_hp:
+                            type: integer
+                            example: 5
                       unit:
                         type: string
                         example: unidad
@@ -3281,7 +3281,7 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 1
+                            example: 38
                           name:
                             type: string
                             example: 'Nostrum omnis'
@@ -3293,7 +3293,7 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 1
+                            example: 21
                           name:
                             type: string
                             example: 'Asociación Jaramillo e Hija'
@@ -3309,10 +3309,10 @@ paths:
                         example: true
                       created_at:
                         type: string
-                        example: '2026-10-25T05:22:55.000000Z'
+                        example: '2026-10-25T17:23:26.000000Z'
                       updated_at:
                         type: string
-                        example: '2026-10-25T05:22:55.000000Z'
+                        example: '2026-10-25T17:23:26.000000Z'
                       deleted_at:
                         type: string
                         example: null
@@ -3433,7 +3433,7 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 1
+                    id: 33
                     sku: REF-3724-pw
                     name: 'Motor trifásico 2878 HP'
                     slug: motor-trifasico-2878-hp
@@ -3441,8 +3441,8 @@ paths:
                     description: 'Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.'
                     image_url: null
                     specs:
-                      potencia_hp: 10
                       voltaje_v: 440
+                      potencia_hp: 10
                     unit: unidad
                     unit_label: Unidad
                     price: 1487000
@@ -3453,17 +3453,17 @@ paths:
                     sale_mode_label: 'Venta directa'
                     is_featured: false
                     category:
-                      id: 1
+                      id: 39
                       name: 'Aliquam veniam'
                       slug: aliquam-veniam
                     brand:
-                      id: 1
+                      id: 22
                       name: 'Cabán de Llorente S. de H.'
                       slug: caban-de-llorente-s-de-h
                       logo_url: null
                     is_active: true
-                    created_at: '2026-10-25T05:22:55.000000Z'
-                    updated_at: '2026-10-25T05:22:55.000000Z'
+                    created_at: '2026-10-25T17:23:26.000000Z'
+                    updated_at: '2026-10-25T17:23:26.000000Z'
                     deleted_at: null
                 properties:
                   data:
@@ -3471,7 +3471,7 @@ paths:
                     properties:
                       id:
                         type: integer
-                        example: 1
+                        example: 33
                       sku:
                         type: string
                         example: REF-3724-pw
@@ -3494,12 +3494,12 @@ paths:
                       specs:
                         type: object
                         properties:
-                          potencia_hp:
-                            type: integer
-                            example: 10
                           voltaje_v:
                             type: integer
                             example: 440
+                          potencia_hp:
+                            type: integer
+                            example: 10
                       unit:
                         type: string
                         example: unidad
@@ -3532,7 +3532,7 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 1
+                            example: 39
                           name:
                             type: string
                             example: 'Aliquam veniam'
@@ -3544,7 +3544,7 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 1
+                            example: 22
                           name:
                             type: string
                             example: 'Cabán de Llorente S. de H.'
@@ -3560,10 +3560,10 @@ paths:
                         example: true
                       created_at:
                         type: string
-                        example: '2026-10-25T05:22:55.000000Z'
+                        example: '2026-10-25T17:23:26.000000Z'
                       updated_at:
                         type: string
-                        example: '2026-10-25T05:22:55.000000Z'
+                        example: '2026-10-25T17:23:26.000000Z'
                       deleted_at:
                         type: string
                         example: null
@@ -3584,7 +3584,7 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 1
+                    id: 34
                     sku: REF-7680-wp
                     name: 'Motor trifásico 2977 HP'
                     slug: motor-trifasico-2977-hp
@@ -3592,8 +3592,8 @@ paths:
                     description: 'Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.'
                     image_url: null
                     specs:
-                      potencia_hp: 10
                       voltaje_v: 440
+                      potencia_hp: 10
                     unit: unidad
                     unit_label: Unidad
                     price: 1487000
@@ -3604,17 +3604,17 @@ paths:
                     sale_mode_label: 'Venta directa'
                     is_featured: false
                     category:
-                      id: 1
+                      id: 40
                       name: 'Corporis dolorem'
                       slug: corporis-dolorem
                     brand:
-                      id: 1
+                      id: 23
                       name: 'Marroquín, Ramírez y Chapa SRL'
                       slug: marroquin-ramirez-y-chapa-srl
                       logo_url: null
                     is_active: true
-                    created_at: '2026-10-25T05:22:55.000000Z'
-                    updated_at: '2026-10-25T05:22:55.000000Z'
+                    created_at: '2026-10-25T17:23:26.000000Z'
+                    updated_at: '2026-10-25T17:23:26.000000Z'
                     deleted_at: null
                 properties:
                   data:
@@ -3622,7 +3622,7 @@ paths:
                     properties:
                       id:
                         type: integer
-                        example: 1
+                        example: 34
                       sku:
                         type: string
                         example: REF-7680-wp
@@ -3645,12 +3645,12 @@ paths:
                       specs:
                         type: object
                         properties:
-                          potencia_hp:
-                            type: integer
-                            example: 10
                           voltaje_v:
                             type: integer
                             example: 440
+                          potencia_hp:
+                            type: integer
+                            example: 10
                       unit:
                         type: string
                         example: unidad
@@ -3683,7 +3683,7 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 1
+                            example: 40
                           name:
                             type: string
                             example: 'Corporis dolorem'
@@ -3695,7 +3695,7 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 1
+                            example: 23
                           name:
                             type: string
                             example: 'Marroquín, Ramírez y Chapa SRL'
@@ -3711,10 +3711,10 @@ paths:
                         example: true
                       created_at:
                         type: string
-                        example: '2026-10-25T05:22:55.000000Z'
+                        example: '2026-10-25T17:23:26.000000Z'
                       updated_at:
                         type: string
-                        example: '2026-10-25T05:22:55.000000Z'
+                        example: '2026-10-25T17:23:26.000000Z'
                       deleted_at:
                         type: string
                         example: null
@@ -3787,11 +3787,11 @@ paths:
                 is_active:
                   type: boolean
                   description: ''
-                  example: false
+                  example: true
                 is_featured:
                   type: boolean
                   description: ''
-                  example: true
+                  example: false
                 specs:
                   type: array
                   description: 'El campo value no puede tener más de 30 elementos.'
@@ -3841,7 +3841,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the product.'
-        example: 16
+        example: 1
         required: true
         schema:
           type: integer
