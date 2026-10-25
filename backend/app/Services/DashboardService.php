@@ -24,10 +24,10 @@ class DashboardService
     public const DAILY_CHART_DAYS = 7;
 
     /** Un producto con este stock o menos aparece en "Stock bajo". */
-    public const LOW_STOCK_THRESHOLD = 5;
+    public const LOW_STOCK_THRESHOLD = ProductService::LOW_STOCK_THRESHOLD;
 
-    /** Productos que lista la tarjeta "Stock bajo". */
-    public const LOW_STOCK_LIST_SIZE = 8;
+    /** Productos que lista la tarjeta "Stock bajo" (el resto está en "Ver todos"). */
+    public const LOW_STOCK_LIST_SIZE = 5;
 
     public function __construct(private readonly DashboardRepository $repository) {}
 

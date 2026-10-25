@@ -38,7 +38,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::middleware('role:admin')->group(function () {
             Route::resource('categories', CategoryController::class)->except('show');
             Route::resource('brands', BrandController::class)->except('show');
-            Route::resource('products', ProductController::class)->only(['index', 'show']);
+            Route::resource('products', ProductController::class);
+            // Los productos eliminados (borrado lógico) no los resuelve la ruta sin withTrashed
+            Route::patch('products/{product}/restore', [ProductController::class, 'restore'])
+                ->withTrashed()->name('products.restore');
         });
     });
 });

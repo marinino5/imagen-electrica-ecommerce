@@ -5,11 +5,13 @@ import 'bootstrap';
 import { initConfirmForms } from './panel/confirm';
 import { initLoginForm } from './panel/login';
 import { initSidebar } from './panel/sidebar';
+import { initSpecsEditor } from './panel/specs-editor';
 import { initToasts } from './panel/toasts';
 
 initSidebar();
 initToasts();
 initConfirmForms();
+initSpecsEditor();
 initLoginForm();
 
 // Chart.js solo se descarga en las páginas que tienen gráficos.
