@@ -14,6 +14,7 @@ use App\Models\User;
 use App\Repositories\OrderRepository;
 use App\Services\OrderService;
 use Carbon\CarbonImmutable;
+use Database\Seeders\Concerns\SeedsUsers;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use RuntimeException;
@@ -33,6 +34,8 @@ use RuntimeException;
  */
 class DemoSeeder extends Seeder
 {
+    use SeedsUsers;
+
     private const EMAIL_DOMAIN = 'demo.imagenelectrica.test';
 
     private const SEED = 20261024;
@@ -142,11 +145,7 @@ class DemoSeeder extends Seeder
 
     private function createCustomers(): void
     {
-        $password = config('app.seed.customer_password');
-
-        if (blank($password)) {
-            throw new RuntimeException('Falta definir SEED_CUSTOMER_PASSWORD en el archivo .env');
-        }
+        $password = $this->seedPassword('customer_password');
 
         // Los dos clientes del seeder base también compran
         $existing = Customer::orderBy('id')->get();
@@ -156,8 +155,7 @@ class DemoSeeder extends Seeder
         }
 
         foreach (self::COMPANIES as $i => [$company, $contact, $city, $weight]) {
-            $user = new User(['name' => $contact, 'email' => 'cliente'.($i + 1).'@'.self::EMAIL_DOMAIN, 'password' => $password]);
-            $user->forceFill(['role' => UserRole::Cliente, 'is_active' => true, 'email_verified_at' => now()])->save();
+            $user = $this->seedUser($contact, 'cliente'.($i + 1).'@'.self::EMAIL_DOMAIN, $password, UserRole::Cliente);
 
             $this->customers[] = $user->customer()->create([
                 'company_name' => $company,
