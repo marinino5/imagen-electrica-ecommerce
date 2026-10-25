@@ -1,0 +1,24 @@
+# Base de datos local para desarrollo. Laravel corre en la máquina con `php artisan serve`.
+# Los datos de conexión se leen del .env (mismas variables que usa Laravel).
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: imagen_electrica_mysql
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:?Configurar DB_DATABASE en .env}
+      MYSQL_USER: ${DB_USERNAME:?Configurar DB_USERNAME en .env}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?Configurar DB_PASSWORD en .env}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:?Configurar DB_PASSWORD en .env}
+      TZ: America/Bogota
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  mysql_data:
