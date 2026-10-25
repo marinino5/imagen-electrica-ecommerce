@@ -3,6 +3,7 @@
 namespace Tests\Feature\Admin;
 
 use App\Enums\OrderStatus;
+use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -72,6 +73,24 @@ class OrderPanelTest extends TestCase
             $this->actingAs($this->staff())->get(route('admin.orders.index', ['q' => $term]))
                 ->assertViewHas('orders', fn ($page) => $page->total() === 1);
         }
+    }
+
+    public function test_panel_shows_the_customer_type_for_companies_and_natural_people(): void
+    {
+        $company = Order::factory()->create();
+        $natural = Order::factory()->create(['customer_id' => Customer::factory()->natural(false)->create(['contact_name' => 'Sergio Pardo'])->id]);
+
+        $this->actingAs($this->staff())->get(route('admin.orders.index'))
+            ->assertOk()
+            ->assertSee($company->company_name)
+            ->assertSee('Sergio Pardo')
+            ->assertSee('Persona natural');
+
+        $this->actingAs($this->staff())->get(route('admin.orders.show', $company))
+            ->assertOk()->assertSee('Empresa')->assertSee('NIT '.$company->nit);
+
+        $this->actingAs($this->staff())->get(route('admin.orders.show', $natural))
+            ->assertOk()->assertSee('Persona natural')->assertDontSee('NIT');
     }
 
     public function test_show_displays_customer_items_and_history(): void

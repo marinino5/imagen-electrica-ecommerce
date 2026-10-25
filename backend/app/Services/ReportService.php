@@ -217,7 +217,7 @@ class ReportService
 
         $rows[] = [];
         $rows[] = ['Mejores clientes'];
-        $rows[] = ['NIT', 'Empresa', 'Pedidos', 'Comprado (COP)'];
+        $rows[] = ['NIT / cédula', 'Cliente', 'Pedidos', 'Comprado (COP)'];
         foreach ($report['tables']['top_customers'] as $row) {
             $rows[] = [$this->text($row->nit), $this->text($row->company), $row->orders, (int) round($row->total)];
         }

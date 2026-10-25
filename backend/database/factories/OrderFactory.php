@@ -26,6 +26,7 @@ class OrderFactory extends Factory
             'customer_id' => Customer::factory(),
             'assigned_to' => null,
             'quote_id' => null,
+            'customer_type' => fn (array $attributes) => Customer::find($attributes['customer_id'])->type,
             'company_name' => fn (array $attributes) => Customer::find($attributes['customer_id'])->company_name,
             'nit' => fn (array $attributes) => Customer::find($attributes['customer_id'])->nit,
             'contact_name' => fn (array $attributes) => Customer::find($attributes['customer_id'])->contact_name,

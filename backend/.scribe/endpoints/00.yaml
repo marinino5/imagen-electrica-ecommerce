@@ -56,7 +56,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":[{"id":25,"parent_id":null,"name":"Et animi","slug":"et-animi","description":"Et fugiat sunt nihil accusantium.","image_url":null},{"id":26,"parent_id":null,"name":"Mollitia modi","slug":"mollitia-modi","description":null,"image_url":null}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"pagination.previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"pagination.next","page":null,"active":false}],"path":"\/","per_page":50,"to":2,"total":2}}'
+        content: '{"data":[{"id":57,"parent_id":null,"name":"Et animi","slug":"et-animi","description":"Et fugiat sunt nihil accusantium.","image_url":null},{"id":58,"parent_id":null,"name":"Mollitia modi","slug":"mollitia-modi","description":null,"image_url":null}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"pagination.previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"pagination.next","page":null,"active":false}],"path":"\/","per_page":50,"to":2,"total":2}}'
         headers: []
         description: ''
     responseFields: []
@@ -117,7 +117,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":[{"id":8,"name":"Llorente, Aguirre y Sierra e Hijo","slug":"llorente-aguirre-y-sierra-e-hijo","logo_url":null},{"id":9,"name":"Lim\u00f3n de Uribe S. de H.","slug":"limon-de-uribe-s-de-h","logo_url":null}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"pagination.previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"pagination.next","page":null,"active":false}],"path":"\/","per_page":50,"to":2,"total":2}}'
+        content: '{"data":[{"id":40,"name":"Llorente, Aguirre y Sierra e Hijo","slug":"llorente-aguirre-y-sierra-e-hijo","logo_url":null},{"id":41,"name":"Lim\u00f3n de Uribe S. de H.","slug":"limon-de-uribe-s-de-h","logo_url":null}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"pagination.previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"pagination.next","page":null,"active":false}],"path":"\/","per_page":50,"to":2,"total":2}}'
         headers: []
         description: ''
     responseFields: []
@@ -225,7 +225,7 @@ endpoints:
         name: sale_mode
         description: ''
         required: false
-        example: quote
+        example: direct
         type: string
         enumValues:
           - direct
@@ -261,7 +261,7 @@ endpoints:
         name: sort
         description: ''
         required: false
-        example: newest
+        example: price_asc
         type: string
         enumValues:
           - name
@@ -286,17 +286,17 @@ endpoints:
       q: b
       category: 'n'
       brand: g
-      sale_mode: quote
+      sale_mode: direct
       featured: false
       in_stock: false
-      sort: newest
+      sort: price_asc
       per_page: 16
     fileParameters: []
     responses:
       -
         custom: []
         status: 200
-        content: '{"data":[{"id":21,"sku":"REF-0564-yv","name":"Motor trif\u00e1sico 4338 HP","slug":"motor-trifasico-4338-hp","short_description":"Nihil accusantium harum mollitia modi deserunt.","description":"Perspiciatis quo omnis nostrum aut adipisci quidem nostrum qui. Incidunt iure odit et et modi ipsum. Omnis autem et consequatur. Dolores enim non facere tempora.","image_url":null,"specs":{"voltaje_v":220,"potencia_hp":10},"unit":"unidad","unit_label":"Unidad","price":3775000,"tax_rate":19,"stock":7,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":27,"name":"Quis adipisci","slug":"quis-adipisci"},"brand":{"id":10,"name":"Global Guardado y Asoc.","slug":"global-guardado-y-asoc","logo_url":null}},{"id":22,"sku":"REF-7788-qb","name":"Motor trif\u00e1sico 9148 HP","slug":"motor-trifasico-9148-hp","short_description":"Corporis dolorem mollitia deleniti nemo odit quia officia.","description":"Blanditiis odio veritatis excepturi doloribus delectus fugit. Repudiandae laboriosam est alias tenetur ratione. Voluptate accusamus ut et recusandae. Rerum ex repellendus assumenda et.","image_url":null,"specs":{"voltaje_v":440,"potencia_hp":5},"unit":"unidad","unit_label":"Unidad","price":1181000,"tax_rate":19,"stock":10,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":28,"name":"Perspiciatis deserunt","slug":"perspiciatis-deserunt"},"brand":{"id":11,"name":"Grupo Arias-Chac\u00f3n","slug":"grupo-arias-chacon","logo_url":null}}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"pagination.previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"pagination.next","page":null,"active":false}],"path":"\/","per_page":12,"to":2,"total":2}}'
+        content: '{"data":[{"id":49,"sku":"REF-0564-yv","name":"Motor trif\u00e1sico 4338 HP","slug":"motor-trifasico-4338-hp","short_description":"Nihil accusantium harum mollitia modi deserunt.","description":"Perspiciatis quo omnis nostrum aut adipisci quidem nostrum qui. Incidunt iure odit et et modi ipsum. Omnis autem et consequatur. Dolores enim non facere tempora.","image_url":null,"specs":{"voltaje_v":220,"potencia_hp":10},"unit":"unidad","unit_label":"Unidad","price":3775000,"tax_rate":19,"stock":7,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":59,"name":"Quis adipisci","slug":"quis-adipisci"},"brand":{"id":42,"name":"Global Guardado y Asoc.","slug":"global-guardado-y-asoc","logo_url":null}},{"id":50,"sku":"REF-7788-qb","name":"Motor trif\u00e1sico 9148 HP","slug":"motor-trifasico-9148-hp","short_description":"Corporis dolorem mollitia deleniti nemo odit quia officia.","description":"Blanditiis odio veritatis excepturi doloribus delectus fugit. Repudiandae laboriosam est alias tenetur ratione. Voluptate accusamus ut et recusandae. Rerum ex repellendus assumenda et.","image_url":null,"specs":{"voltaje_v":440,"potencia_hp":5},"unit":"unidad","unit_label":"Unidad","price":1181000,"tax_rate":19,"stock":10,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":60,"name":"Perspiciatis deserunt","slug":"perspiciatis-deserunt"},"brand":{"id":43,"name":"Grupo Arias-Chac\u00f3n","slug":"grupo-arias-chacon","logo_url":null}}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"pagination.previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"pagination.next","page":null,"active":false}],"path":"\/","per_page":12,"to":2,"total":2}}'
         headers: []
         description: ''
     responseFields: []
@@ -345,7 +345,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":23,"sku":"REF-0057-nb","name":"Motor trif\u00e1sico 7075 HP","slug":"motor-trifasico-7075-hp","short_description":"Impedit molestiae ut rem est esse.","description":"Sunt suscipit doloribus fugiat ut aut deserunt et. Neque recusandae et ipsam dolorem et ut dicta. Assumenda consequatur ut et sunt quisquam. Repellendus ut eaque alias ratione dolores.","image_url":null,"specs":{"voltaje_v":220,"potencia_hp":1},"unit":"unidad","unit_label":"Unidad","price":1957000,"tax_rate":19,"stock":7,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":29,"name":"Aut deserunt","slug":"aut-deserunt"},"brand":{"id":12,"name":"Nieto y Rico","slug":"nieto-y-rico","logo_url":null}}}'
+        content: '{"data":{"id":51,"sku":"REF-0057-nb","name":"Motor trif\u00e1sico 7075 HP","slug":"motor-trifasico-7075-hp","short_description":"Impedit molestiae ut rem est esse.","description":"Sunt suscipit doloribus fugiat ut aut deserunt et. Neque recusandae et ipsam dolorem et ut dicta. Assumenda consequatur ut et sunt quisquam. Repellendus ut eaque alias ratione dolores.","image_url":null,"specs":{"voltaje_v":220,"potencia_hp":1},"unit":"unidad","unit_label":"Unidad","price":1957000,"tax_rate":19,"stock":7,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":61,"name":"Aut deserunt","slug":"aut-deserunt"},"brand":{"id":44,"name":"Nieto y Rico","slug":"nieto-y-rico","logo_url":null}}}'
         headers: []
         description: ''
     responseFields: []

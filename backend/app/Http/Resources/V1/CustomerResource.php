@@ -13,6 +13,8 @@ class CustomerResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'type' => $this->type->value,
+            'type_label' => $this->type->label(),
             'company_name' => $this->company_name,
             'nit' => $this->nit,
             'contact_name' => $this->contact_name,

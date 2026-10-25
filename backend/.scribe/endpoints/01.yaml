@@ -14,7 +14,7 @@ endpoints:
       subgroupDescription: ''
       title: 'Registrar cliente'
       description: |-
-        Crea la cuenta (rol cliente) con los datos de su empresa y devuelve un token listo
+        Crea la cuenta (rol cliente) como empresa o persona natural y devuelve un token listo
         para usar. Aceptar la política de datos es obligatorio; el marketing es opcional.
         Máximo 5 intentos por minuto.
       authenticated: false
@@ -60,27 +60,38 @@ endpoints:
         exampleWasSpecified: true
         nullable: false
         deprecated: false
-      company_name:
+      type:
         custom: []
-        name: company_name
-        description: 'Razón social.'
-        required: true
-        example: 'Constructora Altos S.A.S.'
+        name: type
+        description: 'Tipo de cliente: `company` (empresa, por defecto) o `natural` (persona natural).'
+        required: false
+        example: company
         type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         deprecated: false
+      company_name:
+        custom: []
+        name: company_name
+        description: 'Razón social. Obligatoria si type es company; se ignora si es natural.'
+        required: false
+        example: 'Constructora Altos S.A.S.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
       nit:
         custom: []
         name: nit
-        description: 'NIT (único).'
-        required: true
+        description: 'NIT (único). Obligatorio si type es company; en persona natural es la cédula y es opcional.'
+        required: false
         example: 900765432-8
         type: string
         enumValues: []
         exampleWasSpecified: true
-        nullable: false
+        nullable: true
         deprecated: false
       phone:
         custom: []
@@ -141,6 +152,7 @@ endpoints:
       name: 'Laura Gómez'
       email: laura@constructoraaltos.test
       password: ClaveSegura2026
+      type: company
       company_name: 'Constructora Altos S.A.S.'
       nit: 900765432-8
       phone: '315 555 0202'
@@ -153,7 +165,7 @@ endpoints:
       -
         custom: []
         status: 201
-        content: '{"data":{"id":5,"name":"Laura Gómez","email":"laura@constructoraaltos.test","role":"cliente","customer":{"company_name":"Constructora Altos S.A.S.","nit":"900765432-8","contact_name":"Laura Gómez","phone":"315 555 0202","city":"Bucaramanga","address":null,"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T15:00:00.000000Z"}},"token":"1|abc123...","token_type":"Bearer"}'
+        content: '{"data":{"id":5,"name":"Laura Gómez","email":"laura@constructoraaltos.test","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Constructora Altos S.A.S.","nit":"900765432-8","contact_name":"Laura Gómez","phone":"315 555 0202","city":"Bucaramanga","address":null,"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T15:00:00.000000Z"}},"token":"1|abc123...","token_type":"Bearer"}'
         headers: []
         description: 'Cuenta creada'
     responseFields: []
@@ -217,7 +229,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":5,"name":"Laura Gómez","email":"laura@constructoraaltos.test","role":"cliente","customer":{"company_name":"Constructora Altos S.A.S.","nit":"900765432-8","contact_name":"Laura Gómez","phone":"315 555 0202","city":"Bucaramanga","address":null,"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T15:00:00.000000Z"}},"token":"2|xyz789...","token_type":"Bearer"}'
+        content: '{"data":{"id":5,"name":"Laura Gómez","email":"laura@constructoraaltos.test","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Constructora Altos S.A.S.","nit":"900765432-8","contact_name":"Laura Gómez","phone":"315 555 0202","city":"Bucaramanga","address":null,"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T15:00:00.000000Z"}},"token":"2|xyz789...","token_type":"Bearer"}'
         headers: []
         description: 'Sesión iniciada'
       -

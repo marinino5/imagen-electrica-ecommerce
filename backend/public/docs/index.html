@@ -198,7 +198,7 @@
 <p>
 </p>
 
-<p>Crea la cuenta (rol cliente) con los datos de su empresa y devuelve un token listo
+<p>Crea la cuenta (rol cliente) como empresa o persona natural y devuelve un token listo
 para usar. Aceptar la política de datos es obligatorio; el marketing es opcional.
 Máximo 5 intentos por minuto.</p>
 
@@ -215,6 +215,7 @@ Máximo 5 intentos por minuto.</p>
     \"name\": \"Laura Gómez\",
     \"email\": \"laura@constructoraaltos.test\",
     \"password\": \"ClaveSegura2026\",
+    \"type\": \"company\",
     \"company_name\": \"Constructora Altos S.A.S.\",
     \"nit\": \"900765432-8\",
     \"phone\": \"315 555 0202\",
@@ -240,6 +241,7 @@ let body = {
     "name": "Laura Gómez",
     "email": "laura@constructoraaltos.test",
     "password": "ClaveSegura2026",
+    "type": "company",
     "company_name": "Constructora Altos S.A.S.",
     "nit": "900765432-8",
     "phone": "315 555 0202",
@@ -270,6 +272,8 @@ fetch(url, {
         &quot;email&quot;: &quot;laura@constructoraaltos.test&quot;,
         &quot;role&quot;: &quot;cliente&quot;,
         &quot;customer&quot;: {
+            &quot;type&quot;: &quot;company&quot;,
+            &quot;type_label&quot;: &quot;Empresa&quot;,
             &quot;company_name&quot;: &quot;Constructora Altos S.A.S.&quot;,
             &quot;nit&quot;: &quot;900765432-8&quot;,
             &quot;contact_name&quot;: &quot;Laura G&oacute;mez&quot;,
@@ -395,28 +399,40 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Mínimo 8 caracteres. Example: <code>ClaveSegura2026</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>type</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="type"                data-endpoint="POSTapi-v1-register"
+               value="company"
+               data-component="body">
+    <br>
+<p>Tipo de cliente: <code>company</code> (empresa, por defecto) o <code>natural</code> (persona natural). Example: <code>company</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>company_name</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
- &nbsp;
+<i>optional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="company_name"                data-endpoint="POSTapi-v1-register"
                value="Constructora Altos S.A.S."
                data-component="body">
     <br>
-<p>Razón social. Example: <code>Constructora Altos S.A.S.</code></p>
+<p>Razón social. Obligatoria si type es company; se ignora si es natural. Example: <code>Constructora Altos S.A.S.</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>nit</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
- &nbsp;
+<i>optional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="nit"                data-endpoint="POSTapi-v1-register"
                value="900765432-8"
                data-component="body">
     <br>
-<p>NIT (único). Example: <code>900765432-8</code></p>
+<p>NIT (único). Obligatorio si type es company; en persona natural es la cédula y es opcional. Example: <code>900765432-8</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>phone</code></b>&nbsp;&nbsp;
@@ -561,6 +577,8 @@ fetch(url, {
         &quot;email&quot;: &quot;laura@constructoraaltos.test&quot;,
         &quot;role&quot;: &quot;cliente&quot;,
         &quot;customer&quot;: {
+            &quot;type&quot;: &quot;company&quot;,
+            &quot;type_label&quot;: &quot;Empresa&quot;,
             &quot;company_name&quot;: &quot;Constructora Altos S.A.S.&quot;,
             &quot;nit&quot;: &quot;900765432-8&quot;,
             &quot;contact_name&quot;: &quot;Laura G&oacute;mez&quot;,
@@ -876,7 +894,7 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 25,
+            &quot;id&quot;: 57,
             &quot;parent_id&quot;: null,
             &quot;name&quot;: &quot;Et animi&quot;,
             &quot;slug&quot;: &quot;et-animi&quot;,
@@ -884,7 +902,7 @@ fetch(url, {
             &quot;image_url&quot;: null
         },
         {
-            &quot;id&quot;: 26,
+            &quot;id&quot;: 58,
             &quot;parent_id&quot;: null,
             &quot;name&quot;: &quot;Mollitia modi&quot;,
             &quot;slug&quot;: &quot;mollitia-modi&quot;,
@@ -1083,13 +1101,13 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 8,
+            &quot;id&quot;: 40,
             &quot;name&quot;: &quot;Llorente, Aguirre y Sierra e Hijo&quot;,
             &quot;slug&quot;: &quot;llorente-aguirre-y-sierra-e-hijo&quot;,
             &quot;logo_url&quot;: null
         },
         {
-            &quot;id&quot;: 9,
+            &quot;id&quot;: 41,
             &quot;name&quot;: &quot;Lim&oacute;n de Uribe S. de H.&quot;,
             &quot;slug&quot;: &quot;limon-de-uribe-s-de-h&quot;,
             &quot;logo_url&quot;: null
@@ -1253,10 +1271,10 @@ solo se vende por cotización. No requiere token.</p>
     \"q\": \"b\",
     \"category\": \"n\",
     \"brand\": \"g\",
-    \"sale_mode\": \"quote\",
+    \"sale_mode\": \"direct\",
     \"featured\": false,
     \"in_stock\": false,
-    \"sort\": \"newest\",
+    \"sort\": \"price_asc\",
     \"per_page\": 16
 }"
 </code></pre></div>
@@ -1284,10 +1302,10 @@ let body = {
     "q": "b",
     "category": "n",
     "brand": "g",
-    "sale_mode": "quote",
+    "sale_mode": "direct",
     "featured": false,
     "in_stock": false,
-    "sort": "newest",
+    "sort": "price_asc",
     "per_page": 16
 };
 
@@ -1308,7 +1326,7 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 21,
+            &quot;id&quot;: 49,
             &quot;sku&quot;: &quot;REF-0564-yv&quot;,
             &quot;name&quot;: &quot;Motor trif&aacute;sico 4338 HP&quot;,
             &quot;slug&quot;: &quot;motor-trifasico-4338-hp&quot;,
@@ -1329,19 +1347,19 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 27,
+                &quot;id&quot;: 59,
                 &quot;name&quot;: &quot;Quis adipisci&quot;,
                 &quot;slug&quot;: &quot;quis-adipisci&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 10,
+                &quot;id&quot;: 42,
                 &quot;name&quot;: &quot;Global Guardado y Asoc.&quot;,
                 &quot;slug&quot;: &quot;global-guardado-y-asoc&quot;,
                 &quot;logo_url&quot;: null
             }
         },
         {
-            &quot;id&quot;: 22,
+            &quot;id&quot;: 50,
             &quot;sku&quot;: &quot;REF-7788-qb&quot;,
             &quot;name&quot;: &quot;Motor trif&aacute;sico 9148 HP&quot;,
             &quot;slug&quot;: &quot;motor-trifasico-9148-hp&quot;,
@@ -1362,12 +1380,12 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 28,
+                &quot;id&quot;: 60,
                 &quot;name&quot;: &quot;Perspiciatis deserunt&quot;,
                 &quot;slug&quot;: &quot;perspiciatis-deserunt&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 11,
+                &quot;id&quot;: 43,
                 &quot;name&quot;: &quot;Grupo Arias-Chac&oacute;n&quot;,
                 &quot;slug&quot;: &quot;grupo-arias-chacon&quot;,
                 &quot;logo_url&quot;: null
@@ -1564,10 +1582,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="sale_mode"                data-endpoint="GETapi-v1-products"
-               value="quote"
+               value="direct"
                data-component="body">
     <br>
-<p>Example: <code>quote</code></p>
+<p>Example: <code>direct</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>direct</code></li> <li><code>quote</code></li> <li><code>on_request</code></li></ul>
         </div>
@@ -1622,10 +1640,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="sort"                data-endpoint="GETapi-v1-products"
-               value="newest"
+               value="price_asc"
                data-component="body">
     <br>
-<p>Example: <code>newest</code></p>
+<p>Example: <code>price_asc</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>name</code></li> <li><code>newest</code></li> <li><code>price_asc</code></li> <li><code>price_desc</code></li></ul>
         </div>
@@ -1687,7 +1705,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 23,
+        &quot;id&quot;: 51,
         &quot;sku&quot;: &quot;REF-0057-nb&quot;,
         &quot;name&quot;: &quot;Motor trif&aacute;sico 7075 HP&quot;,
         &quot;slug&quot;: &quot;motor-trifasico-7075-hp&quot;,
@@ -1708,12 +1726,12 @@ fetch(url, {
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 29,
+            &quot;id&quot;: 61,
             &quot;name&quot;: &quot;Aut deserunt&quot;,
             &quot;slug&quot;: &quot;aut-deserunt&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 12,
+            &quot;id&quot;: 44,
             &quot;name&quot;: &quot;Nieto y Rico&quot;,
             &quot;slug&quot;: &quot;nieto-y-rico&quot;,
             &quot;logo_url&quot;: null
@@ -1859,11 +1877,13 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 21,
+        &quot;id&quot;: 20,
         &quot;name&quot;: &quot;Omar Dom&iacute;nguez&quot;,
         &quot;email&quot;: &quot;arredondo.juana@example.com&quot;,
         &quot;role&quot;: &quot;cliente&quot;,
         &quot;customer&quot;: {
+            &quot;type&quot;: &quot;company&quot;,
+            &quot;type_label&quot;: &quot;Empresa&quot;,
             &quot;company_name&quot;: &quot;Calero de Zamora S.A.S.&quot;,
             &quot;nit&quot;: &quot;990122162-7&quot;,
             &quot;contact_name&quot;: &quot;Sr. H&eacute;ctor Zelaya&quot;,
@@ -1872,7 +1892,7 @@ fetch(url, {
             &quot;address&quot;: &quot;Calle Elizondo, 54, 27&ordm; C&quot;,
             &quot;marketing_opt_in&quot;: false,
             &quot;marketing_opt_in_at&quot;: null,
-            &quot;privacy_accepted_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;
+            &quot;privacy_accepted_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;
         }
     }
 }</code>
@@ -1969,8 +1989,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>Cambia el nombre de contacto y los datos de la empresa. El correo y el NIT no se
-modifican desde aquí. Solo clientes.</p>
+<p>Cambia el nombre de contacto y los datos del cliente. El correo, el tipo y el NIT o cédula
+no se modifican desde aquí. Solo clientes.</p>
 
 <span id="example-requests-PUTapi-v1-me">
 <blockquote>Example request:</blockquote>
@@ -2029,11 +2049,13 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 22,
+        &quot;id&quot;: 21,
         &quot;name&quot;: &quot;Emilia Murillo&quot;,
         &quot;email&quot;: &quot;juribe@example.org&quot;,
         &quot;role&quot;: &quot;cliente&quot;,
         &quot;customer&quot;: {
+            &quot;type&quot;: &quot;company&quot;,
+            &quot;type_label&quot;: &quot;Empresa&quot;,
             &quot;company_name&quot;: &quot;Rivas y Sevilla SA S.A.S.&quot;,
             &quot;nit&quot;: &quot;968210674-8&quot;,
             &quot;contact_name&quot;: &quot;Adri&aacute;n Cavazos Hijo&quot;,
@@ -2042,7 +2064,7 @@ fetch(url, {
             &quot;address&quot;: &quot;Pla&ccedil;a Juana, 979, 27&ordm; A&quot;,
             &quot;marketing_opt_in&quot;: false,
             &quot;marketing_opt_in_at&quot;: null,
-            &quot;privacy_accepted_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;
+            &quot;privacy_accepted_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;
         }
     }
 }</code>
@@ -2147,14 +2169,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>company_name</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
- &nbsp;
+<i>optional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
                               name="company_name"                data-endpoint="PUTapi-v1-me"
                value="Constructora Altos S.A.S."
                data-component="body">
     <br>
-<p>Razón social. Example: <code>Constructora Altos S.A.S.</code></p>
+<p>Razón social. Obligatoria para empresas; las personas naturales no la tienen. Example: <code>Constructora Altos S.A.S.</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>phone</code></b>&nbsp;&nbsp;
@@ -2241,7 +2263,7 @@ muestra las de otros clientes.</p>
     --header "Accept: application/json" \
     --data "{
     \"type\": \"quote\",
-    \"status\": \"sent\",
+    \"status\": \"paid\",
     \"per_page\": 1
 }"
 </code></pre></div>
@@ -2268,7 +2290,7 @@ const headers = {
 
 let body = {
     "type": "quote",
-    "status": "sent",
+    "status": "paid",
     "per_page": 1
 };
 
@@ -2294,6 +2316,7 @@ fetch(url, {
             &quot;type_label&quot;: &quot;Pedido&quot;,
             &quot;status&quot;: &quot;pending_payment&quot;,
             &quot;status_label&quot;: &quot;Pendiente de pago&quot;,
+            &quot;customer_type&quot;: &quot;company&quot;,
             &quot;company_name&quot;: &quot;Aguirre de Sierra e Hijo S.A.S.&quot;,
             &quot;nit&quot;: &quot;931296562-5&quot;,
             &quot;contact_name&quot;: &quot;Alexandra Salvador&quot;,
@@ -2311,11 +2334,11 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 3042,
-                    &quot;product_id&quot;: 24,
+                    &quot;id&quot;: 20,
+                    &quot;product_id&quot;: 52,
                     &quot;sku&quot;: &quot;REF-5058-cq&quot;,
                     &quot;product_name&quot;: &quot;Motor trif&aacute;sico 6877 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
@@ -2333,6 +2356,7 @@ fetch(url, {
             &quot;type_label&quot;: &quot;Pedido&quot;,
             &quot;status&quot;: &quot;pending_payment&quot;,
             &quot;status_label&quot;: &quot;Pendiente de pago&quot;,
+            &quot;customer_type&quot;: &quot;company&quot;,
             &quot;company_name&quot;: &quot;Santill&aacute;n de Rosa S.A.S.&quot;,
             &quot;nit&quot;: &quot;940939506-2&quot;,
             &quot;contact_name&quot;: &quot;Ona Lozano&quot;,
@@ -2350,11 +2374,11 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 3043,
-                    &quot;product_id&quot;: 25,
+                    &quot;id&quot;: 21,
+                    &quot;product_id&quot;: 53,
                     &quot;sku&quot;: &quot;REF-9849-tp&quot;,
                     &quot;product_name&quot;: &quot;Motor trif&aacute;sico 1703 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
@@ -2547,10 +2571,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="status"                data-endpoint="GETapi-v1-orders"
-               value="sent"
+               value="paid"
                data-component="body">
     <br>
-<p>Example: <code>sent</code></p>
+<p>Example: <code>paid</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>pending_payment</code></li> <li><code>paid</code></li> <li><code>shipped</code></li> <li><code>delivered</code></li> <li><code>new</code></li> <li><code>in_review</code></li> <li><code>sent</code></li> <li><code>accepted</code></li> <li><code>rejected</code></li> <li><code>cancelled</code></li></ul>
         </div>
@@ -2652,6 +2676,7 @@ fetch(url, {
             &quot;type_label&quot;: &quot;Pedido&quot;,
             &quot;status&quot;: &quot;pending_payment&quot;,
             &quot;status_label&quot;: &quot;Pendiente de pago&quot;,
+            &quot;customer_type&quot;: &quot;company&quot;,
             &quot;company_name&quot;: &quot;Llorente, Aguirre y Sierra e Hijo S.A.S.&quot;,
             &quot;nit&quot;: &quot;934997057-5&quot;,
             &quot;contact_name&quot;: &quot;Rosario Cano&quot;,
@@ -2669,11 +2694,11 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 3044,
-                    &quot;product_id&quot;: 26,
+                    &quot;id&quot;: 22,
+                    &quot;product_id&quot;: 54,
                     &quot;sku&quot;: &quot;REF-7365-sc&quot;,
                     &quot;product_name&quot;: &quot;Motor trif&aacute;sico 967 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
@@ -2691,6 +2716,7 @@ fetch(url, {
             &quot;type_label&quot;: &quot;Pedido&quot;,
             &quot;status&quot;: &quot;pending_payment&quot;,
             &quot;status_label&quot;: &quot;Pendiente de pago&quot;,
+            &quot;customer_type&quot;: &quot;company&quot;,
             &quot;company_name&quot;: &quot;Arevalo y Gaona S. de H. S.A.S.&quot;,
             &quot;nit&quot;: &quot;912797048-1&quot;,
             &quot;contact_name&quot;: &quot;Dr. Ismael Gal&aacute;n&quot;,
@@ -2708,11 +2734,11 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 3045,
-                    &quot;product_id&quot;: 27,
+                    &quot;id&quot;: 23,
+                    &quot;product_id&quot;: 55,
                     &quot;sku&quot;: &quot;REF-3531-ob&quot;,
                     &quot;product_name&quot;: &quot;Motor trif&aacute;sico 6696 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
@@ -2964,6 +2990,7 @@ fetch(url, {
         &quot;type_label&quot;: &quot;Pedido&quot;,
         &quot;status&quot;: &quot;pending_payment&quot;,
         &quot;status_label&quot;: &quot;Pendiente de pago&quot;,
+        &quot;customer_type&quot;: &quot;company&quot;,
         &quot;company_name&quot;: &quot;Baeza de Arredondo S.A.S.&quot;,
         &quot;nit&quot;: &quot;944731071-9&quot;,
         &quot;contact_name&quot;: &quot;Olivia Centeno&quot;,
@@ -2981,11 +3008,11 @@ fetch(url, {
         &quot;notes&quot;: null,
         &quot;expires_at&quot;: null,
         &quot;paid_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
         &quot;items&quot;: [
             {
-                &quot;id&quot;: 3046,
-                &quot;product_id&quot;: 28,
+                &quot;id&quot;: 24,
+                &quot;product_id&quot;: 56,
                 &quot;sku&quot;: &quot;REF-2083-jk&quot;,
                 &quot;product_name&quot;: &quot;Motor trif&aacute;sico 4189 HP&quot;,
                 &quot;unit&quot;: &quot;unidad&quot;,
@@ -3002,7 +3029,7 @@ fetch(url, {
                 &quot;to_status&quot;: &quot;pending_payment&quot;,
                 &quot;to_status_label&quot;: &quot;Pendiente de pago&quot;,
                 &quot;note&quot;: null,
-                &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;
             }
         ]
     }
@@ -3160,6 +3187,7 @@ fetch(url, {
         &quot;type_label&quot;: &quot;Pedido&quot;,
         &quot;status&quot;: &quot;pending_payment&quot;,
         &quot;status_label&quot;: &quot;Pendiente de pago&quot;,
+        &quot;customer_type&quot;: &quot;company&quot;,
         &quot;company_name&quot;: &quot;Gestora Fonseca-Rosales S.A.S.&quot;,
         &quot;nit&quot;: &quot;942198886-2&quot;,
         &quot;contact_name&quot;: &quot;D&ntilde;a Victoria Espinal&quot;,
@@ -3177,11 +3205,11 @@ fetch(url, {
         &quot;notes&quot;: null,
         &quot;expires_at&quot;: null,
         &quot;paid_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
         &quot;items&quot;: [
             {
-                &quot;id&quot;: 3047,
-                &quot;product_id&quot;: 29,
+                &quot;id&quot;: 25,
+                &quot;product_id&quot;: 57,
                 &quot;sku&quot;: &quot;REF-0782-pp&quot;,
                 &quot;product_name&quot;: &quot;Motor trif&aacute;sico 5685 HP&quot;,
                 &quot;unit&quot;: &quot;unidad&quot;,
@@ -3198,7 +3226,7 @@ fetch(url, {
                 &quot;to_status&quot;: &quot;pending_payment&quot;,
                 &quot;to_status_label&quot;: &quot;Pendiente de pago&quot;,
                 &quot;note&quot;: null,
-                &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;
             }
         ]
     }
@@ -3386,7 +3414,7 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 30,
+            &quot;id&quot;: 58,
             &quot;sku&quot;: &quot;REF-9365-mi&quot;,
             &quot;name&quot;: &quot;Motor trif&aacute;sico 4027 HP&quot;,
             &quot;slug&quot;: &quot;motor-trifasico-4027-hp&quot;,
@@ -3407,23 +3435,23 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 36,
+                &quot;id&quot;: 68,
                 &quot;name&quot;: &quot;Perspiciatis quo&quot;,
                 &quot;slug&quot;: &quot;perspiciatis-quo&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 19,
+                &quot;id&quot;: 51,
                 &quot;name&quot;: &quot;Empresa Dom&iacute;nguez e Hijo&quot;,
                 &quot;slug&quot;: &quot;empresa-dominguez-e-hijo&quot;,
                 &quot;logo_url&quot;: null
             },
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
             &quot;deleted_at&quot;: null
         },
         {
-            &quot;id&quot;: 31,
+            &quot;id&quot;: 59,
             &quot;sku&quot;: &quot;REF-0719-qw&quot;,
             &quot;name&quot;: &quot;Motor trif&aacute;sico 8015 HP&quot;,
             &quot;slug&quot;: &quot;motor-trifasico-8015-hp&quot;,
@@ -3444,19 +3472,19 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 37,
+                &quot;id&quot;: 69,
                 &quot;name&quot;: &quot;Dolores enim&quot;,
                 &quot;slug&quot;: &quot;dolores-enim&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 20,
+                &quot;id&quot;: 52,
                 &quot;name&quot;: &quot;Casanova y Almonte y Asoc.&quot;,
                 &quot;slug&quot;: &quot;casanova-y-almonte-y-asoc&quot;,
                 &quot;logo_url&quot;: null
             },
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
             &quot;deleted_at&quot;: null
         }
     ],
@@ -3793,7 +3821,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 32,
+        &quot;id&quot;: 60,
         &quot;sku&quot;: &quot;REF-7432-uw&quot;,
         &quot;name&quot;: &quot;Motor trif&aacute;sico 7195 HP&quot;,
         &quot;slug&quot;: &quot;motor-trifasico-7195-hp&quot;,
@@ -3814,19 +3842,19 @@ fetch(url, {
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 38,
+            &quot;id&quot;: 70,
             &quot;name&quot;: &quot;Nostrum omnis&quot;,
             &quot;slug&quot;: &quot;nostrum-omnis&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 21,
+            &quot;id&quot;: 53,
             &quot;name&quot;: &quot;Asociaci&oacute;n Jaramillo e Hija&quot;,
             &quot;slug&quot;: &quot;asociacion-jaramillo-e-hija&quot;,
             &quot;logo_url&quot;: null
         },
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -4201,7 +4229,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 33,
+        &quot;id&quot;: 61,
         &quot;sku&quot;: &quot;REF-3724-pw&quot;,
         &quot;name&quot;: &quot;Motor trif&aacute;sico 2878 HP&quot;,
         &quot;slug&quot;: &quot;motor-trifasico-2878-hp&quot;,
@@ -4222,19 +4250,19 @@ fetch(url, {
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 39,
+            &quot;id&quot;: 71,
             &quot;name&quot;: &quot;Aliquam veniam&quot;,
             &quot;slug&quot;: &quot;aliquam-veniam&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 22,
+            &quot;id&quot;: 54,
             &quot;name&quot;: &quot;Cab&aacute;n de Llorente S. de H.&quot;,
             &quot;slug&quot;: &quot;caban-de-llorente-s-de-h&quot;,
             &quot;logo_url&quot;: null
         },
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -4383,7 +4411,7 @@ se envían <code>is_active</code>, <code>is_featured</code> o <code>specs</code>
     \"cost_price\": 18,
     \"tax_rate\": 19,
     \"stock\": 6,
-    \"is_active\": true,
+    \"is_active\": false,
     \"is_featured\": false,
     \"specs\": [
         {
@@ -4420,7 +4448,7 @@ let body = {
     "cost_price": 18,
     "tax_rate": 19,
     "stock": 6,
-    "is_active": true,
+    "is_active": false,
     "is_featured": false,
     "specs": [
         {
@@ -4446,7 +4474,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 34,
+        &quot;id&quot;: 62,
         &quot;sku&quot;: &quot;REF-7680-wp&quot;,
         &quot;name&quot;: &quot;Motor trif&aacute;sico 2977 HP&quot;,
         &quot;slug&quot;: &quot;motor-trifasico-2977-hp&quot;,
@@ -4467,19 +4495,19 @@ fetch(url, {
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 40,
+            &quot;id&quot;: 72,
             &quot;name&quot;: &quot;Corporis dolorem&quot;,
             &quot;slug&quot;: &quot;corporis-dolorem&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 23,
+            &quot;id&quot;: 55,
             &quot;name&quot;: &quot;Marroqu&iacute;n, Ram&iacute;rez y Chapa SRL&quot;,
             &quot;slug&quot;: &quot;marroquin-ramirez-y-chapa-srl&quot;,
             &quot;logo_url&quot;: null
         },
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-10-25T17:23:26.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -4774,7 +4802,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>true</code></p>
+<p>Example: <code>false</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>is_featured</code></b>&nbsp;&nbsp;

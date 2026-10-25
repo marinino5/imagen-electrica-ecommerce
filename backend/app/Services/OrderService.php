@@ -346,6 +346,7 @@ class OrderService
             'customer_id' => $quote->customer_id,
             'assigned_to' => $quote->assigned_to,
             // Copia de los datos del cliente
+            'customer_type' => $quote->customer_type,
             'company_name' => $quote->company_name,
             'nit' => $quote->nit,
             'contact_name' => $quote->contact_name,
@@ -435,6 +436,7 @@ class OrderService
             'status' => $status,
             'customer_id' => $customer->id,
             // Copia de los datos del cliente
+            'customer_type' => $customer->type,
             'company_name' => $customer->company_name,
             'nit' => $customer->nit,
             'contact_name' => $customer->contact_name,

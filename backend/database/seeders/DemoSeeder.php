@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\CustomerType;
 use App\Enums\DeliveryMethod;
 use App\Enums\OrderStatus;
 use App\Enums\OrderType;
@@ -158,6 +159,7 @@ class DemoSeeder extends Seeder
             $user = $this->seedUser($contact, 'cliente'.($i + 1).'@'.self::EMAIL_DOMAIN, $password, UserRole::Cliente);
 
             $this->customers[] = $user->customer()->create([
+                'type' => CustomerType::Company,
                 'company_name' => $company,
                 'nit' => sprintf('9%02d%06d-%d', 10 + $i, 100000 + $i * 7919, $i % 10),
                 'contact_name' => $contact,
@@ -394,6 +396,7 @@ class DemoSeeder extends Seeder
             'status' => $status,
             'customer_id' => $customer->id,
             // Copia de los datos del cliente
+            'customer_type' => $customer->type,
             'company_name' => $customer->company_name,
             'nit' => $customer->nit,
             'contact_name' => $customer->contact_name,

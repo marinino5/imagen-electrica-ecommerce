@@ -25,7 +25,7 @@ class AuthController extends Controller
     /**
      * Registrar cliente
      *
-     * Crea la cuenta (rol cliente) con los datos de su empresa y devuelve un token listo
+     * Crea la cuenta (rol cliente) como empresa o persona natural y devuelve un token listo
      * para usar. Aceptar la política de datos es obligatorio; el marketing es opcional.
      * Máximo 5 intentos por minuto.
      *
@@ -34,15 +34,16 @@ class AuthController extends Controller
      * @bodyParam name string required Nombre de la persona de contacto. Example: Laura Gómez
      * @bodyParam email string required Correo (único). Example: laura@constructoraaltos.test
      * @bodyParam password string required Mínimo 8 caracteres. Example: ClaveSegura2026
-     * @bodyParam company_name string required Razón social. Example: Constructora Altos S.A.S.
-     * @bodyParam nit string required NIT (único). Example: 900765432-8
+     * @bodyParam type string Tipo de cliente: `company` (empresa, por defecto) o `natural` (persona natural). Example: company
+     * @bodyParam company_name string Razón social. Obligatoria si type es company; se ignora si es natural. Example: Constructora Altos S.A.S.
+     * @bodyParam nit string NIT (único). Obligatorio si type es company; en persona natural es la cédula y es opcional. Example: 900765432-8
      * @bodyParam phone string required Teléfono. Example: 315 555 0202
      * @bodyParam city string required Ciudad. Example: Bucaramanga
      * @bodyParam address string Dirección de entrega habitual. Example: Carrera 27 # 45-10
      * @bodyParam privacy_accepted boolean required Debe ser true (política de tratamiento de datos). Example: true
      * @bodyParam marketing_opt_in boolean Acepta recibir promociones. Example: false
      *
-     * @response 201 scenario="Cuenta creada" {"data":{"id":5,"name":"Laura Gómez","email":"laura@constructoraaltos.test","role":"cliente","customer":{"company_name":"Constructora Altos S.A.S.","nit":"900765432-8","contact_name":"Laura Gómez","phone":"315 555 0202","city":"Bucaramanga","address":null,"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T15:00:00.000000Z"}},"token":"1|abc123...","token_type":"Bearer"}
+     * @response 201 scenario="Cuenta creada" {"data":{"id":5,"name":"Laura Gómez","email":"laura@constructoraaltos.test","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Constructora Altos S.A.S.","nit":"900765432-8","contact_name":"Laura Gómez","phone":"315 555 0202","city":"Bucaramanga","address":null,"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T15:00:00.000000Z"}},"token":"1|abc123...","token_type":"Bearer"}
      */
     public function register(RegisterRequest $request): JsonResponse
     {
@@ -63,7 +64,7 @@ class AuthController extends Controller
      * @bodyParam email string required Correo. Example: laura@constructoraaltos.test
      * @bodyParam password string required Contraseña. Example: ClaveSegura2026
      *
-     * @response 200 scenario="Sesión iniciada" {"data":{"id":5,"name":"Laura Gómez","email":"laura@constructoraaltos.test","role":"cliente","customer":{"company_name":"Constructora Altos S.A.S.","nit":"900765432-8","contact_name":"Laura Gómez","phone":"315 555 0202","city":"Bucaramanga","address":null,"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T15:00:00.000000Z"}},"token":"2|xyz789...","token_type":"Bearer"}
+     * @response 200 scenario="Sesión iniciada" {"data":{"id":5,"name":"Laura Gómez","email":"laura@constructoraaltos.test","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Constructora Altos S.A.S.","nit":"900765432-8","contact_name":"Laura Gómez","phone":"315 555 0202","city":"Bucaramanga","address":null,"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T15:00:00.000000Z"}},"token":"2|xyz789...","token_type":"Bearer"}
      * @response 401 scenario="Credenciales incorrectas" {"message":"El correo o la contraseña no son correctos."}
      */
     public function login(LoginRequest $request): JsonResponse

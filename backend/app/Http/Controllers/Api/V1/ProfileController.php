@@ -34,11 +34,11 @@ class ProfileController extends Controller
     /**
      * Actualizar mi perfil
      *
-     * Cambia el nombre de contacto y los datos de la empresa. El correo y el NIT no se
-     * modifican desde aquí. Solo clientes.
+     * Cambia el nombre de contacto y los datos del cliente. El correo, el tipo y el NIT o cédula
+     * no se modifican desde aquí. Solo clientes.
      *
      * @bodyParam name string required Nombre de contacto. Example: Laura Gómez
-     * @bodyParam company_name string required Razón social. Example: Constructora Altos S.A.S.
+     * @bodyParam company_name string Razón social. Obligatoria para empresas; las personas naturales no la tienen. Example: Constructora Altos S.A.S.
      * @bodyParam phone string required Teléfono. Example: 315 555 0202
      * @bodyParam city string required Ciudad. Example: Girón
      * @bodyParam address string Dirección de entrega habitual. Example: Carrera 27 # 45-10

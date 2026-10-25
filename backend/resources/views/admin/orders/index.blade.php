@@ -73,8 +73,8 @@
                                     <div><small class="text-body-secondary">{{ $order->type->label() }}</small></div>
                                 </td>
                                 <td>
-                                    <div class="fw-semibold">{{ $order->company_name }}</div>
-                                    <small class="text-body-secondary">{{ $order->contact_name }}</small>
+                                    <div class="fw-semibold">{{ $order->display_name }}</div>
+                                    <small class="text-body-secondary">{{ $order->customer_type->requiresCompanyData() ? $order->contact_name : $order->customer_type->label() }}</small>
                                 </td>
                                 <td>
                                     <x-status-badge :status="$order->status" />

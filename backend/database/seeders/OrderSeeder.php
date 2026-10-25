@@ -94,6 +94,7 @@ class OrderSeeder extends Seeder
             'status' => $status,
             'customer_id' => $customer->id,
             // Copia de los datos del cliente
+            'customer_type' => $customer->type,
             'company_name' => $customer->company_name,
             'nit' => $customer->nit,
             'contact_name' => $customer->contact_name,
