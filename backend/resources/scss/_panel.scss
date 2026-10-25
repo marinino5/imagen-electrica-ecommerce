@@ -21,9 +21,8 @@ $sidebar-link-color: rgba($brand-white, .72);
     --bs-offcanvas-color: #{$brand-white};
     --bs-offcanvas-width: #{$sidebar-width};
 
+    // Color sólido: el mismo primary de los íconos de accesos rápidos
     background-color: $brand-primary;
-    // Degradado suave hacia un violeta más oscuro abajo
-    background-image: linear-gradient(180deg, $brand-primary 0%, $brand-primary-deep 100%);
     color: $brand-white;
 
     @include media-breakpoint-up(lg) {
