@@ -18,8 +18,8 @@ class ReportService
     /** Filas de cada tabla de ranking. */
     public const TOP_SIZE = 10;
 
-    /** Marcas que muestra el gráfico de barras. */
-    public const BRAND_CHART_SIZE = 10;
+    /** Categorías o marcas que muestran los gráficos; el resto se agrupa en "Otros". */
+    public const CHART_SLICES = 6;
 
     public function __construct(private readonly ReportRepository $repository) {}
 
@@ -123,8 +123,6 @@ class ReportService
 
         $quotes = $this->repository->monthlyQuotes($firstMonth, $afterLast);
 
-        $categories = $this->repository->salesByCategory($period->start, $period->end);
-        $brands = $this->repository->salesByBrand($period->start, $period->end, self::BRAND_CHART_SIZE);
 
         return [
             'monthly' => [
@@ -134,14 +132,35 @@ class ReportService
                 'profit' => array_map(fn (CarbonImmutable $month) => $pick('profit', $month), $months),
                 'profit_previous' => array_map(fn (CarbonImmutable $month) => $pick('profit', $month->subYear()), $months),
             ],
-            'categories' => ['labels' => $categories->pluck('name')->all(), 'data' => $categories->pluck('total')->all()],
-            'brands' => ['labels' => $brands->pluck('name')->all(), 'data' => $brands->pluck('total')->all()],
+            'categories' => $this->slices($this->repository->salesByCategory($period->start, $period->end)),
+            'brands' => $this->slices($this->repository->salesByBrand($period->start, $period->end)),
             'quotes' => [
                 'labels' => array_map(fn (CarbonImmutable $month) => $month->locale('es')->isoFormat('MMM YY'), $months),
                 'sent' => array_map(fn (CarbonImmutable $month) => $quotes[$month->format('Y-m')]->sent ?? 0, $months),
                 'accepted' => array_map(fn (CarbonImmutable $month) => $quotes[$month->format('Y-m')]->accepted ?? 0, $months),
             ],
         ];
+    }
+
+    /**
+     * Las CHART_SLICES porciones mayores y, si hay más, el resto sumado en "Otros".
+     *
+     * @param  \Illuminate\Support\Collection<int, object{name: string, total: float}>  $rows  Ordenadas de mayor a menor
+     * @return array{labels: list<string>, data: list<float>, has_other: bool}
+     */
+    private function slices(\Illuminate\Support\Collection $rows): array
+    {
+        $top = $rows->take(self::CHART_SLICES);
+        $rest = $rows->slice(self::CHART_SLICES);
+        $labels = $top->pluck('name')->all();
+        $data = $top->pluck('total')->all();
+
+        if ($rest->isNotEmpty()) {
+            $labels[] = 'Otros';
+            $data[] = round($rest->sum('total'), 2);
+        }
+
+        return ['labels' => $labels, 'data' => $data, 'has_other' => $rest->isNotEmpty()];
     }
 
     /** @return array{top_products: \Illuminate\Support\Collection, top_quoted: \Illuminate\Support\Collection, top_customers: \Illuminate\Support\Collection} */

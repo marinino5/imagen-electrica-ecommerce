@@ -1,19 +1,21 @@
 // Piezas compartidas por el panel, el login y las páginas de error.
 
 :root {
-    // Paleta de los gráficos: solo colores de marca y sus mezclas.
-    // dashboard-charts.js la lee como --ie-chart-1, --ie-chart-2...
-    --ie-chart-1: #{$brand-primary};
-    --ie-chart-2: #{$brand-accent-strong};
-    --ie-chart-3: #{mix($brand-primary, $brand-white, 50%)};
-    --ie-chart-4: #{$brand-peach};
-    --ie-chart-5: #{mix($brand-primary, $brand-white, 22%)};
-    --ie-chart-6: #{mix($brand-accent-strong, $brand-white, 40%)};
-    --ie-chart-7: #{mix($brand-ink, $brand-white, 55%)};
-    --ie-chart-8: #{mix($brand-primary, $brand-ink, 55%)};
-    --ie-chart-9: #{mix($brand-peach, $brand-white, 50%)};
-    --ie-chart-10: #{mix($brand-ink, $brand-white, 30%)};
-    --ie-grid-color: #{rgba($brand-ink, .07)};
+    // Paleta de los gráficos (ver _variables.scss). chart-theme.js la lee de aquí.
+    @for $i from 1 through length($chart-categories) {
+        --chart-#{$i}: #{nth($chart-categories, $i)};
+    }
+    --chart-other: #{$chart-other};
+    --chart-sales: #{$chart-sales};
+    --chart-profit: #{$chart-profit};
+    --chart-sales-previous: #{rgba($chart-sales, $chart-previous-opacity)};
+    --chart-profit-previous: #{rgba($chart-profit, $chart-previous-opacity)};
+    @each $status, $color in $status-colors {
+        --chart-status-#{$status}: #{$color};
+    }
+    --chart-text: #{$chart-text};
+    --chart-ink: #{$chart-ink};
+    --chart-grid: #{rgba($chart-ink, .08)};
 }
 
 h1, h2, h3, .h1, .h2, .h3 {
@@ -121,25 +123,19 @@ h1, h2, h3, .h1, .h2, .h3 {
         width: .45rem;
         height: .45rem;
         border-radius: 50%;
-        background-color: currentColor;
+        background-color: var(--status-dot, currentColor);
     }
 }
 
-@mixin status($bg, $color) {
-    --status-bg: #{$bg};
-    --status-color: #{$color};
+// Fondo con un tinte del color del estado, texto ink y punto con el color exacto,
+// el mismo que usan los gráficos.
+@each $status, $color in $status-colors {
+    .status-#{$status} {
+        --status-bg: #{mix($color, $brand-white, 16%)};
+        --status-color: #{$brand-ink};
+        --status-dot: #{$color};
+    }
 }
-
-.status-pending_payment { @include status(mix($brand-accent-strong, $brand-white, 18%), mix($brand-accent-strong, $brand-ink, 35%)); }
-.status-paid { @include status(mix($brand-success, $brand-white, 14%), $brand-success); }
-.status-shipped { @include status(mix($brand-primary, $brand-white, 12%), $brand-primary); }
-.status-delivered { @include status($brand-success, $brand-white); }
-.status-new { @include status($brand-accent-strong, $brand-ink); }
-.status-in_review { @include status(mix($brand-primary, $brand-white, 12%), $brand-primary); }
-.status-sent { @include status($brand-primary, $brand-white); }
-.status-accepted { @include status(mix($brand-success, $brand-white, 14%), $brand-success); }
-.status-rejected { @include status(mix($brand-danger, $brand-white, 12%), $brand-danger); }
-.status-cancelled { @include status($brand-lavender, $brand-muted); }
 
 // Avatar con iniciales
 .avatar {

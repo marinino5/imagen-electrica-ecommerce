@@ -17,19 +17,19 @@ $sidebar-link-color: rgba($brand-white, .72);
 
 .admin-sidebar {
     // Variables del offcanvas de Bootstrap (menú deslizable en celular)
-    --bs-offcanvas-bg: #{$brand-primary};
+    --bs-offcanvas-bg: #{$brand-sidebar};
     --bs-offcanvas-color: #{$brand-white};
     --bs-offcanvas-width: #{$sidebar-width};
 
-    // Color sólido: el mismo primary de los íconos de accesos rápidos
-    background-color: $brand-primary;
+    // Color sólido, sin degradados ni capas encima
+    background-color: $brand-sidebar;
     color: $brand-white;
 
     @include media-breakpoint-up(lg) {
         position: sticky;
         top: 0;
         // .offcanvas-lg deja el fondo transparente en escritorio con !important
-        background-color: $brand-primary !important;
+        background-color: $brand-sidebar !important;
         display: flex;
         flex-direction: column;
         flex: 0 0 auto;

@@ -10,12 +10,13 @@ import {
     Tooltip,
 } from 'chart.js';
 
-import { applyDefaults, css, palette } from './chart-theme';
+import { applyDefaults, css, gridColor, palette, statusColor } from './chart-theme';
 
 // Solo se registran las piezas de Chart.js que usan la dona y las barras.
 Chart.register(ArcElement, BarController, BarElement, CategoryScale, DoughnutController, Legend, LinearScale, Tooltip);
 
-const colorsByType = { purchase: '--bs-primary', quote: '--bs-accent' };
+// Pedidos y cotizaciones son dos series de la misma paleta de categorías
+const colorsByType = { purchase: 0, quote: 1 };
 
 /**
  * Escribe el total en el centro de la dona. Usa el área real del gráfico,
@@ -32,10 +33,10 @@ const centerTotal = {
         ctx.save();
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillStyle = css('--bs-body-color');
+        ctx.fillStyle = css('--chart-ink');
         ctx.font = `700 2.25rem ${css('--bs-heading-font-family') || 'sans-serif'}`;
         ctx.fillText(String(total), x, y - 8);
-        ctx.fillStyle = css('--bs-secondary-color');
+        ctx.fillStyle = css('--chart-text');
         ctx.font = `500 0.8rem ${css('--bs-body-font-family')}`;
         ctx.fillText('solicitudes', x, y + 20);
         ctx.restore();
@@ -43,8 +44,7 @@ const centerTotal = {
 };
 
 /** Dona: solicitudes por estado. */
-function statusChart(canvas, { labels, data }) {
-    const colors = palette();
+function statusChart(canvas, { labels, data, statuses }) {
 
     return new Chart(canvas, {
         type: 'doughnut',
@@ -53,7 +53,7 @@ function statusChart(canvas, { labels, data }) {
             labels,
             datasets: [{
                 data,
-                backgroundColor: labels.map((_, i) => colors[i % colors.length]),
+                backgroundColor: statuses.map(statusColor),
                 borderColor: css('--bs-body-bg'),
                 borderWidth: 3,
                 hoverOffset: 6,
@@ -80,7 +80,7 @@ function dailyChart(canvas, { labels, datasets }) {
             datasets: datasets.map((dataset) => ({
                 label: dataset.label,
                 data: dataset.data,
-                backgroundColor: css(colorsByType[dataset.type]),
+                backgroundColor: palette()[colorsByType[dataset.type]],
                 borderRadius: 6,
                 maxBarThickness: 36,
             })),
@@ -94,7 +94,7 @@ function dailyChart(canvas, { labels, datasets }) {
                     stacked: true,
                     beginAtZero: true,
                     ticks: { precision: 0 },
-                    grid: { color: css('--ie-grid-color') },
+                    grid: { color: gridColor() },
                     border: { display: false },
                 },
             },

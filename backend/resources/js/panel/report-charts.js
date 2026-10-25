@@ -13,7 +13,7 @@ import {
     Tooltip,
 } from 'chart.js';
 
-import { applyDefaults, css, palette } from './chart-theme';
+import { applyDefaults, css, gridColor, sliceColors, statusColor } from './chart-theme';
 
 // Solo se registran las piezas que usan los gráficos de Reportes.
 Chart.register(
@@ -25,11 +25,13 @@ const cop = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP',
 const compact = new Intl.NumberFormat('es-CO', { notation: 'compact', maximumFractionDigits: 1 });
 
 const moneyTick = (value) => `$ ${compact.format(value)}`;
-const gridColor = () => css('--ie-grid-color');
 
-/** Ventas (barras) y ganancia (líneas) por mes, frente al mismo mes del año anterior. */
+/** Ventas (barras azules) y ganancia (líneas verdes); el año anterior, los mismos colores al 35 %. */
 function monthlyChart(canvas, data) {
-    const colors = palette();
+    const sales = css('--chart-sales');
+    const profit = css('--chart-profit');
+    const salesPrevious = css('--chart-sales-previous');
+    const profitPrevious = css('--chart-profit-previous');
 
     return new Chart(canvas, {
         data: {
@@ -37,20 +39,20 @@ function monthlyChart(canvas, data) {
             datasets: [
                 {
                     type: 'bar', label: 'Ventas', data: data.sales,
-                    backgroundColor: colors[0], borderRadius: 4, maxBarThickness: 22, order: 2,
+                    backgroundColor: sales, borderRadius: 4, maxBarThickness: 22, order: 2,
                 },
                 {
                     type: 'bar', label: 'Ventas año anterior', data: data.sales_previous,
-                    backgroundColor: colors[4], borderRadius: 4, maxBarThickness: 22, order: 2,
+                    backgroundColor: salesPrevious, borderRadius: 4, maxBarThickness: 22, order: 2,
                 },
                 {
                     type: 'line', label: 'Ganancia', data: data.profit,
-                    borderColor: colors[1], backgroundColor: colors[1], borderWidth: 2.5,
+                    borderColor: profit, backgroundColor: profit, borderWidth: 2.5,
                     pointRadius: 3, tension: 0.3, order: 1,
                 },
                 {
                     type: 'line', label: 'Ganancia año anterior', data: data.profit_previous,
-                    borderColor: colors[3], backgroundColor: colors[3], borderWidth: 2, borderDash: [6, 4],
+                    borderColor: profitPrevious, backgroundColor: profitPrevious, borderWidth: 2.5, borderDash: [6, 4],
                     pointRadius: 2, tension: 0.3, order: 1,
                 },
             ],
@@ -77,16 +79,14 @@ function monthlyChart(canvas, data) {
 }
 
 /** Dona: ventas por categoría. */
-function categoriesChart(canvas, { labels, data }) {
-    const colors = palette();
-
+function categoriesChart(canvas, { labels, data, has_other: hasOther }) {
     return new Chart(canvas, {
         type: 'doughnut',
         data: {
             labels,
             datasets: [{
                 data,
-                backgroundColor: labels.map((_, i) => colors[i % colors.length]),
+                backgroundColor: sliceColors(labels, hasOther),
                 borderColor: css('--bs-body-bg'),
                 borderWidth: 3,
                 hoverOffset: 6,
@@ -106,12 +106,12 @@ function categoriesChart(canvas, { labels, data }) {
 }
 
 /** Barras horizontales: ventas por marca. */
-function brandsChart(canvas, { labels, data }) {
+function brandsChart(canvas, { labels, data, has_other: hasOther }) {
     return new Chart(canvas, {
         type: 'bar',
         data: {
             labels,
-            datasets: [{ label: 'Ventas', data, backgroundColor: palette()[0], borderRadius: 4, maxBarThickness: 22 }],
+            datasets: [{ label: 'Ventas', data, backgroundColor: sliceColors(labels, hasOther), borderRadius: 4, maxBarThickness: 22 }],
         },
         options: {
             indexAxis: 'y',
@@ -131,15 +131,13 @@ function brandsChart(canvas, { labels, data }) {
 
 /** Barras agrupadas: cotizaciones enviadas y aceptadas por mes. */
 function quotesChart(canvas, data) {
-    const colors = palette();
-
     return new Chart(canvas, {
         type: 'bar',
         data: {
             labels: data.labels,
             datasets: [
-                { label: 'Enviadas', data: data.sent, backgroundColor: colors[0], borderRadius: 4, maxBarThickness: 24 },
-                { label: 'Aceptadas', data: data.accepted, backgroundColor: colors[1], borderRadius: 4, maxBarThickness: 24 },
+                { label: 'Enviadas', data: data.sent, backgroundColor: statusColor('sent'), borderRadius: 4, maxBarThickness: 24 },
+                { label: 'Aceptadas', data: data.accepted, backgroundColor: statusColor('accepted'), borderRadius: 4, maxBarThickness: 24 },
             ],
         },
         options: {

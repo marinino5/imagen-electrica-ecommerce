@@ -227,6 +227,33 @@ class ReportServiceTest extends TestCase
         $this->assertSame([50000.0, 10000.0], $brands['data']);
     }
 
+    public function test_categories_and_brands_beyond_the_sixth_are_grouped_as_others(): void
+    {
+        // 8 marcas con ventas de 80.000, 70.000 ... 10.000
+        foreach (range(8, 1) as $n) {
+            $brand = Brand::factory()->create(['name' => "Marca {$n}"]);
+            $this->sale(Product::factory()->create(['brand_id' => $brand->id, 'price' => $n * 10000]), 1, '2026-10-02 10:00:00');
+        }
+
+        $brands = $this->service()->charts($this->period(), $this->now)['brands'];
+
+        $this->assertCount(7, $brands['labels']);
+        $this->assertSame('Marca 8', $brands['labels'][0]);
+        $this->assertSame('Otros', $brands['labels'][6]);
+        $this->assertSame(30000.0, $brands['data'][6]); // Marca 2 + Marca 1: 20.000 + 10.000
+        $this->assertTrue($brands['has_other']);
+    }
+
+    public function test_charts_without_more_than_six_slices_have_no_others(): void
+    {
+        $this->sale(Product::factory()->create(['price' => 10000]), 1, '2026-10-02 10:00:00');
+
+        $charts = $this->service()->charts($this->period(), $this->now);
+
+        $this->assertFalse($charts['brands']['has_other']);
+        $this->assertNotContains('Otros', $charts['categories']['labels']);
+    }
+
     public function test_monthly_quotes_chart_groups_by_month_of_sending(): void
     {
         $this->sentQuote('2026-10-03 10:00:00', 5, OrderStatus::Accepted);

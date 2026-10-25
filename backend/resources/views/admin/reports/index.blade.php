@@ -107,7 +107,9 @@
                             @if ($change === null)
                                 Sin base para comparar con {{ $period->previousLabel() }}
                             @else
-                                <span @class(['trend-chip', 'trend-up' => $change > 0, 'trend-down' => $change < 0, 'trend-flat' => $change == 0])>
+                                {{-- Verde si el cambio es bueno y rojo si es malo; la flecha indica la dirección --}}
+                                @php($good = $indicator['lower_is_better'] ? $change < 0 : $change > 0)
+                                <span @class(['trend-chip', 'trend-up' => $change != 0 && $good, 'trend-down' => $change != 0 && ! $good, 'trend-flat' => $change == 0])>
                                     <i @class(['bi', 'bi-arrow-up-right' => $change > 0, 'bi-arrow-down-right' => $change < 0, 'bi-dash' => $change == 0]) aria-hidden="true"></i>
                                     {{ $change > 0 ? '+' : '' }}{{ $decimal($change) }} {{ in_array($indicator['format'], ['percent']) ? 'pp' : '%' }}
                                 </span>
@@ -151,7 +153,12 @@
         <div class="col-12 col-xl-5">
             <div class="card h-100">
                 <div class="card-body">
-                    <div class="card-title-row mb-3"><h2>Ventas por categoría</h2></div>
+                    <div class="card-title-row mb-3">
+                        <h2>Ventas por categoría</h2>
+                        @if ($charts['categories']['has_other'])
+                            <span class="small text-body-secondary">Las {{ ReportService::CHART_SLICES }} principales; el resto en «Otros»</span>
+                        @endif
+                    </div>
                     @if ($hasSales)
                         <div class="chart-box">
                             <canvas data-report-chart="categories" data-chart-data='@json($charts['categories'])'
@@ -168,7 +175,9 @@
                 <div class="card-body">
                     <div class="card-title-row mb-3">
                         <h2>Ventas por marca</h2>
-                        <span class="small text-body-secondary">Las {{ ReportService::BRAND_CHART_SIZE }} principales</span>
+                        @if ($charts['brands']['has_other'])
+                            <span class="small text-body-secondary">Las {{ ReportService::CHART_SLICES }} principales; el resto en «Otros»</span>
+                        @endif
                     </div>
                     @if ($hasSales)
                         <div class="chart-box">
@@ -200,7 +209,7 @@
     <div class="row g-3 mb-4">
         <div class="col-12 col-xl-6">
             <div class="card h-100">
-                <div class="card-body pb-2">
+                <div class="card-body flex-grow-0 pb-2">
                     <div class="card-title-row">
                         <h2>Más vendidos</h2>
                         <span class="small text-body-secondary">Por valor vendido</span>
@@ -238,7 +247,7 @@
 
         <div class="col-12 col-xl-6">
             <div class="card h-100">
-                <div class="card-body pb-2">
+                <div class="card-body flex-grow-0 pb-2">
                     <div class="card-title-row">
                         <h2>Más cotizados</h2>
                         <span class="small text-body-secondary">Cotizaciones recibidas</span>
@@ -276,7 +285,7 @@
     </div>
 
     <div class="card mb-4">
-        <div class="card-body pb-2">
+        <div class="card-body flex-grow-0 pb-2">
             <div class="card-title-row">
                 <h2>Mejores clientes</h2>
                 <span class="small text-body-secondary">Por valor comprado</span>

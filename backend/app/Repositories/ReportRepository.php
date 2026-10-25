@@ -147,7 +147,7 @@ class ReportRepository
     }
 
     /** @return Collection<int, object{name: string, total: float}> */
-    public function salesByBrand(CarbonInterface $from, CarbonInterface $to, int $limit): Collection
+    public function salesByBrand(CarbonInterface $from, CarbonInterface $to): Collection
     {
         $name = "coalesce(brands.name, 'Sin marca')";
 
@@ -156,7 +156,6 @@ class ReportRepository
             ->selectRaw("{$name} as name, coalesce(sum(order_items.line_total), 0) as total")
             ->groupByRaw($name)
             ->orderByDesc('total')
-            ->limit($limit)
             ->get()
             ->map(fn (object $row) => (object) ['name' => $row->name, 'total' => (float) $row->total]);
     }
