@@ -5,6 +5,7 @@
     $sections = [
         'General' => [
             ['admin.dashboard', 'admin.dashboard', 'grid-1x2', 'Dashboard'],
+            ['admin.orders.index', 'admin.orders.*', 'inboxes', 'Solicitudes'],
         ],
     ];
 

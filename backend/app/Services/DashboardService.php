@@ -15,19 +15,19 @@ use Illuminate\Support\Collection;
 class DashboardService
 {
     /** Horas que puede esperar una cotización antes de considerarse atrasada. */
-    public const QUOTE_RESPONSE_HOURS = 24;
+    public const QUOTE_RESPONSE_HOURS = OrderService::QUOTE_RESPONSE_HOURS;
 
     /** Estados en los que el cliente todavía no ha recibido respuesta. */
-    public const UNANSWERED_QUOTE_STATUSES = [OrderStatus::New, OrderStatus::InReview];
+    public const UNANSWERED_QUOTE_STATUSES = OrderService::UNANSWERED_QUOTE_STATUSES;
 
     /** Días que muestra el gráfico de barras. */
     public const DAILY_CHART_DAYS = 7;
 
     /** Un producto con este stock o menos aparece en "Stock bajo". */
-    public const LOW_STOCK_THRESHOLD = 5;
+    public const LOW_STOCK_THRESHOLD = ProductService::LOW_STOCK_THRESHOLD;
 
-    /** Productos que lista la tarjeta "Stock bajo". */
-    public const LOW_STOCK_LIST_SIZE = 8;
+    /** Productos que lista la tarjeta "Stock bajo" (el resto está en "Ver todos"). */
+    public const LOW_STOCK_LIST_SIZE = 5;
 
     public function __construct(private readonly DashboardRepository $repository) {}
 

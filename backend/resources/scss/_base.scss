@@ -4,11 +4,11 @@
     // Paleta de los gráficos: solo colores de marca y sus mezclas.
     // dashboard-charts.js la lee como --ie-chart-1, --ie-chart-2...
     --ie-chart-1: #{$brand-primary};
-    --ie-chart-2: #{$brand-accent};
+    --ie-chart-2: #{$brand-accent-strong};
     --ie-chart-3: #{mix($brand-primary, $brand-white, 50%)};
     --ie-chart-4: #{$brand-peach};
     --ie-chart-5: #{mix($brand-primary, $brand-white, 22%)};
-    --ie-chart-6: #{mix($brand-accent, $brand-white, 40%)};
+    --ie-chart-6: #{mix($brand-accent-strong, $brand-white, 40%)};
     --ie-chart-7: #{mix($brand-ink, $brand-white, 55%)};
     --ie-chart-8: #{mix($brand-primary, $brand-ink, 55%)};
     --ie-chart-9: #{mix($brand-peach, $brand-white, 50%)};
@@ -130,11 +130,11 @@ h1, h2, h3, .h1, .h2, .h3 {
     --status-color: #{$color};
 }
 
-.status-pending_payment { @include status(mix($brand-accent, $brand-white, 18%), mix($brand-accent, $brand-ink, 35%)); }
+.status-pending_payment { @include status(mix($brand-accent-strong, $brand-white, 18%), mix($brand-accent-strong, $brand-ink, 35%)); }
 .status-paid { @include status(mix($brand-success, $brand-white, 14%), $brand-success); }
 .status-shipped { @include status(mix($brand-primary, $brand-white, 12%), $brand-primary); }
 .status-delivered { @include status($brand-success, $brand-white); }
-.status-new { @include status($brand-accent, $brand-ink); }
+.status-new { @include status($brand-accent-strong, $brand-ink); }
 .status-in_review { @include status(mix($brand-primary, $brand-white, 12%), $brand-primary); }
 .status-sent { @include status($brand-primary, $brand-white); }
 .status-accepted { @include status(mix($brand-success, $brand-white, 14%), $brand-success); }
@@ -150,7 +150,7 @@ h1, h2, h3, .h1, .h2, .h3 {
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
-    background-color: $brand-peach;
+    background-color: $brand-accent-strong;
     color: $brand-ink;
     font-family: $headings-font-family;
     font-size: 1.05rem;
@@ -172,7 +172,7 @@ h1, h2, h3, .h1, .h2, .h3 {
     right: -6rem;
     bottom: -6rem;
     width: 26rem;
-    color: $brand-peach;
+    color: $brand-accent-strong;
     opacity: .9;
     pointer-events: none;
 }

@@ -89,7 +89,7 @@
                         <div class="dropdown-menu dropdown-menu-end bell-menu p-0">
                             <div class="px-3 py-2 border-bottom fw-semibold">Notificaciones</div>
                             @if ($newQuotesCount > 0)
-                                <a class="dropdown-item d-flex gap-2 py-3 text-wrap" href="{{ route('admin.dashboard') }}#atencion">
+                                <a class="dropdown-item d-flex gap-2 py-3 text-wrap" href="{{ route('admin.orders.index', ['type' => 'quote', 'status' => 'new']) }}">
                                     <i class="bi bi-file-earmark-text text-primary fs-5" aria-hidden="true"></i>
                                     <span>
                                         <strong>{{ $newQuotesCount }} {{ $newQuotesCount === 1 ? 'cotización nueva' : 'cotizaciones nuevas' }}</strong><br>

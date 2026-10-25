@@ -21,9 +21,8 @@ $sidebar-link-color: rgba($brand-white, .72);
     --bs-offcanvas-color: #{$brand-white};
     --bs-offcanvas-width: #{$sidebar-width};
 
+    // Color sólido: el mismo primary de los íconos de accesos rápidos
     background-color: $brand-primary;
-    // Degradado suave hacia un violeta más oscuro abajo
-    background-image: linear-gradient(180deg, $brand-primary 0%, $brand-primary-deep 100%);
     color: $brand-white;
 
     @include media-breakpoint-up(lg) {
@@ -114,9 +113,9 @@ $sidebar-link-color: rgba($brand-white, .72);
         color: $brand-white;
     }
 
-    // Ítem activo: fondo blanco al 12% y barra naranja a la izquierda
+    // Ítem activo: fondo blanco al 14% y barra naranja a la izquierda
     &.active {
-        background-color: rgba($brand-white, .12);
+        background-color: rgba($brand-white, .14);
         color: $brand-white;
         font-weight: 600;
 
@@ -128,7 +127,7 @@ $sidebar-link-color: rgba($brand-white, .72);
             left: -1rem;
             width: 4px;
             border-radius: 0 4px 4px 0;
-            background-color: $brand-accent;
+            background-color: $brand-accent-strong;
         }
     }
 }
@@ -167,7 +166,7 @@ $sidebar-link-color: rgba($brand-white, .72);
 }
 
 .role-badge-admin {
-    background-color: $brand-accent;
+    background-color: $brand-accent-strong;
     color: $brand-ink;
 }
 
@@ -251,7 +250,7 @@ $sidebar-link-color: rgba($brand-white, .72);
         bottom: -1px;
         left: 0;
         height: 2px;
-        background: linear-gradient(90deg, $brand-accent 0%, $brand-peach 35%, rgba($brand-peach, 0) 80%);
+        background: linear-gradient(90deg, $brand-accent-strong 0%, rgba($brand-accent-strong, 0) 80%);
         pointer-events: none;
     }
 
@@ -352,7 +351,7 @@ $sidebar-link-color: rgba($brand-white, .72);
     padding: .1rem .35rem;
     border: 2px solid $brand-white;
     border-radius: 1rem;
-    background-color: $brand-accent;
+    background-color: $brand-accent-strong;
     color: $brand-ink;
     font-size: .7rem;
     font-weight: 700;
@@ -400,11 +399,56 @@ $sidebar-link-color: rgba($brand-white, .72);
         height: 3px;
         margin-top: .35rem;
         border-radius: 2px;
-        background-color: $brand-accent;
+        background-color: $brand-accent-strong;
     }
 
     p {
         color: $brand-muted;
         margin-bottom: 0;
     }
+}
+
+/* ---------- Listados y formularios del CRUD ---------- */
+
+// Miniatura cuadrada de categorías y productos
+.thumb {
+    display: block;
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    background-color: $brand-white;
+    object-fit: cover;
+}
+
+.thumb-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $brand-surface;
+    color: $brand-muted;
+}
+
+.thumb-lg {
+    width: 7rem;
+    height: 7rem;
+}
+
+.form-card {
+    max-width: 48rem;
+}
+
+.form-card-wide {
+    max-width: 60rem;
+}
+
+// Logos de marca: se ven completos, sin recortar
+.thumb-contain {
+    padding: .25rem;
+    object-fit: contain;
+}
+
+// Campo de precio dentro de la tabla de productos de una cotización
+.price-input {
+    max-width: 10rem;
 }

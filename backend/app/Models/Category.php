@@ -23,6 +23,21 @@ class Category extends Model
         ];
     }
 
+    /**
+     * Miniatura: public/images/categorias/<slug>.jpg. Las subcategorías sin
+     * imagen propia usan la de su categoría padre. Nulo si no hay ninguna.
+     */
+    public function thumbnailUrl(): ?string
+    {
+        foreach ([$this->slug, $this->parent?->slug] as $slug) {
+            if ($slug && file_exists(public_path("images/categorias/{$slug}.jpg"))) {
+                return asset("images/categorias/{$slug}.jpg");
+            }
+        }
+
+        return null;
+    }
+
     /** Categoría padre (nulo si es de primer nivel). 1:N (inversa) */
     public function parent(): BelongsTo
     {
