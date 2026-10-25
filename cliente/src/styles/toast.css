@@ -48,3 +48,27 @@
 .toast__close:hover {
   background: var(--glass-bg);
 }
+
+/* Producto que vuela hacia el carrito o la cotización */
+.flight {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-toast);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  overflow: hidden;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--accent);
+  box-shadow: var(--shadow-lg);
+  pointer-events: none;
+}
+.flight img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

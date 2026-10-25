@@ -16,13 +16,13 @@ export default function Home() {
   return (
     <>
       <Hero featured={featured.data?.data ?? []} />
+      <TrustStrip />
       <BrandStrip />
       <LinesCarousel />
       <FeaturedRail featured={featured} />
       <HowItWorks />
       <Applications />
       <JoinCta />
-      <TrustStrip />
     </>
   )
 }

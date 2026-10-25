@@ -70,15 +70,15 @@
 }
 .searchbox__quick button {
   padding: 5px 12px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--lavender-2);
   border-radius: var(--radius-pill);
-  background: var(--surface);
+  background: var(--lavender);
   color: var(--ink);
   font-size: 0.85rem;
   font-weight: 500;
 }
 .searchbox__quick button:hover {
-  background: var(--surface-2);
+  background: var(--lavender-2);
 }
 .searchbox__msg {
   padding: 12px;
@@ -96,7 +96,7 @@
   text-align: left;
 }
 .searchbox__item.is-active {
-  background: var(--surface);
+  background: var(--lavender);
 }
 .searchbox__name {
   font-weight: 600;

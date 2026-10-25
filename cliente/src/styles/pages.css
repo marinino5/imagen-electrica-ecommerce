@@ -14,7 +14,7 @@
 }
 .page-title em {
   font-style: normal;
-  color: var(--accent-strong);
+  color: var(--accent);
 }
 .page-lead {
   margin: 12px 0 24px;
@@ -22,7 +22,7 @@
 }
 .muted-box {
   padding: 20px;
-  border: 1px dashed var(--border);
+  border: 1px dashed var(--lavender-2);
   border-radius: var(--radius);
   color: var(--muted);
 }
@@ -66,37 +66,6 @@
 @media (min-width: 640px) {
   .form-grid {
     grid-template-columns: 1fr 1fr;
-  }
-}
-
-.register {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 32px;
-  padding-block: 40px 72px;
-}
-.register__benefits ul {
-  display: grid;
-  gap: 16px;
-  margin: 24px 0 0;
-  padding: 0;
-  list-style: none;
-}
-.register__benefits li {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-}
-.register__benefits li svg {
-  flex: none;
-  margin-top: 2px;
-  color: var(--primary);
-}
-@media (min-width: 960px) {
-  .register {
-    grid-template-columns: 0.8fr 1.2fr;
-    gap: 56px;
-    align-items: start;
   }
 }
 
@@ -147,7 +116,7 @@
   padding: 5px 12px;
   border: 0;
   border-radius: var(--radius-pill);
-  background: var(--surface-2);
+  background: var(--lavender-2);
   color: var(--ink);
   font-size: 0.85rem;
   font-weight: 600;
@@ -206,7 +175,7 @@
   gap: 8px 14px;
   align-items: center;
   padding: 12px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--lavender-2);
   border-radius: var(--radius);
 }
 .line img,
@@ -215,7 +184,7 @@
   height: 72px;
   border-radius: var(--radius-sm);
   object-fit: cover;
-  background: var(--surface);
+  background: var(--lavender);
 }
 .line__info {
   display: flex;
@@ -241,11 +210,11 @@
 .line__qty .icon-btn {
   width: 36px;
   height: 36px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--lavender-2);
   color: var(--ink);
 }
 .line__qty .icon-btn:hover {
-  background: var(--surface);
+  background: var(--lavender);
 }
 .line__total {
   grid-column: 3;
@@ -258,8 +227,8 @@
   color: var(--muted);
 }
 .line__remove:hover {
-  background: var(--danger-bg);
-  color: var(--danger);
+  background: var(--lavender-2);
+  color: var(--ink);
 }
 .subtotal {
   margin-top: 12px;
@@ -282,7 +251,7 @@
   gap: 10px;
   padding: 16px;
   border-radius: var(--radius);
-  background: var(--surface);
+  background: var(--lavender);
   font-size: 0.92rem;
 }
 .alert ul {
@@ -355,7 +324,7 @@
 }
 .tabs button {
   padding: 7px 16px;
-  border: 1.5px solid var(--border);
+  border: 1.5px solid var(--lavender-2);
   border-radius: var(--radius-pill);
   background: var(--white);
   font-weight: 600;
@@ -422,7 +391,7 @@
 }
 .order__body {
   padding: 4px 16px 16px;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--lavender-2);
 }
 .order__body table {
   width: 100%;
@@ -437,7 +406,7 @@
 }
 .order__body td {
   padding: 8px 8px 8px 0;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--lavender-2);
   vertical-align: top;
 }
 .order__body td small {

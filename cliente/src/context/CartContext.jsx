@@ -32,7 +32,7 @@ function load() {
 }
 
 export function CartProvider({ children }) {
-  const { notify } = useToast()
+  const { notify, fly } = useToast()
   const [lines, setLines] = useState(load)
 
   useEffect(() => {
@@ -44,7 +44,8 @@ export function CartProvider({ children }) {
   }, [lines])
 
   const add = useCallback(
-    (product, quantity = 1) => {
+    // origin: { rect, image } del botón pulsado, para animar el producto hacia el carrito
+    (product, quantity = 1, origin) => {
       const qty = Number(quantity) > 0 ? Number(quantity) : 1
       setLines((current) => {
         const found = current.find((l) => l.product.id === product.id)
@@ -56,12 +57,13 @@ export function CartProvider({ children }) {
         return [...current, { product: snapshot(product), quantity: qty }]
       })
       const direct = isDirectPurchase(product, qty)
+      if (origin) fly(origin.rect, direct ? 'cart' : 'quote', origin.image)
       notify(
         direct ? `«${product.name}» se agregó al carrito` : `«${product.name}» se agregó a tu cotización`,
         { to: '/carrito', label: direct ? 'Ver carrito' : 'Ver cotización' },
       )
     },
-    [notify],
+    [notify, fly],
   )
 
   const setQuantity = useCallback((productId, quantity) => {

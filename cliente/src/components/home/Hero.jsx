@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { Pause, Play } from 'lucide-react'
+import { Pause, Play, Zap } from 'lucide-react'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
 import { useCategories } from '../../hooks/useCategories'
 import { productImage } from '../../lib/catalog'
 import SearchBox from '../ui/SearchBox'
+import Current from '../ui/Current'
 import { AddButton, ProductPrice } from '../ui/ProductCard'
 import '../../styles/hero.css'
 
@@ -17,8 +18,7 @@ const slides = [
     media: { type: 'video', webm: '/media/hero-tablero.webm', mp4: '/media/hero-tablero.mp4', poster: '/media/hero-tablero-poster.jpg' },
     title: 'Soluciones eléctricas',
     highlight: 'para tu industria',
-    text: 'Motores, variadores, cables, iluminación y automatización con disponibilidad inmediata y asesoría técnica.',
-    cta: { label: 'Ver productos', to: '/productos', style: 'accent' },
+    text: 'Motores, variadores, cables e iluminación con disponibilidad y asesoría técnica.',
   },
   {
     id: 'motores',
@@ -26,7 +26,6 @@ const slides = [
     title: 'Motores y motorreductores',
     highlight: 'listos para trabajar',
     text: 'Potencia y confiabilidad de las marcas que tu planta ya conoce.',
-    cta: { label: 'Ver motores', to: '/productos?category=motores-electricos', style: 'accent' },
   },
   {
     id: 'proyectos',
@@ -34,7 +33,6 @@ const slides = [
     title: 'Cotiza tu proyecto',
     highlight: 'con asesoría técnica',
     text: 'Cuéntanos qué necesitas y un asesor te responde con la referencia y el precio.',
-    cta: { label: 'Solicitar cotización', to: '/productos?sale_mode=quote', style: 'primary' },
   },
 ]
 
@@ -84,7 +82,7 @@ function Slide({ slide, active, still }) {
   )
 }
 
-function FeaturedGlass({ products, reduced }) {
+function FeaturedCard({ products, reduced }) {
   const { data: categories } = useCategories()
   const [i, setI] = useState(0)
   const list = products.slice(0, 5)
@@ -100,8 +98,8 @@ function FeaturedGlass({ products, reduced }) {
   const image = productImage(product, categories)
 
   return (
-    <aside className="glass-card" aria-label="Producto destacado">
-      <p className="glass-card__tag">Destacado</p>
+    <aside className="feat-card" aria-label="Producto destacado">
+      <p className="feat-card__tag"><Zap size={14} aria-hidden="true" /> Destacado</p>
       <AnimatePresence mode="wait">
         <motion.div
           key={product.id}
@@ -110,19 +108,36 @@ function FeaturedGlass({ products, reduced }) {
           exit={{ opacity: 0, x: -24 }}
           transition={{ duration: 0.35 }}
         >
-          {image && <img src={image} alt="" width="320" height="180" />}
-          <p className="glass-card__brand">{product.brand?.name}</p>
+          {image && <img src={image} alt="" width="320" height="240" />}
+          <p className="feat-card__brand">{product.brand?.name}</p>
           <h3>{product.name}</h3>
           <ProductPrice product={product} />
           <AddButton product={product} block size="sm" />
         </motion.div>
       </AnimatePresence>
-      <div className="glass-card__dots">
+      <div className="feat-card__dots">
         {list.map((p, n) => (
           <button key={p.id} type="button" aria-label={`Ver ${p.name}`} aria-current={n === i % list.length} className={n === i % list.length ? 'is-on' : ''} onClick={() => setI(n)} />
         ))}
       </div>
     </aside>
+  )
+}
+
+// Arco naranja grande en trazo que asoma desde la esquina inferior derecha y se dibuja al cargar
+function HeroArc() {
+  return (
+    <svg className="hero__arc" viewBox="0 0 600 600" aria-hidden="true" fill="none">
+      <motion.path
+        d="M590 40 A 550 550 0 0 1 40 590"
+        stroke="var(--accent)"
+        strokeWidth="6"
+        strokeLinecap="round"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+      />
+    </svg>
   )
 }
 
@@ -137,6 +152,7 @@ export default function Hero({ featured }) {
   const still = isMobile || reduced
   const slide = slides[index]
   const next = () => setIndex((n) => (n + 1) % slides.length)
+  const pad = (n) => String(n).padStart(2, '0')
 
   return (
     <section className="hero" aria-roledescription="carrusel" aria-label="Destacados de Imagen Eléctrica">
@@ -147,30 +163,14 @@ export default function Hero({ featured }) {
         <div className="hero__overlay" />
       </div>
 
-      {/* Barras de progreso estilo historias: la animación CSS marca el avance y, al terminar, pasa a la siguiente */}
-      <div className="hero__progress" role="tablist" aria-label="Diapositivas">
-        {slides.map((s, n) => (
-          <button
-            key={s.id}
-            type="button"
-            role="tab"
-            aria-selected={n === index}
-            aria-label={`Ir a la diapositiva ${n + 1}: ${s.title} ${s.highlight}`}
-            className={`bar ${n < index ? 'is-done' : ''} ${n === index ? 'is-active' : ''} ${paused ? 'is-paused' : ''}`}
-            onClick={() => setIndex(n)}
-          >
-            <span
-              key={n === index ? `a-${index}` : n}
-              style={{ animationDuration: `${SLIDE_MS}ms` }}
-              onAnimationEnd={n === index ? next : undefined}
-            />
-          </button>
-        ))}
-        {!reduced && (
-          <button type="button" className="hero__pause" onClick={() => setPaused((p) => !p)} aria-label={paused ? 'Reanudar carrusel' : 'Pausar carrusel'}>
-            {paused ? <Play size={16} /> : <Pause size={16} />}
-          </button>
-        )}
+      <div className="hero__deco" aria-hidden="true">
+        <HeroArc />
+        <Current
+          className="hero__current"
+          viewBox="0 0 1000 120"
+          d="M0 70 C 140 10, 260 120, 400 64 S 660 10, 800 64 S 940 100, 1000 56"
+          offset={['start start', 'end start']}
+        />
       </div>
 
       <div className="container hero__inner">
@@ -188,16 +188,49 @@ export default function Hero({ featured }) {
                 {slide.title} <em>{slide.highlight}</em>
               </h1>
               <p className="hero__text">{slide.text}</p>
-              <Link to={slide.cta.to} className={`btn btn--lg ${slide.cta.style === 'accent' ? 'btn--accent' : 'btn--primary hero__btn-primary'}`}>
-                {slide.cta.label}
-              </Link>
             </motion.div>
           </AnimatePresence>
+
+          <div className="hero__ctas">
+            <Link to="/productos" className="btn btn--accent btn--lg">Ver productos</Link>
+            <Link to="/productos?sale_mode=quote" className="btn btn--ghost-light btn--lg">Cotizar proyecto</Link>
+          </div>
 
           <SearchBox className="hero__search" />
         </div>
 
-        {isDesktop && featured.length > 0 && <FeaturedGlass products={featured} reduced={reduced} />}
+        {isDesktop && featured.length > 0 && <FeaturedCard products={featured} reduced={reduced} />}
+      </div>
+
+      {/* Controles abajo a la izquierda: contador, barras de progreso cortas y pausa */}
+      <div className="container hero__controls-wrap">
+        <div className="hero__controls">
+          <span className="hero__count" aria-hidden="true">{pad(index + 1)} / {pad(slides.length)}</span>
+          <div className="hero__progress" role="tablist" aria-label="Diapositivas">
+            {slides.map((s, n) => (
+              <button
+                key={s.id}
+                type="button"
+                role="tab"
+                aria-selected={n === index}
+                aria-label={`Ir a la diapositiva ${n + 1}: ${s.title} ${s.highlight}`}
+                className={`bar ${n < index ? 'is-done' : ''} ${n === index ? 'is-active' : ''} ${paused ? 'is-paused' : ''}`}
+                onClick={() => setIndex(n)}
+              >
+                <span
+                  key={n === index ? `a-${index}` : n}
+                  style={{ animationDuration: `${SLIDE_MS}ms` }}
+                  onAnimationEnd={n === index ? next : undefined}
+                />
+              </button>
+            ))}
+          </div>
+          {!reduced && (
+            <button type="button" className="hero__pause" onClick={() => setPaused((p) => !p)} aria-label={paused ? 'Reanudar carrusel' : 'Pausar carrusel'}>
+              {paused ? <Play size={16} /> : <Pause size={16} />}
+            </button>
+          )}
+        </div>
       </div>
     </section>
   )

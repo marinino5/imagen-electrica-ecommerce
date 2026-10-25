@@ -1,87 +1,80 @@
-import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import useEmblaCarousel from 'embla-carousel-react'
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { useCategories } from '../../hooks/useCategories'
 import { lineImage } from '../../lib/catalog'
 import ErrorState from '../ui/ErrorState'
 import Reveal from '../ui/Reveal'
+import SectionHeading from '../ui/SectionHeading'
 import '../../styles/home.css'
 
-export function CarouselArrows({ api }) {
-  const [state, setState] = useState({ prev: false, next: false })
-  useEffect(() => {
-    if (!api) return
-    const update = () => setState({ prev: api.canScrollPrev(), next: api.canScrollNext() })
-    update()
-    api.on('select', update).on('reInit', update)
-    return () => {
-      api.off('select', update).off('reInit', update)
-    }
-  }, [api])
-
-  return (
-    <div className="arrows">
-      <button type="button" className="arrow" onClick={() => api?.scrollPrev()} disabled={!state.prev} aria-label="Anterior">
-        <ChevronLeft size={22} />
-      </button>
-      <button type="button" className="arrow" onClick={() => api?.scrollNext()} disabled={!state.next} aria-label="Siguiente">
-        <ChevronRight size={22} />
-      </button>
-    </div>
-  )
+// Mosaico sin huecos en 4 columnas: dos tarjetas grandes de 2×2 y el resto de 1×1.
+// Las tarjetas de la última fila se reparten el ancho para que no quede un hueco.
+function layoutFor(count) {
+  const bigs = count >= 6 ? 2 : 0
+  const smalls = count - bigs
+  const tail = smalls % 4
+  return Array.from({ length: count }, (_, i) => {
+    if (i < bigs) return 'big'
+    const fromEnd = count - i // 1 = última tarjeta
+    if (tail === 1) return 'span-4'
+    if (tail === 2 && fromEnd <= 2) return 'span-2'
+    if (tail === 3 && fromEnd === 1) return 'span-2'
+    return ''
+  })
 }
 
-function LineCard({ root, children, total }) {
+function LineTile({ root, total, size }) {
   const image = lineImage(root.slug)
   return (
-    <Link to={`/productos?category=${root.slug}`} className="line-card">
-      {image ? <img src={image} alt="" width="640" height="800" loading="lazy" draggable="false" /> : <div className="line-card__fallback" />}
-      <div className="line-card__shade" />
-      <div className="line-card__body">
-        <h3>{root.name}</h3>
-        <p className="line-card__count">{total} {total === 1 ? 'producto' : 'productos'}</p>
-        <div className="line-card__more">
-          {children.length > 0 && <p>{children.map((c) => c.name).join(' · ')}</p>}
-          <span>Ver productos <ArrowRight size={16} aria-hidden="true" /></span>
-        </div>
-      </div>
+    <Link to={`/productos?category=${root.slug}`} className={`line-tile ${size ? `line-tile--${size}` : ''}`}>
+      <span className="line-tile__arc" aria-hidden="true" />
+      <span className="line-tile__media">
+        {image ? <img src={image} alt="" width="640" height="480" loading="lazy" draggable="false" /> : <span className="line-tile__fallback" />}
+      </span>
+      <span className="line-tile__body">
+        <span>
+          <strong>{root.name}</strong>
+          <small>{total} {total === 1 ? 'producto' : 'productos'}</small>
+        </span>
+        <ArrowRight size={22} aria-hidden="true" className="line-tile__arrow" />
+      </span>
     </Link>
   )
 }
 
 export default function LinesCarousel() {
   const { data: categories, loading, error, reload } = useCategories()
-  const [emblaRef, emblaApi] = useEmblaCarousel({ dragFree: true, align: 'start', containScroll: 'trimSnaps' })
+  const layout = layoutFor(categories.roots.length)
 
   return (
-    <section className="section" aria-labelledby="h-lineas">
-      <div className="container">
-        <div className="section-head">
-          <Reveal>
-            <h2 id="h-lineas" className="section-title">Explora por <em>línea</em></h2>
-            <p className="section-lead">Todo el material eléctrico que tu planta necesita, organizado por línea de producto.</p>
-          </Reveal>
-          <CarouselArrows api={emblaApi} />
-        </div>
-      </div>
+    <section className="section section--clip" aria-labelledby="h-lineas">
+      {/* Arco lavanda gigante y puntos detrás del título */}
+      <span className="lines__arc" aria-hidden="true" />
+      <span className="deco-dots lines__dots" aria-hidden="true" />
 
-      <div className="lines-carousel container">
+      <div className="container">
+        <SectionHeading
+          id="h-lineas"
+          eyebrow="Catálogo"
+          lead="Todo el material eléctrico que tu planta necesita, organizado por línea de producto."
+          actions={<Link to="/productos" className="btn btn--ghost btn--sm">Ver todo el catálogo <ArrowRight size={16} aria-hidden="true" /></Link>}
+        >
+          Explora por <em>línea</em>
+        </SectionHeading>
+
         {loading && <div className="skeleton" style={{ height: 420 }} aria-hidden="true" />}
         {error && <ErrorState error={error} onRetry={reload} />}
         {!loading && !error && (
-          <div className="embla" ref={emblaRef}>
-            <div className="embla__container">
-              {categories.roots.map((root) => {
-                const children = categories.childrenOf(root.id)
-                const total = children.reduce((sum, c) => sum + (c.products_count ?? 0), root.products_count ?? 0)
-                return (
-                  <div className="embla__slide embla__slide--line" key={root.id}>
-                    <LineCard root={root} children={children} total={total} />
-                  </div>
-                )
-              })}
-            </div>
+          <div className="bento-lines">
+            {categories.roots.map((root, i) => {
+              const children = categories.childrenOf(root.id)
+              const total = children.reduce((sum, c) => sum + (c.products_count ?? 0), root.products_count ?? 0)
+              return (
+                <Reveal key={root.id} delay={(i % 4) * 0.05} className={`bento-lines__cell ${layout[i] === 'big' ? 'is-big' : layout[i]}`}>
+                  <LineTile root={root} total={total} size={layout[i] === 'big' ? 'big' : ''} />
+                </Reveal>
+              )
+            })}
           </div>
         )}
       </div>

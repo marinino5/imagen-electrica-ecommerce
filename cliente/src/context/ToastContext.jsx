@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { CheckCircle2, X } from 'lucide-react'
+import { CheckCircle2, X, Zap } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import '../styles/toast.css'
 
@@ -10,7 +10,34 @@ let nextId = 1
 export function ToastProvider({ children }) {
   const [toasts, setToasts] = useState([])
 
+  const [flights, setFlights] = useState([])
+
   const dismiss = useCallback((id) => setToasts((list) => list.filter((t) => t.id !== id)), [])
+
+  // El producto "vuela" desde el botón hasta el ícono del carrito o de la cotización.
+  // from: rectángulo del botón; kind: 'cart' | 'quote'; image: miniatura opcional.
+  const fly = useCallback((from, kind, image) => {
+    if (!from || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const visible = (el) => el && el.getBoundingClientRect().width > 0
+    let target = document.querySelector(`[data-fly-target="${kind}"]`)
+    if (!visible(target)) target = document.querySelector('[data-fly-target="cart"]') // en celular no hay ícono de cotización
+    if (!visible(target)) return
+    const to = target.getBoundingClientRect()
+    const id = nextId++
+    setFlights((list) => [
+      ...list,
+      {
+        id,
+        image,
+        x0: from.left + from.width / 2 - 22,
+        y0: from.top + from.height / 2 - 22,
+        x1: to.left + to.width / 2 - 22,
+        y1: to.top + to.height / 2 - 22,
+      },
+    ])
+  }, [])
+
+  const endFlight = useCallback((id) => setFlights((list) => list.filter((f) => f.id !== id)), [])
 
   // action: { to, label } opcional (ej. "Ver carrito")
   const notify = useCallback(
@@ -22,11 +49,24 @@ export function ToastProvider({ children }) {
     [dismiss],
   )
 
-  const value = useMemo(() => ({ notify }), [notify])
+  const value = useMemo(() => ({ notify, fly }), [notify, fly])
 
   return (
     <ToastContext.Provider value={value}>
       {children}
+      {flights.map((f) => (
+        <motion.span
+          key={f.id}
+          className="flight"
+          aria-hidden="true"
+          initial={{ x: f.x0, y: f.y0, scale: 1, opacity: 1 }}
+          animate={{ x: f.x1, y: f.y1, scale: 0.35, opacity: 0.4 }}
+          transition={{ duration: 0.75, ease: [0.5, 0, 0.2, 1] }}
+          onAnimationComplete={() => endFlight(f.id)}
+        >
+          {f.image ? <img src={f.image} alt="" /> : <Zap size={20} />}
+        </motion.span>
+      ))}
       <div className="toasts" role="status" aria-live="polite">
         <AnimatePresence>
           {toasts.map((toast) => (

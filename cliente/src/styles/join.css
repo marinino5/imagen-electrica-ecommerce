@@ -1,129 +1,98 @@
+.join-section {
+  padding-top: 0;
+}
 .join {
-  position: relative;
-  padding-block: var(--section-y);
-  background: var(--ink);
-  color: var(--white);
-  overflow: hidden;
-}
-.join__bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.join__shade {
-  position: absolute;
-  inset: 0;
-  background: var(--overlay-ink);
-}
-.join__inner {
   position: relative;
   display: grid;
   grid-template-columns: 1fr;
   gap: 40px;
   align-items: center;
+  padding: clamp(28px, 5vw, 64px);
+  border-radius: var(--radius-lg);
+  background: var(--grad-ink);
+  color: var(--white);
+  overflow: hidden;
+}
+.join__arc {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.join__arc--a {
+  left: -140px;
+  bottom: -220px;
+  width: 440px;
+  height: 440px;
+  background: var(--violet-glow);
+}
+.join__copy {
+  position: relative;
 }
 .join h2 {
   color: var(--white);
 }
 .join .eyebrow {
-  color: var(--accent);
-}
-.join .section-lead {
-  margin-bottom: 28px;
-  color: var(--on-dark-muted);
+  color: var(--white);
 }
 .join .section-title em {
   display: block;
-  color: var(--accent);
 }
-.join__cards {
+.join__list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  margin: 0;
+  gap: 12px;
+  margin: 24px 0 30px;
   padding: 0;
   list-style: none;
 }
-
-/* Tarjeta de vidrio que se voltea */
-.flip {
-  perspective: 900px;
-  height: 190px;
-  outline-offset: 4px;
-}
-.flip__inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.6s var(--ease);
-}
-.flip:hover .flip__inner,
-.flip:focus .flip__inner,
-.flip:focus-within .flip__inner {
-  transform: rotateY(180deg);
-}
-.flip__face {
-  position: absolute;
-  inset: 0;
+.join__list li {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 16px;
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-lg);
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  text-align: center;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--on-dark-muted);
 }
-.flip__front svg {
+.join__list svg {
+  flex: none;
+  margin-top: 3px;
   color: var(--accent);
 }
-.flip__front h3 {
-  font-family: var(--font-display);
-  font-size: 1.45rem;
-  text-transform: uppercase;
-  color: var(--white);
+
+/* Foto enmarcada por un arco naranja grueso; la corriente entra desde el borde */
+.join__photo {
+  position: relative;
+  padding: 18px;
 }
-.flip__back {
-  transform: rotateY(180deg);
-  background: var(--primary);
-  font-size: 0.95rem;
+.join__photo img {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  object-fit: cover;
+}
+.join__frame {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 78%;
+  height: 78%;
+  border: 8px solid var(--accent);
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 0 var(--radius-lg) 0 0;
+  pointer-events: none;
+}
+.join__current {
+  position: absolute;
+  left: -48px;
+  bottom: -8px;
+  z-index: 2;
+  width: 55%;
+  height: 70px;
+  pointer-events: none;
 }
 
 @media (min-width: 960px) {
-  .join__inner {
-    grid-template-columns: 1fr 1.1fr;
-    gap: 64px;
-  }
-}
-
-/* Sin movimiento: en lugar de voltearse, la cara de atrás aparece con un fundido */
-@media (prefers-reduced-motion: reduce) {
-  .flip__inner {
-    transform-style: flat;
-    transition: none;
-  }
-  .flip:hover .flip__inner,
-  .flip:focus .flip__inner,
-  .flip:focus-within .flip__inner {
-    transform: none;
-  }
-  .flip__back {
-    transform: none;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .flip:hover .flip__back,
-  .flip:focus .flip__back,
-  .flip:focus-within .flip__back {
-    opacity: 1;
+  .join {
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
   }
 }

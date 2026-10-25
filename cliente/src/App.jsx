@@ -36,6 +36,7 @@ export default function App() {
                 <Route path="como-comprar" element={<Pending title="Cómo comprar" />} />
                 <Route path="nosotros" element={<Pending title="Nosotros" />} />
                 <Route path="contacto" element={<Pending title="Contacto" />} />
+                <Route path="politica-datos" element={<Pending title="Política de datos" />} />
                 <Route path="*" element={<NotFound />} />
               </Route>
             </Routes>

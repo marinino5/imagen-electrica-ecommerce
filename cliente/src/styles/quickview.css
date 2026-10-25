@@ -30,7 +30,7 @@
 }
 .qv__media {
   min-height: 220px;
-  background: var(--surface);
+  background: var(--lavender);
 }
 .qv__media img {
   width: 100%;
@@ -67,7 +67,7 @@
 .qv__specs div {
   padding: 8px 10px;
   border-radius: var(--radius-sm);
-  background: var(--surface);
+  background: var(--lavender);
 }
 .qv__specs dt {
   font-size: 0.74rem;

@@ -4,8 +4,8 @@ import useEmblaCarousel from 'embla-carousel-react'
 import ProductCard from '../ui/ProductCard'
 import QuickView from '../ui/QuickView'
 import ErrorState from '../ui/ErrorState'
-import Reveal from '../ui/Reveal'
-import { CarouselArrows } from './LinesCarousel'
+import CarouselArrows from '../ui/CarouselArrows'
+import SectionHeading from '../ui/SectionHeading'
 import '../../styles/home.css'
 
 export default function FeaturedRail({ featured }) {
@@ -15,18 +15,23 @@ export default function FeaturedRail({ featured }) {
   const products = data?.data ?? []
 
   return (
-    <section className="section section--surface" aria-labelledby="h-destacados">
+    <section className="section section--violet section--clip" aria-labelledby="h-destacados">
+      <span className="feat__arc feat__arc--a" aria-hidden="true" />
+      <span className="feat__arc feat__arc--b" aria-hidden="true" />
       <div className="container">
-        <div className="section-head">
-          <Reveal>
-            <h2 id="h-destacados" className="section-title">Destacados y <em>ofertas</em></h2>
-            <p className="section-lead">Referencias con alta rotación. Compra en línea o pide tu cotización.</p>
-          </Reveal>
-          <div className="section-head__actions">
-            <Link to="/productos" className="btn btn--ghost btn--sm">Ver todo el catálogo</Link>
-            <CarouselArrows api={emblaApi} />
-          </div>
-        </div>
+        <SectionHeading
+          id="h-destacados"
+          eyebrow="Lo más pedido"
+          lead="Referencias con alta rotación: compra en línea o pide tu cotización."
+          actions={
+            <div className="section-head__actions">
+              <Link to="/productos" className="btn btn--ghost-light btn--sm">Ver todo el catálogo</Link>
+              <CarouselArrows api={emblaApi} light />
+            </div>
+          }
+        >
+          Destacados y <em>ofertas</em>
+        </SectionHeading>
 
         {loading && (
           <div className="rail-skeleton" aria-hidden="true">

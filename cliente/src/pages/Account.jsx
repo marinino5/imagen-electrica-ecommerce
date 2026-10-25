@@ -68,7 +68,13 @@ export default function Account() {
       <header className="account__head">
         <div>
           <h1 className="page-title">Mi <em>cuenta</em></h1>
-          {customer && <p className="page-lead">{customer.company_name} · NIT {customer.nit}</p>}
+          {customer && (
+            <p className="page-lead">
+              {customer.type === 'company'
+                ? `${customer.company_name} · NIT ${customer.nit}`
+                : `${customer.type_label}${customer.nit ? ` · C.C. ${customer.nit}` : ''}`}
+            </p>
+          )}
         </div>
         <button type="button" className="btn btn--ghost btn--sm" onClick={logout}>
           <LogOut size={16} aria-hidden="true" /> Cerrar sesión

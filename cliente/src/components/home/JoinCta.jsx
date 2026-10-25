@@ -1,14 +1,15 @@
 import { Link } from 'react-router-dom'
-import { ClipboardList, FileText, Headset, Zap } from 'lucide-react'
+import { Zap } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 import Reveal from '../ui/Reveal'
+import Current from '../ui/Current'
 import '../../styles/join.css'
 
 const benefits = [
-  { icon: FileText, title: 'Cotiza en línea', text: 'Arma tu lista y recibe la cotización valorada por un asesor.' },
-  { icon: ClipboardList, title: 'Sigue tus pedidos', text: 'Consulta el estado de cada pedido y cotización desde tu cuenta.' },
-  { icon: Zap, title: 'Compra más rápido', text: 'Tus datos de empresa quedan guardados para la próxima vez.' },
-  { icon: Headset, title: 'Asesoría técnica', text: 'Un equipo con más de 25 años en el sector te acompaña.' },
+  'Cotiza en línea y recibe tu cotización valorada por un asesor.',
+  'Consulta el estado de cada pedido y cotización desde tu cuenta.',
+  'Tus datos quedan guardados para comprar más rápido.',
+  `Asesoría técnica de un equipo con más de 25 años en el sector.`,
 ]
 
 export default function JoinCta() {
@@ -17,35 +18,35 @@ export default function JoinCta() {
   if (isAuthenticated) return null
 
   return (
-    <section className="join" aria-labelledby="h-cuenta">
-      <img className="join__bg" src="/media/hero-tablero-poster.jpg" alt="" loading="lazy" />
-      <div className="join__shade" />
-      <div className="container join__inner">
-        <Reveal className="join__copy">
-          <p className="eyebrow">Cuenta empresarial gratuita</p>
-          <h2 id="h-cuenta" className="section-title">Crea tu cuenta y <em>cotiza hoy</em></h2>
-          <p className="section-lead">Registra tu empresa en un minuto y empieza a comprar o cotizar en línea.</p>
-          <Link to="/crear-cuenta" className="btn btn--accent btn--lg">Crear cuenta gratis</Link>
-        </Reveal>
+    <section className="section join-section" aria-labelledby="h-cuenta">
+      <div className="container">
+        <div className="join">
+          <span className="join__arc join__arc--a" aria-hidden="true" />
+          <Reveal className="join__copy">
+            <p className="eyebrow"><Zap size={14} aria-hidden="true" /> Para empresas y personas</p>
+            <h2 id="h-cuenta" className="section-title">Crea tu cuenta y <em>cotiza hoy</em></h2>
+            <ul className="join__list">
+              {benefits.map((text) => (
+                <li key={text}>
+                  <Zap size={18} aria-hidden="true" />
+                  <span>{text}</span>
+                </li>
+              ))}
+            </ul>
+            <Link to="/crear-cuenta" className="btn btn--accent btn--lg">Crear cuenta gratis</Link>
+          </Reveal>
 
-        <ul className="join__cards">
-          {benefits.map(({ icon: Icon, title, text }, i) => (
-            <Reveal as="li" key={title} delay={i * 0.08}>
-              {/* Tarjeta de vidrio que se voltea al pasar el mouse o con el teclado */}
-              <div className="flip" tabIndex={0}>
-                <div className="flip__inner">
-                  <div className="flip__face flip__front">
-                    <Icon size={30} aria-hidden="true" />
-                    <h3>{title}</h3>
-                  </div>
-                  <div className="flip__face flip__back">
-                    <p>{text}</p>
-                  </div>
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </ul>
+          <Reveal className="join__photo" delay={0.1}>
+            <Current
+              className="join__current"
+              viewBox="0 0 300 100"
+              d="M0 50 C 60 0, 110 100, 170 50 S 260 30, 300 60"
+              offset={['start 90%', 'center 50%']}
+            />
+            <span className="join__frame" aria-hidden="true" />
+            <img src="/img/fachada.webp" alt="Fachada de Imagen Eléctrica en Bucaramanga" width="640" height="480" loading="lazy" />
+          </Reveal>
+        </div>
       </div>
     </section>
   )

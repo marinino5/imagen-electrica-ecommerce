@@ -17,13 +17,14 @@ export function ProductPrice({ product }) {
 
 export function AddButton({ product, quantity = 1, block = false, size }) {
   const { add } = useCart()
+  const { data: categories } = useCategories()
   const direct = isDirectPurchase(product, quantity)
   const Icon = direct ? ShoppingCart : FileText
   return (
     <button
       type="button"
       className={`btn ${direct ? 'btn--accent' : 'btn--primary'} ${block ? 'btn--block' : ''} ${size ? `btn--${size}` : ''}`}
-      onClick={() => add(product, quantity)}
+      onClick={(e) => add(product, quantity, { rect: e.currentTarget.getBoundingClientRect(), image: productImage(product, categories) })}
     >
       <Icon size={18} aria-hidden="true" />
       {direct ? 'Agregar al carrito' : 'Solicitar cotización'}

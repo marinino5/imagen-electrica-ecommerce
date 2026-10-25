@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { animate, useInView, useReducedMotion } from 'framer-motion'
 import { Headset, Truck } from 'lucide-react'
+import { site } from '../../config/site'
 import '../../styles/home.css'
 
 function Counter({ to, prefix = '', suffix = '' }) {
@@ -16,33 +17,36 @@ function Counter({ to, prefix = '', suffix = '' }) {
   }, [inView, reduced, to])
 
   return (
-    <span ref={ref} className="trust__value">
+    <span ref={ref} className="stats__value">
       {prefix}{new Intl.NumberFormat('es-CO').format(value)}{suffix}
     </span>
   )
 }
 
+// Tarjeta blanca que se monta sobre el borde inferior del hero
 export default function TrustStrip() {
   return (
-    <section className="section--surface trust" aria-label="Por qué elegirnos">
-      <ul className="container trust__list">
-        <li>
-          <Counter to={25} suffix="+" />
-          <span>años de experiencia</span>
-        </li>
-        <li>
-          <Counter to={1000} prefix="+" />
-          <span>referencias en catálogo</span>
-        </li>
-        <li>
-          <Truck size={34} aria-hidden="true" />
-          <span>Envíos a todo el país</span>
-        </li>
-        <li>
-          <Headset size={34} aria-hidden="true" />
-          <span>Asesoría técnica incluida</span>
-        </li>
-      </ul>
+    <section className="stats" aria-label="Por qué elegirnos">
+      <div className="container">
+        <ul className="stats__card">
+          <li>
+            <Counter to={site.years} prefix="+" />
+            <span>años de experiencia</span>
+          </li>
+          <li>
+            <Counter to={1000} prefix="+" />
+            <span>referencias en catálogo</span>
+          </li>
+          <li>
+            <Truck size={38} aria-hidden="true" />
+            <span>Envíos a todo el país</span>
+          </li>
+          <li>
+            <Headset size={38} aria-hidden="true" />
+            <span>Asesoría técnica</span>
+          </li>
+        </ul>
+      </div>
     </section>
   )
 }

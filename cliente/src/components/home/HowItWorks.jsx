@@ -1,8 +1,9 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'framer-motion'
-import { FileCheck2, PackageCheck, Search, ShoppingCart } from 'lucide-react'
-import { useMediaQuery } from '../../hooks/useMediaQuery'
+import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { ArrowRight, FileCheck2, PackageCheck, Search, ShoppingCart } from 'lucide-react'
+import Reveal from '../ui/Reveal'
+import SectionHeading from '../ui/SectionHeading'
 import '../../styles/how.css'
 
 const icons = [Search, ShoppingCart, FileCheck2, PackageCheck]
@@ -13,9 +14,9 @@ const paths = {
     label: 'Compra directa',
     steps: [
       { title: 'Busca', text: 'Encuentra el producto por nombre, referencia o línea.' },
-      { title: 'Agrega', text: 'Suma al carrito lo que está disponible, con su precio y IVA.' },
-      { title: 'Confirma', text: 'Envía tu pedido y coordinamos el pago contigo.' },
-      { title: 'Recibe', text: 'Recógelo en tienda o te lo enviamos a tu empresa.' },
+      { title: 'Agrega', text: 'Suma al carrito lo que está disponible, con su precio e IVA.' },
+      { title: 'Confirma', text: 'Envía tu pedido y un asesor coordina el pago contigo.' },
+      { title: 'Recibe', text: 'Recógelo en tienda o te lo enviamos a todo el país.' },
     ],
   },
   quote: {
@@ -31,32 +32,29 @@ const paths = {
 
 const NODES = 4
 
-function Track({ desktop, reduced }) {
-  const ref = useRef(null)
+export default function HowItWorks() {
+  const listRef = useRef(null)
+  const reduced = useReducedMotion()
   const [mode, setMode] = useState('direct')
   const [reached, setReached] = useState(reduced ? NODES - 1 : 0)
 
-  // Desktop: la sección queda fija y el scroll dibuja la línea. Celular: se dibuja mientras la sección cruza la pantalla
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: desktop ? ['start start', 'end end'] : ['start 75%', 'end 60%'],
-  })
-  const scrolled = useTransform(scrollYProgress, [0.06, 0.9], [0, 1], { clamp: true })
-  const still = useMotionValue(1)
-  const drawn = reduced ? still : scrolled
-
+  // La corriente naranja se dibuja con el scroll y va activando cada paso
+  const { scrollYProgress } = useScroll({ target: listRef, offset: ['start 70%', 'end 55%'] })
+  const drawn = useTransform(scrollYProgress, [0, 1], [0, 1], { clamp: true })
   useMotionValueEvent(drawn, 'change', (v) => setReached(Math.min(NODES - 1, Math.floor(v * (NODES - 1) + 0.02))))
+  const active = reduced ? NODES - 1 : reached
 
   const steps = paths[mode].steps
 
   return (
-    <div ref={ref} className="how__track">
-      <div className="how__pin">
-        <div className="container how__inner">
-          <div className="how__head">
-            <p className="eyebrow">Compra sin complicaciones</p>
-            <h2 className="section-title">Así de <em>fácil</em></h2>
+    <section className="section section--light" aria-labelledby="h-como">
+      <div className="container how">
+        <div className="how__intro">
+          <SectionHeading id="h-como" eyebrow="Compra sin complicaciones" lead="Elige cómo quieres comprar: los pasos son los mismos, cambia quién pone el precio.">
+            Así de <em>fácil</em>
+          </SectionHeading>
 
+          <Reveal>
             <div className="how__switch" role="group" aria-label="Elige el camino">
               {Object.entries(paths).map(([key, path]) => (
                 <button key={key} type="button" aria-pressed={mode === key} className={mode === key ? 'is-on' : ''} onClick={() => setMode(key)}>
@@ -64,52 +62,45 @@ function Track({ desktop, reduced }) {
                 </button>
               ))}
             </div>
-          </div>
+            <Link to="/como-comprar" className="how__more">
+              Conoce más sobre cómo comprar <ArrowRight size={18} aria-hidden="true" />
+            </Link>
+          </Reveal>
+        </div>
 
-          <div className="how__steps">
-            {/* La corriente: trazo naranja que se dibuja con el scroll (horizontal en escritorio, vertical en celular) */}
-            <svg className="how__line how__line--h" viewBox="0 0 1000 80" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M125 40 C210 0 290 80 375 40 C460 0 540 80 625 40 C710 0 790 80 875 40" className="how__base" />
-              <motion.path d="M125 40 C210 0 290 80 375 40 C460 0 540 80 625 40 C710 0 790 80 875 40" className="how__draw" style={{ pathLength: drawn }} />
-            </svg>
-            <svg className="how__line how__line--v" viewBox="0 0 40 400" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M20 0 C40 60 0 120 20 180 C40 240 0 300 20 400" className="how__base" />
-              <motion.path d="M20 0 C40 60 0 120 20 180 C40 240 0 300 20 400" className="how__draw" style={{ pathLength: drawn }} />
-            </svg>
+        <div className="how__list" ref={listRef}>
+          {/* La corriente: trazo naranja que une los 4 pasos y se dibuja con el scroll */}
+          <svg className="how__line" viewBox="0 0 40 400" preserveAspectRatio="none" aria-hidden="true" fill="none">
+            <path d="M20 0 L20 400" stroke="var(--lavender-2)" strokeWidth="3" vectorEffect="non-scaling-stroke" />
+            <motion.path
+              d="M20 0 L20 400"
+              stroke="var(--accent)"
+              strokeWidth="3"
+              strokeLinecap="round"
+              vectorEffect="non-scaling-stroke"
+              style={{ pathLength: reduced ? 1 : drawn }}
+            />
+          </svg>
 
-            <ol>
-              {steps.map((step, i) => {
-                const Icon = icons[i]
-                return (
-                  <li key={`${mode}-${i}`} className={i <= reached ? 'is-reached' : ''}>
-                    <span className="how__node">
-                      <Icon size={28} aria-hidden="true" />
-                      <b>{i + 1}</b>
-                    </span>
-                    <div>
-                      <h3>{step.title}</h3>
-                      <p>{step.text}</p>
-                    </div>
-                  </li>
-                )
-              })}
-            </ol>
-          </div>
-
-          <Link to="/como-comprar" className="btn btn--ghost-light">Conoce más sobre cómo comprar</Link>
+          <ol>
+            {steps.map((step, i) => {
+              const Icon = icons[i]
+              const state = i === active ? 'is-active' : i < active ? 'is-done' : ''
+              return (
+                <li key={`${mode}-${i}`} className={`how__step ${state}`}>
+                  <span className="how__node">
+                    <Icon size={24} aria-hidden="true" />
+                  </span>
+                  <div>
+                    <h3><b>{i + 1}</b> {step.title}</h3>
+                    <p>{step.text}</p>
+                  </div>
+                </li>
+              )
+            })}
+          </ol>
         </div>
       </div>
-    </div>
-  )
-}
-
-export default function HowItWorks() {
-  const desktop = useMediaQuery('(min-width: 900px)')
-  const reduced = useReducedMotion()
-  // `key` reinicia el seguimiento del scroll si la pantalla cambia de tamaño
-  return (
-    <section className={`section--ink how ${reduced ? 'how--static' : ''}`} aria-label="Así de fácil">
-      <Track key={`${desktop}-${reduced}`} desktop={desktop} reduced={reduced} />
     </section>
   )
 }

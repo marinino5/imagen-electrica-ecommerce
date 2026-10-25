@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { ClipboardList, FileText } from 'lucide-react'
 import Field from '../components/ui/Field'
+import AuthShell from '../components/ui/AuthShell'
 import '../styles/pages.css'
 
 export default function Login() {
@@ -37,24 +39,32 @@ export default function Login() {
   }
 
   return (
-    <section className="page-narrow">
-      <h1 className="page-title">Ingresar</h1>
-      <p className="page-lead">Accede a tu cuenta empresarial para enviar solicitudes y ver tus pedidos.</p>
+    <AuthShell
+      eyebrow="Mi cuenta"
+      title="Bienvenido"
+      accent="de nuevo"
+      benefits={[
+        { icon: ClipboardList, text: 'Consulta el estado de tus pedidos y cotizaciones.' },
+        { icon: FileText, text: 'Envía tu carrito y recibe tu cotización valorada.' },
+      ]}
+    >
+      <h2>Ingresar</h2>
+      <p className="page-lead">Accede a tu cuenta para enviar solicitudes y ver tus pedidos.</p>
 
-      {location.state?.notice && <p className="alert alert--warning">{location.state.notice}</p>}
+      {location.state?.notice && <p className="alert alert--warning" role="status">{location.state.notice}</p>}
 
-      <form className="form card" onSubmit={submit} noValidate>
+      <form className="form" onSubmit={submit} noValidate>
         {error && <p className="alert alert--error" role="alert">{error.message}</p>}
         <Field label="Correo electrónico" type="email" autoComplete="email" value={form.email} onChange={set('email')} error={error?.fieldError?.('email')} required />
         <Field label="Contraseña" type="password" autoComplete="current-password" value={form.password} onChange={set('password')} error={error?.fieldError?.('password')} required />
-        <button type="submit" className="btn btn--primary btn--lg btn--block" disabled={busy}>
+        <button type="submit" className="btn btn--accent btn--lg btn--block" disabled={busy}>
           {busy ? 'Ingresando…' : 'Ingresar'}
         </button>
       </form>
 
-      <p className="form-foot">
-        ¿Aún no tienes cuenta? <Link to="/crear-cuenta" state={location.state}>Crea tu cuenta empresarial</Link>
+      <p className="auth__foot">
+        ¿Aún no tienes cuenta? <Link to="/crear-cuenta" state={location.state}>Crea tu cuenta</Link>
       </p>
-    </section>
+    </AuthShell>
   )
 }
