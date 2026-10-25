@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
 // role e is_active no son asignables en masa: así un registro desde la API
@@ -54,6 +55,17 @@ class User extends Authenticatable
     public function statusChanges(): HasMany
     {
         return $this->hasMany(OrderStatusHistory::class);
+    }
+
+    /** Iniciales para el avatar: "Asesor Comercial" => "AC". */
+    public function initials(): string
+    {
+        return Str::of($this->name)
+            ->explode(' ')
+            ->filter()
+            ->take(2)
+            ->map(fn (string $word) => Str::upper(Str::substr($word, 0, 1)))
+            ->implode('');
     }
 
     public function hasRole(UserRole $role): bool

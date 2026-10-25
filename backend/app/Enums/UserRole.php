@@ -16,4 +16,15 @@ enum UserRole: string
             self::Cliente => 'Cliente',
         };
     }
+
+    /**
+     * Roles del personal de Imagen Eléctrica: los únicos que entran al panel.
+     */
+    public function canAccessPanel(): bool
+    {
+        return match ($this) {
+            self::Admin, self::Comercial => true,
+            self::Cliente => false,
+        };
+    }
 }

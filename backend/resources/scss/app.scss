@@ -1,0 +1,22 @@
+// Punto de entrada de estilos del panel: Bootstrap personalizado con la marca.
+
+@import 'bootstrap/scss/functions';
+@import 'variables';
+@import 'bootstrap/scss/variables';
+
+// "accent" se agrega como color del tema para tener btn-accent, bg-accent,
+// text-accent y la variable CSS --bs-accent.
+$theme-colors: map-merge($theme-colors, ('accent': $brand-accent));
+
+// Bootstrap completo. Sus variables usan !default, así que conserva
+// los valores que se definieron arriba.
+@import 'bootstrap/scss/bootstrap';
+
+// Íconos: la ruta de las fuentes es relativa a este archivo para que Vite las copie
+$bootstrap-icons-font-dir: '../../node_modules/bootstrap-icons/font/fonts';
+@import 'bootstrap-icons/font/bootstrap-icons';
+
+@import 'base';
+@import 'panel';
+@import 'dashboard';
+@import 'login';

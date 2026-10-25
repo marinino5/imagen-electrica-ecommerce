@@ -1,0 +1,273 @@
+// Componentes del dashboard: indicadores, gráficos, tablas, accesos y categorías.
+
+.card-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    h2 {
+        margin-bottom: 0;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+    }
+}
+
+/* Indicadores */
+.stat-card {
+    height: 100%;
+    border-left: 4px solid var(--stat-color);
+    transition: transform .15s ease, box-shadow .15s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: $box-shadow;
+    }
+
+    .stat-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.75rem;
+        height: 2.75rem;
+        border-radius: $border-radius;
+        background-color: var(--stat-tint);
+        color: var(--stat-icon, var(--stat-color));
+        font-size: 1.3rem;
+    }
+
+    .stat-value {
+        font-family: $headings-font-family;
+        font-size: 2.5rem;
+        font-weight: $headings-font-weight;
+        line-height: 1;
+    }
+
+    .stat-label {
+        color: $brand-ink;
+        font-weight: 600;
+    }
+
+    .stat-trend {
+        color: $brand-muted;
+        font-size: .82rem;
+    }
+}
+
+.stat-card-primary { --stat-color: #{$brand-primary}; --stat-tint: #{mix($brand-primary, $brand-white, 10%)}; }
+// En el ícono, el naranja va sobre un tinte claro y en tono oscuro para que se distinga
+.stat-card-accent { --stat-color: #{$brand-accent}; --stat-icon: #{$brand-accent-text}; --stat-tint: #{mix($brand-accent, $brand-white, 14%)}; }
+.stat-card-ink { --stat-color: #{$brand-ink}; --stat-tint: #{mix($brand-ink, $brand-white, 8%)}; }
+.stat-card-danger { --stat-color: #{$brand-danger}; --stat-tint: #{mix($brand-danger, $brand-white, 10%)}; }
+
+.trend-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: .15rem;
+    margin-right: .35rem;
+    padding: .05rem .4rem;
+    border-radius: 1rem;
+    font-weight: 600;
+}
+
+.trend-up { background-color: mix($brand-primary, $brand-white, 10%); color: $brand-primary; }
+.trend-down { background-color: mix($brand-ink, $brand-white, 8%); color: $brand-ink; }
+.trend-flat { background-color: $brand-lavender; color: $brand-muted; }
+
+/* Gráficos */
+:root {
+    // Fuente de títulos para el total escrito en el centro de la dona
+    --bs-heading-font-family: #{$headings-font-family};
+}
+
+.chart-box {
+    position: relative;
+    height: 17rem;
+}
+
+/* Tablas del dashboard */
+.table-dashboard {
+    --bs-table-bg: transparent;
+    margin-bottom: 0;
+
+    th {
+        color: $brand-muted;
+        font-size: .75rem;
+        font-weight: 600;
+        letter-spacing: .05em;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+
+    td,
+    th {
+        padding: .75rem 1.25rem;
+        vertical-align: middle;
+    }
+
+    tbody tr:last-child td {
+        border-bottom: 0;
+    }
+}
+
+.order-code {
+    font-family: $font-family-monospace;
+    font-size: .85rem;
+    font-weight: 600;
+    color: $brand-primary;
+    white-space: nowrap;
+}
+
+.hours-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .3rem;
+    padding: .3em .6em;
+    border-radius: 2rem;
+    background-color: $brand-lavender;
+    color: $brand-ink;
+    font-size: .8rem;
+    font-weight: 600;
+    white-space: nowrap;
+
+    &.is-overdue {
+        background-color: $brand-danger;
+        color: $brand-white;
+    }
+}
+
+/* Últimos pedidos */
+.order-list-item {
+    display: flex;
+    align-items: center;
+    gap: .875rem;
+    padding: .875rem 1.25rem;
+    border-bottom: 1px solid $border-color;
+
+    &:last-child {
+        border-bottom: 0;
+    }
+
+    .order-icon {
+        display: inline-flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: $border-radius;
+        background-color: $brand-lavender;
+        color: $brand-primary;
+    }
+}
+
+/* Accesos rápidos */
+.quick-link {
+    display: flex;
+    align-items: center;
+    gap: .875rem;
+    height: 100%;
+    padding: 1rem;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    background-color: $brand-white;
+    color: $brand-ink;
+    text-decoration: none;
+    transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+
+    .quick-link-icon {
+        display: inline-flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        width: 2.75rem;
+        height: 2.75rem;
+        border-radius: $border-radius;
+        background-color: $brand-primary;
+        color: $brand-white;
+        font-size: 1.2rem;
+    }
+
+    small {
+        display: block;
+        color: $brand-muted;
+    }
+
+    .bi-arrow-right {
+        margin-left: auto;
+        color: $brand-muted;
+        transition: transform .15s ease;
+    }
+
+    &:hover,
+    &:focus-visible {
+        border-color: $brand-primary;
+        box-shadow: $box-shadow;
+        color: $brand-ink;
+
+        .bi-arrow-right {
+            transform: translateX(3px);
+            color: $brand-primary;
+        }
+    }
+}
+
+/* Stock bajo */
+.stock-item {
+    display: flex;
+    align-items: center;
+    gap: .875rem;
+    padding: .75rem 1.25rem;
+    border-bottom: 1px solid $border-color;
+    color: $brand-ink;
+    text-decoration: none;
+
+    &:last-child {
+        border-bottom: 0;
+    }
+
+    .stock-item-name {
+        font-weight: 600;
+    }
+
+    .stock-item-sku {
+        color: $brand-muted;
+        font-family: $font-family-monospace;
+        font-size: .8rem;
+    }
+}
+
+a.stock-item {
+    transition: background-color .15s ease;
+
+    &:hover,
+    &:focus-visible {
+        background-color: $brand-surface;
+        color: $brand-ink;
+
+        .stock-item-name {
+            color: $brand-primary;
+        }
+    }
+}
+
+// Cantidad que queda: lavanda con pocas unidades, rojo si está agotado
+.stock-badge {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: .3rem;
+    margin-left: auto;
+    padding: .3em .65em;
+    border-radius: 2rem;
+    background-color: mix($brand-accent, $brand-white, 22%);
+    color: $brand-ink;
+    font-size: .8rem;
+    font-weight: 600;
+    white-space: nowrap;
+
+    &.is-out {
+        background-color: $brand-danger;
+        color: $brand-white;
+    }
+}

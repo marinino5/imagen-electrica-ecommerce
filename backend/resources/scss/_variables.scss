@@ -1,0 +1,71 @@
+// Variables de marca de Imagen Eléctrica (ver CLAUDE.md, "Identidad visual").
+// Es el único lugar donde se escriben colores: las vistas usan las clases
+// de Bootstrap (bg-primary, btn-accent...) o las variables CSS --bs-*.
+
+// Paleta de marca: tonos del catálogo, pastel y neutros.
+// Para cambiar los colores de todo el panel se editan solo estas variables.
+$brand-primary: #513E84; // violeta: encabezados, botones principales, íconos
+$brand-accent: #EE7C36; // naranja: llamados importantes, siempre con texto ink
+$brand-accent-strong: #F26A00; // naranja intenso: solo títulos grandes sobre fondo blanco
+$brand-peach: #F0AA83; // durazno: acentos suaves y gráficos
+$brand-primary-deep: #46356F; // violeta más oscuro: final del degradado de la barra lateral y franja de marcas
+$brand-ink: #261C3E; // texto y títulos
+$brand-surface: #F6F4F9; // fondo de página y barra lateral
+$brand-lavender: #E9E3F4; // fondo de ítem activo, bordes y franjas
+$brand-muted: #6E6178; // texto secundario
+$brand-white: #FFFFFF;
+
+// El naranja sobre fondo claro no llega a 3:1 de contraste; para texto sobre
+// blanco o lavanda se usa esta versión más oscura.
+$brand-accent-text: mix($brand-accent, $brand-ink, 74%);
+
+// Colores funcionales (atrasos, éxito). Solo estos son más intensos porque el
+// texto blanco encima debe superar 4.5:1 de contraste.
+$brand-danger: #B3363B;
+$brand-success: #2F7D5B;
+
+// Bootstrap: colores del tema
+$primary: $brand-primary;
+$secondary: $brand-muted;
+$light: $brand-surface;
+$dark: $brand-ink;
+$danger: $brand-danger;
+$success: $brand-success;
+
+// color-contrast() elige el texto de cada botón; con ink como color oscuro,
+// el botón accent queda con texto #261C3E y no blanco.
+$color-contrast-dark: $brand-ink;
+$color-contrast-light: $brand-white;
+
+$body-color: $brand-ink;
+$body-bg: $brand-white;
+$body-secondary-color: $brand-muted;
+$headings-color: $brand-ink;
+$link-color: $brand-primary;
+
+// Tipografía
+$font-family-sans-serif: 'Barlow', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+$headings-font-family: 'Barlow Condensed', 'Arial Narrow', $font-family-sans-serif;
+$headings-font-weight: 700;
+
+// Tarjetas blancas con borde suave y esquinas de 8 px
+$border-radius: .5rem;
+$border-radius-lg: .5rem;
+$border-color: mix($brand-ink, $brand-white, 12%);
+$card-border-color: $border-color;
+$card-cap-bg: $brand-white;
+$card-spacer-y: 1.25rem;
+$card-spacer-x: 1.25rem;
+
+// Sombras suaves teñidas con ink (no negro puro)
+$box-shadow-sm: 0 1px 2px rgba($brand-ink, .05), 0 1px 3px rgba($brand-ink, .04);
+$box-shadow: 0 2px 4px rgba($brand-ink, .04), 0 8px 24px rgba($brand-ink, .06);
+$box-shadow-lg: 0 12px 24px rgba($brand-ink, .08), 0 24px 56px rgba($brand-ink, .12);
+
+$dropdown-border-color: $border-color;
+$dropdown-box-shadow: $box-shadow-lg;
+$toast-border-color: $border-color;
+$toast-box-shadow: $box-shadow-lg;
+
+// Foco visible con el color de marca (accesibilidad)
+$input-btn-focus-color: rgba($brand-primary, .25);

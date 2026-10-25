@@ -1,0 +1,202 @@
+// Piezas compartidas por el panel, el login y las páginas de error.
+
+:root {
+    // Paleta de los gráficos: solo colores de marca y sus mezclas.
+    // dashboard-charts.js la lee como --ie-chart-1, --ie-chart-2...
+    --ie-chart-1: #{$brand-primary};
+    --ie-chart-2: #{$brand-accent};
+    --ie-chart-3: #{mix($brand-primary, $brand-white, 50%)};
+    --ie-chart-4: #{$brand-peach};
+    --ie-chart-5: #{mix($brand-primary, $brand-white, 22%)};
+    --ie-chart-6: #{mix($brand-accent, $brand-white, 40%)};
+    --ie-chart-7: #{mix($brand-ink, $brand-white, 55%)};
+    --ie-chart-8: #{mix($brand-primary, $brand-ink, 55%)};
+    --ie-chart-9: #{mix($brand-peach, $brand-white, 50%)};
+    --ie-chart-10: #{mix($brand-ink, $brand-white, 30%)};
+    --ie-grid-color: #{rgba($brand-ink, .07)};
+}
+
+h1, h2, h3, .h1, .h2, .h3 {
+    letter-spacing: .01em;
+}
+
+.card {
+    box-shadow: $box-shadow-sm;
+}
+
+// Trama sutil de puntos (login, errores)
+@mixin dot-pattern($color, $size: 22px) {
+    background-image: radial-gradient($color 1px, transparent 1.5px);
+    background-size: $size $size;
+}
+
+// Entrada animada: sube y aparece. --delay escalona los elementos.
+@keyframes ie-fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.animate-in {
+    animation: ie-fade-up .6s cubic-bezier(.2, .7, .2, 1) both;
+    animation-delay: var(--delay, 0s);
+}
+
+// Quien pidió menos movimiento en su sistema no ve animaciones
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+// Estado vacío: ícono y mensaje centrados
+.empty-state {
+    padding: 2rem 1rem;
+    text-align: center;
+    color: $brand-muted;
+
+    .empty-state-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 3.5rem;
+        height: 3.5rem;
+        margin-bottom: .75rem;
+        border-radius: 50%;
+        background-color: $brand-lavender;
+        color: $brand-primary;
+        font-size: 1.5rem;
+    }
+
+    .empty-state-title {
+        margin-bottom: .25rem;
+        color: $brand-ink;
+        font-weight: 600;
+    }
+}
+
+// Notificaciones (toasts) con barra de color e ícono según el tipo
+.toast-stack {
+    z-index: $zindex-toast;
+}
+
+.app-toast {
+    border-left: 4px solid var(--toast-color);
+
+    .toast-icon {
+        color: var(--toast-color);
+        font-size: 1.25rem;
+    }
+}
+
+.app-toast-success { --toast-color: #{$brand-success}; }
+.app-toast-error { --toast-color: #{$brand-danger}; }
+
+// Insignias de estado de pedidos y cotizaciones
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .375rem;
+    padding: .3em .65em;
+    border-radius: 2rem;
+    font-size: .78rem;
+    font-weight: 600;
+    white-space: nowrap;
+    background-color: var(--status-bg);
+    color: var(--status-color);
+
+    &::before {
+        content: '';
+        width: .45rem;
+        height: .45rem;
+        border-radius: 50%;
+        background-color: currentColor;
+    }
+}
+
+@mixin status($bg, $color) {
+    --status-bg: #{$bg};
+    --status-color: #{$color};
+}
+
+.status-pending_payment { @include status(mix($brand-accent, $brand-white, 18%), mix($brand-accent, $brand-ink, 35%)); }
+.status-paid { @include status(mix($brand-success, $brand-white, 14%), $brand-success); }
+.status-shipped { @include status(mix($brand-primary, $brand-white, 12%), $brand-primary); }
+.status-delivered { @include status($brand-success, $brand-white); }
+.status-new { @include status($brand-accent, $brand-ink); }
+.status-in_review { @include status(mix($brand-primary, $brand-white, 12%), $brand-primary); }
+.status-sent { @include status($brand-primary, $brand-white); }
+.status-accepted { @include status(mix($brand-success, $brand-white, 14%), $brand-success); }
+.status-rejected { @include status(mix($brand-danger, $brand-white, 12%), $brand-danger); }
+.status-cancelled { @include status($brand-lavender, $brand-muted); }
+
+// Avatar con iniciales
+.avatar {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background-color: $brand-peach;
+    color: $brand-ink;
+    font-family: $headings-font-family;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: .03em;
+}
+
+// Páginas de error
+.error-page {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    background-color: $brand-surface;
+    @include dot-pattern(rgba($brand-primary, .14));
+}
+
+.error-arc {
+    position: absolute;
+    right: -6rem;
+    bottom: -6rem;
+    width: 26rem;
+    color: $brand-peach;
+    opacity: .9;
+    pointer-events: none;
+}
+
+.error-card {
+    position: relative;
+    width: 100%;
+    max-width: 28rem;
+}
+
+.error-logo {
+    display: inline-block;
+    width: 7.5rem;
+    height: auto;
+}
+
+.error-code {
+    font-family: $headings-font-family;
+    font-size: 5.5rem;
+    font-weight: $headings-font-weight;
+    line-height: 1;
+    color: $brand-primary;
+}
+
+.min-w-0 {
+    min-width: 0;
+}
