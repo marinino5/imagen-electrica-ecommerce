@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -25,7 +26,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     // Personal: admin y comercial
     Route::middleware(['auth', 'role:admin,comercial'])->group(function () {
-        Route::view('/', 'admin.coming-soon', ['title' => 'Dashboard'])->name('dashboard');
+        Route::get('/', DashboardController::class)->name('dashboard');
 
         // Catálogo: solo admin
         Route::middleware('role:admin')->group(function () {
