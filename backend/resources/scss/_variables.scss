@@ -2,18 +2,25 @@
 // Es el único lugar donde se escriben colores: las vistas usan las clases
 // de Bootstrap (bg-primary, btn-accent...) o las variables CSS --bs-*.
 
-// Paleta de marca
-$brand-primary: #520179; // morado del logo
-$brand-accent: #FD6F00; // naranja del logo: siempre con texto ink
+// Paleta de marca: tonos del catálogo, pastel y neutros.
+// Para cambiar los colores de todo el panel se editan solo estas variables.
+$brand-primary: #513E84; // violeta: encabezados, botones principales, íconos
+$brand-accent: #EE7C36; // naranja: llamados importantes, siempre con texto ink
+$brand-peach: #F0AA83; // durazno: acentos suaves y gráficos
 $brand-ink: #261C3E; // texto y títulos
-$brand-surface: #F5F1F9; // fondo de secciones alternas
+$brand-surface: #F6F4F9; // fondo de página y barra lateral
+$brand-lavender: #E9E3F4; // fondo de ítem activo, bordes y franjas
 $brand-muted: #6E6178; // texto secundario
 $brand-white: #FFFFFF;
 
-// Colores funcionales (alertas, insignias de atraso). Elegidos para que el
-// texto blanco encima tenga contraste AA.
-$brand-danger: #C62828;
-$brand-success: #1B7F4C;
+// El naranja sobre fondo claro no llega a 3:1 de contraste; para texto sobre
+// blanco o lavanda se usa esta versión más oscura.
+$brand-accent-text: mix($brand-accent, $brand-ink, 74%);
+
+// Colores funcionales (atrasos, éxito). Solo estos son más intensos porque el
+// texto blanco encima debe superar 4.5:1 de contraste.
+$brand-danger: #B3363B;
+$brand-success: #2F7D5B;
 
 // Bootstrap: colores del tema
 $primary: $brand-primary;

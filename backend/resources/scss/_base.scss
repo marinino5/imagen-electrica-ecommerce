@@ -5,14 +5,14 @@
     // dashboard-charts.js la lee como --ie-chart-1, --ie-chart-2...
     --ie-chart-1: #{$brand-primary};
     --ie-chart-2: #{$brand-accent};
-    --ie-chart-3: #{$brand-ink};
-    --ie-chart-4: #{mix($brand-primary, $brand-white, 55%)};
-    --ie-chart-5: #{mix($brand-accent, $brand-white, 55%)};
-    --ie-chart-6: #{$brand-muted};
-    --ie-chart-7: #{mix($brand-primary, $brand-ink, 45%)};
-    --ie-chart-8: #{mix($brand-accent, $brand-ink, 65%)};
-    --ie-chart-9: #{mix($brand-ink, $brand-white, 35%)};
-    --ie-chart-10: #{mix($brand-primary, $brand-white, 28%)};
+    --ie-chart-3: #{mix($brand-primary, $brand-white, 50%)};
+    --ie-chart-4: #{$brand-peach};
+    --ie-chart-5: #{mix($brand-primary, $brand-white, 22%)};
+    --ie-chart-6: #{mix($brand-accent, $brand-white, 40%)};
+    --ie-chart-7: #{mix($brand-ink, $brand-white, 55%)};
+    --ie-chart-8: #{mix($brand-primary, $brand-ink, 55%)};
+    --ie-chart-9: #{mix($brand-peach, $brand-white, 50%)};
+    --ie-chart-10: #{mix($brand-ink, $brand-white, 30%)};
     --ie-grid-color: #{rgba($brand-ink, .07)};
 }
 
@@ -74,7 +74,7 @@ h1, h2, h3, .h1, .h2, .h3 {
         height: 3.5rem;
         margin-bottom: .75rem;
         border-radius: 50%;
-        background-color: $brand-surface;
+        background-color: $brand-lavender;
         color: $brand-primary;
         font-size: 1.5rem;
     }
@@ -139,7 +139,7 @@ h1, h2, h3, .h1, .h2, .h3 {
 .status-sent { @include status($brand-primary, $brand-white); }
 .status-accepted { @include status(mix($brand-success, $brand-white, 14%), $brand-success); }
 .status-rejected { @include status(mix($brand-danger, $brand-white, 12%), $brand-danger); }
-.status-cancelled { @include status($brand-surface, $brand-muted); }
+.status-cancelled { @include status($brand-lavender, $brand-muted); }
 
 // Avatar con iniciales
 .avatar {
@@ -150,7 +150,7 @@ h1, h2, h3, .h1, .h2, .h3 {
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
-    background-color: $brand-accent;
+    background-color: $brand-peach;
     color: $brand-ink;
     font-family: $headings-font-family;
     font-size: 1.05rem;
@@ -164,7 +164,7 @@ h1, h2, h3, .h1, .h2, .h3 {
     min-height: 100vh;
     overflow: hidden;
     background-color: $brand-surface;
-    @include dot-pattern(rgba($brand-primary, .12));
+    @include dot-pattern(rgba($brand-primary, .14));
 }
 
 .error-arc {
@@ -172,7 +172,7 @@ h1, h2, h3, .h1, .h2, .h3 {
     right: -6rem;
     bottom: -6rem;
     width: 26rem;
-    color: $brand-accent;
+    color: $brand-peach;
     opacity: .9;
     pointer-events: none;
 }

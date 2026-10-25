@@ -87,19 +87,20 @@ class DashboardTest extends TestCase
         $this->assertSame(2, array_sum($purchases['data']));
     }
 
-    public function test_categories_count_active_products_including_subcategories(): void
+    public function test_low_stock_lists_active_direct_products_with_five_units_or_fewer(): void
     {
-        $parent = Category::factory()->create(['parent_id' => null, 'is_active' => true]);
-        $child = Category::factory()->create(['parent_id' => $parent->id]);
-        Product::factory()->create(['category_id' => $parent->id, 'is_active' => true]);
-        Product::factory()->count(2)->create(['category_id' => $child->id, 'is_active' => true]);
-        Product::factory()->create(['category_id' => $child->id, 'is_active' => false]);
+        $out = Product::factory()->create(['name' => 'Agotado', 'stock' => 0]);
+        $low = Product::factory()->create(['name' => 'Casi agotado', 'stock' => 5]);
+        Product::factory()->create(['stock' => 6]); // stock suficiente
+        Product::factory()->create(['stock' => 1, 'is_active' => false]); // inactivo
+        Product::factory()->quoteOnly()->create(['stock' => 0]); // por cotización: sin stock es normal
+        Product::factory()->onRequest()->create(); // bajo pedido
 
-        $categories = $this->summary()['categories'];
+        $lowStock = $this->summary()['low_stock'];
 
-        $this->assertTrue($categories->contains('id', $parent->id));
-        $this->assertFalse($categories->contains('id', $child->id));
-        $this->assertSame(3, (int) $categories->firstWhere('id', $parent->id)->active_products_count);
+        $this->assertSame(2, $lowStock['total']);
+        // Los más escasos primero
+        $this->assertSame([$out->id, $low->id], $lowStock['products']->pluck('id')->all());
     }
 
     public function test_dashboard_page_shows_cards_charts_and_new_quotes_bell(): void
@@ -113,7 +114,9 @@ class DashboardTest extends TestCase
             ->assertSee('data-chart="status"', false)
             ->assertSee('data-chart="daily"', false)
             ->assertSee('Requieren atención')
+            ->assertSee('Stock bajo')
             ->assertSee('Mariana')
+            ->assertSee('Buscar productos')
             ->assertSee('2 cotizaciones nuevas');
     }
 }

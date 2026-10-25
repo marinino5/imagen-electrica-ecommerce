@@ -60,7 +60,7 @@
                 </div>
 
                 <div class="animate-in" style="--delay: 100ms">
-                    <h2 class="login-heading mb-1">Ingresa al <span class="text-accent">panel</span></h2>
+                    <h2 class="login-heading mb-1">Ingresa al <span>panel</span></h2>
                     <p class="text-body-secondary mb-4">Usa tu correo y contraseña del equipo de Imagen Eléctrica.</p>
                 </div>
 

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SearchController;
 use Illuminate\Support\Facades\Route;
 
 // La tienda del cliente es la app React (/cliente); el backend solo sirve el panel.
@@ -30,11 +31,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Ruta alternativa: /admin/dashboard lleva al mismo dashboard
         Route::redirect('dashboard', '/admin');
 
+        // Buscador global (productos): lo usan admin y comercial
+        Route::get('search', SearchController::class)->name('search');
+
         // Catálogo: solo admin
         Route::middleware('role:admin')->group(function () {
             Route::resource('categories', CategoryController::class)->only('index');
             Route::resource('brands', BrandController::class)->only('index');
-            Route::resource('products', ProductController::class)->only('index');
+            Route::resource('products', ProductController::class)->only(['index', 'show']);
         });
     });
 });

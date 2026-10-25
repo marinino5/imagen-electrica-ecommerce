@@ -23,6 +23,12 @@ class DashboardService
     /** Días que muestra el gráfico de barras. */
     public const DAILY_CHART_DAYS = 7;
 
+    /** Un producto con este stock o menos aparece en "Stock bajo". */
+    public const LOW_STOCK_THRESHOLD = 5;
+
+    /** Productos que lista la tarjeta "Stock bajo". */
+    public const LOW_STOCK_LIST_SIZE = 8;
+
     public function __construct(private readonly DashboardRepository $repository) {}
 
     /**
@@ -66,7 +72,10 @@ class DashboardService
             'daily_chart' => $this->dailyChart($now),
             'attention_quotes' => $attentionQuotes,
             'latest_orders' => $this->repository->latestPurchaseOrders(5),
-            'categories' => $this->repository->topCategoriesWithProductCount(),
+            'low_stock' => [
+                'products' => $this->repository->lowStockProducts(self::LOW_STOCK_THRESHOLD, self::LOW_STOCK_LIST_SIZE),
+                'total' => $this->repository->countLowStockProducts(self::LOW_STOCK_THRESHOLD),
+            ],
         ];
     }
 

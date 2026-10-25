@@ -206,27 +206,37 @@
         </div>
     </section>
 
-    {{-- Líneas de producto --}}
-    <section aria-labelledby="lineas-producto">
-        <div class="card-title-row mb-3">
-            <h2 id="lineas-producto" class="h5">Líneas de producto</h2>
-            <span class="small text-body-secondary">{{ $summary['categories']->count() }} categorías activas</span>
-        </div>
-        @if ($summary['categories']->isEmpty())
-            <div class="card"><x-empty-state icon="diagram-3" title="Sin categorías" message="Crea la primera categoría del catálogo." /></div>
-        @else
-            <div class="category-strip">
-                @foreach ($summary['categories'] as $category)
-                    {{-- Imagen en public/images/categorias/{slug}.jpg --}}
-                    <{{ $isAdmin ? 'a' : 'div' }} class="category-tile" @if ($isAdmin) href="{{ route('admin.products.index', ['category' => $category->slug]) }}" @endif>
-                        <img src="{{ asset("images/categorias/{$category->slug}.jpg") }}" alt="" loading="lazy" width="560" height="420">
-                        <div class="category-tile-body">
-                            <strong>{{ $category->name }}</strong>
-                            <small>{{ $category->active_products_count }} {{ (int) $category->active_products_count === 1 ? 'producto activo' : 'productos activos' }}</small>
-                        </div>
-                    </{{ $isAdmin ? 'a' : 'div' }}>
-                @endforeach
+    {{-- Stock bajo: productos de venta directa con 5 unidades o menos, y agotados --}}
+    <section aria-labelledby="stock-bajo">
+        <div class="card">
+            <div class="card-body pb-2">
+                <div class="card-title-row">
+                    <h2 id="stock-bajo">Stock bajo</h2>
+                    <span class="small text-body-secondary">
+                        Productos con {{ DashboardService::LOW_STOCK_THRESHOLD }} unidades o menos
+                        @if ($summary['low_stock']['total'] > 0)
+                            · {{ $summary['low_stock']['total'] }} en total
+                        @endif
+                    </span>
+                </div>
             </div>
-        @endif
+
+            @forelse ($summary['low_stock']['products'] as $product)
+                {{-- Solo admin puede abrir la ficha del producto --}}
+                <{{ $isAdmin ? 'a' : 'div' }} class="stock-item" @if ($isAdmin) href="{{ route('admin.products.show', $product) }}" @endif>
+                    <div class="min-w-0">
+                        <div class="stock-item-name text-truncate">{{ $product->name }}</div>
+                        <div class="stock-item-sku">{{ $product->sku }}</div>
+                    </div>
+                    @if ($product->stock <= 0)
+                        <span class="stock-badge is-out"><i class="bi bi-x-octagon-fill" aria-hidden="true"></i> Agotado</span>
+                    @else
+                        <span class="stock-badge"><i class="bi bi-exclamation-triangle" aria-hidden="true"></i> Quedan {{ $product->stock }}</span>
+                    @endif
+                </{{ $isAdmin ? 'a' : 'div' }}>
+            @empty
+                <x-empty-state icon="check2-circle" title="Inventario al día" message="Ningún producto está agotado ni cerca de agotarse." />
+            @endforelse
+        </div>
     </section>
 @endsection

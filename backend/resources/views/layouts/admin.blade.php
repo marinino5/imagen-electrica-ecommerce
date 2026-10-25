@@ -20,10 +20,10 @@
             {{-- No se usa .offcanvas-header: Bootstrap lo oculta en escritorio --}}
             <div class="sidebar-header d-flex align-items-center px-3 pt-4 pb-2">
                 <a href="{{ route('admin.dashboard') }}" class="sidebar-brand">
-                    <img src="{{ asset('images/logo-blanco.png') }}" alt="Imagen Eléctrica" class="sidebar-logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="Imagen Eléctrica" class="sidebar-logo">
                     <small class="sidebar-brand-text">Panel administrativo</small>
                 </a>
-                <button type="button" class="btn-close btn-close-white d-lg-none ms-auto" data-bs-dismiss="offcanvas" data-bs-target="#admin-sidebar" aria-label="Cerrar menú"></button>
+                <button type="button" class="btn-close d-lg-none ms-auto" data-bs-dismiss="offcanvas" data-bs-target="#admin-sidebar" aria-label="Cerrar menú"></button>
             </div>
 
             <div class="offcanvas-body px-3 pb-3">
@@ -64,8 +64,16 @@
                     </ol>
                 </nav>
 
-                <div class="ms-auto d-flex align-items-center gap-3">
-                    <div class="topbar-greeting d-none d-md-block">
+                {{-- Buscador global: por ahora busca productos --}}
+                <form method="GET" action="{{ route('admin.search') }}" role="search" class="topbar-search">
+                    <i class="bi bi-search" aria-hidden="true"></i>
+                    <label for="global-search" class="visually-hidden">Buscar productos</label>
+                    <input type="search" id="global-search" name="q" value="{{ request()->routeIs('admin.search') ? request('q') : '' }}"
+                        class="form-control" placeholder="Buscar productos por nombre o referencia…" maxlength="100" autocomplete="off">
+                </form>
+
+                <div class="ms-auto ms-lg-0 d-flex align-items-center gap-3">
+                    <div class="topbar-greeting d-none d-xl-block">
                         <strong>{{ $greeting }}, {{ \Illuminate\Support\Str::before($user->name, ' ') }}</strong><br>
                         <small>{{ $todayLabel }}</small>
                     </div>
@@ -91,6 +99,23 @@
                             @else
                                 <x-empty-state icon="bell-slash" title="Todo al día" message="No hay cotizaciones nuevas." class="py-3" />
                             @endif
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="topbar-avatar" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Menú de {{ $user->name }}">
+                            <span class="avatar" aria-hidden="true">{{ $user->initials() }}</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2">
+                                <div class="fw-semibold">{{ $user->name }}</div>
+                                <span class="role-badge role-badge-{{ $user->role->value }}">{{ $user->role->label() }}</span>
+                            </div>
+                            <hr class="dropdown-divider">
+                            <form method="POST" action="{{ route('admin.logout') }}">
+                                @csrf
+                                <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right me-2" aria-hidden="true"></i>Cerrar sesión</button>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -4,10 +4,11 @@ namespace App\Repositories;
 
 use App\Enums\OrderStatus;
 use App\Enums\OrderType;
-use App\Models\Category;
+use App\Enums\SaleMode;
 use App\Models\Order;
 use App\Models\Product;
 use Carbon\CarbonInterface;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 
@@ -119,26 +120,34 @@ class DashboardRepository
     }
 
     /**
-     * Categorías de primer nivel activas con la cantidad de productos activos
-     * que tienen ellas y sus subcategorías.
+     * Productos activos de venta directa con poco stock o agotados, los más
+     * escasos primero.
      *
-     * @return EloquentCollection<int, Category>
+     * @return EloquentCollection<int, Product>
      */
-    public function topCategoriesWithProductCount(): EloquentCollection
+    public function lowStockProducts(int $threshold, int $limit): EloquentCollection
     {
-        $productCount = Product::query()
-            ->selectRaw('count(*)')
-            ->join('categories as subcategories', 'subcategories.id', '=', 'products.category_id')
-            ->where('products.is_active', true)
-            ->where(fn ($query) => $query
-                ->whereColumn('subcategories.id', 'categories.id')
-                ->orWhereColumn('subcategories.parent_id', 'categories.id'));
-
-        return Category::query()
-            ->whereNull('parent_id')
-            ->where('is_active', true)
-            ->orderBy('sort_order')
-            ->addSelect(['active_products_count' => $productCount])
+        return $this->lowStockQuery($threshold)
+            ->select('id', 'sku', 'name', 'stock', 'unit')
+            ->orderBy('stock')
+            ->orderBy('name')
+            ->limit($limit)
             ->get();
+    }
+
+    public function countLowStockProducts(int $threshold): int
+    {
+        return $this->lowStockQuery($threshold)->count();
+    }
+
+    // Solo "direct": en quote y on_request el stock en cero es lo normal
+    // (sale_mode es política comercial, no depende del stock).
+    /** @return Builder<Product> */
+    private function lowStockQuery(int $threshold): Builder
+    {
+        return Product::query()
+            ->where('is_active', true)
+            ->where('sale_mode', SaleMode::Direct)
+            ->where('stock', '<=', $threshold);
     }
 }

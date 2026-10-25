@@ -13,22 +13,23 @@ $sidebar-link-color: rgba($brand-white, .72);
     min-width: 0;
 }
 
-/* ---------- Barra lateral ---------- */
+/* ---------- Barra lateral (clara) ---------- */
 
 .admin-sidebar {
     // Variables del offcanvas de Bootstrap (menú deslizable en celular)
-    --bs-offcanvas-bg: #{$brand-ink};
-    --bs-offcanvas-color: #{$sidebar-link-color};
+    --bs-offcanvas-bg: #{$brand-surface};
+    --bs-offcanvas-color: #{$brand-ink};
     --bs-offcanvas-width: #{$sidebar-width};
 
-    background-color: $brand-ink;
-    color: $sidebar-link-color;
+    background-color: $brand-surface;
+    border-right: 1px solid $brand-lavender;
+    color: $brand-ink;
 
     @include media-breakpoint-up(lg) {
         position: sticky;
         top: 0;
         // .offcanvas-lg deja el fondo transparente en escritorio con !important
-        background-color: $brand-ink !important;
+        background-color: $brand-surface !important;
         display: flex;
         flex-direction: column;
         flex: 0 0 auto;
@@ -52,24 +53,24 @@ $sidebar-link-color: rgba($brand-white, .72);
     align-items: center;
     gap: .5rem;
     width: 100%;
-    color: $brand-white;
+    color: $brand-muted;
     text-decoration: none;
 
     &:hover {
-        color: $brand-white;
+        color: $brand-primary;
     }
 }
 
-// Logo blanco directo sobre el fondo ink, sin placa
+// Logo a color directo sobre el fondo lavanda, sin placa
 .sidebar-logo {
     display: block;
-    width: 9rem;
+    width: 8rem;
     height: auto;
 }
 
 .sidebar-brand-text {
-    color: rgba($brand-white, .6);
     font-size: .75rem;
+    font-weight: 600;
     letter-spacing: .08em;
     text-transform: uppercase;
     white-space: nowrap;
@@ -78,7 +79,7 @@ $sidebar-link-color: rgba($brand-white, .72);
 .sidebar-section {
     margin: 1.5rem 0 .5rem;
     padding: 0 .875rem;
-    color: rgba($brand-white, .45);
+    color: $brand-muted;
     font-size: .7rem;
     font-weight: 600;
     letter-spacing: .1em;
@@ -94,7 +95,7 @@ $sidebar-link-color: rgba($brand-white, .72);
     margin-bottom: .125rem;
     padding: .65rem .875rem;
     border-radius: $border-radius;
-    color: $sidebar-link-color;
+    color: $brand-ink;
     font-weight: 500;
     text-decoration: none;
     white-space: nowrap;
@@ -102,23 +103,21 @@ $sidebar-link-color: rgba($brand-white, .72);
 
     .bi {
         flex-shrink: 0;
+        color: $brand-primary;
         font-size: 1.15rem;
     }
 
     &:hover,
     &:focus-visible {
-        background-color: rgba($brand-white, .06);
-        color: $brand-white;
+        background-color: rgba($brand-lavender, .6);
+        color: $brand-ink;
     }
 
-    // Ítem activo: fondo más claro y barra naranja a la izquierda
+    // Ítem activo: fondo lavanda y barra naranja a la izquierda
     &.active {
-        background-color: rgba($brand-white, .1);
-        color: $brand-white;
-
-        .bi {
-            color: $brand-accent;
-        }
+        background-color: $brand-lavender;
+        color: $brand-ink;
+        font-weight: 600;
 
         &::before {
             content: '';
@@ -139,7 +138,7 @@ $sidebar-link-color: rgba($brand-white, .72);
     gap: .75rem;
     margin-top: auto;
     padding: 1rem .25rem .25rem;
-    border-top: 1px solid rgba($brand-white, .1);
+    border-top: 1px solid $brand-lavender;
 }
 
 .sidebar-user-info {
@@ -147,7 +146,7 @@ $sidebar-link-color: rgba($brand-white, .72);
     line-height: 1.2;
 
     .name {
-        color: $brand-white;
+        color: $brand-ink;
         font-weight: 600;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -172,17 +171,17 @@ $sidebar-link-color: rgba($brand-white, .72);
 }
 
 .role-badge-comercial {
-    background-color: mix($brand-primary, $brand-white, 30%);
-    color: $brand-ink;
+    background-color: $brand-lavender;
+    color: $brand-primary;
 }
 
 .sidebar-logout {
     margin-left: auto;
-    color: $sidebar-link-color;
+    color: $brand-primary;
 
     &:hover,
     &:focus-visible {
-        color: $brand-white;
+        color: $brand-ink;
     }
 }
 
@@ -204,7 +203,7 @@ $sidebar-link-color: rgba($brand-white, .72);
             margin: 1rem .5rem;
             padding: 0;
             overflow: hidden;
-            background-color: rgba($brand-white, .1);
+            background-color: $brand-lavender;
             color: transparent;
         }
 
@@ -228,22 +227,35 @@ $sidebar-link-color: rgba($brand-white, .72);
     }
 }
 
-/* ---------- Barra superior ---------- */
+/* ---------- Barra superior (blanca) ---------- */
 
 .admin-topbar {
     position: sticky;
     top: 0;
     z-index: $zindex-sticky;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 1rem;
+    gap: .75rem 1rem;
     min-height: 4.25rem;
     padding: .625rem 1rem;
-    border-bottom: 1px solid $border-color;
-    background-color: rgba($brand-white, .92);
-    backdrop-filter: blur(8px);
+    border-bottom: 1px solid $brand-lavender;
+    background-color: $brand-white;
+
+    // Línea delgada naranja que se desvanece hacia la derecha
+    &::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: -1px;
+        left: 0;
+        height: 2px;
+        background: linear-gradient(90deg, $brand-accent 0%, $brand-peach 35%, rgba($brand-peach, 0) 80%);
+        pointer-events: none;
+    }
 
     @include media-breakpoint-up(lg) {
+        flex-wrap: nowrap;
         padding-inline: 1.75rem;
     }
 
@@ -263,6 +275,40 @@ $sidebar-link-color: rgba($brand-white, .72);
     }
 }
 
+// Buscador global: en celular baja a su propia fila
+.topbar-search {
+    position: relative;
+    order: 10;
+    flex: 1 1 100%;
+
+    @include media-breakpoint-up(lg) {
+        order: 0;
+        flex: 1 1 auto;
+        max-width: 26rem;
+        margin-inline: auto;
+    }
+
+    .bi-search {
+        position: absolute;
+        top: 50%;
+        left: .875rem;
+        color: $brand-primary;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+
+    .form-control {
+        padding-left: 2.5rem;
+        border-color: $brand-lavender;
+        background-color: $brand-surface;
+
+        &:focus {
+            border-color: $brand-primary;
+            background-color: $brand-white;
+        }
+    }
+}
+
 .topbar-icon-btn {
     position: relative;
     display: inline-flex;
@@ -271,7 +317,7 @@ $sidebar-link-color: rgba($brand-white, .72);
     width: 2.5rem;
     height: 2.5rem;
     padding: 0;
-    border: 1px solid $border-color;
+    border: 1px solid $brand-lavender;
     border-radius: $border-radius;
     background-color: $brand-white;
     color: $brand-ink;
@@ -281,6 +327,19 @@ $sidebar-link-color: rgba($brand-white, .72);
     &:focus-visible {
         border-color: $brand-primary;
         color: $brand-primary;
+    }
+}
+
+.topbar-avatar {
+    padding: 0;
+    border: 0;
+    background: none;
+    border-radius: 50%;
+    line-height: 0;
+
+    &:focus-visible {
+        outline: 2px solid $brand-primary;
+        outline-offset: 2px;
     }
 }
 
@@ -302,6 +361,7 @@ $sidebar-link-color: rgba($brand-white, .72);
 .topbar-greeting {
     line-height: 1.2;
     text-align: right;
+    white-space: nowrap;
 
     strong {
         font-weight: 600;

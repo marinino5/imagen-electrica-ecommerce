@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -35,6 +36,25 @@ class AccessControlTest extends TestCase
         $this->actingAs(User::factory()->admin()->create())
             ->get(route($route))
             ->assertOk();
+    }
+
+    public function test_comercial_cannot_open_product_detail(): void
+    {
+        $product = Product::factory()->create();
+
+        $this->actingAs(User::factory()->comercial()->create())
+            ->get(route('admin.products.show', $product))
+            ->assertForbidden();
+    }
+
+    public function test_admin_can_open_product_detail(): void
+    {
+        $product = Product::factory()->create(['name' => 'Motor de prueba']);
+
+        $this->actingAs(User::factory()->admin()->create())
+            ->get(route('admin.products.show', $product))
+            ->assertOk()
+            ->assertSee('Motor de prueba');
     }
 
     public function test_dashboard_path_redirects_to_admin_home(): void
