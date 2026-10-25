@@ -14,7 +14,8 @@ class LoginTest extends TestCase
     {
         $this->get(route('admin.login'))
             ->assertOk()
-            ->assertSee('Panel');
+            ->assertSee('Ingresa al panel')
+            ->assertSee('Soluciones eléctricas');
     }
 
     public function test_guest_is_redirected_to_login(): void

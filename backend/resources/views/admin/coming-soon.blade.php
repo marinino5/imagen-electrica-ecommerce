@@ -2,10 +2,17 @@
 
 @section('title', $title)
 
+@section('breadcrumb')
+    <li class="breadcrumb-item">Catálogo</li>
+    <li class="breadcrumb-item active" aria-current="page">{{ $title }}</li>
+@endsection
+
 @section('content')
+    <div class="page-header">
+        <h1>{{ $title }}</h1>
+    </div>
+
     <div class="card">
-        <div class="card-body">
-            <p class="mb-0 text-body-secondary">Este módulo está en construcción.</p>
-        </div>
+        <x-empty-state icon="tools" title="Módulo en construcción" message="Este listado estará disponible en la próxima entrega." />
     </div>
 @endsection

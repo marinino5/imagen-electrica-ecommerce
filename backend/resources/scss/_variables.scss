@@ -10,11 +10,18 @@ $brand-surface: #F5F1F9; // fondo de secciones alternas
 $brand-muted: #6E6178; // texto secundario
 $brand-white: #FFFFFF;
 
+// Colores funcionales (alertas, insignias de atraso). Elegidos para que el
+// texto blanco encima tenga contraste AA.
+$brand-danger: #C62828;
+$brand-success: #1B7F4C;
+
 // Bootstrap: colores del tema
 $primary: $brand-primary;
 $secondary: $brand-muted;
 $light: $brand-surface;
 $dark: $brand-ink;
+$danger: $brand-danger;
+$success: $brand-success;
 
 // color-contrast() elige el texto de cada botón; con ink como color oscuro,
 // el botón accent queda con texto #261C3E y no blanco.
@@ -34,9 +41,22 @@ $headings-font-weight: 700;
 
 // Tarjetas blancas con borde suave y esquinas de 8 px
 $border-radius: .5rem;
+$border-radius-lg: .5rem;
 $border-color: mix($brand-ink, $brand-white, 12%);
 $card-border-color: $border-color;
 $card-cap-bg: $brand-white;
+$card-spacer-y: 1.25rem;
+$card-spacer-x: 1.25rem;
+
+// Sombras suaves teñidas con ink (no negro puro)
+$box-shadow-sm: 0 1px 2px rgba($brand-ink, .05), 0 1px 3px rgba($brand-ink, .04);
+$box-shadow: 0 2px 4px rgba($brand-ink, .04), 0 8px 24px rgba($brand-ink, .06);
+$box-shadow-lg: 0 12px 24px rgba($brand-ink, .08), 0 24px 56px rgba($brand-ink, .12);
+
+$dropdown-border-color: $border-color;
+$dropdown-box-shadow: $box-shadow-lg;
+$toast-border-color: $border-color;
+$toast-box-shadow: $box-shadow-lg;
 
 // Foco visible con el color de marca (accesibilidad)
 $input-btn-focus-color: rgba($brand-primary, .25);

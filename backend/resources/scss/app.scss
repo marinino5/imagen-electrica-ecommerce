@@ -12,4 +12,11 @@ $theme-colors: map-merge($theme-colors, ('accent': $brand-accent));
 // los valores que se definieron arriba.
 @import 'bootstrap/scss/bootstrap';
 
+// Íconos: la ruta de las fuentes es relativa a este archivo para que Vite las copie
+$bootstrap-icons-font-dir: '../../node_modules/bootstrap-icons/font/fonts';
+@import 'bootstrap-icons/font/bootstrap-icons';
+
+@import 'base';
 @import 'panel';
+@import 'dashboard';
+@import 'login';

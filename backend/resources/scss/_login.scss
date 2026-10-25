@@ -1,0 +1,314 @@
+// Login: pantalla dividida. Izquierda la marca (solo escritorio), derecha el formulario.
+
+.login-page {
+    min-height: 100vh;
+    background-color: $brand-white;
+}
+
+/* ---------- Lado de la marca ---------- */
+
+.login-hero {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    color: $brand-white;
+    background-color: $brand-ink;
+}
+
+.login-hero-photo {
+    position: absolute;
+    inset: 0;
+    z-index: -3;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+// Capa degradada de primary a ink sobre la foto
+.login-hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background: linear-gradient(140deg, rgba($brand-primary, .9) 0%, rgba($brand-primary, .82) 35%, rgba($brand-ink, .96) 100%);
+}
+
+// Trama de puntos que se desvanece hacia abajo
+.login-hero-dots {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    @include dot-pattern(rgba($brand-white, .16));
+    mask-image: linear-gradient(180deg, #000 0%, transparent 70%);
+}
+
+// Arco naranja inspirado en el arco inferior del logo; se "dibuja" al entrar
+.login-hero-arc {
+    position: absolute;
+    right: -6rem;
+    bottom: -7rem;
+    z-index: -1;
+    width: 32rem;
+    opacity: .85;
+    color: $brand-accent;
+    pointer-events: none;
+
+    path {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 0;
+        animation: ie-draw-arc 1.6s cubic-bezier(.4, 0, .2, 1) .2s both;
+    }
+}
+
+@keyframes ie-draw-arc {
+    from { stroke-dashoffset: 1000; }
+    to { stroke-dashoffset: 0; }
+}
+
+.login-hero-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 38rem;
+    padding: 3rem 3.5rem;
+
+    @include media-breakpoint-up(xl) {
+        padding-inline: 5rem;
+    }
+}
+
+.login-hero .logo-plate {
+    width: 6rem;
+    height: 6rem;
+    padding: .4rem;
+    box-shadow: $box-shadow-lg;
+}
+
+.login-hero-title {
+    margin: 2rem 0 1rem;
+    color: $brand-white;
+    font-size: clamp(2.5rem, 4vw, 3.75rem);
+    line-height: .98;
+    text-transform: uppercase;
+
+    span {
+        display: block;
+        color: $brand-accent;
+    }
+}
+
+.login-hero-lead {
+    max-width: 30rem;
+    color: rgba($brand-white, .8);
+    font-size: 1.1rem;
+}
+
+.login-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem 2.5rem;
+    margin-top: 2.25rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid rgba($brand-white, .15);
+
+    strong {
+        display: block;
+        font-family: $headings-font-family;
+        font-size: 2.25rem;
+        line-height: 1;
+        color: $brand-white;
+    }
+
+    span {
+        color: rgba($brand-white, .7);
+        font-size: .9rem;
+    }
+}
+
+// Franja de marcas que se desplaza lentamente (la lista va duplicada para el bucle)
+.brand-marquee {
+    position: relative;
+    overflow: hidden;
+    padding: 1.1rem 0;
+    border-top: 1px solid rgba($brand-white, .12);
+    background-color: rgba($brand-ink, .45);
+    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+
+.brand-marquee-track {
+    display: flex;
+    width: max-content;
+    animation: ie-marquee 40s linear infinite;
+}
+
+.brand-marquee-list {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+        display: flex;
+        align-items: center;
+        gap: 2.5rem;
+        padding-right: 2.5rem;
+        color: rgba($brand-white, .85);
+        font-family: $headings-font-family;
+        font-size: 1.35rem;
+        font-weight: 600;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        white-space: nowrap;
+
+        &::after {
+            content: '';
+            width: .4rem;
+            height: .4rem;
+            border-radius: 50%;
+            background-color: $brand-accent;
+        }
+    }
+}
+
+@keyframes ie-marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+// Con movimiento reducido la franja queda quieta y el arco ya dibujado
+@media (prefers-reduced-motion: reduce) {
+    .brand-marquee-track {
+        animation: none;
+    }
+
+    .login-hero-arc path {
+        animation: none;
+    }
+}
+
+/* ---------- Formulario ---------- */
+
+.login-form-side {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.25rem;
+
+    @include media-breakpoint-up(sm) {
+        padding: 3rem;
+    }
+}
+
+.login-form-wrap {
+    width: 100%;
+    max-width: 25rem;
+    margin: auto;
+}
+
+.login-mobile-logo {
+    width: 6rem;
+    height: auto;
+}
+
+.login-heading {
+    font-size: 2.1rem;
+    text-transform: uppercase;
+}
+
+// Campo con ícono + etiqueta flotante: el borde de todo el grupo se ilumina al enfocar
+.login-field {
+    border-radius: $border-radius;
+    transition: box-shadow .15s ease;
+
+    .input-group-text {
+        min-width: 3rem;
+        justify-content: center;
+        background-color: $brand-white;
+        color: $brand-muted;
+        font-size: 1.1rem;
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+    }
+
+    .password-toggle {
+        border-color: $input-border-color;
+        background-color: $brand-white;
+        color: $brand-muted;
+
+        &:hover,
+        &:focus-visible {
+            color: $brand-primary;
+        }
+    }
+
+    &:focus-within {
+        box-shadow: 0 0 0 .25rem rgba($brand-primary, .18);
+
+        .input-group-text,
+        .form-control,
+        .password-toggle {
+            border-color: $brand-primary;
+        }
+
+        .input-group-text {
+            color: $brand-primary;
+        }
+    }
+
+    &.is-invalid {
+        .input-group-text,
+        .form-control,
+        .password-toggle {
+            border-color: $brand-danger;
+        }
+
+        .input-group-text {
+            color: $brand-danger;
+        }
+    }
+}
+
+.field-error {
+    display: flex;
+    align-items: flex-start;
+    gap: .375rem;
+    margin-top: .4rem;
+    color: $brand-danger;
+    font-size: .875rem;
+    font-weight: 500;
+}
+
+.caps-lock-warning {
+    display: flex;
+    align-items: center;
+    gap: .375rem;
+    margin-top: .4rem;
+    color: mix($brand-accent, $brand-ink, 40%);
+    font-size: .85rem;
+    font-weight: 500;
+}
+
+.login-help {
+    display: flex;
+    gap: .625rem;
+    padding: .875rem 1rem;
+    border-radius: $border-radius;
+    background-color: $brand-surface;
+    color: $brand-muted;
+    font-size: .875rem;
+
+    .bi {
+        color: $brand-primary;
+    }
+}
+
+.btn-login {
+    padding-block: .8rem;
+    font-weight: 600;
+    letter-spacing: .02em;
+}
