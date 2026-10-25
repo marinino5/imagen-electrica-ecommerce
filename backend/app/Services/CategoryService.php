@@ -15,12 +15,20 @@ class CategoryService
 
     public const PER_PAGE = 10;
 
+    public const API_PER_PAGE = 50;
+
     public function __construct(private readonly CategoryRepository $repository) {}
 
     /** @return LengthAwarePaginator<int, Category> */
     public function paginate(?string $search): LengthAwarePaginator
     {
         return $this->repository->paginate($search ? trim($search) : null, self::PER_PAGE);
+    }
+
+    /** @return LengthAwarePaginator<int, Category> */
+    public function paginateActive(?string $search, int $perPage = self::API_PER_PAGE): LengthAwarePaginator
+    {
+        return $this->repository->paginateActive($search ? trim($search) : null, $perPage);
     }
 
     /** @return Collection<int, Category> */

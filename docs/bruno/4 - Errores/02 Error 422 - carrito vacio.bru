@@ -1,0 +1,26 @@
+meta {
+  name: Error 422 - carrito vacio
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/api/v1/orders
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{client_token}}
+}
+
+body:json {
+  {
+    "delivery_method": "pickup",
+    "items": []
+  }
+}
+
+assert {
+  res.status: eq 422
+}

@@ -227,7 +227,7 @@ class ReportServiceTest extends TestCase
         $this->assertSame([50000.0, 10000.0], $brands['data']);
     }
 
-    public function test_categories_and_brands_beyond_the_sixth_are_grouped_as_others(): void
+    public function test_categories_and_brands_from_the_sixth_are_grouped_as_others(): void
     {
         // 8 marcas con ventas de 80.000, 70.000 ... 10.000
         foreach (range(8, 1) as $n) {
@@ -237,14 +237,14 @@ class ReportServiceTest extends TestCase
 
         $brands = $this->service()->charts($this->period(), $this->now)['brands'];
 
-        $this->assertCount(7, $brands['labels']);
+        $this->assertCount(6, $brands['labels']);
         $this->assertSame('Marca 8', $brands['labels'][0]);
-        $this->assertSame('Otros', $brands['labels'][6]);
-        $this->assertSame(30000.0, $brands['data'][6]); // Marca 2 + Marca 1: 20.000 + 10.000
+        $this->assertSame('Otros', $brands['labels'][5]);
+        $this->assertSame(60000.0, $brands['data'][5]); // Marca 3 + Marca 2 + Marca 1: 30.000 + 20.000 + 10.000
         $this->assertTrue($brands['has_other']);
     }
 
-    public function test_charts_without_more_than_six_slices_have_no_others(): void
+    public function test_charts_without_more_than_five_slices_have_no_others(): void
     {
         $this->sale(Product::factory()->create(['price' => 10000]), 1, '2026-10-02 10:00:00');
 

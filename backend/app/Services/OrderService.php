@@ -2,16 +2,23 @@
 
 namespace App\Services;
 
+use App\Enums\DeliveryMethod;
 use App\Enums\OrderStatus;
 use App\Enums\OrderType;
+use App\Enums\ProductUnit;
+use App\Enums\SaleMode;
 use App\Exceptions\BusinessRuleException;
+use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
 use App\Models\User;
 use App\Repositories\OrderRepository;
+use App\Repositories\ProductRepository;
 use App\Repositories\UserRepository;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
@@ -23,6 +30,11 @@ use Illuminate\Support\Facades\DB;
 class OrderService
 {
     public const PER_PAGE = 10;
+
+    /** Solicitudes por página en «Mis pedidos» de la API (y máximo que se puede pedir). */
+    public const CUSTOMER_PER_PAGE = 10;
+
+    public const CUSTOMER_MAX_PER_PAGE = 50;
 
     /** Horas que puede esperar una cotización antes de considerarse atrasada. */
     public const QUOTE_RESPONSE_HOURS = 24;
@@ -51,6 +63,7 @@ class OrderService
 
     public function __construct(
         private readonly OrderRepository $orders,
+        private readonly ProductRepository $products,
         private readonly UserRepository $users,
         private readonly InventoryService $inventory,
     ) {}
@@ -62,6 +75,26 @@ class OrderService
     public function paginate(array $filters): LengthAwarePaginator
     {
         return $this->orders->paginateFiltered($filters, $this->overdueCutoff(), self::UNANSWERED_QUOTE_STATUSES, self::PER_PAGE);
+    }
+
+    /**
+     * @param  array{type?: ?string, status?: ?string}  $filters
+     * @return LengthAwarePaginator<int, Order>
+     */
+    public function paginateForCustomer(Customer $customer, array $filters, int $perPage = self::CUSTOMER_PER_PAGE): LengthAwarePaginator
+    {
+        return $this->orders->paginateForCustomer($customer->id, $filters, $perPage);
+    }
+
+    /**
+     * Detalle de una solicitud del cliente. Si el código no existe o es de otro
+     * cliente responde igual (404): no se revela que existe.
+     *
+     * @throws ModelNotFoundException
+     */
+    public function findForCustomer(Customer $customer, string $code): Order
+    {
+        return $this->details($this->orders->findForCustomerByCodeOrFail($customer->id, $code));
     }
 
     public function details(Order $order): Order
@@ -156,6 +189,70 @@ class OrderService
 
             return $order;
         });
+    }
+
+    /**
+     * Cancelar no borra: es un cambio de estado con historial. El cliente solo
+     * puede cancelar lo que sigue sin gestionar (pedido pendiente de pago o
+     * cotización nueva); lo demás lo rechaza changeStatus con 422.
+     *
+     * @throws BusinessRuleException
+     */
+    public function cancelForCustomer(Customer $customer, string $code): Order
+    {
+        $order = $this->orders->findForCustomerByCodeOrFail($customer->id, $code);
+
+        $this->changeStatus($order, OrderStatus::Cancelled, $customer->user, 'Cancelado por el cliente');
+
+        return $this->details($order->refresh());
+    }
+
+    /**
+     * Convierte el carrito en solicitudes. Regla de clasificación:
+     * - Pedido (purchase): productos de venta directa, con precio y stock suficiente.
+     * - Cotización (quote): productos de cotización o bajo pedido, o sin stock suficiente.
+     * Un carrito mixto genera las dos. No se descuenta stock: eso ocurre al confirmar el pago.
+     *
+     * Las cotizaciones nacen sin precios (las valora el comercial); el pedido
+     * se valora con los precios actuales y el envío configurado en config/shop.php.
+     *
+     * @param  array{items: array<int, array{product_id: int, quantity: float|int|string, notes?: ?string}>, delivery_method: string, address?: ?string, notes?: ?string}  $data
+     * @return Collection<int, Order> pedido primero y cotización después, solo los que apliquen
+     *
+     * @throws BusinessRuleException
+     */
+    public function createFromCart(Customer $customer, array $data): Collection
+    {
+        return DB::transaction(function () use ($customer, $data) {
+            $customer->loadMissing('user');
+            $lines = $this->cartLines($data['items']);
+
+            $purchaseLines = array_values(array_filter($lines, fn (array $line) => $this->isDirectPurchase($line['product'], $line['quantity'])));
+            $quoteLines = array_values(array_filter($lines, fn (array $line) => ! $this->isDirectPurchase($line['product'], $line['quantity'])));
+
+            $orders = new Collection;
+
+            foreach ([[OrderType::Purchase, $purchaseLines], [OrderType::Quote, $quoteLines]] as [$type, $typeLines]) {
+                if ($typeLines !== []) {
+                    $orders->push($this->details($this->createRequest($type, $customer, $data, $typeLines)));
+                }
+            }
+
+            return $orders;
+        });
+    }
+
+    /**
+     * Costo de envío: gratis al recoger o al llegar a la compra mínima; si no,
+     * el valor configurado para la modalidad.
+     */
+    public function shippingCost(DeliveryMethod $method, float $linesTotal): float
+    {
+        if ($method === DeliveryMethod::Pickup || $linesTotal >= (float) config('shop.shipping.free_shipping_from')) {
+            return 0.0;
+        }
+
+        return round((float) config("shop.shipping.cost.{$method->value}", 0), 2);
     }
 
     /**
@@ -274,6 +371,109 @@ class OrderService
         $this->orders->addHistory($purchase, null, $purchase->status, null, "Generado al aceptar la cotización {$quote->code}");
 
         return $purchase;
+    }
+
+    /**
+     * Une cada línea del carrito con su producto y valida la cantidad.
+     *
+     * @param  array<int, array{product_id: int, quantity: float|int|string, notes?: ?string}>  $items
+     * @return array<int, array{product: Product, quantity: float, notes: ?string}>
+     *
+     * @throws BusinessRuleException si un producto ya no está disponible o la cantidad no corresponde a su unidad
+     */
+    private function cartLines(array $items): array
+    {
+        $products = $this->products->findActiveByIds(array_column($items, 'product_id'));
+        $lines = [];
+
+        foreach ($items as $item) {
+            $product = $products->get($item['product_id']);
+
+            if (! $product) {
+                throw new BusinessRuleException('Uno de los productos del carrito ya no está disponible.');
+            }
+
+            $quantity = round((float) $item['quantity'], 2);
+
+            // Solo el cable se vende en fracciones (por metro)
+            if ($product->unit !== ProductUnit::Metro && floor($quantity) !== $quantity) {
+                throw new BusinessRuleException("«{$product->name}» se vende por {$product->unit->value}: la cantidad debe ser un número entero.");
+            }
+
+            $lines[] = ['product' => $product, 'quantity' => $quantity, 'notes' => $item['notes'] ?? null];
+        }
+
+        return $lines;
+    }
+
+    private function isDirectPurchase(Product $product, float $quantity): bool
+    {
+        return $product->sale_mode === SaleMode::Direct
+            && $product->price !== null
+            && $this->inventory->canFulfill($product, $quantity);
+    }
+
+    /**
+     * Crea una solicitud con sus líneas, copiando los datos del cliente y del
+     * producto, y deja el primer estado en el historial.
+     *
+     * @param  array<int, array{product: Product, quantity: float, notes: ?string}>  $lines
+     */
+    private function createRequest(OrderType $type, Customer $customer, array $data, array $lines): Order
+    {
+        $isPurchase = $type === OrderType::Purchase;
+        $method = DeliveryMethod::from($data['delivery_method']);
+        $status = OrderStatus::initialFor($type);
+
+        $linesTotal = $isPurchase
+            ? round(array_sum(array_map(fn (array $line) => (float) $line['product']->price * $line['quantity'], $lines)), 2)
+            : 0.0;
+
+        $order = $this->orders->create([
+            'code' => $this->orders->nextCode($type),
+            'type' => $type,
+            'status' => $status,
+            'customer_id' => $customer->id,
+            // Copia de los datos del cliente
+            'company_name' => $customer->company_name,
+            'nit' => $customer->nit,
+            'contact_name' => $customer->contact_name,
+            'email' => $customer->user->email,
+            'phone' => $customer->phone,
+            'city' => $customer->city,
+            'address' => ($data['address'] ?? null) ?: $customer->address,
+            'delivery_method' => $method,
+            // Una cotización no tiene envío hasta que el comercial la valore
+            'shipping' => $isPurchase ? $this->shippingCost($method, $linesTotal) : null,
+            'notes' => $data['notes'] ?? null,
+        ]);
+
+        foreach ($lines as $line) {
+            /** @var Product $product */
+            $product = $line['product'];
+            $unitPrice = $isPurchase ? (float) $product->price : null;
+
+            $this->orders->addItem($order, [
+                'product_id' => $product->id,
+                // Copia de los datos del producto
+                'sku' => $product->sku,
+                'product_name' => $product->name,
+                'unit' => $product->unit,
+                'quantity' => $line['quantity'],
+                'unit_price' => $unitPrice,
+                'tax_rate' => $product->tax_rate,
+                'line_total' => $unitPrice === null ? null : round($unitPrice * $line['quantity'], 2),
+                'notes' => $line['notes'],
+            ]);
+        }
+
+        if ($isPurchase) {
+            $this->recalculateTotals($order->load('items'));
+        }
+
+        $this->orders->addHistory($order, null, $status, $customer->user_id, null);
+
+        return $order;
     }
 
     private function describe(Order $order): string

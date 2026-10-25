@@ -1,0 +1,36 @@
+meta {
+  name: Error 422 - registro con datos invalidos
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/api/v1/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "",
+    "email": "esto-no-es-un-correo",
+    "password": "123",
+    "privacy_accepted": false
+  }
+}
+
+assert {
+  res.status: eq 422
+}
+
+tests {
+  test("indica qué campos fallaron", function () {
+    expect(res.body.errors).to.have.property("email");
+    expect(res.body.errors).to.have.property("password");
+    expect(res.body.errors).to.have.property("privacy_accepted");
+  });
+}
+
+docs {
+  Caso de error 422: el cuerpo trae `message` y `errors` por campo, en español.
+}

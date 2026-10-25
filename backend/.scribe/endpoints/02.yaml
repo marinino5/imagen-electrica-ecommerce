@@ -1,0 +1,159 @@
+name: 'Mi cuenta'
+description: ''
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/v1/me
+    metadata:
+      custom: []
+      groupName: 'Mi cuenta'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Ver mi perfil'
+      description: 'Usuario autenticado y, si es cliente, los datos de su empresa.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"data":{"id":1,"name":"Omar Dom\u00ednguez","email":"arredondo.juana@example.com","role":"cliente","customer":{"company_name":"Calero de Zamora S.A.S.","nit":"990122162-7","contact_name":"Sr. H\u00e9ctor Zelaya","phone":"379 091 5066","city":"Gir\u00f3n","address":"Calle Elizondo, 54, 27\u00ba C","marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T05:22:55.000000Z"}}}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: api/v1/me
+    metadata:
+      custom: []
+      groupName: 'Mi cuenta'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Actualizar mi perfil'
+      description: |-
+        Cambia el nombre de contacto y los datos de la empresa. El correo y el NIT no se
+        modifican desde aquí. Solo clientes.
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        custom: []
+        name: name
+        description: 'Nombre de contacto.'
+        required: true
+        example: 'Laura Gómez'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      company_name:
+        custom: []
+        name: company_name
+        description: 'Razón social.'
+        required: true
+        example: 'Constructora Altos S.A.S.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      phone:
+        custom: []
+        name: phone
+        description: Teléfono.
+        required: true
+        example: '315 555 0202'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      city:
+        custom: []
+        name: city
+        description: Ciudad.
+        required: true
+        example: Girón
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      address:
+        custom: []
+        name: address
+        description: 'Dirección de entrega habitual.'
+        required: false
+        example: 'Carrera 27 # 45-10'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      marketing_opt_in:
+        custom: []
+        name: marketing_opt_in
+        description: 'Acepta recibir promociones.'
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      name: 'Laura Gómez'
+      company_name: 'Constructora Altos S.A.S.'
+      phone: '315 555 0202'
+      city: Girón
+      address: 'Carrera 27 # 45-10'
+      marketing_opt_in: true
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"data":{"id":1,"name":"Emilia Murillo","email":"juribe@example.org","role":"cliente","customer":{"company_name":"Rivas y Sevilla SA S.A.S.","nit":"968210674-8","contact_name":"Adri\u00e1n Cavazos Hijo","phone":"315 175 7680","city":"Barrancabermeja","address":"Pla\u00e7a Juana, 979, 27\u00ba A","marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T05:22:55.000000Z"}}}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null

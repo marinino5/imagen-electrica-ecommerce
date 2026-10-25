@@ -1,0 +1,15 @@
+meta {
+  name: Ver producto por slug
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{base_url}}/api/v1/products/{{product_slug}}
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}

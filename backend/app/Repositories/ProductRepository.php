@@ -70,6 +70,67 @@ class ProductRepository
             ->withQueryString();
     }
 
+    /**
+     * Catálogo público: solo productos activos. Claves de $filters (todas
+     * opcionales): q (nombre o referencia), category (slug; incluye sus
+     * subcategorías), brand (slug), sale_mode, featured, in_stock y
+     * sort (name, newest, price_asc, price_desc; los que no tienen precio quedan al final).
+     *
+     * @param  array{q?: ?string, category?: ?string, brand?: ?string, sale_mode?: ?string, featured?: bool, in_stock?: bool, sort?: ?string}  $filters
+     * @return LengthAwarePaginator<int, Product>
+     */
+    public function paginateCatalog(array $filters, int $perPage): LengthAwarePaginator
+    {
+        $query = Product::query()
+            ->with(['brand:id,name,slug,logo_url', 'category:id,name,slug'])
+            ->where('is_active', true)
+            ->when($filters['q'] ?? null, function (Builder $query, string $term) {
+                $like = $this->likePattern($term);
+                $query->where(fn ($q) => $q->where('name', 'like', $like)->orWhere('sku', 'like', $like));
+            })
+            ->when($filters['category'] ?? null, function (Builder $query, string $slug) {
+                $ids = Category::query()
+                    ->where('slug', $slug)
+                    ->orWhereHas('parent', fn ($q) => $q->where('slug', $slug))
+                    ->pluck('id');
+                $query->whereIn('category_id', $ids);
+            })
+            ->when($filters['brand'] ?? null, fn (Builder $query, string $slug) => $query->whereHas('brand', fn ($q) => $q->where('slug', $slug)))
+            ->when($filters['sale_mode'] ?? null, fn (Builder $query, string $mode) => $query->where('sale_mode', $mode))
+            ->when($filters['featured'] ?? false, fn (Builder $query) => $query->where('is_featured', true))
+            ->when($filters['in_stock'] ?? false, fn (Builder $query) => $query->where('stock', '>', 0));
+
+        match ($filters['sort'] ?? 'name') {
+            'newest' => $query->latest()->latest('id'),
+            'price_asc' => $query->orderByRaw('price is null')->orderBy('price')->orderBy('name'),
+            'price_desc' => $query->orderByRaw('price is null')->orderByDesc('price')->orderBy('name'),
+            default => $query->orderBy('name'),
+        };
+
+        return $query->paginate($perPage)->withQueryString();
+    }
+
+    /** Detalle público por slug. Un producto inactivo o eliminado responde 404. */
+    public function findActiveBySlugOrFail(string $slug): Product
+    {
+        return Product::query()
+            ->with(['brand:id,name,slug,logo_url', 'category:id,name,slug'])
+            ->where('is_active', true)
+            ->where('slug', $slug)
+            ->firstOrFail();
+    }
+
+    /**
+     * Productos activos (no eliminados) por id, indexados por id.
+     *
+     * @param  array<int, int>  $ids
+     * @return Collection<int, Product>
+     */
+    public function findActiveByIds(array $ids): Collection
+    {
+        return Product::query()->where('is_active', true)->whereKey($ids)->get()->keyBy('id');
+    }
+
     public function create(array $data): Product
     {
         return Product::create($data);

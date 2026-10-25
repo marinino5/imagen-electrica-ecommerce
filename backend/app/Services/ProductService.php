@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Product;
 use App\Repositories\ProductRepository;
 use App\Services\Concerns\GeneratesUniqueSlug;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductService
@@ -12,6 +13,11 @@ class ProductService
     use GeneratesUniqueSlug;
 
     public const PER_PAGE = 10;
+
+    /** Productos por página en el catálogo de la API (y máximo que se puede pedir). */
+    public const CATALOG_PER_PAGE = 12;
+
+    public const MAX_PER_PAGE = 50;
 
     /** Un producto con este stock o menos se considera de stock bajo. */
     public const LOW_STOCK_THRESHOLD = 5;
@@ -22,9 +28,26 @@ class ProductService
      * @param  array{q?: ?string, category_id?: ?int, brand_id?: ?int, sale_mode?: ?string, stock?: ?string, status?: ?string}  $filters
      * @return LengthAwarePaginator<int, Product>
      */
-    public function paginate(array $filters): LengthAwarePaginator
+    public function paginate(array $filters, int $perPage = self::PER_PAGE): LengthAwarePaginator
     {
-        return $this->repository->paginateFiltered($filters, self::LOW_STOCK_THRESHOLD, self::PER_PAGE);
+        return $this->repository->paginateFiltered($filters, self::LOW_STOCK_THRESHOLD, $perPage);
+    }
+
+    /**
+     * Catálogo público (solo productos activos).
+     *
+     * @param  array{q?: ?string, category?: ?string, brand?: ?string, sale_mode?: ?string, featured?: bool, in_stock?: bool, sort?: ?string}  $filters
+     * @return LengthAwarePaginator<int, Product>
+     */
+    public function catalog(array $filters, int $perPage = self::CATALOG_PER_PAGE): LengthAwarePaginator
+    {
+        return $this->repository->paginateCatalog($filters, $perPage);
+    }
+
+    /** @throws ModelNotFoundException si no existe o está inactivo */
+    public function findActiveBySlug(string $slug): Product
+    {
+        return $this->repository->findActiveBySlugOrFail($slug);
     }
 
     public function create(array $data): Product
@@ -80,7 +103,10 @@ class ProductService
 
     private function prepare(array $data): array
     {
-        $data['specs'] = $this->specsFromRows($data['specs'] ?? []);
+        // Sin la clave "specs" (API) no se tocan las especificaciones que ya tiene
+        if (array_key_exists('specs', $data)) {
+            $data['specs'] = $this->specsFromRows($data['specs'] ?? []);
+        }
 
         return $data;
     }

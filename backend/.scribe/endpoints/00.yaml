@@ -1,0 +1,355 @@
+name: 'Catálogo (público)'
+description: ''
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/v1/categories
+    metadata:
+      custom: []
+      groupName: 'Catálogo (público)'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Listar categorías'
+      description: |-
+        Categorías activas en orden de árbol: cada categoría principal seguida de sus
+        subcategorías (`parent_id` indica el padre). No requiere token.
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      q:
+        custom: []
+        name: q
+        description: 'El campo value no puede tener más de 100 caracteres.'
+        required: false
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      per_page:
+        custom: []
+        name: per_page
+        description: 'El campo value debe ser al menos 1. El campo value no puede ser mayor que 50.'
+        required: false
+        example: 22
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      q: b
+      per_page: 22
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"data":[{"id":1,"parent_id":null,"name":"Et animi","slug":"et-animi","description":"Et fugiat sunt nihil accusantium.","image_url":null},{"id":2,"parent_id":null,"name":"Mollitia modi","slug":"mollitia-modi","description":null,"image_url":null}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"pagination.previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"pagination.next","page":null,"active":false}],"path":"\/","per_page":50,"to":2,"total":2}}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/v1/brands
+    metadata:
+      custom: []
+      groupName: 'Catálogo (público)'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Listar marcas'
+      description: 'Marcas activas ordenadas por nombre. No requiere token.'
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      q:
+        custom: []
+        name: q
+        description: 'El campo value no puede tener más de 100 caracteres.'
+        required: false
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      per_page:
+        custom: []
+        name: per_page
+        description: 'El campo value debe ser al menos 1. El campo value no puede ser mayor que 50.'
+        required: false
+        example: 22
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      q: b
+      per_page: 22
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"data":[{"id":1,"name":"Llorente, Aguirre y Sierra e Hijo","slug":"llorente-aguirre-y-sierra-e-hijo","logo_url":null},{"id":2,"name":"Lim\u00f3n de Uribe S. de H.","slug":"limon-de-uribe-s-de-h","logo_url":null}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"pagination.previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"pagination.next","page":null,"active":false}],"path":"\/","per_page":50,"to":2,"total":2}}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/v1/products
+    metadata:
+      custom: []
+      groupName: 'Catálogo (público)'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Listar productos'
+      description: |-
+        Productos activos con búsqueda por nombre o referencia, filtros, orden y
+        paginación. Los precios incluyen IVA; `price` en `null` significa que el producto
+        solo se vende por cotización. No requiere token.
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters:
+      category:
+        custom: []
+        name: category
+        description: 'Slug de la categoría (incluye sus subcategorías).'
+        required: false
+        example: motores
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      brand:
+        custom: []
+        name: brand
+        description: 'Slug de la marca.'
+        required: false
+        example: siemens
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      sort:
+        custom: []
+        name: sort
+        description: 'Orden: name (por defecto), newest, price_asc, price_desc. Los productos sin precio quedan al final.'
+        required: false
+        example: price_asc
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanQueryParameters:
+      category: motores
+      brand: siemens
+      sort: price_asc
+    bodyParameters:
+      q:
+        custom: []
+        name: q
+        description: 'El campo value no puede tener más de 100 caracteres.'
+        required: false
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: 'El campo value no puede tener más de 255 caracteres.'
+        required: false
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      brand:
+        custom: []
+        name: brand
+        description: 'El campo value no puede tener más de 255 caracteres.'
+        required: false
+        example: g
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      sale_mode:
+        custom: []
+        name: sale_mode
+        description: ''
+        required: false
+        example: on_request
+        type: string
+        enumValues:
+          - direct
+          - quote
+          - on_request
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      featured:
+        custom: []
+        name: featured
+        description: ''
+        required: false
+        example: false
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      in_stock:
+        custom: []
+        name: in_stock
+        description: ''
+        required: false
+        example: false
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      sort:
+        custom: []
+        name: sort
+        description: ''
+        required: false
+        example: price_asc
+        type: string
+        enumValues:
+          - name
+          - newest
+          - price_asc
+          - price_desc
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      per_page:
+        custom: []
+        name: per_page
+        description: 'El campo value debe ser al menos 1. El campo value no puede ser mayor que 50.'
+        required: false
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      q: b
+      category: 'n'
+      brand: g
+      sale_mode: on_request
+      featured: false
+      in_stock: false
+      sort: price_asc
+      per_page: 16
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"data":[{"id":1,"sku":"REF-0564-yv","name":"Motor trif\u00e1sico 4338 HP","slug":"motor-trifasico-4338-hp","short_description":"Nihil accusantium harum mollitia modi deserunt.","description":"Perspiciatis quo omnis nostrum aut adipisci quidem nostrum qui. Incidunt iure odit et et modi ipsum. Omnis autem et consequatur. Dolores enim non facere tempora.","image_url":null,"specs":{"potencia_hp":10,"voltaje_v":220},"unit":"unidad","unit_label":"Unidad","price":3775000,"tax_rate":19,"stock":7,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":1,"name":"Quis adipisci","slug":"quis-adipisci"},"brand":{"id":1,"name":"Global Guardado y Asoc.","slug":"global-guardado-y-asoc","logo_url":null}},{"id":2,"sku":"REF-7788-qb","name":"Motor trif\u00e1sico 9148 HP","slug":"motor-trifasico-9148-hp","short_description":"Corporis dolorem mollitia deleniti nemo odit quia officia.","description":"Blanditiis odio veritatis excepturi doloribus delectus fugit. Repudiandae laboriosam est alias tenetur ratione. Voluptate accusamus ut et recusandae. Rerum ex repellendus assumenda et.","image_url":null,"specs":{"potencia_hp":5,"voltaje_v":440},"unit":"unidad","unit_label":"Unidad","price":1181000,"tax_rate":19,"stock":10,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":2,"name":"Perspiciatis deserunt","slug":"perspiciatis-deserunt"},"brand":{"id":2,"name":"Grupo Arias-Chac\u00f3n","slug":"grupo-arias-chacon","logo_url":null}}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"pagination.previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"pagination.next","page":null,"active":false}],"path":"\/","per_page":12,"to":2,"total":2}}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/v1/products/{slug}'
+    metadata:
+      custom: []
+      groupName: 'Catálogo (público)'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Ver un producto'
+      description: 'Detalle de un producto activo por su slug. Si no existe o está inactivo responde 404.'
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      slug:
+        custom: []
+        name: slug
+        description: 'Slug del producto.'
+        required: true
+        example: motor-trifasico-5-hp
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      slug: motor-trifasico-5-hp
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"data":{"id":1,"sku":"REF-6806-zm","name":"Motor trif\u00e1sico 2938 HP","slug":"motor-trifasico-2938-hp","short_description":"Et fugiat sunt nihil accusantium.","description":"Deserunt aut ab provident perspiciatis quo omnis nostrum. Adipisci quidem nostrum qui commodi incidunt iure. Et et modi ipsum nostrum.","image_url":null,"specs":{"potencia_hp":5,"voltaje_v":220},"unit":"unidad","unit_label":"Unidad","price":1468000,"tax_rate":19,"stock":8,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":1,"name":"Aut dolores","slug":"aut-dolores"},"brand":{"id":1,"name":"Manzano de Mendoza","slug":"manzano-de-mendoza","logo_url":null}}}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null

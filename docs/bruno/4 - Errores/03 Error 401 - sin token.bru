@@ -1,0 +1,15 @@
+meta {
+  name: Error 401 - sin token
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/api/v1/me
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 401
+}

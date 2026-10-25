@@ -1,0 +1,42 @@
+meta {
+  name: Registrar cliente
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/api/v1/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Laura Gómez",
+    "email": "{{client_email}}",
+    "password": "ClaveSegura2026",
+    "company_name": "Constructora Altos S.A.S.",
+    "nit": "{{client_nit}}",
+    "phone": "315 555 0202",
+    "city": "Girón",
+    "address": "Carrera 27 # 45-10",
+    "privacy_accepted": true,
+    "marketing_opt_in": false
+  }
+}
+
+script:pre-request {
+  // Correo y NIT únicos en cada ejecución
+  const stamp = Date.now();
+  bru.setVar("client_email", `cliente.${stamp}@example.test`);
+  bru.setVar("client_nit", `9${String(stamp).slice(-8)}-1`);
+}
+
+script:post-response {
+  bru.setVar("client_token", res.body.token);
+}
+
+assert {
+  res.status: eq 201
+  res.body.data.role: eq cliente
+}
