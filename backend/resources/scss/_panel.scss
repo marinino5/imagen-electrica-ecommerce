@@ -1,0 +1,127 @@
+// Estructura del panel administrativo: barra lateral, barra superior,
+// tarjetas del dashboard y pantallas sencillas (login y errores).
+
+$sidebar-width: 16rem;
+
+.admin-body {
+    background-color: $brand-surface;
+}
+
+// Barra lateral: fija en escritorio (lg) y menú deslizable (offcanvas) en celular
+.admin-sidebar {
+    background-color: $brand-white;
+    border-right: 1px solid $border-color;
+
+    @include media-breakpoint-up(lg) {
+        position: sticky;
+        top: 0;
+        flex: 0 0 $sidebar-width;
+        width: $sidebar-width;
+        height: 100vh;
+        overflow-y: auto;
+    }
+}
+
+.admin-sidebar-logo {
+    width: 7.5rem;
+    height: auto;
+}
+
+.admin-nav {
+    .nav-section {
+        margin: 1.25rem 0 .375rem;
+        padding: 0 .75rem;
+        color: $brand-muted;
+        font-size: .75rem;
+        font-weight: 600;
+        letter-spacing: .06em;
+        text-transform: uppercase;
+    }
+
+    .nav-link {
+        border-radius: $border-radius;
+        color: $brand-ink;
+        font-weight: 500;
+        padding: .5rem .75rem;
+
+        &:hover,
+        &:focus-visible {
+            background-color: $brand-surface;
+        }
+
+        &.active {
+            background-color: $brand-primary;
+            color: $brand-white;
+        }
+    }
+}
+
+// Columna principal; min-width evita que tablas o el gráfico la desborden
+.admin-main {
+    min-width: 0;
+}
+
+// Barra superior en morado; el arco sutil del logo va en su borde inferior
+.admin-topbar {
+    background-color: $brand-primary;
+    border-bottom: 3px solid $brand-accent;
+    border-bottom-left-radius: 1.5rem;
+    min-height: 3.75rem;
+}
+
+.admin-page-title {
+    font-family: $headings-font-family;
+    font-weight: $headings-font-weight;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+}
+
+// Tarjetas de indicadores del dashboard
+.stat-card {
+    border-left: 4px solid var(--stat-color, #{$brand-primary});
+
+    .stat-value {
+        font-family: $headings-font-family;
+        font-size: 2.25rem;
+        font-weight: $headings-font-weight;
+        line-height: 1;
+    }
+
+    .stat-label {
+        color: $brand-muted;
+        font-weight: 500;
+    }
+}
+
+.stat-card-primary { --stat-color: #{$brand-primary}; }
+.stat-card-accent { --stat-color: #{$brand-accent}; }
+.stat-card-ink { --stat-color: #{$brand-ink}; }
+
+.chart-container {
+    position: relative;
+    min-height: 18rem;
+}
+
+// Login y páginas de error: tarjeta centrada sobre el fondo surface
+.minimal-page {
+    min-height: 100vh;
+    background-color: $brand-surface;
+}
+
+.minimal-card {
+    width: 100%;
+    max-width: 26rem;
+}
+
+.minimal-logo {
+    width: 8rem;
+    height: auto;
+}
+
+.error-code {
+    font-family: $headings-font-family;
+    font-size: 4.5rem;
+    font-weight: $headings-font-weight;
+    line-height: 1;
+    color: $brand-primary;
+}

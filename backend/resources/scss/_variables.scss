@@ -1,0 +1,42 @@
+// Variables de marca de Imagen Eléctrica (ver CLAUDE.md, "Identidad visual").
+// Es el único lugar donde se escriben colores: las vistas usan las clases
+// de Bootstrap (bg-primary, btn-accent...) o las variables CSS --bs-*.
+
+// Paleta de marca
+$brand-primary: #520179; // morado del logo
+$brand-accent: #FD6F00; // naranja del logo: siempre con texto ink
+$brand-ink: #261C3E; // texto y títulos
+$brand-surface: #F5F1F9; // fondo de secciones alternas
+$brand-muted: #6E6178; // texto secundario
+$brand-white: #FFFFFF;
+
+// Bootstrap: colores del tema
+$primary: $brand-primary;
+$secondary: $brand-muted;
+$light: $brand-surface;
+$dark: $brand-ink;
+
+// color-contrast() elige el texto de cada botón; con ink como color oscuro,
+// el botón accent queda con texto #261C3E y no blanco.
+$color-contrast-dark: $brand-ink;
+$color-contrast-light: $brand-white;
+
+$body-color: $brand-ink;
+$body-bg: $brand-white;
+$body-secondary-color: $brand-muted;
+$headings-color: $brand-ink;
+$link-color: $brand-primary;
+
+// Tipografía
+$font-family-sans-serif: 'Barlow', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+$headings-font-family: 'Barlow Condensed', 'Arial Narrow', $font-family-sans-serif;
+$headings-font-weight: 700;
+
+// Tarjetas blancas con borde suave y esquinas de 8 px
+$border-radius: .5rem;
+$border-color: mix($brand-ink, $brand-white, 12%);
+$card-border-color: $border-color;
+$card-cap-bg: $brand-white;
+
+// Foco visible con el color de marca (accesibilidad)
+$input-btn-focus-color: rgba($brand-primary, .25);
