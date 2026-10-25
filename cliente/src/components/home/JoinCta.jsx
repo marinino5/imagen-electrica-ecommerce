@@ -44,7 +44,14 @@ export default function JoinCta() {
               offset={['start 90%', 'center 50%']}
             />
             <span className="join__frame" aria-hidden="true" />
-            <img src="/img/fachada.webp" alt="Fachada de Imagen Eléctrica en Bucaramanga" width="640" height="480" loading="lazy" />
+            <div className="join__art" aria-hidden="true">
+              <svg viewBox="0 0 400 300" fill="none">
+                <circle cx="200" cy="150" r="128" stroke="var(--violet-glow)" strokeWidth="2" />
+                <circle cx="200" cy="150" r="98" stroke="var(--violet-glow)" strokeWidth="2" strokeDasharray="2 10" strokeLinecap="round" />
+                <circle cx="200" cy="150" r="70" fill="var(--glass-bg)" stroke="var(--glass-border)" strokeWidth="2" />
+              </svg>
+              <Zap size={84} strokeWidth={1.25} />
+            </div>
           </Reveal>
         </div>
       </div>

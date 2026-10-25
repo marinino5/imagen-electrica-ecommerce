@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom'
+import { motion, useReducedMotion } from 'framer-motion'
 import { ChevronRight, Headset, Package, ShieldCheck, Truck, Zap } from 'lucide-react'
 import { useCategories } from '../hooks/useCategories'
 import PageHeader from '../components/ui/PageHeader'
 import Reveal from '../components/ui/Reveal'
 import SectionHeading from '../components/ui/SectionHeading'
+import Counter from '../components/ui/Counter'
 import MapEmbed from '../components/ui/MapEmbed'
 import ContactInfo from '../components/ui/ContactInfo'
 import BrandStrip from '../components/home/BrandStrip'
@@ -17,15 +19,44 @@ const reasons = [
   { icon: Truck, title: 'Envíos a todo el país', text: 'Recoge en tienda en Bucaramanga o recíbelo donde estés.' },
 ]
 
-// Portada: hoy solo hay la foto de la fachada. Las de la tienda y el equipo se agregan a esta lista cuando existan.
-const covers = ['/img/fachada.webp']
+// Tarjeta de "25+ años": número con contador animado y un arco naranja grueso que se dibuja al entrar en pantalla
+function YearsCard() {
+  const reduced = useReducedMotion()
+  return (
+    <div className="years">
+      <svg className="years__arc" viewBox="0 0 400 300" preserveAspectRatio="none" fill="none" aria-hidden="true">
+        <motion.path
+          d="M110 6 H336 Q394 6 394 64 V250"
+          stroke="var(--accent)"
+          strokeWidth="9"
+          strokeLinecap="round"
+          vectorEffect="non-scaling-stroke"
+          initial={{ pathLength: reduced ? 1 : 0 }}
+          whileInView={{ pathLength: 1 }}
+          viewport={{ once: true, margin: '0px 0px -80px 0px' }}
+          transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+        />
+      </svg>
+      <div className="years__card">
+        <span className="years__ring years__ring--a" aria-hidden="true" />
+        <span className="years__ring years__ring--b" aria-hidden="true" />
+        <p className="years__number" aria-label={`Más de ${site.years} años`}>
+          <Counter to={site.years} className="years__value" />
+          <span className="years__plus" aria-hidden="true">+</span>
+        </p>
+        <p className="years__label" aria-hidden="true">Años</p>
+        <p className="years__note">{site.tagline}</p>
+      </div>
+    </div>
+  )
+}
 
 export default function Nosotros() {
   const { data: categories } = useCategories()
 
   return (
     <>
-      <PageHeader title="Nosotros" crumbs={[{ label: 'Nosotros' }]} cover={covers[0]}>
+      <PageHeader title="Nosotros" crumbs={[{ label: 'Nosotros' }]}>
         {site.tagline} · más de {site.years} años en {site.city.split(',')[0]}.
       </PageHeader>
 
@@ -45,18 +76,17 @@ export default function Nosotros() {
             </p>
             <Link to="/productos" className="btn btn--accent btn--lg">Ver productos</Link>
           </Reveal>
-          <Reveal className="about__photo" delay={0.1}>
-            <span className="about__frame" aria-hidden="true" />
-            <img src="/img/fachada.webp" alt="Fachada de Imagen Eléctrica en Bucaramanga" width="640" height="480" loading="lazy" />
+          <Reveal className="about__years" delay={0.1}>
+            <YearsCard />
           </Reveal>
         </div>
       </section>
 
       {categories.roots.length > 0 && (
-        <section className="section section--clip" aria-labelledby="h-hacemos">
+        <section className="section section--violet section--clip" aria-labelledby="h-hacemos">
           <div className="container">
             <SectionHeading id="h-hacemos" eyebrow="Qué hacemos" lead="Nuestras líneas de producto.">
-              Todo para tu <em>planta</em>
+              Todo para tu <em>proyecto</em>
             </SectionHeading>
             <ul className="lines-list">
               {categories.roots.map((root) => (
@@ -94,7 +124,7 @@ export default function Nosotros() {
 
       <BrandStrip />
 
-      <section className="section" aria-labelledby="h-visitanos">
+      <section className="section section--violet section--clip" aria-labelledby="h-visitanos">
         <div className="container">
           <SectionHeading id="h-visitanos" eyebrow="Visítanos">
             Estamos en <em>Bucaramanga</em>

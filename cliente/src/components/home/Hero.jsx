@@ -15,28 +15,30 @@ const SLIDE_MS = 8000
 const slides = [
   {
     id: 'tablero',
-    media: { type: 'video', webm: '/media/hero-tablero.webm', mp4: '/media/hero-tablero.mp4', poster: '/media/hero-tablero-poster.jpg' },
+    // El video del tablero mide 1296×636: en pantallas muy anchas no se estira (ver `capped`) y detrás va su imagen desenfocada.
+    // pos / posSm: punto de enfoque en escritorio y en celular (donde el recorte es horizontal)
+    media: { type: 'video', webm: '/media/hero-tablero.webm', mp4: '/media/hero-tablero.mp4', poster: '/media/hero-tablero-poster.jpg', pos: '72% 45%', posSm: '78% 50%', capped: true },
     title: 'Soluciones eléctricas',
     highlight: 'para tu industria',
     text: 'Motores, variadores, cables e iluminación con disponibilidad y asesoría técnica.',
   },
   {
     id: 'motores',
-    media: { type: 'video', webm: '/media/hero-motores.webm', mp4: '/media/hero-motores.mp4', poster: '/media/hero-motores-poster.jpg' },
+    media: { type: 'video', webm: '/media/hero-motores.webm', mp4: '/media/hero-motores.mp4', poster: '/media/hero-motores-poster.jpg', pos: '50% 58%', posSm: '46% 50%' },
     title: 'Motores y motorreductores',
     highlight: 'listos para trabajar',
     text: 'Potencia y confiabilidad de las marcas que tu planta ya conoce.',
   },
   {
     id: 'proyectos',
-    media: { type: 'image', src: '/img/fachada.webp' },
+    media: { type: 'image', src: '/img/fachada.webp', pos: '50% 35%', posSm: '36% 50%' },
     title: 'Cotiza tu proyecto',
     highlight: 'con asesoría técnica',
     text: 'Cuéntanos qué necesitas y un asesor te responde con la referencia y el precio.',
   },
 ]
 
-function Slide({ slide, active, still }) {
+function Slide({ slide, active, still, mobile }) {
   const videoRef = useRef(null)
   const { media } = slide
 
@@ -53,6 +55,7 @@ function Slide({ slide, active, still }) {
   }, [active])
 
   const poster = media.type === 'video' ? media.poster : media.src
+  const fit = { objectPosition: mobile ? media.posSm : media.pos }
 
   return (
     <motion.div
@@ -69,14 +72,17 @@ function Slide({ slide, active, still }) {
         animate={{ scale: active ? 1.12 : 1 }}
         transition={active ? { duration: SLIDE_MS / 1000 + 1, ease: 'linear' } : { duration: 0, delay: 1 }}
       >
-        {media.type === 'video' && !still ? (
-          <video ref={videoRef} muted loop playsInline preload={slide.id === 'tablero' ? 'auto' : 'metadata'} poster={media.poster}>
-            <source src={media.webm} type="video/webm" />
-            <source src={media.mp4} type="video/mp4" />
-          </video>
-        ) : (
-          <img src={poster} alt="" fetchPriority={slide.id === 'tablero' ? 'high' : undefined} />
-        )}
+        {media.capped && <img className="hero__backdrop" src={poster} alt="" style={fit} />}
+        <div className={`hero__sharp ${media.capped ? 'hero__sharp--capped' : ''}`}>
+          {media.type === 'video' && !still ? (
+            <video ref={videoRef} muted loop playsInline preload={slide.id === 'tablero' ? 'auto' : 'metadata'} poster={media.poster} style={fit}>
+              <source src={media.webm} type="video/webm" />
+              <source src={media.mp4} type="video/mp4" />
+            </video>
+          ) : (
+            <img src={poster} alt="" style={fit} fetchPriority={slide.id === 'tablero' ? 'high' : undefined} />
+          )}
+        </div>
       </motion.div>
     </motion.div>
   )
@@ -158,7 +164,7 @@ export default function Hero({ featured }) {
     <section className="hero" aria-roledescription="carrusel" aria-label="Destacados de Imagen Eléctrica">
       <div className="hero__media">
         {slides.map((s, n) => (
-          <Slide key={s.id} slide={s} active={n === index} still={still} />
+          <Slide key={s.id} slide={s} active={n === index} still={still} mobile={isMobile} />
         ))}
         <div className="hero__overlay" />
       </div>

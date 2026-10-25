@@ -15,11 +15,34 @@
   position: absolute;
   inset: 0;
 }
-.hero__kenburns video,
-.hero__kenburns img {
+.hero__sharp {
+  position: absolute;
+  inset: 0;
+}
+.hero__sharp video,
+.hero__sharp img,
+.hero__backdrop {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* el punto de enfoque se ajusta por diapositiva (object-position en línea) */
+}
+/* Respaldo desenfocado del video de baja resolución */
+.hero__backdrop {
+  position: absolute;
+  inset: 0;
+  filter: blur(22px);
+  transform: scale(1.12);
+}
+/* El video nítido no se estira más de 1500 px: en pantallas más anchas se funde con el respaldo */
+.hero__sharp--capped {
+  left: auto;
+  width: min(100%, 1500px);
+}
+@media (min-width: 1501px) {
+  .hero__sharp--capped {
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 18%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 18%);
+  }
 }
 .hero__media {
   overflow: hidden; /* recorta el zoom Ken Burns */
@@ -130,10 +153,12 @@
 }
 .feat-card img {
   width: 100%;
-  height: 170px;
+  aspect-ratio: 4 / 3;
+  height: auto;
   margin-bottom: 12px;
   border-radius: var(--radius);
-  object-fit: cover;
+  background: var(--white);
+  object-fit: contain;
 }
 .feat-card__brand {
   font-size: 0.78rem;

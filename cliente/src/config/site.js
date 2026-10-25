@@ -20,6 +20,8 @@ export const site = {
   whatsappUrl: whatsappLink('Hola, quiero información sobre sus productos.'),
   whatsappLink,
   // Mapa de Google embebido con la dirección (iframe, sin clave de API)
+  // Enlace para abrir la ruta en Google Maps
+  directionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent('Cra 18 No 24-32, Bucaramanga, Santander')}`,
   mapUrl: `https://www.google.com/maps?q=${encodeURIComponent('Cra 18 No 24-32, Bucaramanga, Santander')}&output=embed`,
   social: {
     facebook: 'https://facebook.com/imagenelectrica',
