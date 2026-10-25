@@ -15,9 +15,8 @@ const SLIDE_MS = 8000
 const slides = [
   {
     id: 'tablero',
-    // El video del tablero mide 1296×636: en pantallas muy anchas no se estira (ver `capped`) y detrás va su imagen desenfocada.
     // pos / posSm: punto de enfoque en escritorio y en celular (donde el recorte es horizontal)
-    media: { type: 'video', webm: '/media/hero-tablero.webm', mp4: '/media/hero-tablero.mp4', poster: '/media/hero-tablero-poster.jpg', pos: '72% 45%', posSm: '78% 50%', capped: true },
+    media: { type: 'video', webm: '/media/hero-tablero.webm', mp4: '/media/hero-tablero.mp4', poster: '/media/hero-tablero-poster.jpg', pos: '72% 45%', posSm: '78% 50%' },
     title: 'Soluciones eléctricas',
     highlight: 'para tu industria',
     text: 'Motores, variadores, cables e iluminación con disponibilidad y asesoría técnica.',
@@ -72,8 +71,7 @@ function Slide({ slide, active, still, mobile }) {
         animate={{ scale: active ? 1.12 : 1 }}
         transition={active ? { duration: SLIDE_MS / 1000 + 1, ease: 'linear' } : { duration: 0, delay: 1 }}
       >
-        {media.capped && <img className="hero__backdrop" src={poster} alt="" style={fit} />}
-        <div className={`hero__sharp ${media.capped ? 'hero__sharp--capped' : ''}`}>
+        <div className="hero__sharp">
           {media.type === 'video' && !still ? (
             <video ref={videoRef} muted loop playsInline preload={slide.id === 'tablero' ? 'auto' : 'metadata'} poster={media.poster} style={fit}>
               <source src={media.webm} type="video/webm" />
@@ -184,10 +182,10 @@ export default function Hero({ featured }) {
           <AnimatePresence mode="wait">
             <motion.div
               key={slide.id}
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
-              transition={{ duration: 0.5 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
               aria-live="polite"
             >
               <h1 className="display hero__title">

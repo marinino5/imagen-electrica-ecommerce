@@ -1,0 +1,225 @@
+/* Piezas compartidas por Nosotros, Cómo comprar, Cuenta y Contacto */
+
+/* ---- ImageSlot: foto pendiente ---- */
+.image-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 16px;
+  border: 3px dashed var(--lavender-2);
+  border-radius: var(--radius-lg);
+  background: var(--grad-lavender);
+  box-shadow: inset 0 0 0 1px var(--violet-soft);
+  color: var(--primary);
+  text-align: center;
+}
+.image-slot--fill {
+  height: 100%;
+  min-height: 180px;
+}
+.image-slot__icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+.image-slot__text {
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--primary);
+}
+
+/* ---- Título palabra por palabra ---- */
+.word-reveal {
+  margin: 0;
+}
+.word-reveal__line {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.28em;
+}
+.word-reveal__line.is-accent {
+  color: var(--accent);
+}
+.word-reveal__mask {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.08em; /* no corta los descendentes */
+  margin-bottom: -0.08em;
+}
+.word-reveal__word {
+  display: inline-block;
+}
+
+/* ---- Botones y etiquetas de sección sobre fondos de marca ---- */
+.on-violet .eyebrow,
+.on-ink .eyebrow {
+  color: var(--white);
+}
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-pill);
+  background: var(--glass-bg);
+  color: var(--white);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.tag-pill svg {
+  color: var(--accent);
+}
+
+/* Las portadas pasan por debajo del encabezado flotante, igual que PageHeader */
+.cover {
+  position: relative;
+  margin-top: calc(var(--header-space) * -1);
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word-reveal__word {
+    transform: none !important;
+  }
+}
+
+/* ---- Mapa de Google embebido ---- */
+.map {
+  overflow: hidden;
+  min-height: 320px;
+  border: 1px solid var(--lavender-2);
+  border-radius: var(--radius-lg);
+  background: var(--lavender-2);
+  box-shadow: var(--shadow);
+}
+.map iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  border: 0;
+}
+
+/* ---- Visítanos: mapa con marco de arco naranja y tarjeta ink encima ---- */
+.visit {
+  position: relative;
+}
+.visit__frame {
+  padding: 10px;
+  border-radius: 120px 28px 28px 28px;
+  background: var(--accent);
+  box-shadow: var(--shadow-lg);
+}
+.visit__frame .map {
+  height: 360px;
+  min-height: 360px;
+  border: 0;
+  border-radius: 112px 20px 20px 20px;
+  box-shadow: none;
+}
+.visit__frame .map iframe {
+  height: 100%;
+  min-height: 360px;
+}
+.visit__card {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin: -48px 16px 0;
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  background: var(--grad-ink);
+  color: var(--white);
+  box-shadow: var(--shadow-lg);
+}
+.visit__card .eyebrow {
+  margin-bottom: 0;
+}
+.visit__card h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 1.2vw + 1.4rem, 2.5rem);
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.visit__city {
+  color: var(--on-dark-muted);
+}
+.visit__list {
+  display: grid;
+  gap: 8px;
+  margin: 6px 0 10px;
+  padding: 0;
+  list-style: none;
+}
+.visit__list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.visit__list svg {
+  flex: none;
+  color: var(--accent);
+}
+.visit__list a {
+  color: var(--white);
+  text-decoration: none;
+  word-break: break-word;
+}
+.visit__list a:hover {
+  text-decoration: underline;
+}
+.visit__photo {
+  width: min(100%, 240px);
+  margin: 16px auto 0;
+}
+.visit__photo .image-slot {
+  border: 3px dashed var(--lavender-2);
+  background: var(--grad-lavender);
+}
+
+@media (min-width: 900px) {
+  .visit__frame {
+    border-radius: 220px 36px 36px 36px;
+  }
+  .visit__frame .map {
+    height: 560px;
+    border-radius: 210px 28px 28px 28px;
+  }
+  .visit__frame .map iframe {
+    min-height: 560px;
+  }
+  .visit__card {
+    position: absolute;
+    left: 44px;
+    bottom: 44px;
+    width: 370px;
+    margin: 0;
+  }
+  .visit__photo {
+    position: absolute;
+    right: 36px;
+    top: 36px;
+    width: 210px;
+    margin: 0;
+    padding: 6px;
+    border-radius: 28px;
+    background: var(--white);
+    box-shadow: var(--shadow-lg);
+  }
+}

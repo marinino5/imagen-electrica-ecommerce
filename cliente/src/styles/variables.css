@@ -27,8 +27,8 @@
 
   /* Transparencias derivadas de la marca */
   --overlay-ink: rgb(38 28 62 / 0.82);
-  --overlay-hero: linear-gradient(90deg, rgb(38 28 62 / 0.92) 0%, rgb(38 28 62 / 0.7) 38%, rgb(38 28 62 / 0) 78%);
-  --overlay-hero-sm: linear-gradient(180deg, rgb(38 28 62 / 0.55) 0%, rgb(38 28 62 / 0.85) 100%);
+  --overlay-hero: linear-gradient(90deg, rgb(38 28 62 / 0.7) 0%, rgb(38 28 62 / 0) 55%); /* máximo 70 % y transparente desde el 55 % del ancho */
+  --overlay-hero-sm: linear-gradient(180deg, rgb(38 28 62 / 0.5) 0%, rgb(38 28 62 / 0.7) 100%);
   --glass-bg: rgb(255 255 255 / 0.12);
   --glass-border: rgb(255 255 255 / 0.3);
   --on-dark-muted: rgb(255 255 255 / 0.78);

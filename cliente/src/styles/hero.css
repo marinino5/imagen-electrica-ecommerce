@@ -20,29 +20,10 @@
   inset: 0;
 }
 .hero__sharp video,
-.hero__sharp img,
-.hero__backdrop {
+.hero__sharp img {
   width: 100%;
   height: 100%;
   object-fit: cover; /* el punto de enfoque se ajusta por diapositiva (object-position en línea) */
-}
-/* Respaldo desenfocado del video de baja resolución */
-.hero__backdrop {
-  position: absolute;
-  inset: 0;
-  filter: blur(22px);
-  transform: scale(1.12);
-}
-/* El video nítido no se estira más de 1500 px: en pantallas más anchas se funde con el respaldo */
-.hero__sharp--capped {
-  left: auto;
-  width: min(100%, 1500px);
-}
-@media (min-width: 1501px) {
-  .hero__sharp--capped {
-    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 18%);
-    mask-image: linear-gradient(90deg, transparent 0, #000 18%);
-  }
 }
 .hero__media {
   overflow: hidden; /* recorta el zoom Ken Burns */
@@ -102,6 +83,7 @@
 .hero__title {
   font-size: var(--fs-hero);
   color: var(--white);
+  text-shadow: 0 2px 18px rgb(38 28 62 / 0.45); /* legible aunque el degradado sea ligero */
 }
 .hero__title em {
   display: block;
@@ -112,7 +94,8 @@
   max-width: 52ch;
   margin: 18px 0 26px;
   font-size: 1.1rem;
-  color: var(--on-dark-muted);
+  color: var(--white);
+  text-shadow: 0 1px 12px rgb(38 28 62 / 0.55);
 }
 .hero__ctas {
   display: flex;
