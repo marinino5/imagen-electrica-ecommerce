@@ -19,7 +19,8 @@
     border-left: 4px solid var(--stat-color);
     transition: transform .15s ease, box-shadow .15s ease;
 
-    &:hover {
+    // Solo las tarjetas con enlace se levantan al pasar el mouse
+    &.is-link:hover {
         transform: translateY(-2px);
         box-shadow: $box-shadow;
     }
@@ -146,6 +147,10 @@
 
     &:last-child {
         border-bottom: 0;
+    }
+
+    &:is(a):hover {
+        background-color: $brand-surface;
     }
 
     .order-icon {
