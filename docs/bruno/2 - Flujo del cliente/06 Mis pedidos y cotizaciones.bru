@@ -1,0 +1,19 @@
+meta {
+  name: Mis pedidos y cotizaciones
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{base_url}}/api/v1/orders
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{client_token}}
+}
+
+assert {
+  res.status: eq 200
+}

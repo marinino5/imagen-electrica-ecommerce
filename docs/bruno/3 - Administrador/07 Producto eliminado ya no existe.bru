@@ -1,0 +1,19 @@
+meta {
+  name: Producto eliminado ya no existe
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{base_url}}/api/v1/admin/products/{{new_product_id}}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{admin_token}}
+}
+
+assert {
+  res.status: eq 404
+}

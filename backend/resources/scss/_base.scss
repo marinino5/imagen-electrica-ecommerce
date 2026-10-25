@@ -127,12 +127,12 @@ h1, h2, h3, .h1, .h2, .h3 {
     }
 }
 
-// Fondo con un tinte del color del estado, texto ink y punto con el color exacto,
-// el mismo que usan los gráficos.
+// Fondo al 15 % del color del estado y texto en el color pleno, el mismo que usan los
+// gráficos. El amarillo lleva un texto más oscuro porque el pleno no se lee sobre claro.
 @each $status, $color in $status-colors {
     .status-#{$status} {
-        --status-bg: #{mix($color, $brand-white, 16%)};
-        --status-color: #{$brand-ink};
+        --status-bg: #{rgba($color, .15)};
+        --status-color: #{if($color == $chart-yellow, $chart-yellow-text, $color)};
         --status-dot: #{$color};
     }
 }

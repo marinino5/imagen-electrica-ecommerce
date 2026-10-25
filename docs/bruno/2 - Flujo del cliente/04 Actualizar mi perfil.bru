@@ -1,0 +1,30 @@
+meta {
+  name: Actualizar mi perfil
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{base_url}}/api/v1/me
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{client_token}}
+}
+
+body:json {
+  {
+    "name": "Laura Patricia Gómez",
+    "company_name": "Constructora Altos de Girón S.A.S.",
+    "phone": "315 555 0202",
+    "city": "Girón",
+    "address": "Carrera 27 # 45-10",
+    "marketing_opt_in": true
+  }
+}
+
+assert {
+  res.status: eq 200
+}

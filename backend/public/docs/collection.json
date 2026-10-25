@@ -1,0 +1,850 @@
+{
+    "variable": [
+        {
+            "id": "baseUrl",
+            "key": "baseUrl",
+            "type": "string",
+            "name": "string",
+            "value": "http:\/\/localhost:8000"
+        }
+    ],
+    "info": {
+        "name": "API de Imagen El\u00e9ctrica",
+        "_postman_id": "0af05284-5dde-41b7-b37c-7af9514fc547",
+        "description": "API REST del e-commerce B2B de Imagen El\u00e9ctrica: cat\u00e1logo p\u00fablico, cuenta del cliente, pedidos y cotizaciones, y gesti\u00f3n de productos para administradores.",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Autenticaci\u00f3n",
+            "description": "",
+            "item": [
+                {
+                    "name": "Registrar cliente",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/register",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/register"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"Laura G\u00f3mez\",\"email\":\"laura@constructoraaltos.test\",\"password\":\"ClaveSegura2026\",\"company_name\":\"Constructora Altos S.A.S.\",\"nit\":\"900765432-8\",\"phone\":\"315 555 0202\",\"city\":\"Bucaramanga\",\"address\":\"Carrera 27 # 45-10\",\"privacy_accepted\":true,\"marketing_opt_in\":false}"
+                        },
+                        "description": "Crea la cuenta (rol cliente) con los datos de su empresa y devuelve un token listo\npara usar. Aceptar la pol\u00edtica de datos es obligatorio; el marketing es opcional.\nM\u00e1ximo 5 intentos por minuto.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\"data\":{\"id\":5,\"name\":\"Laura G\u00f3mez\",\"email\":\"laura@constructoraaltos.test\",\"role\":\"cliente\",\"customer\":{\"company_name\":\"Constructora Altos S.A.S.\",\"nit\":\"900765432-8\",\"contact_name\":\"Laura G\u00f3mez\",\"phone\":\"315 555 0202\",\"city\":\"Bucaramanga\",\"address\":null,\"marketing_opt_in\":false,\"marketing_opt_in_at\":null,\"privacy_accepted_at\":\"2026-10-25T15:00:00.000000Z\"}},\"token\":\"1|abc123...\",\"token_type\":\"Bearer\"}",
+                            "name": "Cuenta creada"
+                        }
+                    ]
+                },
+                {
+                    "name": "Iniciar sesi\u00f3n",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/login",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/login"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"laura@constructoraaltos.test\",\"password\":\"ClaveSegura2026\"}"
+                        },
+                        "description": "Devuelve un token Bearer. Sirve para clientes y para el administrador. M\u00e1ximo 5 intentos\npor minuto por correo y direcci\u00f3n IP. Credenciales incorrectas responden 401; un usuario\ninactivo, 403.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"id\":5,\"name\":\"Laura G\u00f3mez\",\"email\":\"laura@constructoraaltos.test\",\"role\":\"cliente\",\"customer\":{\"company_name\":\"Constructora Altos S.A.S.\",\"nit\":\"900765432-8\",\"contact_name\":\"Laura G\u00f3mez\",\"phone\":\"315 555 0202\",\"city\":\"Bucaramanga\",\"address\":null,\"marketing_opt_in\":false,\"marketing_opt_in_at\":null,\"privacy_accepted_at\":\"2026-10-25T15:00:00.000000Z\"}},\"token\":\"2|xyz789...\",\"token_type\":\"Bearer\"}",
+                            "name": "Sesi\u00f3n iniciada"
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\"message\":\"El correo o la contrase\u00f1a no son correctos.\"}",
+                            "name": "Credenciales incorrectas"
+                        }
+                    ]
+                },
+                {
+                    "name": "Cerrar sesi\u00f3n",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/logout",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/logout"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Revoca el token con el que se hizo la petici\u00f3n. Los tokens de otros dispositivos siguen activos."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 204,
+                            "body": "{}",
+                            "name": "Sesi\u00f3n cerrada"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Cat\u00e1logo (p\u00fablico)",
+            "description": "",
+            "item": [
+                {
+                    "name": "Listar categor\u00edas",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/categories",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/categories"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"q\":\"b\",\"per_page\":22}"
+                        },
+                        "description": "Categor\u00edas activas en orden de \u00e1rbol: cada categor\u00eda principal seguida de sus\nsubcategor\u00edas (`parent_id` indica el padre). No requiere token.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":[{\"id\":1,\"parent_id\":null,\"name\":\"Et animi\",\"slug\":\"et-animi\",\"description\":\"Et fugiat sunt nihil accusantium.\",\"image_url\":null},{\"id\":2,\"parent_id\":null,\"name\":\"Mollitia modi\",\"slug\":\"mollitia-modi\",\"description\":null,\"image_url\":null}],\"links\":{\"first\":\"\\\/?page=1\",\"last\":\"\\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"pagination.previous\",\"page\":null,\"active\":false},{\"url\":\"\\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"pagination.next\",\"page\":null,\"active\":false}],\"path\":\"\\\/\",\"per_page\":50,\"to\":2,\"total\":2}}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Listar marcas",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/brands",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/brands"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"q\":\"b\",\"per_page\":22}"
+                        },
+                        "description": "Marcas activas ordenadas por nombre. No requiere token.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":[{\"id\":1,\"name\":\"Llorente, Aguirre y Sierra e Hijo\",\"slug\":\"llorente-aguirre-y-sierra-e-hijo\",\"logo_url\":null},{\"id\":2,\"name\":\"Lim\\u00f3n de Uribe S. de H.\",\"slug\":\"limon-de-uribe-s-de-h\",\"logo_url\":null}],\"links\":{\"first\":\"\\\/?page=1\",\"last\":\"\\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"pagination.previous\",\"page\":null,\"active\":false},{\"url\":\"\\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"pagination.next\",\"page\":null,\"active\":false}],\"path\":\"\\\/\",\"per_page\":50,\"to\":2,\"total\":2}}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Listar productos",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/products",
+                            "query": [
+                                {
+                                    "key": "category",
+                                    "value": "motores",
+                                    "description": "Slug de la categor\u00eda (incluye sus subcategor\u00edas).",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "brand",
+                                    "value": "siemens",
+                                    "description": "Slug de la marca.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "sort",
+                                    "value": "price_asc",
+                                    "description": "Orden: name (por defecto), newest, price_asc, price_desc. Los productos sin precio quedan al final.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/api\/v1\/products?category=motores&brand=siemens&sort=price_asc"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"q\":\"b\",\"category\":\"n\",\"brand\":\"g\",\"sale_mode\":\"on_request\",\"featured\":false,\"in_stock\":false,\"sort\":\"price_asc\",\"per_page\":16}"
+                        },
+                        "description": "Productos activos con b\u00fasqueda por nombre o referencia, filtros, orden y\npaginaci\u00f3n. Los precios incluyen IVA; `price` en `null` significa que el producto\nsolo se vende por cotizaci\u00f3n. No requiere token.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":[{\"id\":1,\"sku\":\"REF-0564-yv\",\"name\":\"Motor trif\\u00e1sico 4338 HP\",\"slug\":\"motor-trifasico-4338-hp\",\"short_description\":\"Nihil accusantium harum mollitia modi deserunt.\",\"description\":\"Perspiciatis quo omnis nostrum aut adipisci quidem nostrum qui. Incidunt iure odit et et modi ipsum. Omnis autem et consequatur. Dolores enim non facere tempora.\",\"image_url\":null,\"specs\":{\"potencia_hp\":10,\"voltaje_v\":220},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":3775000,\"tax_rate\":19,\"stock\":7,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":1,\"name\":\"Quis adipisci\",\"slug\":\"quis-adipisci\"},\"brand\":{\"id\":1,\"name\":\"Global Guardado y Asoc.\",\"slug\":\"global-guardado-y-asoc\",\"logo_url\":null}},{\"id\":2,\"sku\":\"REF-7788-qb\",\"name\":\"Motor trif\\u00e1sico 9148 HP\",\"slug\":\"motor-trifasico-9148-hp\",\"short_description\":\"Corporis dolorem mollitia deleniti nemo odit quia officia.\",\"description\":\"Blanditiis odio veritatis excepturi doloribus delectus fugit. Repudiandae laboriosam est alias tenetur ratione. Voluptate accusamus ut et recusandae. Rerum ex repellendus assumenda et.\",\"image_url\":null,\"specs\":{\"potencia_hp\":5,\"voltaje_v\":440},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":1181000,\"tax_rate\":19,\"stock\":10,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":2,\"name\":\"Perspiciatis deserunt\",\"slug\":\"perspiciatis-deserunt\"},\"brand\":{\"id\":2,\"name\":\"Grupo Arias-Chac\\u00f3n\",\"slug\":\"grupo-arias-chacon\",\"logo_url\":null}}],\"links\":{\"first\":\"\\\/?page=1\",\"last\":\"\\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"pagination.previous\",\"page\":null,\"active\":false},{\"url\":\"\\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"pagination.next\",\"page\":null,\"active\":false}],\"path\":\"\\\/\",\"per_page\":12,\"to\":2,\"total\":2}}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Ver un producto",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/products\/:slug",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/products\/:slug",
+                            "variable": [
+                                {
+                                    "id": "slug",
+                                    "key": "slug",
+                                    "value": "motor-trifasico-5-hp",
+                                    "description": "Slug del producto."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Detalle de un producto activo por su slug. Si no existe o est\u00e1 inactivo responde 404.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"id\":1,\"sku\":\"REF-6806-zm\",\"name\":\"Motor trif\\u00e1sico 2938 HP\",\"slug\":\"motor-trifasico-2938-hp\",\"short_description\":\"Et fugiat sunt nihil accusantium.\",\"description\":\"Deserunt aut ab provident perspiciatis quo omnis nostrum. Adipisci quidem nostrum qui commodi incidunt iure. Et et modi ipsum nostrum.\",\"image_url\":null,\"specs\":{\"potencia_hp\":5,\"voltaje_v\":220},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":1468000,\"tax_rate\":19,\"stock\":8,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":1,\"name\":\"Aut dolores\",\"slug\":\"aut-dolores\"},\"brand\":{\"id\":1,\"name\":\"Manzano de Mendoza\",\"slug\":\"manzano-de-mendoza\",\"logo_url\":null}}}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Mi cuenta",
+            "description": "",
+            "item": [
+                {
+                    "name": "Ver mi perfil",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/me",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/me"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Usuario autenticado y, si es cliente, los datos de su empresa."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"id\":1,\"name\":\"Omar Dom\\u00ednguez\",\"email\":\"arredondo.juana@example.com\",\"role\":\"cliente\",\"customer\":{\"company_name\":\"Calero de Zamora S.A.S.\",\"nit\":\"990122162-7\",\"contact_name\":\"Sr. H\\u00e9ctor Zelaya\",\"phone\":\"379 091 5066\",\"city\":\"Gir\\u00f3n\",\"address\":\"Calle Elizondo, 54, 27\\u00ba C\",\"marketing_opt_in\":false,\"marketing_opt_in_at\":null,\"privacy_accepted_at\":\"2026-10-25T05:22:55.000000Z\"}}}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Actualizar mi perfil",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/me",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/me"
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"Laura G\u00f3mez\",\"company_name\":\"Constructora Altos S.A.S.\",\"phone\":\"315 555 0202\",\"city\":\"Gir\u00f3n\",\"address\":\"Carrera 27 # 45-10\",\"marketing_opt_in\":true}"
+                        },
+                        "description": "Cambia el nombre de contacto y los datos de la empresa. El correo y el NIT no se\nmodifican desde aqu\u00ed. Solo clientes."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"id\":1,\"name\":\"Emilia Murillo\",\"email\":\"juribe@example.org\",\"role\":\"cliente\",\"customer\":{\"company_name\":\"Rivas y Sevilla SA S.A.S.\",\"nit\":\"968210674-8\",\"contact_name\":\"Adri\\u00e1n Cavazos Hijo\",\"phone\":\"315 175 7680\",\"city\":\"Barrancabermeja\",\"address\":\"Pla\\u00e7a Juana, 979, 27\\u00ba A\",\"marketing_opt_in\":false,\"marketing_opt_in_at\":null,\"privacy_accepted_at\":\"2026-10-25T05:22:55.000000Z\"}}}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Pedidos y cotizaciones (cliente)",
+            "description": "",
+            "item": [
+                {
+                    "name": "Mis solicitudes",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/orders",
+                            "query": [
+                                {
+                                    "key": "type",
+                                    "value": "quote",
+                                    "description": "Filtrar por tipo: purchase o quote.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "status",
+                                    "value": "new",
+                                    "description": "Filtrar por estado (pending_payment, paid, shipped, delivered, new, in_review, sent, accepted, rejected, cancelled).",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "per_page",
+                                    "value": "10",
+                                    "description": "Solicitudes por p\u00e1gina (1 a 50).",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/api\/v1\/orders?type=quote&status=new&per_page=10"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"type\":\"purchase\",\"status\":\"in_review\",\"per_page\":1}"
+                        },
+                        "description": "Pedidos y cotizaciones del cliente autenticado, los m\u00e1s recientes primero. Nunca\nmuestra las de otros clientes."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":[{\"code\":\"PED-9171\",\"type\":\"purchase\",\"type_label\":\"Pedido\",\"status\":\"pending_payment\",\"status_label\":\"Pendiente de pago\",\"company_name\":\"Aguirre de Sierra e Hijo S.A.S.\",\"nit\":\"931296562-5\",\"contact_name\":\"Alexandra Salvador\",\"email\":\"icalero@example.org\",\"phone\":\"364 698 0841\",\"city\":\"Barrancabermeja\",\"address\":\"Ruela Santiago, 442, 43\\u00ba 2\\u00ba\",\"delivery_method\":\"pickup\",\"delivery_method_label\":\"Recoger en tienda\",\"payment_method\":null,\"subtotal\":840336.13,\"tax\":159663.87,\"shipping\":0,\"total\":1000000,\"notes\":null,\"expires_at\":null,\"paid_at\":null,\"created_at\":\"2026-10-25T05:22:55.000000Z\",\"items\":[{\"id\":1,\"product_id\":1,\"sku\":\"REF-5058-cq\",\"product_name\":\"Motor trif\\u00e1sico 6877 HP\",\"unit\":\"unidad\",\"quantity\":3,\"unit_price\":3030000,\"tax_rate\":19,\"line_total\":9090000,\"notes\":null}]},{\"code\":\"PED-3733\",\"type\":\"purchase\",\"type_label\":\"Pedido\",\"status\":\"pending_payment\",\"status_label\":\"Pendiente de pago\",\"company_name\":\"Santill\\u00e1n de Rosa S.A.S.\",\"nit\":\"940939506-2\",\"contact_name\":\"Ona Lozano\",\"email\":\"alarcon.jaime@example.com\",\"phone\":\"329 242 1642\",\"city\":\"Piedecuesta\",\"address\":\"Carrer Nayara, 342, 1\\u00ba E\",\"delivery_method\":\"pickup\",\"delivery_method_label\":\"Recoger en tienda\",\"payment_method\":null,\"subtotal\":840336.13,\"tax\":159663.87,\"shipping\":0,\"total\":1000000,\"notes\":null,\"expires_at\":null,\"paid_at\":null,\"created_at\":\"2026-10-25T05:22:55.000000Z\",\"items\":[{\"id\":2,\"product_id\":2,\"sku\":\"REF-9849-tp\",\"product_name\":\"Motor trif\\u00e1sico 1703 HP\",\"unit\":\"unidad\",\"quantity\":2,\"unit_price\":4569000,\"tax_rate\":19,\"line_total\":9138000,\"notes\":null}]}],\"links\":{\"first\":\"\\\/?page=1\",\"last\":\"\\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"pagination.previous\",\"page\":null,\"active\":false},{\"url\":\"\\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"pagination.next\",\"page\":null,\"active\":false}],\"path\":\"\\\/\",\"per_page\":10,\"to\":2,\"total\":2}}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Enviar el carrito",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/orders",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/orders"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"items\":[{\"product_id\":1,\"quantity\":2,\"notes\":\"Con certificado de calidad\"}],\"delivery_method\":\"local\",\"address\":\"Zona Industrial Chimit\u00e1, bodega 12\",\"notes\":\"Entregar en porter\u00eda\"}"
+                        },
+                        "description": "El servidor clasifica cada producto: los de venta directa con precio y stock suficiente forman\nun **pedido** (`purchase`, pendiente de pago); los de cotizaci\u00f3n, bajo pedido o sin stock\nsuficiente forman una **cotizaci\u00f3n** (`quote`, nueva y sin precios). Un carrito mixto\ngenera las dos, por eso la respuesta es una lista (pedido primero). Las cantidades\nde cable pueden ser decimales (metros); las dem\u00e1s unidades, enteras. El env\u00edo es gratis\nal recoger o al superar la compra m\u00ednima configurada."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\"data\":[{\"code\":\"PED-9775\",\"type\":\"purchase\",\"type_label\":\"Pedido\",\"status\":\"pending_payment\",\"status_label\":\"Pendiente de pago\",\"company_name\":\"Llorente, Aguirre y Sierra e Hijo S.A.S.\",\"nit\":\"934997057-5\",\"contact_name\":\"Rosario Cano\",\"email\":\"isaac34@example.net\",\"phone\":\"318 740 4954\",\"city\":\"Gir\\u00f3n\",\"address\":\"R\\u00faa Arnau, 798, 4\\u00ba\",\"delivery_method\":\"pickup\",\"delivery_method_label\":\"Recoger en tienda\",\"payment_method\":null,\"subtotal\":840336.13,\"tax\":159663.87,\"shipping\":0,\"total\":1000000,\"notes\":null,\"expires_at\":null,\"paid_at\":null,\"created_at\":\"2026-10-25T05:22:55.000000Z\",\"items\":[{\"id\":1,\"product_id\":1,\"sku\":\"REF-7365-sc\",\"product_name\":\"Motor trif\\u00e1sico 967 HP\",\"unit\":\"unidad\",\"quantity\":3,\"unit_price\":2955000,\"tax_rate\":19,\"line_total\":8865000,\"notes\":null}]},{\"code\":\"PED-0568\",\"type\":\"purchase\",\"type_label\":\"Pedido\",\"status\":\"pending_payment\",\"status_label\":\"Pendiente de pago\",\"company_name\":\"Arevalo y Gaona S. de H. S.A.S.\",\"nit\":\"912797048-1\",\"contact_name\":\"Dr. Ismael Gal\\u00e1n\",\"email\":\"jon26@example.com\",\"phone\":\"316 022 6085\",\"city\":\"Gir\\u00f3n\",\"address\":\"Ronda Rold\\u00e1n, 754, \\u00c1tico 6\\u00ba\",\"delivery_method\":\"local\",\"delivery_method_label\":\"Env\\u00edo local (Bucaramanga y \\u00e1rea metropolitana)\",\"payment_method\":null,\"subtotal\":840336.13,\"tax\":159663.87,\"shipping\":0,\"total\":1000000,\"notes\":null,\"expires_at\":null,\"paid_at\":null,\"created_at\":\"2026-10-25T05:22:55.000000Z\",\"items\":[{\"id\":2,\"product_id\":2,\"sku\":\"REF-3531-ob\",\"product_name\":\"Motor trif\\u00e1sico 6696 HP\",\"unit\":\"unidad\",\"quantity\":3,\"unit_price\":4362000,\"tax_rate\":19,\"line_total\":13086000,\"notes\":null}]}]}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"message\":\"El carrito est\u00e1 vac\u00edo.\",\"errors\":{\"items\":[\"El carrito est\u00e1 vac\u00edo.\"]}}",
+                            "name": "Carrito vac\u00edo"
+                        }
+                    ]
+                },
+                {
+                    "name": "Ver una solicitud",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/orders\/:code",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/orders\/:code",
+                            "variable": [
+                                {
+                                    "id": "code",
+                                    "key": "code",
+                                    "value": "PED-0001",
+                                    "description": "C\u00f3digo de la solicitud."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Detalle con l\u00edneas e historial de estados. Si el c\u00f3digo no existe o es de otro cliente responde 404."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"code\":\"PED-7680\",\"type\":\"purchase\",\"type_label\":\"Pedido\",\"status\":\"pending_payment\",\"status_label\":\"Pendiente de pago\",\"company_name\":\"Baeza de Arredondo S.A.S.\",\"nit\":\"944731071-9\",\"contact_name\":\"Olivia Centeno\",\"email\":\"jalmonte@example.com\",\"phone\":\"324 049 0034\",\"city\":\"Barrancabermeja\",\"address\":\"Traves\\u00eda Cristian, 47, 2\\u00ba F\",\"delivery_method\":\"pickup\",\"delivery_method_label\":\"Recoger en tienda\",\"payment_method\":null,\"subtotal\":840336.13,\"tax\":159663.87,\"shipping\":0,\"total\":1000000,\"notes\":null,\"expires_at\":null,\"paid_at\":null,\"created_at\":\"2026-10-25T05:22:55.000000Z\",\"items\":[{\"id\":1,\"product_id\":1,\"sku\":\"REF-2083-jk\",\"product_name\":\"Motor trif\\u00e1sico 4189 HP\",\"unit\":\"unidad\",\"quantity\":5,\"unit_price\":3759000,\"tax_rate\":19,\"line_total\":18795000,\"notes\":null}],\"status_history\":[{\"from_status\":null,\"to_status\":\"pending_payment\",\"to_status_label\":\"Pendiente de pago\",\"note\":null,\"created_at\":\"2026-10-25T05:22:55.000000Z\"}]}}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Cancelar una solicitud",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/orders\/:code\/cancel",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/orders\/:code\/cancel",
+                            "variable": [
+                                {
+                                    "id": "code",
+                                    "key": "code",
+                                    "value": "COT-0001",
+                                    "description": "C\u00f3digo de la solicitud."
+                                }
+                            ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Cambia el estado a `cancelled` (no borra nada y queda en el historial). Solo se puede cancelar un\npedido pendiente de pago o una cotizaci\u00f3n nueva; en cualquier otro estado responde 422."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"code\":\"PED-3724\",\"type\":\"purchase\",\"type_label\":\"Pedido\",\"status\":\"pending_payment\",\"status_label\":\"Pendiente de pago\",\"company_name\":\"Gestora Fonseca-Rosales S.A.S.\",\"nit\":\"942198886-2\",\"contact_name\":\"D\\u00f1a Victoria Espinal\",\"email\":\"lucio.noelia@example.org\",\"phone\":\"305 913 5052\",\"city\":\"Bucaramanga\",\"address\":\"Passeig Olivia, 232, 4\\u00ba\",\"delivery_method\":\"national\",\"delivery_method_label\":\"Env\\u00edo nacional\",\"payment_method\":null,\"subtotal\":840336.13,\"tax\":159663.87,\"shipping\":0,\"total\":1000000,\"notes\":null,\"expires_at\":null,\"paid_at\":null,\"created_at\":\"2026-10-25T05:22:55.000000Z\",\"items\":[{\"id\":1,\"product_id\":1,\"sku\":\"REF-0782-pp\",\"product_name\":\"Motor trif\\u00e1sico 5685 HP\",\"unit\":\"unidad\",\"quantity\":1,\"unit_price\":276000,\"tax_rate\":19,\"line_total\":276000,\"notes\":null}],\"status_history\":[{\"from_status\":null,\"to_status\":\"pending_payment\",\"to_status_label\":\"Pendiente de pago\",\"note\":null,\"created_at\":\"2026-10-25T05:22:55.000000Z\"}]}}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"message\":\"No se puede pasar pedido PED-0001 de \u00abEnviado\u00bb a \u00abCancelado\u00bb.\"}",
+                            "name": "Estado que no permite cancelar"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Productos (administrador)",
+            "description": "\nRequiere el token de un usuario con rol admin; con otro rol responde 403.",
+            "item": [
+                {
+                    "name": "Listar productos",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/products",
+                            "query": [
+                                {
+                                    "key": "q",
+                                    "value": "motor",
+                                    "description": "Busca por nombre o referencia.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "category_id",
+                                    "value": "2",
+                                    "description": "Categor\u00eda (incluye subcategor\u00edas).",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "brand_id",
+                                    "value": "1",
+                                    "description": "Marca.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "sale_mode",
+                                    "value": "direct",
+                                    "description": "direct, quote u on_request.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "stock",
+                                    "value": "low",
+                                    "description": "low (stock bajo) u out (agotado).",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "status",
+                                    "value": "active",
+                                    "description": "active, inactive o trashed (eliminados).",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "per_page",
+                                    "value": "10",
+                                    "description": "Productos por p\u00e1gina (1 a 50).",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/products?q=motor&category_id=2&brand_id=1&sale_mode=direct&stock=low&status=active&per_page=10"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"q\":\"b\",\"per_page\":22}"
+                        },
+                        "description": "A diferencia del cat\u00e1logo p\u00fablico, incluye productos inactivos y permite ver los eliminados."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":[{\"id\":1,\"sku\":\"REF-9365-mi\",\"name\":\"Motor trif\\u00e1sico 4027 HP\",\"slug\":\"motor-trifasico-4027-hp\",\"short_description\":\"Fugiat sunt nihil accusantium harum mollitia.\",\"description\":null,\"image_url\":null,\"specs\":{\"potencia_hp\":10,\"voltaje_v\":220},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":3636000,\"tax_rate\":19,\"stock\":19,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":1,\"name\":\"Perspiciatis quo\",\"slug\":\"perspiciatis-quo\"},\"brand\":{\"id\":1,\"name\":\"Empresa Dom\\u00ednguez e Hijo\",\"slug\":\"empresa-dominguez-e-hijo\",\"logo_url\":null},\"is_active\":true,\"created_at\":\"2026-10-25T05:22:55.000000Z\",\"updated_at\":\"2026-10-25T05:22:55.000000Z\",\"deleted_at\":null},{\"id\":2,\"sku\":\"REF-0719-qw\",\"name\":\"Motor trif\\u00e1sico 8015 HP\",\"slug\":\"motor-trifasico-8015-hp\",\"short_description\":\"Et et modi ipsum nostrum.\",\"description\":null,\"image_url\":null,\"specs\":{\"potencia_hp\":5,\"voltaje_v\":220},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":2841000,\"tax_rate\":19,\"stock\":22,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":2,\"name\":\"Dolores enim\",\"slug\":\"dolores-enim\"},\"brand\":{\"id\":2,\"name\":\"Casanova y Almonte y Asoc.\",\"slug\":\"casanova-y-almonte-y-asoc\",\"logo_url\":null},\"is_active\":true,\"created_at\":\"2026-10-25T05:22:55.000000Z\",\"updated_at\":\"2026-10-25T05:22:55.000000Z\",\"deleted_at\":null}],\"links\":{\"first\":\"\\\/?page=1\",\"last\":\"\\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"pagination.previous\",\"page\":null,\"active\":false},{\"url\":\"\\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"pagination.next\",\"page\":null,\"active\":false}],\"path\":\"\\\/\",\"per_page\":10,\"to\":2,\"total\":2}}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Crear un producto",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/products",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/products"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"category_id\":1,\"brand_id\":1,\"sku\":\"MOT-5HP-220\",\"name\":\"Motor trif\u00e1sico 5 HP\",\"short_description\":\"Motor para uso industrial\",\"description\":\"Motor de inducci\u00f3n jaula de ardilla.\",\"image_url\":\"https:\\\/\\\/example.com\\\/motor.jpg\",\"unit\":\"unidad\",\"sale_mode\":\"direct\",\"price\":1500000,\"cost_price\":1100000,\"tax_rate\":19,\"stock\":4,\"is_active\":true,\"is_featured\":false,\"specs\":{\"potencia_hp\":5,\"voltaje_v\":220,\"0\":{\"key\":\"k\",\"value\":\"c\"}}}"
+                        },
+                        "description": "El slug se genera a partir del nombre. `specs` es un objeto con claves fijas en min\u00fascula y la\nunidad en el nombre. Un producto de venta directa necesita precio."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\"data\":{\"id\":1,\"sku\":\"REF-7432-uw\",\"name\":\"Motor trif\\u00e1sico 7195 HP\",\"slug\":\"motor-trifasico-7195-hp\",\"short_description\":\"Nostrum qui commodi incidunt iure.\",\"description\":null,\"image_url\":null,\"specs\":{\"potencia_hp\":5,\"voltaje_v\":220},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":1302000,\"tax_rate\":19,\"stock\":13,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":1,\"name\":\"Nostrum omnis\",\"slug\":\"nostrum-omnis\"},\"brand\":{\"id\":1,\"name\":\"Asociaci\\u00f3n Jaramillo e Hija\",\"slug\":\"asociacion-jaramillo-e-hija\",\"logo_url\":null},\"is_active\":true,\"created_at\":\"2026-10-25T05:22:55.000000Z\",\"updated_at\":\"2026-10-25T05:22:55.000000Z\",\"deleted_at\":null}}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Ver un producto",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/products\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/products\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": 16,
+                                    "description": "The ID of the product."
+                                },
+                                {
+                                    "id": "product",
+                                    "key": "product",
+                                    "value": 1,
+                                    "description": "Id del producto."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"id\":1,\"sku\":\"REF-3724-pw\",\"name\":\"Motor trif\\u00e1sico 2878 HP\",\"slug\":\"motor-trifasico-2878-hp\",\"short_description\":\"Commodi incidunt iure odit.\",\"description\":\"Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.\",\"image_url\":null,\"specs\":{\"potencia_hp\":10,\"voltaje_v\":440},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":1487000,\"tax_rate\":19,\"stock\":17,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":1,\"name\":\"Aliquam veniam\",\"slug\":\"aliquam-veniam\"},\"brand\":{\"id\":1,\"name\":\"Cab\\u00e1n de Llorente S. de H.\",\"slug\":\"caban-de-llorente-s-de-h\",\"logo_url\":null},\"is_active\":true,\"created_at\":\"2026-10-25T05:22:55.000000Z\",\"updated_at\":\"2026-10-25T05:22:55.000000Z\",\"deleted_at\":null}}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Actualizar un producto",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/products\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/products\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": 16,
+                                    "description": "The ID of the product."
+                                },
+                                {
+                                    "id": "product",
+                                    "key": "product",
+                                    "value": 1,
+                                    "description": "Id del producto."
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"category_id\":1,\"brand_id\":1,\"sku\":\"MOT-5HP-220\",\"name\":\"Motor trif\u00e1sico 5 HP\",\"short_description\":\"Motor para uso industrial\",\"description\":\"Velit et fugiat sunt nihil accusantium.\",\"image_url\":\"http:\\\/\\\/tillman.com\\\/\",\"unit\":\"unidad\",\"sale_mode\":\"direct\",\"price\":1600000,\"cost_price\":18,\"tax_rate\":19,\"stock\":6,\"is_active\":false,\"is_featured\":true,\"specs\":[{\"key\":\"k\",\"value\":\"c\"}]}"
+                        },
+                        "description": "Reemplaza el producto: se env\u00edan los mismos campos obligatorios que al crear. El slug no cambia. Si no\nse env\u00edan `is_active`, `is_featured` o `specs`, esos datos se conservan."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"id\":1,\"sku\":\"REF-7680-wp\",\"name\":\"Motor trif\\u00e1sico 2977 HP\",\"slug\":\"motor-trifasico-2977-hp\",\"short_description\":\"Qui commodi incidunt iure odit.\",\"description\":\"Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.\",\"image_url\":null,\"specs\":{\"potencia_hp\":10,\"voltaje_v\":440},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":1487000,\"tax_rate\":19,\"stock\":17,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":1,\"name\":\"Corporis dolorem\",\"slug\":\"corporis-dolorem\"},\"brand\":{\"id\":1,\"name\":\"Marroqu\\u00edn, Ram\\u00edrez y Chapa SRL\",\"slug\":\"marroquin-ramirez-y-chapa-srl\",\"logo_url\":null},\"is_active\":true,\"created_at\":\"2026-10-25T05:22:55.000000Z\",\"updated_at\":\"2026-10-25T05:22:55.000000Z\",\"deleted_at\":null}}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Eliminar un producto",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/admin\/products\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/admin\/products\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": 16,
+                                    "description": "The ID of the product."
+                                },
+                                {
+                                    "id": "product",
+                                    "key": "product",
+                                    "value": 1,
+                                    "description": "Id del producto."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Borrado l\u00f3gico: el producto desaparece de la tienda pero los pedidos antiguos conservan su copia."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 204,
+                            "body": "{}",
+                            "name": "Eliminado"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "Authorization",
+                "type": "string"
+            }
+        ]
+    }
+}

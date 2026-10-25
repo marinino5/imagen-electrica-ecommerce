@@ -32,6 +32,25 @@ class BrandRepository
             ->withQueryString();
     }
 
+    /**
+     * Marcas activas para la tienda, con la cantidad de productos activos de cada una.
+     *
+     * @return LengthAwarePaginator<int, Brand>
+     */
+    public function paginateActive(?string $search, int $perPage): LengthAwarePaginator
+    {
+        return Brand::query()
+            ->withCount(['products' => fn ($query) => $query->where('is_active', true)])
+            ->where('is_active', true)
+            ->when($search, function ($query, string $term) {
+                $like = $this->likePattern($term);
+                $query->where(fn ($q) => $q->where('name', 'like', $like)->orWhere('slug', 'like', $like));
+            })
+            ->orderBy('name')
+            ->paginate($perPage)
+            ->withQueryString();
+    }
+
     /** @return EloquentCollection<int, Brand> */
     public function allOrdered(): EloquentCollection
     {

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Exceptions\BusinessRuleException;
 use App\Models\Order;
+use App\Models\Product;
 use App\Repositories\ProductRepository;
 
 /**
@@ -14,12 +15,26 @@ class InventoryService
     public function __construct(private readonly ProductRepository $products) {}
 
     /**
+     * Unidades de stock que ocupa una cantidad: el stock es entero y las
+     * cantidades pueden ser decimales (50,5 metros de cable), así que se
+     * redondea hacia arriba para no vender más de lo que hay.
+     */
+    public function unitsFor(float|int|string $quantity): int
+    {
+        return (int) ceil((float) $quantity);
+    }
+
+    /** Hay stock suficiente para esa cantidad de un solo producto. */
+    public function canFulfill(Product $product, float|int|string $quantity): bool
+    {
+        return $product->stock >= $this->unitsFor($quantity);
+    }
+
+    /**
      * Valida el stock de cada línea y lo descuenta. Debe llamarse dentro de
      * una transacción: si falta stock de cualquier línea no se descuenta nada.
      *
-     * El stock es entero y las cantidades pueden ser decimales (50,5 metros de
-     * cable): se descuenta la cantidad redondeada hacia arriba para no vender
-     * más de lo que hay.
+     * Las cantidades decimales se redondean hacia arriba (ver unitsFor).
      *
      * @throws BusinessRuleException si algún producto no existe o no alcanza
      */
@@ -38,7 +53,7 @@ class InventoryService
                 throw new BusinessRuleException("El producto «{$item->product_name}» ya no está disponible.");
             }
 
-            $needed[$product->id] = ($needed[$product->id] ?? 0) + (int) ceil((float) $item->quantity);
+            $needed[$product->id] = ($needed[$product->id] ?? 0) + $this->unitsFor($item->quantity);
 
             if ($product->stock < $needed[$product->id]) {
                 throw new BusinessRuleException(

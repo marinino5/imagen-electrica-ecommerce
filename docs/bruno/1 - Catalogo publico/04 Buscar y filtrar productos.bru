@@ -1,0 +1,21 @@
+meta {
+  name: Buscar y filtrar productos
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{base_url}}/api/v1/products?q=motor&in_stock=1&sort=price_asc
+  body: none
+  auth: none
+}
+
+params:query {
+  q: motor
+  in_stock: 1
+  sort: price_asc
+}
+
+assert {
+  res.status: eq 200
+}

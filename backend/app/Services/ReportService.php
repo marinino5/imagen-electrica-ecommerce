@@ -19,7 +19,7 @@ class ReportService
     public const TOP_SIZE = 10;
 
     /** Categorías o marcas que muestran los gráficos; el resto se agrupa en "Otros". */
-    public const CHART_SLICES = 6;
+    public const CHART_SLICES = 5;
 
     public function __construct(private readonly ReportRepository $repository) {}
 

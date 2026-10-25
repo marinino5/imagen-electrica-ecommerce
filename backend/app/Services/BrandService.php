@@ -16,6 +16,8 @@ class BrandService
 
     public const PER_PAGE = 10;
 
+    public const API_PER_PAGE = 50;
+
     public function __construct(private readonly BrandRepository $repository) {}
 
     /**
@@ -32,6 +34,12 @@ class BrandService
     public function paginate(?string $search): LengthAwarePaginator
     {
         return $this->repository->paginate($search ? trim($search) : null, self::PER_PAGE);
+    }
+
+    /** @return LengthAwarePaginator<int, Brand> */
+    public function paginateActive(?string $search, int $perPage = self::API_PER_PAGE): LengthAwarePaginator
+    {
+        return $this->repository->paginateActive($search ? trim($search) : null, $perPage);
     }
 
     /** @return EloquentCollection<int, Brand> */

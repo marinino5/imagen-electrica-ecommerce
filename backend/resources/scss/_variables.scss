@@ -16,26 +16,33 @@ $brand-muted: #6E6178; // texto secundario
 $brand-white: #FFFFFF;
 $brand-sidebar: #463671; // barra lateral del panel: sólida, sin degradado
 
-// Paleta de gráficos e insignias: independiente de la marca (sin morado ni naranja).
+// Paleta de gráficos e insignias: cinco colores, independientes de la marca (sin morado ni naranja).
 // Es el único lugar donde se definen; _base.scss la publica como variables CSS --chart-*.
-// Categorías y marcas, en este orden; lo que pase de 6 se agrupa en "Otros".
-$chart-categories: (#6C9BD2, #5FB3A8, #E8837A, #E6C46A, #9CC9E8, #8A9BB0);
-$chart-other: #B8C2CF;
+$chart-blue: #005BAC;
+$chart-green: #1E9E4A;
+$chart-red: #E53935;
+$chart-yellow: #F5B800;
+$chart-gray: #374151;
+$chart-yellow-text: #8A6A00; // texto de la insignia amarilla (el amarillo pleno no contrasta)
+
+// Categorías y marcas, en este orden; de la sexta en adelante se agrupan en "Otros" (gris al 50 %).
+$chart-categories: ($chart-blue, $chart-green, $chart-red, $chart-yellow, $chart-gray);
+$chart-other: rgba($chart-gray, .5);
 
 // Textos dentro de los gráficos: grises neutros, sin tinte morado
 $chart-text: #64748B; // ejes y leyendas
 $chart-ink: #1E293B; // total de la dona y tooltips
 
 // Estados (gráficos e insignias)
-$chart-neutral: #8A9BB0; // nueva, pendiente de pago
-$chart-warning: #E6C46A; // en revisión
-$chart-info: #6C9BD2; // enviada
-$chart-positive: #6BBF8A; // aceptada, pagada, despachada, entregada
-$chart-negative: #E07A7A; // rechazada, cancelada
+$chart-neutral: $chart-gray; // nueva, pendiente de pago
+$chart-warning: $chart-yellow; // en revisión
+$chart-info: $chart-blue; // enviada
+$chart-positive: $chart-green; // aceptada, pagada, despachada, entregada
+$chart-negative: $chart-red; // rechazada, cancelada
 
-// Ventas y ganancia; el año anterior usa los mismos colores al 35 %
-$chart-sales: $chart-info;
-$chart-profit: $chart-positive;
+// Ventas azul y ganancia verde; el año anterior usa los mismos colores al 35 %
+$chart-sales: $chart-blue;
+$chart-profit: $chart-green;
 $chart-previous-opacity: .35;
 
 $status-colors: (

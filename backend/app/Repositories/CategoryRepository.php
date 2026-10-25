@@ -31,6 +31,27 @@ class CategoryRepository
     }
 
     /**
+     * Categorías activas para la tienda, en orden de árbol, con la cantidad de
+     * productos activos de cada una.
+     *
+     * @return LengthAwarePaginator<int, Category>
+     */
+    public function paginateActive(?string $search, int $perPage): LengthAwarePaginator
+    {
+        return Category::query()
+            ->with('parent:id,name,slug')
+            ->withCount(['products' => fn ($query) => $query->where('is_active', true)])
+            ->where('is_active', true)
+            ->when($search, function ($query, string $term) {
+                $like = $this->likePattern($term);
+                $query->where(fn ($q) => $q->where('name', 'like', $like)->orWhere('slug', 'like', $like));
+            })
+            ->orderByRaw('coalesce(parent_id, id), parent_id is not null, sort_order, name')
+            ->paginate($perPage)
+            ->withQueryString();
+    }
+
+    /**
      * Categorías de primer nivel: las únicas que pueden ser "padre".
      *
      * @return Collection<int, Category>

@@ -1,0 +1,49 @@
+meta {
+  name: Enviar carrito (pedido y cotizacion)
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{base_url}}/api/v1/orders
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{client_token}}
+}
+
+body:json {
+  {
+    "delivery_method": "local",
+    "notes": "Entregar en portería",
+    "items": [
+      {
+        "product_id": "{{direct_product_id}}",
+        "quantity": 1
+      },
+      {
+        "product_id": "{{quote_product_id}}",
+        "quantity": 2,
+        "notes": "Con ficha técnica"
+      }
+    ]
+  }
+}
+
+script:post-response {
+  // El pedido va primero y la cotización después
+  bru.setVar("order_code", res.body.data[0].code);
+  bru.setVar("quote_code", res.body.data[res.body.data.length - 1].code);
+}
+
+assert {
+  res.status: eq 201
+}
+
+tests {
+  test("un carrito mixto genera pedido y cotización", function () {
+    expect(res.body.data.map(o => o.type)).to.eql(["purchase", "quote"]);
+  });
+}

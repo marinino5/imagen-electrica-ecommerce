@@ -1,0 +1,37 @@
+meta {
+  name: Listar productos
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/api/v1/products?per_page=50
+  body: none
+  auth: none
+}
+
+params:query {
+  per_page: 50
+}
+
+script:post-response {
+  // Guarda un producto de venta directa con stock y uno de cotización para armar el carrito
+  const items = res.body.data;
+  const direct = items.find(p => p.sale_mode === "direct" && p.in_stock);
+  const quote = items.find(p => p.sale_mode !== "direct");
+  if (direct) { bru.setVar("direct_product_id", direct.id); bru.setVar("product_slug", direct.slug); }
+  if (quote) bru.setVar("quote_product_id", quote.id);
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("trae paginación", function () {
+    expect(res.body.meta.total).to.be.greaterThan(0);
+  });
+  test("nunca expone el costo", function () {
+    expect(res.body.data[0]).to.not.have.property("cost_price");
+  });
+}

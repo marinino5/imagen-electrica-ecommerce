@@ -1,0 +1,3855 @@
+openapi: 3.0.3
+info:
+  title: 'API de Imagen Eléctrica'
+  description: 'API REST del e-commerce B2B de Imagen Eléctrica: catálogo público, cuenta del cliente, pedidos y cotizaciones, y gestión de productos para administradores.'
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost:8000'
+tags:
+  -
+    name: Autenticación
+    description: ''
+  -
+    name: 'Catálogo (público)'
+    description: ''
+  -
+    name: 'Mi cuenta'
+    description: ''
+  -
+    name: 'Pedidos y cotizaciones (cliente)'
+    description: ''
+  -
+    name: 'Productos (administrador)'
+    description: "\nRequiere el token de un usuario con rol admin; con otro rol responde 403."
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: 'Obtén el token con <code>POST /api/v1/login</code> y envíalo como <code>Bearer {token}</code>. Las rutas marcadas con «requires authentication» lo necesitan.'
+security:
+  -
+    default: []
+paths:
+  /api/v1/register:
+    post:
+      summary: 'Registrar cliente'
+      operationId: registrarCliente
+      description: "Crea la cuenta (rol cliente) con los datos de su empresa y devuelve un token listo\npara usar. Aceptar la política de datos es obligatorio; el marketing es opcional.\nMáximo 5 intentos por minuto."
+      parameters: []
+      responses:
+        201:
+          description: 'Cuenta creada'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 5
+                    name: 'Laura Gómez'
+                    email: laura@constructoraaltos.test
+                    role: cliente
+                    customer:
+                      company_name: 'Constructora Altos S.A.S.'
+                      nit: 900765432-8
+                      contact_name: 'Laura Gómez'
+                      phone: '315 555 0202'
+                      city: Bucaramanga
+                      address: null
+                      marketing_opt_in: false
+                      marketing_opt_in_at: null
+                      privacy_accepted_at: '2026-10-25T15:00:00.000000Z'
+                  token: 1|abc123...
+                  token_type: Bearer
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 5
+                      name:
+                        type: string
+                        example: 'Laura Gómez'
+                      email:
+                        type: string
+                        example: laura@constructoraaltos.test
+                      role:
+                        type: string
+                        example: cliente
+                      customer:
+                        type: object
+                        properties:
+                          company_name:
+                            type: string
+                            example: 'Constructora Altos S.A.S.'
+                          nit:
+                            type: string
+                            example: 900765432-8
+                          contact_name:
+                            type: string
+                            example: 'Laura Gómez'
+                          phone:
+                            type: string
+                            example: '315 555 0202'
+                          city:
+                            type: string
+                            example: Bucaramanga
+                          address:
+                            type: string
+                            example: null
+                            nullable: true
+                          marketing_opt_in:
+                            type: boolean
+                            example: false
+                          marketing_opt_in_at:
+                            type: string
+                            example: null
+                            nullable: true
+                          privacy_accepted_at:
+                            type: string
+                            example: '2026-10-25T15:00:00.000000Z'
+                  token:
+                    type: string
+                    example: 1|abc123...
+                  token_type:
+                    type: string
+                    example: Bearer
+      tags:
+        - Autenticación
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Nombre de la persona de contacto.'
+                  example: 'Laura Gómez'
+                email:
+                  type: string
+                  description: 'Correo (único).'
+                  example: laura@constructoraaltos.test
+                password:
+                  type: string
+                  description: 'Mínimo 8 caracteres.'
+                  example: ClaveSegura2026
+                company_name:
+                  type: string
+                  description: 'Razón social.'
+                  example: 'Constructora Altos S.A.S.'
+                nit:
+                  type: string
+                  description: 'NIT (único).'
+                  example: 900765432-8
+                phone:
+                  type: string
+                  description: Teléfono.
+                  example: '315 555 0202'
+                city:
+                  type: string
+                  description: Ciudad.
+                  example: Bucaramanga
+                address:
+                  type: string
+                  description: 'Dirección de entrega habitual.'
+                  example: 'Carrera 27 # 45-10'
+                  nullable: true
+                privacy_accepted:
+                  type: boolean
+                  description: 'Debe ser true (política de tratamiento de datos).'
+                  example: true
+                marketing_opt_in:
+                  type: boolean
+                  description: 'Acepta recibir promociones.'
+                  example: false
+                  nullable: true
+              required:
+                - name
+                - email
+                - password
+                - company_name
+                - nit
+                - phone
+                - city
+                - privacy_accepted
+      security: []
+  /api/v1/login:
+    post:
+      summary: 'Iniciar sesión'
+      operationId: iniciarSesin
+      description: "Devuelve un token Bearer. Sirve para clientes y para el administrador. Máximo 5 intentos\npor minuto por correo y dirección IP. Credenciales incorrectas responden 401; un usuario\ninactivo, 403."
+      parameters: []
+      responses:
+        200:
+          description: 'Sesión iniciada'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 5
+                    name: 'Laura Gómez'
+                    email: laura@constructoraaltos.test
+                    role: cliente
+                    customer:
+                      company_name: 'Constructora Altos S.A.S.'
+                      nit: 900765432-8
+                      contact_name: 'Laura Gómez'
+                      phone: '315 555 0202'
+                      city: Bucaramanga
+                      address: null
+                      marketing_opt_in: false
+                      marketing_opt_in_at: null
+                      privacy_accepted_at: '2026-10-25T15:00:00.000000Z'
+                  token: 2|xyz789...
+                  token_type: Bearer
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 5
+                      name:
+                        type: string
+                        example: 'Laura Gómez'
+                      email:
+                        type: string
+                        example: laura@constructoraaltos.test
+                      role:
+                        type: string
+                        example: cliente
+                      customer:
+                        type: object
+                        properties:
+                          company_name:
+                            type: string
+                            example: 'Constructora Altos S.A.S.'
+                          nit:
+                            type: string
+                            example: 900765432-8
+                          contact_name:
+                            type: string
+                            example: 'Laura Gómez'
+                          phone:
+                            type: string
+                            example: '315 555 0202'
+                          city:
+                            type: string
+                            example: Bucaramanga
+                          address:
+                            type: string
+                            example: null
+                            nullable: true
+                          marketing_opt_in:
+                            type: boolean
+                            example: false
+                          marketing_opt_in_at:
+                            type: string
+                            example: null
+                            nullable: true
+                          privacy_accepted_at:
+                            type: string
+                            example: '2026-10-25T15:00:00.000000Z'
+                  token:
+                    type: string
+                    example: 2|xyz789...
+                  token_type:
+                    type: string
+                    example: Bearer
+        401:
+          description: 'Credenciales incorrectas'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'El correo o la contraseña no son correctos.'
+                properties:
+                  message:
+                    type: string
+                    example: 'El correo o la contraseña no son correctos.'
+      tags:
+        - Autenticación
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: Correo.
+                  example: laura@constructoraaltos.test
+                password:
+                  type: string
+                  description: Contraseña.
+                  example: ClaveSegura2026
+              required:
+                - email
+                - password
+      security: []
+  /api/v1/logout:
+    post:
+      summary: 'Cerrar sesión'
+      operationId: cerrarSesin
+      description: 'Revoca el token con el que se hizo la petición. Los tokens de otros dispositivos siguen activos.'
+      parameters: []
+      responses:
+        204:
+          description: 'Sesión cerrada'
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+                properties: {}
+      tags:
+        - Autenticación
+  /api/v1/categories:
+    get:
+      summary: 'Listar categorías'
+      operationId: listarCategoras
+      description: "Categorías activas en orden de árbol: cada categoría principal seguida de sus\nsubcategorías (`parent_id` indica el padre). No requiere token."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      parent_id: null
+                      name: 'Et animi'
+                      slug: et-animi
+                      description: 'Et fugiat sunt nihil accusantium.'
+                      image_url: null
+                    -
+                      id: 2
+                      parent_id: null
+                      name: 'Mollitia modi'
+                      slug: mollitia-modi
+                      description: null
+                      image_url: null
+                  links:
+                    first: '/?page=1'
+                    last: '/?page=1'
+                    prev: null
+                    next: null
+                  meta:
+                    current_page: 1
+                    from: 1
+                    last_page: 1
+                    links:
+                      -
+                        url: null
+                        label: pagination.previous
+                        page: null
+                        active: false
+                      -
+                        url: '/?page=1'
+                        label: '1'
+                        page: 1
+                        active: true
+                      -
+                        url: null
+                        label: pagination.next
+                        page: null
+                        active: false
+                    path: /
+                    per_page: 50
+                    to: 2
+                    total: 2
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        parent_id: null
+                        name: 'Et animi'
+                        slug: et-animi
+                        description: 'Et fugiat sunt nihil accusantium.'
+                        image_url: null
+                      -
+                        id: 2
+                        parent_id: null
+                        name: 'Mollitia modi'
+                        slug: mollitia-modi
+                        description: null
+                        image_url: null
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        parent_id:
+                          type: string
+                          example: null
+                          nullable: true
+                        name:
+                          type: string
+                          example: 'Et animi'
+                        slug:
+                          type: string
+                          example: et-animi
+                        description:
+                          type: string
+                          example: 'Et fugiat sunt nihil accusantium.'
+                        image_url:
+                          type: string
+                          example: null
+                          nullable: true
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: '/?page=1'
+                      last:
+                        type: string
+                        example: '/?page=1'
+                      prev:
+                        type: string
+                        example: null
+                        nullable: true
+                      next:
+                        type: string
+                        example: null
+                        nullable: true
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      from:
+                        type: integer
+                        example: 1
+                      last_page:
+                        type: integer
+                        example: 1
+                      links:
+                        type: array
+                        example:
+                          -
+                            url: null
+                            label: pagination.previous
+                            page: null
+                            active: false
+                          -
+                            url: '/?page=1'
+                            label: '1'
+                            page: 1
+                            active: true
+                          -
+                            url: null
+                            label: pagination.next
+                            page: null
+                            active: false
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type: string
+                              example: null
+                              nullable: true
+                            label:
+                              type: string
+                              example: pagination.previous
+                            page:
+                              type: string
+                              example: null
+                              nullable: true
+                            active:
+                              type: boolean
+                              example: false
+                      path:
+                        type: string
+                        example: /
+                      per_page:
+                        type: integer
+                        example: 50
+                      to:
+                        type: integer
+                        example: 2
+                      total:
+                        type: integer
+                        example: 2
+      tags:
+        - 'Catálogo (público)'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                q:
+                  type: string
+                  description: 'El campo value no puede tener más de 100 caracteres.'
+                  example: b
+                  nullable: true
+                per_page:
+                  type: integer
+                  description: 'El campo value debe ser al menos 1. El campo value no puede ser mayor que 50.'
+                  example: 22
+                  nullable: true
+      security: []
+  /api/v1/brands:
+    get:
+      summary: 'Listar marcas'
+      operationId: listarMarcas
+      description: 'Marcas activas ordenadas por nombre. No requiere token.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      name: 'Llorente, Aguirre y Sierra e Hijo'
+                      slug: llorente-aguirre-y-sierra-e-hijo
+                      logo_url: null
+                    -
+                      id: 2
+                      name: 'Limón de Uribe S. de H.'
+                      slug: limon-de-uribe-s-de-h
+                      logo_url: null
+                  links:
+                    first: '/?page=1'
+                    last: '/?page=1'
+                    prev: null
+                    next: null
+                  meta:
+                    current_page: 1
+                    from: 1
+                    last_page: 1
+                    links:
+                      -
+                        url: null
+                        label: pagination.previous
+                        page: null
+                        active: false
+                      -
+                        url: '/?page=1'
+                        label: '1'
+                        page: 1
+                        active: true
+                      -
+                        url: null
+                        label: pagination.next
+                        page: null
+                        active: false
+                    path: /
+                    per_page: 50
+                    to: 2
+                    total: 2
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        name: 'Llorente, Aguirre y Sierra e Hijo'
+                        slug: llorente-aguirre-y-sierra-e-hijo
+                        logo_url: null
+                      -
+                        id: 2
+                        name: 'Limón de Uribe S. de H.'
+                        slug: limon-de-uribe-s-de-h
+                        logo_url: null
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        name:
+                          type: string
+                          example: 'Llorente, Aguirre y Sierra e Hijo'
+                        slug:
+                          type: string
+                          example: llorente-aguirre-y-sierra-e-hijo
+                        logo_url:
+                          type: string
+                          example: null
+                          nullable: true
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: '/?page=1'
+                      last:
+                        type: string
+                        example: '/?page=1'
+                      prev:
+                        type: string
+                        example: null
+                        nullable: true
+                      next:
+                        type: string
+                        example: null
+                        nullable: true
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      from:
+                        type: integer
+                        example: 1
+                      last_page:
+                        type: integer
+                        example: 1
+                      links:
+                        type: array
+                        example:
+                          -
+                            url: null
+                            label: pagination.previous
+                            page: null
+                            active: false
+                          -
+                            url: '/?page=1'
+                            label: '1'
+                            page: 1
+                            active: true
+                          -
+                            url: null
+                            label: pagination.next
+                            page: null
+                            active: false
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type: string
+                              example: null
+                              nullable: true
+                            label:
+                              type: string
+                              example: pagination.previous
+                            page:
+                              type: string
+                              example: null
+                              nullable: true
+                            active:
+                              type: boolean
+                              example: false
+                      path:
+                        type: string
+                        example: /
+                      per_page:
+                        type: integer
+                        example: 50
+                      to:
+                        type: integer
+                        example: 2
+                      total:
+                        type: integer
+                        example: 2
+      tags:
+        - 'Catálogo (público)'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                q:
+                  type: string
+                  description: 'El campo value no puede tener más de 100 caracteres.'
+                  example: b
+                  nullable: true
+                per_page:
+                  type: integer
+                  description: 'El campo value debe ser al menos 1. El campo value no puede ser mayor que 50.'
+                  example: 22
+                  nullable: true
+      security: []
+  /api/v1/products:
+    get:
+      summary: 'Listar productos'
+      operationId: listarProductos
+      description: "Productos activos con búsqueda por nombre o referencia, filtros, orden y\npaginación. Los precios incluyen IVA; `price` en `null` significa que el producto\nsolo se vende por cotización. No requiere token."
+      parameters:
+        -
+          in: query
+          name: category
+          description: 'Slug de la categoría (incluye sus subcategorías).'
+          example: motores
+          required: false
+          schema:
+            type: string
+            description: 'Slug de la categoría (incluye sus subcategorías).'
+            example: motores
+        -
+          in: query
+          name: brand
+          description: 'Slug de la marca.'
+          example: siemens
+          required: false
+          schema:
+            type: string
+            description: 'Slug de la marca.'
+            example: siemens
+        -
+          in: query
+          name: sort
+          description: 'Orden: name (por defecto), newest, price_asc, price_desc. Los productos sin precio quedan al final.'
+          example: price_asc
+          required: false
+          schema:
+            type: string
+            description: 'Orden: name (por defecto), newest, price_asc, price_desc. Los productos sin precio quedan al final.'
+            example: price_asc
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      sku: REF-0564-yv
+                      name: 'Motor trifásico 4338 HP'
+                      slug: motor-trifasico-4338-hp
+                      short_description: 'Nihil accusantium harum mollitia modi deserunt.'
+                      description: 'Perspiciatis quo omnis nostrum aut adipisci quidem nostrum qui. Incidunt iure odit et et modi ipsum. Omnis autem et consequatur. Dolores enim non facere tempora.'
+                      image_url: null
+                      specs:
+                        potencia_hp: 10
+                        voltaje_v: 220
+                      unit: unidad
+                      unit_label: Unidad
+                      price: 3775000
+                      tax_rate: 19
+                      stock: 7
+                      in_stock: true
+                      sale_mode: direct
+                      sale_mode_label: 'Venta directa'
+                      is_featured: false
+                      category:
+                        id: 1
+                        name: 'Quis adipisci'
+                        slug: quis-adipisci
+                      brand:
+                        id: 1
+                        name: 'Global Guardado y Asoc.'
+                        slug: global-guardado-y-asoc
+                        logo_url: null
+                    -
+                      id: 2
+                      sku: REF-7788-qb
+                      name: 'Motor trifásico 9148 HP'
+                      slug: motor-trifasico-9148-hp
+                      short_description: 'Corporis dolorem mollitia deleniti nemo odit quia officia.'
+                      description: 'Blanditiis odio veritatis excepturi doloribus delectus fugit. Repudiandae laboriosam est alias tenetur ratione. Voluptate accusamus ut et recusandae. Rerum ex repellendus assumenda et.'
+                      image_url: null
+                      specs:
+                        potencia_hp: 5
+                        voltaje_v: 440
+                      unit: unidad
+                      unit_label: Unidad
+                      price: 1181000
+                      tax_rate: 19
+                      stock: 10
+                      in_stock: true
+                      sale_mode: direct
+                      sale_mode_label: 'Venta directa'
+                      is_featured: false
+                      category:
+                        id: 2
+                        name: 'Perspiciatis deserunt'
+                        slug: perspiciatis-deserunt
+                      brand:
+                        id: 2
+                        name: 'Grupo Arias-Chacón'
+                        slug: grupo-arias-chacon
+                        logo_url: null
+                  links:
+                    first: '/?page=1'
+                    last: '/?page=1'
+                    prev: null
+                    next: null
+                  meta:
+                    current_page: 1
+                    from: 1
+                    last_page: 1
+                    links:
+                      -
+                        url: null
+                        label: pagination.previous
+                        page: null
+                        active: false
+                      -
+                        url: '/?page=1'
+                        label: '1'
+                        page: 1
+                        active: true
+                      -
+                        url: null
+                        label: pagination.next
+                        page: null
+                        active: false
+                    path: /
+                    per_page: 12
+                    to: 2
+                    total: 2
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        sku: REF-0564-yv
+                        name: 'Motor trifásico 4338 HP'
+                        slug: motor-trifasico-4338-hp
+                        short_description: 'Nihil accusantium harum mollitia modi deserunt.'
+                        description: 'Perspiciatis quo omnis nostrum aut adipisci quidem nostrum qui. Incidunt iure odit et et modi ipsum. Omnis autem et consequatur. Dolores enim non facere tempora.'
+                        image_url: null
+                        specs:
+                          potencia_hp: 10
+                          voltaje_v: 220
+                        unit: unidad
+                        unit_label: Unidad
+                        price: 3775000
+                        tax_rate: 19
+                        stock: 7
+                        in_stock: true
+                        sale_mode: direct
+                        sale_mode_label: 'Venta directa'
+                        is_featured: false
+                        category:
+                          id: 1
+                          name: 'Quis adipisci'
+                          slug: quis-adipisci
+                        brand:
+                          id: 1
+                          name: 'Global Guardado y Asoc.'
+                          slug: global-guardado-y-asoc
+                          logo_url: null
+                      -
+                        id: 2
+                        sku: REF-7788-qb
+                        name: 'Motor trifásico 9148 HP'
+                        slug: motor-trifasico-9148-hp
+                        short_description: 'Corporis dolorem mollitia deleniti nemo odit quia officia.'
+                        description: 'Blanditiis odio veritatis excepturi doloribus delectus fugit. Repudiandae laboriosam est alias tenetur ratione. Voluptate accusamus ut et recusandae. Rerum ex repellendus assumenda et.'
+                        image_url: null
+                        specs:
+                          potencia_hp: 5
+                          voltaje_v: 440
+                        unit: unidad
+                        unit_label: Unidad
+                        price: 1181000
+                        tax_rate: 19
+                        stock: 10
+                        in_stock: true
+                        sale_mode: direct
+                        sale_mode_label: 'Venta directa'
+                        is_featured: false
+                        category:
+                          id: 2
+                          name: 'Perspiciatis deserunt'
+                          slug: perspiciatis-deserunt
+                        brand:
+                          id: 2
+                          name: 'Grupo Arias-Chacón'
+                          slug: grupo-arias-chacon
+                          logo_url: null
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        sku:
+                          type: string
+                          example: REF-0564-yv
+                        name:
+                          type: string
+                          example: 'Motor trifásico 4338 HP'
+                        slug:
+                          type: string
+                          example: motor-trifasico-4338-hp
+                        short_description:
+                          type: string
+                          example: 'Nihil accusantium harum mollitia modi deserunt.'
+                        description:
+                          type: string
+                          example: 'Perspiciatis quo omnis nostrum aut adipisci quidem nostrum qui. Incidunt iure odit et et modi ipsum. Omnis autem et consequatur. Dolores enim non facere tempora.'
+                        image_url:
+                          type: string
+                          example: null
+                          nullable: true
+                        specs:
+                          type: object
+                          properties:
+                            potencia_hp:
+                              type: integer
+                              example: 10
+                            voltaje_v:
+                              type: integer
+                              example: 220
+                        unit:
+                          type: string
+                          example: unidad
+                        unit_label:
+                          type: string
+                          example: Unidad
+                        price:
+                          type: integer
+                          example: 3775000
+                        tax_rate:
+                          type: integer
+                          example: 19
+                        stock:
+                          type: integer
+                          example: 7
+                        in_stock:
+                          type: boolean
+                          example: true
+                        sale_mode:
+                          type: string
+                          example: direct
+                        sale_mode_label:
+                          type: string
+                          example: 'Venta directa'
+                        is_featured:
+                          type: boolean
+                          example: false
+                        category:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 1
+                            name:
+                              type: string
+                              example: 'Quis adipisci'
+                            slug:
+                              type: string
+                              example: quis-adipisci
+                        brand:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 1
+                            name:
+                              type: string
+                              example: 'Global Guardado y Asoc.'
+                            slug:
+                              type: string
+                              example: global-guardado-y-asoc
+                            logo_url:
+                              type: string
+                              example: null
+                              nullable: true
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: '/?page=1'
+                      last:
+                        type: string
+                        example: '/?page=1'
+                      prev:
+                        type: string
+                        example: null
+                        nullable: true
+                      next:
+                        type: string
+                        example: null
+                        nullable: true
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      from:
+                        type: integer
+                        example: 1
+                      last_page:
+                        type: integer
+                        example: 1
+                      links:
+                        type: array
+                        example:
+                          -
+                            url: null
+                            label: pagination.previous
+                            page: null
+                            active: false
+                          -
+                            url: '/?page=1'
+                            label: '1'
+                            page: 1
+                            active: true
+                          -
+                            url: null
+                            label: pagination.next
+                            page: null
+                            active: false
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type: string
+                              example: null
+                              nullable: true
+                            label:
+                              type: string
+                              example: pagination.previous
+                            page:
+                              type: string
+                              example: null
+                              nullable: true
+                            active:
+                              type: boolean
+                              example: false
+                      path:
+                        type: string
+                        example: /
+                      per_page:
+                        type: integer
+                        example: 12
+                      to:
+                        type: integer
+                        example: 2
+                      total:
+                        type: integer
+                        example: 2
+      tags:
+        - 'Catálogo (público)'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                q:
+                  type: string
+                  description: 'El campo value no puede tener más de 100 caracteres.'
+                  example: b
+                  nullable: true
+                category:
+                  type: string
+                  description: 'El campo value no puede tener más de 255 caracteres.'
+                  example: 'n'
+                  nullable: true
+                brand:
+                  type: string
+                  description: 'El campo value no puede tener más de 255 caracteres.'
+                  example: g
+                  nullable: true
+                sale_mode:
+                  type: string
+                  description: ''
+                  example: on_request
+                  enum:
+                    - direct
+                    - quote
+                    - on_request
+                  nullable: true
+                featured:
+                  type: boolean
+                  description: ''
+                  example: false
+                  nullable: true
+                in_stock:
+                  type: boolean
+                  description: ''
+                  example: false
+                  nullable: true
+                sort:
+                  type: string
+                  description: ''
+                  example: price_asc
+                  enum:
+                    - name
+                    - newest
+                    - price_asc
+                    - price_desc
+                  nullable: true
+                per_page:
+                  type: integer
+                  description: 'El campo value debe ser al menos 1. El campo value no puede ser mayor que 50.'
+                  example: 16
+                  nullable: true
+      security: []
+  '/api/v1/products/{slug}':
+    get:
+      summary: 'Ver un producto'
+      operationId: verUnProducto
+      description: 'Detalle de un producto activo por su slug. Si no existe o está inactivo responde 404.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 1
+                    sku: REF-6806-zm
+                    name: 'Motor trifásico 2938 HP'
+                    slug: motor-trifasico-2938-hp
+                    short_description: 'Et fugiat sunt nihil accusantium.'
+                    description: 'Deserunt aut ab provident perspiciatis quo omnis nostrum. Adipisci quidem nostrum qui commodi incidunt iure. Et et modi ipsum nostrum.'
+                    image_url: null
+                    specs:
+                      potencia_hp: 5
+                      voltaje_v: 220
+                    unit: unidad
+                    unit_label: Unidad
+                    price: 1468000
+                    tax_rate: 19
+                    stock: 8
+                    in_stock: true
+                    sale_mode: direct
+                    sale_mode_label: 'Venta directa'
+                    is_featured: false
+                    category:
+                      id: 1
+                      name: 'Aut dolores'
+                      slug: aut-dolores
+                    brand:
+                      id: 1
+                      name: 'Manzano de Mendoza'
+                      slug: manzano-de-mendoza
+                      logo_url: null
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      sku:
+                        type: string
+                        example: REF-6806-zm
+                      name:
+                        type: string
+                        example: 'Motor trifásico 2938 HP'
+                      slug:
+                        type: string
+                        example: motor-trifasico-2938-hp
+                      short_description:
+                        type: string
+                        example: 'Et fugiat sunt nihil accusantium.'
+                      description:
+                        type: string
+                        example: 'Deserunt aut ab provident perspiciatis quo omnis nostrum. Adipisci quidem nostrum qui commodi incidunt iure. Et et modi ipsum nostrum.'
+                      image_url:
+                        type: string
+                        example: null
+                        nullable: true
+                      specs:
+                        type: object
+                        properties:
+                          potencia_hp:
+                            type: integer
+                            example: 5
+                          voltaje_v:
+                            type: integer
+                            example: 220
+                      unit:
+                        type: string
+                        example: unidad
+                      unit_label:
+                        type: string
+                        example: Unidad
+                      price:
+                        type: integer
+                        example: 1468000
+                      tax_rate:
+                        type: integer
+                        example: 19
+                      stock:
+                        type: integer
+                        example: 8
+                      in_stock:
+                        type: boolean
+                        example: true
+                      sale_mode:
+                        type: string
+                        example: direct
+                      sale_mode_label:
+                        type: string
+                        example: 'Venta directa'
+                      is_featured:
+                        type: boolean
+                        example: false
+                      category:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: 'Aut dolores'
+                          slug:
+                            type: string
+                            example: aut-dolores
+                      brand:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: 'Manzano de Mendoza'
+                          slug:
+                            type: string
+                            example: manzano-de-mendoza
+                          logo_url:
+                            type: string
+                            example: null
+                            nullable: true
+      tags:
+        - 'Catálogo (público)'
+      security: []
+    parameters:
+      -
+        in: path
+        name: slug
+        description: 'Slug del producto.'
+        example: motor-trifasico-5-hp
+        required: true
+        schema:
+          type: string
+  /api/v1/me:
+    get:
+      summary: 'Ver mi perfil'
+      operationId: verMiPerfil
+      description: 'Usuario autenticado y, si es cliente, los datos de su empresa.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 1
+                    name: 'Omar Domínguez'
+                    email: arredondo.juana@example.com
+                    role: cliente
+                    customer:
+                      company_name: 'Calero de Zamora S.A.S.'
+                      nit: 990122162-7
+                      contact_name: 'Sr. Héctor Zelaya'
+                      phone: '379 091 5066'
+                      city: Girón
+                      address: 'Calle Elizondo, 54, 27º C'
+                      marketing_opt_in: false
+                      marketing_opt_in_at: null
+                      privacy_accepted_at: '2026-10-25T05:22:55.000000Z'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Omar Domínguez'
+                      email:
+                        type: string
+                        example: arredondo.juana@example.com
+                      role:
+                        type: string
+                        example: cliente
+                      customer:
+                        type: object
+                        properties:
+                          company_name:
+                            type: string
+                            example: 'Calero de Zamora S.A.S.'
+                          nit:
+                            type: string
+                            example: 990122162-7
+                          contact_name:
+                            type: string
+                            example: 'Sr. Héctor Zelaya'
+                          phone:
+                            type: string
+                            example: '379 091 5066'
+                          city:
+                            type: string
+                            example: Girón
+                          address:
+                            type: string
+                            example: 'Calle Elizondo, 54, 27º C'
+                          marketing_opt_in:
+                            type: boolean
+                            example: false
+                          marketing_opt_in_at:
+                            type: string
+                            example: null
+                            nullable: true
+                          privacy_accepted_at:
+                            type: string
+                            example: '2026-10-25T05:22:55.000000Z'
+      tags:
+        - 'Mi cuenta'
+    put:
+      summary: 'Actualizar mi perfil'
+      operationId: actualizarMiPerfil
+      description: "Cambia el nombre de contacto y los datos de la empresa. El correo y el NIT no se\nmodifican desde aquí. Solo clientes."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 1
+                    name: 'Emilia Murillo'
+                    email: juribe@example.org
+                    role: cliente
+                    customer:
+                      company_name: 'Rivas y Sevilla SA S.A.S.'
+                      nit: 968210674-8
+                      contact_name: 'Adrián Cavazos Hijo'
+                      phone: '315 175 7680'
+                      city: Barrancabermeja
+                      address: 'Plaça Juana, 979, 27º A'
+                      marketing_opt_in: false
+                      marketing_opt_in_at: null
+                      privacy_accepted_at: '2026-10-25T05:22:55.000000Z'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Emilia Murillo'
+                      email:
+                        type: string
+                        example: juribe@example.org
+                      role:
+                        type: string
+                        example: cliente
+                      customer:
+                        type: object
+                        properties:
+                          company_name:
+                            type: string
+                            example: 'Rivas y Sevilla SA S.A.S.'
+                          nit:
+                            type: string
+                            example: 968210674-8
+                          contact_name:
+                            type: string
+                            example: 'Adrián Cavazos Hijo'
+                          phone:
+                            type: string
+                            example: '315 175 7680'
+                          city:
+                            type: string
+                            example: Barrancabermeja
+                          address:
+                            type: string
+                            example: 'Plaça Juana, 979, 27º A'
+                          marketing_opt_in:
+                            type: boolean
+                            example: false
+                          marketing_opt_in_at:
+                            type: string
+                            example: null
+                            nullable: true
+                          privacy_accepted_at:
+                            type: string
+                            example: '2026-10-25T05:22:55.000000Z'
+      tags:
+        - 'Mi cuenta'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Nombre de contacto.'
+                  example: 'Laura Gómez'
+                company_name:
+                  type: string
+                  description: 'Razón social.'
+                  example: 'Constructora Altos S.A.S.'
+                phone:
+                  type: string
+                  description: Teléfono.
+                  example: '315 555 0202'
+                city:
+                  type: string
+                  description: Ciudad.
+                  example: Girón
+                address:
+                  type: string
+                  description: 'Dirección de entrega habitual.'
+                  example: 'Carrera 27 # 45-10'
+                  nullable: true
+                marketing_opt_in:
+                  type: boolean
+                  description: 'Acepta recibir promociones.'
+                  example: true
+                  nullable: true
+              required:
+                - name
+                - company_name
+                - phone
+                - city
+  /api/v1/orders:
+    get:
+      summary: 'Mis solicitudes'
+      operationId: misSolicitudes
+      description: "Pedidos y cotizaciones del cliente autenticado, los más recientes primero. Nunca\nmuestra las de otros clientes."
+      parameters:
+        -
+          in: query
+          name: type
+          description: 'Filtrar por tipo: purchase o quote.'
+          example: quote
+          required: false
+          schema:
+            type: string
+            description: 'Filtrar por tipo: purchase o quote.'
+            example: quote
+        -
+          in: query
+          name: status
+          description: 'Filtrar por estado (pending_payment, paid, shipped, delivered, new, in_review, sent, accepted, rejected, cancelled).'
+          example: new
+          required: false
+          schema:
+            type: string
+            description: 'Filtrar por estado (pending_payment, paid, shipped, delivered, new, in_review, sent, accepted, rejected, cancelled).'
+            example: new
+        -
+          in: query
+          name: per_page
+          description: 'Solicitudes por página (1 a 50).'
+          example: 10
+          required: false
+          schema:
+            type: integer
+            description: 'Solicitudes por página (1 a 50).'
+            example: 10
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      code: PED-9171
+                      type: purchase
+                      type_label: Pedido
+                      status: pending_payment
+                      status_label: 'Pendiente de pago'
+                      company_name: 'Aguirre de Sierra e Hijo S.A.S.'
+                      nit: 931296562-5
+                      contact_name: 'Alexandra Salvador'
+                      email: icalero@example.org
+                      phone: '364 698 0841'
+                      city: Barrancabermeja
+                      address: 'Ruela Santiago, 442, 43º 2º'
+                      delivery_method: pickup
+                      delivery_method_label: 'Recoger en tienda'
+                      payment_method: null
+                      subtotal: 840336.13
+                      tax: 159663.87
+                      shipping: 0
+                      total: 1000000
+                      notes: null
+                      expires_at: null
+                      paid_at: null
+                      created_at: '2026-10-25T05:22:55.000000Z'
+                      items:
+                        -
+                          id: 1
+                          product_id: 1
+                          sku: REF-5058-cq
+                          product_name: 'Motor trifásico 6877 HP'
+                          unit: unidad
+                          quantity: 3
+                          unit_price: 3030000
+                          tax_rate: 19
+                          line_total: 9090000
+                          notes: null
+                    -
+                      code: PED-3733
+                      type: purchase
+                      type_label: Pedido
+                      status: pending_payment
+                      status_label: 'Pendiente de pago'
+                      company_name: 'Santillán de Rosa S.A.S.'
+                      nit: 940939506-2
+                      contact_name: 'Ona Lozano'
+                      email: alarcon.jaime@example.com
+                      phone: '329 242 1642'
+                      city: Piedecuesta
+                      address: 'Carrer Nayara, 342, 1º E'
+                      delivery_method: pickup
+                      delivery_method_label: 'Recoger en tienda'
+                      payment_method: null
+                      subtotal: 840336.13
+                      tax: 159663.87
+                      shipping: 0
+                      total: 1000000
+                      notes: null
+                      expires_at: null
+                      paid_at: null
+                      created_at: '2026-10-25T05:22:55.000000Z'
+                      items:
+                        -
+                          id: 2
+                          product_id: 2
+                          sku: REF-9849-tp
+                          product_name: 'Motor trifásico 1703 HP'
+                          unit: unidad
+                          quantity: 2
+                          unit_price: 4569000
+                          tax_rate: 19
+                          line_total: 9138000
+                          notes: null
+                  links:
+                    first: '/?page=1'
+                    last: '/?page=1'
+                    prev: null
+                    next: null
+                  meta:
+                    current_page: 1
+                    from: 1
+                    last_page: 1
+                    links:
+                      -
+                        url: null
+                        label: pagination.previous
+                        page: null
+                        active: false
+                      -
+                        url: '/?page=1'
+                        label: '1'
+                        page: 1
+                        active: true
+                      -
+                        url: null
+                        label: pagination.next
+                        page: null
+                        active: false
+                    path: /
+                    per_page: 10
+                    to: 2
+                    total: 2
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        code: PED-9171
+                        type: purchase
+                        type_label: Pedido
+                        status: pending_payment
+                        status_label: 'Pendiente de pago'
+                        company_name: 'Aguirre de Sierra e Hijo S.A.S.'
+                        nit: 931296562-5
+                        contact_name: 'Alexandra Salvador'
+                        email: icalero@example.org
+                        phone: '364 698 0841'
+                        city: Barrancabermeja
+                        address: 'Ruela Santiago, 442, 43º 2º'
+                        delivery_method: pickup
+                        delivery_method_label: 'Recoger en tienda'
+                        payment_method: null
+                        subtotal: 840336.13
+                        tax: 159663.87
+                        shipping: 0
+                        total: 1000000
+                        notes: null
+                        expires_at: null
+                        paid_at: null
+                        created_at: '2026-10-25T05:22:55.000000Z'
+                        items:
+                          -
+                            id: 1
+                            product_id: 1
+                            sku: REF-5058-cq
+                            product_name: 'Motor trifásico 6877 HP'
+                            unit: unidad
+                            quantity: 3
+                            unit_price: 3030000
+                            tax_rate: 19
+                            line_total: 9090000
+                            notes: null
+                      -
+                        code: PED-3733
+                        type: purchase
+                        type_label: Pedido
+                        status: pending_payment
+                        status_label: 'Pendiente de pago'
+                        company_name: 'Santillán de Rosa S.A.S.'
+                        nit: 940939506-2
+                        contact_name: 'Ona Lozano'
+                        email: alarcon.jaime@example.com
+                        phone: '329 242 1642'
+                        city: Piedecuesta
+                        address: 'Carrer Nayara, 342, 1º E'
+                        delivery_method: pickup
+                        delivery_method_label: 'Recoger en tienda'
+                        payment_method: null
+                        subtotal: 840336.13
+                        tax: 159663.87
+                        shipping: 0
+                        total: 1000000
+                        notes: null
+                        expires_at: null
+                        paid_at: null
+                        created_at: '2026-10-25T05:22:55.000000Z'
+                        items:
+                          -
+                            id: 2
+                            product_id: 2
+                            sku: REF-9849-tp
+                            product_name: 'Motor trifásico 1703 HP'
+                            unit: unidad
+                            quantity: 2
+                            unit_price: 4569000
+                            tax_rate: 19
+                            line_total: 9138000
+                            notes: null
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          example: PED-9171
+                        type:
+                          type: string
+                          example: purchase
+                        type_label:
+                          type: string
+                          example: Pedido
+                        status:
+                          type: string
+                          example: pending_payment
+                        status_label:
+                          type: string
+                          example: 'Pendiente de pago'
+                        company_name:
+                          type: string
+                          example: 'Aguirre de Sierra e Hijo S.A.S.'
+                        nit:
+                          type: string
+                          example: 931296562-5
+                        contact_name:
+                          type: string
+                          example: 'Alexandra Salvador'
+                        email:
+                          type: string
+                          example: icalero@example.org
+                        phone:
+                          type: string
+                          example: '364 698 0841'
+                        city:
+                          type: string
+                          example: Barrancabermeja
+                        address:
+                          type: string
+                          example: 'Ruela Santiago, 442, 43º 2º'
+                        delivery_method:
+                          type: string
+                          example: pickup
+                        delivery_method_label:
+                          type: string
+                          example: 'Recoger en tienda'
+                        payment_method:
+                          type: string
+                          example: null
+                          nullable: true
+                        subtotal:
+                          type: number
+                          example: 840336.13
+                        tax:
+                          type: number
+                          example: 159663.87
+                        shipping:
+                          type: integer
+                          example: 0
+                        total:
+                          type: integer
+                          example: 1000000
+                        notes:
+                          type: string
+                          example: null
+                          nullable: true
+                        expires_at:
+                          type: string
+                          example: null
+                          nullable: true
+                        paid_at:
+                          type: string
+                          example: null
+                          nullable: true
+                        created_at:
+                          type: string
+                          example: '2026-10-25T05:22:55.000000Z'
+                        items:
+                          type: array
+                          example:
+                            -
+                              id: 1
+                              product_id: 1
+                              sku: REF-5058-cq
+                              product_name: 'Motor trifásico 6877 HP'
+                              unit: unidad
+                              quantity: 3
+                              unit_price: 3030000
+                              tax_rate: 19
+                              line_total: 9090000
+                              notes: null
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 1
+                              product_id:
+                                type: integer
+                                example: 1
+                              sku:
+                                type: string
+                                example: REF-5058-cq
+                              product_name:
+                                type: string
+                                example: 'Motor trifásico 6877 HP'
+                              unit:
+                                type: string
+                                example: unidad
+                              quantity:
+                                type: integer
+                                example: 3
+                              unit_price:
+                                type: integer
+                                example: 3030000
+                              tax_rate:
+                                type: integer
+                                example: 19
+                              line_total:
+                                type: integer
+                                example: 9090000
+                              notes:
+                                type: string
+                                example: null
+                                nullable: true
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: '/?page=1'
+                      last:
+                        type: string
+                        example: '/?page=1'
+                      prev:
+                        type: string
+                        example: null
+                        nullable: true
+                      next:
+                        type: string
+                        example: null
+                        nullable: true
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      from:
+                        type: integer
+                        example: 1
+                      last_page:
+                        type: integer
+                        example: 1
+                      links:
+                        type: array
+                        example:
+                          -
+                            url: null
+                            label: pagination.previous
+                            page: null
+                            active: false
+                          -
+                            url: '/?page=1'
+                            label: '1'
+                            page: 1
+                            active: true
+                          -
+                            url: null
+                            label: pagination.next
+                            page: null
+                            active: false
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type: string
+                              example: null
+                              nullable: true
+                            label:
+                              type: string
+                              example: pagination.previous
+                            page:
+                              type: string
+                              example: null
+                              nullable: true
+                            active:
+                              type: boolean
+                              example: false
+                      path:
+                        type: string
+                        example: /
+                      per_page:
+                        type: integer
+                        example: 10
+                      to:
+                        type: integer
+                        example: 2
+                      total:
+                        type: integer
+                        example: 2
+      tags:
+        - 'Pedidos y cotizaciones (cliente)'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: ''
+                  example: purchase
+                  enum:
+                    - purchase
+                    - quote
+                  nullable: true
+                status:
+                  type: string
+                  description: ''
+                  example: in_review
+                  enum:
+                    - pending_payment
+                    - paid
+                    - shipped
+                    - delivered
+                    - new
+                    - in_review
+                    - sent
+                    - accepted
+                    - rejected
+                    - cancelled
+                  nullable: true
+                per_page:
+                  type: integer
+                  description: 'El campo value debe ser al menos 1. El campo value no puede ser mayor que 50.'
+                  example: 1
+                  nullable: true
+    post:
+      summary: 'Enviar el carrito'
+      operationId: enviarElCarrito
+      description: "El servidor clasifica cada producto: los de venta directa con precio y stock suficiente forman\nun **pedido** (`purchase`, pendiente de pago); los de cotización, bajo pedido o sin stock\nsuficiente forman una **cotización** (`quote`, nueva y sin precios). Un carrito mixto\ngenera las dos, por eso la respuesta es una lista (pedido primero). Las cantidades\nde cable pueden ser decimales (metros); las demás unidades, enteras. El envío es gratis\nal recoger o al superar la compra mínima configurada."
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      code: PED-9775
+                      type: purchase
+                      type_label: Pedido
+                      status: pending_payment
+                      status_label: 'Pendiente de pago'
+                      company_name: 'Llorente, Aguirre y Sierra e Hijo S.A.S.'
+                      nit: 934997057-5
+                      contact_name: 'Rosario Cano'
+                      email: isaac34@example.net
+                      phone: '318 740 4954'
+                      city: Girón
+                      address: 'Rúa Arnau, 798, 4º'
+                      delivery_method: pickup
+                      delivery_method_label: 'Recoger en tienda'
+                      payment_method: null
+                      subtotal: 840336.13
+                      tax: 159663.87
+                      shipping: 0
+                      total: 1000000
+                      notes: null
+                      expires_at: null
+                      paid_at: null
+                      created_at: '2026-10-25T05:22:55.000000Z'
+                      items:
+                        -
+                          id: 1
+                          product_id: 1
+                          sku: REF-7365-sc
+                          product_name: 'Motor trifásico 967 HP'
+                          unit: unidad
+                          quantity: 3
+                          unit_price: 2955000
+                          tax_rate: 19
+                          line_total: 8865000
+                          notes: null
+                    -
+                      code: PED-0568
+                      type: purchase
+                      type_label: Pedido
+                      status: pending_payment
+                      status_label: 'Pendiente de pago'
+                      company_name: 'Arevalo y Gaona S. de H. S.A.S.'
+                      nit: 912797048-1
+                      contact_name: 'Dr. Ismael Galán'
+                      email: jon26@example.com
+                      phone: '316 022 6085'
+                      city: Girón
+                      address: 'Ronda Roldán, 754, Ático 6º'
+                      delivery_method: local
+                      delivery_method_label: 'Envío local (Bucaramanga y área metropolitana)'
+                      payment_method: null
+                      subtotal: 840336.13
+                      tax: 159663.87
+                      shipping: 0
+                      total: 1000000
+                      notes: null
+                      expires_at: null
+                      paid_at: null
+                      created_at: '2026-10-25T05:22:55.000000Z'
+                      items:
+                        -
+                          id: 2
+                          product_id: 2
+                          sku: REF-3531-ob
+                          product_name: 'Motor trifásico 6696 HP'
+                          unit: unidad
+                          quantity: 3
+                          unit_price: 4362000
+                          tax_rate: 19
+                          line_total: 13086000
+                          notes: null
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        code: PED-9775
+                        type: purchase
+                        type_label: Pedido
+                        status: pending_payment
+                        status_label: 'Pendiente de pago'
+                        company_name: 'Llorente, Aguirre y Sierra e Hijo S.A.S.'
+                        nit: 934997057-5
+                        contact_name: 'Rosario Cano'
+                        email: isaac34@example.net
+                        phone: '318 740 4954'
+                        city: Girón
+                        address: 'Rúa Arnau, 798, 4º'
+                        delivery_method: pickup
+                        delivery_method_label: 'Recoger en tienda'
+                        payment_method: null
+                        subtotal: 840336.13
+                        tax: 159663.87
+                        shipping: 0
+                        total: 1000000
+                        notes: null
+                        expires_at: null
+                        paid_at: null
+                        created_at: '2026-10-25T05:22:55.000000Z'
+                        items:
+                          -
+                            id: 1
+                            product_id: 1
+                            sku: REF-7365-sc
+                            product_name: 'Motor trifásico 967 HP'
+                            unit: unidad
+                            quantity: 3
+                            unit_price: 2955000
+                            tax_rate: 19
+                            line_total: 8865000
+                            notes: null
+                      -
+                        code: PED-0568
+                        type: purchase
+                        type_label: Pedido
+                        status: pending_payment
+                        status_label: 'Pendiente de pago'
+                        company_name: 'Arevalo y Gaona S. de H. S.A.S.'
+                        nit: 912797048-1
+                        contact_name: 'Dr. Ismael Galán'
+                        email: jon26@example.com
+                        phone: '316 022 6085'
+                        city: Girón
+                        address: 'Ronda Roldán, 754, Ático 6º'
+                        delivery_method: local
+                        delivery_method_label: 'Envío local (Bucaramanga y área metropolitana)'
+                        payment_method: null
+                        subtotal: 840336.13
+                        tax: 159663.87
+                        shipping: 0
+                        total: 1000000
+                        notes: null
+                        expires_at: null
+                        paid_at: null
+                        created_at: '2026-10-25T05:22:55.000000Z'
+                        items:
+                          -
+                            id: 2
+                            product_id: 2
+                            sku: REF-3531-ob
+                            product_name: 'Motor trifásico 6696 HP'
+                            unit: unidad
+                            quantity: 3
+                            unit_price: 4362000
+                            tax_rate: 19
+                            line_total: 13086000
+                            notes: null
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          example: PED-9775
+                        type:
+                          type: string
+                          example: purchase
+                        type_label:
+                          type: string
+                          example: Pedido
+                        status:
+                          type: string
+                          example: pending_payment
+                        status_label:
+                          type: string
+                          example: 'Pendiente de pago'
+                        company_name:
+                          type: string
+                          example: 'Llorente, Aguirre y Sierra e Hijo S.A.S.'
+                        nit:
+                          type: string
+                          example: 934997057-5
+                        contact_name:
+                          type: string
+                          example: 'Rosario Cano'
+                        email:
+                          type: string
+                          example: isaac34@example.net
+                        phone:
+                          type: string
+                          example: '318 740 4954'
+                        city:
+                          type: string
+                          example: Girón
+                        address:
+                          type: string
+                          example: 'Rúa Arnau, 798, 4º'
+                        delivery_method:
+                          type: string
+                          example: pickup
+                        delivery_method_label:
+                          type: string
+                          example: 'Recoger en tienda'
+                        payment_method:
+                          type: string
+                          example: null
+                          nullable: true
+                        subtotal:
+                          type: number
+                          example: 840336.13
+                        tax:
+                          type: number
+                          example: 159663.87
+                        shipping:
+                          type: integer
+                          example: 0
+                        total:
+                          type: integer
+                          example: 1000000
+                        notes:
+                          type: string
+                          example: null
+                          nullable: true
+                        expires_at:
+                          type: string
+                          example: null
+                          nullable: true
+                        paid_at:
+                          type: string
+                          example: null
+                          nullable: true
+                        created_at:
+                          type: string
+                          example: '2026-10-25T05:22:55.000000Z'
+                        items:
+                          type: array
+                          example:
+                            -
+                              id: 1
+                              product_id: 1
+                              sku: REF-7365-sc
+                              product_name: 'Motor trifásico 967 HP'
+                              unit: unidad
+                              quantity: 3
+                              unit_price: 2955000
+                              tax_rate: 19
+                              line_total: 8865000
+                              notes: null
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 1
+                              product_id:
+                                type: integer
+                                example: 1
+                              sku:
+                                type: string
+                                example: REF-7365-sc
+                              product_name:
+                                type: string
+                                example: 'Motor trifásico 967 HP'
+                              unit:
+                                type: string
+                                example: unidad
+                              quantity:
+                                type: integer
+                                example: 3
+                              unit_price:
+                                type: integer
+                                example: 2955000
+                              tax_rate:
+                                type: integer
+                                example: 19
+                              line_total:
+                                type: integer
+                                example: 8865000
+                              notes:
+                                type: string
+                                example: null
+                                nullable: true
+        422:
+          description: 'Carrito vacío'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'El carrito está vacío.'
+                  errors:
+                    items:
+                      - 'El carrito está vacío.'
+                properties:
+                  message:
+                    type: string
+                    example: 'El carrito está vacío.'
+                  errors:
+                    type: object
+                    properties:
+                      items:
+                        type: array
+                        example:
+                          - 'El carrito está vacío.'
+                        items:
+                          type: string
+      tags:
+        - 'Pedidos y cotizaciones (cliente)'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                items:
+                  type: array
+                  description: 'Líneas del carrito (1 a 100, sin repetir producto).'
+                  example:
+                    - []
+                  items:
+                    type: object
+                    properties:
+                      product_id:
+                        type: integer
+                        description: 'Id del producto.'
+                        example: 1
+                      quantity:
+                        type: number
+                        description: 'Cantidad (hasta 2 decimales).'
+                        example: 2.0
+                      notes:
+                        type: string
+                        description: 'Nota de la línea.'
+                        example: 'Con certificado de calidad'
+                        nullable: true
+                    required:
+                      - product_id
+                      - quantity
+                delivery_method:
+                  type: string
+                  description: 'pickup, local o national.'
+                  example: local
+                address:
+                  type: string
+                  description: 'Dirección de entrega. Obligatoria si no es pickup y el cliente no tiene dirección guardada.'
+                  example: 'Zona Industrial Chimitá, bodega 12'
+                notes:
+                  type: string
+                  description: Observaciones.
+                  example: 'Entregar en portería'
+                  nullable: true
+              required:
+                - items
+                - delivery_method
+  '/api/v1/orders/{code}':
+    get:
+      summary: 'Ver una solicitud'
+      operationId: verUnaSolicitud
+      description: 'Detalle con líneas e historial de estados. Si el código no existe o es de otro cliente responde 404.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    code: PED-7680
+                    type: purchase
+                    type_label: Pedido
+                    status: pending_payment
+                    status_label: 'Pendiente de pago'
+                    company_name: 'Baeza de Arredondo S.A.S.'
+                    nit: 944731071-9
+                    contact_name: 'Olivia Centeno'
+                    email: jalmonte@example.com
+                    phone: '324 049 0034'
+                    city: Barrancabermeja
+                    address: 'Travesía Cristian, 47, 2º F'
+                    delivery_method: pickup
+                    delivery_method_label: 'Recoger en tienda'
+                    payment_method: null
+                    subtotal: 840336.13
+                    tax: 159663.87
+                    shipping: 0
+                    total: 1000000
+                    notes: null
+                    expires_at: null
+                    paid_at: null
+                    created_at: '2026-10-25T05:22:55.000000Z'
+                    items:
+                      -
+                        id: 1
+                        product_id: 1
+                        sku: REF-2083-jk
+                        product_name: 'Motor trifásico 4189 HP'
+                        unit: unidad
+                        quantity: 5
+                        unit_price: 3759000
+                        tax_rate: 19
+                        line_total: 18795000
+                        notes: null
+                    status_history:
+                      -
+                        from_status: null
+                        to_status: pending_payment
+                        to_status_label: 'Pendiente de pago'
+                        note: null
+                        created_at: '2026-10-25T05:22:55.000000Z'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: PED-7680
+                      type:
+                        type: string
+                        example: purchase
+                      type_label:
+                        type: string
+                        example: Pedido
+                      status:
+                        type: string
+                        example: pending_payment
+                      status_label:
+                        type: string
+                        example: 'Pendiente de pago'
+                      company_name:
+                        type: string
+                        example: 'Baeza de Arredondo S.A.S.'
+                      nit:
+                        type: string
+                        example: 944731071-9
+                      contact_name:
+                        type: string
+                        example: 'Olivia Centeno'
+                      email:
+                        type: string
+                        example: jalmonte@example.com
+                      phone:
+                        type: string
+                        example: '324 049 0034'
+                      city:
+                        type: string
+                        example: Barrancabermeja
+                      address:
+                        type: string
+                        example: 'Travesía Cristian, 47, 2º F'
+                      delivery_method:
+                        type: string
+                        example: pickup
+                      delivery_method_label:
+                        type: string
+                        example: 'Recoger en tienda'
+                      payment_method:
+                        type: string
+                        example: null
+                        nullable: true
+                      subtotal:
+                        type: number
+                        example: 840336.13
+                      tax:
+                        type: number
+                        example: 159663.87
+                      shipping:
+                        type: integer
+                        example: 0
+                      total:
+                        type: integer
+                        example: 1000000
+                      notes:
+                        type: string
+                        example: null
+                        nullable: true
+                      expires_at:
+                        type: string
+                        example: null
+                        nullable: true
+                      paid_at:
+                        type: string
+                        example: null
+                        nullable: true
+                      created_at:
+                        type: string
+                        example: '2026-10-25T05:22:55.000000Z'
+                      items:
+                        type: array
+                        example:
+                          -
+                            id: 1
+                            product_id: 1
+                            sku: REF-2083-jk
+                            product_name: 'Motor trifásico 4189 HP'
+                            unit: unidad
+                            quantity: 5
+                            unit_price: 3759000
+                            tax_rate: 19
+                            line_total: 18795000
+                            notes: null
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 1
+                            product_id:
+                              type: integer
+                              example: 1
+                            sku:
+                              type: string
+                              example: REF-2083-jk
+                            product_name:
+                              type: string
+                              example: 'Motor trifásico 4189 HP'
+                            unit:
+                              type: string
+                              example: unidad
+                            quantity:
+                              type: integer
+                              example: 5
+                            unit_price:
+                              type: integer
+                              example: 3759000
+                            tax_rate:
+                              type: integer
+                              example: 19
+                            line_total:
+                              type: integer
+                              example: 18795000
+                            notes:
+                              type: string
+                              example: null
+                              nullable: true
+                      status_history:
+                        type: array
+                        example:
+                          -
+                            from_status: null
+                            to_status: pending_payment
+                            to_status_label: 'Pendiente de pago'
+                            note: null
+                            created_at: '2026-10-25T05:22:55.000000Z'
+                        items:
+                          type: object
+                          properties:
+                            from_status:
+                              type: string
+                              example: null
+                              nullable: true
+                            to_status:
+                              type: string
+                              example: pending_payment
+                            to_status_label:
+                              type: string
+                              example: 'Pendiente de pago'
+                            note:
+                              type: string
+                              example: null
+                              nullable: true
+                            created_at:
+                              type: string
+                              example: '2026-10-25T05:22:55.000000Z'
+      tags:
+        - 'Pedidos y cotizaciones (cliente)'
+    parameters:
+      -
+        in: path
+        name: code
+        description: 'Código de la solicitud.'
+        example: PED-0001
+        required: true
+        schema:
+          type: string
+  '/api/v1/orders/{code}/cancel':
+    patch:
+      summary: 'Cancelar una solicitud'
+      operationId: cancelarUnaSolicitud
+      description: "Cambia el estado a `cancelled` (no borra nada y queda en el historial). Solo se puede cancelar un\npedido pendiente de pago o una cotización nueva; en cualquier otro estado responde 422."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    code: PED-3724
+                    type: purchase
+                    type_label: Pedido
+                    status: pending_payment
+                    status_label: 'Pendiente de pago'
+                    company_name: 'Gestora Fonseca-Rosales S.A.S.'
+                    nit: 942198886-2
+                    contact_name: 'Dña Victoria Espinal'
+                    email: lucio.noelia@example.org
+                    phone: '305 913 5052'
+                    city: Bucaramanga
+                    address: 'Passeig Olivia, 232, 4º'
+                    delivery_method: national
+                    delivery_method_label: 'Envío nacional'
+                    payment_method: null
+                    subtotal: 840336.13
+                    tax: 159663.87
+                    shipping: 0
+                    total: 1000000
+                    notes: null
+                    expires_at: null
+                    paid_at: null
+                    created_at: '2026-10-25T05:22:55.000000Z'
+                    items:
+                      -
+                        id: 1
+                        product_id: 1
+                        sku: REF-0782-pp
+                        product_name: 'Motor trifásico 5685 HP'
+                        unit: unidad
+                        quantity: 1
+                        unit_price: 276000
+                        tax_rate: 19
+                        line_total: 276000
+                        notes: null
+                    status_history:
+                      -
+                        from_status: null
+                        to_status: pending_payment
+                        to_status_label: 'Pendiente de pago'
+                        note: null
+                        created_at: '2026-10-25T05:22:55.000000Z'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: PED-3724
+                      type:
+                        type: string
+                        example: purchase
+                      type_label:
+                        type: string
+                        example: Pedido
+                      status:
+                        type: string
+                        example: pending_payment
+                      status_label:
+                        type: string
+                        example: 'Pendiente de pago'
+                      company_name:
+                        type: string
+                        example: 'Gestora Fonseca-Rosales S.A.S.'
+                      nit:
+                        type: string
+                        example: 942198886-2
+                      contact_name:
+                        type: string
+                        example: 'Dña Victoria Espinal'
+                      email:
+                        type: string
+                        example: lucio.noelia@example.org
+                      phone:
+                        type: string
+                        example: '305 913 5052'
+                      city:
+                        type: string
+                        example: Bucaramanga
+                      address:
+                        type: string
+                        example: 'Passeig Olivia, 232, 4º'
+                      delivery_method:
+                        type: string
+                        example: national
+                      delivery_method_label:
+                        type: string
+                        example: 'Envío nacional'
+                      payment_method:
+                        type: string
+                        example: null
+                        nullable: true
+                      subtotal:
+                        type: number
+                        example: 840336.13
+                      tax:
+                        type: number
+                        example: 159663.87
+                      shipping:
+                        type: integer
+                        example: 0
+                      total:
+                        type: integer
+                        example: 1000000
+                      notes:
+                        type: string
+                        example: null
+                        nullable: true
+                      expires_at:
+                        type: string
+                        example: null
+                        nullable: true
+                      paid_at:
+                        type: string
+                        example: null
+                        nullable: true
+                      created_at:
+                        type: string
+                        example: '2026-10-25T05:22:55.000000Z'
+                      items:
+                        type: array
+                        example:
+                          -
+                            id: 1
+                            product_id: 1
+                            sku: REF-0782-pp
+                            product_name: 'Motor trifásico 5685 HP'
+                            unit: unidad
+                            quantity: 1
+                            unit_price: 276000
+                            tax_rate: 19
+                            line_total: 276000
+                            notes: null
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 1
+                            product_id:
+                              type: integer
+                              example: 1
+                            sku:
+                              type: string
+                              example: REF-0782-pp
+                            product_name:
+                              type: string
+                              example: 'Motor trifásico 5685 HP'
+                            unit:
+                              type: string
+                              example: unidad
+                            quantity:
+                              type: integer
+                              example: 1
+                            unit_price:
+                              type: integer
+                              example: 276000
+                            tax_rate:
+                              type: integer
+                              example: 19
+                            line_total:
+                              type: integer
+                              example: 276000
+                            notes:
+                              type: string
+                              example: null
+                              nullable: true
+                      status_history:
+                        type: array
+                        example:
+                          -
+                            from_status: null
+                            to_status: pending_payment
+                            to_status_label: 'Pendiente de pago'
+                            note: null
+                            created_at: '2026-10-25T05:22:55.000000Z'
+                        items:
+                          type: object
+                          properties:
+                            from_status:
+                              type: string
+                              example: null
+                              nullable: true
+                            to_status:
+                              type: string
+                              example: pending_payment
+                            to_status_label:
+                              type: string
+                              example: 'Pendiente de pago'
+                            note:
+                              type: string
+                              example: null
+                              nullable: true
+                            created_at:
+                              type: string
+                              example: '2026-10-25T05:22:55.000000Z'
+        422:
+          description: 'Estado que no permite cancelar'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'No se puede pasar pedido PED-0001 de «Enviado» a «Cancelado».'
+                properties:
+                  message:
+                    type: string
+                    example: 'No se puede pasar pedido PED-0001 de «Enviado» a «Cancelado».'
+      tags:
+        - 'Pedidos y cotizaciones (cliente)'
+    parameters:
+      -
+        in: path
+        name: code
+        description: 'Código de la solicitud.'
+        example: COT-0001
+        required: true
+        schema:
+          type: string
+  /api/v1/admin/products:
+    get:
+      summary: 'Listar productos'
+      operationId: listarProductos
+      description: 'A diferencia del catálogo público, incluye productos inactivos y permite ver los eliminados.'
+      parameters:
+        -
+          in: query
+          name: q
+          description: 'Busca por nombre o referencia.'
+          example: motor
+          required: false
+          schema:
+            type: string
+            description: 'Busca por nombre o referencia.'
+            example: motor
+        -
+          in: query
+          name: category_id
+          description: 'Categoría (incluye subcategorías).'
+          example: 2
+          required: false
+          schema:
+            type: integer
+            description: 'Categoría (incluye subcategorías).'
+            example: 2
+        -
+          in: query
+          name: brand_id
+          description: Marca.
+          example: 1
+          required: false
+          schema:
+            type: integer
+            description: Marca.
+            example: 1
+        -
+          in: query
+          name: sale_mode
+          description: 'direct, quote u on_request.'
+          example: direct
+          required: false
+          schema:
+            type: string
+            description: 'direct, quote u on_request.'
+            example: direct
+        -
+          in: query
+          name: stock
+          description: 'low (stock bajo) u out (agotado).'
+          example: low
+          required: false
+          schema:
+            type: string
+            description: 'low (stock bajo) u out (agotado).'
+            example: low
+        -
+          in: query
+          name: status
+          description: 'active, inactive o trashed (eliminados).'
+          example: active
+          required: false
+          schema:
+            type: string
+            description: 'active, inactive o trashed (eliminados).'
+            example: active
+        -
+          in: query
+          name: per_page
+          description: 'Productos por página (1 a 50).'
+          example: 10
+          required: false
+          schema:
+            type: integer
+            description: 'Productos por página (1 a 50).'
+            example: 10
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      sku: REF-9365-mi
+                      name: 'Motor trifásico 4027 HP'
+                      slug: motor-trifasico-4027-hp
+                      short_description: 'Fugiat sunt nihil accusantium harum mollitia.'
+                      description: null
+                      image_url: null
+                      specs:
+                        potencia_hp: 10
+                        voltaje_v: 220
+                      unit: unidad
+                      unit_label: Unidad
+                      price: 3636000
+                      tax_rate: 19
+                      stock: 19
+                      in_stock: true
+                      sale_mode: direct
+                      sale_mode_label: 'Venta directa'
+                      is_featured: false
+                      category:
+                        id: 1
+                        name: 'Perspiciatis quo'
+                        slug: perspiciatis-quo
+                      brand:
+                        id: 1
+                        name: 'Empresa Domínguez e Hijo'
+                        slug: empresa-dominguez-e-hijo
+                        logo_url: null
+                      is_active: true
+                      created_at: '2026-10-25T05:22:55.000000Z'
+                      updated_at: '2026-10-25T05:22:55.000000Z'
+                      deleted_at: null
+                    -
+                      id: 2
+                      sku: REF-0719-qw
+                      name: 'Motor trifásico 8015 HP'
+                      slug: motor-trifasico-8015-hp
+                      short_description: 'Et et modi ipsum nostrum.'
+                      description: null
+                      image_url: null
+                      specs:
+                        potencia_hp: 5
+                        voltaje_v: 220
+                      unit: unidad
+                      unit_label: Unidad
+                      price: 2841000
+                      tax_rate: 19
+                      stock: 22
+                      in_stock: true
+                      sale_mode: direct
+                      sale_mode_label: 'Venta directa'
+                      is_featured: false
+                      category:
+                        id: 2
+                        name: 'Dolores enim'
+                        slug: dolores-enim
+                      brand:
+                        id: 2
+                        name: 'Casanova y Almonte y Asoc.'
+                        slug: casanova-y-almonte-y-asoc
+                        logo_url: null
+                      is_active: true
+                      created_at: '2026-10-25T05:22:55.000000Z'
+                      updated_at: '2026-10-25T05:22:55.000000Z'
+                      deleted_at: null
+                  links:
+                    first: '/?page=1'
+                    last: '/?page=1'
+                    prev: null
+                    next: null
+                  meta:
+                    current_page: 1
+                    from: 1
+                    last_page: 1
+                    links:
+                      -
+                        url: null
+                        label: pagination.previous
+                        page: null
+                        active: false
+                      -
+                        url: '/?page=1'
+                        label: '1'
+                        page: 1
+                        active: true
+                      -
+                        url: null
+                        label: pagination.next
+                        page: null
+                        active: false
+                    path: /
+                    per_page: 10
+                    to: 2
+                    total: 2
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        sku: REF-9365-mi
+                        name: 'Motor trifásico 4027 HP'
+                        slug: motor-trifasico-4027-hp
+                        short_description: 'Fugiat sunt nihil accusantium harum mollitia.'
+                        description: null
+                        image_url: null
+                        specs:
+                          potencia_hp: 10
+                          voltaje_v: 220
+                        unit: unidad
+                        unit_label: Unidad
+                        price: 3636000
+                        tax_rate: 19
+                        stock: 19
+                        in_stock: true
+                        sale_mode: direct
+                        sale_mode_label: 'Venta directa'
+                        is_featured: false
+                        category:
+                          id: 1
+                          name: 'Perspiciatis quo'
+                          slug: perspiciatis-quo
+                        brand:
+                          id: 1
+                          name: 'Empresa Domínguez e Hijo'
+                          slug: empresa-dominguez-e-hijo
+                          logo_url: null
+                        is_active: true
+                        created_at: '2026-10-25T05:22:55.000000Z'
+                        updated_at: '2026-10-25T05:22:55.000000Z'
+                        deleted_at: null
+                      -
+                        id: 2
+                        sku: REF-0719-qw
+                        name: 'Motor trifásico 8015 HP'
+                        slug: motor-trifasico-8015-hp
+                        short_description: 'Et et modi ipsum nostrum.'
+                        description: null
+                        image_url: null
+                        specs:
+                          potencia_hp: 5
+                          voltaje_v: 220
+                        unit: unidad
+                        unit_label: Unidad
+                        price: 2841000
+                        tax_rate: 19
+                        stock: 22
+                        in_stock: true
+                        sale_mode: direct
+                        sale_mode_label: 'Venta directa'
+                        is_featured: false
+                        category:
+                          id: 2
+                          name: 'Dolores enim'
+                          slug: dolores-enim
+                        brand:
+                          id: 2
+                          name: 'Casanova y Almonte y Asoc.'
+                          slug: casanova-y-almonte-y-asoc
+                          logo_url: null
+                        is_active: true
+                        created_at: '2026-10-25T05:22:55.000000Z'
+                        updated_at: '2026-10-25T05:22:55.000000Z'
+                        deleted_at: null
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        sku:
+                          type: string
+                          example: REF-9365-mi
+                        name:
+                          type: string
+                          example: 'Motor trifásico 4027 HP'
+                        slug:
+                          type: string
+                          example: motor-trifasico-4027-hp
+                        short_description:
+                          type: string
+                          example: 'Fugiat sunt nihil accusantium harum mollitia.'
+                        description:
+                          type: string
+                          example: null
+                          nullable: true
+                        image_url:
+                          type: string
+                          example: null
+                          nullable: true
+                        specs:
+                          type: object
+                          properties:
+                            potencia_hp:
+                              type: integer
+                              example: 10
+                            voltaje_v:
+                              type: integer
+                              example: 220
+                        unit:
+                          type: string
+                          example: unidad
+                        unit_label:
+                          type: string
+                          example: Unidad
+                        price:
+                          type: integer
+                          example: 3636000
+                        tax_rate:
+                          type: integer
+                          example: 19
+                        stock:
+                          type: integer
+                          example: 19
+                        in_stock:
+                          type: boolean
+                          example: true
+                        sale_mode:
+                          type: string
+                          example: direct
+                        sale_mode_label:
+                          type: string
+                          example: 'Venta directa'
+                        is_featured:
+                          type: boolean
+                          example: false
+                        category:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 1
+                            name:
+                              type: string
+                              example: 'Perspiciatis quo'
+                            slug:
+                              type: string
+                              example: perspiciatis-quo
+                        brand:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 1
+                            name:
+                              type: string
+                              example: 'Empresa Domínguez e Hijo'
+                            slug:
+                              type: string
+                              example: empresa-dominguez-e-hijo
+                            logo_url:
+                              type: string
+                              example: null
+                              nullable: true
+                        is_active:
+                          type: boolean
+                          example: true
+                        created_at:
+                          type: string
+                          example: '2026-10-25T05:22:55.000000Z'
+                        updated_at:
+                          type: string
+                          example: '2026-10-25T05:22:55.000000Z'
+                        deleted_at:
+                          type: string
+                          example: null
+                          nullable: true
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: '/?page=1'
+                      last:
+                        type: string
+                        example: '/?page=1'
+                      prev:
+                        type: string
+                        example: null
+                        nullable: true
+                      next:
+                        type: string
+                        example: null
+                        nullable: true
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      from:
+                        type: integer
+                        example: 1
+                      last_page:
+                        type: integer
+                        example: 1
+                      links:
+                        type: array
+                        example:
+                          -
+                            url: null
+                            label: pagination.previous
+                            page: null
+                            active: false
+                          -
+                            url: '/?page=1'
+                            label: '1'
+                            page: 1
+                            active: true
+                          -
+                            url: null
+                            label: pagination.next
+                            page: null
+                            active: false
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type: string
+                              example: null
+                              nullable: true
+                            label:
+                              type: string
+                              example: pagination.previous
+                            page:
+                              type: string
+                              example: null
+                              nullable: true
+                            active:
+                              type: boolean
+                              example: false
+                      path:
+                        type: string
+                        example: /
+                      per_page:
+                        type: integer
+                        example: 10
+                      to:
+                        type: integer
+                        example: 2
+                      total:
+                        type: integer
+                        example: 2
+      tags:
+        - 'Productos (administrador)'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                q:
+                  type: string
+                  description: 'El campo value no puede tener más de 100 caracteres.'
+                  example: b
+                  nullable: true
+                per_page:
+                  type: integer
+                  description: 'El campo value debe ser al menos 1. El campo value no puede ser mayor que 50.'
+                  example: 22
+                  nullable: true
+    post:
+      summary: 'Crear un producto'
+      operationId: crearUnProducto
+      description: "El slug se genera a partir del nombre. `specs` es un objeto con claves fijas en minúscula y la\nunidad en el nombre. Un producto de venta directa necesita precio."
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 1
+                    sku: REF-7432-uw
+                    name: 'Motor trifásico 7195 HP'
+                    slug: motor-trifasico-7195-hp
+                    short_description: 'Nostrum qui commodi incidunt iure.'
+                    description: null
+                    image_url: null
+                    specs:
+                      potencia_hp: 5
+                      voltaje_v: 220
+                    unit: unidad
+                    unit_label: Unidad
+                    price: 1302000
+                    tax_rate: 19
+                    stock: 13
+                    in_stock: true
+                    sale_mode: direct
+                    sale_mode_label: 'Venta directa'
+                    is_featured: false
+                    category:
+                      id: 1
+                      name: 'Nostrum omnis'
+                      slug: nostrum-omnis
+                    brand:
+                      id: 1
+                      name: 'Asociación Jaramillo e Hija'
+                      slug: asociacion-jaramillo-e-hija
+                      logo_url: null
+                    is_active: true
+                    created_at: '2026-10-25T05:22:55.000000Z'
+                    updated_at: '2026-10-25T05:22:55.000000Z'
+                    deleted_at: null
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      sku:
+                        type: string
+                        example: REF-7432-uw
+                      name:
+                        type: string
+                        example: 'Motor trifásico 7195 HP'
+                      slug:
+                        type: string
+                        example: motor-trifasico-7195-hp
+                      short_description:
+                        type: string
+                        example: 'Nostrum qui commodi incidunt iure.'
+                      description:
+                        type: string
+                        example: null
+                        nullable: true
+                      image_url:
+                        type: string
+                        example: null
+                        nullable: true
+                      specs:
+                        type: object
+                        properties:
+                          potencia_hp:
+                            type: integer
+                            example: 5
+                          voltaje_v:
+                            type: integer
+                            example: 220
+                      unit:
+                        type: string
+                        example: unidad
+                      unit_label:
+                        type: string
+                        example: Unidad
+                      price:
+                        type: integer
+                        example: 1302000
+                      tax_rate:
+                        type: integer
+                        example: 19
+                      stock:
+                        type: integer
+                        example: 13
+                      in_stock:
+                        type: boolean
+                        example: true
+                      sale_mode:
+                        type: string
+                        example: direct
+                      sale_mode_label:
+                        type: string
+                        example: 'Venta directa'
+                      is_featured:
+                        type: boolean
+                        example: false
+                      category:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: 'Nostrum omnis'
+                          slug:
+                            type: string
+                            example: nostrum-omnis
+                      brand:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: 'Asociación Jaramillo e Hija'
+                          slug:
+                            type: string
+                            example: asociacion-jaramillo-e-hija
+                          logo_url:
+                            type: string
+                            example: null
+                            nullable: true
+                      is_active:
+                        type: boolean
+                        example: true
+                      created_at:
+                        type: string
+                        example: '2026-10-25T05:22:55.000000Z'
+                      updated_at:
+                        type: string
+                        example: '2026-10-25T05:22:55.000000Z'
+                      deleted_at:
+                        type: string
+                        example: null
+                        nullable: true
+      tags:
+        - 'Productos (administrador)'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category_id:
+                  type: integer
+                  description: ''
+                  example: 1
+                brand_id:
+                  type: integer
+                  description: ''
+                  example: 1
+                sku:
+                  type: string
+                  description: 'Referencia, igual al código de Siigo (única).'
+                  example: MOT-5HP-220
+                name:
+                  type: string
+                  description: ''
+                  example: 'Motor trifásico 5 HP'
+                short_description:
+                  type: string
+                  description: ''
+                  example: 'Motor para uso industrial'
+                description:
+                  type: string
+                  description: ''
+                  example: 'Motor de inducción jaula de ardilla.'
+                  nullable: true
+                image_url:
+                  type: string
+                  description: 'URL pública de la imagen.'
+                  example: 'https://example.com/motor.jpg'
+                  nullable: true
+                unit:
+                  type: string
+                  description: 'unidad, metro, rollo o caja.'
+                  example: unidad
+                sale_mode:
+                  type: string
+                  description: 'direct, quote u on_request.'
+                  example: direct
+                price:
+                  type: number
+                  description: 'Precio con IVA. Obligatorio si es direct.'
+                  example: 1500000.0
+                  nullable: true
+                cost_price:
+                  type: number
+                  description: 'Costo de compra sin IVA (interno, nunca se muestra).'
+                  example: 1100000.0
+                  nullable: true
+                tax_rate:
+                  type: number
+                  description: 'IVA en %.'
+                  example: 19.0
+                stock:
+                  type: integer
+                  description: ''
+                  example: 4
+                is_active:
+                  type: boolean
+                  description: 'Activo en la tienda (por defecto sí).'
+                  example: true
+                is_featured:
+                  type: boolean
+                  description: 'Destacado (por defecto no).'
+                  example: false
+                specs:
+                  type: object
+                  description: 'Especificaciones técnicas.'
+                  example:
+                    potencia_hp: 5
+                    voltaje_v: 220
+                  properties:
+                    key:
+                      type: string
+                      description: 'Must match the regex /^[a-z][a-z0-9_]*$/. El campo value no puede tener más de 60 caracteres.'
+                      example: k
+                    value:
+                      type: string
+                      description: 'El campo value no puede tener más de 255 caracteres.'
+                      example: c
+                  required:
+                    - key
+                    - value
+              required:
+                - category_id
+                - brand_id
+                - sku
+                - name
+                - short_description
+                - unit
+                - sale_mode
+                - tax_rate
+                - stock
+  '/api/v1/admin/products/{id}':
+    get:
+      summary: 'Ver un producto'
+      operationId: verUnProducto
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 1
+                    sku: REF-3724-pw
+                    name: 'Motor trifásico 2878 HP'
+                    slug: motor-trifasico-2878-hp
+                    short_description: 'Commodi incidunt iure odit.'
+                    description: 'Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.'
+                    image_url: null
+                    specs:
+                      potencia_hp: 10
+                      voltaje_v: 440
+                    unit: unidad
+                    unit_label: Unidad
+                    price: 1487000
+                    tax_rate: 19
+                    stock: 17
+                    in_stock: true
+                    sale_mode: direct
+                    sale_mode_label: 'Venta directa'
+                    is_featured: false
+                    category:
+                      id: 1
+                      name: 'Aliquam veniam'
+                      slug: aliquam-veniam
+                    brand:
+                      id: 1
+                      name: 'Cabán de Llorente S. de H.'
+                      slug: caban-de-llorente-s-de-h
+                      logo_url: null
+                    is_active: true
+                    created_at: '2026-10-25T05:22:55.000000Z'
+                    updated_at: '2026-10-25T05:22:55.000000Z'
+                    deleted_at: null
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      sku:
+                        type: string
+                        example: REF-3724-pw
+                      name:
+                        type: string
+                        example: 'Motor trifásico 2878 HP'
+                      slug:
+                        type: string
+                        example: motor-trifasico-2878-hp
+                      short_description:
+                        type: string
+                        example: 'Commodi incidunt iure odit.'
+                      description:
+                        type: string
+                        example: 'Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.'
+                      image_url:
+                        type: string
+                        example: null
+                        nullable: true
+                      specs:
+                        type: object
+                        properties:
+                          potencia_hp:
+                            type: integer
+                            example: 10
+                          voltaje_v:
+                            type: integer
+                            example: 440
+                      unit:
+                        type: string
+                        example: unidad
+                      unit_label:
+                        type: string
+                        example: Unidad
+                      price:
+                        type: integer
+                        example: 1487000
+                      tax_rate:
+                        type: integer
+                        example: 19
+                      stock:
+                        type: integer
+                        example: 17
+                      in_stock:
+                        type: boolean
+                        example: true
+                      sale_mode:
+                        type: string
+                        example: direct
+                      sale_mode_label:
+                        type: string
+                        example: 'Venta directa'
+                      is_featured:
+                        type: boolean
+                        example: false
+                      category:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: 'Aliquam veniam'
+                          slug:
+                            type: string
+                            example: aliquam-veniam
+                      brand:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: 'Cabán de Llorente S. de H.'
+                          slug:
+                            type: string
+                            example: caban-de-llorente-s-de-h
+                          logo_url:
+                            type: string
+                            example: null
+                            nullable: true
+                      is_active:
+                        type: boolean
+                        example: true
+                      created_at:
+                        type: string
+                        example: '2026-10-25T05:22:55.000000Z'
+                      updated_at:
+                        type: string
+                        example: '2026-10-25T05:22:55.000000Z'
+                      deleted_at:
+                        type: string
+                        example: null
+                        nullable: true
+      tags:
+        - 'Productos (administrador)'
+    put:
+      summary: 'Actualizar un producto'
+      operationId: actualizarUnProducto
+      description: "Reemplaza el producto: se envían los mismos campos obligatorios que al crear. El slug no cambia. Si no\nse envían `is_active`, `is_featured` o `specs`, esos datos se conservan."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 1
+                    sku: REF-7680-wp
+                    name: 'Motor trifásico 2977 HP'
+                    slug: motor-trifasico-2977-hp
+                    short_description: 'Qui commodi incidunt iure odit.'
+                    description: 'Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.'
+                    image_url: null
+                    specs:
+                      potencia_hp: 10
+                      voltaje_v: 440
+                    unit: unidad
+                    unit_label: Unidad
+                    price: 1487000
+                    tax_rate: 19
+                    stock: 17
+                    in_stock: true
+                    sale_mode: direct
+                    sale_mode_label: 'Venta directa'
+                    is_featured: false
+                    category:
+                      id: 1
+                      name: 'Corporis dolorem'
+                      slug: corporis-dolorem
+                    brand:
+                      id: 1
+                      name: 'Marroquín, Ramírez y Chapa SRL'
+                      slug: marroquin-ramirez-y-chapa-srl
+                      logo_url: null
+                    is_active: true
+                    created_at: '2026-10-25T05:22:55.000000Z'
+                    updated_at: '2026-10-25T05:22:55.000000Z'
+                    deleted_at: null
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      sku:
+                        type: string
+                        example: REF-7680-wp
+                      name:
+                        type: string
+                        example: 'Motor trifásico 2977 HP'
+                      slug:
+                        type: string
+                        example: motor-trifasico-2977-hp
+                      short_description:
+                        type: string
+                        example: 'Qui commodi incidunt iure odit.'
+                      description:
+                        type: string
+                        example: 'Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.'
+                      image_url:
+                        type: string
+                        example: null
+                        nullable: true
+                      specs:
+                        type: object
+                        properties:
+                          potencia_hp:
+                            type: integer
+                            example: 10
+                          voltaje_v:
+                            type: integer
+                            example: 440
+                      unit:
+                        type: string
+                        example: unidad
+                      unit_label:
+                        type: string
+                        example: Unidad
+                      price:
+                        type: integer
+                        example: 1487000
+                      tax_rate:
+                        type: integer
+                        example: 19
+                      stock:
+                        type: integer
+                        example: 17
+                      in_stock:
+                        type: boolean
+                        example: true
+                      sale_mode:
+                        type: string
+                        example: direct
+                      sale_mode_label:
+                        type: string
+                        example: 'Venta directa'
+                      is_featured:
+                        type: boolean
+                        example: false
+                      category:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: 'Corporis dolorem'
+                          slug:
+                            type: string
+                            example: corporis-dolorem
+                      brand:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: 'Marroquín, Ramírez y Chapa SRL'
+                          slug:
+                            type: string
+                            example: marroquin-ramirez-y-chapa-srl
+                          logo_url:
+                            type: string
+                            example: null
+                            nullable: true
+                      is_active:
+                        type: boolean
+                        example: true
+                      created_at:
+                        type: string
+                        example: '2026-10-25T05:22:55.000000Z'
+                      updated_at:
+                        type: string
+                        example: '2026-10-25T05:22:55.000000Z'
+                      deleted_at:
+                        type: string
+                        example: null
+                        nullable: true
+      tags:
+        - 'Productos (administrador)'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category_id:
+                  type: integer
+                  description: ''
+                  example: 1
+                brand_id:
+                  type: integer
+                  description: ''
+                  example: 1
+                sku:
+                  type: string
+                  description: ''
+                  example: MOT-5HP-220
+                name:
+                  type: string
+                  description: ''
+                  example: 'Motor trifásico 5 HP'
+                short_description:
+                  type: string
+                  description: ''
+                  example: 'Motor para uso industrial'
+                description:
+                  type: string
+                  description: 'El campo value no puede tener más de 5000 caracteres.'
+                  example: 'Velit et fugiat sunt nihil accusantium.'
+                  nullable: true
+                image_url:
+                  type: string
+                  description: 'Must be a valid URL. El campo value no puede tener más de 2048 caracteres.'
+                  example: 'http://tillman.com/'
+                  nullable: true
+                unit:
+                  type: string
+                  description: ''
+                  example: unidad
+                sale_mode:
+                  type: string
+                  description: ''
+                  example: direct
+                price:
+                  type: number
+                  description: 'Obligatorio si es direct.'
+                  example: 1600000.0
+                  nullable: true
+                cost_price:
+                  type: number
+                  description: 'El campo value debe ser al menos 0. El campo value no puede ser mayor que 9999999999.99.'
+                  example: 18
+                  nullable: true
+                tax_rate:
+                  type: number
+                  description: ''
+                  example: 19.0
+                stock:
+                  type: integer
+                  description: ''
+                  example: 6
+                is_active:
+                  type: boolean
+                  description: ''
+                  example: false
+                is_featured:
+                  type: boolean
+                  description: ''
+                  example: true
+                specs:
+                  type: array
+                  description: 'El campo value no puede tener más de 30 elementos.'
+                  example: null
+                  items:
+                    type: object
+                    properties:
+                      key:
+                        type: string
+                        description: 'Must match the regex /^[a-z][a-z0-9_]*$/. El campo value no puede tener más de 60 caracteres.'
+                        example: k
+                      value:
+                        type: string
+                        description: 'El campo value no puede tener más de 255 caracteres.'
+                        example: c
+                    required:
+                      - key
+                      - value
+              required:
+                - category_id
+                - brand_id
+                - sku
+                - name
+                - short_description
+                - unit
+                - sale_mode
+                - tax_rate
+                - stock
+    delete:
+      summary: 'Eliminar un producto'
+      operationId: eliminarUnProducto
+      description: 'Borrado lógico: el producto desaparece de la tienda pero los pedidos antiguos conservan su copia.'
+      parameters: []
+      responses:
+        204:
+          description: Eliminado
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+                properties: {}
+      tags:
+        - 'Productos (administrador)'
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the product.'
+        example: 16
+        required: true
+        schema:
+          type: integer
+      -
+        in: path
+        name: product
+        description: 'Id del producto.'
+        example: 1
+        required: true
+        schema:
+          type: integer

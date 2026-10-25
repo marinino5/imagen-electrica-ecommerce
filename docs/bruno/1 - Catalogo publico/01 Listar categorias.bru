@@ -1,0 +1,20 @@
+meta {
+  name: Listar categorias
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/api/v1/categories
+  body: none
+  auth: none
+}
+
+script:post-response {
+  const roots = res.body.data.filter(c => c.parent_id === null);
+  if (roots.length) bru.setVar("category_id", roots[0].id);
+}
+
+assert {
+  res.status: eq 200
+}

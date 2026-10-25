@@ -1,0 +1,16 @@
+headers {
+  Accept: application/json
+}
+
+vars:pre-request {
+  base_url: http://127.0.0.1:8000
+}
+
+docs {
+  # API de Imagen Eléctrica
+
+  Ejecuta las carpetas **en orden** (clic derecho en la colección → Run): el catálogo guarda ids que usa el flujo del cliente, y el login guarda el token en una variable.
+
+  - `base_url` está en `environments/local.bru` (cambia el entorno para apuntar a la URL pública).
+  - El administrador usa `admin_email` y el secreto `admin_password` del entorno (los mismos `SEED_ADMIN_*` del `.env` del backend).
+}

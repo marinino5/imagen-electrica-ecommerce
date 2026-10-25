@@ -1,0 +1,24 @@
+meta {
+  name: Cancelar la cotizacion
+  type: http
+  seq: 8
+}
+
+patch {
+  url: {{base_url}}/api/v1/orders/{{quote_code}}/cancel
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{client_token}}
+}
+
+assert {
+  res.status: eq 200
+  res.body.data.status: eq cancelled
+}
+
+docs {
+  Cancelar es un cambio de estado (queda en el historial); no se borra nada.
+}

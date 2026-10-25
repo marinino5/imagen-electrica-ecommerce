@@ -1,0 +1,53 @@
+meta {
+  name: Crear producto
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/api/v1/admin/products
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{admin_token}}
+}
+
+body:json {
+  {
+    "category_id": "{{category_id}}",
+    "brand_id": "{{brand_id}}",
+    "sku": "{{new_sku}}",
+    "name": "Motor de prueba Bruno {{new_sku}}",
+    "short_description": "Producto creado desde Bruno",
+    "unit": "unidad",
+    "sale_mode": "direct",
+    "price": 1500000,
+    "cost_price": 1100000,
+    "tax_rate": 19,
+    "stock": 4,
+    "specs": {
+      "potencia_hp": 5,
+      "voltaje_v": 220
+    }
+  }
+}
+
+script:pre-request {
+  bru.setVar("new_sku", "BRU-" + Date.now());
+}
+
+script:post-response {
+  bru.setVar("new_product_id", res.body.data.id);
+}
+
+assert {
+  res.status: eq 201
+}
+
+tests {
+  test("el costo no sale en la respuesta", function () {
+    expect(res.body.data).to.not.have.property("cost_price");
+  });
+}

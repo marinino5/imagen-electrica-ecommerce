@@ -25,3 +25,7 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Caché de Scribe (se regenera con composer docs:api)
+/.scribe/endpoints.cache
+/.scribe/.filehashes

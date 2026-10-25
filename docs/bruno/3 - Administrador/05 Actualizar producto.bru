@@ -1,0 +1,35 @@
+meta {
+  name: Actualizar producto
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{base_url}}/api/v1/admin/products/{{new_product_id}}
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{admin_token}}
+}
+
+body:json {
+  {
+    "category_id": "{{category_id}}",
+    "brand_id": "{{brand_id}}",
+    "sku": "{{new_sku}}",
+    "name": "Motor de prueba Bruno {{new_sku}}",
+    "short_description": "Producto actualizado desde Bruno",
+    "unit": "unidad",
+    "sale_mode": "direct",
+    "price": 1600000,
+    "tax_rate": 19,
+    "stock": 6
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.data.stock: eq 6
+}

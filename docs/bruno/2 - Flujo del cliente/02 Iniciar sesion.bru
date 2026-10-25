@@ -1,0 +1,26 @@
+meta {
+  name: Iniciar sesion
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/api/v1/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "{{client_email}}",
+    "password": "ClaveSegura2026"
+  }
+}
+
+script:post-response {
+  bru.setVar("client_token", res.body.token);
+}
+
+assert {
+  res.status: eq 200
+}

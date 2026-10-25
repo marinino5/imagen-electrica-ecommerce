@@ -49,6 +49,32 @@ class OrderRepository
             ->withQueryString();
     }
 
+    /**
+     * Pedidos y cotizaciones de un cliente, los más recientes primero.
+     * Claves de $filters (opcionales): type y status.
+     *
+     * @param  array{type?: ?string, status?: ?string}  $filters
+     * @return LengthAwarePaginator<int, Order>
+     */
+    public function paginateForCustomer(int $customerId, array $filters, int $perPage): LengthAwarePaginator
+    {
+        return Order::query()
+            ->with('items')
+            ->where('customer_id', $customerId)
+            ->when($filters['type'] ?? null, fn (Builder $query, string $type) => $query->where('type', $type))
+            ->when($filters['status'] ?? null, fn (Builder $query, string $status) => $query->where('status', $status))
+            ->latest()
+            ->latest('id')
+            ->paginate($perPage)
+            ->withQueryString();
+    }
+
+    /** Una solicitud por código, solo si es del cliente (si no, 404). */
+    public function findForCustomerByCodeOrFail(int $customerId, string $code): Order
+    {
+        return Order::query()->where('customer_id', $customerId)->where('code', $code)->firstOrFail();
+    }
+
     public function loadDetails(Order $order): Order
     {
         return $order->load([
@@ -103,7 +129,8 @@ class OrderRepository
     /** Siguiente código libre del tipo: PED-0001, PED-0002... / COT-0001... */
     public function nextCode(OrderType $type): string
     {
-        $last = Order::query()->where('type', $type)->latest('id')->value('code');
+        // Bloquea la última fila: dos solicitudes simultáneas no reciben el mismo código
+        $last = Order::query()->where('type', $type)->latest('id')->lockForUpdate()->value('code');
         $number = $last ? (int) substr($last, strlen($type->codePrefix()) + 1) : 0;
 
         return sprintf('%s-%04d', $type->codePrefix(), $number + 1);
