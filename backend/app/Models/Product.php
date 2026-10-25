@@ -15,13 +15,21 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[Fillable([
     'category_id', 'brand_id', 'sku', 'name', 'slug', 'short_description',
-    'description', 'image_url', 'specs', 'unit', 'price', 'tax_rate', 'stock',
+    'description', 'image_url', 'specs', 'unit', 'price', 'cost_price', 'tax_rate', 'stock',
     'sale_mode', 'is_active', 'is_featured',
 ])]
 class Product extends Model
 {
     /** @use HasFactory<ProductFactory> */
     use HasFactory, SoftDeletes;
+
+    /**
+     * El costo es un dato interno: oculto para que nunca salga al convertir el
+     * modelo a array o JSON (API Resources, respuestas de la tienda).
+     *
+     * @var list<string>
+     */
+    protected $hidden = ['cost_price'];
 
     protected function casts(): array
     {
@@ -30,6 +38,7 @@ class Product extends Model
             'unit' => ProductUnit::class,
             'sale_mode' => SaleMode::class,
             'price' => 'decimal:2',
+            'cost_price' => 'decimal:2',
             'tax_rate' => 'decimal:2',
             'stock' => 'integer',
             'is_active' => 'boolean',

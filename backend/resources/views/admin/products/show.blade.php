@@ -31,6 +31,8 @@
                         <dd class="col-sm-8">{{ $product->category->name }}</dd>
                         <dt class="col-sm-4">Precio (IVA incluido)</dt>
                         <dd class="col-sm-8">{{ Money::cop($product->price, 'Solo cotización') }} <small class="text-body-secondary">· IVA {{ rtrim(rtrim((string) $product->tax_rate, '0'), '.') }}%</small></dd>
+                        <dt class="col-sm-4">Costo (sin IVA)</dt>
+                        <dd class="col-sm-8">{{ Money::cop($product->cost_price, 'Sin definir') }} <small class="text-body-secondary">· interno</small></dd>
                         <dt class="col-sm-4">Stock</dt>
                         <dd class="col-sm-8">
                             {{ $product->stock }} {{ strtolower($product->unit->label()) }}

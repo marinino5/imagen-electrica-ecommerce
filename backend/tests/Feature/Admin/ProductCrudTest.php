@@ -144,6 +144,45 @@ class ProductCrudTest extends TestCase
         $this->assertNull(Product::where('sku', 'REF-001')->first()->price);
     }
 
+    public function test_admin_can_save_cost_price_and_it_is_optional(): void
+    {
+        $this->actingAs($this->admin())
+            ->post(route('admin.products.store'), $this->payload(['cost_price' => '950000']))
+            ->assertSessionHasNoErrors();
+        $this->assertSame('950000.00', Product::where('sku', 'REF-001')->first()->cost_price);
+
+        $this->actingAs($this->admin())
+            ->post(route('admin.products.store'), $this->payload(['sku' => 'REF-002', 'name' => 'Otro motor', 'cost_price' => '']))
+            ->assertSessionHasNoErrors();
+        $this->assertNull(Product::where('sku', 'REF-002')->first()->cost_price);
+    }
+
+    public function test_cost_price_must_not_be_negative(): void
+    {
+        $this->actingAs($this->admin())
+            ->post(route('admin.products.store'), $this->payload(['cost_price' => '-5']))
+            ->assertSessionHasErrors('cost_price');
+    }
+
+    public function test_cost_price_is_never_serialized(): void
+    {
+        $product = Product::factory()->create(['cost_price' => 800000]);
+
+        $this->assertArrayNotHasKey('cost_price', $product->toArray());
+        $this->assertStringNotContainsString('cost_price', $product->toJson());
+    }
+
+    public function test_comercial_cannot_change_cost_price(): void
+    {
+        $product = Product::factory()->create(['cost_price' => 800000]);
+
+        $this->actingAs(User::factory()->comercial()->create())
+            ->put(route('admin.products.update', $product), $this->payload(['cost_price' => '1']))
+            ->assertForbidden();
+
+        $this->assertSame('800000.00', $product->fresh()->cost_price);
+    }
+
     public function test_spec_names_must_be_lowercase_snake_case_and_unique(): void
     {
         $this->actingAs($this->admin())
