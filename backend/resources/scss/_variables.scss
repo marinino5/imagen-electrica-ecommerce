@@ -5,20 +5,16 @@
 // Paleta de marca: tonos del catálogo, pastel y neutros.
 // Para cambiar los colores de todo el panel se editan solo estas variables.
 $brand-primary: #513E84; // violeta: encabezados, botones principales, íconos
-$brand-accent: #EE7C36; // naranja: llamados importantes, siempre con texto ink
-$brand-accent-strong: #F26A00; // naranja intenso: solo títulos grandes sobre fondo blanco
-$brand-peach: #F0AA83; // durazno: acentos suaves y gráficos
-$brand-primary-deep: #3B2D63; // violeta más oscuro: fin del degradado y franja de marcas del login
+$brand-accent: #EE7C36; // naranja del catálogo (tienda); el panel usa solo accent-strong
+$brand-accent-strong: #F26A00; // único naranja del panel: avatar, insignias, líneas, botones y títulos
+$brand-peach: #F0AA83; // durazno: solo en la paleta de los gráficos
+$brand-primary-deep: #3B2D63; // violeta oscuro: refuerzo de contraste detrás del texto del login
 $brand-lavender-light: #B9A6E8; // lavanda claro: puntos de luz del login
 $brand-ink: #261C3E; // texto y títulos
 $brand-surface: #F6F4F9; // fondo de página y barra lateral
 $brand-lavender: #E9E3F4; // fondo de ítem activo, bordes y franjas
 $brand-muted: #6E6178; // texto secundario
 $brand-white: #FFFFFF;
-
-// El naranja sobre fondo claro no llega a 3:1 de contraste; para texto sobre
-// blanco o lavanda se usa esta versión más oscura.
-$brand-accent-text: mix($brand-accent, $brand-ink, 74%);
 
 // Colores funcionales (atrasos, éxito). Solo estos son más intensos porque el
 // texto blanco encima debe superar 4.5:1 de contraste.

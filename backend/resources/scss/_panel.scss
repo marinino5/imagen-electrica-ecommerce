@@ -113,9 +113,9 @@ $sidebar-link-color: rgba($brand-white, .72);
         color: $brand-white;
     }
 
-    // Ítem activo: fondo blanco al 12% y barra naranja a la izquierda
+    // Ítem activo: fondo blanco al 14% y barra naranja a la izquierda
     &.active {
-        background-color: rgba($brand-white, .12);
+        background-color: rgba($brand-white, .14);
         color: $brand-white;
         font-weight: 600;
 
@@ -127,7 +127,7 @@ $sidebar-link-color: rgba($brand-white, .72);
             left: -1rem;
             width: 4px;
             border-radius: 0 4px 4px 0;
-            background-color: $brand-accent;
+            background-color: $brand-accent-strong;
         }
     }
 }
@@ -166,7 +166,7 @@ $sidebar-link-color: rgba($brand-white, .72);
 }
 
 .role-badge-admin {
-    background-color: $brand-accent;
+    background-color: $brand-accent-strong;
     color: $brand-ink;
 }
 
@@ -250,7 +250,7 @@ $sidebar-link-color: rgba($brand-white, .72);
         bottom: -1px;
         left: 0;
         height: 2px;
-        background: linear-gradient(90deg, $brand-accent 0%, $brand-peach 35%, rgba($brand-peach, 0) 80%);
+        background: linear-gradient(90deg, $brand-accent-strong 0%, rgba($brand-accent-strong, 0) 80%);
         pointer-events: none;
     }
 
@@ -351,7 +351,7 @@ $sidebar-link-color: rgba($brand-white, .72);
     padding: .1rem .35rem;
     border: 2px solid $brand-white;
     border-radius: 1rem;
-    background-color: $brand-accent;
+    background-color: $brand-accent-strong;
     color: $brand-ink;
     font-size: .7rem;
     font-weight: 700;
@@ -399,7 +399,7 @@ $sidebar-link-color: rgba($brand-white, .72);
         height: 3px;
         margin-top: .35rem;
         border-radius: 2px;
-        background-color: $brand-accent;
+        background-color: $brand-accent-strong;
     }
 
     p {

@@ -57,7 +57,7 @@
 
 .stat-card-primary { --stat-color: #{$brand-primary}; --stat-tint: #{mix($brand-primary, $brand-white, 10%)}; }
 // En el ícono, el naranja va sobre un tinte claro y en tono oscuro para que se distinga
-.stat-card-accent { --stat-color: #{$brand-accent}; --stat-icon: #{$brand-accent-text}; --stat-tint: #{mix($brand-accent, $brand-white, 14%)}; }
+.stat-card-accent { --stat-color: #{$brand-accent-strong}; --stat-icon: #{$brand-accent-strong}; --stat-tint: #{mix($brand-accent-strong, $brand-white, 14%)}; }
 .stat-card-ink { --stat-color: #{$brand-ink}; --stat-tint: #{mix($brand-ink, $brand-white, 8%)}; }
 .stat-card-danger { --stat-color: #{$brand-danger}; --stat-tint: #{mix($brand-danger, $brand-white, 10%)}; }
 
@@ -265,7 +265,7 @@ a.stock-item {
     margin-left: auto;
     padding: .3em .65em;
     border-radius: 2rem;
-    background-color: mix($brand-accent, $brand-white, 22%);
+    background-color: mix($brand-accent-strong, $brand-white, 22%);
     color: $brand-ink;
     font-size: .8rem;
     font-weight: 600;

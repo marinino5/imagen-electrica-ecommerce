@@ -24,12 +24,11 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    // Escala de grises y más oscura: así sus colores no ensucian el violeta de encima
-    filter: grayscale(1) brightness(.55);
 }
 
-// Sobre la foto: puntos de luz difuminados (lavanda arriba a la derecha, naranja
-// abajo a la izquierda y uno pequeño al centro) y, debajo de ellos, el degradado violeta
+// Sobre la foto, de arriba abajo: puntos de luz difuminados (lavanda arriba a la
+// derecha, naranja abajo a la izquierda y uno pequeño al centro), un refuerzo oscuro
+// solo en el lado izquierdo (donde va el texto) y una capa de primary al 70%
 .login-hero-overlay {
     position: absolute;
     inset: 0;
@@ -38,7 +37,8 @@
         radial-gradient(circle at 85% 12%, rgba($brand-lavender-light, .35) 0%, transparent 38%),
         radial-gradient(circle at 12% 90%, rgba($brand-accent-strong, .22) 0%, transparent 40%),
         radial-gradient(circle at 50% 50%, rgba($brand-lavender-light, .35) 0%, transparent 16%),
-        linear-gradient(140deg, rgba($brand-primary, .88) 0%, rgba($brand-primary-deep, .92) 100%);
+        linear-gradient(90deg, rgba($brand-primary-deep, .75) 0%, transparent 60%),
+        rgba($brand-primary, .7);
 }
 
 // Trama de puntos que se desvanece hacia abajo
@@ -58,7 +58,7 @@
     z-index: -1;
     width: 32rem;
     opacity: .85;
-    color: $brand-accent;
+    color: $brand-accent-strong;
     pointer-events: none;
 
     path {
@@ -103,7 +103,7 @@
 
     span {
         display: block;
-        color: $brand-accent;
+        color: $brand-accent-strong;
     }
 }
 
@@ -132,10 +132,10 @@
     width: 6.5rem;
     height: 6.5rem;
     border-radius: 50%;
-    background-color: $brand-accent;
+    background-color: $brand-accent-strong;
     // Texto siempre ink sobre accent, nunca blanco
     color: $brand-ink;
-    box-shadow: 0 0 0 .4rem rgba($brand-accent, .25);
+    box-shadow: 0 0 0 .4rem rgba($brand-accent-strong, .25);
     line-height: 1;
 
     strong {
@@ -176,7 +176,7 @@
     overflow: hidden;
     padding: 1.1rem 0;
     border-top: 1px solid rgba($brand-white, .15);
-    background-color: rgba($brand-primary-deep, .8);
+    background-color: rgba($brand-primary, .85);
     mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
 }
 
@@ -212,7 +212,7 @@
             width: .4rem;
             height: .4rem;
             border-radius: 50%;
-            background-color: $brand-accent;
+            background-color: $brand-accent-strong;
         }
     }
 }
@@ -336,7 +336,7 @@
     align-items: center;
     gap: .375rem;
     margin-top: .4rem;
-    color: mix($brand-accent, $brand-ink, 40%);
+    color: mix($brand-accent-strong, $brand-ink, 40%);
     font-size: .85rem;
     font-weight: 500;
 }
