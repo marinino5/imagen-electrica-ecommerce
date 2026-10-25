@@ -59,8 +59,12 @@ return [
             'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
+            // Aiven exige SSL: MYSQL_ATTR_SSL_CA es la ruta del certificado (docker/aiven-ca.pem).
+            // Una ruta relativa se resuelve desde la raíz del proyecto; sin la variable no se usa SSL (local).
             'options' => extension_loaded('pdo_mysql') ? array_filter([
-                Mysql::ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+                Mysql::ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA')
+                    ? (str_starts_with(env('MYSQL_ATTR_SSL_CA'), '/') ? env('MYSQL_ATTR_SSL_CA') : base_path(env('MYSQL_ATTR_SSL_CA')))
+                    : null,
             ]) : [],
         ],
 
