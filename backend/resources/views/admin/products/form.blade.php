@@ -112,6 +112,13 @@
                         @class(['form-control', 'is-invalid' => $errors->has('tax_rate')])>
                 </x-form-group>
             </div>
+            <div class="row">
+                <x-form-group name="cost_price" label="Costo (COP, sin IVA)" class="col-md-6"
+                    help="Dato interno para calcular la ganancia en Reportes. No se muestra en la tienda.">
+                    <input type="number" id="cost_price" name="cost_price" value="{{ old('cost_price', $product->cost_price) }}" min="0" step="0.01"
+                        @class(['form-control', 'is-invalid' => $errors->has('cost_price')])>
+                </x-form-group>
+            </div>
             <div class="d-flex flex-wrap gap-4">
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" role="switch" id="is_active" name="is_active" value="1" @checked(old('is_active', $product->is_active))>

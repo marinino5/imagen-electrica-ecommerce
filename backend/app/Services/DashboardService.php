@@ -109,17 +109,22 @@ class DashboardService
      * Dona: una porción por estado con al menos una solicitud (pedidos y cotizaciones).
      *
      * @param  callable(OrderType, OrderStatus): int  $count
-     * @return array{labels: list<string>, data: list<int>}
+     * @return array{labels: list<string>, data: list<int>, statuses: list<string>}
      */
     private function statusChart(callable $count): array
     {
         $totals = collect(OrderStatus::cases())
             ->mapWithKeys(fn (OrderStatus $status) => [
-                $status->label() => $count(OrderType::Purchase, $status) + $count(OrderType::Quote, $status),
+                $status->value => $count(OrderType::Purchase, $status) + $count(OrderType::Quote, $status),
             ])
             ->filter();
 
-        return ['labels' => $totals->keys()->all(), 'data' => $totals->values()->all()];
+        return [
+            'labels' => $totals->keys()->map(fn (string $value) => OrderStatus::from($value)->label())->all(),
+            'data' => $totals->values()->all(),
+            // Con la clave del estado el gráfico usa el mismo color que la insignia
+            'statuses' => $totals->keys()->all(),
+        ];
     }
 
     /**

@@ -44,6 +44,12 @@
         line-height: 1;
     }
 
+    // Cifras largas ($ 12.345.678) en Reportes
+    .stat-value-sm {
+        font-size: 2rem;
+        overflow-wrap: anywhere;
+    }
+
     .stat-label {
         color: $brand-ink;
         font-weight: 600;
@@ -71,8 +77,12 @@
     font-weight: 600;
 }
 
-.trend-up { background-color: mix($brand-primary, $brand-white, 10%); color: $brand-primary; }
-.trend-down { background-color: mix($brand-ink, $brand-white, 8%); color: $brand-ink; }
+.trend-chip .bi { font-size: .9em; }
+
+// Verde cuando el cambio es bueno (sube) y rojo cuando es malo (baja). El texto va más
+// oscuro que la flecha para cumplir el contraste mínimo; la flecha lleva el color exacto.
+.trend-up { background-color: mix($chart-positive, $brand-white, 16%); color: mix($chart-positive, $brand-ink, 45%); .bi { color: $chart-positive; } }
+.trend-down { background-color: mix($chart-negative, $brand-white, 14%); color: mix($chart-negative, $brand-ink, 45%); .bi { color: $chart-negative; } }
 .trend-flat { background-color: $brand-lavender; color: $brand-muted; }
 
 /* Gráficos */
@@ -84,6 +94,11 @@
 .chart-box {
     position: relative;
     height: 17rem;
+
+    // Gráfico mensual de Reportes: más alto para que quepan 12 meses y 4 series
+    &.chart-box-lg {
+        height: 22rem;
+    }
 }
 
 /* Tablas del dashboard */

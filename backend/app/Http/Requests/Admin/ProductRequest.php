@@ -46,6 +46,8 @@ class ProductRequest extends FormRequest
             'sale_mode' => ['required', Rule::enum(SaleMode::class)],
             // Sin precio el producto solo se vende por cotización
             'price' => ['nullable', 'numeric', 'min:0', 'max:9999999999.99', Rule::requiredIf($this->input('sale_mode') === SaleMode::Direct->value)],
+            // Costo interno sin IVA, para los reportes (solo lo editan los admin, dueños de esta ruta)
+            'cost_price' => ['nullable', 'numeric', 'min:0', 'max:9999999999.99'],
             'tax_rate' => ['required', 'numeric', 'min:0', 'max:100'],
             'stock' => ['required', 'integer', 'min:0', 'max:1000000'],
             'is_active' => ['boolean'],

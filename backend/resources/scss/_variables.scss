@@ -7,7 +7,6 @@
 $brand-primary: #513E84; // violeta: encabezados, botones principales, íconos
 $brand-accent: #EE7C36; // naranja del catálogo (tienda); el panel usa solo accent-strong
 $brand-accent-strong: #F26A00; // único naranja del panel: avatar, insignias, líneas, botones y títulos
-$brand-peach: #F0AA83; // durazno: solo en la paleta de los gráficos
 $brand-primary-deep: #3B2D63; // violeta oscuro: refuerzo de contraste detrás del texto del login
 $brand-lavender-light: #B9A6E8; // lavanda claro: puntos de luz del login
 $brand-ink: #261C3E; // texto y títulos
@@ -15,6 +14,42 @@ $brand-surface: #F6F4F9; // fondo de página y barra lateral
 $brand-lavender: #E9E3F4; // fondo de ítem activo, bordes y franjas
 $brand-muted: #6E6178; // texto secundario
 $brand-white: #FFFFFF;
+$brand-sidebar: #463671; // barra lateral del panel: sólida, sin degradado
+
+// Paleta de gráficos e insignias: independiente de la marca (sin morado ni naranja).
+// Es el único lugar donde se definen; _base.scss la publica como variables CSS --chart-*.
+// Categorías y marcas, en este orden; lo que pase de 6 se agrupa en "Otros".
+$chart-categories: (#6C9BD2, #5FB3A8, #E8837A, #E6C46A, #9CC9E8, #8A9BB0);
+$chart-other: #B8C2CF;
+
+// Textos dentro de los gráficos: grises neutros, sin tinte morado
+$chart-text: #64748B; // ejes y leyendas
+$chart-ink: #1E293B; // total de la dona y tooltips
+
+// Estados (gráficos e insignias)
+$chart-neutral: #8A9BB0; // nueva, pendiente de pago
+$chart-warning: #E6C46A; // en revisión
+$chart-info: #6C9BD2; // enviada
+$chart-positive: #6BBF8A; // aceptada, pagada, despachada, entregada
+$chart-negative: #E07A7A; // rechazada, cancelada
+
+// Ventas y ganancia; el año anterior usa los mismos colores al 35 %
+$chart-sales: $chart-info;
+$chart-profit: $chart-positive;
+$chart-previous-opacity: .35;
+
+$status-colors: (
+    pending_payment: $chart-neutral,
+    new: $chart-neutral,
+    in_review: $chart-warning,
+    sent: $chart-info,
+    paid: $chart-positive,
+    shipped: $chart-positive,
+    delivered: $chart-positive,
+    accepted: $chart-positive,
+    rejected: $chart-negative,
+    cancelled: $chart-negative,
+);
 
 // Colores funcionales (atrasos, éxito). Solo estos son más intensos porque el
 // texto blanco encima debe superar 4.5:1 de contraste.
