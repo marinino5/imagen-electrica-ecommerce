@@ -14,21 +14,26 @@
             @include('partials.brand-arc', ['class' => 'login-hero-arc'])
 
             <div class="login-hero-content">
-                <span class="logo-plate animate-in"><img src="{{ asset('images/logo.png') }}" alt="Logo de Imagen Eléctrica"></span>
+                <img src="{{ asset('images/logo-blanco.png') }}" alt="Logo de Imagen Eléctrica" class="login-hero-logo animate-in">
 
                 <h1 class="login-hero-title animate-in" style="--delay: 80ms">
                     Soluciones eléctricas
                     <span>para la industria</span>
                 </h1>
                 <p class="login-hero-lead animate-in" style="--delay: 160ms">
-                    Motores, variadores, cables e iluminación para la industria de Santander, desde Bucaramanga.
+                    Empresa colombiana especializada en soluciones eléctricas y de automatización. Proveemos equipos de alta eficiencia energética y acompañamiento técnico para llevar tu producción al siguiente nivel.
                 </p>
 
-                <dl class="login-stats animate-in mb-0" style="--delay: 240ms">
-                    <div><dt class="visually-hidden">Trayectoria</dt><dd class="mb-0"><strong>25+</strong><span>años</span></dd></div>
-                    <div><dt class="visually-hidden">Catálogo</dt><dd class="mb-0"><strong>+1.000</strong><span>referencias</span></dd></div>
-                    <div><dt class="visually-hidden">Líneas</dt><dd class="mb-0"><strong>8</strong><span>líneas de producto</span></dd></div>
-                </dl>
+                <div class="login-highlights animate-in" style="--delay: 240ms">
+                    <div class="years-badge">
+                        <strong>25+</strong>
+                        <span>años</span>
+                    </div>
+                    <div>
+                        <p class="login-highlights-title mb-1">Experiencia y calidad</p>
+                        <p class="login-highlights-text mb-0"><strong>+1.000</strong> referencias en el catálogo</p>
+                    </div>
+                </div>
             </div>
 
             @if ($brands->isNotEmpty())
@@ -55,7 +60,7 @@
                 </div>
 
                 <div class="animate-in" style="--delay: 100ms">
-                    <h2 class="login-heading mb-1">Ingresa al panel</h2>
+                    <h2 class="login-heading mb-1">Ingresa al <span class="text-accent">panel</span></h2>
                     <p class="text-body-secondary mb-4">Usa tu correo y contraseña del equipo de Imagen Eléctrica.</p>
                 </div>
 

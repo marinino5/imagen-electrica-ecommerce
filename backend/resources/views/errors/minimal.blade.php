@@ -13,7 +13,7 @@
 
         <div class="error-card card shadow animate-in">
             <div class="card-body p-4 p-sm-5 text-center">
-                <span class="logo-plate error-logo mb-4"><img src="{{ asset('images/logo.png') }}" alt="Imagen Eléctrica"></span>
+                <img src="{{ asset('images/logo.png') }}" alt="Imagen Eléctrica" class="error-logo mb-3">
                 <div class="error-code mb-2">@yield('code')</div>
                 <h1 class="h3 text-uppercase mb-2">@yield('title')</h1>
                 <p class="text-body-secondary mb-4">@yield('message')</p>

@@ -20,11 +20,8 @@
             {{-- No se usa .offcanvas-header: Bootstrap lo oculta en escritorio --}}
             <div class="sidebar-header d-flex align-items-center px-3 pt-4 pb-2">
                 <a href="{{ route('admin.dashboard') }}" class="sidebar-brand">
-                    <span class="logo-plate"><img src="{{ asset('images/logo.png') }}" alt="Imagen Eléctrica"></span>
-                    <span class="sidebar-brand-text">
-                        <strong>Imagen Eléctrica</strong>
-                        <small>Panel administrativo</small>
-                    </span>
+                    <img src="{{ asset('images/logo-blanco.png') }}" alt="Imagen Eléctrica" class="sidebar-logo">
+                    <small class="sidebar-brand-text">Panel administrativo</small>
                 </a>
                 <button type="button" class="btn-close btn-close-white d-lg-none ms-auto" data-bs-dismiss="offcanvas" data-bs-target="#admin-sidebar" aria-label="Cerrar menú"></button>
             </div>

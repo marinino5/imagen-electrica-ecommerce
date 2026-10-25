@@ -27,6 +27,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Personal: admin y comercial
     Route::middleware(['auth', 'role:admin,comercial'])->group(function () {
         Route::get('/', DashboardController::class)->name('dashboard');
+        // Ruta alternativa: /admin/dashboard lleva al mismo dashboard
+        Route::redirect('dashboard', '/admin');
 
         // Catálogo: solo admin
         Route::middleware('role:admin')->group(function () {

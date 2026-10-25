@@ -48,56 +48,31 @@ $sidebar-link-color: rgba($brand-white, .72);
 
 .sidebar-brand {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: .75rem;
+    gap: .5rem;
+    width: 100%;
     color: $brand-white;
     text-decoration: none;
-    min-width: 0;
 
     &:hover {
         color: $brand-white;
     }
 }
 
-// El logo tiene letras moradas: va sobre una placa blanca para que se lea
-.logo-plate {
-    display: inline-flex;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    padding: .25rem;
-    border-radius: $border-radius;
-    background-color: $brand-white;
-    box-shadow: $box-shadow-sm;
-
-    img {
-        display: block;
-        width: 100%;
-        height: auto;
-    }
-}
-
-.sidebar-brand .logo-plate {
-    width: 3rem;
-    height: 3rem;
+// Logo blanco directo sobre el fondo ink, sin placa
+.sidebar-logo {
+    display: block;
+    width: 9rem;
+    height: auto;
 }
 
 .sidebar-brand-text {
-    line-height: 1.15;
+    color: rgba($brand-white, .6);
+    font-size: .75rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
     white-space: nowrap;
-
-    strong {
-        display: block;
-        font-family: $headings-font-family;
-        font-size: 1.15rem;
-        text-transform: uppercase;
-        letter-spacing: .03em;
-    }
-
-    small {
-        color: rgba($brand-white, .55);
-        font-size: .75rem;
-    }
 }
 
 .sidebar-section {
@@ -238,7 +213,10 @@ $sidebar-link-color: rgba($brand-white, .72);
             padding-inline: 0;
         }
 
-        .sidebar-brand,
+        .sidebar-logo {
+            width: 3rem;
+        }
+
         .sidebar-user {
             flex-direction: column;
             justify-content: center;

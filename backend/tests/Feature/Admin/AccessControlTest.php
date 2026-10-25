@@ -37,6 +37,13 @@ class AccessControlTest extends TestCase
             ->assertOk();
     }
 
+    public function test_dashboard_path_redirects_to_admin_home(): void
+    {
+        $this->actingAs(User::factory()->comercial()->create())
+            ->get('/admin/dashboard')
+            ->assertRedirect('/admin');
+    }
+
     public function test_comercial_can_access_dashboard(): void
     {
         $this->actingAs(User::factory()->comercial()->create())

@@ -14,7 +14,8 @@ class LoginTest extends TestCase
     {
         $this->get(route('admin.login'))
             ->assertOk()
-            ->assertSee('Ingresa al panel')
+            ->assertSee('Ingresa al')
+            ->assertSee('panel</span>', false)
             ->assertSee('Soluciones eléctricas');
     }
 
