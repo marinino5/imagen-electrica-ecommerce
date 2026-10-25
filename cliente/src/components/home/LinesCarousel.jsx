@@ -36,7 +36,7 @@ function LineTile({ root, total, size, index, count }) {
         <span>
           <small className="line-tile__idx" aria-hidden="true">{pad(index + 1)} / {pad(count)}</small>
           <strong>{root.name}</strong>
-          <small>{total} {total === 1 ? 'producto' : 'productos'}</small>
+          <small>{total > 0 ? `${total} ${total === 1 ? 'producto' : 'productos'}` : 'Bajo pedido'}</small>
         </span>
         <ArrowRight size={22} aria-hidden="true" className="line-tile__arrow" />
       </span>

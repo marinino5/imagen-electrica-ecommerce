@@ -111,45 +111,51 @@
   border: 0;
 }
 
-/* ---- Visítanos: mapa con marco de arco naranja y tarjeta ink encima ---- */
-.visit {
+/* ---- Mapa de la tienda: rectángulo de 24 px con una línea naranja arriba y la tarjeta ink encima ---- */
+.store-map {
   position: relative;
+  border: 1px solid var(--lavender-2);
+  border-radius: 24px;
+  background: var(--lavender-2);
+  box-shadow: var(--shadow);
+  overflow: hidden;
 }
-.visit__frame {
-  padding: 10px;
-  border-radius: 120px 28px 28px 28px;
+.store-map::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 3;
+  height: 4px;
   background: var(--accent);
-  box-shadow: var(--shadow-lg);
+  pointer-events: none;
 }
-.visit__frame .map {
-  height: 360px;
-  min-height: 360px;
+.store-map .map {
+  height: 320px;
+  min-height: 320px;
   border: 0;
-  border-radius: 112px 20px 20px 20px;
+  border-radius: 0;
   box-shadow: none;
 }
-.visit__frame .map iframe {
+.store-map .map iframe {
   height: 100%;
-  min-height: 360px;
+  min-height: 320px;
 }
-.visit__card {
+.store-map__card {
   position: relative;
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: center;
   gap: 10px;
-  margin: -48px 16px 0;
   padding: 24px;
-  border-radius: var(--radius-lg);
   background: var(--grad-ink);
   color: var(--white);
-  box-shadow: var(--shadow-lg);
 }
-.visit__card .eyebrow {
+.store-map__card .eyebrow {
   margin-bottom: 0;
 }
-.visit__card h3 {
+.store-map__card h3 {
   font-family: var(--font-display);
   font-size: clamp(1.9rem, 1.2vw + 1.4rem, 2.5rem);
   font-weight: 800;
@@ -157,69 +163,47 @@
   text-transform: uppercase;
   color: var(--white);
 }
-.visit__city {
+.store-map__city {
   color: var(--on-dark-muted);
 }
-.visit__list {
+.store-map__list {
   display: grid;
   gap: 8px;
   margin: 6px 0 10px;
   padding: 0;
   list-style: none;
 }
-.visit__list li {
+.store-map__list li {
   display: flex;
   align-items: center;
   gap: 10px;
 }
-.visit__list svg {
+.store-map__list svg {
   flex: none;
   color: var(--accent);
 }
-.visit__list a {
+.store-map__list a {
   color: var(--white);
   text-decoration: none;
   word-break: break-word;
 }
-.visit__list a:hover {
+.store-map__list a:hover {
   text-decoration: underline;
-}
-.visit__photo {
-  width: min(100%, 240px);
-  margin: 16px auto 0;
-}
-.visit__photo .image-slot {
-  border: 3px dashed var(--lavender-2);
-  background: var(--grad-lavender);
 }
 
 @media (min-width: 900px) {
-  .visit__frame {
-    border-radius: 220px 36px 36px 36px;
+  .store-map .map,
+  .store-map .map iframe {
+    height: 480px;
+    min-height: 480px;
   }
-  .visit__frame .map {
-    height: 560px;
-    border-radius: 210px 28px 28px 28px;
-  }
-  .visit__frame .map iframe {
-    min-height: 560px;
-  }
-  .visit__card {
+  .store-map__card {
     position: absolute;
-    left: 44px;
-    bottom: 44px;
+    top: 24px;
+    bottom: 24px;
+    left: 24px;
     width: 370px;
-    margin: 0;
-  }
-  .visit__photo {
-    position: absolute;
-    right: 36px;
-    top: 36px;
-    width: 210px;
-    margin: 0;
-    padding: 6px;
-    border-radius: 28px;
-    background: var(--white);
+    border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
   }
 }

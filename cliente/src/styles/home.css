@@ -228,7 +228,7 @@
   position: relative;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-auto-rows: 210px;
+  grid-auto-rows: auto; /* las tarjetas de una fila comparten la misma altura */
   grid-auto-flow: dense;
   gap: 14px;
 }
@@ -246,10 +246,9 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 8px;
   width: 100%;
   height: 100%;
-  padding: 10px;
+  padding: 0;
   overflow: hidden;
   border: 1px solid var(--lavender-2);
   border-radius: var(--radius-lg);
@@ -268,17 +267,17 @@
   transform: translateY(-3px);
 }
 .line-tile__media {
-  flex: 1;
-  min-height: 0;
+  flex: none;
+  aspect-ratio: 4 / 3; /* proporción real de las imágenes de img/categorias, de borde a borde */
   overflow: hidden;
-  border-radius: calc(var(--radius-lg) - 8px);
   background: var(--white);
 }
 .line-tile__media img,
 .line-tile__fallback {
+  display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain; /* el producto nunca se recorta */
+  object-fit: cover; /* la imagen ya trae su arco y su curva: sin marco ni padding */
   transition: transform 0.6s var(--ease);
 }
 .line-tile__fallback {
@@ -290,10 +289,11 @@
 }
 .line-tile__body {
   display: flex;
+  flex: 1;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 0 6px 4px;
+  padding: 14px 16px 16px;
 }
 .line-tile__body strong {
   display: block;
@@ -334,10 +334,25 @@
   font-size: 1.9rem;
 }
 
+/* Tarjetas que ocupan más de una columna (fila final): imagen a la izquierda, a toda la altura, para no estirar la fila */
+.bento-lines__cell:last-child:nth-child(odd) .line-tile,
+.bento-lines__cell.span-2 .line-tile,
+.bento-lines__cell.span-4 .line-tile {
+  flex-direction: row;
+}
+.bento-lines__cell:last-child:nth-child(odd) .line-tile__media,
+.bento-lines__cell.span-2 .line-tile__media,
+.bento-lines__cell.span-4 .line-tile__media {
+  width: 50%;
+  aspect-ratio: auto;
+}
+.bento-lines__cell.span-4 .line-tile__media {
+  width: 30%;
+}
+
 @media (min-width: 900px) {
   .bento-lines {
     grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: 230px;
     gap: 18px;
   }
   .bento-lines__cell.is-big {
@@ -346,6 +361,13 @@
   }
   .bento-lines__cell:last-child:nth-child(odd) {
     grid-column: auto;
+  }
+  .bento-lines__cell:last-child:nth-child(odd):not(.span-2):not(.span-4) .line-tile {
+    flex-direction: column;
+  }
+  .bento-lines__cell:last-child:nth-child(odd):not(.span-2):not(.span-4) .line-tile__media {
+    width: auto;
+    aspect-ratio: 4 / 3;
   }
   .bento-lines__cell.span-2 {
     grid-column: span 2;

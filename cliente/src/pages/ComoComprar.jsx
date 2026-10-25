@@ -9,13 +9,12 @@ import Compare from '../components/comprar/Compare'
 import Delivery from '../components/comprar/Delivery'
 import Payments from '../components/comprar/Payments'
 import Faq from '../components/comprar/Faq'
-import ClosingBand from '../components/comprar/ClosingBand'
 import { MODES } from '../components/comprar/modeData'
 import '../styles/kit.css'
 import '../styles/como-comprar.css'
 
 // Climas: marca (portada) → claro (recorrido) → profundo (comparación) → claro (entregas)
-// → marca (pagos) → claro (preguntas) → profundo (cierre)
+// → marca (pagos) → claro (preguntas); después viene el pie, que trae su propia banda CTA
 export default function ComoComprar() {
   const [params] = useSearchParams()
   const [mode, setMode] = useState(params.get('modo') === 'cotizacion' ? 'quote' : 'direct')
@@ -58,7 +57,6 @@ export default function ComoComprar() {
           <Delivery />
           <Payments mode={mode} />
           <Faq mode={mode} />
-          <ClosingBand mode={mode} />
         </motion.div>
       </AnimatePresence>
     </>

@@ -34,17 +34,3 @@ export function productImage(product, categories) {
   const root = own?.parent_id ? categories.byId.get(own.parent_id) : own
   return lineImage(root?.slug)
 }
-
-// Qué incluye cada línea, tomado de sus subcategorías del catálogo
-const LINE_INFO = {
-  motorreductores: 'Sinfín corona y coaxiales para bandas, mezcladores y transportadores.',
-  'motores-electricos': 'Motores trifásicos y monofásicos para bombeo, ventilación y maquinaria.',
-  'variadores-y-arrancadores': 'Variadores de frecuencia, arrancadores suaves y guardamotores para controlar y proteger.',
-  ventilacion: 'Extractores y ventiladores axiales para renovar el aire de tu planta.',
-  iluminacion: 'Reflectores y tubos LED para bodegas, patios y áreas de trabajo.',
-  cables: 'Cables THHN y encauchetados, por metro o por rollo.',
-  compresores: 'Compresores de pistón para talleres y plantas.',
-  plc: 'PLC compactos y relés programables para automatizar procesos.',
-}
-
-export const lineInfo = (rootSlug) => LINE_INFO[rootSlug] ?? 'Material eléctrico industrial con asesoría técnica.'

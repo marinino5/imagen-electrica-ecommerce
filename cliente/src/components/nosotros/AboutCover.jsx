@@ -18,13 +18,15 @@ function FloatBadge({ className, children, delay = 0 }) {
   )
 }
 
-// Portada dividida: violeta con el mensaje a la izquierda, la fachada en un arco con anillo naranja a la derecha
+// Portada: la fachada como banner a sangre, con una capa violeta suave y un degradado ink abajo para el texto
 export default function AboutCover() {
   return (
-    <header className="cover about-cover">
-      <div className="about-cover__left on-violet">
-        <span className="about-cover__ring about-cover__ring--a" aria-hidden="true" />
-        <span className="about-cover__ring about-cover__ring--b" aria-hidden="true" />
+    <header className="cover about-cover on-violet">
+      <img className="about-cover__img" src="/img/fachada.webp" alt="Fachada de Imagen Eléctrica en Bucaramanga" width="1600" height="800" fetchPriority="high" />
+      <span className="about-cover__tint" aria-hidden="true" />
+      <span className="about-cover__shade" aria-hidden="true" />
+
+      <div className="container about-cover__inner">
         <div className="about-cover__content">
           <p className="tag-pill"><Zap size={14} aria-hidden="true" /> Nosotros</p>
           <WordReveal
@@ -40,26 +42,8 @@ export default function AboutCover() {
             <a href="#visitanos" className="btn btn--ghost-light btn--lg">Visítanos</a>
           </div>
         </div>
-      </div>
 
-      <div className="about-cover__right">
-        <span className="about-cover__dots deco-dots" aria-hidden="true" />
-        <div className="arch-photo">
-          {/* Anillo naranja grueso que se dibuja al cargar */}
-          <svg className="arch-photo__ring" viewBox="0 0 400 420" preserveAspectRatio="none" fill="none" aria-hidden="true">
-            <motion.path
-              d="M6 388 Q6 414 32 414 H368 Q394 414 394 388 V200 A194 194 0 0 0 6 200 Z"
-              stroke="var(--accent)"
-              strokeWidth="11"
-              strokeLinejoin="round"
-              vectorEffect="non-scaling-stroke"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
-            />
-          </svg>
-          <img className="arch-photo__img" src="/img/fachada.webp" alt="Fachada de Imagen Eléctrica en Bucaramanga" width="800" height="1000" fetchPriority="high" />
-
+        <div className="about-cover__badges">
           <FloatBadge className="float-badge--years">
             <strong>+{site.years}</strong>
             <span>años</span>

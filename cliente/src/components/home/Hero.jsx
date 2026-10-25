@@ -12,6 +12,10 @@ import '../../styles/hero.css'
 
 const SLIDE_MS = 8000
 
+// Diapositivas del carrusel. Para agregar otra (por ejemplo el video de proyectos) basta una entrada nueva:
+// { id: 'proyectos', media: { type: 'video', webm: '/media/hero-proyectos.webm', mp4: '/media/hero-proyectos.mp4',
+//   poster: '/media/hero-proyectos-poster.jpg', pos: '50% 50%', posSm: '50% 50%' }, title, highlight, text }
+// El contador, las barras de progreso y el avance automático se ajustan solos a la cantidad de entradas.
 const slides = [
   {
     id: 'tablero',
@@ -27,13 +31,6 @@ const slides = [
     title: 'Motores y motorreductores',
     highlight: 'listos para trabajar',
     text: 'Potencia y confiabilidad de las marcas que tu planta ya conoce.',
-  },
-  {
-    id: 'proyectos',
-    media: { type: 'image', src: '/img/fachada.webp', pos: '50% 35%', posSm: '36% 50%' },
-    title: 'Cotiza tu proyecto',
-    highlight: 'con asesoría técnica',
-    text: 'Cuéntanos qué necesitas y un asesor te responde con la referencia y el precio.',
   },
 ]
 

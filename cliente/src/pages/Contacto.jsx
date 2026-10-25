@@ -2,7 +2,7 @@ import ContactCover from '../components/contacto/ContactCover'
 import SmartForm from '../components/contacto/SmartForm'
 import ContactCard from '../components/contacto/ContactCard'
 import SectionHeading from '../components/ui/SectionHeading'
-import VisitCard from '../components/ui/VisitCard'
+import StoreMap from '../components/ui/StoreMap'
 import Reveal from '../components/ui/Reveal'
 import '../styles/pages.css'
 import '../styles/kit.css'
@@ -26,7 +26,7 @@ export default function Contacto() {
           <SectionHeading id="h-visitanos" eyebrow="Visítanos">
             Pásate por <em>la tienda</em>
           </SectionHeading>
-          <VisitCard photoLabel="Fachada o interior para Contacto" />
+          <StoreMap />
         </div>
       </section>
     </>

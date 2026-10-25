@@ -954,6 +954,9 @@
 }
 
 /* ---------- Preguntas frecuentes ---------- */
+.faq-section {
+  padding-bottom: calc(var(--section-y) + 56px); /* la banda CTA del pie se monta sobre este borde */
+}
 .faq2 {
   display: grid;
   grid-template-columns: 1fr;
@@ -1026,65 +1029,6 @@
   }
   .faq2__col {
     gap: 16px;
-  }
-}
-
-/* ---------- Cierre ---------- */
-.closing {
-  padding-bottom: calc(var(--section-y) + 56px);
-}
-.closing__inner {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 28px;
-  align-items: center;
-}
-.closing__text {
-  margin-top: 14px;
-  max-width: 48ch;
-  color: var(--on-dark-muted);
-}
-.closing__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-.closing__arc,
-.closing__bolt {
-  position: absolute;
-  pointer-events: none;
-}
-.closing__arc {
-  border-radius: 50%;
-}
-.closing__arc--a {
-  right: -120px;
-  top: -140px;
-  width: 420px;
-  height: 420px;
-  border: 8px solid var(--accent);
-  border-left-color: transparent;
-  border-bottom-color: transparent;
-  transform: rotate(8deg);
-}
-.closing__arc--b {
-  left: -180px;
-  bottom: -240px;
-  width: 460px;
-  height: 460px;
-  border: 40px solid var(--violet-glow);
-}
-.closing__bolt {
-  right: 10%;
-  bottom: -20px;
-  color: var(--violet-glow);
-}
-
-@media (min-width: 900px) {
-  .closing__inner {
-    grid-template-columns: 1fr auto;
-    gap: 48px;
   }
 }
 
