@@ -12,6 +12,7 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Tres solicitudes de ejemplo, una por situación típica:
@@ -20,10 +21,19 @@ use Illuminate\Support\Carbon;
  *
  * Los totales se calculan aquí solo para tener datos de prueba; la regla
  * oficial vivirá en OrderService.
+ *
+ * Idempotente: cada solicitud se busca por su code; si ya existe no se vuelve
+ * a crear ni se le duplican ítems ni historial. Todo va en una transacción
+ * para no dejar una solicitud a medias.
  */
 class OrderSeeder extends Seeder
 {
     public function run(): void
+    {
+        DB::transaction(fn () => $this->seedOrders());
+    }
+
+    private function seedOrders(): void
     {
         $comercial = User::where('role', UserRole::Comercial)->firstOrFail();
         [$metalmecanica, $constructora] = Customer::with('user')->orderBy('id')->get();
@@ -79,8 +89,7 @@ class OrderSeeder extends Seeder
      */
     private function createOrder(string $code, OrderType $type, OrderStatus $status, Customer $customer, array $extra, array $lines, ?float $shipping = null): Order
     {
-        $order = Order::create($extra + [
-            'code' => $code,
+        $order = Order::firstOrCreate(['code' => $code], $extra + [
             'type' => $type,
             'status' => $status,
             'customer_id' => $customer->id,
@@ -93,6 +102,11 @@ class OrderSeeder extends Seeder
             'city' => $customer->city,
             'address' => $customer->address,
         ]);
+
+        // Ya existía: no se repiten ítems ni totales
+        if (! $order->wasRecentlyCreated) {
+            return $order;
+        }
 
         $total = 0;
         $base = 0;
@@ -145,6 +159,11 @@ class OrderSeeder extends Seeder
      */
     private function history(Order $order, array $changes): void
     {
+        // Ya existía: su historial ya está guardado
+        if (! $order->wasRecentlyCreated) {
+            return;
+        }
+
         foreach ($changes as [$from, $to, $user, $note, $at]) {
             $order->statusHistories()->make([
                 'user_id' => $user?->id,

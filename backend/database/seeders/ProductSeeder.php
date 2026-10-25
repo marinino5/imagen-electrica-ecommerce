@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
  * 20 productos con referencias de fabricante. Precios en COP con IVA incluido
  * (ilustrativos). El sku debe coincidir con el código de Siigo: los marcados
  * como PENDIENTE se reemplazan cuando se tenga el código real.
+ * Idempotente: busca por sku y no pisa precio ni stock de los que ya existen.
  */
 class ProductSeeder extends Seeder
 {
@@ -26,7 +27,8 @@ class ProductSeeder extends Seeder
             [$category, $brand] = [$data['category'], $data['brand']];
             unset($data['category'], $data['brand']);
 
-            Product::create($data + [
+            // withTrashed: un producto eliminado a propósito no se vuelve a crear
+            Product::withTrashed()->firstOrCreate(['sku' => $data['sku']], $data + [
                 'category_id' => $categories[$category],
                 'brand_id' => $brands[$brand],
                 'slug' => Str::slug($data['name']),

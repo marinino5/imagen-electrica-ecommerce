@@ -14,7 +14,7 @@ class BrandSeeder extends Seeder
 
         foreach ($brands as $name) {
             // logo_url queda nulo hasta tener la URL pública de cada logo
-            Brand::create(['name' => $name, 'slug' => Str::slug($name)]);
+            Brand::firstOrCreate(['slug' => Str::slug($name)], ['name' => $name]);
         }
     }
 }
