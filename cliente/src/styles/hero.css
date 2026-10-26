@@ -1,0 +1,280 @@
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: max(640px, 88svh);
+  padding-bottom: 112px; /* deja sitio a los controles y a la tarjeta de cifras que se monta encima */
+  color: var(--white);
+  background: var(--ink);
+  overflow-x: clip;
+}
+.hero__media,
+.hero__slide,
+.hero__kenburns,
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+}
+.hero__sharp {
+  position: absolute;
+  inset: 0;
+}
+.hero__sharp video,
+.hero__sharp img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* el punto de enfoque se ajusta por diapositiva (object-position en línea) */
+}
+.hero__media {
+  overflow: hidden; /* recorta el zoom Ken Burns */
+}
+/* Degradado ink solo del lado del texto: la foto o el video se ven a color a la derecha */
+.hero__overlay {
+  background: var(--overlay-hero-sm);
+}
+@media (min-width: 900px) {
+  .hero__overlay {
+    background: var(--overlay-hero);
+  }
+}
+
+/* ---- Arco y corriente ---- */
+.hero__deco {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.hero__arc {
+  position: absolute;
+  right: -90px;
+  bottom: -150px;
+  width: min(60vw, 560px);
+  height: auto;
+  pointer-events: none;
+  overflow: visible;
+}
+.hero__current {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 90px;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* ---- Contenido ---- */
+.hero__inner {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 32px;
+  padding-top: calc(var(--header-space) + 32px);
+  padding-bottom: 24px;
+}
+.hero__content {
+  max-width: 720px;
+}
+.hero__title {
+  font-size: var(--fs-hero);
+  color: var(--white);
+  text-shadow: 0 2px 18px rgb(38 28 62 / 0.45); /* legible aunque el degradado sea ligero */
+}
+.hero__title em {
+  display: block;
+  font-style: normal;
+  color: var(--accent);
+}
+.hero__text {
+  max-width: 52ch;
+  margin: 18px 0 26px;
+  font-size: 1.1rem;
+  color: var(--white);
+  text-shadow: 0 1px 12px rgb(38 28 62 / 0.55);
+}
+.hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.hero__search {
+  margin-top: 28px;
+  max-width: 640px;
+}
+
+/* ---- Tarjeta de productos destacados (escritorio): blanca, sólida y legible ---- */
+.feat-card {
+  justify-self: end;
+  width: 320px;
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: var(--shadow-lg);
+}
+.feat-card__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 12px;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--lavender-2);
+  color: var(--primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.feat-card__tag svg {
+  color: var(--accent);
+}
+.feat-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  height: auto;
+  margin-bottom: 12px;
+  border-radius: var(--radius);
+  background: var(--white);
+  object-fit: contain;
+}
+.feat-card__brand {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+.feat-card h3 {
+  margin: 4px 0 10px;
+  min-height: 2.6em;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.feat-card .price {
+  margin-bottom: 14px;
+}
+.feat-card__dots {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 8px;
+}
+.feat-card__dots button {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.feat-card__dots button::after {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border-radius: 50%;
+  background: var(--lavender-2);
+}
+.feat-card__dots button.is-on::after {
+  background: var(--primary);
+}
+
+@media (min-width: 1024px) {
+  .hero__inner {
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 56px;
+  }
+}
+
+/* ---- Controles abajo a la izquierda ---- */
+.hero__controls-wrap {
+  position: absolute;
+  left: 50%;
+  bottom: 72px;
+  z-index: 3;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.hero__controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  pointer-events: auto;
+}
+.hero__count {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.hero__progress {
+  display: flex;
+  gap: 6px;
+}
+.bar {
+  position: relative;
+  width: 44px;
+  height: 20px; /* zona táctil; la barra visible es más delgada */
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.bar::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 8px;
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--on-dark-line);
+}
+.bar span {
+  position: absolute;
+  left: 0;
+  top: 8px;
+  height: 4px;
+  width: 0;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+}
+.bar.is-done span {
+  width: 100%;
+}
+.bar.is-active span {
+  animation: bar-fill linear forwards;
+}
+.bar.is-paused span {
+  animation-play-state: paused;
+}
+@keyframes bar-fill {
+  to {
+    width: 100%;
+  }
+}
+.hero__pause {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-pill);
+  background: var(--glass-bg);
+  color: var(--white);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Sin avance automático: las barras muestran la diapositiva activa completa */
+  .bar.is-active span {
+    animation: none;
+    width: 100%;
+  }
+}

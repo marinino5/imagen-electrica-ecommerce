@@ -159,8 +159,8 @@
                                     <tr>
                                         <td><a href="{{ route('admin.orders.show', $item['order']) }}" class="order-code text-decoration-none">{{ $item['order']->code }}</a></td>
                                         <td>
-                                            <div class="fw-semibold">{{ $item['order']->company_name }}</div>
-                                            <small class="text-body-secondary">{{ $item['order']->contact_name }}</small>
+                                            <div class="fw-semibold">{{ $item['order']->display_name }}</div>
+                                            <small class="text-body-secondary">{{ $item['order']->customer_type->requiresCompanyData() ? $item['order']->contact_name : $item['order']->customer_type->label() }}</small>
                                         </td>
                                         <td class="d-none d-sm-table-cell"><x-status-badge :status="$item['order']->status" /></td>
                                         <td class="text-end">
@@ -199,7 +199,7 @@
                                 <strong>{{ $money($order->total) }}</strong>
                             </div>
                             <div class="d-flex justify-content-between align-items-center gap-2 mt-1">
-                                <small class="text-body-secondary text-truncate">{{ $order->company_name }} · {{ $order->created_at->locale('es')->diffForHumans() }}</small>
+                                <small class="text-body-secondary text-truncate">{{ $order->display_name }} · {{ $order->created_at->locale('es')->diffForHumans() }}</small>
                                 <x-status-badge :status="$order->status" />
                             </div>
                         </div>

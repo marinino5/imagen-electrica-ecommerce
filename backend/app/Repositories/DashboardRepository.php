@@ -99,7 +99,7 @@ class DashboardRepository
     public function oldestQuotesIn(array $statuses, int $limit): EloquentCollection
     {
         return Order::query()
-            ->select('id', 'code', 'status', 'company_name', 'contact_name', 'created_at')
+            ->select('id', 'code', 'status', 'customer_type', 'company_name', 'contact_name', 'created_at')
             ->where('type', OrderType::Quote)
             ->whereIn('status', $statuses)
             ->oldest()
@@ -111,7 +111,7 @@ class DashboardRepository
     public function latestPurchaseOrders(int $limit): EloquentCollection
     {
         return Order::query()
-            ->select('id', 'code', 'status', 'company_name', 'total', 'created_at')
+            ->select('id', 'code', 'status', 'company_name', 'contact_name', 'total', 'created_at')
             ->where('type', OrderType::Purchase)
             ->latest()
             ->latest('id')

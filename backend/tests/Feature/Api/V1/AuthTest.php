@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api\V1;
 
+use App\Enums\CustomerType;
 use App\Enums\UserRole;
 use App\Models\Customer;
 use App\Models\User;
@@ -47,6 +48,84 @@ class AuthTest extends TestCase
         $this->assertNotNull($user->customer->marketing_opt_in_at);
 
         $this->withToken($response->json('token'))->getJson('/api/v1/me')->assertOk()->assertJsonPath('data.email', 'laura@constructoraaltos.test');
+    }
+
+    public function test_register_without_type_defaults_to_company(): void
+    {
+        $this->postJson('/api/v1/register', $this->registration())
+            ->assertCreated()
+            ->assertJsonPath('data.customer.type', 'company')
+            ->assertJsonPath('data.customer.type_label', 'Empresa');
+
+        $this->assertSame(CustomerType::Company, Customer::firstOrFail()->type);
+    }
+
+    public function test_register_company_requires_company_name_and_nit(): void
+    {
+        $this->postJson('/api/v1/register', $this->registration(['type' => 'company', 'company_name' => '', 'nit' => '']))
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors(['company_name', 'nit']);
+
+        $this->assertDatabaseCount('customers', 0);
+    }
+
+    public function test_register_rejects_an_unknown_type(): void
+    {
+        $this->postJson('/api/v1/register', $this->registration(['type' => 'gobierno']))
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors('type');
+    }
+
+    public function test_register_natural_person_needs_only_the_name(): void
+    {
+        $response = $this->postJson('/api/v1/register', $this->registration([
+            'type' => 'natural',
+            'name' => 'Sergio Pardo',
+            'email' => 'sergio@correo.test',
+            'company_name' => null,
+            'nit' => null,
+        ]))
+            ->assertCreated()
+            ->assertJsonPath('data.customer.type', 'natural')
+            ->assertJsonPath('data.customer.type_label', 'Persona natural')
+            ->assertJsonPath('data.customer.company_name', null)
+            ->assertJsonPath('data.customer.nit', null)
+            ->assertJsonPath('data.customer.contact_name', 'Sergio Pardo');
+
+        $this->withToken($response->json('token'))->getJson('/api/v1/me')->assertOk();
+    }
+
+    public function test_register_natural_person_can_give_an_id_number_and_ignores_company_name(): void
+    {
+        $this->postJson('/api/v1/register', $this->registration(['type' => 'natural', 'nit' => '1098765432', 'company_name' => 'No aplica S.A.S.']))
+            ->assertCreated()
+            ->assertJsonPath('data.customer.nit', '1098765432')
+            ->assertJsonPath('data.customer.company_name', null);
+    }
+
+    public function test_register_natural_person_still_requires_the_name_and_contact_data(): void
+    {
+        $this->postJson('/api/v1/register', ['type' => 'natural'])
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors(['name', 'email', 'password', 'phone', 'city'])
+            ->assertJsonMissingValidationErrors(['company_name', 'nit']);
+    }
+
+    public function test_two_natural_people_without_id_number_can_register(): void
+    {
+        $this->postJson('/api/v1/register', $this->registration(['type' => 'natural', 'nit' => null]))->assertCreated();
+        $this->postJson('/api/v1/register', $this->registration(['type' => 'natural', 'nit' => null, 'email' => 'otra@correo.test']))->assertCreated();
+
+        $this->assertSame(2, Customer::whereNull('nit')->count());
+    }
+
+    public function test_an_id_number_cannot_be_used_twice(): void
+    {
+        $this->postJson('/api/v1/register', $this->registration(['type' => 'natural', 'nit' => '1098765432']))->assertCreated();
+
+        $this->postJson('/api/v1/register', $this->registration(['type' => 'natural', 'nit' => '1098765432', 'email' => 'otra@correo.test']))
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors('nit');
     }
 
     public function test_register_without_marketing_leaves_it_off(): void
@@ -234,6 +313,26 @@ class AuthTest extends TestCase
 
         $this->assertSame($email, $customer->user->fresh()->email);
         $this->assertSame('Piedecuesta', $customer->fresh()->city);
+    }
+
+    public function test_natural_person_updates_the_profile_without_company_name(): void
+    {
+        $customer = Customer::factory()->natural(false)->create();
+        $token = $customer->user->createToken('api')->plainTextToken;
+
+        $this->withToken($token)->putJson('/api/v1/me', [
+            'name' => 'Nuevo Nombre',
+            'company_name' => 'Intento de razón social',
+            'phone' => '300 000 0000',
+            'city' => 'Piedecuesta',
+        ])
+            ->assertOk()
+            ->assertJsonPath('data.customer.type', 'natural')
+            ->assertJsonPath('data.customer.contact_name', 'Nuevo Nombre')
+            ->assertJsonPath('data.customer.company_name', null);
+
+        $this->assertNull($customer->fresh()->company_name);
+        $this->assertSame(CustomerType::Natural, $customer->fresh()->type);
     }
 
     public function test_me_update_tracks_marketing_consent_date(): void

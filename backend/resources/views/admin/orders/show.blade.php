@@ -45,9 +45,16 @@
                 <div class="card-body">
                     <h2 class="h5 mb-3">Cliente</h2>
                     <dl class="row mb-0">
-                        <dt class="col-sm-4">Empresa</dt>
-                        <dd class="col-sm-8">{{ $order->company_name }} <small class="text-body-secondary">· NIT {{ $order->nit }}</small></dd>
-                        <dt class="col-sm-4">Contacto</dt>
+                        <dt class="col-sm-4">Tipo</dt>
+                        <dd class="col-sm-8"><span class="badge text-bg-light border">{{ $order->customer_type->label() }}</span></dd>
+                        @if ($order->customer_type->requiresCompanyData())
+                            <dt class="col-sm-4">Empresa</dt>
+                            <dd class="col-sm-8">{{ $order->company_name }} <small class="text-body-secondary">· NIT {{ $order->nit }}</small></dd>
+                        @elseif ($order->nit)
+                            <dt class="col-sm-4">Cédula</dt>
+                            <dd class="col-sm-8">{{ $order->nit }}</dd>
+                        @endif
+                        <dt class="col-sm-4">{{ $order->customer_type->requiresCompanyData() ? 'Contacto' : 'Nombre' }}</dt>
                         <dd class="col-sm-8">{{ $order->contact_name }}</dd>
                         <dt class="col-sm-4">Correo</dt>
                         <dd class="col-sm-8"><a href="mailto:{{ $order->email }}">{{ $order->email }}</a></dd>

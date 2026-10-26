@@ -298,8 +298,8 @@
                 <table class="table table-dashboard align-middle">
                     <thead>
                         <tr>
-                            <th scope="col">Empresa</th>
-                            <th scope="col" class="d-none d-sm-table-cell">NIT</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col" class="d-none d-sm-table-cell">NIT / cédula</th>
                             <th scope="col" class="text-end">Pedidos</th>
                             <th scope="col" class="text-end">Comprado</th>
                         </tr>
@@ -308,7 +308,7 @@
                         @foreach ($tables['top_customers'] as $row)
                             <tr>
                                 <td class="fw-semibold">{{ $row->company }}</td>
-                                <td class="d-none d-sm-table-cell font-monospace">{{ $row->nit }}</td>
+                                <td class="d-none d-sm-table-cell font-monospace">{{ $row->nit ?? '—' }}</td>
                                 <td class="text-end">{{ $row->orders }}</td>
                                 <td class="text-end text-nowrap fw-semibold">{{ Money::cop($row->total) }}</td>
                             </tr>

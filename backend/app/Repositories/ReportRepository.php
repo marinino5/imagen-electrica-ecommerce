@@ -209,16 +209,17 @@ class ReportRepository
     }
 
     /**
-     * Mejores clientes por valor comprado. Se agrupan por NIT porque el pedido
-     * guarda una copia de los datos de la empresa.
+     * Mejores clientes por valor comprado. Se agrupan por NIT o cédula (el pedido
+     * guarda una copia de los datos del cliente); una persona natural sin cédula
+     * se agrupa por su correo. Sin documento, nit llega nulo.
      *
-     * @return Collection<int, object{nit: string, company: string, orders: int, total: float}>
+     * @return Collection<int, object{nit: ?string, company: string, orders: int, total: float}>
      */
     public function topCustomers(CarbonInterface $from, CarbonInterface $to, int $limit): Collection
     {
         return $this->sales($from, $to)
-            ->selectRaw('orders.nit as nit, max(orders.company_name) as company, count(*) as orders, coalesce(sum(orders.total), 0) as total')
-            ->groupBy('orders.nit')
+            ->selectRaw('max(orders.nit) as nit, max(coalesce(orders.company_name, orders.contact_name)) as company, count(*) as orders, coalesce(sum(orders.total), 0) as total')
+            ->groupByRaw('coalesce(orders.nit, orders.email)')
             ->orderByDesc('total')
             ->limit($limit)
             ->get()

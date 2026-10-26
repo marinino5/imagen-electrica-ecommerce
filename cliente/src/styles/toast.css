@@ -1,0 +1,74 @@
+.toasts {
+  position: fixed;
+  right: 16px;
+  bottom: 92px; /* encima del botón de WhatsApp */
+  z-index: var(--z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: min(380px, calc(100vw - 32px));
+  pointer-events: none;
+}
+.toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--ink);
+  color: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  font-size: 0.92rem;
+}
+.toast svg:first-child {
+  flex: none;
+  color: var(--accent);
+}
+.toast__msg {
+  flex: 1;
+}
+.toast__action {
+  flex: none;
+  color: var(--accent);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.toast__close {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  background: transparent;
+  color: var(--on-dark-muted);
+  border-radius: var(--radius-pill);
+}
+.toast__close:hover {
+  background: var(--glass-bg);
+}
+
+/* Producto que vuela hacia el carrito o la cotización */
+.flight {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-toast);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  overflow: hidden;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--accent);
+  box-shadow: var(--shadow-lg);
+  pointer-events: none;
+}
+.flight img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

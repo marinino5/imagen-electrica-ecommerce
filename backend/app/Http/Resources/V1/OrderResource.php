@@ -24,6 +24,7 @@ class OrderResource extends JsonResource
             'type_label' => $this->type->label(),
             'status' => $this->status->value,
             'status_label' => $this->status->label(),
+            'customer_type' => $this->customer_type->value,
             'company_name' => $this->company_name,
             'nit' => $this->nit,
             'contact_name' => $this->contact_name,

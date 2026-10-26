@@ -1,0 +1,77 @@
+/* ============================================================
+   Variables de diseño — único lugar donde se definen colores,
+   degradados, tipografía, formas y sombras. El resto de los CSS
+   usa var(--x). Paleta cerrada: solo colores de la marca.
+   ============================================================ */
+:root {
+  /* Marca */
+  --white: #ffffff;
+  --lavender: #f6f4f9; /* secciones alternas y degradados */
+  --lavender-2: #e9e3f4; /* bordes, chips, fondos de tarjetas */
+  --primary: #513e84; /* títulos de acento, iconos, enlaces, estados activos */
+  --primary-dark: #463671; /* hover del violeta */
+  --ink: #261c3e; /* texto principal y secciones oscuras */
+  --muted: rgb(38 28 62 / 0.65); /* ink al 65 %: texto secundario */
+  --accent: #f26a00; /* CTA principal y "la corriente"; el botón lleva siempre texto --ink */
+
+  /* Degradados de marca */
+  --page-bg: linear-gradient(180deg, #ffffff 0%, #f6f4f9 50%, #e9e3f4 100%); /* fondo global, como el catálogo */
+  --grad-light: linear-gradient(180deg, #ffffff 0%, #f6f4f9 100%);
+  --grad-lavender: linear-gradient(135deg, #f6f4f9 0%, #e9e3f4 100%);
+  --grad-violet: radial-gradient(60% 70% at 92% 0%, rgb(255 255 255 / 0.16) 0%, transparent 70%),
+    linear-gradient(135deg, #513e84 0%, #463671 100%);
+  --grad-ink: radial-gradient(55% 70% at 88% 0%, rgb(81 62 132 / 0.55) 0%, transparent 70%),
+    linear-gradient(135deg, #261c3e 0%, #463671 100%);
+  --grad-accent: radial-gradient(60% 80% at 85% 0%, rgb(255 255 255 / 0.15) 0%, transparent 70%),
+    linear-gradient(135deg, #f26a00 0%, #f26a00 100%);
+
+  /* Transparencias derivadas de la marca */
+  --overlay-ink: rgb(38 28 62 / 0.82);
+  --overlay-hero: linear-gradient(90deg, rgb(38 28 62 / 0.7) 0%, rgb(38 28 62 / 0) 55%); /* máximo 70 % y transparente desde el 55 % del ancho */
+  --overlay-hero-sm: linear-gradient(180deg, rgb(38 28 62 / 0.5) 0%, rgb(38 28 62 / 0.7) 100%);
+  --glass-bg: rgb(255 255 255 / 0.12);
+  --glass-border: rgb(255 255 255 / 0.3);
+  --on-dark-muted: rgb(255 255 255 / 0.78);
+  --on-dark-line: rgb(255 255 255 / 0.18);
+  --orange-soft: rgb(242 106 0 / 0.3); /* anillos finos y puntos de los arcos de fondo */
+  --lavender-soft: rgb(233 227 244 / 0.3);
+  --violet-soft: rgb(81 62 132 / 0.1); /* arcos y destellos sobre fondos claros */
+  --violet-glow: rgb(233 227 244 / 0.16); /* arcos y destellos sobre fondos oscuros */
+  --dots: rgb(233 227 244 / 0.4); /* patrón de puntos */
+
+  /* Tipografía */
+  --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fs-hero: clamp(2.5rem, 4.4vw + 0.8rem, 4.6rem);
+  --fs-h2: clamp(2.1rem, 3.4vw + 0.7rem, 3.6rem);
+  --fs-h3: 1.35rem;
+
+  /* Forma */
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  /* Sombras teñidas de violeta */
+  --shadow-sm: 0 1px 2px rgb(81 62 132 / 0.06), 0 2px 8px rgb(81 62 132 / 0.05);
+  --shadow: 0 8px 28px rgb(81 62 132 / 0.08);
+  --shadow-lg: 0 20px 56px rgb(81 62 132 / 0.18);
+
+  /* Layout */
+  --container: 1200px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --header-h: 64px; /* alto de la isla del encabezado */
+  --header-gap: 12px; /* separación de la isla con el borde de la pantalla */
+  --header-space: calc(var(--header-h) + var(--header-gap) * 2); /* lo que ocupa el encabezado */
+  --section-y: clamp(64px, 8vw, 112px);
+
+  /* Capas */
+  --z-header: 50;
+  --z-whatsapp: 45;
+  --z-drawer: 70;
+  --z-modal: 80;
+  --z-toast: 90;
+
+  /* Movimiento */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}

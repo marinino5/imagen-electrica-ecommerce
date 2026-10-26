@@ -1,0 +1,644 @@
+/* Nosotros: portada dividida, franja cinética, mosaico, líneas en horizontal, razones apiladas y marcas */
+
+/* ---------- Portada: banner a sangre ---------- */
+.about-cover {
+  display: flex;
+  align-items: flex-end;
+  min-height: max(520px, 60svh);
+  background: var(--ink);
+  color: var(--white);
+}
+.about-cover__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+}
+/* Violeta uniforme al 45 % sobre toda la foto */
+.about-cover__tint {
+  position: absolute;
+  inset: 0;
+  background: rgb(81 62 132 / 0.45);
+  pointer-events: none;
+}
+/* Ink de abajo hacia arriba (55 % → transparente a la mitad de la altura) para que el texto contraste */
+.about-cover__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgb(38 28 62 / 0.55) 0%, rgb(38 28 62 / 0) 50%);
+  pointer-events: none;
+}
+.about-cover__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 20px;
+  padding-top: calc(var(--header-space) + 32px);
+  padding-bottom: 32px;
+}
+.about-cover__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  max-width: 660px;
+}
+.about-cover__title {
+  font-size: clamp(2.4rem, 11vw, 5.8rem);
+  line-height: 0.92;
+  color: var(--white);
+  text-shadow: 0 2px 20px rgb(38 28 62 / 0.35);
+}
+.about-cover__text {
+  max-width: 44ch;
+  font-size: 1rem;
+  color: var(--white);
+  text-shadow: 0 1px 12px rgb(38 28 62 / 0.5);
+}
+.about-cover__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.about-cover__badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.float-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+  box-shadow: var(--shadow-lg);
+}
+.float-badge svg {
+  flex: none;
+  color: var(--accent);
+}
+.float-badge--years {
+  flex-direction: column;
+  gap: 0;
+  text-align: center;
+}
+.float-badge--years strong {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 0.95;
+  color: var(--primary);
+}
+.float-badge--years span {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.float-badge--address {
+  max-width: 230px;
+}
+
+@media (min-width: 900px) {
+  .about-cover {
+    min-height: max(520px, 70svh);
+  }
+  .about-cover__inner {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+    padding-bottom: 56px;
+  }
+  .about-cover__content {
+    gap: 22px;
+  }
+  .about-cover__text {
+    font-size: 1.1rem;
+  }
+  .about-cover__badges {
+    flex-direction: column;
+    align-items: flex-end;
+    flex-wrap: nowrap;
+    gap: 14px;
+  }
+  .float-badge {
+    padding: 12px 18px;
+    font-size: 0.88rem;
+  }
+  .float-badge--years strong {
+    font-size: 2.3rem;
+  }
+  .float-badge--address {
+    max-width: 270px;
+  }
+}
+
+/* ---------- Mosaico "Quiénes somos" ---------- */
+.about-bento {
+  padding-block: var(--section-y);
+}
+.bento-about {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+.bento-about__tile {
+  position: relative;
+  min-height: 220px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.bento-about__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 14px;
+  padding: clamp(24px, 3vw, 40px);
+  border-radius: var(--radius-lg);
+}
+.bento-about__text .section-title {
+  font-size: clamp(2rem, 2.4vw + 1rem, 3.1rem);
+}
+.bento-about__text p:not(.eyebrow) {
+  max-width: 52ch;
+  color: var(--ink);
+}
+.bento-about__text .eyebrow {
+  margin-bottom: 0;
+}
+.bento-about__years,
+.bento-about__refs {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 24px;
+}
+.bento-about__years {
+  background: var(--grad-violet);
+  color: var(--white);
+}
+.bento-about__refs {
+  background: var(--grad-accent);
+  color: var(--ink);
+}
+.bento-about__big {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 9vw, 8rem);
+  font-weight: 800;
+  line-height: 0.85;
+}
+.bento-about__years .bento-about__big span {
+  color: var(--accent);
+}
+.bento-about__big--sm {
+  font-size: clamp(3.6rem, 5.2vw, 5.4rem);
+}
+.bento-about__cap {
+  position: relative;
+  margin-top: 10px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.bento-about__years .bento-about__cap {
+  color: var(--on-dark-muted);
+}
+.bento-about__arc {
+  position: absolute;
+  top: -70px;
+  right: -70px;
+  width: 190px;
+  height: 190px;
+  border: 14px solid var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.bento-about__ship {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  padding: clamp(20px, 3vw, 32px);
+  background: var(--grad-ink);
+  color: var(--white);
+}
+.bento-about__ship-copy {
+  align-self: start;
+}
+.bento-about__ship-copy .eyebrow {
+  color: var(--white);
+}
+.bento-about__ship h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 2.2vw + 0.8rem, 2.8rem);
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.bento-about__ship-copy p:last-child {
+  margin-top: 10px;
+  color: var(--on-dark-muted);
+}
+.bento-about__map {
+  width: 100%;
+  height: 300px;
+}
+.colombia-map__pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: map-pulse 2.4s ease-out infinite;
+}
+.colombia-map__pulse--b {
+  animation-delay: 1.2s;
+}
+@keyframes map-pulse {
+  from {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(4.2);
+  }
+}
+.bento-about__team .image-slot,
+.bento-about__store .image-slot {
+  border-radius: var(--radius-lg);
+}
+
+@media (min-width: 640px) {
+  .bento-about {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .bento-about__text {
+    grid-column: 1 / -1;
+  }
+  .bento-about__ship {
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+  .bento-about__map {
+    height: 380px;
+  }
+}
+@media (min-width: 1000px) {
+  .bento-about {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 232px;
+  }
+  .bento-about__text {
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+  }
+  .bento-about__years {
+    grid-column: 3;
+    grid-row: 1;
+  }
+  .bento-about__refs {
+    grid-column: 4;
+    grid-row: 1;
+  }
+  .bento-about__team {
+    grid-column: 3 / 5;
+    grid-row: 2;
+  }
+  .bento-about__ship {
+    grid-column: 1 / 3;
+    grid-row: 3 / 5;
+  }
+  .bento-about__store {
+    grid-column: 3 / 5;
+    grid-row: 3 / 5;
+  }
+  .bento-about__map {
+    height: 100%;
+    max-height: 440px;
+  }
+}
+
+/* ---------- Por qué elegirnos: tarjetas apiladas ---------- */
+.why {
+  overflow-x: clip; /* no usar overflow:hidden: rompería el sticky */
+}
+.why__arc {
+  position: absolute;
+  left: -220px;
+  top: 8%;
+  width: 520px;
+  height: 520px;
+  border: 40px solid var(--violet-soft);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.why__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+.why .section-head {
+  margin-bottom: 0;
+}
+.why__list {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.why-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  min-height: 300px;
+  padding: clamp(24px, 3vw, 40px);
+  border-radius: 28px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transform-origin: top center;
+}
+.why-card__num {
+  position: absolute;
+  top: 12px;
+  right: 24px;
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 9vw, 8.5rem);
+  font-weight: 800;
+  line-height: 1;
+}
+.why-card__icon {
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  margin-bottom: auto;
+  border-radius: 50%;
+}
+.why-card h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 1.6vw + 1.2rem, 2.7rem);
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.why-card p {
+  max-width: 42ch;
+}
+.why-card--violet {
+  background: var(--grad-violet);
+  color: var(--white);
+}
+.why-card--violet h3,
+.why-card--ink h3 {
+  color: var(--white);
+}
+.why-card--violet .why-card__num,
+.why-card--ink .why-card__num {
+  color: var(--violet-glow);
+}
+.why-card--violet .why-card__icon,
+.why-card--ink .why-card__icon {
+  background: var(--accent);
+  color: var(--ink);
+}
+.why-card--white {
+  border: 1px solid var(--lavender-2);
+  background: var(--white);
+  color: var(--ink);
+}
+.why-card--white .why-card__num {
+  color: var(--lavender-2);
+}
+.why-card--white .why-card__icon {
+  background: var(--primary);
+  color: var(--white);
+}
+.why-card--orange {
+  background: var(--grad-accent);
+  color: var(--ink);
+}
+.why-card--orange h3 {
+  color: var(--ink);
+}
+.why-card--orange .why-card__num {
+  color: rgb(38 28 62 / 0.14);
+}
+.why-card--orange .why-card__icon {
+  background: var(--ink);
+  color: var(--white);
+}
+.why-card--ink {
+  background: var(--grad-ink);
+  color: var(--white);
+}
+
+@media (min-width: 900px) {
+  .why__grid {
+    grid-template-columns: 5fr 7fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .why__title {
+    position: sticky;
+    top: calc(var(--header-space) + 32px);
+  }
+  .why__list {
+    display: block;
+  }
+  .why-card {
+    position: sticky;
+    top: calc(var(--header-space) + 24px + var(--i) * 18px);
+    min-height: 340px;
+    margin-bottom: 26vh;
+  }
+  .why-card:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* ---------- Marcas: dos filas de tarjetas que se voltean ---------- */
+.brands-flip {
+  padding-bottom: calc(var(--section-y) + 8px);
+}
+.brands-flip .section-head {
+  margin-bottom: 32px;
+}
+.brands-flip__arc {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.brands-flip__arc--a {
+  right: -160px;
+  top: -200px;
+  width: 520px;
+  height: 520px;
+  border: 8px solid var(--accent);
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  transform: rotate(14deg);
+}
+.brands-flip__arc--b {
+  left: -200px;
+  bottom: -260px;
+  width: 520px;
+  height: 520px;
+  border: 40px solid var(--violet-glow);
+}
+.brands-flip__rows {
+  position: relative;
+  display: grid;
+  gap: 16px;
+  padding-block: 8px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.brand-row {
+  overflow: hidden;
+  padding-block: 6px; /* deja sitio a la sombra y al levantar de la tarjeta */
+}
+.brand-row__track {
+  display: flex;
+  width: max-content;
+  animation: brand-run 60s linear infinite;
+}
+.brand-row--reverse .brand-row__track {
+  animation-direction: reverse;
+}
+/* La fila se detiene con el mouse encima o cuando hay una tarjeta volteada (toque en celular) */
+.brand-row:hover .brand-row__track,
+.brand-row:has(.is-flipped) .brand-row__track {
+  animation-play-state: paused;
+}
+@keyframes brand-run {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.brand-row__group {
+  display: flex;
+  flex: none;
+  gap: 16px;
+  margin: 0;
+  padding: 0 8px;
+  list-style: none;
+}
+.brand-card {
+  position: relative;
+  display: block;
+  width: clamp(190px, 22vw, 260px);
+  height: clamp(100px, 12vw, 132px);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-lg);
+  background: transparent;
+  perspective: 900px;
+  text-align: center;
+}
+.brand-card__face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 12px 16px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: transform 0.6s var(--ease);
+}
+.brand-card__front {
+  background: var(--white);
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 2.2vw + 0.6rem, 2.5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+.brand-card__back {
+  background: var(--grad-accent);
+  color: var(--ink);
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.3;
+  transform: rotateY(180deg);
+}
+.brand-card__back small {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.brand-card--flip {
+  cursor: pointer;
+}
+.brand-card--flip:hover .brand-card__front,
+.brand-card--flip.is-flipped .brand-card__front {
+  transform: rotateY(-180deg);
+}
+.brand-card--flip:hover .brand-card__back,
+.brand-card--flip.is-flipped .brand-card__back {
+  transform: rotateY(0);
+}
+
+/* ---------- Visítanos ---------- */
+.visit-section {
+  scroll-margin-top: var(--header-space);
+  padding-bottom: calc(var(--section-y) + 40px);
+}
+.visit-section .section-head {
+  margin-bottom: 32px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .colombia-map__pulse {
+    animation: none;
+    opacity: 0.25;
+  }
+  /* Sin marquesina: las tarjetas se acomodan en varias líneas */
+  .brand-row__track {
+    width: auto;
+    animation: none;
+  }
+  .brand-row__group {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-inline: var(--gutter);
+  }
+  .brand-row__group[aria-hidden='true'] {
+    display: none;
+  }
+  .brands-flip__rows {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .brand-card__face {
+    transition: none;
+  }
+}

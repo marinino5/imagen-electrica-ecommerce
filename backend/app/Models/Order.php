@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Enums\CustomerType;
 use App\Enums\DeliveryMethod;
 use App\Enums\OrderStatus;
 use App\Enums\OrderType;
 use Database\Factories\OrderFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,7 +21,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 #[Fillable([
     'code', 'type', 'status', 'customer_id', 'assigned_to', 'quote_id',
-    'company_name', 'nit', 'contact_name', 'email', 'phone', 'city', 'address',
+    'customer_type', 'company_name', 'nit', 'contact_name', 'email', 'phone', 'city', 'address',
     'delivery_method', 'payment_method', 'subtotal', 'tax', 'shipping', 'total',
     'notes', 'expires_at', 'paid_at',
 ])]
@@ -28,11 +30,14 @@ class Order extends Model
     /** @use HasFactory<OrderFactory> */
     use HasFactory;
 
+    protected $attributes = ['customer_type' => 'company'];
+
     protected function casts(): array
     {
         return [
             'type' => OrderType::class,
             'status' => OrderStatus::class,
+            'customer_type' => CustomerType::class,
             'delivery_method' => DeliveryMethod::class,
             'subtotal' => 'decimal:2',
             'tax' => 'decimal:2',
@@ -41,6 +46,12 @@ class Order extends Model
             'expires_at' => 'datetime',
             'paid_at' => 'datetime',
         ];
+    }
+
+    /** Nombre para mostrar: la razón social, o el nombre de la persona natural. */
+    protected function displayName(): Attribute
+    {
+        return Attribute::get(fn () => $this->company_name ?: $this->contact_name);
     }
 
     /** 1:N (inversa) */

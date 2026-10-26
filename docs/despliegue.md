@@ -71,6 +71,12 @@ Se ponen en el servicio, en **Environment**. Los valores marcados como *secreto*
 | `SHOP_SHIPPING_LOCAL` | costo de envío local, ej. `15000` |
 | `SHOP_SHIPPING_NATIONAL` | costo de envío nacional, ej. `35000` |
 
+### CORS (tienda en React)
+
+| Variable | Valor |
+|---|---|
+| `CORS_ALLOWED_ORIGINS` | orígenes permitidos separados por coma, ej. `http://localhost:5173,https://tu-tienda.pages.dev` |
+
 `PORT` lo define Render solo; no hay que ponerla.
 
 ## Pasos

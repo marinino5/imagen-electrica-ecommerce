@@ -31,7 +31,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":21,"name":"Omar Dom\u00ednguez","email":"arredondo.juana@example.com","role":"cliente","customer":{"company_name":"Calero de Zamora S.A.S.","nit":"990122162-7","contact_name":"Sr. H\u00e9ctor Zelaya","phone":"379 091 5066","city":"Gir\u00f3n","address":"Calle Elizondo, 54, 27\u00ba C","marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T17:23:26.000000Z"}}}'
+        content: '{"data":{"id":20,"name":"Omar Dom\u00ednguez","email":"arredondo.juana@example.com","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Calero de Zamora S.A.S.","nit":"990122162-7","contact_name":"Sr. H\u00e9ctor Zelaya","phone":"379 091 5066","city":"Gir\u00f3n","address":"Calle Elizondo, 54, 27\u00ba C","marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T21:46:33.000000Z"}}}'
         headers: []
         description: ''
     responseFields: []
@@ -55,8 +55,8 @@ endpoints:
       subgroupDescription: ''
       title: 'Actualizar mi perfil'
       description: |-
-        Cambia el nombre de contacto y los datos de la empresa. El correo y el NIT no se
-        modifican desde aquí. Solo clientes.
+        Cambia el nombre de contacto y los datos del cliente. El correo, el tipo y el NIT o cédula
+        no se modifican desde aquí. Solo clientes.
       authenticated: true
       deprecated: false
     headers:
@@ -82,13 +82,13 @@ endpoints:
       company_name:
         custom: []
         name: company_name
-        description: 'Razón social.'
-        required: true
+        description: 'Razón social. Obligatoria para empresas; las personas naturales no la tienen.'
+        required: false
         example: 'Constructora Altos S.A.S.'
         type: string
         enumValues: []
         exampleWasSpecified: true
-        nullable: false
+        nullable: true
         deprecated: false
       phone:
         custom: []
@@ -146,7 +146,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":22,"name":"Emilia Murillo","email":"juribe@example.org","role":"cliente","customer":{"company_name":"Rivas y Sevilla SA S.A.S.","nit":"968210674-8","contact_name":"Adri\u00e1n Cavazos Hijo","phone":"315 175 7680","city":"Barrancabermeja","address":"Pla\u00e7a Juana, 979, 27\u00ba A","marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T17:23:26.000000Z"}}}'
+        content: '{"data":{"id":21,"name":"Emilia Murillo","email":"juribe@example.org","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Rivas y Sevilla SA S.A.S.","nit":"968210674-8","contact_name":"Adri\u00e1n Cavazos Hijo","phone":"315 175 7680","city":"Barrancabermeja","address":"Pla\u00e7a Juana, 979, 27\u00ba A","marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T21:46:33.000000Z"}}}'
         headers: []
         description: ''
     responseFields: []

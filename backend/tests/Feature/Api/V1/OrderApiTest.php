@@ -46,6 +46,26 @@ class OrderApiTest extends TestCase
         $this->assertDatabaseCount('order_status_histories', 1);
     }
 
+    public function test_a_natural_person_can_place_an_order_and_it_keeps_a_copy_of_the_customer(): void
+    {
+        $natural = Customer::factory()->natural(false)->create(['contact_name' => 'Sergio Pardo']);
+        Sanctum::actingAs($natural->user);
+        $product = Product::factory()->create(['price' => 119000, 'stock' => 10]);
+
+        $this->postJson('/api/v1/orders', [
+            'delivery_method' => 'pickup',
+            'items' => [['product_id' => $product->id, 'quantity' => 1]],
+        ])
+            ->assertCreated()
+            ->assertJsonPath('data.0.customer_type', 'natural')
+            ->assertJsonPath('data.0.company_name', null)
+            ->assertJsonPath('data.0.nit', null)
+            ->assertJsonPath('data.0.contact_name', 'Sergio Pardo');
+
+        // El historial no cambia si el cliente edita sus datos después
+        $this->assertSame('natural', Order::firstOrFail()->customer_type->value);
+    }
+
     public function test_post_orders_with_a_mixed_cart_creates_a_purchase_and_a_quote(): void
     {
         $direct = Product::factory()->create(['stock' => 5]);

@@ -1,0 +1,42 @@
+/* Círculo de 56 px en violeta; el texto solo aparece al pasar el mouse o con el teclado */
+.whatsapp {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: var(--z-whatsapp);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  min-width: 56px;
+  padding: 0 15px;
+  border: 2px solid var(--white);
+  border-radius: var(--radius-pill);
+  background: var(--primary);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 0.92rem;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: var(--shadow-lg);
+  transition: background 0.2s, transform 0.2s var(--ease);
+}
+.whatsapp:hover,
+.whatsapp:focus-visible {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+.whatsapp__label {
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-width 0.3s var(--ease), opacity 0.2s, margin 0.3s var(--ease);
+}
+@media (hover: hover) {
+  .whatsapp:hover .whatsapp__label,
+  .whatsapp:focus-visible .whatsapp__label {
+    max-width: 160px;
+    margin-left: 10px;
+    opacity: 1;
+  }
+}
