@@ -35,3 +35,9 @@ Las referencias de abajo vienen de búsquedas en internet; son guías de proveed
 - La empresa aún no entregó hitos, así que solo hay datos confirmados al inicio ("más de 25 años en Bucaramanga") y al final (la tienda en línea). Los tres hitos del medio son espacios marcados "Por confirmar": no se inventan fechas.
 - Fachada real en bisel con dos insignias flotantes; espacios reservados (con borde punteado) para la foto del equipo y del interior, sin representar nada falso.
 - Razones en cascada en Z (rotaciones leves en escritorio, apiladas en celular) y marcas en bento de chips en bisel con WEG destacada.
+
+## Cómo comprar
+- Las guías de checkout y de B2B piden pocos pasos (cuatro) y que cada uno se vea. Idea tomada: recorrido de 4 pasos con una línea naranja que se llena con el scroll (la única animación de scroll de la página) y, en cada paso, una captura real de la tienda en un marco de navegador en bisel, no un dibujo.
+- El interruptor Compra en línea / Cotización vive en la portada y cambia el recorrido, la lista de requisitos y las preguntas. En cotización los pasos "El asesor responde" y "Aprueba y paga" no tienen pantalla (pasan fuera de la tienda), así que llevan un icono en lugar de una captura inventada.
+- Entregas: tres tarjetas y el mapa de puntos de Colombia con Bucaramanga marcada. El costo de domicilio y envío nacional no se inventa: lo confirma el asesor.
+- Preguntas frecuentes en dos columnas, reescritas para el nuevo flujo (cotizar no necesita cuenta; comprar en línea sí).
