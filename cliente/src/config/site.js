@@ -18,7 +18,7 @@ export const site = {
   tagline: 'Soluciones Industriales',
   years: 25,
   address: 'Cra 18 No 24-32',
-  city: 'Bucaramanga, Santander',
+  city: 'Bucaramanga, Santander, Colombia',
   contacts,
   mainContact: contacts[0],
   // Compatibilidad: lista de teléfonos con el principal primero
@@ -28,8 +28,8 @@ export const site = {
   whatsappLink,
   // Mapa de Google embebido con la dirección (iframe, sin clave de API)
   // Enlace para abrir la ruta en Google Maps
-  directionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent('Cra 18 No 24-32, Bucaramanga, Santander')}`,
-  mapUrl: `https://www.google.com/maps?q=${encodeURIComponent('Cra 18 No 24-32, Bucaramanga, Santander')}&output=embed`,
+  directionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent('Cra 18 No 24-32, Bucaramanga, Santander, Colombia')}`,
+  mapUrl: `https://www.google.com/maps?q=${encodeURIComponent('Cra 18 No 24-32, Bucaramanga, Santander, Colombia')}&output=embed`,
   social: {
     facebook: 'https://facebook.com/imagenelectrica',
     instagram: 'https://instagram.com/imagenelectrica1824',

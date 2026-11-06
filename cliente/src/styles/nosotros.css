@@ -669,3 +669,22 @@
     transition: none;
   }
 }
+
+/* Celular: tarjetas de razones más bajas para que el bloque sea corto */
+@media (max-width: 767px) {
+  .why-card {
+    min-height: 0;
+    gap: 8px;
+    padding: 20px;
+    border-radius: var(--radius-lg);
+  }
+  .why-card__num {
+    font-size: 3.6rem;
+    top: 8px;
+    right: 16px;
+  }
+  .why-card__icon {
+    width: 48px;
+    height: 48px;
+  }
+}

@@ -1041,3 +1041,42 @@
     transform: none;
   }
 }
+
+/* ---------- Celular: pasos en lista vertical corta ---------- */
+@media (max-width: 767px) {
+  /* Las mini pantallas de cada paso alargan la página (más de 10 000 px): en celular solo van el número, el título y el texto */
+  .bwin--inline {
+    display: none;
+  }
+  .dcard {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    column-gap: 16px;
+    align-items: start;
+    border-radius: var(--radius-lg);
+    padding: 18px;
+  }
+  .dcard .art {
+    grid-row: 1 / span 3;
+    width: 84px;
+    height: 84px;
+    margin: 0;
+  }
+  .dcard .art svg {
+    width: 36px;
+    height: 36px;
+  }
+  .dcard .art__circle {
+    inset: 0;
+  }
+  .dcard .art__arc,
+  .dcard .art__dots {
+    display: none;
+  }
+  .dcard h3 {
+    font-size: 1.6rem;
+  }
+  .dcard__note {
+    justify-self: start;
+  }
+}

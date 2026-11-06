@@ -503,11 +503,32 @@
 .bento__link.has-photo {
   color: var(--white);
 }
+/* Celular: dos columnas para que el bloque sea corto; la primera y la última van a todo el ancho */
+@media (max-width: 639px) {
+  .bento {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .bento__item {
+    min-height: 150px;
+  }
+  .bento__item--a,
+  .bento__item--f {
+    grid-column: 1 / -1;
+  }
+  .bento__link {
+    padding: 14px;
+  }
+  .bento__title {
+    font-size: 1.05rem;
+  }
+}
 @media (min-width: 640px) {
   .bento {
     grid-template-columns: repeat(2, 1fr);
   }
-  .bento__item--a {
+  .bento__item--a,
+  .bento__item--f {
     grid-column: 1 / -1;
   }
 }
@@ -519,6 +540,33 @@
   .bento__item--a { grid-column: span 5; }
   .bento__item--b { grid-column: span 4; }
   .bento__item--c { grid-column: span 3; }
-  .bento__item--d { grid-column: span 7; }
-  .bento__item--e { grid-column: span 5; }
+  .bento__item--d { grid-column: span 3; }
+  .bento__item--e { grid-column: span 4; }
+  .bento__item--f { grid-column: span 5; }
+}
+
+/* Línea con foto real: arco naranja arriba a la izquierda y curva violeta abajo a la derecha, como las demás */
+.line-tile__media {
+  position: relative;
+}
+.line-tile__media--photo::before,
+.line-tile__media--photo::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.line-tile__media--photo::before {
+  top: -38px;
+  left: -38px;
+  width: 120px;
+  height: 120px;
+  border: 14px solid var(--accent);
+}
+.line-tile__media--photo::after {
+  right: -56px;
+  bottom: -56px;
+  width: 130px;
+  height: 130px;
+  background: var(--primary);
 }

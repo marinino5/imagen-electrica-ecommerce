@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import { useCategories } from '../../hooks/useCategories'
-import { lineImage } from '../../lib/catalog'
+import { lineImage, PHOTO_LINES } from '../../lib/catalog'
 import ErrorState from '../ui/ErrorState'
 import Reveal from '../ui/Reveal'
 import SectionHeading from '../ui/SectionHeading'
@@ -29,7 +29,7 @@ function LineTile({ root, total, size, index, count }) {
   const image = lineImage(root.slug)
   return (
     <Link to={`/productos?category=${root.slug}`} className={`line-tile ${size ? `line-tile--${size}` : ''}`}>
-      <span className="line-tile__media">
+      <span className={`line-tile__media ${PHOTO_LINES.has(root.slug) ? 'line-tile__media--photo' : ''}`}>
         {image ? <img src={image} alt="" width="640" height="480" loading="lazy" draggable="false" /> : <span className="line-tile__fallback" />}
       </span>
       <span className="line-tile__body">
