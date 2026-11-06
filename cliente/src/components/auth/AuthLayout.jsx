@@ -1,4 +1,5 @@
-import { Zap } from 'lucide-react'
+import { MessageCircle, Zap } from 'lucide-react'
+import { site } from '../../config/site'
 import WordReveal from '../ui/WordReveal'
 import OrderPreview from './OrderPreview'
 import BenefitStack from './BenefitStack'
@@ -18,7 +19,12 @@ export default function AuthLayout({ eyebrow, lines, benefits, previewKind, chil
         <OrderPreview kind={previewKind} />
         <BenefitStack items={benefits} />
       </aside>
-      <div className="auth__main">{children}</div>
+      <div className="auth__main">
+        {children}
+        <a className="btn btn--ghost btn--block auth__wa" href={site.whatsappLink('Hola, necesito ayuda para crear mi cuenta o ingresar en la tienda.')} target="_blank" rel="noreferrer">
+          <MessageCircle size={18} aria-hidden="true" /> ¿Necesitas ayuda? Escríbele a {site.mainContact.name}
+        </a>
+      </div>
     </section>
   )
 }

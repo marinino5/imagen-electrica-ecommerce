@@ -59,6 +59,13 @@ export function AuthProvider({ children }) {
   const login = useCallback(async (email, password) => startSession(await authApi.login(email, password)), [startSession])
   const register = useCallback(async (payload) => startSession(await authApi.register(payload)), [startSession])
 
+  // PUT /me: actualiza contacto y empresa; devuelve el usuario con los datos nuevos
+  const updateProfile = useCallback(async (payload) => {
+    const res = await authApi.updateMe(payload)
+    setUser(res.data)
+    return res.data
+  }, [])
+
   const logout = useCallback(async () => {
     try {
       await authApi.logout()
@@ -69,8 +76,8 @@ export function AuthProvider({ children }) {
   }, [clearSession])
 
   const value = useMemo(
-    () => ({ user, status, isAuthenticated: status === 'authenticated', login, register, logout }),
-    [user, status, login, register, logout],
+    () => ({ user, status, isAuthenticated: status === 'authenticated', login, register, logout, updateProfile }),
+    [user, status, login, register, logout, updateProfile],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { Search, X } from 'lucide-react'
+import { MessageCircle, Search, SlidersHorizontal, X } from 'lucide-react'
+import { site } from '../config/site'
 import { catalogApi } from '../api'
 import { useApi } from '../hooks/useApi'
 import { useCategories } from '../hooks/useCategories'
@@ -32,6 +33,7 @@ export default function Products() {
   const { data: categories } = useCategories()
   const brands = useApi(() => catalogApi.brands(), [])
   const [quick, setQuick] = useState(null)
+  const [sheet, setSheet] = useState(false)
   const searchRef = useRef(null)
   const [text, setText] = useState(params.get('q') ?? '')
 
@@ -40,6 +42,16 @@ export default function Products() {
   const key = params.toString()
 
   useEffect(() => setText(params.get('q') ?? ''), [params])
+  useEffect(() => {
+    if (!sheet) return
+    const onKey = (e) => e.key === 'Escape' && setSheet(false)
+    document.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
+  }, [sheet])
   useEffect(() => {
     if (params.get('buscar')) searchRef.current?.focus()
   }, [params])
@@ -65,6 +77,9 @@ export default function Products() {
     query.in_stock && { key: 'in_stock', label: 'Solo disponibles' },
   ].filter(Boolean)
 
+  // Filtros activos sin contar la búsqueda ni el orden (los que viven en el panel)
+  const filterCount = ['category', 'brand', 'sale_mode', 'in_stock'].filter((k) => query[k]).length
+
   const products = data?.data ?? []
   const meta = data?.meta
 
@@ -75,8 +90,13 @@ export default function Products() {
         <p className="page-lead">Compra en línea lo que está disponible y solicita cotización de lo demás.</p>
       </header>
 
+      <a className="catalog__banner" href={site.whatsappLink('Hola, busco una referencia que no encuentro en la tienda.')} target="_blank" rel="noreferrer">
+        <MessageCircle size={20} aria-hidden="true" />
+        <span><strong>¿No encuentras la referencia?</strong> Escríbele a {site.mainContact.name} y te la cotizamos.</span>
+      </a>
+
       <form
-        className="filters card"
+        className="filters"
         role="search"
         onSubmit={(e) => {
           e.preventDefault()
@@ -84,48 +104,84 @@ export default function Products() {
         }}
       >
         <div className="filters__search">
-          <Search size={18} aria-hidden="true" />
+          <Search size={20} aria-hidden="true" />
           <input
             ref={searchRef}
             className="input"
             type="search"
+            enterKeyHint="search"
+            autoComplete="off"
             aria-label="Buscar por nombre o referencia"
-            placeholder="Nombre o referencia"
+            placeholder="Busca por nombre o referencia"
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
-          <button type="submit" className="btn btn--primary btn--sm">Buscar</button>
+          <button type="submit" className="btn btn--primary">Buscar</button>
         </div>
 
-        <select className="input" aria-label="Línea de producto" value={query.category} onChange={(e) => update({ category: e.target.value })}>
-          <option value="">Todas las líneas</option>
-          {categories.roots.map((root) => (
-            <optgroup key={root.id} label={root.name}>
-              <option value={root.slug}>Toda la línea {root.name.toLowerCase()}</option>
-              {categories.childrenOf(root.id).map((child) => (
-                <option key={child.id} value={child.slug}>{child.name}</option>
+        <div className="filters__bar">
+          <button type="button" className="btn btn--ghost filters__open" onClick={() => setSheet(true)} aria-haspopup="dialog">
+            <SlidersHorizontal size={18} aria-hidden="true" /> Filtrar{filterCount > 0 ? ` (${filterCount})` : ''}
+          </button>
+          <select className="input filters__sort" aria-label="Ordenar por" value={query.sort} onChange={(e) => update({ sort: e.target.value })}>
+            {sorts.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+          </select>
+        </div>
+
+        {sheet && <div className="filters__backdrop" onClick={() => setSheet(false)} aria-hidden="true" />}
+        <div
+          className={`filters__panel ${sheet ? 'is-open' : ''}`}
+          role={sheet ? 'dialog' : undefined}
+          aria-modal={sheet ? 'true' : undefined}
+          aria-label="Filtros"
+        >
+          <div className="filters__panel-head">
+            <h2>Filtros</h2>
+            <button type="button" className="icon-btn" onClick={() => setSheet(false)} aria-label="Cerrar filtros"><X size={22} /></button>
+          </div>
+
+          <div className="field">
+            <label htmlFor="f-cat">Línea de producto</label>
+            <select id="f-cat" className="input" value={query.category} onChange={(e) => update({ category: e.target.value })}>
+              <option value="">Todas las líneas</option>
+              {categories.roots.map((root) => (
+                <optgroup key={root.id} label={root.name}>
+                  <option value={root.slug}>Toda la línea {root.name.toLowerCase()}</option>
+                  {categories.childrenOf(root.id).map((child) => (
+                    <option key={child.id} value={child.slug}>{child.name}</option>
+                  ))}
+                </optgroup>
               ))}
-            </optgroup>
-          ))}
-        </select>
+            </select>
+          </div>
 
-        <select className="input" aria-label="Marca" value={query.brand} onChange={(e) => update({ brand: e.target.value })}>
-          <option value="">Todas las marcas</option>
-          {brands.data?.data.map((b) => <option key={b.id} value={b.slug}>{b.name}</option>)}
-        </select>
+          <div className="field">
+            <label htmlFor="f-brand">Marca</label>
+            <select id="f-brand" className="input" value={query.brand} onChange={(e) => update({ brand: e.target.value })}>
+              <option value="">Todas las marcas</option>
+              {brands.data?.data.map((b) => <option key={b.id} value={b.slug}>{b.name}</option>)}
+            </select>
+          </div>
 
-        <select className="input" aria-label="Forma de compra" value={query.sale_mode} onChange={(e) => update({ sale_mode: e.target.value })}>
-          {saleModes.map((m) => <option key={m.value} value={m.value}>{m.label}</option>)}
-        </select>
+          <div className="field">
+            <label htmlFor="f-mode">Forma de compra</label>
+            <select id="f-mode" className="input" value={query.sale_mode} onChange={(e) => update({ sale_mode: e.target.value })}>
+              {saleModes.map((m) => <option key={m.value} value={m.value}>{m.label}</option>)}
+            </select>
+          </div>
 
-        <select className="input" aria-label="Ordenar por" value={query.sort} onChange={(e) => update({ sort: e.target.value })}>
-          {sorts.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
-        </select>
+          <label className="check filters__stock">
+            <input type="checkbox" checked={!!query.in_stock} onChange={(e) => update({ in_stock: e.target.checked ? '1' : '' })} />
+            <span>Solo disponibles</span>
+          </label>
 
-        <label className="check filters__stock">
-          <input type="checkbox" checked={!!query.in_stock} onChange={(e) => update({ in_stock: e.target.checked ? '1' : '' })} />
-          <span>Solo disponibles</span>
-        </label>
+          <div className="filters__panel-foot">
+            <button type="button" className="btn btn--ghost" onClick={() => { setParams({}); setSheet(false) }} disabled={filterCount === 0 && !query.q}>Limpiar</button>
+            <button type="button" className="btn btn--accent" onClick={() => setSheet(false)}>
+              {meta ? `Ver ${meta.total} ${meta.total === 1 ? 'producto' : 'productos'}` : 'Aplicar'}
+            </button>
+          </div>
+        </div>
       </form>
 
       {activeChips.length > 0 && (

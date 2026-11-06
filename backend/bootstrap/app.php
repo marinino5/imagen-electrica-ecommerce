@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\EnsureUserHasRole;
+use App\Http\Middleware\SecurityHeaders;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -20,6 +21,9 @@ return Application::configure(basePath: dirname(__DIR__))
         // Render termina el HTTPS en su proxy y nos llama por HTTP: se confía en sus
         // cabeceras X-Forwarded-* para que url(), route() y asset() generen https://
         $middleware->trustProxies(at: '*');
+
+        // Encabezados de seguridad en todas las respuestas (panel y API)
+        $middleware->append(SecurityHeaders::class);
 
         $middleware->alias([
             'role' => EnsureUserHasRole::class,

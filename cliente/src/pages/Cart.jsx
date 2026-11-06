@@ -28,7 +28,7 @@ function Line({ line, showPrice }) {
     <li className={`line ${product.image_url ? '' : 'line--fallback'}`}>
       {image ? <img src={image} alt="" width="72" height="72" loading="lazy" /> : <div className="line__ph" />}
       <div className="line__info">
-        <strong>{product.name}</strong>
+        <Link to={`/productos/${product.slug}`} className="line__name"><strong>{product.name}</strong></Link>
         <span>Ref. {product.sku}{product.brand ? ` · ${product.brand}` : ''}</span>
         {showPrice && <span>{formatCOP(product.price)} por {product.unit}</span>}
         {overStock && <span className="field-error">Pides más de lo disponible ({product.stock}): va como cotización.</span>}
@@ -40,6 +40,7 @@ function Line({ line, showPrice }) {
         <input
           className="input"
           type="number"
+          inputMode="numeric"
           min="1"
           step="1"
           value={quantity}
@@ -175,7 +176,7 @@ export default function Cart() {
           </section>
         </div>
 
-        <form className="cart__side card" onSubmit={submit} noValidate>
+        <form id="cart-form" className="cart__side card" onSubmit={submit} noValidate>
           <h2 className="block-title">Enviar solicitud</h2>
 
           {error && (
@@ -199,6 +200,7 @@ export default function Cart() {
             <Field
               label={savedAddress ? 'Dirección de entrega (opcional)' : 'Dirección de entrega'}
               value={address}
+              autoComplete="street-address"
               onChange={(e) => setAddress(e.target.value)}
               error={error?.fieldError?.('address')}
               hint={savedAddress ? `Si lo dejas vacío usamos: ${savedAddress}` : undefined}
@@ -224,6 +226,24 @@ export default function Cart() {
             </div>
           )}
         </form>
+      </div>
+
+      {/* Resumen fijo abajo en celular */}
+      <div className="cart__bar" role="region" aria-label="Resumen del carrito">
+        <div>
+          <strong>{purchaseLines.length > 0 ? formatCOP(purchaseTotal) : 'Por cotizar'}</strong>
+          <small>
+            {purchaseLines.length > 0 ? 'Compra directa, IVA incluido' : `${quoteLines.length} ${quoteLines.length === 1 ? 'producto' : 'productos'}`}
+            {purchaseLines.length > 0 && quoteLines.length > 0 ? ` + ${quoteLines.length} por cotizar` : ''}
+          </small>
+        </div>
+        {isAuthenticated ? (
+          <button type="submit" form="cart-form" className="btn btn--accent btn--lg" disabled={busy}>
+            {busy ? 'Enviando…' : 'Enviar solicitud'}
+          </button>
+        ) : (
+          <Link to="/ingresar" state={{ from: location.pathname }} className="btn btn--accent btn--lg">Ingresar y enviar</Link>
+        )}
       </div>
     </div>
     </>
