@@ -1,40 +1,51 @@
-import { MessageCircle, Zap } from 'lucide-react'
+import { FileText, MessageCircle } from 'lucide-react'
 import { site } from '../../config/site'
-import WordReveal from '../ui/WordReveal'
+import Bezel from '../ui/Bezel'
+import Eyebrow from '../ui/Eyebrow'
+import Pill from '../ui/Pill'
 import OrderPreview from './OrderPreview'
-import BenefitStack from './BenefitStack'
-import '../../styles/kit.css'
+import BenefitCards from './BenefitCards'
 import '../../styles/auth.css'
 
-// Crear cuenta e ingresar: sobre el fondo global con arcos. A la izquierda el título, la vista previa de
-// Mi cuenta y los beneficios; a la derecha el formulario en una tarjeta blanca.
+// Crear cuenta e ingresar. A la izquierda: título grande, "Así verás tus pedidos" (ejemplo animado) y
+// 3 beneficios. A la derecha: el aviso de cotización sin cuenta, el formulario en bisel y la ayuda por WhatsApp.
 export default function AuthLayout({ eyebrow, lines, benefits, previewKind, children }) {
   return (
-    <section className="container auth">
+    <section className="wrap auth">
+      <span className="auth__ring" aria-hidden="true" />
       <aside className="auth__intro">
-        <span className="auth__arc auth__arc--orange" aria-hidden="true" />
-        <span className="auth__arc auth__arc--violet" aria-hidden="true" />
-        <p className="eyebrow"><Zap size={14} aria-hidden="true" /> {eyebrow}</p>
-        <WordReveal as="h1" className="display auth__title" lines={lines} />
-        <figure className="auth__photo">
-          <img
-            src="/img/fotos/crear-cuenta-sm.webp"
-            srcSet="/img/fotos/crear-cuenta-sm.webp 640w, /img/fotos/crear-cuenta.webp 1280w"
-            sizes="(min-width: 960px) 40vw, 100vw"
-            alt="Sala de tableros eléctricos industriales"
-            width="640"
-            height="338"
-            loading="lazy"
-          />
-        </figure>
-        <OrderPreview kind={previewKind} />
-        <BenefitStack items={benefits} />
+        <Eyebrow>{eyebrow}</Eyebrow>
+        <h1 className="h-hero auth__title">
+          {lines.map((line, i) => (line.accent ? <em key={i}>{line.text}</em> : <span key={i}>{line.text}</span>))}
+        </h1>
+        <div className="auth__preview">
+          <OrderPreview kind={previewKind} />
+        </div>
+        <BenefitCards items={benefits} />
       </aside>
+
       <div className="auth__main">
+        <Bezel className="auth-note">
+          <div className="auth-note__core">
+            <span className="auth-note__ic"><FileText size={20} strokeWidth={1.5} aria-hidden="true" /></span>
+            <p><strong>¿Solo quieres cotizar?</strong> No necesitas cuenta.</p>
+            <Pill as="link" to="/carrito#cotizacion" tone="l" size="sm">Ir a cotizar</Pill>
+          </div>
+        </Bezel>
+
         {children}
-        <a className="btn btn--ghost btn--block auth__wa" href={site.whatsappLink('Hola, necesito ayuda para crear mi cuenta o ingresar en la tienda.')} target="_blank" rel="noreferrer">
-          <MessageCircle size={18} aria-hidden="true" /> ¿Necesitas ayuda? Escríbenos por WhatsApp
-        </a>
+
+        <Pill
+          as="a"
+          href={site.whatsappLink('Hola, necesito ayuda para crear mi cuenta o ingresar en la tienda.')}
+          target="_blank"
+          rel="noreferrer"
+          tone="l"
+          icon={MessageCircle}
+          className="pill--block auth__wa"
+        >
+          ¿Necesitas ayuda? Escríbenos por WhatsApp
+        </Pill>
       </div>
     </section>
   )

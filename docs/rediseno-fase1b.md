@@ -46,3 +46,7 @@ Las referencias de abajo vienen de búsquedas en internet; son guías de proveed
 - Las guías de páginas de contacto B2B piden varios canales juntos, a la vista y sin obligar a llenar un formulario primero. Idea tomada: tres tarjetas de acción justo debajo de la portada (WhatsApp, llamar, correo), el formulario inteligente después y el mapa al final.
 - Portada sobre lavanda con un aro naranja grande y el teléfono en bisel con la conversación de ejemplo animada (burbujas una por una, marcada "Ejemplo"): enseña qué va a pasar al escribir.
 - Sin nombres propios: la línea principal va primero y las otras dos solo con su número.
+
+## Crear cuenta e Ingresar
+- Los flujos de registro B2B funcionan mejor cuando muestran qué se gana y dejan una salida para quien no quiere registrarse. Idea tomada: a la izquierda título grande, el ejemplo animado de "Así verás tus pedidos" (línea de estados) y tres beneficios en tarjetas de bisel; a la derecha el formulario con pasos y un aviso visible: "¿Solo quieres cotizar? No necesitas cuenta".
+- Se quita la foto del pasillo de tableros. En celular el formulario va primero.
