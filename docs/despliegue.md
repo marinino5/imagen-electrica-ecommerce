@@ -75,6 +75,7 @@ Se ponen en el servicio, en **Environment**. Los valores marcados como *secreto*
 
 | Variable | Valor |
 |---|---|
+| `SANCTUM_TOKEN_EXPIRATION` | `10080` (minutos; el token de la API vence a los 7 días) |
 | `CORS_ALLOWED_ORIGINS` | orígenes permitidos separados por coma, ej. `http://localhost:5173,https://tu-tienda.pages.dev` |
 
 `PORT` lo define Render solo; no hay que ponerla.
