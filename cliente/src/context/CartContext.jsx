@@ -11,6 +11,9 @@ const snapshot = (p) => ({
   sku: p.sku,
   name: p.name,
   slug: p.slug,
+  line_slug: p.line_slug ?? null,
+  line_name: p.line_name ?? null,
+  label: p.label ?? null,
   image_url: p.image_url,
   unit: p.unit,
   unit_label: p.unit_label,
@@ -18,7 +21,7 @@ const snapshot = (p) => ({
   tax_rate: p.tax_rate,
   stock: p.stock,
   sale_mode: p.sale_mode,
-  brand: p.brand?.name ?? null,
+  brand: p.brand?.name ?? p.brand ?? null,
   category: p.category ?? null,
 })
 

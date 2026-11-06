@@ -1,204 +1,193 @@
 .site-header {
   position: fixed;
-  inset: var(--header-gap) 0 auto 0;
+  inset: 0 0 auto 0;
   z-index: var(--z-header);
-  padding-inline: clamp(10px, 2vw, 16px);
   pointer-events: none; /* solo la isla recibe clics */
 }
+.navw {
+  display: flex;
+  justify-content: center;
+  padding: 0 12px;
+  margin-top: calc(env(safe-area-inset-top, 0px) + 12px);
+}
 
-/* ---- Isla flotante ---- */
-.island {
-  min-width: 0;
+/* ---- Isla flotante tipo píldora ---- */
+.nav {
   pointer-events: auto;
   display: flex;
   align-items: center;
-  gap: 8px;
-  max-width: var(--container);
-  height: var(--header-h);
-  margin-inline: auto;
-  padding: 0 10px 0 16px;
-  border: 1px solid var(--on-dark-line);
-  border-radius: var(--radius-lg);
-  background: rgb(38 28 62 / 0.85);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  gap: 6px;
+  width: 100%;
+  max-width: 1280px;
+  min-width: 0;
+  padding: 6px 6px 6px 18px;
+  border-radius: 999px;
+  background: rgb(30 22 49 / 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   color: var(--white);
-  transition: box-shadow 0.3s;
+  box-shadow: 0 18px 40px -22px rgb(30 22 49 / 0.7), inset 0 0 0 1px rgb(255 255 255 / 0.06);
+  transition: box-shadow 0.5s var(--ease-sys);
 }
-.island.is-scrolled {
-  box-shadow: var(--shadow-lg);
+.nav.is-scrolled {
+  box-shadow: 0 22px 50px -20px rgb(30 22 49 / 0.85), inset 0 0 0 1px rgb(255 255 255 / 0.08);
 }
-.island__logo {
+.nav__logo {
   display: flex;
   align-items: center;
+  min-width: 44px;
   margin-right: auto;
 }
-.island__logo img {
+.nav__logo img {
   width: auto;
-  height: 44px;
-}
-.island__nav {
-  display: none;
-}
-.island__actions {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-}
-.island__actions a {
-  color: var(--white);
-}
-.island .island__search,
-.island .island__account,
-.island .island__quote {
-  display: none;
-}
-.island .island__searchbtn {
-  display: inline-grid;
-}
-.icon-btn {
-  position: relative;
-}
-.island .icon-btn:hover {
-  background: var(--glass-bg);
-}
-
-/* Buscador compacto */
-.header-search {
-  display: flex;
-  align-items: center;
   height: 40px;
-  padding-left: 14px;
-  border: 1.5px solid var(--glass-border);
-  border-radius: var(--radius-pill);
-  background: var(--glass-bg);
-  transition: border-color 0.2s, background 0.2s;
 }
-.header-search:focus-within {
-  border-color: var(--white);
-  background: rgb(255 255 255 / 0.2);
+.nav__links {
+  display: none;
 }
-.header-search input {
-  width: 140px;
-  min-width: 0;
-  border: 0;
-  outline: none;
-  background: transparent;
-  color: var(--white);
-  font-size: 0.9rem;
-  transition: width 0.25s var(--ease);
-}
-.header-search input::placeholder {
-  color: var(--on-dark-muted);
-}
-.header-search input:focus {
-  width: 180px;
-}
-.header-search button {
+.nav__icon {
   display: grid;
   place-items: center;
-  width: 38px;
-  height: 100%;
+  width: 44px;
+  height: 44px;
   border: 0;
+  border-radius: 50%;
   background: transparent;
   color: var(--white);
+  transition: background 0.5s var(--ease-sys);
 }
-
-.island__account {
+.nav__icon:hover {
+  background: rgb(255 255 255 / 0.1);
+}
+.nav__account {
+  display: none;
+}
+.nav__cart {
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  min-height: 40px;
-  padding: 0 16px;
-  margin-inline: 6px;
-  border: 1.5px solid var(--glass-border);
-  border-radius: var(--radius-pill);
-  font-size: 0.9rem;
-  font-weight: 600;
+  min-height: 44px;
+  padding: 6px 6px 6px 16px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
   text-decoration: none;
-  white-space: nowrap;
-  transition: background 0.2s;
+  transition: transform 0.5s var(--ease-sys);
 }
-.island__account:hover {
-  background: var(--glass-bg);
+.nav__cart:hover {
+  transform: translateY(-1px);
+}
+.nav__cart i {
+  display: grid;
+  place-items: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: rgb(30 22 49 / 0.14);
+  font-size: 12px;
+  font-style: normal;
 }
 
+@media (min-width: 1024px) {
+  .nav {
+    width: auto;
+    padding-left: 22px;
+  }
+  .nav__logo {
+    margin-right: 10px;
+  }
+  .nav__links {
+    display: flex;
+    gap: 2px;
+    margin-right: 10px;
+  }
+  .nav__links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 14px;
+    border-radius: 999px;
+    color: #c9c0df;
+    font-size: 13.5px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.5s var(--ease-sys), color 0.5s var(--ease-sys);
+  }
+  .nav__links a:hover {
+    color: var(--white);
+    background: rgb(255 255 255 / 0.07);
+  }
+  .nav__links a.active {
+    color: var(--white);
+    background: rgb(255 255 255 / 0.1);
+  }
+  .nav__account {
+    display: grid;
+  }
+  .nav__burger {
+    display: none;
+  }
+}
+
+/* Contador en círculo del carrito (también lo usa la barra inferior) */
 .count-badge {
   position: absolute;
   top: 2px;
   right: 0;
+  display: grid;
+  place-items: center;
   min-width: 19px;
   height: 19px;
   padding: 0 5px;
-  display: grid;
-  place-items: center;
-  border-radius: var(--radius-pill);
+  border-radius: 999px;
   background: var(--accent);
   color: var(--ink);
   font-size: 0.7rem;
   font-weight: 700;
   line-height: 1;
 }
-
-@media (min-width: 1024px) {
-  .island__burger {
-    display: none;
-  }
-  .island__logo {
-    margin-right: 20px;
-  }
-  .island__nav {
-    display: flex;
-    gap: 2px;
-    margin-right: auto;
-  }
-  .island__nav a {
-    position: relative;
-    padding: 8px 12px;
-    border-radius: var(--radius-pill);
-    color: var(--on-dark-muted);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.92rem;
-    white-space: nowrap;
-    transition: color 0.2s, background 0.2s;
-  }
-  .island__nav a:hover {
-    color: var(--white);
-    background: var(--glass-bg);
-  }
-  .island__nav a.active {
-    color: var(--white);
-  }
-  .island__nav a.active::after {
-    content: '';
-    position: absolute;
-    left: 14px;
-    right: 14px;
-    bottom: 2px;
-    height: 2px;
-    border-radius: 2px;
-    background: var(--accent);
-  }
-  .island .island__search {
-    display: flex;
-  }
-  .island .island__account {
-    display: inline-flex;
-  }
-  .island .island__quote {
-    display: inline-grid;
-  }
-  .island .island__searchbtn {
-    display: none;
-  }
+.icon-btn {
+  position: relative;
 }
-@media (min-width: 1024px) and (max-width: 1180px) {
-  .island__account span {
-    display: none;
-  }
-  .island__account {
-    padding: 0 10px;
-  }
+
+/* Buscador compacto del menú móvil */
+.header-search {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding-left: 14px;
+  border: 1.5px solid var(--glass-border);
+  border-radius: 999px;
+  background: var(--glass-bg);
+}
+.header-search:focus-within {
+  border-color: var(--white);
+  background: rgb(255 255 255 / 0.2);
+}
+.header-search input {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--white);
+  font-size: 1rem;
+}
+.header-search input::placeholder {
+  color: var(--on-dark-muted);
+}
+.header-search button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--white);
 }
 
 /* ---- Menú móvil a pantalla completa ---- */

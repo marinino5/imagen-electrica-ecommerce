@@ -53,10 +53,15 @@ class CatalogSeeder extends Seeder
         $result = [];
 
         foreach ($families as $i => $family) {
-            $result[$family['name']] = Category::firstOrCreate(
+            $result[$family['name']] = $category = Category::firstOrCreate(
                 ['slug' => Str::slug($family['name'])],
                 ['name' => $family['name'], 'description' => $family['description'], 'sort_order' => 100 + $i, 'is_active' => true],
             );
+
+            // Una familia que ya existía como categoría raíz antigua toma el orden del portafolio
+            if ($category->sort_order !== 100 + $i) {
+                $category->update(['sort_order' => 100 + $i]);
+            }
         }
 
         return $result;

@@ -76,7 +76,7 @@ export default function Footer() {
             <ul className="footer__contact">
               <li><MapPin size={16} aria-hidden="true" /> <span>{site.address}<br />{site.city}</span></li>
               {site.phones.map((p) => (
-                <li key={p.href}><Phone size={16} aria-hidden="true" /> <a href={p.href}>{p.label}</a> <small>{p.name}</small></li>
+                <li key={p.href}><Phone size={16} aria-hidden="true" /> <a href={p.href}>{p.label}</a>{p.main && <small> · línea principal</small>}</li>
               ))}
               <li><Mail size={16} aria-hidden="true" /> <a href={`mailto:${site.email}`}>{site.email}</a></li>
             </ul>

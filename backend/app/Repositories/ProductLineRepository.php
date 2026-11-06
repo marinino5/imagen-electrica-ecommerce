@@ -149,7 +149,7 @@ class ProductLineRepository
     /**
      * Marcas con su número de líneas ("Siemens · WEG" cuenta para las dos) y totales para el encabezado del catálogo.
      *
-     * @return array{brands: list<array{name: string, count: int}>, lines: int, references: int}
+     * @return array{brands: list<array{name: string, count: int}>, families: int, lines: int, references: int}
      */
     public function facets(): array
     {
@@ -165,6 +165,7 @@ class ProductLineRepository
 
         return [
             'brands' => collect($counts)->map(fn (int $count, string $name) => ['name' => $name, 'count' => $count])->values()->all(),
+            'families' => Category::query()->whereNull('parent_id')->where('is_active', true)->where('sort_order', '>=', 100)->count(),
             'lines' => ProductLine::query()->where('is_active', true)->count(),
             'references' => Product::query()->where('is_active', true)->whereNotNull('line_id')->count(),
         ];

@@ -14,7 +14,7 @@ export default function StoreMap() {
         <p className="store-map__city">{site.city}</p>
         <ul className="store-map__list">
           {site.phones.map((p) => (
-            <li key={p.href}><Phone size={16} aria-hidden="true" /><a href={p.href}>{p.label}</a> <small>· {p.name}</small></li>
+            <li key={p.href}><Phone size={16} aria-hidden="true" /><a href={p.href}>{p.label}</a>{p.main && <small> · línea principal</small>}</li>
           ))}
           <li><Mail size={16} aria-hidden="true" /><a href={`mailto:${site.email}`}>{site.email}</a></li>
         </ul>

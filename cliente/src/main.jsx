@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 // Los estilos globales van primero: así los de cada componente pueden sobrescribirlos
 import './styles/variables.css'
 import './styles/base.css'
+import './styles/system.css'
 import App from './App'
 
 createRoot(document.getElementById('root')).render(

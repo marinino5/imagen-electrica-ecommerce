@@ -10,8 +10,12 @@
   --lavender-2: #e9e3f4; /* bordes, chips, fondos de tarjetas */
   --primary: #513e84; /* títulos de acento, iconos, enlaces, estados activos */
   --primary-dark: #463671; /* hover del violeta */
-  --ink: #261c3e; /* texto principal y secciones oscuras */
-  --muted: rgb(38 28 62 / 0.72); /* ink al 72 %: texto secundario (contraste AA sobre blanco, lavanda y lavanda 2) */
+  --ink: #1e1631; /* texto principal y secciones oscuras (maqueta aprobada) */
+  --ink-2: #2b2145; /* placa de datos y degradados ink */
+  --lav-3: #dcd3ec; /* contornos suaves */
+  --orange-tint: #ffe6d3; /* etiquetas "Cotización" */
+  --ease-sys: cubic-bezier(0.32, 0.72, 0, 1); /* curva de todo el movimiento, de 500 a 900 ms */
+  --muted: #5d5672; /* ink al 72 %: texto secundario (contraste AA sobre blanco, lavanda y lavanda 2) */
   --accent: #f26a00; /* CTA principal y "la corriente"; el botón lleva siempre texto --ink */
 
   /* Degradados de marca */

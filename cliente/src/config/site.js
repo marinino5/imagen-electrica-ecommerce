@@ -4,9 +4,10 @@ const dialable = (phone) => phone.replace(/[^\d+]/g, '')
 
 // Contacto principal y secundarios (fuente única de teléfonos y WhatsApp de toda la tienda)
 const contacts = [
-  { name: 'María Ruth', role: 'Atención comercial', label: '+57 316 821 9758', whatsapp: '573168219758', main: true },
-  { name: 'Daniel', label: '+57 301 742 3427', whatsapp: '573017423427' },
-  { name: 'Juan José', label: '+57 304 521 0355', whatsapp: '573045210355' },
+  // Sin nombres propios: el primero es la línea principal; los otros dos se muestran solo con su número
+  { role: 'Línea principal', label: '+57 316 821 9758', whatsapp: '573168219758', main: true },
+  { label: '+57 301 742 3427', whatsapp: '573017423427' },
+  { label: '+57 304 521 0355', whatsapp: '573045210355' },
 ].map((c) => ({ ...c, href: `tel:${dialable(c.label)}` }))
 
 const whatsapp = import.meta.env.VITE_WHATSAPP_NUMBER ?? contacts[0].whatsapp
@@ -44,7 +45,7 @@ export const site = {
 
 export const mainMenu = [
   { to: '/', label: 'Inicio', end: true },
-  { to: '/productos', label: 'Nuestros productos' },
+  { to: '/productos', label: 'Productos' },
   { to: '/como-comprar', label: 'Cómo comprar' },
   { to: '/nosotros', label: 'Nosotros' },
   { to: '/contacto', label: 'Contacto' },

@@ -33,7 +33,7 @@ export default function AuthLayout({ eyebrow, lines, benefits, previewKind, chil
       <div className="auth__main">
         {children}
         <a className="btn btn--ghost btn--block auth__wa" href={site.whatsappLink('Hola, necesito ayuda para crear mi cuenta o ingresar en la tienda.')} target="_blank" rel="noreferrer">
-          <MessageCircle size={18} aria-hidden="true" /> ¿Necesitas ayuda? Escríbele a {site.mainContact.name}
+          <MessageCircle size={18} aria-hidden="true" /> ¿Necesitas ayuda? Escríbenos por WhatsApp
         </a>
       </div>
     </section>

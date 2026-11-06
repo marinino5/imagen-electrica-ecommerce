@@ -29,7 +29,7 @@ export default function ContactCover() {
               <Mail size={20} aria-hidden="true" /> Correo
             </a>
           </div>
-          <p className="contact-cover__who">Atención comercial: <strong>{site.mainContact.name}</strong> · {site.mainContact.label}</p>
+          <p className="contact-cover__who">Línea principal: <strong>{site.mainContact.label}</strong></p>
         </div>
         <figure className="contact-cover__photo">
           <img

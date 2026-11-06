@@ -3,7 +3,6 @@ import { Outlet, useLocation } from 'react-router-dom'
 import Header from './Header'
 import Footer from './Footer'
 import WhatsAppButton from './WhatsAppButton'
-import BrandBackdrop from './BrandBackdrop'
 import BottomNav, { barFor } from './BottomNav'
 
 // Al cambiar de ruta se vuelve arriba (o al ancla #, si la hay)
@@ -32,7 +31,6 @@ export default function Layout() {
   return (
     <>
       <a className="skip-link" href="#contenido">Saltar al contenido</a>
-      <BrandBackdrop />
       <ScrollManager />
       <Header />
       <main id="contenido" className={offset}>

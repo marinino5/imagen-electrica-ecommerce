@@ -116,7 +116,7 @@ export default function ProductDetail() {
           )}
 
           <a className="btn btn--ghost btn--block" href={site.whatsappLink(`Hola, quiero información sobre ${product.name} (SKU ${product.sku}).`)} target="_blank" rel="noreferrer">
-            <MessageCircle size={18} aria-hidden="true" /> Preguntar a {site.mainContact.name} por este producto
+            <MessageCircle size={18} aria-hidden="true" /> Consulta con un asesor
           </a>
 
           <p className="pdetail__warranty">

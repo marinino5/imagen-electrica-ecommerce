@@ -1,0 +1,80 @@
+// Reglas de presentación del catálogo por líneas (familia → categoría → línea → referencias).
+import { formatCOP } from './format'
+
+export const lineImage = (line) => (line?.image ? `/img/categorias/${line.image}.webp` : null)
+
+export const hpText = (hp) => `${String(hp).replace('.', ',')} HP`
+
+// Rangos de potencia y de corriente para los chips de filtro
+export const HP_RANGES = [
+  { key: 'h1', label: 'Hasta 1 HP', min: 0, max: 1 },
+  { key: 'h5', label: 'Más de 1 a 5 HP', min: 1.001, max: 5 },
+  { key: 'h15', label: 'Más de 5 a 15 HP', min: 5.001, max: 15 },
+  { key: 'h50', label: 'Más de 15 a 50 HP', min: 15.001, max: 50 },
+  { key: 'h51', label: 'Más de 50 HP', min: 50.001, max: Infinity },
+]
+export const AMP_RANGES = [
+  { key: 'a10', label: 'Hasta 10 A', min: 0, max: 10 },
+  { key: 'a40', label: 'Más de 10 a 40 A', min: 10.001, max: 40 },
+  { key: 'a100', label: 'Más de 40 a 100 A', min: 40.001, max: 100 },
+  { key: 'a101', label: 'Más de 100 A', min: 100.001, max: Infinity },
+]
+
+const hasHp = (line, range) => line.hp_values.some((h) => h >= range.min && h <= range.max)
+const hasAmp = (line, range) => line.amp_min !== null && line.amp_min <= range.max && line.amp_max >= range.min
+
+export const buyMode = (line) => (line.sale_mode === 'direct' ? 'on' : 'q')
+
+export const modeTag = (line) =>
+  line.sale_mode === 'direct' ? 'Compra en línea' : line.sale_mode === 'quote' ? 'Cotización' : 'Bajo pedido'
+
+export const priceText = (line) => (line.price_from !== null ? `Desde ${formatCOP(line.price_from)}` : 'Precio por cotización')
+export const priceNote = (line) =>
+  line.price_from !== null ? 'IVA incluido' : line.refs_count ? 'Respuesta de un asesor' : 'Bajo pedido · cotizar'
+
+/**
+ * Filtra las líneas. st: { family, category, mode ('on'|'q'|''), brands (array), hp, amp, stock, slugs (Set|null) }
+ * slugs es el resultado de la búsqueda en el servidor (incluye SKU y nombre de referencia).
+ */
+export function filterLines(lines, st) {
+  const hp = HP_RANGES.find((r) => r.key === st.hp)
+  const amp = AMP_RANGES.find((r) => r.key === st.amp)
+  return lines.filter(
+    (l) =>
+      (!st.family || l.family?.slug === st.family) &&
+      (!st.category || l.category?.slug === st.category) &&
+      (!st.mode || buyMode(l) === st.mode) &&
+      (!st.brands.length || st.brands.some((b) => (l.brand_label ?? '').split(' · ').includes(b))) &&
+      (!hp || hasHp(l, hp)) &&
+      (!amp || hasAmp(l, amp)) &&
+      (!st.stock || l.stock_total > 0) &&
+      (!st.slugs || st.slugs.has(l.slug)),
+  )
+}
+
+export function sortLines(lines, order) {
+  const copy = [...lines]
+  if (order === 'refs') return copy.sort((a, b) => b.refs_count - a.refs_count)
+  if (order === 'stock') return copy.sort((a, b) => b.stock_total - a.stock_total)
+  return copy // recomendados: el orden del portafolio
+}
+
+/** Qué rangos de HP y de A tienen al menos una línea (para mostrar solo los que sirven). */
+export function availableRanges(lines) {
+  return {
+    hp: HP_RANGES.filter((r) => lines.some((l) => hasHp(l, r))),
+    amp: AMP_RANGES.filter((r) => lines.some((l) => hasAmp(l, r))),
+  }
+}
+
+/** Referencia lista para el carrito: lleva los datos de la línea para mostrarla y volver a la ficha. */
+export function cartItem(line, variant) {
+  return {
+    ...variant,
+    brand: variant.brand ?? line.brand,
+    category: line.category,
+    line_slug: line.slug,
+    line_name: line.name,
+    image_url: lineImage(line),
+  }
+}

@@ -5,6 +5,10 @@ export const catalogApi = {
   /** filtros: q, category (slug), brand (slug), sale_mode, featured, in_stock, sort, per_page, page */
   products: (params, signal) => get('/products', { params, signal }),
   product: (slug) => get(`/products/${encodeURIComponent(slug)}`),
+  /** Catálogo por líneas (fichas): filtros q, family, category, brand, mode, in_stock, hp_min, hp_max */
+  lines: (params, signal) => get('/lines', { params: { per_page: 50, ...params }, signal }),
+  line: (slug) => get(`/lines/${encodeURIComponent(slug)}`),
+  families: () => get('/families'),
   categories: () => get('/categories', { params: { per_page: 50 } }),
   brands: () => get('/brands', { params: { per_page: 50 } }),
 }
