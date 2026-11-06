@@ -16,7 +16,7 @@ export default function ContactCard() {
         </li>
         <li>
           <span><Phone size={20} aria-hidden="true" /></span>
-          <div><h3>Teléfonos</h3>{site.phones.map((p) => <a key={p.href} href={p.href}>{p.label}</a>)}</div>
+          <div><h3>Teléfonos</h3>{site.contacts.map((p) => <a key={p.href} href={p.href}>{p.label} <small>· {p.name}{p.main ? ' (principal)' : ''}</small></a>)}</div>
         </li>
         <li>
           <span><Mail size={20} aria-hidden="true" /></span>

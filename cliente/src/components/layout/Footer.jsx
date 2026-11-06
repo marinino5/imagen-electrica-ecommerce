@@ -76,7 +76,7 @@ export default function Footer() {
             <ul className="footer__contact">
               <li><MapPin size={16} aria-hidden="true" /> <span>{site.address}<br />{site.city}</span></li>
               {site.phones.map((p) => (
-                <li key={p.href}><Phone size={16} aria-hidden="true" /> <a href={p.href}>{p.label}</a></li>
+                <li key={p.href}><Phone size={16} aria-hidden="true" /> <a href={p.href}>{p.label}</a> <small>{p.name}</small></li>
               ))}
               <li><Mail size={16} aria-hidden="true" /> <a href={`mailto:${site.email}`}>{site.email}</a></li>
             </ul>
@@ -86,7 +86,9 @@ export default function Footer() {
         <div className="footer__legal">
           <div className="container">
             <span>
-              © {new Date().getFullYear()} Imagen Eléctrica · <Link to="/politica-datos">Política de datos</Link>
+              © {new Date().getFullYear()} {site.legalName || 'Imagen Eléctrica'}
+              {site.nit && <> · NIT {site.nit}</>} · <Link to="/politica-datos">Política de datos</Link> ·{' '}
+              <a href={site.sicUrl} target="_blank" rel="noreferrer">Superintendencia de Industria y Comercio (SIC)</a>
             </span>
             <span>Precios en COP con IVA incluido</span>
           </div>
