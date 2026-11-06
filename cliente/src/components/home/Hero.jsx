@@ -95,7 +95,7 @@ function Slide({ slide, index, active, still, mobile }) {
       {media && (
         <div className="hero__sharp">
           {clip ? (
-            <video ref={videoRef} key={clip.mp4} muted loop playsInline preload="metadata" poster={media.poster} style={fit}>
+            <video ref={videoRef} key={clip.mp4} aria-hidden="true" tabIndex={-1} muted loop playsInline preload="metadata" poster={media.poster} style={fit}>
               {clip.webm && <source src={clip.webm} type="video/webm" />}
               <source src={clip.mp4} type="video/mp4" />
             </video>

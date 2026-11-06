@@ -71,7 +71,7 @@
   position: relative;
   z-index: 4;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   align-items: center;
   gap: 32px;
   padding-top: calc(var(--header-space) + 32px);
@@ -302,4 +302,19 @@
 }
 .hero__tag svg {
   color: var(--accent);
+}
+
+/* Pantallas muy angostas: "MOTORREDUCTORES" no cabe al tamaño normal del título */
+@media (max-width: 400px) {
+  .hero__title {
+    font-size: clamp(1.85rem, 9.4vw, 2.5rem);
+    overflow-wrap: anywhere;
+  }
+}
+
+.hero__content {
+  min-width: 0;
+}
+.hero__search {
+  min-width: 0;
 }

@@ -11,7 +11,7 @@
   --primary: #513e84; /* títulos de acento, iconos, enlaces, estados activos */
   --primary-dark: #463671; /* hover del violeta */
   --ink: #261c3e; /* texto principal y secciones oscuras */
-  --muted: rgb(38 28 62 / 0.65); /* ink al 65 %: texto secundario */
+  --muted: rgb(38 28 62 / 0.72); /* ink al 72 %: texto secundario (contraste AA sobre blanco, lavanda y lavanda 2) */
   --accent: #f26a00; /* CTA principal y "la corriente"; el botón lleva siempre texto --ink */
 
   /* Degradados de marca */

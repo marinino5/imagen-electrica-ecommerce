@@ -506,7 +506,7 @@
 /* Celular: dos columnas para que el bloque sea corto; la primera y la última van a todo el ancho */
 @media (max-width: 639px) {
   .bento {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
   }
   .bento__item {
@@ -520,7 +520,11 @@
     padding: 14px;
   }
   .bento__title {
-    font-size: 1.05rem;
+    font-size: 0.92rem;
+    overflow-wrap: anywhere;
+  }
+  .bento__link {
+    padding: 12px;
   }
 }
 @media (min-width: 640px) {

@@ -497,3 +497,91 @@ textarea.input {
     min-height: 44px;
   }
 }
+
+/* ---- Enlaces de texto con 44 px de alto también en escritorio ---- */
+.crumbs a,
+.footer a:not(.btn),
+.footer__legal a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  min-width: 44px;
+}
+.island__nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* Botones y controles pequeños: 44 px de alto/ancho mínimo */
+.btn--sm {
+  min-height: 44px;
+}
+.pcard__quick {
+  min-height: 44px;
+}
+.pcard__name a {
+  display: inline-block;
+  min-height: 44px;
+  line-height: 1.3;
+  padding-block: 2px;
+}
+.island__account {
+  min-height: 44px;
+}
+.header-search {
+  height: 44px;
+}
+.header-search button {
+  width: 44px;
+}
+.header-search input {
+  min-height: 44px;
+}
+.ccard__list a,
+.store-map__list a,
+.footer__contact a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.how__more {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.feat-card__dots button {
+  width: 44px;
+  height: 44px;
+}
+.feat-card__dots button::after {
+  inset: 17px;
+}
+.feat-card__dots {
+  gap: 0;
+}
+
+/* Mayor especificidad que header.css y hero.css, que se cargan después */
+.island .header-search button {
+  width: 44px;
+}
+.island .island__account {
+  min-height: 44px;
+}
+.island__logo {
+  min-width: 44px;
+  justify-content: center;
+}
+.feat-card .feat-card__dots button {
+  width: 44px;
+  height: 44px;
+}
+.feat-card .feat-card__dots button::after {
+  inset: 17px;
+}
+.island .header-search {
+  height: 44px;
+}
+.mode-switch button {
+  min-height: 46px;
+}

@@ -8,6 +8,7 @@
 
 /* ---- Isla flotante ---- */
 .island {
+  min-width: 0;
   pointer-events: auto;
   display: flex;
   align-items: center;

@@ -104,7 +104,7 @@ function OrderRow({ order }) {
 
       {open && (
         <div className="order__body">
-          <table>
+          <table aria-label={`Productos de ${order.code}`}>
             <thead>
               <tr><th>Producto</th><th>Cant.</th><th>Valor</th></tr>
             </thead>
