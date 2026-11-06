@@ -18,3 +18,9 @@ Las referencias de abajo vienen de búsquedas en internet; son guías de proveed
 - Precio, stock y SKU se actualizan al instante; "Cotizar volumen" manda la referencia al bloque de cotización del carrito.
 - Miniaturas: la API aún no tiene más de una imagen por línea, así que la galería muestra una sola imagen y no se inventan vistas. El bisel y el componente ya admiten varias.
 - Celular: píldora ink fija con precio, variante y botón.
+
+## Carrito y cotización
+- Guías de carrito y checkout coinciden en tres cosas: resumen visible todo el tiempo, estimar el envío en el carrito y no pasar de unos pocos pasos. Idea tomada: pasos Revisa, Entrega y Confirma en la portada, resumen sticky a la derecha (fijo abajo en celular) y entrega con tarjetas seleccionables. El costo del envío local y nacional no se inventa: dice "lo confirma tu asesor".
+- En B2B es común un "Pedir cotización" dentro del carrito que ya lleva los productos, para no escribirlos otra vez. Idea tomada: bloque propio de cotización sin cuenta, con los renglones del carrito y un formulario corto (nombre, WhatsApp, correo, ciudad; empresa y NIT opcionales).
+- Sugerencias de la misma familia que los productos del carrito, con las mismas tarjetas del catálogo.
+- Confianza: envíos, asesoría y "pago seguro: próximamente" (no se afirma lo que todavía no existe).

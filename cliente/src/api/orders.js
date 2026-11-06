@@ -9,3 +9,8 @@ export const ordersApi = {
   list: (params) => get('/orders', { params, auth: true }),
   show: (code) => get(`/orders/${encodeURIComponent(code)}`, { auth: true }),
 }
+
+export const quotesApi = {
+  /** Cotización sin cuenta: público, con límite por IP. items: [{ product_id | line, quantity }] */
+  create: (payload) => post('/quote-requests', payload),
+}
