@@ -469,3 +469,31 @@ textarea.input {
     padding-bottom: var(--bottom-offset);
   }
 }
+
+/* ---- Áreas táctiles de 44 px en celular ---- */
+@media (max-width: 767px) {
+  .btn--sm,
+  .tabs button,
+  .chip {
+    min-height: 44px;
+  }
+  .island__logo {
+    min-width: 44px;
+  }
+  .crumbs a,
+  .footer a,
+  .footer__legal a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    min-width: 44px;
+  }
+  .footer .footer__body .footer__social a {
+    width: 44px;
+    height: 44px;
+  }
+  .pcard__name a {
+    display: inline-block;
+    min-height: 44px;
+  }
+}

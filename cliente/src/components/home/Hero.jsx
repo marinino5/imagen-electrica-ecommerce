@@ -13,9 +13,9 @@ import '../../styles/hero.css'
 const SLIDE_MS = 9000
 
 // Diapositivas del carrusel (exactamente 3). Cada una puede llevar un clip propio:
-//   media: { poster: '/media/hero-motores-poster.webp',
-//            desktop: { mp4: '/media/hero-motores.mp4', webm: '/media/hero-motores.webm' },   // 16:9
-//            mobile:  { mp4: '/media/hero-motores-m.mp4', webm: '/media/hero-motores-m.webm' }, // 9:16 o 4:5
+//   media: { poster: '/media/hero-d1-poster.webp',
+//            desktop: { mp4: '/media/hero-d1.mp4', webm: '/media/hero-d1.webm' },   // 16:9
+//            mobile:  { mp4: '/media/hero-d1-m.mp4', webm: '/media/hero-d1-m.webm' }, // 9:16 o 4:5
 //            pos: '50% 50%', posSm: '50% 50%' }
 // Sin `media`, la diapositiva usa el fondo de marca (degradado y arcos) hasta tener material con licencia.
 // Los clips aprobados se registran en docs/recursos.md. El contador, las barras y el avance se ajustan solos.

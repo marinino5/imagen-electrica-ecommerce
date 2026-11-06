@@ -38,3 +38,14 @@ Mientras no llegue, la diapositiva 1 del hero no muestra imagen de equipos. El n
 | `img/fachada.webp` | Foto de la fachada de la empresa | Propia | Nosotros | Usar |
 | `img/logo.png`, `img/logo-blanco.png` | Logo de la empresa | Propia | Encabezado, pie | Usar |
 | `img/categorias/*.webp` (8 líneas) | Composiciones hechas en Canva con renders | Por verificar; aspecto sintético | Mosaico de categorías y tarjetas sin foto | Provisional: reemplazar por fotos reales |
+
+## Edición de los videos del hero
+
+Con los clips ya descargados en `cliente/media-fuente/videos/`:
+
+```bash
+cd cliente
+scripts/procesar-hero.sh media-fuente/videos/<clip>.mp4 hero-d1 <segundo_inicio> <x_sujeto_0a1>
+```
+
+Genera en `public/media/`: `hero-dN.mp4/.webm` (16:9, 1920 px, menos de 3 MB), `hero-dN-m.mp4/.webm` (4:5, 720 px, menos de 1,5 MB), `hero-dN-poster.webp`, sin audio y con fundido para el loop. Después se agrega `media` a la diapositiva en `src/components/home/Hero.jsx` (el ejemplo está en el comentario del archivo). Probado con un clip de prueba sintético: los tamaños salen dentro de los límites.
