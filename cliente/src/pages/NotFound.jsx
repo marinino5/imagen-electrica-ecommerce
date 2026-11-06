@@ -1,16 +1,18 @@
-import { Link } from 'react-router-dom'
-import '../styles/pages.css'
+import Cover from '../components/ui/Cover'
+import Pill from '../components/ui/Pill'
 
 export default function NotFound() {
   return (
-    <section className="page-narrow">
-      <p className="eyebrow">Error 404</p>
-      <h1 className="page-title">No encontramos esa página</h1>
-      <p className="page-lead">Puede que el enlace haya cambiado. Vuelve al inicio o busca en el catálogo.</p>
-      <div className="row-actions">
-        <Link to="/" className="btn btn--primary">Ir al inicio</Link>
-        <Link to="/productos" className="btn btn--ghost">Ver productos</Link>
-      </div>
-    </section>
+    <Cover
+      eyebrow="Error 404"
+      lines={['No encontramos', { text: 'esa página', accent: true }]}
+      lead="Puede que el enlace haya cambiado. Vuelve al inicio o busca en el catálogo."
+      actions={
+        <>
+          <Pill as="link" to="/" tone="d">Ir al inicio</Pill>
+          <Pill as="link" to="/productos" tone="l">Ver productos</Pill>
+        </>
+      }
+    />
   )
 }

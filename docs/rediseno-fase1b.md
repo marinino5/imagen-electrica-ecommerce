@@ -55,3 +55,8 @@ Las referencias de abajo vienen de búsquedas en internet; son guías de proveed
 - Portada con saludo y un bento de tarjetas (pedidos, cotizaciones y una tarjeta ink con lo que está en curso y su último estado), en lugar de una fila de tres cajas iguales.
 - Cada pedido es una tarjeta de bisel con la línea de estados (la misma de Crear cuenta), "Volver a pedir" a la vista y el detalle plegable. "Volver a pedir" busca la referencia vigente por SKU para tomar precio, stock y línea actuales.
 - Datos editables solo donde el backend lo permite (`PUT /me`); las direcciones guardadas siguen marcadas como no disponibles.
+
+## Pie y encabezado
+- Encabezado: isla flotante tipo píldora a 12 px del borde (ink al 88 % con blur), carrito naranja con contador en círculo; en celular ocupa todo el ancho y debajo va la barra inferior. Menú móvil a pantalla completa con líneas, cuenta y contacto.
+- Pie: la banda naranja de cotizar se integró como la primera fila de una sola pieza de doble bisel en ink (aro naranja decorativo, divisor fino) con el pie completo debajo: marca y redes, tienda, líneas (las familias reales de la API), empresa y contacto sin nombres, con la barra legal (política de datos, enlace a la SIC y razón social/NIT si existen). En celular los bloques son acordeones. En el Inicio la fila de cotizar no se repite porque la página ya cierra con su propia banda.
+- Se retira el último encabezado de franja violeta (Política de datos pasa a la portada del sistema, igual que la 404).

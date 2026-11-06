@@ -465,7 +465,7 @@ textarea.input {
   :root[data-bar='action'] {
     --bottom-offset: calc(72px + env(safe-area-inset-bottom));
   }
-  :root[data-bar='nav'] .footer {
+  :root[data-bar='nav'] .ft {
     padding-bottom: var(--bottom-offset);
   }
 }
