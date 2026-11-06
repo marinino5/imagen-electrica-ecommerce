@@ -48,6 +48,8 @@ class LineResource extends JsonResource
             'category' => $this->category?->only(['id', 'name', 'slug']),
             // Clave de la imagen de la línea en la tienda (public/img/categorias/{clave}.webp)
             'image' => $this->image_key,
+            // Foto propia de la línea (ruta pública en la tienda); nula hasta que se carga. Sin ella la tienda usa 'image'.
+            'image_url' => $this->image_url,
             'spec_chips' => $this->spec_chips ?? [],
             'sale_mode' => $this->sale_mode->value,
             'sale_mode_label' => $this->sale_mode->label(),

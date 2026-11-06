@@ -1,0 +1,16 @@
+meta {
+  name: Promociones del momento
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{base_url}}/api/v1/promotions
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.data: isArray
+}

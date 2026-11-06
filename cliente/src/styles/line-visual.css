@@ -1,0 +1,70 @@
+/* Foto de línea: fondo blanco, objeto completo sin recortar */
+.lv-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 6%;
+  object-fit: contain;
+  background: var(--white);
+}
+
+/* Diseño de marca cuando la línea aún no tiene foto: arcos naranja y violeta con el icono de su familia */
+.lv-art {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  padding-top: 12%; /* deja libre la etiqueta de la tarjeta */
+  overflow: hidden;
+  background: var(--grad-lavender);
+}
+.lv-art__arc {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid var(--orange-soft);
+}
+.lv-art__arc--a {
+  width: 78%;
+  aspect-ratio: 1;
+  right: -26%;
+  bottom: -46%;
+}
+.lv-art__arc--b {
+  width: 52%;
+  aspect-ratio: 1;
+  right: -14%;
+  bottom: -30%;
+  border-color: var(--violet-soft);
+  border-width: 14px;
+}
+.lv-art__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: clamp(64px, 34%, 120px);
+  aspect-ratio: 1;
+  border-radius: 28%;
+  background: var(--white);
+  color: var(--primary);
+  box-shadow: var(--shadow);
+}
+.lv-art__icon svg {
+  width: 54%;
+  height: 54%;
+}
+
+.lv-art__label {
+  position: relative;
+  max-width: 86%;
+  color: var(--primary);
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  text-wrap: balance;
+}

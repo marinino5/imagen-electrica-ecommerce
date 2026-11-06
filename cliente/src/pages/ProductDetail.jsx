@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
-import { ArrowLeft, FileText, MessageCircle, Minus, Plus, ShoppingCart } from 'lucide-react'
+import { Activity, ArrowLeft, ArrowRight, BadgeCheck, FileText, Gauge, Layers, MessageCircle, Minus, Plug, Plus, ShieldCheck, ShoppingCart, Zap } from 'lucide-react'
 import { catalogApi } from '../api'
 import { site } from '../config/site'
 import { useCart } from '../context/CartContext'
@@ -14,6 +14,7 @@ import Pill from '../components/ui/Pill'
 import Reveal from '../components/ui/Reveal'
 import ErrorState from '../components/ui/ErrorState'
 import LineCard from '../components/catalog/LineCard'
+import LineVisual from '../components/catalog/LineVisual'
 import '../styles/product-detail.css'
 
 function DetailSkeleton() {
@@ -79,18 +80,20 @@ export default function ProductDetail() {
   const total = current && direct ? current.price * qty : null
   const waText = `Hola, quiero información sobre ${line.name}${current ? ` (${current.label}, SKU ${current.sku})` : ''}.`
 
-  const cells = current
+  // Datos técnicos de la referencia elegida. Los que no tienen valor no se muestran (nada de «—»).
+  const specs = current
     ? [
-        ['Potencia', current.hp != null ? hpText(current.hp) : '—'],
-        ['Velocidad', current.rpm ? `${current.rpm} RPM` : '—'],
-        ['Corriente', current.amp ? `${String(current.amp).replace('.', ',')} A` : '—'],
-        ['Protección', current.ip || '—'],
-        ['Tensión', current.volt ? `${current.volt} V` : 'Según placa'],
-        ['Marca', current.brand?.name ?? line.brand_label ?? '—'],
-        ['Línea', line.category?.name ?? '—'],
-        ['En bodega', String(current.stock)],
-      ]
-    : line.spec_chips.map((s, i) => [`Dato ${i + 1}`, s])
+        [Zap, 'Potencia', current.hp != null ? hpText(current.hp) : null],
+        [Gauge, 'Velocidad', current.rpm ? `${current.rpm} RPM` : null],
+        [Activity, 'Corriente', current.amp ? `${String(current.amp).replace('.', ',')} A` : null],
+        [Plug, 'Tensión', current.volt ? `${current.volt} V` : null],
+        [ShieldCheck, 'Protección', current.ip || null],
+        [BadgeCheck, 'Marca', current.brand?.name ?? line.brand_label ?? null],
+        [Layers, 'Categoría', line.category?.name ?? null],
+      ].filter(([, , value]) => value)
+    : line.spec_chips.map((chip, i) => [Layers, `Dato ${i + 1}`, chip])
+  const addRow = (v) => (e) => add(cartItem(line, v), 1, { rect: e.currentTarget.getBoundingClientRect(), image })
+  const quoteRow = (v) => (e) => add(cartItem(line, v), 1, { rect: e.currentTarget.getBoundingClientRect(), image }, { asQuote: true })
 
   return (
     <>
@@ -101,7 +104,7 @@ export default function ProductDetail() {
       <article className="wrap pd">
         <Reveal className="pd__gal">
           <Bezel className="pd-gal">
-            {image && <img src={image} alt={line.name} width="900" height="675" fetchPriority="high" />}
+            <LineVisual line={line} eager />
             <div className="pd-gal__badges">
               <span>{modeTag(line)}</span>
               {line.refs_count > 0 && <span>{line.refs_count} referencias</span>}
@@ -221,46 +224,80 @@ export default function ProductDetail() {
               <MessageCircle size={14} aria-hidden="true" /> Consulta con un asesor por WhatsApp
             </a>
           </p>
+          {line.category?.slug === 'motores-trifasicos' && (
+            <Link to="/productos?familia=motores-electricos&categoria=atmosferas-explosivas" className="pd-cross">
+              <span>¿Tu motor va en zona clasificada? <b>Ver atmósferas explosivas</b></span>
+              <ArrowRight size={18} aria-hidden="true" />
+            </Link>
+          )}
         </Reveal>
       </article>
 
-      {/* Placa de datos: imita la placa de un motor y lista todas las referencias */}
-      <Reveal as="section" className="wrap pd-plate" aria-labelledby="placa-title">
-        <Bezel>
-          <div className="pd-plate__core">
-            <div className="pd-plate__top">
-              <h2 id="placa-title">Placa de datos</h2>
-              <span>{(current?.name ?? line.name).toUpperCase()}</span>
-            </div>
-            <dl className="pd-cells">
-              {cells.map(([k, v]) => (
-                <div key={k}><dt>{k}</dt><dd>{v}</dd></div>
-              ))}
-            </dl>
-            {variants.length > 1 && (
-              <div className="pd-ref">
-                <table>
-                  <caption className="sr-only">Referencias de {line.name}: toca una fila para elegirla</caption>
-                  <thead>
-                    <tr><th scope="col">Referencia</th><th scope="col">SKU</th><th scope="col">Bodega</th><th scope="col">Precio</th></tr>
-                  </thead>
-                  <tbody>
-                    {variants.map((v) => (
-                      <tr key={v.sku} className={v.sku === current?.sku ? 'on' : ''}>
-                        <td>
-                          <button type="button" onClick={() => choose(v)} aria-label={`Elegir ${v.label}`}>{v.label}</button>
-                        </td>
-                        <td>{v.sku}</td>
-                        <td>{v.stock || 'Pedido'}</td>
-                        <td>{v.sale_mode === 'direct' && v.price !== null ? formatCOP(v.price) : 'Cotizar'}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+      {/* Datos técnicos en tarjetas claras y tabla de referencias (tarjetas apiladas en celular) */}
+      <Reveal as="section" className="wrap pd-specs" aria-labelledby="datos-title">
+        <div className="pd-specs__head">
+          <h2 id="datos-title" className="h2-sys">Datos <em>técnicos</em></h2>
+          <p>{current ? <>Referencia elegida: <b>{current.label}</b></> : 'Esta línea se cotiza bajo pedido.'}</p>
+        </div>
+
+        {specs.length > 0 && (
+          <dl className="pd-cards">
+            {specs.map(([Icon, label, value]) => (
+              <div key={label} className="pd-card">
+                <span className="pd-card__ic" aria-hidden="true"><Icon size={20} strokeWidth={1.7} /></span>
+                <dt>{label}</dt>
+                <dd>{value}</dd>
               </div>
-            )}
+            ))}
+          </dl>
+        )}
+
+        {variants.length > 1 && (
+          <div className="pd-refs">
+            <h3>Referencias de esta ficha</h3>
+            <table className="pd-table">
+              <caption className="sr-only">Referencias de {line.name}: toca el nombre para elegir una</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Referencia</th>
+                  <th scope="col">SKU</th>
+                  <th scope="col">Disponibilidad</th>
+                  <th scope="col" className="pd-table__num">Precio</th>
+                  <th scope="col"><span className="sr-only">Acción</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                {variants.map((v) => {
+                  const selected = v.sku === current?.sku
+                  const buy = isDirectPurchase(v, 1)
+                  return (
+                    <tr key={v.sku} className={selected ? 'on' : ''}>
+                      <td data-label="Referencia">
+                        <button type="button" className="pd-table__pick" aria-pressed={selected} onClick={() => choose(v)}>{v.label}</button>
+                      </td>
+                      <td data-label="SKU" className="pd-table__sku">{v.sku}</td>
+                      <td data-label="Disponibilidad">
+                        <span className={`pd-avail ${v.stock > 0 ? 'is-stock' : 'is-order'}`}>{v.stock > 0 ? `En bodega: ${v.stock}` : 'Por pedido'}</span>
+                      </td>
+                      <td data-label="Precio" className="pd-table__num">{v.sale_mode === 'direct' && v.price !== null ? formatCOP(v.price) : 'Cotizar'}</td>
+                      <td className="pd-table__act">
+                        {buy ? (
+                          <button type="button" className="pd-row-btn pd-row-btn--buy" onClick={addRow(v)} aria-label={`Agregar ${v.label} al carrito`}>
+                            <ShoppingCart size={16} aria-hidden="true" /> Agregar
+                          </button>
+                        ) : (
+                          <button type="button" className="pd-row-btn pd-row-btn--quote" onClick={quoteRow(v)} aria-label={`Cotizar ${v.label}`}>
+                            <FileText size={16} aria-hidden="true" /> Cotizar
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
           </div>
-        </Bezel>
+        )}
       </Reveal>
 
       {related.length > 0 && (

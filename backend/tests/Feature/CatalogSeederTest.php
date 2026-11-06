@@ -20,20 +20,21 @@ class CatalogSeederTest extends TestCase
         $this->seed([BrandSeeder::class, CatalogSeeder::class]);
     }
 
-    public function test_carga_33_lineas_y_351_referencias_del_inventario(): void
+    public function test_carga_34_lineas_y_351_referencias_del_inventario(): void
     {
-        $this->assertSame(33, ProductLine::count());
+        $this->assertSame(34, ProductLine::count());
         $this->assertSame(351, Product::whereNotNull('line_id')->count());
     }
 
-    public function test_las_siete_lineas_sin_inventario_son_bajo_pedido(): void
+    public function test_las_ocho_lineas_sin_inventario_son_bajo_pedido(): void
     {
         $sinReferencias = ProductLine::doesntHave('variants')->get();
 
-        $this->assertCount(7, $sinReferencias);
+        $this->assertCount(8, $sinReferencias);
         $this->assertTrue($sinReferencias->every(fn (ProductLine $l) => $l->sale_mode === SaleMode::OnRequest));
         $this->assertTrue($sinReferencias->contains('name', 'Motorreductor sinfín WCG01'));
         $this->assertTrue($sinReferencias->contains('name', 'PLC WEG PLC200 y PLC500'));
+        $this->assertTrue($sinReferencias->contains('name', 'Instrumentos de medición Fluke'));
     }
 
     public function test_los_precios_son_simulados_y_las_cotizaciones_no_publican_precio(): void
@@ -61,7 +62,7 @@ class CatalogSeederTest extends TestCase
 
         $this->seed(CatalogSeeder::class);
 
-        $this->assertSame(33, ProductLine::count());
+        $this->assertSame(34, ProductLine::count());
         $this->assertSame(351, Product::whereNotNull('line_id')->count());
         $this->assertEquals(999000, Product::where('sku', '15331270')->value('price'));
     }
@@ -80,13 +81,26 @@ class CatalogSeederTest extends TestCase
         Product::query()->forceDelete();
 
         $this->seed(\Database\Seeders\ProductionCatalogSeeder::class);
-        $this->assertSame(33, ProductLine::count());
+        $this->assertSame(34, ProductLine::count());
 
         // Una línea eliminada a propósito no vuelve en el siguiente arranque
         ProductLine::where('slug', 'variador-cfw300')->first()->variants()->forceDelete();
         ProductLine::where('slug', 'variador-cfw300')->delete();
         $this->seed(\Database\Seeders\ProductionCatalogSeeder::class);
 
-        $this->assertSame(32, ProductLine::count());
+        $this->assertSame(33, ProductLine::count());
+    }
+
+    public function test_los_rangos_iguales_se_muestran_como_un_solo_valor(): void
+    {
+        $chips = ProductLine::where('slug', 'accesorios-de-maniobra')->value('spec_chips');
+
+        $this->assertSame(['63 A'], $chips);
+    }
+
+    public function test_las_referencias_gemelas_se_distinguen_por_la_tension(): void
+    {
+        $this->assertSame('5.6-8 A · 220 V', Product::where('sku', '10046368')->value('variant_label'));
+        $this->assertSame('5.6-8 A · 110 V', Product::where('sku', '15570522')->value('variant_label'));
     }
 }

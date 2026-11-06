@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\OrderPricingController;
 use App\Http\Controllers\Admin\OrderStatusController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\QuoteRequestController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\SearchController;
@@ -55,6 +56,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::middleware('role:admin')->group(function () {
             Route::resource('categories', CategoryController::class)->except('show');
             Route::resource('brands', BrandController::class)->except('show');
+            Route::resource('promotions', PromotionController::class)->except('show');
             Route::resource('products', ProductController::class);
             // Los productos eliminados (borrado lógico) no los resuelve la ruta sin withTrashed
             Route::patch('products/{product}/restore', [ProductController::class, 'restore'])

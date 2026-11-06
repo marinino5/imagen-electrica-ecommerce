@@ -1,23 +1,26 @@
 import Hero from '../components/home/Hero'
-import HomeStats from '../components/home/HomeStats'
-import HomeLines from '../components/home/HomeLines'
-import HomeFeatured from '../components/home/HomeFeatured'
-import HowItWorks from '../components/home/HowItWorks'
-import JoinCta from '../components/home/JoinCta'
-import Applications from '../components/home/Applications'
 import BrandStrip from '../components/home/BrandStrip'
+import HomeLines from '../components/home/HomeLines'
+import Promotions from '../components/home/Promotions'
+import HomeFeatured from '../components/home/HomeFeatured'
+import Applications from '../components/home/Applications'
+import StepsStrip from '../components/home/StepsStrip'
+import WhyUs from '../components/home/WhyUs'
+import JoinCta from '../components/home/JoinCta'
 
+// El cierre (CTA de cotizar y pie) lo pone Layout. Las cifras viven solo aquí, dentro del hero.
 export default function Home() {
   return (
     <>
       <Hero />
-      <HomeStats />
-      <HomeLines />
-      <HomeFeatured />
-      <HowItWorks />
-      <Applications />
-      <JoinCta />
       <BrandStrip />
+      <HomeLines />
+      <Promotions />
+      <HomeFeatured />
+      <Applications />
+      <StepsStrip />
+      <WhyUs />
+      <JoinCta />
     </>
   )
 }

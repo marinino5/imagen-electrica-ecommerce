@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\LineController;
 use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\ProductController;
+use App\Http\Controllers\Api\V1\PromotionController;
 use App\Http\Controllers\Api\V1\ProfileController;
 use App\Http\Controllers\Api\V1\QuoteRequestController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,7 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:api')->group(function
     Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::get('brands', [BrandController::class, 'index'])->name('brands.index');
     Route::get('families', [LineController::class, 'families'])->name('families.index');
+    Route::get('promotions', [PromotionController::class, 'index'])->name('promotions.index');
     Route::get('lines', [LineController::class, 'index'])->name('lines.index');
     Route::get('lines/{slug}', [LineController::class, 'show'])->name('lines.show');
     Route::get('products', [ProductController::class, 'index'])->name('products.index');

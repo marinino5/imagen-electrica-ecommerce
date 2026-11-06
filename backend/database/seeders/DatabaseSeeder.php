@@ -23,5 +23,10 @@ class DatabaseSeeder extends Seeder
             CatalogSeeder::class, // líneas y referencias del inventario (351 SKU)
             OrderSeeder::class,
         ]);
+
+        // Promociones de ejemplo: solo en desarrollo local, nunca en producción
+        if (app()->environment('local')) {
+            $this->call(PromotionSeeder::class);
+        }
     }
 }

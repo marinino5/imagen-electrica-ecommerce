@@ -1,7 +1,10 @@
 // Reglas de presentación del catálogo por líneas (familia → categoría → línea → referencias).
 import { formatCOP } from './format'
+import { HP_CATEGORIES } from './families'
 
-export const lineImage = (line) => (line?.image ? `/img/categorias/${line.image}.webp` : null)
+// Foto propia de la línea (image_url). Sin ella no se reutiliza la ilustración de la categoría: la tarjeta
+// muestra el diseño de marca (LineVisual), así dos líneas distintas nunca comparten la misma imagen.
+export const lineImage = (line) => line?.image_url ?? null
 
 export const hpText = (hp) => `${String(hp).replace('.', ',')} HP`
 
@@ -37,8 +40,9 @@ export const priceNote = (line) =>
  * slugs es el resultado de la búsqueda en el servidor (incluye SKU y nombre de referencia).
  */
 export function filterLines(lines, st) {
-  const hp = HP_RANGES.find((r) => r.key === st.hp)
-  const amp = AMP_RANGES.find((r) => r.key === st.amp)
+  const tech = techFilters(st)
+  const hp = tech.hp ? HP_RANGES.find((r) => r.key === st.hp) : null
+  const amp = tech.amp ? AMP_RANGES.find((r) => r.key === st.amp) : null
   return lines.filter(
     (l) =>
       (!st.family || l.family?.slug === st.family) &&
@@ -52,11 +56,29 @@ export function filterLines(lines, st) {
   )
 }
 
-export function sortLines(lines, order) {
+/**
+ * Orden de las fichas. 'Recomendados' agrupa por familia en el orden del portafolio (Motores primero) y,
+ * dentro de cada familia, respeta el orden que trae la API; no deja la lista de control al principio.
+ * `families` es la lista de /families (ya viene en el orden del portafolio).
+ */
+export function sortLines(lines, order, families = []) {
   const copy = [...lines]
   if (order === 'refs') return copy.sort((a, b) => b.refs_count - a.refs_count)
   if (order === 'stock') return copy.sort((a, b) => b.stock_total - a.stock_total)
-  return copy // recomendados: el orden del portafolio
+  const rank = new Map(families.map((f, i) => [f.slug, i]))
+  const at = (l) => rank.get(l.family?.slug) ?? families.length
+  return copy.sort((a, b) => at(a) - at(b)) // Array.sort es estable: dentro de la familia queda el orden original
+}
+
+/**
+ * Qué filtros técnicos se ofrecen según lo que se está viendo. No son filtros generales:
+ * Potencia solo en Motores y en Variadores/Arrancadores; Corriente solo en Control y automatización.
+ */
+export function techFilters(st) {
+  return {
+    hp: !st.q && (st.family === 'motores-electricos' || HP_CATEGORIES.includes(st.category)),
+    amp: !st.q && st.family === 'control-y-automatizacion' && !HP_CATEGORIES.includes(st.category),
+  }
 }
 
 /** Qué rangos de HP y de A tienen al menos una línea (para mostrar solo los que sirven). */

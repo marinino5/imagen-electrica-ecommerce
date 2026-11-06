@@ -3,7 +3,7 @@ import Eyebrow from '../ui/Eyebrow'
 import Reveal from '../ui/Reveal'
 
 const reasons = [
-  { icon: Headset, tone: 'violet', title: 'Asesoría técnica', text: 'Un equipo con más de 25 años en el sector te ayuda a elegir la referencia correcta.' },
+  { icon: Headset, tone: 'violet', title: 'Asesoría técnica', text: 'Un equipo con experiencia en el sector te ayuda a elegir la referencia correcta.' },
   { icon: Package, tone: 'white', title: 'Disponibilidad', text: 'Referencias con stock para comprar en línea y pedido bajo solicitud para lo demás.' },
   { icon: ShieldCheck, tone: 'orange', title: 'Marcas reconocidas', text: 'Distribuimos marcas que la industria ya conoce y en las que confía.' },
   { icon: Truck, tone: 'ink', title: 'Envíos a todo el país', text: 'Recoge en tienda en Bucaramanga o recíbelo donde estés.' },

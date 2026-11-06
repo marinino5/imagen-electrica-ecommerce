@@ -305,3 +305,10 @@
   padding: 10px;
   color: var(--on-dark-muted);
 }
+
+/* Celular: el carrito vive en la barra inferior; el del encabezado solo sale donde no hay barra inferior (ficha y carrito) */
+@media (max-width: 767px) {
+  :root[data-bar='nav'] .nav__cart {
+    display: none;
+  }
+}

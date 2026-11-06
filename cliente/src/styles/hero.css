@@ -1,11 +1,15 @@
+/* ============================================================
+   Hero del Inicio: video (o diseño de marca) a pantalla completa,
+   texto sobre degradado y el mensaje de la empresa en vidrio oscuro abajo.
+   ============================================================ */
 .hero {
   position: relative;
   display: flex;
-  align-items: center;
-  min-height: clamp(560px, 70svh, 720px); /* máximo ~70 % de la pantalla */
-  padding-block: 92px 128px; /* deja sitio a la isla y a la tarjeta de cifras que se monta encima */
+  flex-direction: column;
+  min-height: 100svh;
+  padding-top: calc(var(--header-space) + 24px);
   background: var(--ink);
-  color: #fff;
+  color: var(--white);
   overflow: hidden;
 }
 .hero__media,
@@ -22,43 +26,77 @@
   opacity: 1;
 }
 .hero__slide video,
-.hero__slide img {
+.hero__slide > img {
   width: 100%;
   height: 100%;
   object-fit: cover; /* el punto de enfoque se ajusta por diapositiva (object-position en línea) */
 }
-/* Diapositiva sin clip aprobado: fondo de marca */
+
+/* Diapositiva sin clip: fondo de marca con arcos naranja y un icono grande de la familia */
 .hero__slide--brand {
   background:
-    radial-gradient(circle at 78% 30%, rgb(122 100 184 / 0.5), transparent 46%),
-    radial-gradient(circle at 12% 100%, rgb(242 106 0 / 0.14), transparent 40%),
+    radial-gradient(circle at 78% 34%, rgb(122 100 184 / 0.55), transparent 46%),
+    radial-gradient(circle at 8% 100%, rgb(242 106 0 / 0.16), transparent 42%),
     linear-gradient(135deg, var(--ink) 0%, #463671 100%);
 }
-/* Degradado ink solo detrás del texto */
-.hero__overlay {
-  background: linear-gradient(180deg, rgb(30 22 49 / 0.45) 0%, rgb(30 22 49 / 0.72) 60%, rgb(30 22 49 / 0.5) 100%);
+.hero__art {
+  position: absolute;
+  right: -6%;
+  top: 8%;
+  display: grid;
+  place-items: center;
+  width: min(62vw, 720px);
+  aspect-ratio: 1;
+  color: rgb(255 255 255 / 0.14);
 }
-@media (min-width: 900px) {
-  .hero__overlay {
-    background: linear-gradient(90deg, rgb(30 22 49 / 0.82) 0%, rgb(30 22 49 / 0.55) 38%, rgb(30 22 49 / 0) 64%);
+.hero__art > svg {
+  position: relative;
+  width: 52%;
+  height: 52%;
+}
+.hero__art > svg.is-spin {
+  animation: hero-spin 22s linear infinite;
+}
+.hero__ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgb(242 106 0 / 0.55);
+}
+.hero__ring--a {
+  inset: 0;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-width: 8px;
+}
+.hero__ring--b {
+  inset: 11%;
+  border-color: rgb(255 255 255 / 0.16);
+  border-style: dashed;
+}
+.hero__ring--c {
+  inset: 22%;
+  border-color: rgb(242 106 0 / 0.28);
+}
+@keyframes hero-spin {
+  to {
+    transform: rotate(360deg);
   }
 }
-.hero__arc {
-  position: absolute;
-  right: -160px;
-  bottom: -220px;
-  width: 560px;
-  height: 560px;
-  border: 8px solid var(--accent);
-  border-radius: 50%;
-  border-left-color: transparent;
-  border-bottom-color: transparent;
-  opacity: 0.9;
-  pointer-events: none;
+
+/* Degradado ink: oscuro abajo (donde va el vidrio) y a la izquierda (donde va el texto) */
+.hero__overlay {
+  background:
+    linear-gradient(0deg, rgb(30 22 49 / 0.92) 0%, rgb(30 22 49 / 0.35) 38%, rgb(30 22 49 / 0.15) 70%, rgb(30 22 49 / 0.4) 100%),
+    linear-gradient(90deg, rgb(30 22 49 / 0.78) 0%, rgb(30 22 49 / 0.35) 45%, rgb(30 22 49 / 0) 72%);
 }
+
 .hero__inner {
   position: relative;
   z-index: 2;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  padding-block: 24px 32px;
 }
 .hero__content {
   display: flex;
@@ -76,16 +114,21 @@
   }
 }
 .hero__title {
-  color: #fff;
+  color: var(--white);
   font-size: clamp(40px, 6vw, 84px);
   text-shadow: 0 2px 18px rgb(30 22 49 / 0.4);
+  text-wrap: balance;
+}
+.hero__title em {
+  color: var(--accent); /* sobre el video oscuro se usa el naranja pleno */
 }
 .hero__text {
   max-width: 52ch;
   margin: 0;
-  color: #fff;
+  color: var(--white);
   font-size: 17px;
   text-shadow: 0 1px 12px rgb(30 22 49 / 0.5);
+  text-wrap: pretty;
 }
 .hero__ctas {
   display: flex;
@@ -99,7 +142,7 @@
   width: min(100%, 560px);
   padding: 6px 6px 6px 18px;
   border-radius: 999px;
-  background: #fff;
+  background: var(--white);
   color: var(--muted);
   box-shadow: 0 18px 40px -22px rgb(30 22 49 / 0.7);
 }
@@ -111,7 +154,7 @@
   outline: 0;
   background: none;
   color: var(--ink);
-  font-size: 15px;
+  font-size: 16px;
 }
 .hero__search button {
   min-height: 44px;
@@ -119,18 +162,81 @@
   border: 0;
   border-radius: 999px;
   background: var(--ink);
-  color: #fff;
+  color: var(--white);
   font-weight: 700;
 }
 
-/* ---- Controles: contador, barras y pausa ---- */
-.hero__controls-wrap {
-  position: absolute;
-  inset: auto 0 78px;
+/* ---- Base del hero: vidrio con el mensaje y las cifras, y los controles del carrusel ---- */
+.hero__dock {
+  position: relative;
   z-index: 3;
-  left: 50%;
-  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 20px;
 }
+.hero__glass {
+  display: grid;
+  gap: 16px 32px;
+  padding: 18px 20px;
+  border-radius: var(--radius-lg);
+  background: rgb(30 22 49 / 0.58);
+  border: 1px solid rgb(255 255 255 / 0.14);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1);
+}
+.hero__glass-lead {
+  max-width: 30ch;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 1.2vw + 1rem, 1.9rem);
+  font-weight: 600;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+.hero__glass-lead strong {
+  color: var(--accent-light); /* contraste AA sobre el vidrio oscuro */
+  font-weight: inherit;
+}
+.hero__stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.hero__stats li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.hero__stat-value {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 2.4vw + 1rem, 2.8rem);
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.hero__stats span:not(.hero__stat-value) {
+  color: var(--on-dark-muted);
+  font-size: 0.82rem;
+  line-height: 1.25;
+}
+@media (min-width: 900px) {
+  .hero__glass {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr);
+    align-items: center;
+    padding: 20px 28px;
+  }
+  .hero__stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ---- Controles: contador, barras y pausa ---- */
 .hero__controls {
   display: flex;
   align-items: center;
@@ -194,18 +300,24 @@
   border: 1px solid rgb(255 255 255 / 0.3);
   border-radius: 50%;
   background: rgb(255 255 255 / 0.12);
-  color: #fff;
+  color: var(--white);
 }
+
 @media (max-width: 767px) {
-  .hero {
-    padding-block: 92px 150px;
-  }
   .hero__text {
     font-size: 15px;
+  }
+  .hero__art {
+    top: 4%;
+    right: -30%;
+    width: 96vw;
   }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero__content {
+    animation: none;
+  }
+  .hero__art > svg.is-spin {
     animation: none;
   }
   .bar.is-active span {

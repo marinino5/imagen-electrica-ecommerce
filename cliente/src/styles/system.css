@@ -195,7 +195,7 @@ body::after {
 }
 .h-hero em {
   font-style: normal;
-  color: var(--accent);
+  color: var(--accent-title);
 }
 .h2-sys {
   margin: 8px 0 0;
@@ -207,7 +207,7 @@ body::after {
 }
 .h2-sys em {
   font-style: normal;
-  color: var(--accent);
+  color: var(--accent-title);
 }
 .cover__lead {
   max-width: 46ch;

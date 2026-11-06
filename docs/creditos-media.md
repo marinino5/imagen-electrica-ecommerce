@@ -1,18 +1,23 @@
 # Créditos de media: fuente y licencia
 
-Todo el material de terceros es de **Pixabay** y se usa bajo la [Pixabay Content License](https://pixabay.com/service/license-summary/): uso comercial permitido, sin atribución obligatoria, sin dar a entender que el autor o una marca respalda a la empresa. Se descargó con la API oficial. Detalle de edición y descartados en `docs/recursos.md`.
+Todo el material de terceros que se usa es de **Pixabay** y se usa bajo la [Pixabay Content License](https://pixabay.com/service/license-summary/): uso comercial permitido, sin atribución obligatoria, sin dar a entender que el autor o una marca respalda a la empresa. Se descargó con la API oficial. Detalle de edición y descartados en `docs/recursos.md`.
 
 ## Videos del hero (`cliente/public/media/`)
 
-Cada video tiene versión de escritorio (16:9, 1920 px) y vertical (4:5, 720 px), en MP4 y WebM, más póster WebP. Escritorio: menos de 3 MB cada archivo.
+El video tiene versión de escritorio (16:9, 1920 px) y vertical (4:5, 720 px), en MP4 y WebM, más póster WebP. Cada archivo pesa menos de 3 MB.
 
 | Diapositiva | Archivos | Fuente | Autor | Licencia |
 |---|---|---|---|---|
-| Video 1 · Motores WEG | **Pendiente** (sin video; el hero solo cuenta las diapositivas con video) | Opciones de Pexels en revisión | | |
-| Video 2 · Automatización y control | `hero-d2*` | https://pixabay.com/videos/id-159674/ y https://pixabay.com/videos/id-86252/ (unidos) | CreativeCommonsCentral, lumosajans | Pixabay Content License |
-| Video 3 · Extractores e iluminación | `hero-d3*` (provisional) | https://pixabay.com/videos/id-235032/ | phlyingdoctor | Pixabay Content License |
+| Automatización y control | `hero-d2*` | https://pixabay.com/videos/id-86252/ (segundos 1 a 10, cableado de control y tablero). Se quitó el tramo del técnico de espaldas (id-159674) y el fundido borroso entre los dos clips | lumosajans | Pixabay Content License |
+| Motores WEG y motorreductores Cestari | Sin video: diseño gráfico de marca (arcos naranja e icono) | No hay material adecuado con licencia (ver `docs/imagenes-pendientes.md`) | | |
+| Extractores e iluminación | Sin video: diseño gráfico de marca. Se eliminó el clip anterior (`hero-d3*`, id-235032) | No hay material adecuado con licencia (ver `docs/imagenes-pendientes.md`) | | |
 
-El Video 3 actual muestra unidades de ventilación sobre una cubierta; se reemplazará por extractores en primer plano cuando se elija el clip.
+## Coverr (revisado, sin material usado)
+
+Se consultó la API de Coverr con la clave de `cliente/.env`. **La variable se llama `COVERR_API_BASE_URL` pero contiene la clave**; conviene renombrarla a `COVERR_API_KEY` en tu `.env` (no se versiona).
+
+- **Licencia:** la respuesta de la API no trae un campo de licencia; solo `is_premium: false` (video gratuito). La licencia aplicable es la de https://coverr.co/license, que permite el uso comercial sin pedir permiso ni exigir atribución en descargas del sitio, y excluye la reventa o redistribución de los archivos y los logos o marcas que aparezcan en la imagen.
+- **Resultado:** el catálogo gratuito de Coverr no tiene extractores industriales, motores eléctricos, tableros eléctricos ni fotos de mostrador de ferretería (solo hay videos; el endpoint de fotos responde 404). Por eso **no se descargó ni se usó ningún archivo de Coverr**. Consultas y resultados en `docs/imagenes-pendientes.md`.
 
 ## Fotos (`cliente/public/img/`)
 

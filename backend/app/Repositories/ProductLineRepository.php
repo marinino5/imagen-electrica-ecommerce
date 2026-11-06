@@ -165,7 +165,8 @@ class ProductLineRepository
 
         return [
             'brands' => collect($counts)->map(fn (int $count, string $name) => ['name' => $name, 'count' => $count])->values()->all(),
-            'families' => Category::query()->whereNull('parent_id')->where('is_active', true)->where('sort_order', '>=', 100)->count(),
+            // Solo familias que se muestran (con al menos una ficha activa): el total sale de los datos, no de un número fijo
+            'families' => $this->familiesWithCounts()->count(),
             'lines' => ProductLine::query()->where('is_active', true)->count(),
             'references' => Product::query()->where('is_active', true)->whereNotNull('line_id')->count(),
         ];

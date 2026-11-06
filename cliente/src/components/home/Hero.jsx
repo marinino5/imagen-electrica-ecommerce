@@ -1,41 +1,30 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Pause, Play, Search } from 'lucide-react'
+import { Cog, Fan, Pause, Play, Search } from 'lucide-react'
 import { useReducedMotion } from 'framer-motion'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
+import { useFamilies } from '../../hooks/useFamilies'
+import { site } from '../../config/site'
+import Counter from '../ui/Counter'
 import Eyebrow from '../ui/Eyebrow'
 import Pill from '../ui/Pill'
 import '../../styles/hero.css'
 
 const SLIDE_MS = 9000
 
-// Diapositivas del carrusel (hasta 3). Cada una puede llevar un clip propio:
-//   media: { poster: '/media/hero-d2-poster.webp',
-//            desktop: { mp4, webm },   // 16:9, 1920 px
-//            mobile:  { mp4, webm },   // 4:5, 720 px
-//            pos: '60% 50%', posSm: '60% 50%' }
-// Sin `media`, la diapositiva usa el fondo de marca (degradado ink y arco) hasta tener material con licencia.
-// Los clips se registran en docs/recursos.md. El contador, las barras y el avance se ajustan solos.
-const allSlides = [
-  {
-    id: 'motores',
-    // D1 pendiente: imagen IA provisional (docs/recursos.md) o material oficial de WEG. Ver scripts/kenburns-hero.sh
-    media: null,
-    tag: 'Línea WEG',
-    title: 'Motores WEG y',
-    highlight: 'motorreductores WEG Cestari',
-    text: 'Primero el motor industrial de 100 HP; después el motorreductor Cestari. Dos equipos distintos de la línea WEG que distribuimos.',
-    cta: { to: '/productos?familia=motores-electricos', label: 'Ver motores' },
-  },
+// Diapositivas. Con `media` llevan video a pantalla completa (16:9 en escritorio, 4:5 en celular).
+// Sin `media` se dibuja el diseño de marca (arcos + icono grande): no se rellena con material genérico.
+// Los clips y su licencia están en docs/creditos-media.md; lo que falta, en docs/imagenes-pendientes.md.
+const slides = [
   {
     id: 'automatizacion',
-    // Pixabay: técnico en tablero (id 159674) y cableado de control (id 86252)
     media: {
       poster: '/media/hero-d2-poster.webp',
       desktop: { mp4: '/media/hero-d2.mp4', webm: '/media/hero-d2.webm' },
       mobile: { mp4: '/media/hero-d2-m.mp4', webm: '/media/hero-d2-m.webm' },
       pos: '60% 50%',
-      posSm: '60% 50%',
+      posSm: '65% 50%',
+      alt: 'Manos de un técnico conectando el cableado de control de un tablero eléctrico',
     },
     tag: 'Control y PLC',
     title: 'Automatización',
@@ -44,15 +33,18 @@ const allSlides = [
     cta: { to: '/productos?familia=control-y-automatizacion', label: 'Ver automatización' },
   },
   {
+    id: 'motores',
+    art: Cog,
+    tag: 'Línea WEG',
+    title: 'Motores WEG y',
+    highlight: 'motorreductores WEG Cestari',
+    text: 'Del motor monofásico al industrial de 100 HP, y el motorreductor para tu banda o tu mezcladora.',
+    cta: { to: '/productos?familia=motores-electricos', label: 'Ver motores' },
+  },
+  {
     id: 'extractores',
-    // Pixabay: unidades de ventilación en una cubierta industrial (id 235032)
-    media: {
-      poster: '/media/hero-d3-poster.webp',
-      desktop: { mp4: '/media/hero-d3.mp4', webm: '/media/hero-d3.webm' },
-      mobile: { mp4: '/media/hero-d3-m.mp4', webm: '/media/hero-d3-m.webm' },
-      pos: '50% 50%',
-      posSm: '50% 50%',
-    },
+    art: Fan,
+    spin: true,
     tag: 'Aire y luz',
     title: 'Extractores',
     highlight: 'e iluminación',
@@ -60,10 +52,6 @@ const allSlides = [
     cta: { to: '/productos?familia=ventilacion-y-climatizacion', label: 'Ver ventilación' },
   },
 ]
-
-// El carrusel solo cuenta las diapositivas que ya tienen clip aprobado: el contador nunca promete más de lo que hay.
-// Cuando 'motores' reciba su video (media), aparece sola y el contador pasa a 01/03.
-const slides = allSlides.filter((s) => s.media)
 
 const saveData = () => typeof navigator !== 'undefined' && navigator.connection?.saveData === true
 
@@ -85,18 +73,27 @@ function Slide({ slide, index, active, still, mobile }) {
   }, [active, clip])
 
   const fit = media ? { objectPosition: mobile ? media.posSm : media.pos } : undefined
+  const Art = slide.art
 
   return (
     <div className={`hero__slide ${media ? '' : 'hero__slide--brand'} ${active ? 'is-active' : ''}`} aria-hidden={!active}>
       {media &&
         (clip ? (
-          <video ref={videoRef} key={clip.mp4} aria-hidden="true" tabIndex={-1} muted loop playsInline preload="metadata" poster={media.poster} style={fit}>
+          <video ref={videoRef} key={clip.mp4} aria-hidden="true" tabIndex={-1} muted loop playsInline preload={index === 0 ? 'auto' : 'metadata'} poster={media.poster} style={fit}>
             {clip.webm && <source src={clip.webm} type="video/webm" />}
             <source src={clip.mp4} type="video/mp4" />
           </video>
         ) : (
-          <img src={media.poster} alt="" width="1920" height="1080" style={fit} fetchPriority={index === 0 ? 'high' : undefined} />
+          <img src={media.poster} alt={media.alt} width="1920" height="1080" style={fit} fetchPriority={index === 0 ? 'high' : undefined} />
         ))}
+      {Art && (
+        <div className="hero__art" aria-hidden="true">
+          <span className="hero__ring hero__ring--a" />
+          <span className="hero__ring hero__ring--b" />
+          <span className="hero__ring hero__ring--c" />
+          <Art className={slide.spin ? 'is-spin' : ''} strokeWidth={0.8} />
+        </div>
+      )}
     </div>
   )
 }
@@ -105,6 +102,7 @@ export default function Hero() {
   const reduced = useReducedMotion()
   const navigate = useNavigate()
   const isMobile = useMediaQuery('(max-width: 767px)')
+  const { meta } = useFamilies()
   const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
   const [term, setTerm] = useState('')
@@ -121,15 +119,22 @@ export default function Hero() {
     navigate(q ? `/productos?q=${encodeURIComponent(q)}` : '/productos')
   }
 
+  // Las cifras salen de la API: mientras no lleguen no se muestra ninguna (nada de números de relleno)
+  const stats = [
+    { value: site.years, prefix: '+', label: 'años en el sector' },
+    { value: meta.references, label: 'referencias en inventario' },
+    { value: meta.lines, label: 'fichas de producto' },
+    { value: meta.families, label: 'familias del portafolio' },
+  ].filter((s) => s.value > 0)
+
   return (
     <section className="hero" aria-roledescription="carrusel" aria-label="Destacados de Imagen Eléctrica">
       <div className="hero__media">
         {slides.map((s, n) => (
           <Slide key={s.id} slide={s} index={n} active={n === index} still={still} mobile={isMobile} />
         ))}
-        {/* Degradado ink solo del lado del texto: el video se ve a color a la derecha */}
+        {/* Degradado ink: abajo y a la izquierda, donde va el texto; el video se ve a color arriba a la derecha */}
         <div className="hero__overlay" />
-        <span className="hero__arc" aria-hidden="true" />
       </div>
 
       <div className="wrap hero__inner">
@@ -162,8 +167,24 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Controles: contador, barras de progreso y pausa */}
-      <div className="wrap hero__controls-wrap">
+      <div className="wrap hero__dock">
+        {/* Vidrio oscuro translúcido sobre el video: el mensaje de la empresa y las cifras con contador */}
+        <div className="hero__glass">
+          <p className="hero__glass-lead">
+            Una distribuidora de Bucaramanga que conoce <strong>cada referencia que vende</strong>.
+          </p>
+          {stats.length > 0 && (
+            <ul className="hero__stats" aria-label="Imagen Eléctrica en cifras">
+              {stats.map((s) => (
+                <li key={s.label}>
+                  <Counter to={s.value} prefix={s.prefix} className="hero__stat-value" />
+                  <span>{s.label}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
         <div className="hero__controls">
           <span className="hero__count" aria-hidden="true">{pad(index + 1)} / {pad(slides.length)}</span>
           <div className="hero__progress" role="tablist" aria-label="Diapositivas">

@@ -12,7 +12,8 @@ export default function HomeFeatured() {
   const { data: lines, loading } = useLines()
   const [ref, embla] = useEmblaCarousel({ align: 'start', containScroll: 'trimSnaps' })
   const [can, setCan] = useState({ prev: false, next: false })
-  const featured = lines.filter((l) => l.is_featured)
+  // Sin repetidos: una ficha destacada aparece una sola vez
+  const featured = lines.filter((l, i) => l.is_featured && lines.findIndex((x) => x.slug === l.slug) === i)
 
   const update = useCallback(() => {
     if (embla) setCan({ prev: embla.canScrollPrev(), next: embla.canScrollNext() })

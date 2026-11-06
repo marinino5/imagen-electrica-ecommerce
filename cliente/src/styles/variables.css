@@ -17,6 +17,10 @@
   --ease-sys: cubic-bezier(0.32, 0.72, 0, 1); /* curva de todo el movimiento, de 500 a 900 ms */
   --muted: #5d5672; /* ink al 72 %: texto secundario (contraste AA sobre blanco, lavanda y lavanda 2) */
   --accent: #f26a00; /* CTA principal y "la corriente"; el botón lleva siempre texto --ink */
+  --accent-title: #dc5a00; /* naranja de los títulos grandes sobre blanco o lavanda: 3,5:1 (el #f26a00 da 2,8:1 sobre lavanda) */
+  --accent-light: #ffb27a; /* naranja claro para resaltar texto sobre fondos oscuros (contraste AA) */
+  --success: #1e7a3a; /* etiqueta "En bodega" */
+  --success-tint: #e3f4e8;
 
   /* Degradados de marca */
   --page-bg: linear-gradient(180deg, #ffffff 0%, #f6f4f9 50%, #e9e3f4 100%); /* fondo global, como el catálogo */

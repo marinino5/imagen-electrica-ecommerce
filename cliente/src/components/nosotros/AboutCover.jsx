@@ -9,7 +9,7 @@ export default function AboutCover() {
   return (
     <Cover
       eyebrow="Nosotros"
-      lines={[`Más de ${site.years} años`, 'impulsando', { text: 'tus proyectos', accent: true }]}
+      lines={['Material eléctrico', 'con criterio', { text: 'técnico', accent: true }]}
       lead={`${site.tagline} en ${site.city.split(',')[0]}: material eléctrico industrial con asesoría técnica.`}
       actions={
         <>
@@ -22,7 +22,6 @@ export default function AboutCover() {
         <Bezel className="ab-photo__frame">
           <img src="/img/fachada.webp" alt="Fachada de Imagen Eléctrica en Bucaramanga" width="1600" height="800" fetchPriority="high" />
         </Bezel>
-        <div className="ab-badge ab-badge--years"><strong>+{site.years}</strong><span>años</span></div>
         <div className="ab-badge ab-badge--address"><MapPin size={16} aria-hidden="true" /><span>{site.address} · {site.city.split(',')[0]}</span></div>
       </div>
     </Cover>

@@ -60,7 +60,7 @@ MAQ = {(l['f'], l['c'], l['n']): l['img'] for l in json.load(open('/private/tmp/
 
 FAMILIES = ['Motores eléctricos', 'Reductores y motorreductores', 'Control y automatización', 'Ventilación y climatización',
             'Cables y conductores', 'Iluminación', 'Compresores', 'Medición y testeo']
-FAMILY_IMAGE = {'Motores eléctricos': 'motores', 'Reductores y motorreductores': 'motorreductores', 'Control y automatización': 'variadores-arrancadores',
+FAMILY_IMAGE = {'Medición y testeo': 'medicion', 'Motores eléctricos': 'motores', 'Reductores y motorreductores': 'motorreductores', 'Control y automatización': 'variadores-arrancadores',
                 'Ventilación y climatización': 'ventilacion', 'Cables y conductores': 'cables', 'Iluminación': 'iluminacion', 'Compresores': 'compresores'}
 DESCRIPTION = {
     'Motores eléctricos': 'Motores WEG para bombas, ventiladores, compresores y máquinas en general. Elige la potencia y la velocidad; el resto lo verás en la placa de datos.',
@@ -111,9 +111,28 @@ EXTRA = [
     ('Cables y conductores', 'Conductores para instalaciones', 'THHN / THWN-2 Centelsa', 'Centelsa by Nexans', []),
     ('Iluminación', 'Iluminación industrial', 'START Highbay LED', 'Sylvania', []),
     ('Compresores', 'Compresores de pistón', 'Compresor vertical', None, ['2–15 HP']),
+    # Familia 08: sin inventario todavía; la ficha existe para que la familia aparezca en el portafolio y se cotice
+    ('Medición y testeo', 'Instrumentos de medición', 'Instrumentos de medición Fluke', 'Fluke', []),
 ]
 for f, c, n, b, specs in EXTRA:
     out_lines.append({'family': f, 'category': c, 'name': n, 'brand_label': b, 'image': FAMILY_IMAGE[f], 'specs': specs, 'mode': 'quote', 'variants': []})
+
+# Presentación: un rango con los dos extremos iguales ("63–63 A") se muestra como un solo valor ("63 A")
+def collapse(spec):
+    m = re.fullmatch(r'\s*([\d.,]+)\s*[–-]\s*([\d.,]+)(\s*\D.*)?', spec)
+    return f'{m.group(1)}{m.group(3) or ""}' if m and m.group(1) == m.group(2) else spec
+
+# Dos referencias con la misma etiqueta y tensiones distintas se diferencian con la tensión: "5.6-8 A · 220 V"
+for line in out_lines:
+    line['specs'] = [collapse(x) for x in line['specs']]
+    groups = collections.defaultdict(list)
+    for v in line['variants']:
+        groups[v['label']].append(v)
+    for label, twins in groups.items():
+        volts = [v.get('volt') for v in twins]
+        if len(twins) > 1 and all(volts) and len(set(volts)) == len(volts):
+            for v in twins:
+                v['label'] = f"{label} · {int(v['volt'])} V"
 
 data = {'families': [{'name': f, 'image': FAMILY_IMAGE.get(f), 'description': DESCRIPTION.get(f)} for f in FAMILIES], 'lines': out_lines}
 json.dump(data, open('backend/database/data/catalogo.json', 'w'), ensure_ascii=False, indent=1)

@@ -1,70 +1,71 @@
 import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import { useFamilies } from '../../hooks/useFamilies'
+import { FAMILY_COVER, familyIcon, familyNumber } from '../../lib/families'
 import Eyebrow from '../ui/Eyebrow'
 import Pill from '../ui/Pill'
-import Reveal from '../ui/Reveal'
 import ErrorState from '../ui/ErrorState'
 import '../../styles/home.css'
 
-// Imagen de cada familia (public/img/categorias)
-const FAMILY_IMAGE = {
-  'motores-electricos': 'motores',
-  'reductores-y-motorreductores': 'motorreductores',
-  'control-y-automatizacion': 'variadores-arrancadores',
-  'ventilacion-y-climatizacion': 'ventilacion',
-  'cables-y-conductores': 'cables',
-  iluminacion: 'iluminacion',
-  compresores: 'compresores',
-}
+// Bento de las familias del portafolio. Cada tarjeta lleva su portada, el número real de fichas (de la API) y,
+// al pasar el mouse o enfocar con el teclado, las categorías que contiene. Sin portada se dibuja el diseño de marca.
+function FamilyTile({ family, index }) {
+  const cover = FAMILY_COVER[family.slug]
+  const Icon = familyIcon(family.slug)
+  const size = index === 0 ? 'hm-fam--big' : index === 3 ? 'hm-fam--wide' : ''
+  const cats = family.categories ?? []
 
-// Bento asimétrico: 2 tarjetas grandes (motores y control) y 4 pequeñas
-const BIG = ['motores-electricos', 'control-y-automatizacion']
-const SMALL = ['reductores-y-motorreductores', 'ventilacion-y-climatizacion', 'cables-y-conductores', 'iluminacion']
-
-function FamilyTile({ family, big }) {
-  const image = FAMILY_IMAGE[family.slug]
   return (
-    <Link to={`/productos?familia=${family.slug}`} className={`bz hm-tile ${big ? 'hm-tile--big' : ''}`}>
-      <span className="core">
-        <span className="hm-tile__media">
-          {image && <img src={`/img/categorias/${image}.webp`} alt="" width="900" height="675" loading="lazy" />}
-        </span>
-        <span className="hm-tile__body">
-          <span>
-            <small>{family.lines_count} {family.lines_count === 1 ? 'ficha' : 'fichas'}</small>
-            <strong>{family.name}</strong>
-          </span>
-          <span className="hm-tile__arrow" aria-hidden="true"><ArrowUpRight size={20} /></span>
-        </span>
-      </span>
-    </Link>
+    <li className={`hm-fam ${size}`}>
+      <article className="hm-fam__card">
+        <div className="hm-fam__media" aria-hidden="true">
+          {cover ? (
+            <img src={`/img/categorias/${cover}.webp`} alt="" width="900" height="675" loading="lazy" />
+          ) : (
+            <span className="hm-fam__art"><span className="hm-fam__arc" /><Icon strokeWidth={1.3} /></span>
+          )}
+        </div>
+        <div className="hm-fam__body">
+          <span className="hm-fam__num" aria-hidden="true">{familyNumber(index)}</span>
+          <h3>
+            <Link to={`/productos?familia=${family.slug}`} className="hm-fam__link">{family.name}</Link>
+          </h3>
+          <p className="hm-fam__count">{family.lines_count} {family.lines_count === 1 ? 'ficha' : 'fichas'}</p>
+          {cats.length > 0 && (
+            <ul className="hm-fam__cats" aria-label={`Categorías de ${family.name}`}>
+              {cats.map((c) => (
+                <li key={c.id}>
+                  <Link to={`/productos?familia=${family.slug}&categoria=${c.slug}`}>{c.name}<span>{c.lines_count}</span></Link>
+                </li>
+              ))}
+            </ul>
+          )}
+          <span className="hm-fam__arrow" aria-hidden="true"><ArrowUpRight size={20} /></span>
+        </div>
+      </article>
+    </li>
   )
 }
 
 export default function HomeLines() {
   const { data: families, loading, error, reload } = useFamilies()
-  const bySlug = (slug) => families.find((f) => f.slug === slug)
-  const big = BIG.map(bySlug).filter(Boolean)
-  const small = SMALL.map(bySlug).filter(Boolean)
 
   return (
-    <section className="wrap hm-section" aria-labelledby="h-lineas">
+    <section className="wrap hm-section" id="portafolio" aria-labelledby="h-lineas">
       <div className="hm-head">
         <div>
-          <Eyebrow>Líneas del portafolio</Eyebrow>
+          <Eyebrow>Portafolio</Eyebrow>
           <h2 id="h-lineas" className="h2-sys">Todo para <em>tu proyecto</em></h2>
         </div>
         <Pill as="link" to="/productos" tone="l" size="sm">Ver todo el catálogo</Pill>
       </div>
 
-      {loading && <div className="skeleton" style={{ height: 420, borderRadius: 30 }} aria-hidden="true" />}
+      {loading && <div className="skeleton" style={{ height: 520, borderRadius: 30 }} aria-hidden="true" />}
       {error && <ErrorState error={error} onRetry={reload} />}
       {!loading && !error && (
-        <div className="hm-bento">
-          {big.map((f, i) => <Reveal key={f.id} delay={i * 0.06} className="hm-bento__big"><FamilyTile family={f} big /></Reveal>)}
-          {small.map((f, i) => <Reveal key={f.id} delay={0.1 + i * 0.05} className="hm-bento__small"><FamilyTile family={f} /></Reveal>)}
-        </div>
+        <ul className="hm-bento">
+          {families.map((f, i) => <FamilyTile key={f.id} family={f} index={i} />)}
+        </ul>
       )}
     </section>
   )

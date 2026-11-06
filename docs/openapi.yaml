@@ -355,14 +355,14 @@ paths:
                 example:
                   data:
                     -
-                      id: 57
+                      id: 44
                       parent_id: null
                       name: 'Et animi'
                       slug: et-animi
                       description: 'Et fugiat sunt nihil accusantium.'
                       image_url: null
                     -
-                      id: 58
+                      id: 45
                       parent_id: null
                       name: 'Mollitia modi'
                       slug: mollitia-modi
@@ -402,14 +402,14 @@ paths:
                     type: array
                     example:
                       -
-                        id: 57
+                        id: 44
                         parent_id: null
                         name: 'Et animi'
                         slug: et-animi
                         description: 'Et fugiat sunt nihil accusantium.'
                         image_url: null
                       -
-                        id: 58
+                        id: 45
                         parent_id: null
                         name: 'Mollitia modi'
                         slug: mollitia-modi
@@ -420,7 +420,7 @@ paths:
                       properties:
                         id:
                           type: integer
-                          example: 57
+                          example: 44
                         parent_id:
                           type: string
                           example: null
@@ -550,12 +550,12 @@ paths:
                 example:
                   data:
                     -
-                      id: 40
+                      id: 19
                       name: 'Llorente, Aguirre y Sierra e Hijo'
                       slug: llorente-aguirre-y-sierra-e-hijo
                       logo_url: null
                     -
-                      id: 41
+                      id: 20
                       name: 'Limón de Uribe S. de H.'
                       slug: limon-de-uribe-s-de-h
                       logo_url: null
@@ -593,12 +593,12 @@ paths:
                     type: array
                     example:
                       -
-                        id: 40
+                        id: 19
                         name: 'Llorente, Aguirre y Sierra e Hijo'
                         slug: llorente-aguirre-y-sierra-e-hijo
                         logo_url: null
                       -
-                        id: 41
+                        id: 20
                         name: 'Limón de Uribe S. de H.'
                         slug: limon-de-uribe-s-de-h
                         logo_url: null
@@ -607,7 +607,7 @@ paths:
                       properties:
                         id:
                           type: integer
-                          example: 40
+                          example: 19
                         name:
                           type: string
                           example: 'Llorente, Aguirre y Sierra e Hijo'
@@ -780,11 +780,11 @@ paths:
                       sale_mode_label: 'Venta directa'
                       is_featured: false
                       category:
-                        id: 43
+                        id: 44
                         name: 'Quis adipisci'
                         slug: quis-adipisci
                       brand:
-                        id: 18
+                        id: 19
                         name: 'Global Guardado y Asoc.'
                         slug: global-guardado-y-asoc
                         logo_url: null
@@ -809,11 +809,11 @@ paths:
                       sale_mode_label: 'Venta directa'
                       is_featured: false
                       category:
-                        id: 44
+                        id: 45
                         name: 'Perspiciatis deserunt'
                         slug: perspiciatis-deserunt
                       brand:
-                        id: 19
+                        id: 20
                         name: 'Grupo Arias-Chacón'
                         slug: grupo-arias-chacon
                         logo_url: null
@@ -871,11 +871,11 @@ paths:
                         sale_mode_label: 'Venta directa'
                         is_featured: false
                         category:
-                          id: 43
+                          id: 44
                           name: 'Quis adipisci'
                           slug: quis-adipisci
                         brand:
-                          id: 18
+                          id: 19
                           name: 'Global Guardado y Asoc.'
                           slug: global-guardado-y-asoc
                           logo_url: null
@@ -900,11 +900,11 @@ paths:
                         sale_mode_label: 'Venta directa'
                         is_featured: false
                         category:
-                          id: 44
+                          id: 45
                           name: 'Perspiciatis deserunt'
                           slug: perspiciatis-deserunt
                         brand:
-                          id: 19
+                          id: 20
                           name: 'Grupo Arias-Chacón'
                           slug: grupo-arias-chacon
                           logo_url: null
@@ -974,7 +974,7 @@ paths:
                           properties:
                             id:
                               type: integer
-                              example: 43
+                              example: 44
                             name:
                               type: string
                               example: 'Quis adipisci'
@@ -986,7 +986,7 @@ paths:
                           properties:
                             id:
                               type: integer
-                              example: 18
+                              example: 19
                             name:
                               type: string
                               example: 'Global Guardado y Asoc.'
@@ -1109,17 +1109,17 @@ paths:
                 featured:
                   type: boolean
                   description: ''
-                  example: true
+                  example: false
                   nullable: true
                 in_stock:
                   type: boolean
                   description: ''
-                  example: true
+                  example: false
                   nullable: true
                 sort:
                   type: string
                   description: ''
-                  example: price_desc
+                  example: price_asc
                   enum:
                     - name
                     - newest
@@ -1167,11 +1167,11 @@ paths:
                     sale_mode_label: 'Venta directa'
                     is_featured: false
                     category:
-                      id: 43
+                      id: 44
                       name: 'Aut deserunt'
                       slug: aut-deserunt
                     brand:
-                      id: 18
+                      id: 19
                       name: 'Nieto y Rico'
                       slug: nieto-y-rico
                       logo_url: null
@@ -1242,7 +1242,7 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 43
+                            example: 44
                           name:
                             type: string
                             example: 'Aut deserunt'
@@ -1254,7 +1254,7 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 18
+                            example: 19
                           name:
                             type: string
                             example: 'Nieto y Rico'
@@ -1292,7 +1292,7 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 20
+                    id: 6
                     name: 'Omar Domínguez'
                     email: arredondo.juana@example.com
                     role: cliente
@@ -1307,14 +1307,14 @@ paths:
                       address: 'Calle Elizondo, 54, 27º C'
                       marketing_opt_in: false
                       marketing_opt_in_at: null
-                      privacy_accepted_at: '2026-10-25T21:46:33.000000Z'
+                      privacy_accepted_at: '2026-11-06T23:09:41.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: integer
-                        example: 20
+                        example: 6
                       name:
                         type: string
                         example: 'Omar Domínguez'
@@ -1360,7 +1360,7 @@ paths:
                             nullable: true
                           privacy_accepted_at:
                             type: string
-                            example: '2026-10-25T21:46:33.000000Z'
+                            example: '2026-11-06T23:09:41.000000Z'
       tags:
         - 'Mi cuenta'
     put:
@@ -1377,7 +1377,7 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 21
+                    id: 6
                     name: 'Emilia Murillo'
                     email: juribe@example.org
                     role: cliente
@@ -1392,14 +1392,14 @@ paths:
                       address: 'Plaça Juana, 979, 27º A'
                       marketing_opt_in: false
                       marketing_opt_in_at: null
-                      privacy_accepted_at: '2026-10-25T21:46:33.000000Z'
+                      privacy_accepted_at: '2026-11-06T23:09:41.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: integer
-                        example: 21
+                        example: 6
                       name:
                         type: string
                         example: 'Emilia Murillo'
@@ -1445,7 +1445,7 @@ paths:
                             nullable: true
                           privacy_accepted_at:
                             type: string
-                            example: '2026-10-25T21:46:33.000000Z'
+                            example: '2026-11-06T23:09:41.000000Z'
       tags:
         - 'Mi cuenta'
       requestBody:
@@ -1532,21 +1532,21 @@ paths:
                 example:
                   data:
                     -
-                      code: PED-9171
+                      code: PED-5954
                       type: purchase
                       type_label: Pedido
                       status: pending_payment
                       status_label: 'Pendiente de pago'
                       customer_type: company
-                      company_name: 'Aguirre de Sierra e Hijo S.A.S.'
-                      nit: 931296562-5
-                      contact_name: 'Alexandra Salvador'
-                      email: icalero@example.org
-                      phone: '364 698 0841'
-                      city: Barrancabermeja
-                      address: 'Ruela Santiago, 442, 43º 2º'
-                      delivery_method: pickup
-                      delivery_method_label: 'Recoger en tienda'
+                      company_name: 'Tórrez y Meraz y Flia. S.A.S.'
+                      nit: 948542261-9
+                      contact_name: 'Naiara Reina'
+                      email: teresa66@example.net
+                      phone: '371 419 5831'
+                      city: Girón
+                      address: 'Camiño Omar, 5, 76º E'
+                      delivery_method: local
+                      delivery_method_label: 'Envío local (Bucaramanga y área metropolitana)'
                       payment_method: null
                       subtotal: 840336.13
                       tax: 159663.87
@@ -1555,55 +1555,55 @@ paths:
                       notes: null
                       expires_at: null
                       paid_at: null
-                      created_at: '2026-11-06T18:10:04.000000Z'
+                      created_at: '2026-11-06T23:09:41.000000Z'
+                      items:
+                        -
+                          id: 8
+                          product_id: 370
+                          sku: REF-3862-ts
+                          product_name: 'Motor trifásico 6761 HP'
+                          unit: unidad
+                          quantity: 3
+                          unit_price: 2969000
+                          tax_rate: 19
+                          line_total: 8907000
+                          notes: null
+                    -
+                      code: PED-2364
+                      type: purchase
+                      type_label: Pedido
+                      status: pending_payment
+                      status_label: 'Pendiente de pago'
+                      customer_type: company
+                      company_name: 'Grupo Mata e Hijos S.A.S.'
+                      nit: 943863870-7
+                      contact_name: 'Lidia Bermejo'
+                      email: pedro.domenech@example.net
+                      phone: '358 772 4829'
+                      city: Bucaramanga
+                      address: 'Plaça Josefa, 4, 36º F'
+                      delivery_method: local
+                      delivery_method_label: 'Envío local (Bucaramanga y área metropolitana)'
+                      payment_method: null
+                      subtotal: 840336.13
+                      tax: 159663.87
+                      shipping: 0
+                      total: 1000000
+                      notes: null
+                      expires_at: null
+                      paid_at: null
+                      created_at: '2026-11-06T23:09:41.000000Z'
                       items:
                         -
                           id: 9
-                          product_id: 370
-                          sku: REF-5058-cq
-                          product_name: 'Motor trifásico 6877 HP'
-                          unit: unidad
-                          quantity: 3
-                          unit_price: 3030000
-                          tax_rate: 19
-                          line_total: 9090000
-                          notes: null
-                    -
-                      code: PED-3733
-                      type: purchase
-                      type_label: Pedido
-                      status: pending_payment
-                      status_label: 'Pendiente de pago'
-                      customer_type: company
-                      company_name: 'Santillán de Rosa S.A.S.'
-                      nit: 940939506-2
-                      contact_name: 'Ona Lozano'
-                      email: alarcon.jaime@example.com
-                      phone: '329 242 1642'
-                      city: Piedecuesta
-                      address: 'Carrer Nayara, 342, 1º E'
-                      delivery_method: pickup
-                      delivery_method_label: 'Recoger en tienda'
-                      payment_method: null
-                      subtotal: 840336.13
-                      tax: 159663.87
-                      shipping: 0
-                      total: 1000000
-                      notes: null
-                      expires_at: null
-                      paid_at: null
-                      created_at: '2026-11-06T18:10:04.000000Z'
-                      items:
-                        -
-                          id: 10
                           product_id: 371
-                          sku: REF-9849-tp
-                          product_name: 'Motor trifásico 1703 HP'
+                          sku: REF-0194-uw
+                          product_name: 'Motor trifásico 3231 HP'
                           unit: unidad
-                          quantity: 2
-                          unit_price: 4569000
+                          quantity: 1
+                          unit_price: 3988000
                           tax_rate: 19
-                          line_total: 9138000
+                          line_total: 3988000
                           notes: null
                   links:
                     first: '/?page=1'
@@ -1639,21 +1639,21 @@ paths:
                     type: array
                     example:
                       -
-                        code: PED-9171
+                        code: PED-5954
                         type: purchase
                         type_label: Pedido
                         status: pending_payment
                         status_label: 'Pendiente de pago'
                         customer_type: company
-                        company_name: 'Aguirre de Sierra e Hijo S.A.S.'
-                        nit: 931296562-5
-                        contact_name: 'Alexandra Salvador'
-                        email: icalero@example.org
-                        phone: '364 698 0841'
-                        city: Barrancabermeja
-                        address: 'Ruela Santiago, 442, 43º 2º'
-                        delivery_method: pickup
-                        delivery_method_label: 'Recoger en tienda'
+                        company_name: 'Tórrez y Meraz y Flia. S.A.S.'
+                        nit: 948542261-9
+                        contact_name: 'Naiara Reina'
+                        email: teresa66@example.net
+                        phone: '371 419 5831'
+                        city: Girón
+                        address: 'Camiño Omar, 5, 76º E'
+                        delivery_method: local
+                        delivery_method_label: 'Envío local (Bucaramanga y área metropolitana)'
                         payment_method: null
                         subtotal: 840336.13
                         tax: 159663.87
@@ -1662,62 +1662,62 @@ paths:
                         notes: null
                         expires_at: null
                         paid_at: null
-                        created_at: '2026-11-06T18:10:04.000000Z'
+                        created_at: '2026-11-06T23:09:41.000000Z'
+                        items:
+                          -
+                            id: 8
+                            product_id: 370
+                            sku: REF-3862-ts
+                            product_name: 'Motor trifásico 6761 HP'
+                            unit: unidad
+                            quantity: 3
+                            unit_price: 2969000
+                            tax_rate: 19
+                            line_total: 8907000
+                            notes: null
+                      -
+                        code: PED-2364
+                        type: purchase
+                        type_label: Pedido
+                        status: pending_payment
+                        status_label: 'Pendiente de pago'
+                        customer_type: company
+                        company_name: 'Grupo Mata e Hijos S.A.S.'
+                        nit: 943863870-7
+                        contact_name: 'Lidia Bermejo'
+                        email: pedro.domenech@example.net
+                        phone: '358 772 4829'
+                        city: Bucaramanga
+                        address: 'Plaça Josefa, 4, 36º F'
+                        delivery_method: local
+                        delivery_method_label: 'Envío local (Bucaramanga y área metropolitana)'
+                        payment_method: null
+                        subtotal: 840336.13
+                        tax: 159663.87
+                        shipping: 0
+                        total: 1000000
+                        notes: null
+                        expires_at: null
+                        paid_at: null
+                        created_at: '2026-11-06T23:09:41.000000Z'
                         items:
                           -
                             id: 9
-                            product_id: 370
-                            sku: REF-5058-cq
-                            product_name: 'Motor trifásico 6877 HP'
-                            unit: unidad
-                            quantity: 3
-                            unit_price: 3030000
-                            tax_rate: 19
-                            line_total: 9090000
-                            notes: null
-                      -
-                        code: PED-3733
-                        type: purchase
-                        type_label: Pedido
-                        status: pending_payment
-                        status_label: 'Pendiente de pago'
-                        customer_type: company
-                        company_name: 'Santillán de Rosa S.A.S.'
-                        nit: 940939506-2
-                        contact_name: 'Ona Lozano'
-                        email: alarcon.jaime@example.com
-                        phone: '329 242 1642'
-                        city: Piedecuesta
-                        address: 'Carrer Nayara, 342, 1º E'
-                        delivery_method: pickup
-                        delivery_method_label: 'Recoger en tienda'
-                        payment_method: null
-                        subtotal: 840336.13
-                        tax: 159663.87
-                        shipping: 0
-                        total: 1000000
-                        notes: null
-                        expires_at: null
-                        paid_at: null
-                        created_at: '2026-11-06T18:10:04.000000Z'
-                        items:
-                          -
-                            id: 10
                             product_id: 371
-                            sku: REF-9849-tp
-                            product_name: 'Motor trifásico 1703 HP'
+                            sku: REF-0194-uw
+                            product_name: 'Motor trifásico 3231 HP'
                             unit: unidad
-                            quantity: 2
-                            unit_price: 4569000
+                            quantity: 1
+                            unit_price: 3988000
                             tax_rate: 19
-                            line_total: 9138000
+                            line_total: 3988000
                             notes: null
                     items:
                       type: object
                       properties:
                         code:
                           type: string
-                          example: PED-9171
+                          example: PED-5954
                         type:
                           type: string
                           example: purchase
@@ -1735,31 +1735,31 @@ paths:
                           example: company
                         company_name:
                           type: string
-                          example: 'Aguirre de Sierra e Hijo S.A.S.'
+                          example: 'Tórrez y Meraz y Flia. S.A.S.'
                         nit:
                           type: string
-                          example: 931296562-5
+                          example: 948542261-9
                         contact_name:
                           type: string
-                          example: 'Alexandra Salvador'
+                          example: 'Naiara Reina'
                         email:
                           type: string
-                          example: icalero@example.org
+                          example: teresa66@example.net
                         phone:
                           type: string
-                          example: '364 698 0841'
+                          example: '371 419 5831'
                         city:
                           type: string
-                          example: Barrancabermeja
+                          example: Girón
                         address:
                           type: string
-                          example: 'Ruela Santiago, 442, 43º 2º'
+                          example: 'Camiño Omar, 5, 76º E'
                         delivery_method:
                           type: string
-                          example: pickup
+                          example: local
                         delivery_method_label:
                           type: string
-                          example: 'Recoger en tienda'
+                          example: 'Envío local (Bucaramanga y área metropolitana)'
                         payment_method:
                           type: string
                           example: null
@@ -1790,36 +1790,36 @@ paths:
                           nullable: true
                         created_at:
                           type: string
-                          example: '2026-11-06T18:10:04.000000Z'
+                          example: '2026-11-06T23:09:41.000000Z'
                         items:
                           type: array
                           example:
                             -
-                              id: 9
+                              id: 8
                               product_id: 370
-                              sku: REF-5058-cq
-                              product_name: 'Motor trifásico 6877 HP'
+                              sku: REF-3862-ts
+                              product_name: 'Motor trifásico 6761 HP'
                               unit: unidad
                               quantity: 3
-                              unit_price: 3030000
+                              unit_price: 2969000
                               tax_rate: 19
-                              line_total: 9090000
+                              line_total: 8907000
                               notes: null
                           items:
                             type: object
                             properties:
                               id:
                                 type: integer
-                                example: 9
+                                example: 8
                               product_id:
                                 type: integer
                                 example: 370
                               sku:
                                 type: string
-                                example: REF-5058-cq
+                                example: REF-3862-ts
                               product_name:
                                 type: string
-                                example: 'Motor trifásico 6877 HP'
+                                example: 'Motor trifásico 6761 HP'
                               unit:
                                 type: string
                                 example: unidad
@@ -1828,13 +1828,13 @@ paths:
                                 example: 3
                               unit_price:
                                 type: integer
-                                example: 3030000
+                                example: 2969000
                               tax_rate:
                                 type: integer
                                 example: 19
                               line_total:
                                 type: integer
-                                example: 9090000
+                                example: 8907000
                               notes:
                                 type: string
                                 example: null
@@ -1927,7 +1927,7 @@ paths:
                 type:
                   type: string
                   description: ''
-                  example: purchase
+                  example: quote
                   enum:
                     - purchase
                     - quote
@@ -1935,7 +1935,7 @@ paths:
                 status:
                   type: string
                   description: ''
-                  example: pending_payment
+                  example: delivered
                   enum:
                     - pending_payment
                     - paid
@@ -1975,12 +1975,12 @@ paths:
                       status_label: 'Pendiente de pago'
                       customer_type: company
                       company_name: 'Llorente, Aguirre y Sierra e Hijo S.A.S.'
-                      nit: 934997057-5
-                      contact_name: 'Rosario Cano'
-                      email: isaac34@example.net
-                      phone: '318 740 4954'
-                      city: Girón
-                      address: 'Rúa Arnau, 798, 4º'
+                      nit: 931296562-5
+                      contact_name: 'Alexandra Salvador'
+                      email: icalero@example.org
+                      phone: '364 698 0841'
+                      city: Barrancabermeja
+                      address: 'Ruela Santiago, 442, 43º 2º'
                       delivery_method: pickup
                       delivery_method_label: 'Recoger en tienda'
                       payment_method: null
@@ -1991,35 +1991,35 @@ paths:
                       notes: null
                       expires_at: null
                       paid_at: null
-                      created_at: '2026-11-06T18:10:04.000000Z'
+                      created_at: '2026-11-06T23:09:41.000000Z'
                       items:
                         -
-                          id: 9
+                          id: 8
                           product_id: 370
-                          sku: REF-7365-sc
-                          product_name: 'Motor trifásico 967 HP'
+                          sku: REF-5058-cq
+                          product_name: 'Motor trifásico 6877 HP'
                           unit: unidad
                           quantity: 3
-                          unit_price: 2955000
+                          unit_price: 3030000
                           tax_rate: 19
-                          line_total: 8865000
+                          line_total: 9090000
                           notes: null
                     -
-                      code: PED-0568
+                      code: PED-3733
                       type: purchase
                       type_label: Pedido
                       status: pending_payment
                       status_label: 'Pendiente de pago'
                       customer_type: company
-                      company_name: 'Arevalo y Gaona S. de H. S.A.S.'
-                      nit: 912797048-1
-                      contact_name: 'Dr. Ismael Galán'
-                      email: jon26@example.com
-                      phone: '316 022 6085'
-                      city: Girón
-                      address: 'Ronda Roldán, 754, Ático 6º'
-                      delivery_method: local
-                      delivery_method_label: 'Envío local (Bucaramanga y área metropolitana)'
+                      company_name: 'Santillán de Rosa S.A.S.'
+                      nit: 940939506-2
+                      contact_name: 'Ona Lozano'
+                      email: alarcon.jaime@example.com
+                      phone: '329 242 1642'
+                      city: Piedecuesta
+                      address: 'Carrer Nayara, 342, 1º E'
+                      delivery_method: pickup
+                      delivery_method_label: 'Recoger en tienda'
                       payment_method: null
                       subtotal: 840336.13
                       tax: 159663.87
@@ -2028,18 +2028,18 @@ paths:
                       notes: null
                       expires_at: null
                       paid_at: null
-                      created_at: '2026-11-06T18:10:04.000000Z'
+                      created_at: '2026-11-06T23:09:41.000000Z'
                       items:
                         -
-                          id: 10
+                          id: 9
                           product_id: 371
-                          sku: REF-3531-ob
-                          product_name: 'Motor trifásico 6696 HP'
+                          sku: REF-9849-tp
+                          product_name: 'Motor trifásico 1703 HP'
                           unit: unidad
-                          quantity: 3
-                          unit_price: 4362000
+                          quantity: 2
+                          unit_price: 4569000
                           tax_rate: 19
-                          line_total: 13086000
+                          line_total: 9138000
                           notes: null
                 properties:
                   data:
@@ -2053,12 +2053,12 @@ paths:
                         status_label: 'Pendiente de pago'
                         customer_type: company
                         company_name: 'Llorente, Aguirre y Sierra e Hijo S.A.S.'
-                        nit: 934997057-5
-                        contact_name: 'Rosario Cano'
-                        email: isaac34@example.net
-                        phone: '318 740 4954'
-                        city: Girón
-                        address: 'Rúa Arnau, 798, 4º'
+                        nit: 931296562-5
+                        contact_name: 'Alexandra Salvador'
+                        email: icalero@example.org
+                        phone: '364 698 0841'
+                        city: Barrancabermeja
+                        address: 'Ruela Santiago, 442, 43º 2º'
                         delivery_method: pickup
                         delivery_method_label: 'Recoger en tienda'
                         payment_method: null
@@ -2069,35 +2069,35 @@ paths:
                         notes: null
                         expires_at: null
                         paid_at: null
-                        created_at: '2026-11-06T18:10:04.000000Z'
+                        created_at: '2026-11-06T23:09:41.000000Z'
                         items:
                           -
-                            id: 9
+                            id: 8
                             product_id: 370
-                            sku: REF-7365-sc
-                            product_name: 'Motor trifásico 967 HP'
+                            sku: REF-5058-cq
+                            product_name: 'Motor trifásico 6877 HP'
                             unit: unidad
                             quantity: 3
-                            unit_price: 2955000
+                            unit_price: 3030000
                             tax_rate: 19
-                            line_total: 8865000
+                            line_total: 9090000
                             notes: null
                       -
-                        code: PED-0568
+                        code: PED-3733
                         type: purchase
                         type_label: Pedido
                         status: pending_payment
                         status_label: 'Pendiente de pago'
                         customer_type: company
-                        company_name: 'Arevalo y Gaona S. de H. S.A.S.'
-                        nit: 912797048-1
-                        contact_name: 'Dr. Ismael Galán'
-                        email: jon26@example.com
-                        phone: '316 022 6085'
-                        city: Girón
-                        address: 'Ronda Roldán, 754, Ático 6º'
-                        delivery_method: local
-                        delivery_method_label: 'Envío local (Bucaramanga y área metropolitana)'
+                        company_name: 'Santillán de Rosa S.A.S.'
+                        nit: 940939506-2
+                        contact_name: 'Ona Lozano'
+                        email: alarcon.jaime@example.com
+                        phone: '329 242 1642'
+                        city: Piedecuesta
+                        address: 'Carrer Nayara, 342, 1º E'
+                        delivery_method: pickup
+                        delivery_method_label: 'Recoger en tienda'
                         payment_method: null
                         subtotal: 840336.13
                         tax: 159663.87
@@ -2106,18 +2106,18 @@ paths:
                         notes: null
                         expires_at: null
                         paid_at: null
-                        created_at: '2026-11-06T18:10:04.000000Z'
+                        created_at: '2026-11-06T23:09:41.000000Z'
                         items:
                           -
-                            id: 10
+                            id: 9
                             product_id: 371
-                            sku: REF-3531-ob
-                            product_name: 'Motor trifásico 6696 HP'
+                            sku: REF-9849-tp
+                            product_name: 'Motor trifásico 1703 HP'
                             unit: unidad
-                            quantity: 3
-                            unit_price: 4362000
+                            quantity: 2
+                            unit_price: 4569000
                             tax_rate: 19
-                            line_total: 13086000
+                            line_total: 9138000
                             notes: null
                     items:
                       type: object
@@ -2145,22 +2145,22 @@ paths:
                           example: 'Llorente, Aguirre y Sierra e Hijo S.A.S.'
                         nit:
                           type: string
-                          example: 934997057-5
+                          example: 931296562-5
                         contact_name:
                           type: string
-                          example: 'Rosario Cano'
+                          example: 'Alexandra Salvador'
                         email:
                           type: string
-                          example: isaac34@example.net
+                          example: icalero@example.org
                         phone:
                           type: string
-                          example: '318 740 4954'
+                          example: '364 698 0841'
                         city:
                           type: string
-                          example: Girón
+                          example: Barrancabermeja
                         address:
                           type: string
-                          example: 'Rúa Arnau, 798, 4º'
+                          example: 'Ruela Santiago, 442, 43º 2º'
                         delivery_method:
                           type: string
                           example: pickup
@@ -2197,36 +2197,36 @@ paths:
                           nullable: true
                         created_at:
                           type: string
-                          example: '2026-11-06T18:10:04.000000Z'
+                          example: '2026-11-06T23:09:41.000000Z'
                         items:
                           type: array
                           example:
                             -
-                              id: 9
+                              id: 8
                               product_id: 370
-                              sku: REF-7365-sc
-                              product_name: 'Motor trifásico 967 HP'
+                              sku: REF-5058-cq
+                              product_name: 'Motor trifásico 6877 HP'
                               unit: unidad
                               quantity: 3
-                              unit_price: 2955000
+                              unit_price: 3030000
                               tax_rate: 19
-                              line_total: 8865000
+                              line_total: 9090000
                               notes: null
                           items:
                             type: object
                             properties:
                               id:
                                 type: integer
-                                example: 9
+                                example: 8
                               product_id:
                                 type: integer
                                 example: 370
                               sku:
                                 type: string
-                                example: REF-7365-sc
+                                example: REF-5058-cq
                               product_name:
                                 type: string
-                                example: 'Motor trifásico 967 HP'
+                                example: 'Motor trifásico 6877 HP'
                               unit:
                                 type: string
                                 example: unidad
@@ -2235,13 +2235,13 @@ paths:
                                 example: 3
                               unit_price:
                                 type: integer
-                                example: 2955000
+                                example: 3030000
                               tax_rate:
                                 type: integer
                                 example: 19
                               line_total:
                                 type: integer
-                                example: 8865000
+                                example: 9090000
                               notes:
                                 type: string
                                 example: null
@@ -2357,10 +2357,10 @@ paths:
                     notes: null
                     expires_at: null
                     paid_at: null
-                    created_at: '2026-11-06T18:10:04.000000Z'
+                    created_at: '2026-11-06T23:09:41.000000Z'
                     items:
                       -
-                        id: 9
+                        id: 8
                         product_id: 370
                         sku: REF-2083-jk
                         product_name: 'Motor trifásico 4189 HP'
@@ -2376,7 +2376,7 @@ paths:
                         to_status: pending_payment
                         to_status_label: 'Pendiente de pago'
                         note: null
-                        created_at: '2026-11-06T18:10:04.000000Z'
+                        created_at: '2026-11-06T23:09:41.000000Z'
                 properties:
                   data:
                     type: object
@@ -2456,12 +2456,12 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-06T18:10:04.000000Z'
+                        example: '2026-11-06T23:09:41.000000Z'
                       items:
                         type: array
                         example:
                           -
-                            id: 9
+                            id: 8
                             product_id: 370
                             sku: REF-2083-jk
                             product_name: 'Motor trifásico 4189 HP'
@@ -2476,7 +2476,7 @@ paths:
                           properties:
                             id:
                               type: integer
-                              example: 9
+                              example: 8
                             product_id:
                               type: integer
                               example: 370
@@ -2513,7 +2513,7 @@ paths:
                             to_status: pending_payment
                             to_status_label: 'Pendiente de pago'
                             note: null
-                            created_at: '2026-11-06T18:10:04.000000Z'
+                            created_at: '2026-11-06T23:09:41.000000Z'
                         items:
                           type: object
                           properties:
@@ -2533,7 +2533,7 @@ paths:
                               nullable: true
                             created_at:
                               type: string
-                              example: '2026-11-06T18:10:04.000000Z'
+                              example: '2026-11-06T23:09:41.000000Z'
       tags:
         - 'Pedidos y cotizaciones (cliente)'
     parameters:
@@ -2583,10 +2583,10 @@ paths:
                     notes: null
                     expires_at: null
                     paid_at: null
-                    created_at: '2026-11-06T18:10:04.000000Z'
+                    created_at: '2026-11-06T23:09:41.000000Z'
                     items:
                       -
-                        id: 9
+                        id: 8
                         product_id: 370
                         sku: REF-0782-pp
                         product_name: 'Motor trifásico 5685 HP'
@@ -2602,7 +2602,7 @@ paths:
                         to_status: pending_payment
                         to_status_label: 'Pendiente de pago'
                         note: null
-                        created_at: '2026-11-06T18:10:04.000000Z'
+                        created_at: '2026-11-06T23:09:41.000000Z'
                 properties:
                   data:
                     type: object
@@ -2682,12 +2682,12 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-06T18:10:04.000000Z'
+                        example: '2026-11-06T23:09:41.000000Z'
                       items:
                         type: array
                         example:
                           -
-                            id: 9
+                            id: 8
                             product_id: 370
                             sku: REF-0782-pp
                             product_name: 'Motor trifásico 5685 HP'
@@ -2702,7 +2702,7 @@ paths:
                           properties:
                             id:
                               type: integer
-                              example: 9
+                              example: 8
                             product_id:
                               type: integer
                               example: 370
@@ -2739,7 +2739,7 @@ paths:
                             to_status: pending_payment
                             to_status_label: 'Pendiente de pago'
                             note: null
-                            created_at: '2026-11-06T18:10:04.000000Z'
+                            created_at: '2026-11-06T23:09:41.000000Z'
                         items:
                           type: object
                           properties:
@@ -2759,7 +2759,7 @@ paths:
                               nullable: true
                             created_at:
                               type: string
-                              example: '2026-11-06T18:10:04.000000Z'
+                              example: '2026-11-06T23:09:41.000000Z'
         422:
           description: 'Estado que no permite cancelar'
           content:
@@ -2889,17 +2889,17 @@ paths:
                       sale_mode_label: 'Venta directa'
                       is_featured: false
                       category:
-                        id: 43
+                        id: 44
                         name: 'Perspiciatis quo'
                         slug: perspiciatis-quo
                       brand:
-                        id: 18
+                        id: 19
                         name: 'Empresa Domínguez e Hijo'
                         slug: empresa-dominguez-e-hijo
                         logo_url: null
                       is_active: true
-                      created_at: '2026-11-06T18:10:04.000000Z'
-                      updated_at: '2026-11-06T18:10:04.000000Z'
+                      created_at: '2026-11-06T23:09:41.000000Z'
+                      updated_at: '2026-11-06T23:09:41.000000Z'
                       deleted_at: null
                     -
                       id: 371
@@ -2922,17 +2922,17 @@ paths:
                       sale_mode_label: 'Venta directa'
                       is_featured: false
                       category:
-                        id: 44
+                        id: 45
                         name: 'Dolores enim'
                         slug: dolores-enim
                       brand:
-                        id: 19
+                        id: 20
                         name: 'Casanova y Almonte y Asoc.'
                         slug: casanova-y-almonte-y-asoc
                         logo_url: null
                       is_active: true
-                      created_at: '2026-11-06T18:10:04.000000Z'
-                      updated_at: '2026-11-06T18:10:04.000000Z'
+                      created_at: '2026-11-06T23:09:41.000000Z'
+                      updated_at: '2026-11-06T23:09:41.000000Z'
                       deleted_at: null
                   links:
                     first: '/?page=1'
@@ -2988,17 +2988,17 @@ paths:
                         sale_mode_label: 'Venta directa'
                         is_featured: false
                         category:
-                          id: 43
+                          id: 44
                           name: 'Perspiciatis quo'
                           slug: perspiciatis-quo
                         brand:
-                          id: 18
+                          id: 19
                           name: 'Empresa Domínguez e Hijo'
                           slug: empresa-dominguez-e-hijo
                           logo_url: null
                         is_active: true
-                        created_at: '2026-11-06T18:10:04.000000Z'
-                        updated_at: '2026-11-06T18:10:04.000000Z'
+                        created_at: '2026-11-06T23:09:41.000000Z'
+                        updated_at: '2026-11-06T23:09:41.000000Z'
                         deleted_at: null
                       -
                         id: 371
@@ -3021,17 +3021,17 @@ paths:
                         sale_mode_label: 'Venta directa'
                         is_featured: false
                         category:
-                          id: 44
+                          id: 45
                           name: 'Dolores enim'
                           slug: dolores-enim
                         brand:
-                          id: 19
+                          id: 20
                           name: 'Casanova y Almonte y Asoc.'
                           slug: casanova-y-almonte-y-asoc
                           logo_url: null
                         is_active: true
-                        created_at: '2026-11-06T18:10:04.000000Z'
-                        updated_at: '2026-11-06T18:10:04.000000Z'
+                        created_at: '2026-11-06T23:09:41.000000Z'
+                        updated_at: '2026-11-06T23:09:41.000000Z'
                         deleted_at: null
                     items:
                       type: object
@@ -3100,7 +3100,7 @@ paths:
                           properties:
                             id:
                               type: integer
-                              example: 43
+                              example: 44
                             name:
                               type: string
                               example: 'Perspiciatis quo'
@@ -3112,7 +3112,7 @@ paths:
                           properties:
                             id:
                               type: integer
-                              example: 18
+                              example: 19
                             name:
                               type: string
                               example: 'Empresa Domínguez e Hijo'
@@ -3128,10 +3128,10 @@ paths:
                           example: true
                         created_at:
                           type: string
-                          example: '2026-11-06T18:10:04.000000Z'
+                          example: '2026-11-06T23:09:41.000000Z'
                         updated_at:
                           type: string
-                          example: '2026-11-06T18:10:04.000000Z'
+                          example: '2026-11-06T23:09:41.000000Z'
                         deleted_at:
                           type: string
                           example: null
@@ -3265,17 +3265,17 @@ paths:
                     sale_mode_label: 'Venta directa'
                     is_featured: false
                     category:
-                      id: 43
+                      id: 44
                       name: 'Nostrum omnis'
                       slug: nostrum-omnis
                     brand:
-                      id: 18
+                      id: 19
                       name: 'Asociación Jaramillo e Hija'
                       slug: asociacion-jaramillo-e-hija
                       logo_url: null
                     is_active: true
-                    created_at: '2026-11-06T18:10:04.000000Z'
-                    updated_at: '2026-11-06T18:10:04.000000Z'
+                    created_at: '2026-11-06T23:09:41.000000Z'
+                    updated_at: '2026-11-06T23:09:41.000000Z'
                     deleted_at: null
                 properties:
                   data:
@@ -3345,7 +3345,7 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 43
+                            example: 44
                           name:
                             type: string
                             example: 'Nostrum omnis'
@@ -3357,7 +3357,7 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 18
+                            example: 19
                           name:
                             type: string
                             example: 'Asociación Jaramillo e Hija'
@@ -3373,10 +3373,10 @@ paths:
                         example: true
                       created_at:
                         type: string
-                        example: '2026-11-06T18:10:04.000000Z'
+                        example: '2026-11-06T23:09:41.000000Z'
                       updated_at:
                         type: string
-                        example: '2026-11-06T18:10:04.000000Z'
+                        example: '2026-11-06T23:09:41.000000Z'
                       deleted_at:
                         type: string
                         example: null
@@ -3517,17 +3517,17 @@ paths:
                     sale_mode_label: 'Venta directa'
                     is_featured: false
                     category:
-                      id: 43
+                      id: 44
                       name: 'Aliquam veniam'
                       slug: aliquam-veniam
                     brand:
-                      id: 18
+                      id: 19
                       name: 'Cabán de Llorente S. de H.'
                       slug: caban-de-llorente-s-de-h
                       logo_url: null
                     is_active: true
-                    created_at: '2026-11-06T18:10:04.000000Z'
-                    updated_at: '2026-11-06T18:10:04.000000Z'
+                    created_at: '2026-11-06T23:09:41.000000Z'
+                    updated_at: '2026-11-06T23:09:41.000000Z'
                     deleted_at: null
                 properties:
                   data:
@@ -3596,7 +3596,7 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 43
+                            example: 44
                           name:
                             type: string
                             example: 'Aliquam veniam'
@@ -3608,7 +3608,7 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 18
+                            example: 19
                           name:
                             type: string
                             example: 'Cabán de Llorente S. de H.'
@@ -3624,10 +3624,10 @@ paths:
                         example: true
                       created_at:
                         type: string
-                        example: '2026-11-06T18:10:04.000000Z'
+                        example: '2026-11-06T23:09:41.000000Z'
                       updated_at:
                         type: string
-                        example: '2026-11-06T18:10:04.000000Z'
+                        example: '2026-11-06T23:09:41.000000Z'
                       deleted_at:
                         type: string
                         example: null
@@ -3668,17 +3668,17 @@ paths:
                     sale_mode_label: 'Venta directa'
                     is_featured: false
                     category:
-                      id: 43
+                      id: 44
                       name: 'Corporis dolorem'
                       slug: corporis-dolorem
                     brand:
-                      id: 18
+                      id: 19
                       name: 'Marroquín, Ramírez y Chapa SRL'
                       slug: marroquin-ramirez-y-chapa-srl
                       logo_url: null
                     is_active: true
-                    created_at: '2026-11-06T18:10:04.000000Z'
-                    updated_at: '2026-11-06T18:10:04.000000Z'
+                    created_at: '2026-11-06T23:09:41.000000Z'
+                    updated_at: '2026-11-06T23:09:41.000000Z'
                     deleted_at: null
                 properties:
                   data:
@@ -3747,7 +3747,7 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 43
+                            example: 44
                           name:
                             type: string
                             example: 'Corporis dolorem'
@@ -3759,7 +3759,7 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 18
+                            example: 19
                           name:
                             type: string
                             example: 'Marroquín, Ramírez y Chapa SRL'
@@ -3775,10 +3775,10 @@ paths:
                         example: true
                       created_at:
                         type: string
-                        example: '2026-11-06T18:10:04.000000Z'
+                        example: '2026-11-06T23:09:41.000000Z'
                       updated_at:
                         type: string
-                        example: '2026-11-06T18:10:04.000000Z'
+                        example: '2026-11-06T23:09:41.000000Z'
                       deleted_at:
                         type: string
                         example: null
@@ -3851,11 +3851,11 @@ paths:
                 is_active:
                   type: boolean
                   description: ''
-                  example: false
+                  example: true
                 is_featured:
                   type: boolean
                   description: ''
-                  example: false
+                  example: true
                 specs:
                   type: array
                   description: 'El campo value no puede tener más de 30 elementos.'
@@ -3922,6 +3922,16 @@ paths:
       summary: 'Familias del portafolio'
       operationId: familiasDelPortafolio
       description: 'Familias con sus categorías y el número de líneas de cada una, más las marcas y los totales del catálogo.'
+      parameters: []
+      responses: {}
+      tags:
+        - 'Catálogo por líneas (público)'
+      security: []
+  /api/v1/promotions:
+    get:
+      summary: 'Promociones del momento'
+      operationId: promocionesDelMomento
+      description: "Promociones activas cuya vigencia incluye hoy, de la que vence primero a la que vence después. Cada una trae\nel precio de lista, el precio promocional (con IVA) y la línea a la que enlaza. Si no hay ninguna, `data` va vacío\ny la tienda oculta la sección. No requiere token."
       parameters: []
       responses: {}
       tags:

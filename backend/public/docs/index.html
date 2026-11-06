@@ -163,6 +163,9 @@
                                                     <li class="tocify-item level-2" data-unique="catalogo-por-lineas-publico-GETapi-v1-families">
                                 <a href="#catalogo-por-lineas-publico-GETapi-v1-families">Familias del portafolio</a>
                             </li>
+                                                                                <li class="tocify-item level-2" data-unique="catalogo-por-lineas-publico-GETapi-v1-promotions">
+                                <a href="#catalogo-por-lineas-publico-GETapi-v1-promotions">Promociones del momento</a>
+                            </li>
                                                                                 <li class="tocify-item level-2" data-unique="catalogo-por-lineas-publico-GETapi-v1-lines">
                                 <a href="#catalogo-por-lineas-publico-GETapi-v1-lines">Líneas del catálogo</a>
                             </li>
@@ -920,7 +923,7 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 57,
+            &quot;id&quot;: 44,
             &quot;parent_id&quot;: null,
             &quot;name&quot;: &quot;Et animi&quot;,
             &quot;slug&quot;: &quot;et-animi&quot;,
@@ -928,7 +931,7 @@ fetch(url, {
             &quot;image_url&quot;: null
         },
         {
-            &quot;id&quot;: 58,
+            &quot;id&quot;: 45,
             &quot;parent_id&quot;: null,
             &quot;name&quot;: &quot;Mollitia modi&quot;,
             &quot;slug&quot;: &quot;mollitia-modi&quot;,
@@ -1127,13 +1130,13 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 40,
+            &quot;id&quot;: 19,
             &quot;name&quot;: &quot;Llorente, Aguirre y Sierra e Hijo&quot;,
             &quot;slug&quot;: &quot;llorente-aguirre-y-sierra-e-hijo&quot;,
             &quot;logo_url&quot;: null
         },
         {
-            &quot;id&quot;: 41,
+            &quot;id&quot;: 20,
             &quot;name&quot;: &quot;Lim&oacute;n de Uribe S. de H.&quot;,
             &quot;slug&quot;: &quot;limon-de-uribe-s-de-h&quot;,
             &quot;logo_url&quot;: null
@@ -1298,9 +1301,9 @@ solo se vende por cotización. No requiere token.</p>
     \"category\": \"n\",
     \"brand\": \"g\",
     \"sale_mode\": \"direct\",
-    \"featured\": true,
-    \"in_stock\": true,
-    \"sort\": \"price_desc\",
+    \"featured\": false,
+    \"in_stock\": false,
+    \"sort\": \"price_asc\",
     \"per_page\": 16
 }"
 </code></pre></div>
@@ -1329,9 +1332,9 @@ let body = {
     "category": "n",
     "brand": "g",
     "sale_mode": "direct",
-    "featured": true,
-    "in_stock": true,
-    "sort": "price_desc",
+    "featured": false,
+    "in_stock": false,
+    "sort": "price_asc",
     "per_page": 16
 };
 
@@ -1373,12 +1376,12 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 43,
+                &quot;id&quot;: 44,
                 &quot;name&quot;: &quot;Quis adipisci&quot;,
                 &quot;slug&quot;: &quot;quis-adipisci&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 18,
+                &quot;id&quot;: 19,
                 &quot;name&quot;: &quot;Global Guardado y Asoc.&quot;,
                 &quot;slug&quot;: &quot;global-guardado-y-asoc&quot;,
                 &quot;logo_url&quot;: null
@@ -1406,12 +1409,12 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 44,
+                &quot;id&quot;: 45,
                 &quot;name&quot;: &quot;Perspiciatis deserunt&quot;,
                 &quot;slug&quot;: &quot;perspiciatis-deserunt&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 19,
+                &quot;id&quot;: 20,
                 &quot;name&quot;: &quot;Grupo Arias-Chac&oacute;n&quot;,
                 &quot;slug&quot;: &quot;grupo-arias-chacon&quot;,
                 &quot;logo_url&quot;: null
@@ -1635,7 +1638,7 @@ Must be one of:
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>true</code></p>
+<p>Example: <code>false</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>in_stock</code></b>&nbsp;&nbsp;
@@ -1657,7 +1660,7 @@ Must be one of:
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>true</code></p>
+<p>Example: <code>false</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>sort</code></b>&nbsp;&nbsp;
@@ -1666,10 +1669,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="sort"                data-endpoint="GETapi-v1-products"
-               value="price_desc"
+               value="price_asc"
                data-component="body">
     <br>
-<p>Example: <code>price_desc</code></p>
+<p>Example: <code>price_asc</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>name</code></li> <li><code>newest</code></li> <li><code>price_asc</code></li> <li><code>price_desc</code></li></ul>
         </div>
@@ -1752,12 +1755,12 @@ fetch(url, {
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 43,
+            &quot;id&quot;: 44,
             &quot;name&quot;: &quot;Aut deserunt&quot;,
             &quot;slug&quot;: &quot;aut-deserunt&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 18,
+            &quot;id&quot;: 19,
             &quot;name&quot;: &quot;Nieto y Rico&quot;,
             &quot;slug&quot;: &quot;nieto-y-rico&quot;,
             &quot;logo_url&quot;: null
@@ -1903,7 +1906,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 20,
+        &quot;id&quot;: 6,
         &quot;name&quot;: &quot;Omar Dom&iacute;nguez&quot;,
         &quot;email&quot;: &quot;arredondo.juana@example.com&quot;,
         &quot;role&quot;: &quot;cliente&quot;,
@@ -1918,7 +1921,7 @@ fetch(url, {
             &quot;address&quot;: &quot;Calle Elizondo, 54, 27&ordm; C&quot;,
             &quot;marketing_opt_in&quot;: false,
             &quot;marketing_opt_in_at&quot;: null,
-            &quot;privacy_accepted_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;
+            &quot;privacy_accepted_at&quot;: &quot;2026-11-06T23:09:41.000000Z&quot;
         }
     }
 }</code>
@@ -2075,7 +2078,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 21,
+        &quot;id&quot;: 6,
         &quot;name&quot;: &quot;Emilia Murillo&quot;,
         &quot;email&quot;: &quot;juribe@example.org&quot;,
         &quot;role&quot;: &quot;cliente&quot;,
@@ -2090,7 +2093,7 @@ fetch(url, {
             &quot;address&quot;: &quot;Pla&ccedil;a Juana, 979, 27&ordm; A&quot;,
             &quot;marketing_opt_in&quot;: false,
             &quot;marketing_opt_in_at&quot;: null,
-            &quot;privacy_accepted_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;
+            &quot;privacy_accepted_at&quot;: &quot;2026-11-06T23:09:41.000000Z&quot;
         }
     }
 }</code>
@@ -2288,8 +2291,8 @@ muestra las de otros clientes.</p>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"type\": \"purchase\",
-    \"status\": \"pending_payment\",
+    \"type\": \"quote\",
+    \"status\": \"delivered\",
     \"per_page\": 1
 }"
 </code></pre></div>
@@ -2315,8 +2318,8 @@ const headers = {
 };
 
 let body = {
-    "type": "purchase",
-    "status": "pending_payment",
+    "type": "quote",
+    "status": "delivered",
     "per_page": 1
 };
 
@@ -2337,21 +2340,21 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;code&quot;: &quot;PED-9171&quot;,
+            &quot;code&quot;: &quot;PED-5954&quot;,
             &quot;type&quot;: &quot;purchase&quot;,
             &quot;type_label&quot;: &quot;Pedido&quot;,
             &quot;status&quot;: &quot;pending_payment&quot;,
             &quot;status_label&quot;: &quot;Pendiente de pago&quot;,
             &quot;customer_type&quot;: &quot;company&quot;,
-            &quot;company_name&quot;: &quot;Aguirre de Sierra e Hijo S.A.S.&quot;,
-            &quot;nit&quot;: &quot;931296562-5&quot;,
-            &quot;contact_name&quot;: &quot;Alexandra Salvador&quot;,
-            &quot;email&quot;: &quot;icalero@example.org&quot;,
-            &quot;phone&quot;: &quot;364 698 0841&quot;,
-            &quot;city&quot;: &quot;Barrancabermeja&quot;,
-            &quot;address&quot;: &quot;Ruela Santiago, 442, 43&ordm; 2&ordm;&quot;,
-            &quot;delivery_method&quot;: &quot;pickup&quot;,
-            &quot;delivery_method_label&quot;: &quot;Recoger en tienda&quot;,
+            &quot;company_name&quot;: &quot;T&oacute;rrez y Meraz y Flia. S.A.S.&quot;,
+            &quot;nit&quot;: &quot;948542261-9&quot;,
+            &quot;contact_name&quot;: &quot;Naiara Reina&quot;,
+            &quot;email&quot;: &quot;teresa66@example.net&quot;,
+            &quot;phone&quot;: &quot;371 419 5831&quot;,
+            &quot;city&quot;: &quot;Gir&oacute;n&quot;,
+            &quot;address&quot;: &quot;Cami&ntilde;o Omar, 5, 76&ordm; E&quot;,
+            &quot;delivery_method&quot;: &quot;local&quot;,
+            &quot;delivery_method_label&quot;: &quot;Env&iacute;o local (Bucaramanga y &aacute;rea metropolitana)&quot;,
             &quot;payment_method&quot;: null,
             &quot;subtotal&quot;: 840336.13,
             &quot;tax&quot;: 159663.87,
@@ -2360,38 +2363,38 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-06T23:09:41.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 9,
+                    &quot;id&quot;: 8,
                     &quot;product_id&quot;: 370,
-                    &quot;sku&quot;: &quot;REF-5058-cq&quot;,
-                    &quot;product_name&quot;: &quot;Motor trif&aacute;sico 6877 HP&quot;,
+                    &quot;sku&quot;: &quot;REF-3862-ts&quot;,
+                    &quot;product_name&quot;: &quot;Motor trif&aacute;sico 6761 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
                     &quot;quantity&quot;: 3,
-                    &quot;unit_price&quot;: 3030000,
+                    &quot;unit_price&quot;: 2969000,
                     &quot;tax_rate&quot;: 19,
-                    &quot;line_total&quot;: 9090000,
+                    &quot;line_total&quot;: 8907000,
                     &quot;notes&quot;: null
                 }
             ]
         },
         {
-            &quot;code&quot;: &quot;PED-3733&quot;,
+            &quot;code&quot;: &quot;PED-2364&quot;,
             &quot;type&quot;: &quot;purchase&quot;,
             &quot;type_label&quot;: &quot;Pedido&quot;,
             &quot;status&quot;: &quot;pending_payment&quot;,
             &quot;status_label&quot;: &quot;Pendiente de pago&quot;,
             &quot;customer_type&quot;: &quot;company&quot;,
-            &quot;company_name&quot;: &quot;Santill&aacute;n de Rosa S.A.S.&quot;,
-            &quot;nit&quot;: &quot;940939506-2&quot;,
-            &quot;contact_name&quot;: &quot;Ona Lozano&quot;,
-            &quot;email&quot;: &quot;alarcon.jaime@example.com&quot;,
-            &quot;phone&quot;: &quot;329 242 1642&quot;,
-            &quot;city&quot;: &quot;Piedecuesta&quot;,
-            &quot;address&quot;: &quot;Carrer Nayara, 342, 1&ordm; E&quot;,
-            &quot;delivery_method&quot;: &quot;pickup&quot;,
-            &quot;delivery_method_label&quot;: &quot;Recoger en tienda&quot;,
+            &quot;company_name&quot;: &quot;Grupo Mata e Hijos S.A.S.&quot;,
+            &quot;nit&quot;: &quot;943863870-7&quot;,
+            &quot;contact_name&quot;: &quot;Lidia Bermejo&quot;,
+            &quot;email&quot;: &quot;pedro.domenech@example.net&quot;,
+            &quot;phone&quot;: &quot;358 772 4829&quot;,
+            &quot;city&quot;: &quot;Bucaramanga&quot;,
+            &quot;address&quot;: &quot;Pla&ccedil;a Josefa, 4, 36&ordm; F&quot;,
+            &quot;delivery_method&quot;: &quot;local&quot;,
+            &quot;delivery_method_label&quot;: &quot;Env&iacute;o local (Bucaramanga y &aacute;rea metropolitana)&quot;,
             &quot;payment_method&quot;: null,
             &quot;subtotal&quot;: 840336.13,
             &quot;tax&quot;: 159663.87,
@@ -2400,18 +2403,18 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-06T23:09:41.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 10,
+                    &quot;id&quot;: 9,
                     &quot;product_id&quot;: 371,
-                    &quot;sku&quot;: &quot;REF-9849-tp&quot;,
-                    &quot;product_name&quot;: &quot;Motor trif&aacute;sico 1703 HP&quot;,
+                    &quot;sku&quot;: &quot;REF-0194-uw&quot;,
+                    &quot;product_name&quot;: &quot;Motor trif&aacute;sico 3231 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
-                    &quot;quantity&quot;: 2,
-                    &quot;unit_price&quot;: 4569000,
+                    &quot;quantity&quot;: 1,
+                    &quot;unit_price&quot;: 3988000,
                     &quot;tax_rate&quot;: 19,
-                    &quot;line_total&quot;: 9138000,
+                    &quot;line_total&quot;: 3988000,
                     &quot;notes&quot;: null
                 }
             ]
@@ -2583,10 +2586,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="type"                data-endpoint="GETapi-v1-orders"
-               value="purchase"
+               value="quote"
                data-component="body">
     <br>
-<p>Example: <code>purchase</code></p>
+<p>Example: <code>quote</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>purchase</code></li> <li><code>quote</code></li></ul>
         </div>
@@ -2597,10 +2600,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="status"                data-endpoint="GETapi-v1-orders"
-               value="pending_payment"
+               value="delivered"
                data-component="body">
     <br>
-<p>Example: <code>pending_payment</code></p>
+<p>Example: <code>delivered</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>pending_payment</code></li> <li><code>paid</code></li> <li><code>shipped</code></li> <li><code>delivered</code></li> <li><code>new</code></li> <li><code>in_review</code></li> <li><code>sent</code></li> <li><code>accepted</code></li> <li><code>rejected</code></li> <li><code>cancelled</code></li></ul>
         </div>
@@ -2704,12 +2707,12 @@ fetch(url, {
             &quot;status_label&quot;: &quot;Pendiente de pago&quot;,
             &quot;customer_type&quot;: &quot;company&quot;,
             &quot;company_name&quot;: &quot;Llorente, Aguirre y Sierra e Hijo S.A.S.&quot;,
-            &quot;nit&quot;: &quot;934997057-5&quot;,
-            &quot;contact_name&quot;: &quot;Rosario Cano&quot;,
-            &quot;email&quot;: &quot;isaac34@example.net&quot;,
-            &quot;phone&quot;: &quot;318 740 4954&quot;,
-            &quot;city&quot;: &quot;Gir&oacute;n&quot;,
-            &quot;address&quot;: &quot;R&uacute;a Arnau, 798, 4&ordm;&quot;,
+            &quot;nit&quot;: &quot;931296562-5&quot;,
+            &quot;contact_name&quot;: &quot;Alexandra Salvador&quot;,
+            &quot;email&quot;: &quot;icalero@example.org&quot;,
+            &quot;phone&quot;: &quot;364 698 0841&quot;,
+            &quot;city&quot;: &quot;Barrancabermeja&quot;,
+            &quot;address&quot;: &quot;Ruela Santiago, 442, 43&ordm; 2&ordm;&quot;,
             &quot;delivery_method&quot;: &quot;pickup&quot;,
             &quot;delivery_method_label&quot;: &quot;Recoger en tienda&quot;,
             &quot;payment_method&quot;: null,
@@ -2720,38 +2723,38 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-06T23:09:41.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 9,
+                    &quot;id&quot;: 8,
                     &quot;product_id&quot;: 370,
-                    &quot;sku&quot;: &quot;REF-7365-sc&quot;,
-                    &quot;product_name&quot;: &quot;Motor trif&aacute;sico 967 HP&quot;,
+                    &quot;sku&quot;: &quot;REF-5058-cq&quot;,
+                    &quot;product_name&quot;: &quot;Motor trif&aacute;sico 6877 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
                     &quot;quantity&quot;: 3,
-                    &quot;unit_price&quot;: 2955000,
+                    &quot;unit_price&quot;: 3030000,
                     &quot;tax_rate&quot;: 19,
-                    &quot;line_total&quot;: 8865000,
+                    &quot;line_total&quot;: 9090000,
                     &quot;notes&quot;: null
                 }
             ]
         },
         {
-            &quot;code&quot;: &quot;PED-0568&quot;,
+            &quot;code&quot;: &quot;PED-3733&quot;,
             &quot;type&quot;: &quot;purchase&quot;,
             &quot;type_label&quot;: &quot;Pedido&quot;,
             &quot;status&quot;: &quot;pending_payment&quot;,
             &quot;status_label&quot;: &quot;Pendiente de pago&quot;,
             &quot;customer_type&quot;: &quot;company&quot;,
-            &quot;company_name&quot;: &quot;Arevalo y Gaona S. de H. S.A.S.&quot;,
-            &quot;nit&quot;: &quot;912797048-1&quot;,
-            &quot;contact_name&quot;: &quot;Dr. Ismael Gal&aacute;n&quot;,
-            &quot;email&quot;: &quot;jon26@example.com&quot;,
-            &quot;phone&quot;: &quot;316 022 6085&quot;,
-            &quot;city&quot;: &quot;Gir&oacute;n&quot;,
-            &quot;address&quot;: &quot;Ronda Rold&aacute;n, 754, &Aacute;tico 6&ordm;&quot;,
-            &quot;delivery_method&quot;: &quot;local&quot;,
-            &quot;delivery_method_label&quot;: &quot;Env&iacute;o local (Bucaramanga y &aacute;rea metropolitana)&quot;,
+            &quot;company_name&quot;: &quot;Santill&aacute;n de Rosa S.A.S.&quot;,
+            &quot;nit&quot;: &quot;940939506-2&quot;,
+            &quot;contact_name&quot;: &quot;Ona Lozano&quot;,
+            &quot;email&quot;: &quot;alarcon.jaime@example.com&quot;,
+            &quot;phone&quot;: &quot;329 242 1642&quot;,
+            &quot;city&quot;: &quot;Piedecuesta&quot;,
+            &quot;address&quot;: &quot;Carrer Nayara, 342, 1&ordm; E&quot;,
+            &quot;delivery_method&quot;: &quot;pickup&quot;,
+            &quot;delivery_method_label&quot;: &quot;Recoger en tienda&quot;,
             &quot;payment_method&quot;: null,
             &quot;subtotal&quot;: 840336.13,
             &quot;tax&quot;: 159663.87,
@@ -2760,18 +2763,18 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-06T23:09:41.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 10,
+                    &quot;id&quot;: 9,
                     &quot;product_id&quot;: 371,
-                    &quot;sku&quot;: &quot;REF-3531-ob&quot;,
-                    &quot;product_name&quot;: &quot;Motor trif&aacute;sico 6696 HP&quot;,
+                    &quot;sku&quot;: &quot;REF-9849-tp&quot;,
+                    &quot;product_name&quot;: &quot;Motor trif&aacute;sico 1703 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
-                    &quot;quantity&quot;: 3,
-                    &quot;unit_price&quot;: 4362000,
+                    &quot;quantity&quot;: 2,
+                    &quot;unit_price&quot;: 4569000,
                     &quot;tax_rate&quot;: 19,
-                    &quot;line_total&quot;: 13086000,
+                    &quot;line_total&quot;: 9138000,
                     &quot;notes&quot;: null
                 }
             ]
@@ -3034,10 +3037,10 @@ fetch(url, {
         &quot;notes&quot;: null,
         &quot;expires_at&quot;: null,
         &quot;paid_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-06T23:09:41.000000Z&quot;,
         &quot;items&quot;: [
             {
-                &quot;id&quot;: 9,
+                &quot;id&quot;: 8,
                 &quot;product_id&quot;: 370,
                 &quot;sku&quot;: &quot;REF-2083-jk&quot;,
                 &quot;product_name&quot;: &quot;Motor trif&aacute;sico 4189 HP&quot;,
@@ -3055,7 +3058,7 @@ fetch(url, {
                 &quot;to_status&quot;: &quot;pending_payment&quot;,
                 &quot;to_status_label&quot;: &quot;Pendiente de pago&quot;,
                 &quot;note&quot;: null,
-                &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-11-06T23:09:41.000000Z&quot;
             }
         ]
     }
@@ -3231,10 +3234,10 @@ fetch(url, {
         &quot;notes&quot;: null,
         &quot;expires_at&quot;: null,
         &quot;paid_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-06T23:09:41.000000Z&quot;,
         &quot;items&quot;: [
             {
-                &quot;id&quot;: 9,
+                &quot;id&quot;: 8,
                 &quot;product_id&quot;: 370,
                 &quot;sku&quot;: &quot;REF-0782-pp&quot;,
                 &quot;product_name&quot;: &quot;Motor trif&aacute;sico 5685 HP&quot;,
@@ -3252,7 +3255,7 @@ fetch(url, {
                 &quot;to_status&quot;: &quot;pending_payment&quot;,
                 &quot;to_status_label&quot;: &quot;Pendiente de pago&quot;,
                 &quot;note&quot;: null,
-                &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-11-06T23:09:41.000000Z&quot;
             }
         ]
     }
@@ -3461,19 +3464,19 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 43,
+                &quot;id&quot;: 44,
                 &quot;name&quot;: &quot;Perspiciatis quo&quot;,
                 &quot;slug&quot;: &quot;perspiciatis-quo&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 18,
+                &quot;id&quot;: 19,
                 &quot;name&quot;: &quot;Empresa Dom&iacute;nguez e Hijo&quot;,
                 &quot;slug&quot;: &quot;empresa-dominguez-e-hijo&quot;,
                 &quot;logo_url&quot;: null
             },
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-06T23:09:41.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-11-06T23:09:41.000000Z&quot;,
             &quot;deleted_at&quot;: null
         },
         {
@@ -3498,19 +3501,19 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 44,
+                &quot;id&quot;: 45,
                 &quot;name&quot;: &quot;Dolores enim&quot;,
                 &quot;slug&quot;: &quot;dolores-enim&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 19,
+                &quot;id&quot;: 20,
                 &quot;name&quot;: &quot;Casanova y Almonte y Asoc.&quot;,
                 &quot;slug&quot;: &quot;casanova-y-almonte-y-asoc&quot;,
                 &quot;logo_url&quot;: null
             },
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-06T23:09:41.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-11-06T23:09:41.000000Z&quot;,
             &quot;deleted_at&quot;: null
         }
     ],
@@ -3868,19 +3871,19 @@ fetch(url, {
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 43,
+            &quot;id&quot;: 44,
             &quot;name&quot;: &quot;Nostrum omnis&quot;,
             &quot;slug&quot;: &quot;nostrum-omnis&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 18,
+            &quot;id&quot;: 19,
             &quot;name&quot;: &quot;Asociaci&oacute;n Jaramillo e Hija&quot;,
             &quot;slug&quot;: &quot;asociacion-jaramillo-e-hija&quot;,
             &quot;logo_url&quot;: null
         },
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-06T23:09:41.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-06T23:09:41.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -4276,19 +4279,19 @@ fetch(url, {
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 43,
+            &quot;id&quot;: 44,
             &quot;name&quot;: &quot;Aliquam veniam&quot;,
             &quot;slug&quot;: &quot;aliquam-veniam&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 18,
+            &quot;id&quot;: 19,
             &quot;name&quot;: &quot;Cab&aacute;n de Llorente S. de H.&quot;,
             &quot;slug&quot;: &quot;caban-de-llorente-s-de-h&quot;,
             &quot;logo_url&quot;: null
         },
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-06T23:09:41.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-06T23:09:41.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -4437,8 +4440,8 @@ se envían <code>is_active</code>, <code>is_featured</code> o <code>specs</code>
     \"cost_price\": 18,
     \"tax_rate\": 19,
     \"stock\": 6,
-    \"is_active\": false,
-    \"is_featured\": false,
+    \"is_active\": true,
+    \"is_featured\": true,
     \"specs\": [
         {
             \"key\": \"k\",
@@ -4474,8 +4477,8 @@ let body = {
     "cost_price": 18,
     "tax_rate": 19,
     "stock": 6,
-    "is_active": false,
-    "is_featured": false,
+    "is_active": true,
+    "is_featured": true,
     "specs": [
         {
             "key": "k",
@@ -4521,19 +4524,19 @@ fetch(url, {
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 43,
+            &quot;id&quot;: 44,
             &quot;name&quot;: &quot;Corporis dolorem&quot;,
             &quot;slug&quot;: &quot;corporis-dolorem&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 18,
+            &quot;id&quot;: 19,
             &quot;name&quot;: &quot;Marroqu&iacute;n, Ram&iacute;rez y Chapa SRL&quot;,
             &quot;slug&quot;: &quot;marroquin-ramirez-y-chapa-srl&quot;,
             &quot;logo_url&quot;: null
         },
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-06T23:09:41.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-06T23:09:41.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -4828,7 +4831,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>is_featured</code></b>&nbsp;&nbsp;
@@ -4850,7 +4853,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
         <details>
@@ -5155,6 +5158,119 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Accept"                data-endpoint="GETapi-v1-families"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
+                    <h2 id="catalogo-por-lineas-publico-GETapi-v1-promotions">Promociones del momento</h2>
+
+<p>
+</p>
+
+<p>Promociones activas cuya vigencia incluye hoy, de la que vence primero a la que vence después. Cada una trae
+el precio de lista, el precio promocional (con IVA) y la línea a la que enlaza. Si no hay ninguna, <code>data</code> va vacío
+y la tienda oculta la sección. No requiere token.</p>
+
+<span id="example-requests-GETapi-v1-promotions">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://imagen-electrica-ecommerce.onrender.com/api/v1/promotions" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/promotions"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-v1-promotions">
+    </span>
+<span id="execution-results-GETapi-v1-promotions" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-v1-promotions"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-v1-promotions"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-v1-promotions" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-v1-promotions">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-v1-promotions" data-method="GET"
+      data-path="api/v1/promotions"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-promotions', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-v1-promotions"
+                    onclick="tryItOut('GETapi-v1-promotions');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-v1-promotions"
+                    onclick="cancelTryOut('GETapi-v1-promotions');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-v1-promotions"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/v1/promotions</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-v1-promotions"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-v1-promotions"
                value="application/json"
                data-component="header">
     <br>

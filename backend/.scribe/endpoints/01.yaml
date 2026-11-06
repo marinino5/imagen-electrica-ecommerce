@@ -40,6 +40,40 @@ endpoints:
     custom: []
     httpMethods:
       - GET
+    uri: api/v1/promotions
+    metadata:
+      custom: []
+      groupName: 'Catálogo por líneas (público)'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Promociones del momento'
+      description: |-
+        Promociones activas cuya vigencia incluye hoy, de la que vence primero a la que vence después. Cada una trae
+        el precio de lista, el precio promocional (con IVA) y la línea a la que enlaza. Si no hay ninguna, `data` va vacío
+        y la tienda oculta la sección. No requiere token.
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
     uri: api/v1/lines
     metadata:
       custom: []
@@ -277,8 +311,8 @@ endpoints:
       family: 'n'
       category: g
       brand: z
-      mode: quote
-      in_stock: true
+      mode: direct
+      in_stock: false
       hp_min: 17
       hp_max: 15
       per_page: 8

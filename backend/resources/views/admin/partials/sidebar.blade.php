@@ -16,6 +16,7 @@
             ['admin.products.index', 'admin.products.*', 'box-seam', 'Productos'],
             ['admin.categories.index', 'admin.categories.*', 'diagram-3', 'Categorías'],
             ['admin.brands.index', 'admin.brands.*', 'award', 'Marcas'],
+            ['admin.promotions.index', 'admin.promotions.*', 'tags', 'Promociones'],
         ];
         $sections['Análisis'] = [
             ['admin.reports.index', 'admin.reports.*', 'graph-up-arrow', 'Reportes'],

@@ -465,8 +465,9 @@ textarea.input {
   :root[data-bar='action'] {
     --bottom-offset: calc(72px + env(safe-area-inset-bottom));
   }
-  :root[data-bar='nav'] .ft {
-    padding-bottom: var(--bottom-offset);
+  /* El pie deja espacio a la barra fija y al botón de WhatsApp para que no tapen su último renglón */
+  .ft {
+    padding-bottom: calc(var(--bottom-offset) + 64px);
   }
 }
 
@@ -584,4 +585,9 @@ textarea.input {
 }
 .mode-switch button {
   min-height: 46px;
+}
+
+/* El encabezado es fijo: cualquier ancla (#id) y cualquier sección con id queda debajo de él al hacer scroll */
+[id] {
+  scroll-margin-top: calc(var(--header-space) + 16px);
 }

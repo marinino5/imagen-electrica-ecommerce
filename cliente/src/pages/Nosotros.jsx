@@ -1,6 +1,6 @@
 import AboutCover from '../components/nosotros/AboutCover'
 import AboutStory from '../components/nosotros/AboutStory'
-import Timeline from '../components/nosotros/Timeline'
+import Services from '../components/nosotros/Services'
 import WhyCascade from '../components/nosotros/WhyCascade'
 import BrandBento from '../components/nosotros/BrandBento'
 import VisitMap from '../components/ui/VisitMap'
@@ -13,7 +13,7 @@ export default function Nosotros() {
     <>
       <AboutCover />
       <AboutStory />
-      <Timeline />
+      <Services />
       <WhyCascade />
       <BrandBento />
 

@@ -1,11 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { ArrowRight, MessageCircle, SlidersHorizontal, X } from 'lucide-react'
+import { ArrowRight, ChevronRight, MessageCircle, Search, SlidersHorizontal, X } from 'lucide-react'
 import { site } from '../config/site'
 import { useFamilies } from '../hooks/useFamilies'
 import { useLineSearch, useLines } from '../hooks/useLines'
-import { availableRanges, filterLines, lineImage, sortLines } from '../lib/lines'
-import Cover from '../components/ui/Cover'
+import { AMP_RANGES, HP_RANGES, availableRanges, filterLines, sortLines, techFilters } from '../lib/lines'
 import Pill from '../components/ui/Pill'
 import Eyebrow from '../components/ui/Eyebrow'
 import Reveal from '../components/ui/Reveal'
@@ -13,8 +12,6 @@ import ErrorState from '../components/ui/ErrorState'
 import EmptyState from '../components/ui/EmptyState'
 import LineCard from '../components/catalog/LineCard'
 import CatalogFilters from '../components/catalog/CatalogFilters'
-import LinesNav from '../components/catalog/LinesNav'
-import MiniCart from '../components/catalog/MiniCart'
 import '../styles/catalog.css'
 
 const QUICK = [
@@ -72,26 +69,6 @@ function writeState(st) {
   return p
 }
 
-function Plates() {
-  const plates = [
-    ['motores', 'Motores'],
-    ['variadores-arrancadores', 'Variadores'],
-    ['motorreductores', 'Motorreductores'],
-  ]
-  return (
-    <div className="cat-stack" aria-hidden="true">
-      {plates.map(([key, label]) => (
-        <div key={key} className="bz cat-plate">
-          <div className="core">
-            <img src={`/img/categorias/${key}.webp`} alt="" width="900" height="675" />
-            <span>{label}</span>
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-}
-
 export default function Products() {
   const [params, setParams] = useSearchParams()
   const { data: families, meta } = useFamilies()
@@ -99,7 +76,6 @@ export default function Products() {
   const st = useMemo(() => readState(params, families), [params, families])
   const slugs = useLineSearch(st.q)
   const [sheet, setSheet] = useState(false)
-  const [tab, setTab] = useState('lin')
   const [term, setTerm] = useState(st.q)
   const resultsRef = useRef(null)
   const finderRef = useRef(null)
@@ -123,97 +99,99 @@ export default function Products() {
 
   const set = (changes) => {
     const next = { ...st, ...changes }
-    // Buscar por texto recorre todo el catálogo; elegir línea limpia el texto
+    // Buscar por texto recorre todo el catálogo; elegir una familia o categoría limpia el texto
     if ('q' in changes && changes.q) Object.assign(next, { family: '', category: '' })
     if (('family' in changes || 'category' in changes) && !('q' in changes)) next.q = ''
+    // Potencia y corriente solo existen en ciertas familias: al cambiar de familia se descartan
+    if ('family' in changes || 'category' in changes) Object.assign(next, { hp: '', amp: '' })
     setParams(writeState(next), { replace: 'q' in changes })
   }
   const toggleBrand = (name) => set({ brands: st.brands.includes(name) ? st.brands.filter((b) => b !== name) : [...st.brands, name] })
   const reset = () => setParams(writeState({ ...st, mode: '', brands: [], hp: '', amp: '', stock: false }))
+  const clearAll = () => setParams(writeState({ ...st, family: '', category: '', q: '', mode: '', brands: [], hp: '', amp: '', stock: false }))
 
+  const tech = techFilters(st)
   const filtered = useMemo(() => filterLines(lines, { ...st, slugs }), [lines, st, slugs])
-  const shown = useMemo(() => sortLines(filtered, st.order), [filtered, st.order])
+  const shown = useMemo(() => sortLines(filtered, st.order, families), [filtered, st.order, families])
   // Los chips de potencia y corriente solo ofrecen rangos que existen en la selección actual de familia y categoría
   const base = useMemo(() => filterLines(lines, { ...st, mode: '', brands: [], hp: '', amp: '', stock: false, slugs }), [lines, st, slugs])
   const ranges = useMemo(() => availableRanges(base), [base])
-  const activeCount = (st.mode ? 1 : 0) + st.brands.length + (st.hp ? 1 : 0) + (st.amp ? 1 : 0) + (st.stock ? 1 : 0)
-  const refs = shown.reduce((n, l) => n + l.refs_count, 0)
+
   const family = families.find((f) => f.slug === st.family)
   const category = family?.categories.find((c) => c.slug === st.category)
   const title = st.q ? `Resultados para “${st.q}”` : (category?.name ?? family?.name ?? 'Todo el catálogo')
+  const refs = shown.reduce((n, l) => n + l.refs_count, 0)
 
+  // Chips de filtros activos, cada uno con su X
+  const chips = [
+    st.q && { key: 'q', label: `Búsqueda: ${st.q}`, off: () => set({ q: '' }) },
+    st.mode && { key: 'mode', label: st.mode === 'on' ? 'Compra en línea' : 'Cotizar', off: () => set({ mode: '' }) },
+    ...st.brands.map((b) => ({ key: `b-${b}`, label: b, off: () => toggleBrand(b) })),
+    st.stock && { key: 'stock', label: 'Con unidades en bodega', off: () => set({ stock: false }) },
+    tech.hp && st.hp && { key: 'hp', label: HP_RANGES.find((r) => r.key === st.hp)?.label, off: () => set({ hp: '' }) },
+    tech.amp && st.amp && { key: 'amp', label: AMP_RANGES.find((r) => r.key === st.amp)?.label, off: () => set({ amp: '' }) },
+  ].filter((c) => c && c.label)
+  const activeCount = chips.filter((c) => c.key !== 'q').length
+
+  const scrollToResults = () => resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   const submitFinder = (e) => {
     e.preventDefault()
     set({ q: term.trim() })
-    resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    scrollToResults()
   }
   const quick = (text) => {
     set({ q: text })
-    resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    scrollToResults()
   }
 
   const filtersPanel = (
-    <CatalogFilters st={st} set={set} toggleBrand={toggleBrand} brands={meta.brands} ranges={ranges} onReset={reset} activeCount={activeCount} />
+    <CatalogFilters st={st} set={set} toggleBrand={toggleBrand} brands={meta.brands} families={families} ranges={ranges} tech={tech} onReset={reset} activeCount={activeCount} />
   )
 
   return (
     <>
-      <Cover
-        eyebrow="Catálogo industrial"
-        lines={['Todo para mover', 'tu proyecto', { text: 'en un solo lugar', accent: true }]}
-        lead="Motores, variadores, control y protección de las marcas que distribuimos. Busca por referencia o por lo que necesitas mover."
-        actions={
-          <div className="bz cat-finder">
-            <div className="core">
-              <form className="cat-finder__row" role="search" onSubmit={submitFinder}>
-                <input
-                  ref={finderRef}
-                  type="search"
-                  enterKeyHint="search"
-                  autoComplete="off"
-                  placeholder="Motor 5 HP 1800, CFW300, contactor 25 A…"
-                  aria-label="Buscar en el catálogo"
-                  value={term}
-                  onChange={(e) => setTerm(e.target.value)}
-                />
-                <Pill tone="o" type="submit">Buscar</Pill>
-              </form>
-              <div className="cat-finder__quick">
-                <small>Búsquedas frecuentes</small>
-                {QUICK.map(([label, text]) => (
-                  <button key={label} type="button" onClick={() => quick(text)}>{label}</button>
-                ))}
-              </div>
-            </div>
+      {/* Encabezado compacto: título, buscador y búsquedas frecuentes. Las cifras del catálogo viven solo en el Inicio. */}
+      <section className="wrap cat-top" aria-labelledby="cat-title">
+        <div className="cat-top__title">
+          <Eyebrow>Catálogo industrial</Eyebrow>
+          <h1 id="cat-title" className="cat-top__h1">Encuentra tu referencia</h1>
+        </div>
+        <div className="cat-top__find">
+          <form className="cat-top__search" role="search" onSubmit={submitFinder}>
+            <Search size={20} aria-hidden="true" />
+            <input
+              ref={finderRef}
+              type="search"
+              enterKeyHint="search"
+              autoComplete="off"
+              placeholder="Motor 5 HP 1800, CFW300, contactor 25 A…"
+              aria-label="Buscar en el catálogo"
+              value={term}
+              onChange={(e) => setTerm(e.target.value)}
+            />
+            <button type="submit">Buscar</button>
+          </form>
+          <div className="cat-top__quick">
+            <span>Búsquedas frecuentes</span>
+            {QUICK.map(([label, text]) => (
+              <button key={label} type="button" onClick={() => quick(text)}>{label}</button>
+            ))}
           </div>
-        }
-      >
-        <Plates />
-      </Cover>
+        </div>
+      </section>
 
-      <ul className="wrap cat-ribbon" aria-label="El catálogo en cifras">
-        <li><b>{meta.references || '351'}</b>referencias en inventario</li>
-        <li><b>{meta.lines || '33'}</b>líneas de producto</li>
-        <li><b>{meta.families || '8'}</b>familias del portafolio</li>
-        <li><b>+{site.years}</b>años en Bucaramanga</li>
-      </ul>
-
-      <section className="wrap cat-layout" aria-label="Líneas y filtros">
-        {/* Columna fija: filtros arriba, líneas debajo y el mini carrito al final */}
-        <aside className="bz cat-side" aria-label="Filtros y líneas">
+      <section className="wrap cat-layout" aria-label="Familias, filtros y fichas">
+        {/* Columna fija: familias y filtros. El carrito no va aquí: vive en el encabezado y en la barra inferior. */}
+        <aside className="bz cat-side" aria-label="Familias y filtros">
           <div className="core">
-            <div className="cat-side__scroll">
-              {filtersPanel}
-              <LinesNav families={families} st={st} set={set} />
-            </div>
-            <MiniCart />
+            <div className="cat-side__scroll">{filtersPanel}</div>
           </div>
         </aside>
 
         <div className="cat-main" ref={resultsRef}>
           <div className="cat-mbar">
             <button type="button" className="cat-mbar__f" onClick={() => setSheet(true)} aria-haspopup="dialog">
-              <SlidersHorizontal size={18} aria-hidden="true" /> Líneas y filtros{activeCount ? ` (${activeCount})` : ''}
+              <SlidersHorizontal size={18} aria-hidden="true" /> Filtrar{activeCount ? <b className="cat-mbar__n">{activeCount}</b> : null}
             </button>
             <label className="cat-mbar__sort">
               <span className="sr-only">Ordenar</span>
@@ -225,7 +203,18 @@ export default function Products() {
 
           <div className="cat-rhead">
             <div>
-              <Eyebrow>{family?.name ?? 'Catálogo'}</Eyebrow>
+              <nav className="cat-crumbs" aria-label="Ruta">
+                <ol>
+                  <li><Link to="/productos">Catálogo</Link></li>
+                  {family && (
+                    <li>
+                      <ChevronRight size={14} aria-hidden="true" />
+                      {category ? <Link to={`/productos?familia=${family.slug}`}>{family.name}</Link> : <span aria-current="page">{family.name}</span>}
+                    </li>
+                  )}
+                  {category && <li><ChevronRight size={14} aria-hidden="true" /><span aria-current="page">{category.name}</span></li>}
+                </ol>
+              </nav>
               <h2 className="h2-sys">{title}</h2>
               <p aria-live="polite">
                 {loading ? 'Cargando…' : error ? 'No pudimos cargar el catálogo' : `${shown.length} ${shown.length === 1 ? 'ficha' : 'fichas'} · ${refs} referencias`}
@@ -238,6 +227,21 @@ export default function Products() {
               </select>
             </label>
           </div>
+
+          {chips.length > 0 && (
+            <ul className="cat-active" aria-label="Filtros activos">
+              {chips.map((c) => (
+                <li key={c.key}>
+                  <button type="button" onClick={c.off} aria-label={`Quitar filtro: ${c.label}`}>
+                    {c.label} <X size={14} aria-hidden="true" />
+                  </button>
+                </li>
+              ))}
+              {chips.length > 1 && (
+                <li><button type="button" className="cat-active__all" onClick={() => setParams(writeState({ ...st, q: '', mode: '', brands: [], hp: '', amp: '', stock: false }))}>Quitar todos</button></li>
+              )}
+            </ul>
+          )}
 
           {loading && (
             <div className="cat-grid" aria-busy="true" aria-label="Cargando líneas">
@@ -254,8 +258,8 @@ export default function Products() {
           {!loading && !error && shown.length > 0 && (
             <div className="cat-grid">
               {shown.map((line, i) => (
-                <Reveal key={line.slug} delay={Math.min(i, 6) * 0.04} className={i === 0 && shown.length > 2 ? 'cat-feature-wrap' : ''}>
-                  <LineCard line={line} featured={i === 0 && shown.length > 2} />
+                <Reveal key={line.slug} delay={Math.min(i, 6) * 0.04}>
+                  <LineCard line={line} />
                 </Reveal>
               ))}
               <Reveal className="cat-help-wrap">
@@ -280,23 +284,18 @@ export default function Products() {
         </div>
       </section>
 
-      {/* Hoja inferior (celular): pestañas Líneas y Filtros */}
-      <div className={`cat-sheet ${sheet ? 'open' : ''}`} role={sheet ? 'dialog' : undefined} aria-modal={sheet ? 'true' : undefined} aria-label="Líneas y filtros" aria-hidden={!sheet}>
-        <div className="cat-sheet__bg" onClick={() => setSheet(false)} />
+      {/* Hoja inferior (celular): todos los filtros en un panel que se desliza desde abajo */}
+      <div className={`cat-sheet ${sheet ? 'open' : ''}`} role={sheet ? 'dialog' : undefined} aria-modal={sheet ? 'true' : undefined} aria-label="Filtrar el catálogo" aria-hidden={!sheet}>
+        <div className="cat-sheet__bg" aria-hidden="true" onClick={() => setSheet(false)} />
         <div className="cat-sheet__panel">
           <div className="cat-sheet__grab" aria-hidden="true" />
-          <div className="cat-sheet__tabs" role="tablist">
-            <button type="button" role="tab" aria-selected={tab === 'lin'} className={tab === 'lin' ? 'on' : ''} onClick={() => setTab('lin')}>Líneas</button>
-            <button type="button" role="tab" aria-selected={tab === 'fil'} className={tab === 'fil' ? 'on' : ''} onClick={() => setTab('fil')}>
-              Filtros{activeCount ? ` (${activeCount})` : ''}
-            </button>
-            <button type="button" className="cat-sheet__x" onClick={() => setSheet(false)} aria-label="Cerrar"><X size={20} /></button>
+          <div className="cat-sheet__head">
+            <h2>Filtrar{activeCount ? ` (${activeCount})` : ''}</h2>
+            <button type="button" className="cat-sheet__x" onClick={() => setSheet(false)} aria-label="Cerrar filtros"><X size={20} /></button>
           </div>
-          <div className="cat-sheet__scroll">
-            {tab === 'lin' ? <LinesNav families={families} st={st} set={set} /> : filtersPanel}
-          </div>
+          <div className="cat-sheet__scroll">{filtersPanel}</div>
           <div className="cat-sheet__apply">
-            <button type="button" className="cat-sheet__clear" onClick={() => { reset(); set({ family: '', category: '', q: '' }) }}>Limpiar</button>
+            <button type="button" className="cat-sheet__clear" onClick={clearAll}>Limpiar</button>
             <button type="button" className="cat-sheet__ok" onClick={() => setSheet(false)}>
               Ver {shown.length} {shown.length === 1 ? 'ficha' : 'fichas'} <ArrowRight size={16} aria-hidden="true" />
             </button>

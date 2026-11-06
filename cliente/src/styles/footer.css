@@ -99,8 +99,9 @@
 }
 .ft__block li {
   display: flex;
+  flex-wrap: wrap; /* la etiqueta «Línea principal» baja entera en vez de cortarse */
   align-items: center;
-  gap: 10px;
+  gap: 2px 10px;
   color: #c9c0df;
   font-size: 14px;
 }
@@ -122,6 +123,10 @@
 .ft__block small {
   color: #a99fc6;
   font-size: 11px;
+  white-space: nowrap;
+}
+.ft__block li > span {
+  min-width: 0;
 }
 .ft__legal {
   position: relative;
@@ -150,7 +155,7 @@
 }
 @media (min-width: 900px) {
   .ft__grid {
-    grid-template-columns: 1.3fr 1fr 1.3fr 1fr 1.5fr;
+    grid-template-columns: 1.3fr 1fr 1.3fr 1fr 1.7fr;
     gap: 28px;
   }
   .ft__brand {

@@ -25,7 +25,7 @@ class LineCatalogTest extends TestCase
     {
         $response = $this->getJson('/api/v1/lines')->assertOk();
 
-        $this->assertCount(33, $response->json('data'));
+        $this->assertCount(34, $response->json('data'));
         $response->assertJsonStructure(['data' => [['slug', 'name', 'family', 'category', 'refs_count', 'price_from', 'hp_min', 'hp_max', 'sale_mode']]]);
     }
 
@@ -96,7 +96,7 @@ class LineCatalogTest extends TestCase
     {
         ProductLine::where('slug', 'variador-cfw300')->update(['is_active' => false]);
 
-        $this->assertCount(32, $this->getJson('/api/v1/lines')->json('data'));
+        $this->assertCount(33, $this->getJson('/api/v1/lines')->json('data'));
         $this->getJson('/api/v1/lines/variador-cfw300')->assertNotFound();
     }
 
@@ -139,8 +139,19 @@ class LineCatalogTest extends TestCase
 
         $motores = collect($response->json('data'))->firstWhere('slug', 'motores-electricos');
         $this->assertSame(9, $motores['lines_count']);
-        $this->assertSame(33, $response->json('meta.lines'));
+        $this->assertSame(34, $response->json('meta.lines'));
         $this->assertSame(351, $response->json('meta.references'));
         $this->assertSame('WEG', $response->json('meta.brands.0.name'));
+    }
+
+    public function test_el_numero_de_familias_sale_de_los_datos_y_coincide_con_la_lista(): void
+    {
+        $response = $this->getJson('/api/v1/families')->assertOk();
+
+        $this->assertCount(8, $response->json('data'));
+        $this->assertSame(count($response->json('data')), $response->json('meta.families'));
+
+        $medicion = collect($response->json('data'))->firstWhere('slug', 'medicion-y-testeo');
+        $this->assertSame(1, $medicion['lines_count']);
     }
 }

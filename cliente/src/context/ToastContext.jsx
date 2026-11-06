@@ -21,6 +21,7 @@ export function ToastProvider({ children }) {
     const visible = (el) => el && el.getBoundingClientRect().width > 0
     let target = document.querySelector(`[data-fly-target="${kind}"]`)
     if (!visible(target)) target = document.querySelector('[data-fly-target="cart"]') // en celular no hay ícono de cotización
+    if (!visible(target)) target = document.querySelector('[data-fly-target="cart-mobile"]') // celular: carrito de la barra inferior
     if (!visible(target)) return
     const to = target.getBoundingClientRect()
     const id = nextId++

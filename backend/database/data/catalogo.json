@@ -85,7 +85,7 @@
     },
     {
      "sku": "10046368",
-     "label": "5.6-8 A",
+     "label": "5.6-8 A · 220 V",
      "name": "Arrancador Directo Dlw 5.6-8 Amp 220V",
      "brand": "WEG",
      "stock": 1,
@@ -100,7 +100,7 @@
     },
     {
      "sku": "15570522",
-     "label": "5.6-8 A",
+     "label": "5.6-8 A · 110 V",
      "name": "Arrancador Directo Dlw 5.6-8 Amp 110V",
      "brand": "WEG",
      "stock": 1,
@@ -2643,7 +2643,7 @@
    "brand_label": "Siemens · WEG",
    "image": "automatizacion",
    "specs": [
-    "63–63 A"
+    "63 A"
    ],
    "mode": "direct",
    "variants": [
@@ -3498,7 +3498,7 @@
    "variants": [
     {
      "sku": "14870194",
-     "label": "2 HP",
+     "label": "2 HP · 110 V",
      "name": "Variador Cfw100 2 Hp 6 Amp In:110V Out:220V",
      "brand": "WEG",
      "stock": 1,
@@ -3543,7 +3543,7 @@
     },
     {
      "sku": "14870191",
-     "label": "2 HP",
+     "label": "2 HP · 220 V",
      "name": "Variador Cfw100 2 Hp 6 Amp In:220V Out:220V",
      "brand": "WEG",
      "stock": 1,
@@ -3764,7 +3764,7 @@
     },
     {
      "sku": "15575728",
-     "label": "10 HP",
+     "label": "10 HP · 220 V",
      "name": "Variador Cfw500 10 Hp 28 Amp Trifasico 220V",
      "brand": "WEG",
      "stock": 2,
@@ -3794,7 +3794,7 @@
     },
     {
      "sku": "15577022",
-     "label": "10 HP",
+     "label": "10 HP · 440 V",
      "name": "Variador Cfw500 10 Hp 16 Amp Trifasico 440 V",
      "brand": "WEG",
      "stock": 0,
@@ -5728,6 +5728,16 @@
    "specs": [
     "2–15 HP"
    ],
+   "mode": "quote",
+   "variants": []
+  },
+  {
+   "family": "Medición y testeo",
+   "category": "Instrumentos de medición",
+   "name": "Instrumentos de medición Fluke",
+   "brand_label": "Fluke",
+   "image": "medicion",
+   "specs": [],
    "mode": "quote",
    "variants": []
   }

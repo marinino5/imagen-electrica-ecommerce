@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowUpRight, Plus } from 'lucide-react'
 import { useCart } from '../../context/CartContext'
 import { cartItem, hpText, lineImage, modeTag, priceNote, priceText } from '../../lib/lines'
+import LineVisual from './LineVisual'
 import '../../styles/catalog.css'
 
 // Tarjeta por LÍNEA (la ficha), no por SKU. Al pasar el mouse muestra las potencias disponibles.
@@ -16,7 +17,7 @@ export default function LineCard({ line, featured = false, className = '' }) {
     <article className={`bz cat-card ${featured ? 'cat-card--feature' : ''} ${className}`}>
       <div className="core">
         <div className="cat-card__media">
-          {image && <img src={image} alt="" width="900" height="675" loading="lazy" />}
+          <LineVisual line={line} />
           <span className={`cat-card__tag ${tagClass}`}>{modeTag(line)}</span>
           {hover.length > 0 && (
             <div className="cat-card__vars" aria-hidden="true">

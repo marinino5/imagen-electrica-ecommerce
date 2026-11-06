@@ -1,24 +1,18 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { CreditCard, Headset, Plus, Store, Truck, MapPin } from 'lucide-react'
+import { Plus, Store, Truck, MapPin } from 'lucide-react'
 import { DELIVERY, FAQS, MODES, STEPS } from '../components/comprar/modeData'
 import Bezel from '../components/ui/Bezel'
+import StepArt from '../components/comprar/StepArt'
 import ColombiaMap from '../components/ui/ColombiaMap'
 import Cover from '../components/ui/Cover'
 import Eyebrow from '../components/ui/Eyebrow'
 import Pill from '../components/ui/Pill'
 import '../styles/como-comprar.css'
 
-// Captura real de la tienda dentro de un marco de navegador en bisel
+// Captura real de la tienda dentro de un marco de navegador en bisel, o la ilustración del paso
 function Frame({ step }) {
-  if (!step.image) {
-    const Icon = step.icon === 'card' ? CreditCard : Headset
-    return (
-      <div className="how-icon" aria-hidden="true">
-        <Icon size={44} />
-      </div>
-    )
-  }
+  if (!step.image) return <StepArt kind={step.art} />
   return (
     <Bezel className="how-frame">
       <div className="how-frame__bar" aria-hidden="true">

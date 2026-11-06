@@ -1,29 +1,12 @@
-import { Camera } from 'lucide-react'
+import { MapPin, Store } from 'lucide-react'
 import { site } from '../../config/site'
-import { useFamilies } from '../../hooks/useFamilies'
 import Bezel from '../ui/Bezel'
-import Counter from '../ui/Counter'
 import Eyebrow from '../ui/Eyebrow'
 import Pill from '../ui/Pill'
 import Reveal from '../ui/Reveal'
 
-// Espacio reservado para material real de la empresa (no se representa nada que no exista)
-function Slot({ title, hint }) {
-  return (
-    <Bezel className="ab-slot">
-      <div className="ab-slot__core">
-        <Camera size={28} aria-hidden="true" />
-        <strong>{title}</strong>
-        <span>{hint}</span>
-      </div>
-    </Bezel>
-  )
-}
-
-// Historia y propósito, cifras y espacios para fotos o video de la operación
+// Historia y propósito, y la atención en tienda. Las cifras del catálogo viven solo en el Inicio.
 export default function AboutStory() {
-  const { meta } = useFamilies()
-
   return (
     <section className="wrap ab-story" aria-labelledby="h-historia">
       <Reveal className="ab-story__text">
@@ -39,19 +22,16 @@ export default function AboutStory() {
         <Pill as="link" to="/productos" tone="d">Ver el catálogo</Pill>
       </Reveal>
 
-      <Reveal className="ab-story__nums" delay={0.08}>
-        <Bezel>
-          <ul className="ab-nums">
-            <li><Counter to={site.years} prefix="+" className="ab-nums__v" /><span>años de experiencia</span></li>
-            <li><Counter to={meta.references || 351} className="ab-nums__v" /><span>referencias en inventario</span></li>
-            <li><Counter to={meta.lines || 33} className="ab-nums__v" /><span>líneas de producto</span></li>
-          </ul>
+      <Reveal delay={0.08}>
+        <Bezel className="ab-store">
+          <div className="ab-store__core">
+            <span className="ab-store__ic" aria-hidden="true"><Store size={30} strokeWidth={1.5} /></span>
+            <h3>Atención en tienda</h3>
+            <p>Pasa por el mostrador: un asesor revisa tu lista, te muestra la referencia y te dice qué hay en bodega.</p>
+            <p className="ab-store__addr"><MapPin size={16} aria-hidden="true" /> {site.address} · {site.city.split(',')[0]}</p>
+            <a className="ab-store__link" href={site.directionsUrl} target="_blank" rel="noreferrer">Cómo llegar</a>
+          </div>
         </Bezel>
-      </Reveal>
-
-      <Reveal className="ab-story__slots" delay={0.12}>
-        <Slot title="Foto del equipo" hint="Espacio reservado: foto real de las personas de Imagen Eléctrica" />
-        <Slot title="Interior y operación" hint="Espacio reservado: foto o video real de la tienda y la bodega" />
       </Reveal>
     </section>
   )

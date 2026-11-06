@@ -9,6 +9,8 @@ export const catalogApi = {
   lines: (params, signal) => get('/lines', { params: { per_page: 50, ...params }, signal }),
   line: (slug) => get(`/lines/${encodeURIComponent(slug)}`),
   families: () => get('/families'),
+  /** Promociones vigentes hoy: si no hay ninguna, data viene vacío y la sección se oculta */
+  promotions: (signal) => get('/promotions', { signal }),
   categories: () => get('/categories', { params: { per_page: 50 } }),
   brands: () => get('/brands', { params: { per_page: 50 } }),
 }

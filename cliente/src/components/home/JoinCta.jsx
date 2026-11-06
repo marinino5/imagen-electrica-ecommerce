@@ -1,6 +1,5 @@
 import { Check } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
-import { site } from '../../config/site'
 import Eyebrow from '../ui/Eyebrow'
 import Pill from '../ui/Pill'
 import Reveal from '../ui/Reveal'
@@ -10,7 +9,7 @@ const benefits = [
   'Cotiza en línea y recibe tu cotización valorada por un asesor.',
   'Consulta el estado de cada pedido y cotización desde tu cuenta.',
   'Tus datos quedan guardados para comprar más rápido.',
-  `Asesoría técnica de un equipo con más de ${site.years} años en el sector.`,
+  'Asesoría técnica de un equipo con trayectoria en el sector.',
 ]
 
 // Captación de cuentas (recuperada del diseño anterior). Si ya tiene sesión, no aplica.
