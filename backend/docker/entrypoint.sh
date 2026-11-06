@@ -9,6 +9,12 @@ if [ "$SEED_ON_DEPLOY" = "true" ]; then
     php artisan db:seed --force
 fi
 
+# Catálogo por líneas (33 líneas y 351 referencias): solo si aún no hay líneas. SEED_CATALOG=false lo omite.
+if [ "$SEED_CATALOG" != "false" ]; then
+    echo "=== Cargando el catálogo por líneas (si falta) ==="
+    php artisan db:seed --class=ProductionCatalogSeeder --force
+fi
+
 echo "=== Optimizando Laravel ==="
 php artisan config:cache
 php artisan route:cache

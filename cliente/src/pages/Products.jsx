@@ -228,7 +228,7 @@ export default function Products() {
               <Eyebrow>{family?.name ?? 'Catálogo'}</Eyebrow>
               <h2 className="h2-sys">{title}</h2>
               <p aria-live="polite">
-                {loading ? 'Cargando…' : `${shown.length} ${shown.length === 1 ? 'ficha' : 'fichas'} · ${refs} referencias`}
+                {loading ? 'Cargando…' : error ? 'No pudimos cargar el catálogo' : `${shown.length} ${shown.length === 1 ? 'ficha' : 'fichas'} · ${refs} referencias`}
               </p>
             </div>
             <label className="cat-sort">

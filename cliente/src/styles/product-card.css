@@ -254,3 +254,13 @@
   color: var(--primary);
   font-weight: 600;
 }
+.state__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+.state__actions .btn {
+  margin-top: 0;
+}

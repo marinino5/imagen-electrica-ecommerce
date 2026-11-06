@@ -71,4 +71,20 @@ class CatalogSeederTest extends TestCase
         $this->assertDatabaseMissing('brands', ['slug' => 'delta']);
         $this->assertSame('WEG', ProductLine::where('name', 'PLC WEG PLC200 y PLC500')->firstOrFail()->brand_label);
     }
+
+    public function test_el_seeder_de_produccion_llena_el_catalogo_solo_una_vez(): void
+    {
+        ProductLine::query()->delete();
+        Product::query()->forceDelete();
+
+        $this->seed(\Database\Seeders\ProductionCatalogSeeder::class);
+        $this->assertSame(33, ProductLine::count());
+
+        // Una línea eliminada a propósito no vuelve en el siguiente arranque
+        ProductLine::where('slug', 'variador-cfw300')->first()->variants()->forceDelete();
+        ProductLine::where('slug', 'variador-cfw300')->delete();
+        $this->seed(\Database\Seeders\ProductionCatalogSeeder::class);
+
+        $this->assertSame(32, ProductLine::count());
+    }
 }

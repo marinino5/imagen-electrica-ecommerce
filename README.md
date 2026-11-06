@@ -18,4 +18,7 @@ composer setup
 php artisan serve
 ```
 
+Para ver la tienda con tu backend local: `cd cliente && npm run dev:local` (ver [`cliente/README.md`](cliente/README.md)).
+Para comprobar que un servidor tiene la API actual: `bash docs/verificar-api.sh <url>`.
+
 Cada carpeta tiene su propio README con más detalle.
