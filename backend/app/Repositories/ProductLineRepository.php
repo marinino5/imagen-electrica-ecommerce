@@ -31,7 +31,7 @@ class ProductLineRepository
     {
         return ProductLine::query()
             ->with([
-                'category:id,name,slug,parent_id', 'category.parent:id,name,slug', 'brand:id,name,slug',
+                'category:id,name,slug,parent_id', 'category.parent:id,name,slug,description', 'brand:id,name,slug',
                 'variants' => fn ($q) => $q->where('is_active', true)->orderBy('id')->select(self::SUMMARY_COLUMNS),
             ])
             ->where('is_active', true)
@@ -94,7 +94,7 @@ class ProductLineRepository
     {
         return ProductLine::query()
             ->with([
-                'category:id,name,slug,parent_id', 'category.parent:id,name,slug', 'brand:id,name,slug',
+                'category:id,name,slug,parent_id', 'category.parent:id,name,slug,description', 'brand:id,name,slug',
                 'variants' => fn ($q) => $q->where('is_active', true)->with('brand:id,name,slug')->orderBy('id'),
             ])
             ->where('is_active', true)
@@ -114,7 +114,7 @@ class ProductLineRepository
 
         return ProductLine::query()
             ->with([
-                'category:id,name,slug,parent_id', 'category.parent:id,name,slug', 'brand:id,name,slug',
+                'category:id,name,slug,parent_id', 'category.parent:id,name,slug,description', 'brand:id,name,slug',
                 'variants' => fn ($q) => $q->where('is_active', true)->orderBy('id')->select(self::SUMMARY_COLUMNS),
             ])
             ->where('is_active', true)

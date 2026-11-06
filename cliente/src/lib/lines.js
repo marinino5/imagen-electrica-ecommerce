@@ -78,3 +78,39 @@ export function cartItem(line, variant) {
     image_url: lineImage(line),
   }
 }
+
+/** Texto corto que distingue una referencia de otras con la misma potencia y velocidad. */
+export function variantTag(v) {
+  const parts = [v.amp ? `${String(v.amp).replace('.', ',')} A` : null, v.volt ? `${v.volt} V` : null, v.ip]
+  return parts.filter(Boolean).join(' · ') || v.sku
+}
+
+/** Entre referencias gemelas, lo que las distingue en el nombre ("IE3" frente a "IE2 T:80"); si no hay, corriente, tensión o SKU. */
+export function twinTag(v, twins) {
+  const words = (name) => name.split(/\s+/)
+  const shared = words(twins[0].name).filter((w) => twins.every((t) => words(t.name).some((x) => x.toLowerCase() === w.toLowerCase())))
+  const own = words(v.name).filter((w) => !shared.some((x) => x.toLowerCase() === w.toLowerCase()))
+  const tag = own.join(' ').trim()
+  return tag || variantTag(v)
+}
+
+/** Línea sin referencias (bajo pedido): se cotiza como un renglón propio, sin SKU. */
+export function lineQuoteItem(line) {
+  return {
+    id: `line-${line.id}`,
+    sku: null,
+    name: line.name,
+    slug: line.slug,
+    unit: 'unidad',
+    unit_label: 'Unidad',
+    price: null,
+    tax_rate: 19,
+    stock: 0,
+    sale_mode: 'on_request',
+    brand: line.brand_label ?? null,
+    category: line.category,
+    line_slug: line.slug,
+    line_name: line.name,
+    image_url: lineImage(line),
+  }
+}

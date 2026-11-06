@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowUpRight, Plus } from 'lucide-react'
 import { useCart } from '../../context/CartContext'
 import { cartItem, hpText, lineImage, modeTag, priceNote, priceText } from '../../lib/lines'
+import '../../styles/catalog.css'
 
 // Tarjeta por LÍNEA (la ficha), no por SKU. Al pasar el mouse muestra las potencias disponibles.
 export default function LineCard({ line, featured = false, className = '' }) {

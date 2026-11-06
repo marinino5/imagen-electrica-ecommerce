@@ -1,166 +1,290 @@
-import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
-import { ChevronRight, MessageCircle, ShieldCheck, Zap } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
+import { Link, useParams, useSearchParams } from 'react-router-dom'
+import { ArrowLeft, FileText, MessageCircle, Minus, Plus, ShoppingCart } from 'lucide-react'
 import { catalogApi } from '../api'
-import { useApi } from '../hooks/useApi'
-import { useCategories } from '../hooks/useCategories'
-import { availability, isDirectPurchase, productImage } from '../lib/catalog'
-import { formatCOP, formatSpec } from '../lib/format'
 import { site } from '../config/site'
-import ProductGallery from '../components/ui/ProductGallery'
-import ProductCard, { AddButton, ProductPrice } from '../components/ui/ProductCard'
+import { useCart } from '../context/CartContext'
+import { useApi } from '../hooks/useApi'
+import { isDirectPurchase } from '../lib/catalog'
+import { formatCOP } from '../lib/format'
+import { cartItem, hpText, lineImage, lineQuoteItem, modeTag, twinTag, variantTag } from '../lib/lines'
+import Bezel from '../components/ui/Bezel'
+import Eyebrow from '../components/ui/Eyebrow'
+import Pill from '../components/ui/Pill'
+import Reveal from '../components/ui/Reveal'
 import ErrorState from '../components/ui/ErrorState'
+import LineCard from '../components/catalog/LineCard'
 import '../styles/product-detail.css'
 
 function DetailSkeleton() {
   return (
-    <div className="container pdetail" aria-busy="true" aria-label="Cargando producto">
-      <div className="pdetail__grid">
-        <div className="skeleton" style={{ aspectRatio: '4 / 3' }} />
-        <div className="pdetail__info">
-          <div className="skeleton" style={{ height: 18, width: '40%' }} />
-          <div className="skeleton" style={{ height: 40, width: '90%' }} />
-          <div className="skeleton" style={{ height: 120 }} />
-        </div>
+    <div className="wrap pd" aria-busy="true" aria-label="Cargando la ficha">
+      <div className="skeleton" style={{ aspectRatio: '1 / 0.9', borderRadius: 30 }} />
+      <div className="pd__info">
+        <div className="skeleton" style={{ height: 24, width: '40%' }} />
+        <div className="skeleton" style={{ height: 70 }} />
+        <div className="skeleton" style={{ height: 260, borderRadius: 30 }} />
       </div>
     </div>
   )
 }
 
-function Related({ product }) {
-  const slug = product.category?.slug
-  const { data } = useApi((signal) => catalogApi.products({ category: slug, per_page: 5 }, signal), [slug])
-  const items = (data?.data ?? []).filter((p) => p.id !== product.id).slice(0, 4)
-  if (!slug || items.length === 0) return null
-  return (
-    <section className="pdetail__related" aria-labelledby="rel-title">
-      <h2 id="rel-title" className="display">Productos <em>relacionados</em></h2>
-      <div className="product-grid">
-        {items.map((p) => <ProductCard key={p.id} product={p} />)}
-      </div>
-    </section>
-  )
-}
+const uniqueSorted = (list) => [...new Set(list.filter((x) => x !== null && x !== undefined))].sort((a, b) => a - b)
 
 export default function ProductDetail() {
   const { slug } = useParams()
-  const { data: categories } = useCategories()
-  const { data, loading, error, reload } = useApi(() => catalogApi.product(slug), [slug])
-  const [quantity, setQuantity] = useState('1')
+  const [params, setParams] = useSearchParams()
+  const { data, loading, error, reload } = useApi(() => catalogApi.line(slug), [slug])
+  const { add } = useCart()
+  const [qty, setQty] = useState(1)
+  const line = data?.data
+  const related = data?.related ?? []
+  const variants = useMemo(() => line?.variants ?? [], [line])
 
-  useEffect(() => setQuantity('1'), [slug])
+  // La referencia elegida vive en la URL (?ref=SKU): se puede compartir y el carrito vuelve a la misma variante
+  const refSku = params.get('ref')
+  const current = variants.find((v) => v.sku === refSku) ?? variants[0] ?? null
+
+  useEffect(() => setQty(1), [slug])
 
   if (loading) return <DetailSkeleton />
   if (error?.status === 404) {
     return (
-      <div className="container">
-        <div className="state" role="alert">
-          <h1 className="page-title">Producto no <em>encontrado</em></h1>
-          <p>Puede que ya no esté disponible o que el enlace haya cambiado.</p>
-          <Link to="/productos" className="btn btn--primary">Ver el catálogo</Link>
-        </div>
+      <div className="wrap pd-missing">
+        <Eyebrow>Ficha no encontrada</Eyebrow>
+        <h1 className="h-hero"><span>Esta línea</span><em>ya no está</em></h1>
+        <p>Puede que haya cambiado de nombre o que ya no se maneje. Mira el catálogo o escríbenos.</p>
+        <Pill as="link" to="/productos" tone="d">Volver al catálogo</Pill>
       </div>
     )
   }
-  if (error) return <div className="container"><ErrorState error={error} onRetry={reload} /></div>
+  if (error) return <div className="wrap"><ErrorState error={error} onRetry={reload} /></div>
 
-  const product = data.data
-  const stock = availability(product)
-  const image = productImage(product, categories)
-  const specs = Object.entries(product.specs ?? {})
-  const qty = Number(quantity) > 0 ? Number(quantity) : 1
-  const max = product.sale_mode === 'direct' && product.stock > 0 ? product.stock : undefined
-  const direct = isDirectPurchase(product, qty)
-  const parent = product.category && categories.byId.get(categories.byId.get(product.category.id)?.parent_id)
+  const image = lineImage(line)
+  const choose = (variant) => variant && setParams({ ref: variant.sku }, { replace: true })
+
+  // Potencias y velocidades, de menor a mayor; las combinaciones que no existen se apagan
+  const hps = uniqueSorted(variants.map((v) => v.hp))
+  const rpms = uniqueSorted(variants.map((v) => v.rpm))
+  const byHp = (hp) => variants.find((v) => v.hp === hp && (current?.rpm == null || v.rpm === current.rpm)) ?? variants.find((v) => v.hp === hp)
+  const byRpm = (rpm) => variants.find((v) => v.hp === current?.hp && v.rpm === rpm)
+  // Referencias con la misma potencia y velocidad: se distinguen por corriente, tensión o protección
+  const twins = current && hps.length ? variants.filter((v) => v.hp === current.hp && v.rpm === current.rpm) : []
+
+  const purchasable = current ? isDirectPurchase(current, qty) : false
+  const direct = current?.sale_mode === 'direct' && current.price !== null
+  const item = current ? cartItem(line, current) : lineQuoteItem(line)
+  const addBuy = (e) => add(item, qty, { rect: e.currentTarget.getBoundingClientRect(), image })
+  const addQuote = (e) => add(item, qty, { rect: e.currentTarget.getBoundingClientRect(), image }, { asQuote: true })
+  const total = current && direct ? current.price * qty : null
+  const waText = `Hola, quiero información sobre ${line.name}${current ? ` (${current.label}, SKU ${current.sku})` : ''}.`
+
+  const cells = current
+    ? [
+        ['Potencia', current.hp != null ? hpText(current.hp) : '—'],
+        ['Velocidad', current.rpm ? `${current.rpm} RPM` : '—'],
+        ['Corriente', current.amp ? `${String(current.amp).replace('.', ',')} A` : '—'],
+        ['Protección', current.ip || '—'],
+        ['Tensión', current.volt ? `${current.volt} V` : 'Según placa'],
+        ['Marca', current.brand?.name ?? line.brand_label ?? '—'],
+        ['Línea', line.category?.name ?? '—'],
+        ['En bodega', String(current.stock)],
+      ]
+    : line.spec_chips.map((s, i) => [`Dato ${i + 1}`, s])
 
   return (
-    <article className="container pdetail">
-      <nav aria-label="Migas de pan" className="pdetail__crumbs">
-        <ol>
-          <li><Link to="/productos">Productos</Link></li>
-          {parent && <li><ChevronRight size={14} aria-hidden="true" /><Link to={`/productos?category=${parent.slug}`}>{parent.name}</Link></li>}
-          {product.category && <li><ChevronRight size={14} aria-hidden="true" /><Link to={`/productos?category=${product.category.slug}`}>{product.category.name}</Link></li>}
-        </ol>
-      </nav>
+    <>
+      <div className="wrap pd-back">
+        <Link to="/productos" className="pd-back__link"><ArrowLeft size={18} aria-hidden="true" /> Volver al catálogo</Link>
+      </div>
 
-      <div className="pdetail__grid">
-        <ProductGallery images={image ? [image] : []} name={product.name} framed={!product.image_url} />
+      <article className="wrap pd">
+        <Reveal className="pd__gal">
+          <Bezel className="pd-gal">
+            {image && <img src={image} alt={line.name} width="900" height="675" fetchPriority="high" />}
+            <div className="pd-gal__badges">
+              <span>{modeTag(line)}</span>
+              {line.refs_count > 0 && <span>{line.refs_count} referencias</span>}
+            </div>
+          </Bezel>
+        </Reveal>
 
-        <div className="pdetail__info">
-          <p className="pdetail__meta">
-            {product.brand?.name && <Link to={`/productos?brand=${product.brand.slug}`} className="pdetail__brand">{product.brand.name}</Link>}
-            <span>SKU {product.sku}</span>
+        <Reveal className="pd__info" delay={0.05}>
+          <Eyebrow>{[line.brand_label, line.category?.name].filter(Boolean).join(' · ')}</Eyebrow>
+          <h1 className="pd__name">{line.name}</h1>
+          <p className="pd__desc">
+            {line.description ?? 'Línea del portafolio de Imagen Eléctrica.'}
+            {line.refs_count > 0 ? ` ${line.refs_count} referencias en esta ficha.` : ' Disponible bajo pedido: te cotizamos la referencia exacta.'}
           </p>
-          <h1 className="pdetail__name">{product.name}</h1>
-          <span className={`badge badge--${stock.tone}`}>{stock.label}</span>
-          {product.sale_mode === 'direct' && product.stock > 0 && <span className="pdetail__units">{product.stock} {product.stock === 1 ? 'unidad' : 'unidades'} en inventario</span>}
-          {product.short_description && <p className="pdetail__desc">{product.short_description}</p>}
 
-          <div className="pdetail__price">
-            <ProductPrice product={product} />
-            {product.price === null && <p className="field-hint">Te enviamos el valor por correo o WhatsApp después de revisar tu solicitud.</p>}
-            {product.price !== null && qty > 1 && (
-              <p className="field-hint">Total de {qty} {product.unit_label?.toLowerCase()}: <strong>{formatCOP(product.price * qty)}</strong> con IVA incluido.</p>
+          <Bezel className="pd-pick">
+            <div className="pd-pick__body">
+              {variants.length > 0 && current ? (
+                <>
+                  {hps.length > 0 ? (
+                    <>
+                      <h2 className="pd-h">Potencia <span>{current.hp != null ? hpText(current.hp) : ''}</span></h2>
+                      <div className="pd-vg" role="group" aria-label="Potencia">
+                        {hps.map((hp) => (
+                          <button key={hp} type="button" className={current.hp === hp ? 'on' : ''} aria-pressed={current.hp === hp} onClick={() => choose(byHp(hp))}>
+                            {hpText(hp)}
+                          </button>
+                        ))}
+                      </div>
+                      {rpms.length > 1 && (
+                        <>
+                          <h2 className="pd-h">Velocidad <span>{current.rpm ? `${current.rpm} RPM` : ''}</span></h2>
+                          <div className="pd-vg" role="group" aria-label="Velocidad">
+                            {rpms.map((rpm) => {
+                              const target = byRpm(rpm)
+                              return (
+                                <button key={rpm} type="button" className={current.rpm === rpm ? 'on' : ''} aria-pressed={current.rpm === rpm} disabled={!target} onClick={() => choose(target)}>
+                                  {rpm}
+                                </button>
+                              )
+                            })}
+                          </div>
+                        </>
+                      )}
+                      {twins.length > 1 && (
+                        <>
+                          <h2 className="pd-h">Referencia <span>{twins.length} opciones</span></h2>
+                          <div className="pd-vg" role="group" aria-label="Referencia">
+                            {twins.map((v) => (
+                              <button key={v.sku} type="button" className={current.sku === v.sku ? 'on' : ''} aria-pressed={current.sku === v.sku} onClick={() => choose(v)}>
+                                {twinTag(v, twins)}
+                              </button>
+                            ))}
+                          </div>
+                        </>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <h2 className="pd-h">Referencia <span>{variants.length} opciones</span></h2>
+                      <div className="pd-vg" role="group" aria-label="Referencia">
+                        {variants.map((v) => (
+                          <button key={v.sku} type="button" className={current.sku === v.sku ? 'on' : ''} aria-pressed={current.sku === v.sku} onClick={() => choose(v)}>
+                            {v.label}
+                          </button>
+                        ))}
+                      </div>
+                    </>
+                  )}
+
+                  <div className="pd-buy">
+                    <p className="pd-price" aria-live="polite">
+                      <strong>{direct ? formatCOP(current.price) : 'Precio por cotización'}</strong>
+                      <small>{direct ? 'IVA incluido · por unidad' : 'Te respondemos con precio y tiempo de entrega'}</small>
+                    </p>
+                    <div className="pd-qty" role="group" aria-label="Cantidad">
+                      <button type="button" onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="Menos"><Minus size={16} /></button>
+                      <input type="number" inputMode="numeric" min="1" value={qty} onChange={(e) => setQty(Math.max(1, Number(e.target.value) || 1))} aria-label="Cantidad" />
+                      <button type="button" onClick={() => setQty((q) => q + 1)} aria-label="Más"><Plus size={16} /></button>
+                    </div>
+                  </div>
+                  {total !== null && qty > 1 && <p className="pd-note">Total de {qty} unidades: <strong>{formatCOP(total)}</strong> con IVA incluido.</p>}
+                  <p className="pd-stock">
+                    <span className={`pd-stock__dot ${current.stock > 0 ? '' : 'no'}`} aria-hidden="true" />
+                    {current.stock > 0 ? `${current.stock} en bodega` : 'Bajo pedido'} · SKU {current.sku}
+                  </p>
+                  {current.sale_mode === 'direct' && current.stock > 0 && !purchasable && (
+                    <p className="pd-note">Pides más de lo que hay en bodega ({current.stock}): se enviará como cotización.</p>
+                  )}
+
+                  <div className="pd-cta">
+                    {purchasable ? (
+                      <>
+                        <Pill tone="o" icon={ShoppingCart} onClick={addBuy}>Agregar al carrito</Pill>
+                        <Pill tone="l" icon={FileText} onClick={addQuote}>Cotizar volumen</Pill>
+                      </>
+                    ) : (
+                      <Pill tone="d" icon={FileText} onClick={addQuote}>Solicitar cotización</Pill>
+                    )}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <h2 className="pd-h">Bajo pedido</h2>
+                  <p className="pd-lead">Esta línea se maneja por pedido. Cuéntanos la referencia o la aplicación y te cotizamos sin crear cuenta.</p>
+                  <div className="pd-cta">
+                    <Pill tone="d" icon={FileText} onClick={addQuote}>Solicitar cotización</Pill>
+                  </div>
+                </>
+              )}
+            </div>
+          </Bezel>
+
+          <p className="pd-assist">
+            ¿No sabes cuál elegir?{' '}
+            <a href={site.whatsappLink(waText)} target="_blank" rel="noreferrer">
+              <MessageCircle size={14} aria-hidden="true" /> Consulta con un asesor por WhatsApp
+            </a>
+          </p>
+        </Reveal>
+      </article>
+
+      {/* Placa de datos: imita la placa de un motor y lista todas las referencias */}
+      <Reveal as="section" className="wrap pd-plate" aria-labelledby="placa-title">
+        <Bezel>
+          <div className="pd-plate__core">
+            <div className="pd-plate__top">
+              <h2 id="placa-title">Placa de datos</h2>
+              <span>{(current?.name ?? line.name).toUpperCase()}</span>
+            </div>
+            <dl className="pd-cells">
+              {cells.map(([k, v]) => (
+                <div key={k}><dt>{k}</dt><dd>{v}</dd></div>
+              ))}
+            </dl>
+            {variants.length > 1 && (
+              <div className="pd-ref">
+                <table>
+                  <caption className="sr-only">Referencias de {line.name}: toca una fila para elegirla</caption>
+                  <thead>
+                    <tr><th scope="col">Referencia</th><th scope="col">SKU</th><th scope="col">Bodega</th><th scope="col">Precio</th></tr>
+                  </thead>
+                  <tbody>
+                    {variants.map((v) => (
+                      <tr key={v.sku} className={v.sku === current?.sku ? 'on' : ''}>
+                        <td>
+                          <button type="button" onClick={() => choose(v)} aria-label={`Elegir ${v.label}`}>{v.label}</button>
+                        </td>
+                        <td>{v.sku}</td>
+                        <td>{v.stock || 'Pedido'}</td>
+                        <td>{v.sale_mode === 'direct' && v.price !== null ? formatCOP(v.price) : 'Cotizar'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             )}
           </div>
+        </Bezel>
+      </Reveal>
 
-          <div className="pdetail__buy" id="comprar">
-            <div className="field pdetail__qty">
-              <label htmlFor="pd-qty">Cantidad ({product.unit_label?.toLowerCase()})</label>
-              <input id="pd-qty" className="input" type="number" inputMode="numeric" min="1" max={max} step="1" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
-            </div>
-            <AddButton product={product} quantity={qty} size="lg" />
+      {related.length > 0 && (
+        <section className="wrap pd-rel" aria-labelledby="rel-title">
+          <Eyebrow>Completa tu instalación</Eyebrow>
+          <h2 id="rel-title" className="h2-sys">Líneas relacionadas</h2>
+          <div className="pd-rel__grid">
+            {related.map((l) => <Reveal key={l.slug}><LineCard line={l} /></Reveal>)}
           </div>
-          {product.sale_mode === 'direct' && product.stock > 0 && !direct && (
-            <p className="field-hint">Pides más de lo disponible ({product.stock}): se enviará como cotización.</p>
-          )}
+        </section>
+      )}
 
-          <a className="btn btn--ghost btn--block" href={site.whatsappLink(`Hola, quiero información sobre ${product.name} (SKU ${product.sku}).`)} target="_blank" rel="noreferrer">
-            <MessageCircle size={18} aria-hidden="true" /> Consulta con un asesor
-          </a>
-
-          <p className="pdetail__warranty">
-            <ShieldCheck size={20} aria-hidden="true" />
-            <span><strong>Garantía y devoluciones.</strong> Las condiciones se confirman en tu cotización o pedido; si las necesitas antes de comprar, consúltalas por WhatsApp.</span>
-          </p>
-        </div>
-      </div>
-
-      <div className="pdetail__sections">
-        {product.description && (
-          <section aria-labelledby="desc-title">
-            <h2 id="desc-title" className="display">Descripción</h2>
-            <p>{product.description}</p>
-          </section>
-        )}
-        {specs.length > 0 && (
-          <section aria-labelledby="spec-title">
-            <h2 id="spec-title" className="display"><Zap size={20} aria-hidden="true" /> Especificaciones <em>técnicas</em></h2>
-            <table className="spec-table">
-              <caption className="sr-only">Especificaciones técnicas de {product.name}</caption>
-              <tbody>
-                {specs.map(([key, value]) => {
-                  const spec = formatSpec(key, value)
-                  return <tr key={key}><th scope="row">{spec.label}</th><td>{spec.value}</td></tr>
-                })}
-                <tr><th scope="row">Unidad de venta</th><td>{product.unit_label}</td></tr>
-                <tr><th scope="row">IVA</th><td>{product.tax_rate}%</td></tr>
-              </tbody>
-            </table>
-          </section>
+      {/* Barra flotante en celular: precio, variante y botón */}
+      <div className="pd-mbuy" role="region" aria-label="Comprar esta línea">
+        <p>
+          <strong>{current && direct ? formatCOP(current.price * qty) : 'Cotización'}</strong>
+          <small>{current ? current.label : 'Bajo pedido'}</small>
+        </p>
+        {purchasable ? (
+          <Pill tone="o" icon={ShoppingCart} size="sm" onClick={addBuy}>Agregar</Pill>
+        ) : (
+          <Pill tone="o" icon={FileText} size="sm" onClick={addQuote}>Cotizar</Pill>
         )}
       </div>
-
-      <Related product={product} />
-
-      {/* Barra de acción fija en celular */}
-      <div className="pdetail__bar" role="region" aria-label="Comprar este producto">
-        <div className="pdetail__bar-price">
-          {product.price === null ? <strong>Cotizar</strong> : <strong>{formatCOP(product.price)}</strong>}
-          <small>{product.price === null ? 'Sin precio publicado' : `IVA incl. · por ${product.unit}`}</small>
-        </div>
-        <AddButton product={product} quantity={qty} />
-      </div>
-    </article>
+    </>
   )
 }
