@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\V1\LineController;
 use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\ProfileController;
+use App\Http\Controllers\Api\V1\QuoteRequestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,9 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:api')->group(function
     Route::get('lines/{slug}', [LineController::class, 'show'])->name('lines.show');
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
     Route::get('products/{slug}', [ProductController::class, 'show'])->name('products.show');
+
+    // Cotización sin cuenta: pública, con límite por IP
+    Route::post('quote-requests', [QuoteRequestController::class, 'store'])->middleware('throttle:api-quote')->name('quote-requests.store');
 
     // Registro e inicio de sesión: límite de intentos por minuto
     Route::post('register', [AuthController::class, 'register'])->middleware('throttle:api-register')->name('register');

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\OrderPricingController;
 use App\Http\Controllers\Admin\OrderStatusController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\QuoteRequestController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\SearchController;
 use Illuminate\Support\Facades\Route;
@@ -44,6 +45,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::patch('orders/{order}/status', OrderStatusController::class)->name('orders.status');
         Route::patch('orders/{order}/assignment', OrderAssignmentController::class)->name('orders.assignment');
         Route::put('orders/{order}/prices', OrderPricingController::class)->name('orders.prices');
+
+        // Cotizaciones enviadas sin cuenta desde la tienda: admin y comercial
+        Route::get('quote-requests', [QuoteRequestController::class, 'index'])->name('quote-requests.index');
+        Route::get('quote-requests/{quoteRequest}', [QuoteRequestController::class, 'show'])->name('quote-requests.show');
+        Route::patch('quote-requests/{quoteRequest}', [QuoteRequestController::class, 'update'])->name('quote-requests.update');
 
         // Catálogo y análisis: solo admin
         Route::middleware('role:admin')->group(function () {
