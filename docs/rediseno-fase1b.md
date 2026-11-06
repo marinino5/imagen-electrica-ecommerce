@@ -50,3 +50,8 @@ Las referencias de abajo vienen de búsquedas en internet; son guías de proveed
 ## Crear cuenta e Ingresar
 - Los flujos de registro B2B funcionan mejor cuando muestran qué se gana y dejan una salida para quien no quiere registrarse. Idea tomada: a la izquierda título grande, el ejemplo animado de "Así verás tus pedidos" (línea de estados) y tres beneficios en tarjetas de bisel; a la derecha el formulario con pasos y un aviso visible: "¿Solo quieres cotizar? No necesitas cuenta".
 - Se quita la foto del pasillo de tableros. En celular el formulario va primero.
+
+## Mi cuenta
+- Portada con saludo y un bento de tarjetas (pedidos, cotizaciones y una tarjeta ink con lo que está en curso y su último estado), en lugar de una fila de tres cajas iguales.
+- Cada pedido es una tarjeta de bisel con la línea de estados (la misma de Crear cuenta), "Volver a pedir" a la vista y el detalle plegable. "Volver a pedir" busca la referencia vigente por SKU para tomar precio, stock y línea actuales.
+- Datos editables solo donde el backend lo permite (`PUT /me`); las direcciones guardadas siguen marcadas como no disponibles.
