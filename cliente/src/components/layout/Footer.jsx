@@ -39,11 +39,11 @@ function LinkList({ links }) {
   )
 }
 
-export default function Footer() {
+export default function Footer({ hideCta = false }) {
   return (
     <footer className="footer">
       {/* Banda CTA: se monta sobre el límite entre la página y el pie */}
-      <div className="container footer__cta-wrap">
+      {!hideCta && <div className="container footer__cta-wrap">
         <div className="footer-cta">
           <span className="footer-cta__arc footer-cta__arc--a" aria-hidden="true" />
           <span className="footer-cta__arc footer-cta__arc--b" aria-hidden="true" />
@@ -55,7 +55,7 @@ export default function Footer() {
             </a>
           </div>
         </div>
-      </div>
+      </div>}
 
       <div className="footer__body">
         <span className="footer__bigarc" aria-hidden="true" />

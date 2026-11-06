@@ -1,58 +1,51 @@
 import { Link } from 'react-router-dom'
-import { ArrowUpRight, CircuitBoard, Droplets, Fan, Lightbulb, Settings2, Sun } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
+import Eyebrow from '../ui/Eyebrow'
 import Reveal from '../ui/Reveal'
-import SectionHeading from '../ui/SectionHeading'
 import '../../styles/home.css'
 
-// Cada aplicación lleva a productos filtrados. Fotos de Pixabay (ver docs/recursos.md); sin foto
-// (iluminación, pendiente) la tarjeta usa el degradado lavanda con un ícono violeta y un arco.
+// Mosaico de fotos reales en marcos de doble bisel (Pixabay; ver docs/recursos.md).
+// Iluminación no tiene foto real todavía: no se muestra en el mosaico.
 const applications = [
-  { name: 'Bombeo', tag: 'Motores', icon: Droplets, image: 'bombeo', alt: 'Tuberías y válvulas de un sistema de bombeo', to: '/productos?category=motores-electricos', size: 'a' },
-  { name: 'Ventilación y extracción', tag: 'Ventilación', icon: Fan, image: 'ventilacion', alt: 'Ventiladores industriales de gran tamaño', to: '/productos?category=ventilacion', size: 'b' },
-  { name: 'Bandas transportadoras', tag: 'Motorreductores', icon: Settings2, image: 'bandas', alt: 'Banda transportadora en una planta', to: '/productos?category=motorreductores', size: 'c' },
-  { name: 'Tableros y automatización', tag: 'Automatización', icon: CircuitBoard, image: 'tableros', alt: 'Electricista revisando un tablero eléctrico', to: '/productos?category=plc', size: 'd' },
-  { name: 'Iluminación industrial', tag: 'Iluminación', icon: Lightbulb, image: null, to: '/productos?category=iluminacion', size: 'e' },
-  { name: 'Energía solar', tag: 'Solar', icon: Sun, image: 'solar', alt: 'Campo de paneles solares', to: '/productos?category=energia-solar', size: 'f' },
+  { id: 'a', name: 'Bombeo', tag: 'Motores', image: 'bombeo', alt: 'Tuberías y válvulas de un sistema de bombeo', to: '/productos?familia=motores-electricos' },
+  { id: 'b', name: 'Ventilación y extracción', tag: 'Ventilación', image: 'ventilacion', alt: 'Ventiladores industriales de gran tamaño', to: '/productos?familia=ventilacion-y-climatizacion' },
+  { id: 'c', name: 'Bandas transportadoras', tag: 'Motorreductores', image: 'bandas', alt: 'Banda transportadora en una planta', to: '/productos?familia=reductores-y-motorreductores' },
+  { id: 'd', name: 'Tableros y automatización', tag: 'Control', image: 'tableros', alt: 'Electricista revisando un tablero eléctrico', to: '/productos?familia=control-y-automatizacion' },
+  { id: 'e', name: 'Energía solar', tag: 'Solar', image: 'solar', alt: 'Campo de paneles solares', to: '/productos?q=solar' },
 ]
 
 export default function Applications() {
   return (
-    <section className="section" aria-labelledby="h-aplicaciones">
-      <div className="container">
-        <SectionHeading id="h-aplicaciones" eyebrow="Para tu planta" lead="Cuéntanos qué necesitas mover, ventilar, iluminar o automatizar.">
-          Soluciones por <em>aplicación</em>
-        </SectionHeading>
-
-        <div className="bento">
-          {applications.map(({ name, tag, icon: Icon, image, alt, to, size }, i) => (
-            <Reveal key={name} delay={i * 0.06} className={`bento__item bento__item--${size}`}>
-              <Link to={to} className={`bento__link ${image ? 'has-photo' : ''}`}>
-                {image ? (
-                  <img
-                    src={`/img/aplicaciones/${image}-sm.webp`}
-                    srcSet={`/img/aplicaciones/${image}-sm.webp 640w, /img/aplicaciones/${image}.webp 1280w`}
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    alt={alt}
-                    width="640"
-                    height="427"
-                    loading="lazy"
-                  />
-                ) : (
-                  <>
-                    <span className="bento__arc" aria-hidden="true" />
-                    <Icon size={72} strokeWidth={1.25} className="bento__icon" aria-hidden="true" />
-                  </>
-                )}
-                {image && <span className="bento__shade" aria-hidden="true" />}
-                <span className="bento__tag">{tag}</span>
-                <span className="bento__title">
-                  {name}
-                  <ArrowUpRight size={22} aria-hidden="true" />
-                </span>
-              </Link>
-            </Reveal>
-          ))}
+    <section className="wrap hm-section" aria-labelledby="h-aplicaciones">
+      <div className="hm-head">
+        <div>
+          <Eyebrow>Para tu planta</Eyebrow>
+          <h2 id="h-aplicaciones" className="h2-sys">Soluciones por <em>aplicación</em></h2>
+          <p className="hm-head__lead">Cuéntanos qué necesitas mover, ventilar o automatizar.</p>
         </div>
+      </div>
+
+      <div className="hm-apps">
+        {applications.map((a, i) => (
+          <Reveal key={a.id} delay={i * 0.05} className={`hm-apps__${a.id}`}>
+            <Link to={a.to} className="bz hm-app">
+              <span className="core">
+                <img
+                  src={`/img/aplicaciones/${a.image}-sm.webp`}
+                  srcSet={`/img/aplicaciones/${a.image}-sm.webp 640w, /img/aplicaciones/${a.image}.webp 1280w`}
+                  sizes="(min-width: 1024px) 40vw, 100vw"
+                  alt={a.alt}
+                  width="640"
+                  height="427"
+                  loading="lazy"
+                />
+                <span className="hm-app__shade" aria-hidden="true" />
+                <span className="hm-app__tag">{a.tag}</span>
+                <span className="hm-app__title">{a.name}<ArrowUpRight size={20} aria-hidden="true" /></span>
+              </span>
+            </Link>
+          </Reveal>
+        ))}
       </div>
     </section>
   )

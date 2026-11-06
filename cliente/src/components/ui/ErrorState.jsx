@@ -1,3 +1,4 @@
+import '../../styles/product-card.css'
 import { RefreshCw, WifiOff, AlertTriangle } from 'lucide-react'
 
 // Error visible y accionable: sin conexión, tiempo agotado u otro fallo

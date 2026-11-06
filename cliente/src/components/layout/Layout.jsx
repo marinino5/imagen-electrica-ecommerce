@@ -36,7 +36,7 @@ export default function Layout() {
       <main id="contenido" className={offset}>
         <Outlet />
       </main>
-      <Footer />
+      <Footer hideCta={pathname === '/'} />
       <BottomNav />
       <WhatsAppButton />
     </>
