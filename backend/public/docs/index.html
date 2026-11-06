@@ -155,6 +155,32 @@
                             </li>
                                                                         </ul>
                             </ul>
+                    <ul id="tocify-header-catalogo-por-lineas-publico" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="catalogo-por-lineas-publico">
+                    <a href="#catalogo-por-lineas-publico">Catálogo por líneas (público)</a>
+                </li>
+                                    <ul id="tocify-subheader-catalogo-por-lineas-publico" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="catalogo-por-lineas-publico-GETapi-v1-families">
+                                <a href="#catalogo-por-lineas-publico-GETapi-v1-families">Familias del portafolio</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="catalogo-por-lineas-publico-GETapi-v1-lines">
+                                <a href="#catalogo-por-lineas-publico-GETapi-v1-lines">Líneas del catálogo</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="catalogo-por-lineas-publico-GETapi-v1-lines--slug-">
+                                <a href="#catalogo-por-lineas-publico-GETapi-v1-lines--slug-">Ficha de una línea</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
+                    <ul id="tocify-header-cotizacion-sin-cuenta" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="cotizacion-sin-cuenta">
+                    <a href="#cotizacion-sin-cuenta">Cotización sin cuenta</a>
+                </li>
+                                    <ul id="tocify-subheader-cotizacion-sin-cuenta" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="cotizacion-sin-cuenta-POSTapi-v1-quote-requests">
+                                <a href="#cotizacion-sin-cuenta-POSTapi-v1-quote-requests">Enviar una cotización</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
             </div>
 
     <ul class="toc-footer" id="toc-footer">
@@ -164,7 +190,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Actualizado: 25/10/2026</li>
+        <li>Actualizado: 06/11/2026</li>
     </ul>
 </div>
 
@@ -1272,9 +1298,9 @@ solo se vende por cotización. No requiere token.</p>
     \"category\": \"n\",
     \"brand\": \"g\",
     \"sale_mode\": \"direct\",
-    \"featured\": false,
-    \"in_stock\": false,
-    \"sort\": \"price_asc\",
+    \"featured\": true,
+    \"in_stock\": true,
+    \"sort\": \"price_desc\",
     \"per_page\": 16
 }"
 </code></pre></div>
@@ -1303,9 +1329,9 @@ let body = {
     "category": "n",
     "brand": "g",
     "sale_mode": "direct",
-    "featured": false,
-    "in_stock": false,
-    "sort": "price_asc",
+    "featured": true,
+    "in_stock": true,
+    "sort": "price_desc",
     "per_page": 16
 };
 
@@ -1326,7 +1352,7 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 49,
+            &quot;id&quot;: 370,
             &quot;sku&quot;: &quot;REF-0564-yv&quot;,
             &quot;name&quot;: &quot;Motor trif&aacute;sico 4338 HP&quot;,
             &quot;slug&quot;: &quot;motor-trifasico-4338-hp&quot;,
@@ -1334,8 +1360,8 @@ fetch(url, {
             &quot;description&quot;: &quot;Perspiciatis quo omnis nostrum aut adipisci quidem nostrum qui. Incidunt iure odit et et modi ipsum. Omnis autem et consequatur. Dolores enim non facere tempora.&quot;,
             &quot;image_url&quot;: null,
             &quot;specs&quot;: {
-                &quot;voltaje_v&quot;: 220,
-                &quot;potencia_hp&quot;: 10
+                &quot;potencia_hp&quot;: 10,
+                &quot;voltaje_v&quot;: 220
             },
             &quot;unit&quot;: &quot;unidad&quot;,
             &quot;unit_label&quot;: &quot;Unidad&quot;,
@@ -1347,19 +1373,19 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 59,
+                &quot;id&quot;: 43,
                 &quot;name&quot;: &quot;Quis adipisci&quot;,
                 &quot;slug&quot;: &quot;quis-adipisci&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 42,
+                &quot;id&quot;: 18,
                 &quot;name&quot;: &quot;Global Guardado y Asoc.&quot;,
                 &quot;slug&quot;: &quot;global-guardado-y-asoc&quot;,
                 &quot;logo_url&quot;: null
             }
         },
         {
-            &quot;id&quot;: 50,
+            &quot;id&quot;: 371,
             &quot;sku&quot;: &quot;REF-7788-qb&quot;,
             &quot;name&quot;: &quot;Motor trif&aacute;sico 9148 HP&quot;,
             &quot;slug&quot;: &quot;motor-trifasico-9148-hp&quot;,
@@ -1367,8 +1393,8 @@ fetch(url, {
             &quot;description&quot;: &quot;Blanditiis odio veritatis excepturi doloribus delectus fugit. Repudiandae laboriosam est alias tenetur ratione. Voluptate accusamus ut et recusandae. Rerum ex repellendus assumenda et.&quot;,
             &quot;image_url&quot;: null,
             &quot;specs&quot;: {
-                &quot;voltaje_v&quot;: 440,
-                &quot;potencia_hp&quot;: 5
+                &quot;potencia_hp&quot;: 5,
+                &quot;voltaje_v&quot;: 440
             },
             &quot;unit&quot;: &quot;unidad&quot;,
             &quot;unit_label&quot;: &quot;Unidad&quot;,
@@ -1380,12 +1406,12 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 60,
+                &quot;id&quot;: 44,
                 &quot;name&quot;: &quot;Perspiciatis deserunt&quot;,
                 &quot;slug&quot;: &quot;perspiciatis-deserunt&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 43,
+                &quot;id&quot;: 19,
                 &quot;name&quot;: &quot;Grupo Arias-Chac&oacute;n&quot;,
                 &quot;slug&quot;: &quot;grupo-arias-chacon&quot;,
                 &quot;logo_url&quot;: null
@@ -1609,7 +1635,7 @@ Must be one of:
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>in_stock</code></b>&nbsp;&nbsp;
@@ -1631,7 +1657,7 @@ Must be one of:
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>sort</code></b>&nbsp;&nbsp;
@@ -1640,10 +1666,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="sort"                data-endpoint="GETapi-v1-products"
-               value="price_asc"
+               value="price_desc"
                data-component="body">
     <br>
-<p>Example: <code>price_asc</code></p>
+<p>Example: <code>price_desc</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>name</code></li> <li><code>newest</code></li> <li><code>price_asc</code></li> <li><code>price_desc</code></li></ul>
         </div>
@@ -1705,7 +1731,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 51,
+        &quot;id&quot;: 370,
         &quot;sku&quot;: &quot;REF-0057-nb&quot;,
         &quot;name&quot;: &quot;Motor trif&aacute;sico 7075 HP&quot;,
         &quot;slug&quot;: &quot;motor-trifasico-7075-hp&quot;,
@@ -1713,8 +1739,8 @@ fetch(url, {
         &quot;description&quot;: &quot;Sunt suscipit doloribus fugiat ut aut deserunt et. Neque recusandae et ipsam dolorem et ut dicta. Assumenda consequatur ut et sunt quisquam. Repellendus ut eaque alias ratione dolores.&quot;,
         &quot;image_url&quot;: null,
         &quot;specs&quot;: {
-            &quot;voltaje_v&quot;: 220,
-            &quot;potencia_hp&quot;: 1
+            &quot;potencia_hp&quot;: 1,
+            &quot;voltaje_v&quot;: 220
         },
         &quot;unit&quot;: &quot;unidad&quot;,
         &quot;unit_label&quot;: &quot;Unidad&quot;,
@@ -1726,12 +1752,12 @@ fetch(url, {
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 61,
+            &quot;id&quot;: 43,
             &quot;name&quot;: &quot;Aut deserunt&quot;,
             &quot;slug&quot;: &quot;aut-deserunt&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 44,
+            &quot;id&quot;: 18,
             &quot;name&quot;: &quot;Nieto y Rico&quot;,
             &quot;slug&quot;: &quot;nieto-y-rico&quot;,
             &quot;logo_url&quot;: null
@@ -2262,8 +2288,8 @@ muestra las de otros clientes.</p>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"type\": \"quote\",
-    \"status\": \"paid\",
+    \"type\": \"purchase\",
+    \"status\": \"pending_payment\",
     \"per_page\": 1
 }"
 </code></pre></div>
@@ -2289,8 +2315,8 @@ const headers = {
 };
 
 let body = {
-    "type": "quote",
-    "status": "paid",
+    "type": "purchase",
+    "status": "pending_payment",
     "per_page": 1
 };
 
@@ -2334,11 +2360,11 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 20,
-                    &quot;product_id&quot;: 52,
+                    &quot;id&quot;: 9,
+                    &quot;product_id&quot;: 370,
                     &quot;sku&quot;: &quot;REF-5058-cq&quot;,
                     &quot;product_name&quot;: &quot;Motor trif&aacute;sico 6877 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
@@ -2374,11 +2400,11 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 21,
-                    &quot;product_id&quot;: 53,
+                    &quot;id&quot;: 10,
+                    &quot;product_id&quot;: 371,
                     &quot;sku&quot;: &quot;REF-9849-tp&quot;,
                     &quot;product_name&quot;: &quot;Motor trif&aacute;sico 1703 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
@@ -2557,10 +2583,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="type"                data-endpoint="GETapi-v1-orders"
-               value="quote"
+               value="purchase"
                data-component="body">
     <br>
-<p>Example: <code>quote</code></p>
+<p>Example: <code>purchase</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>purchase</code></li> <li><code>quote</code></li></ul>
         </div>
@@ -2571,10 +2597,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="status"                data-endpoint="GETapi-v1-orders"
-               value="paid"
+               value="pending_payment"
                data-component="body">
     <br>
-<p>Example: <code>paid</code></p>
+<p>Example: <code>pending_payment</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>pending_payment</code></li> <li><code>paid</code></li> <li><code>shipped</code></li> <li><code>delivered</code></li> <li><code>new</code></li> <li><code>in_review</code></li> <li><code>sent</code></li> <li><code>accepted</code></li> <li><code>rejected</code></li> <li><code>cancelled</code></li></ul>
         </div>
@@ -2694,11 +2720,11 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 22,
-                    &quot;product_id&quot;: 54,
+                    &quot;id&quot;: 9,
+                    &quot;product_id&quot;: 370,
                     &quot;sku&quot;: &quot;REF-7365-sc&quot;,
                     &quot;product_name&quot;: &quot;Motor trif&aacute;sico 967 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
@@ -2734,11 +2760,11 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 23,
-                    &quot;product_id&quot;: 55,
+                    &quot;id&quot;: 10,
+                    &quot;product_id&quot;: 371,
                     &quot;sku&quot;: &quot;REF-3531-ob&quot;,
                     &quot;product_name&quot;: &quot;Motor trif&aacute;sico 6696 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
@@ -3008,11 +3034,11 @@ fetch(url, {
         &quot;notes&quot;: null,
         &quot;expires_at&quot;: null,
         &quot;paid_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
         &quot;items&quot;: [
             {
-                &quot;id&quot;: 24,
-                &quot;product_id&quot;: 56,
+                &quot;id&quot;: 9,
+                &quot;product_id&quot;: 370,
                 &quot;sku&quot;: &quot;REF-2083-jk&quot;,
                 &quot;product_name&quot;: &quot;Motor trif&aacute;sico 4189 HP&quot;,
                 &quot;unit&quot;: &quot;unidad&quot;,
@@ -3029,7 +3055,7 @@ fetch(url, {
                 &quot;to_status&quot;: &quot;pending_payment&quot;,
                 &quot;to_status_label&quot;: &quot;Pendiente de pago&quot;,
                 &quot;note&quot;: null,
-                &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;
             }
         ]
     }
@@ -3205,11 +3231,11 @@ fetch(url, {
         &quot;notes&quot;: null,
         &quot;expires_at&quot;: null,
         &quot;paid_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
         &quot;items&quot;: [
             {
-                &quot;id&quot;: 25,
-                &quot;product_id&quot;: 57,
+                &quot;id&quot;: 9,
+                &quot;product_id&quot;: 370,
                 &quot;sku&quot;: &quot;REF-0782-pp&quot;,
                 &quot;product_name&quot;: &quot;Motor trif&aacute;sico 5685 HP&quot;,
                 &quot;unit&quot;: &quot;unidad&quot;,
@@ -3226,7 +3252,7 @@ fetch(url, {
                 &quot;to_status&quot;: &quot;pending_payment&quot;,
                 &quot;to_status_label&quot;: &quot;Pendiente de pago&quot;,
                 &quot;note&quot;: null,
-                &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;
             }
         ]
     }
@@ -3414,7 +3440,7 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 58,
+            &quot;id&quot;: 370,
             &quot;sku&quot;: &quot;REF-9365-mi&quot;,
             &quot;name&quot;: &quot;Motor trif&aacute;sico 4027 HP&quot;,
             &quot;slug&quot;: &quot;motor-trifasico-4027-hp&quot;,
@@ -3422,8 +3448,8 @@ fetch(url, {
             &quot;description&quot;: null,
             &quot;image_url&quot;: null,
             &quot;specs&quot;: {
-                &quot;voltaje_v&quot;: 220,
-                &quot;potencia_hp&quot;: 10
+                &quot;potencia_hp&quot;: 10,
+                &quot;voltaje_v&quot;: 220
             },
             &quot;unit&quot;: &quot;unidad&quot;,
             &quot;unit_label&quot;: &quot;Unidad&quot;,
@@ -3435,23 +3461,23 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 68,
+                &quot;id&quot;: 43,
                 &quot;name&quot;: &quot;Perspiciatis quo&quot;,
                 &quot;slug&quot;: &quot;perspiciatis-quo&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 51,
+                &quot;id&quot;: 18,
                 &quot;name&quot;: &quot;Empresa Dom&iacute;nguez e Hijo&quot;,
                 &quot;slug&quot;: &quot;empresa-dominguez-e-hijo&quot;,
                 &quot;logo_url&quot;: null
             },
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
             &quot;deleted_at&quot;: null
         },
         {
-            &quot;id&quot;: 59,
+            &quot;id&quot;: 371,
             &quot;sku&quot;: &quot;REF-0719-qw&quot;,
             &quot;name&quot;: &quot;Motor trif&aacute;sico 8015 HP&quot;,
             &quot;slug&quot;: &quot;motor-trifasico-8015-hp&quot;,
@@ -3459,8 +3485,8 @@ fetch(url, {
             &quot;description&quot;: null,
             &quot;image_url&quot;: null,
             &quot;specs&quot;: {
-                &quot;voltaje_v&quot;: 220,
-                &quot;potencia_hp&quot;: 5
+                &quot;potencia_hp&quot;: 5,
+                &quot;voltaje_v&quot;: 220
             },
             &quot;unit&quot;: &quot;unidad&quot;,
             &quot;unit_label&quot;: &quot;Unidad&quot;,
@@ -3472,19 +3498,19 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 69,
+                &quot;id&quot;: 44,
                 &quot;name&quot;: &quot;Dolores enim&quot;,
                 &quot;slug&quot;: &quot;dolores-enim&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 52,
+                &quot;id&quot;: 19,
                 &quot;name&quot;: &quot;Casanova y Almonte y Asoc.&quot;,
                 &quot;slug&quot;: &quot;casanova-y-almonte-y-asoc&quot;,
                 &quot;logo_url&quot;: null
             },
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
             &quot;deleted_at&quot;: null
         }
     ],
@@ -3821,7 +3847,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 60,
+        &quot;id&quot;: 370,
         &quot;sku&quot;: &quot;REF-7432-uw&quot;,
         &quot;name&quot;: &quot;Motor trif&aacute;sico 7195 HP&quot;,
         &quot;slug&quot;: &quot;motor-trifasico-7195-hp&quot;,
@@ -3829,8 +3855,8 @@ fetch(url, {
         &quot;description&quot;: null,
         &quot;image_url&quot;: null,
         &quot;specs&quot;: {
-            &quot;voltaje_v&quot;: 220,
-            &quot;potencia_hp&quot;: 5
+            &quot;potencia_hp&quot;: 5,
+            &quot;voltaje_v&quot;: 220
         },
         &quot;unit&quot;: &quot;unidad&quot;,
         &quot;unit_label&quot;: &quot;Unidad&quot;,
@@ -3842,19 +3868,19 @@ fetch(url, {
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 70,
+            &quot;id&quot;: 43,
             &quot;name&quot;: &quot;Nostrum omnis&quot;,
             &quot;slug&quot;: &quot;nostrum-omnis&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 53,
+            &quot;id&quot;: 18,
             &quot;name&quot;: &quot;Asociaci&oacute;n Jaramillo e Hija&quot;,
             &quot;slug&quot;: &quot;asociacion-jaramillo-e-hija&quot;,
             &quot;logo_url&quot;: null
         },
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -4229,7 +4255,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 61,
+        &quot;id&quot;: 370,
         &quot;sku&quot;: &quot;REF-3724-pw&quot;,
         &quot;name&quot;: &quot;Motor trif&aacute;sico 2878 HP&quot;,
         &quot;slug&quot;: &quot;motor-trifasico-2878-hp&quot;,
@@ -4237,8 +4263,8 @@ fetch(url, {
         &quot;description&quot;: &quot;Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.&quot;,
         &quot;image_url&quot;: null,
         &quot;specs&quot;: {
-            &quot;voltaje_v&quot;: 440,
-            &quot;potencia_hp&quot;: 10
+            &quot;potencia_hp&quot;: 10,
+            &quot;voltaje_v&quot;: 440
         },
         &quot;unit&quot;: &quot;unidad&quot;,
         &quot;unit_label&quot;: &quot;Unidad&quot;,
@@ -4250,19 +4276,19 @@ fetch(url, {
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 71,
+            &quot;id&quot;: 43,
             &quot;name&quot;: &quot;Aliquam veniam&quot;,
             &quot;slug&quot;: &quot;aliquam-veniam&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 54,
+            &quot;id&quot;: 18,
             &quot;name&quot;: &quot;Cab&aacute;n de Llorente S. de H.&quot;,
             &quot;slug&quot;: &quot;caban-de-llorente-s-de-h&quot;,
             &quot;logo_url&quot;: null
         },
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -4474,7 +4500,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 62,
+        &quot;id&quot;: 370,
         &quot;sku&quot;: &quot;REF-7680-wp&quot;,
         &quot;name&quot;: &quot;Motor trif&aacute;sico 2977 HP&quot;,
         &quot;slug&quot;: &quot;motor-trifasico-2977-hp&quot;,
@@ -4482,8 +4508,8 @@ fetch(url, {
         &quot;description&quot;: &quot;Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.&quot;,
         &quot;image_url&quot;: null,
         &quot;specs&quot;: {
-            &quot;voltaje_v&quot;: 440,
-            &quot;potencia_hp&quot;: 10
+            &quot;potencia_hp&quot;: 10,
+            &quot;voltaje_v&quot;: 440
         },
         &quot;unit&quot;: &quot;unidad&quot;,
         &quot;unit_label&quot;: &quot;Unidad&quot;,
@@ -4495,19 +4521,19 @@ fetch(url, {
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 72,
+            &quot;id&quot;: 43,
             &quot;name&quot;: &quot;Corporis dolorem&quot;,
             &quot;slug&quot;: &quot;corporis-dolorem&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 55,
+            &quot;id&quot;: 18,
             &quot;name&quot;: &quot;Marroqu&iacute;n, Ram&iacute;rez y Chapa SRL&quot;,
             &quot;slug&quot;: &quot;marroquin-ramirez-y-chapa-srl&quot;,
             &quot;logo_url&quot;: null
         },
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-10-25T21:46:33.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-06T18:10:04.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -5020,6 +5046,968 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Id del producto. Example: <code>1</code></p>
             </div>
                     </form>
+
+                <h1 id="catalogo-por-lineas-publico">Catálogo por líneas (público)</h1>
+
+    <p>Familia → categoría → línea (la ficha) → referencias (SKU). No necesita token.</p>
+
+                                <h2 id="catalogo-por-lineas-publico-GETapi-v1-families">Familias del portafolio</h2>
+
+<p>
+</p>
+
+<p>Familias con sus categorías y el número de líneas de cada una, más las marcas y los totales del catálogo.</p>
+
+<span id="example-requests-GETapi-v1-families">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://imagen-electrica-ecommerce.onrender.com/api/v1/families" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/families"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-v1-families">
+    </span>
+<span id="execution-results-GETapi-v1-families" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-v1-families"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-v1-families"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-v1-families" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-v1-families">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-v1-families" data-method="GET"
+      data-path="api/v1/families"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-families', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-v1-families"
+                    onclick="tryItOut('GETapi-v1-families');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-v1-families"
+                    onclick="cancelTryOut('GETapi-v1-families');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-v1-families"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/v1/families</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-v1-families"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-v1-families"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
+                    <h2 id="catalogo-por-lineas-publico-GETapi-v1-lines">Líneas del catálogo</h2>
+
+<p>
+</p>
+
+<p>Resumen de cada línea: rango de potencia, "desde" el precio más bajo con IVA, stock total y, si tiene una
+sola referencia comprable, esa referencia lista para agregar al carrito.</p>
+
+<span id="example-requests-GETapi-v1-lines">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://imagen-electrica-ecommerce.onrender.com/api/v1/lines?q=CFW300&amp;family=motores-electricos&amp;category=motores-trifasicos&amp;brand=WEG&amp;mode=direct&amp;in_stock=1&amp;hp_min=1&amp;hp_max=5&amp;per_page=50" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"q\": \"b\",
+    \"family\": \"n\",
+    \"category\": \"g\",
+    \"brand\": \"z\",
+    \"mode\": \"quote\",
+    \"in_stock\": true,
+    \"hp_min\": 17,
+    \"hp_max\": 15,
+    \"per_page\": 8
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/lines"
+);
+
+const params = {
+    "q": "CFW300",
+    "family": "motores-electricos",
+    "category": "motores-trifasicos",
+    "brand": "WEG",
+    "mode": "direct",
+    "in_stock": "1",
+    "hp_min": "1",
+    "hp_max": "5",
+    "per_page": "50",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "q": "b",
+    "family": "n",
+    "category": "g",
+    "brand": "z",
+    "mode": "quote",
+    "in_stock": true,
+    "hp_min": 17,
+    "hp_max": 15,
+    "per_page": 8
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-v1-lines">
+    </span>
+<span id="execution-results-GETapi-v1-lines" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-v1-lines"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-v1-lines"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-v1-lines" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-v1-lines">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-v1-lines" data-method="GET"
+      data-path="api/v1/lines"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-lines', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-v1-lines"
+                    onclick="tryItOut('GETapi-v1-lines');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-v1-lines"
+                    onclick="cancelTryOut('GETapi-v1-lines');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-v1-lines"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/v1/lines</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-v1-lines"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-v1-lines"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>q</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="q"                data-endpoint="GETapi-v1-lines"
+               value="CFW300"
+               data-component="query">
+    <br>
+<p>Busca por línea, categoría, familia, marca, nombre de referencia o SKU. Example: <code>CFW300</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>family</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="family"                data-endpoint="GETapi-v1-lines"
+               value="motores-electricos"
+               data-component="query">
+    <br>
+<p>Slug de la familia. Example: <code>motores-electricos</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>category</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="category"                data-endpoint="GETapi-v1-lines"
+               value="motores-trifasicos"
+               data-component="query">
+    <br>
+<p>Slug de la categoría. Example: <code>motores-trifasicos</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>brand</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="brand"                data-endpoint="GETapi-v1-lines"
+               value="WEG"
+               data-component="query">
+    <br>
+<p>Marca. Example: <code>WEG</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>mode</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="mode"                data-endpoint="GETapi-v1-lines"
+               value="direct"
+               data-component="query">
+    <br>
+<p>direct (compra en línea) o quote (cotización o bajo pedido). Example: <code>direct</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>in_stock</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <label data-endpoint="GETapi-v1-lines" style="display: none">
+            <input type="radio" name="in_stock"
+                   value="1"
+                   data-endpoint="GETapi-v1-lines"
+                   data-component="query"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="GETapi-v1-lines" style="display: none">
+            <input type="radio" name="in_stock"
+                   value="0"
+                   data-endpoint="GETapi-v1-lines"
+                   data-component="query"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Solo líneas con unidades en bodega. Example: <code>true</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>hp_min</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="hp_min"                data-endpoint="GETapi-v1-lines"
+               value="1"
+               data-component="query">
+    <br>
+<p>Potencia mínima en HP de alguna referencia. Example: <code>1</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>hp_max</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="hp_max"                data-endpoint="GETapi-v1-lines"
+               value="5"
+               data-component="query">
+    <br>
+<p>Potencia máxima en HP de alguna referencia. Example: <code>5</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>per_page</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="per_page"                data-endpoint="GETapi-v1-lines"
+               value="50"
+               data-component="query">
+    <br>
+<p>Líneas por página (1 a 50; por defecto 50). Example: <code>50</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>q</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="q"                data-endpoint="GETapi-v1-lines"
+               value="b"
+               data-component="body">
+    <br>
+<p>El campo value no puede tener más de 100 caracteres. Example: <code>b</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>family</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="family"                data-endpoint="GETapi-v1-lines"
+               value="n"
+               data-component="body">
+    <br>
+<p>El campo value no puede tener más de 255 caracteres. Example: <code>n</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>category</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="category"                data-endpoint="GETapi-v1-lines"
+               value="g"
+               data-component="body">
+    <br>
+<p>El campo value no puede tener más de 255 caracteres. Example: <code>g</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>brand</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="brand"                data-endpoint="GETapi-v1-lines"
+               value="z"
+               data-component="body">
+    <br>
+<p>El campo value no puede tener más de 100 caracteres. Example: <code>z</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>mode</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="mode"                data-endpoint="GETapi-v1-lines"
+               value="quote"
+               data-component="body">
+    <br>
+<p>Example: <code>quote</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>direct</code></li> <li><code>quote</code></li></ul>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>in_stock</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <label data-endpoint="GETapi-v1-lines" style="display: none">
+            <input type="radio" name="in_stock"
+                   value="true"
+                   data-endpoint="GETapi-v1-lines"
+                   data-component="body"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="GETapi-v1-lines" style="display: none">
+            <input type="radio" name="in_stock"
+                   value="false"
+                   data-endpoint="GETapi-v1-lines"
+                   data-component="body"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Example: <code>true</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>hp_min</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="hp_min"                data-endpoint="GETapi-v1-lines"
+               value="17"
+               data-component="body">
+    <br>
+<p>El campo value debe ser al menos 0. El campo value no puede ser mayor que 5000. Example: <code>17</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>hp_max</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="hp_max"                data-endpoint="GETapi-v1-lines"
+               value="15"
+               data-component="body">
+    <br>
+<p>El campo value debe ser al menos 0. El campo value no puede ser mayor que 5000. Example: <code>15</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>per_page</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="per_page"                data-endpoint="GETapi-v1-lines"
+               value="8"
+               data-component="body">
+    <br>
+<p>El campo value debe ser al menos 1. El campo value no puede ser mayor que 50. Example: <code>8</code></p>
+        </div>
+        </form>
+
+                    <h2 id="catalogo-por-lineas-publico-GETapi-v1-lines--slug-">Ficha de una línea</h2>
+
+<p>
+</p>
+
+<p>La línea con todas sus referencias (potencia, velocidad, corriente, tensión, protección, stock y precio con IVA)
+y hasta 3 líneas relacionadas de la misma familia. Si no existe o está inactiva responde 404.</p>
+
+<span id="example-requests-GETapi-v1-lines--slug-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://imagen-electrica-ecommerce.onrender.com/api/v1/lines/w22-iec-carcasa-hierro" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/lines/w22-iec-carcasa-hierro"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-v1-lines--slug-">
+    </span>
+<span id="execution-results-GETapi-v1-lines--slug-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-v1-lines--slug-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-v1-lines--slug-"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-v1-lines--slug-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-v1-lines--slug-">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-v1-lines--slug-" data-method="GET"
+      data-path="api/v1/lines/{slug}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-lines--slug-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-v1-lines--slug-"
+                    onclick="tryItOut('GETapi-v1-lines--slug-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-v1-lines--slug-"
+                    onclick="cancelTryOut('GETapi-v1-lines--slug-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-v1-lines--slug-"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/v1/lines/{slug}</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-v1-lines--slug-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-v1-lines--slug-"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>slug</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="slug"                data-endpoint="GETapi-v1-lines--slug-"
+               value="w22-iec-carcasa-hierro"
+               data-component="url">
+    <br>
+<p>Slug de la línea. Example: <code>w22-iec-carcasa-hierro</code></p>
+            </div>
+                    </form>
+
+                <h1 id="cotizacion-sin-cuenta">Cotización sin cuenta</h1>
+
+    
+
+                                <h2 id="cotizacion-sin-cuenta-POSTapi-v1-quote-requests">Enviar una cotización</h2>
+
+<p>
+</p>
+
+<p>Público: no necesita token. Límite de 5 solicitudes por minuto y 20 por hora desde la misma IP.
+<code>website</code> es un campo trampa contra bots: debe enviarse vacío o no enviarse.</p>
+
+<span id="example-requests-POSTapi-v1-quote-requests">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/quote-requests" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"name\": \"Laura Gómez\",
+    \"phone\": \"3001234567\",
+    \"email\": \"laura@empresa.co\",
+    \"city\": \"Bucaramanga\",
+    \"company\": \"Constructora Demo SAS\",
+    \"nit\": \"900123456\",
+    \"message\": \"Necesito 3 motores para una bomba.\",
+    \"privacy_accepted\": true,
+    \"website\": \"n\",
+    \"items\": [
+        {
+            \"product_id\": 12,
+            \"line\": \"motorreductor-sinfin-wcg01\",
+            \"quantity\": 3
+        }
+    ]
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/quote-requests"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "Laura Gómez",
+    "phone": "3001234567",
+    "email": "laura@empresa.co",
+    "city": "Bucaramanga",
+    "company": "Constructora Demo SAS",
+    "nit": "900123456",
+    "message": "Necesito 3 motores para una bomba.",
+    "privacy_accepted": true,
+    "website": "n",
+    "items": [
+        {
+            "product_id": 12,
+            "line": "motorreductor-sinfin-wcg01",
+            "quantity": 3
+        }
+    ]
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-v1-quote-requests">
+            <blockquote>
+            <p>Example response (201):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;message&quot;: &quot;Recibimos tu solicitud. Un asesor te responder&aacute; pronto.&quot;
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-v1-quote-requests" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-v1-quote-requests"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-v1-quote-requests"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-v1-quote-requests" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-v1-quote-requests">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-v1-quote-requests" data-method="POST"
+      data-path="api/v1/quote-requests"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-quote-requests', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-v1-quote-requests"
+                    onclick="tryItOut('POSTapi-v1-quote-requests');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-v1-quote-requests"
+                    onclick="cancelTryOut('POSTapi-v1-quote-requests');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-v1-quote-requests"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/v1/quote-requests</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-v1-quote-requests"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-v1-quote-requests"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="POSTapi-v1-quote-requests"
+               value="Laura Gómez"
+               data-component="body">
+    <br>
+<p>Nombre. Example: <code>Laura Gómez</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>phone</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="phone"                data-endpoint="POSTapi-v1-quote-requests"
+               value="3001234567"
+               data-component="body">
+    <br>
+<p>Teléfono o WhatsApp. Example: <code>3001234567</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="email"                data-endpoint="POSTapi-v1-quote-requests"
+               value="laura@empresa.co"
+               data-component="body">
+    <br>
+<p>Correo. Example: <code>laura@empresa.co</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>city</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="city"                data-endpoint="POSTapi-v1-quote-requests"
+               value="Bucaramanga"
+               data-component="body">
+    <br>
+<p>Ciudad. Example: <code>Bucaramanga</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>company</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="company"                data-endpoint="POSTapi-v1-quote-requests"
+               value="Constructora Demo SAS"
+               data-component="body">
+    <br>
+<p>Empresa. Example: <code>Constructora Demo SAS</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>nit</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="nit"                data-endpoint="POSTapi-v1-quote-requests"
+               value="900123456"
+               data-component="body">
+    <br>
+<p>NIT. Example: <code>900123456</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>message</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="message"                data-endpoint="POSTapi-v1-quote-requests"
+               value="Necesito 3 motores para una bomba."
+               data-component="body">
+    <br>
+<p>Mensaje. Example: <code>Necesito 3 motores para una bomba.</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>privacy_accepted</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <label data-endpoint="POSTapi-v1-quote-requests" style="display: none">
+            <input type="radio" name="privacy_accepted"
+                   value="true"
+                   data-endpoint="POSTapi-v1-quote-requests"
+                   data-component="body"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="POSTapi-v1-quote-requests" style="display: none">
+            <input type="radio" name="privacy_accepted"
+                   value="false"
+                   data-endpoint="POSTapi-v1-quote-requests"
+                   data-component="body"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Acepta la política de datos. Example: <code>true</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>website</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="website"                data-endpoint="POSTapi-v1-quote-requests"
+               value="n"
+               data-component="body">
+    <br>
+<p>El campo value no puede tener más de 255 caracteres. Example: <code>n</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+        <details>
+            <summary style="padding-bottom: 10px;">
+                <b style="line-height: 2;"><code>items</code></b>&nbsp;&nbsp;
+<small>object[]</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>Renglones (1 a 100).</p>
+            </summary>
+                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>product_id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="items.0.product_id"                data-endpoint="POSTapi-v1-quote-requests"
+               value="12"
+               data-component="body">
+    <br>
+<p>Id de la referencia. Example: <code>12</code></p>
+                    </div>
+                                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>line</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="items.0.line"                data-endpoint="POSTapi-v1-quote-requests"
+               value="motorreductor-sinfin-wcg01"
+               data-component="body">
+    <br>
+<p>Slug de la línea (para líneas bajo pedido sin referencias). Example: <code>motorreductor-sinfin-wcg01</code></p>
+                    </div>
+                                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>quantity</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="items.0.quantity"                data-endpoint="POSTapi-v1-quote-requests"
+               value="3"
+               data-component="body">
+    <br>
+<p>Cantidad. Example: <code>3</code></p>
+                    </div>
+                                    </details>
+        </div>
+        </form>
 
             
 

@@ -297,3 +297,24 @@ body::after {
 main {
   overflow-x: clip;
 }
+
+/* Áreas táctiles de 44 px en enlaces y chips del sistema */
+.cat-card__link {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+}
+.cart-item__name {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.cat-finder__quick button {
+  min-height: 44px;
+}
+.nav__logo {
+  min-height: 44px;
+}
+.nav__logo img {
+  height: 40px;
+}

@@ -63,6 +63,8 @@ Se ponen en el servicio, en **Environment**. Los valores marcados como *secreto*
 | `SEED_COMERCIAL_PASSWORD` | *secreto* |
 | `SEED_CUSTOMER_PASSWORD` | *secreto* (solo si se carga el `DemoSeeder`) |
 
+El seeder `CatalogSeeder` carga el catálogo por líneas: 33 líneas y 351 referencias del inventario, desde `backend/database/data/catalogo.json` (se genera con `docs/datos/generar_catalogo.py`). Los precios del Excel son **simulados** y el panel los marca con la insignia "Simulado" hasta tener los reales. Es idempotente: no pisa precio ni stock cambiados después.
+
 ### Tienda
 
 | Variable | Valor |

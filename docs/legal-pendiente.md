@@ -6,7 +6,7 @@ No se redacta texto legal definitivo en el código. Cada documento lo valida un 
 |---|---|---|---|
 | Términos y condiciones | Uso de la tienda, precios con IVA, disponibilidad, cotizaciones y pedidos | Ley 1480 de 2011 (Estatuto del Consumidor), comercio electrónico | Abogado de la empresa |
 | Derecho de retracto | Plazo, excepciones y cómo ejercerlo en compras a distancia | Ley 1480 de 2011, art. 47 | Abogado |
-| Garantías | Garantía legal y la del fabricante por marca (WEG, Siemens, Delta, etc.) | Ley 1480 de 2011, Título III; condiciones de cada fabricante | Gerencia y proveedores |
+| Garantías | Garantía legal y la del fabricante por marca (WEG, Siemens, Nexans, etc.) | Ley 1480 de 2011, Título III; condiciones de cada fabricante | Gerencia y proveedores |
 | Reversión del pago | Cuándo y cómo se revierte un pago electrónico | Ley 1480 de 2011, art. 51; Decreto 587 de 2016 | Abogado y la pasarela de pagos (fase 2) |
 | PQR | Canal, tiempos de respuesta y responsable de peticiones, quejas y reclamos | Ley 1480 de 2011; Ley 1755 de 2015 | Gerencia |
 | Política de tratamiento de datos (completa) | Responsable, finalidades, derechos, canal de consultas y reclamos | Ley 1581 de 2012; Decreto 1377 de 2013 (compilado en el Decreto 1074 de 2015) | Abogado |
