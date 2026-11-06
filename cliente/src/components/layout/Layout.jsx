@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Header from './Header'
 import Footer from './Footer'
+import QuoteBand from './QuoteBand'
 import WhatsAppButton from './WhatsAppButton'
 import BottomNav, { barFor } from './BottomNav'
 
@@ -36,7 +37,8 @@ export default function Layout() {
       <main id="contenido" className={offset}>
         <Outlet />
       </main>
-      <Footer hideCta={pathname === '/'} />
+      <QuoteBand />
+      <Footer />
       <BottomNav />
       <WhatsAppButton />
     </>

@@ -66,9 +66,11 @@ class CatalogSeederTest extends TestCase
         $this->assertEquals(999000, Product::where('sku', '15331270')->value('price'));
     }
 
-    public function test_el_plc_es_weg_y_no_hay_marca_delta(): void
+    public function test_el_plc_es_weg_y_delta_existe_como_marca_sin_lineas(): void
     {
-        $this->assertDatabaseMissing('brands', ['slug' => 'delta']);
+        // Delta es marca de la vitrina, pero ninguna línea del catálogo es Delta (el PLC es WEG)
+        $this->assertDatabaseHas('brands', ['slug' => 'delta']);
+        $this->assertFalse(ProductLine::where('name', 'like', '%Delta%')->exists());
         $this->assertSame('WEG', ProductLine::where('name', 'PLC WEG PLC200 y PLC500')->firstOrFail()->brand_label);
     }
 

@@ -8,8 +8,8 @@ import '../../styles/home.css'
 // Iluminación no tiene foto real todavía: no se muestra en el mosaico.
 const applications = [
   { id: 'a', name: 'Bombeo', tag: 'Motores', image: 'bombeo', alt: 'Tuberías y válvulas de un sistema de bombeo', to: '/productos?familia=motores-electricos' },
-  { id: 'b', name: 'Ventilación y extracción', tag: 'Ventilación', image: 'ventilacion', alt: 'Ventiladores industriales de gran tamaño', to: '/productos?familia=ventilacion-y-climatizacion' },
-  { id: 'c', name: 'Bandas transportadoras', tag: 'Motorreductores', image: 'bandas', alt: 'Banda transportadora en una planta', to: '/productos?familia=reductores-y-motorreductores' },
+  { id: 'b', name: 'Ventilación y extracción', tag: 'Ventilación', image: 'ventilacion', alt: 'Extractor axial industrial con aspas metálicas', to: '/productos?familia=ventilacion-y-climatizacion' },
+  { id: 'c', name: 'Bandas transportadoras', tag: 'Motorreductores', image: 'bandas', alt: 'Banda transportadora en una línea de producción', to: '/productos?familia=reductores-y-motorreductores' },
   { id: 'd', name: 'Tableros y automatización', tag: 'Control', image: 'tableros', alt: 'Electricista revisando un tablero eléctrico', to: '/productos?familia=control-y-automatizacion' },
   { id: 'e', name: 'Energía solar', tag: 'Solar', image: 'solar', alt: 'Campo de paneles solares', to: '/productos?q=solar' },
 ]
@@ -19,7 +19,7 @@ export default function Applications() {
     <section className="wrap hm-section" aria-labelledby="h-aplicaciones">
       <div className="hm-head">
         <div>
-          <Eyebrow>Para tu planta</Eyebrow>
+          <Eyebrow>Para tu proyecto</Eyebrow>
           <h2 id="h-aplicaciones" className="h2-sys">Soluciones por <em>aplicación</em></h2>
           <p className="hm-head__lead">Cuéntanos qué necesitas mover, ventilar o automatizar.</p>
         </div>

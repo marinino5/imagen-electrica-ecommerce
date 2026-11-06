@@ -2,8 +2,8 @@
   position: relative;
   display: flex;
   align-items: center;
-  min-height: max(640px, 90svh);
-  padding-block: 96px 140px; /* deja sitio a la isla y a la tarjeta de cifras que se monta encima */
+  min-height: clamp(560px, 70svh, 720px); /* máximo ~70 % de la pantalla */
+  padding-block: 92px 128px; /* deja sitio a la isla y a la tarjeta de cifras que se monta encima */
   background: var(--ink);
   color: #fff;
   overflow: hidden;
@@ -126,7 +126,7 @@
 /* ---- Controles: contador, barras y pausa ---- */
 .hero__controls-wrap {
   position: absolute;
-  inset: auto 0 84px;
+  inset: auto 0 78px;
   z-index: 3;
   left: 50%;
   transform: translateX(-50%);

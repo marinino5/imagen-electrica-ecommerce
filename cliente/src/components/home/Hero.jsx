@@ -9,14 +9,14 @@ import '../../styles/hero.css'
 
 const SLIDE_MS = 9000
 
-// Diapositivas del carrusel (exactamente 3). Cada una puede llevar un clip propio:
+// Diapositivas del carrusel (hasta 3). Cada una puede llevar un clip propio:
 //   media: { poster: '/media/hero-d2-poster.webp',
 //            desktop: { mp4, webm },   // 16:9, 1920 px
 //            mobile:  { mp4, webm },   // 4:5, 720 px
 //            pos: '60% 50%', posSm: '60% 50%' }
 // Sin `media`, la diapositiva usa el fondo de marca (degradado ink y arco) hasta tener material con licencia.
 // Los clips se registran en docs/recursos.md. El contador, las barras y el avance se ajustan solos.
-const slides = [
+const allSlides = [
   {
     id: 'motores',
     // D1 pendiente: imagen IA provisional (docs/recursos.md) o material oficial de WEG. Ver scripts/kenburns-hero.sh
@@ -56,10 +56,14 @@ const slides = [
     tag: 'Aire y luz',
     title: 'Extractores',
     highlight: 'e iluminación',
-    text: 'Ventilación e iluminación industrial para bodegas, plantas y talleres.',
+    text: 'Ventilación e iluminación industrial para bodegas, talleres y obras.',
     cta: { to: '/productos?familia=ventilacion-y-climatizacion', label: 'Ver ventilación' },
   },
 ]
+
+// El carrusel solo cuenta las diapositivas que ya tienen clip aprobado: el contador nunca promete más de lo que hay.
+// Cuando 'motores' reciba su video (media), aparece sola y el contador pasa a 01/03.
+const slides = allSlides.filter((s) => s.media)
 
 const saveData = () => typeof navigator !== 'undefined' && navigator.connection?.saveData === true
 

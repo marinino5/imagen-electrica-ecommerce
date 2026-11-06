@@ -53,7 +53,7 @@ export default function HomeLines() {
       <div className="hm-head">
         <div>
           <Eyebrow>Líneas del portafolio</Eyebrow>
-          <h2 id="h-lineas" className="h2-sys">Todo para <em>tu planta</em></h2>
+          <h2 id="h-lineas" className="h2-sys">Todo para <em>tu proyecto</em></h2>
         </div>
         <Pill as="link" to="/productos" tone="l" size="sm">Ver todo el catálogo</Pill>
       </div>

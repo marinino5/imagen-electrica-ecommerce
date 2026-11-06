@@ -160,7 +160,7 @@ export default function Products() {
     <>
       <Cover
         eyebrow="Catálogo industrial"
-        lines={['Todo para', 'mover tu planta', { text: 'en un solo lugar', accent: true }]}
+        lines={['Todo para mover', 'tu proyecto', { text: 'en un solo lugar', accent: true }]}
         lead="Motores, variadores, control y protección de las marcas que distribuimos. Busca por referencia o por lo que necesitas mover."
         actions={
           <div className="bz cat-finder">
