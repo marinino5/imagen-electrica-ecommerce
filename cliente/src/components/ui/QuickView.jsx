@@ -48,7 +48,7 @@ function QuickViewDialog({ product, onClose }) {
           <X size={22} />
         </button>
 
-        <div className="qv__media">
+        <div className={`qv__media ${product.image_url ? '' : 'qv__media--line'}`}>
           {image && <img src={image} alt="" />}
         </div>
 

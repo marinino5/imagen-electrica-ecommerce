@@ -37,6 +37,10 @@
   height: 100%;
   object-fit: contain;
 }
+/* Imagen de la línea (sin foto del producto): ya trae su arco y su curva, llena el marco */
+.qv__media--line img {
+  object-fit: cover;
+}
 .qv__body {
   display: flex;
   flex-direction: column;

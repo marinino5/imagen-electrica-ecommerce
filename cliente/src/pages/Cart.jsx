@@ -25,7 +25,7 @@ function Line({ line, showPrice }) {
   const overStock = product.sale_mode === 'direct' && product.price !== null && quantity > product.stock
 
   return (
-    <li className="line">
+    <li className={`line ${product.image_url ? '' : 'line--fallback'}`}>
       {image ? <img src={image} alt="" width="72" height="72" loading="lazy" /> : <div className="line__ph" />}
       <div className="line__info">
         <strong>{product.name}</strong>

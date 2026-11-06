@@ -62,6 +62,10 @@
   object-fit: contain; /* sin recortar el producto, como en el catálogo */
   transition: transform 0.5s var(--ease);
 }
+/* Sin foto propia se usa la imagen de la línea, que ya trae su arco y su curva: llena el marco de borde a borde */
+.pcard__media:not(.pcard__media--photo) img {
+  object-fit: cover;
+}
 .pcard__media--photo img {
   object-fit: contain;
   padding: 12px;

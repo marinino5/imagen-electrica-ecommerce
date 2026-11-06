@@ -1,33 +1,31 @@
 /* Nosotros: portada dividida, franja cinética, mosaico, líneas en horizontal, razones apiladas y marcas */
 
-/* ---------- Portada: banner a sangre ---------- */
+/* ---------- Portada: texto a la izquierda y fachada a sangre en la mitad derecha ---------- */
 .about-cover {
   display: flex;
-  align-items: flex-end;
-  min-height: max(520px, 60svh);
-  background: var(--ink);
+  flex-direction: column;
+  padding-top: var(--header-space); /* celular: la foto 16:9 empieza debajo del encabezado flotante */
+  background: var(--grad-violet);
   color: var(--white);
 }
-.about-cover__img {
-  position: absolute;
-  inset: 0;
+/* Celular: la foto va arriba (16:9) y pasa por debajo del encabezado flotante */
+.about-cover__photo {
+  position: relative;
+  aspect-ratio: 16 / 9;
+}
+.about-cover__photo img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center 35%;
 }
-/* Violeta uniforme al 45 % sobre toda la foto */
-.about-cover__tint {
+.about-cover__photo::after {
+  content: '';
   position: absolute;
-  inset: 0;
-  background: rgb(81 62 132 / 0.45);
-  pointer-events: none;
-}
-/* Ink de abajo hacia arriba (55 % → transparente a la mitad de la altura) para que el texto contraste */
-.about-cover__shade {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(0deg, rgb(38 28 62 / 0.55) 0%, rgb(38 28 62 / 0) 50%);
+  inset: auto 0 0 0;
+  height: 45%;
+  background: linear-gradient(0deg, #513e84 0%, rgb(81 62 132 / 0) 100%);
   pointer-events: none;
 }
 .about-cover__inner {
@@ -35,10 +33,10 @@
   z-index: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 20px;
-  padding-top: calc(var(--header-space) + 32px);
-  padding-bottom: 32px;
+  padding-top: 8px;
+  padding-bottom: 40px;
 }
 .about-cover__content {
   display: flex;
@@ -51,24 +49,28 @@
   font-size: clamp(2.4rem, 11vw, 5.8rem);
   line-height: 0.92;
   color: var(--white);
-  text-shadow: 0 2px 20px rgb(38 28 62 / 0.35);
 }
 .about-cover__text {
   max-width: 44ch;
   font-size: 1rem;
   color: var(--white);
-  text-shadow: 0 1px 12px rgb(38 28 62 / 0.5);
 }
 .about-cover__ctas {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
 }
+/* Insignias flotantes sobre la foto (esquina inferior derecha) */
 .about-cover__badges {
+  position: absolute;
+  z-index: 1;
+  right: 12px;
+  bottom: 12px;
+  left: 12px;
   display: flex;
-  flex-wrap: wrap;
   align-items: flex-end;
-  gap: 12px;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
 .float-badge {
@@ -108,29 +110,54 @@
 }
 .float-badge--address {
   max-width: 230px;
+  font-size: 0.74rem;
 }
 
 @media (min-width: 900px) {
   .about-cover {
-    min-height: max(520px, 70svh);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: max(560px, 78svh);
+    padding-top: 0;
+  }
+  .about-cover__photo {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 50%;
+    aspect-ratio: auto;
+  }
+  /* El borde izquierdo de la foto se funde con el violeta */
+  .about-cover__photo::after {
+    inset: 0 auto 0 0;
+    width: 55%;
+    height: auto;
+    background: linear-gradient(90deg, #513e84 0%, rgb(81 62 132 / 0.6) 40%, rgb(81 62 132 / 0) 100%);
   }
   .about-cover__inner {
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-between;
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
     gap: 32px;
-    padding-bottom: 56px;
+    padding-top: calc(var(--header-space) + 24px);
+    padding-bottom: 64px;
   }
   .about-cover__content {
     gap: 22px;
+    padding-right: 24px;
+  }
+  .about-cover__title {
+    font-size: clamp(3rem, 4.6vw, 4.8rem);
   }
   .about-cover__text {
     font-size: 1.1rem;
   }
   .about-cover__badges {
+    left: auto;
+    right: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
+    bottom: 56px;
     flex-direction: column;
     align-items: flex-end;
-    flex-wrap: nowrap;
     gap: 14px;
   }
   .float-badge {

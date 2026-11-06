@@ -189,6 +189,9 @@
   object-fit: contain;
   background: var(--white);
 }
+.line--fallback img {
+  object-fit: cover; /* imagen de la línea: llena el recuadro */
+}
 .line__info {
   display: flex;
   flex-direction: column;
