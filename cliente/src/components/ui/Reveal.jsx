@@ -1,16 +1,31 @@
-import { motion } from 'framer-motion'
+import { useEffect, useRef } from 'react'
 
-// Aparece suavemente al entrar en pantalla (con prefers-reduced-motion queda solo el fundido)
-export default function Reveal({ children, delay = 0, className, as = 'div' }) {
-  const Tag = motion[as]
+// Aparece al hacer scroll: translateY 24 px y opacidad, con IntersectionObserver. Solo anima lo que
+// empieza fuera de la pantalla y se queda quieto con prefers-reduced-motion.
+export default function Reveal({ children, delay = 0, className = '', as: Tag = 'div', ...props }) {
+  const ref = useRef(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el || !('IntersectionObserver' in window)) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (el.getBoundingClientRect().top <= window.innerHeight) return
+    el.classList.add('pre')
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          el.classList.remove('pre')
+          io.disconnect()
+        }
+      },
+      { rootMargin: '0px 0px -40px 0px' },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
   return (
-    <Tag
-      className={className}
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '0px 0px -80px 0px' }}
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
-    >
+    <Tag ref={ref} className={`reveal ${className}`} style={delay ? { transitionDelay: `${delay}s` } : undefined} {...props}>
       {children}
     </Tag>
   )

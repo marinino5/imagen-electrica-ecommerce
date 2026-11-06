@@ -1,5 +1,5 @@
 import { Info } from 'lucide-react'
-import PageHeader from '../components/ui/PageHeader'
+import Cover from '../components/ui/Cover'
 import { site } from '../config/site'
 import '../styles/info-pages.css'
 
@@ -16,7 +16,11 @@ const sections = [
 export default function PoliticaDatos() {
   return (
     <>
-      <PageHeader title="Política de" accent="datos" crumbs={[{ label: 'Política de datos' }]} />
+      <Cover
+        eyebrow="Legal"
+        lines={['Política de', { text: 'datos', accent: true }]}
+        lead="Cómo tratamos tus datos personales cuando compras, cotizas o te escribimos. Texto en validación con la empresa."
+      />
 
       <section className="section">
         <div className="container policy">

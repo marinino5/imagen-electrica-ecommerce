@@ -1,31 +1,28 @@
 import AboutCover from '../components/nosotros/AboutCover'
-import AboutBento from '../components/nosotros/AboutBento'
-import WhyStack from '../components/nosotros/WhyStack'
-import BrandMarquee from '../components/nosotros/BrandMarquee'
-import SectionHeading from '../components/ui/SectionHeading'
-import StoreMap from '../components/ui/StoreMap'
-import '../styles/kit.css'
+import AboutStory from '../components/nosotros/AboutStory'
+import Timeline from '../components/nosotros/Timeline'
+import WhyCascade from '../components/nosotros/WhyCascade'
+import BrandBento from '../components/nosotros/BrandBento'
+import VisitMap from '../components/ui/VisitMap'
+import Eyebrow from '../components/ui/Eyebrow'
+import Reveal from '../components/ui/Reveal'
 import '../styles/nosotros.css'
 
-// Ritmo de climas: marca (portada) → claro (mosaico) → claro con tarjetas de color (razones)
-// → marca (marcas) → claro (visítanos)
 export default function Nosotros() {
   return (
     <>
       <AboutCover />
-      <AboutBento />
-      <WhyStack />
-      <BrandMarquee />
+      <AboutStory />
+      <Timeline />
+      <WhyCascade />
+      <BrandBento />
 
-      {/* Trayectoria: se agrega cuando la empresa entregue los hitos; no se inventan fechas. */}
-
-      <section id="visitanos" className="section visit-section" aria-labelledby="h-visitanos">
-        <div className="container">
-          <SectionHeading id="h-visitanos" eyebrow="Visítanos">
-            Estamos en <em>Bucaramanga</em>
-          </SectionHeading>
-          <StoreMap />
-        </div>
+      <section className="wrap ab-visit" aria-labelledby="h-visitanos">
+        <Reveal>
+          <Eyebrow>Visítanos</Eyebrow>
+          <h2 id="h-visitanos" className="h2-sys">Estamos en <em>Bucaramanga</em></h2>
+        </Reveal>
+        <Reveal delay={0.06}><VisitMap id="visitanos" /></Reveal>
       </section>
     </>
   )

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowLeft, CheckCircle2, Mail, MessageCircle, RotateCcw, Zap } from 'lucide-react'
+import { ArrowLeft, CheckCircle2, Mail, MessageCircle, RotateCcw } from 'lucide-react'
 import Field from '../ui/Field'
 import { site } from '../../config/site'
 import { topics } from './contactTopics'
@@ -68,8 +68,8 @@ export default function SmartForm() {
   }
 
   return (
-    <div className="smart card">
-      <p className="eyebrow"><Zap size={14} aria-hidden="true" /> Escríbenos</p>
+    <div className="smart">
+      <span className="eyebrow">Escríbenos</span>
       <h2 className="smart__title" id="h-ayuda">¿En qué te ayudamos?</h2>
 
       <div className="chips" role="radiogroup" aria-labelledby="h-ayuda">
@@ -155,7 +155,7 @@ export default function SmartForm() {
               <label className="check">
                 <input type="checkbox" checked={data.privacy} onChange={setPerson('privacy')} />
                 <span>
-                  Acepto la <Link to="/politica-datos" target="_blank">política de tratamiento de datos personales</Link>.
+                  Acepto la <Link to="/politica-datos" target="_blank" rel="noopener">política de tratamiento de datos personales</Link>.
                 </span>
               </label>
               {errors.privacy && <span className="field-error">{errors.privacy}</span>}

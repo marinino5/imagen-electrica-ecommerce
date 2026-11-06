@@ -1,3 +1,4 @@
+import '../../styles/product-card.css'
 import { SearchX } from 'lucide-react'
 
 export default function EmptyState({ title, children }) {

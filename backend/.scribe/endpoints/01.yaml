@@ -1,265 +1,26 @@
-name: Autenticación
-description: ''
+name: 'Catálogo por líneas (público)'
+description: |-
+
+  Familia → categoría → línea (la ficha) → referencias (SKU). No necesita token.
 endpoints:
   -
     custom: []
     httpMethods:
-      - POST
-    uri: api/v1/register
+      - GET
+    uri: api/v1/families
     metadata:
       custom: []
-      groupName: Autenticación
-      groupDescription: ''
+      groupName: 'Catálogo por líneas (público)'
+      groupDescription: |-
+
+        Familia → categoría → línea (la ficha) → referencias (SKU). No necesita token.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Registrar cliente'
-      description: |-
-        Crea la cuenta (rol cliente) como empresa o persona natural y devuelve un token listo
-        para usar. Aceptar la política de datos es obligatorio; el marketing es opcional.
-        Máximo 5 intentos por minuto.
+      title: 'Familias del portafolio'
+      description: 'Familias con sus categorías y el número de líneas de cada una, más las marcas y los totales del catálogo.'
       authenticated: false
       deprecated: false
     headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      name:
-        custom: []
-        name: name
-        description: 'Nombre de la persona de contacto.'
-        required: true
-        example: 'Laura Gómez'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      email:
-        custom: []
-        name: email
-        description: 'Correo (único).'
-        required: true
-        example: laura@constructoraaltos.test
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      password:
-        custom: []
-        name: password
-        description: 'Mínimo 8 caracteres.'
-        required: true
-        example: ClaveSegura2026
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      type:
-        custom: []
-        name: type
-        description: 'Tipo de cliente: `company` (empresa, por defecto) o `natural` (persona natural).'
-        required: false
-        example: company
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      company_name:
-        custom: []
-        name: company_name
-        description: 'Razón social. Obligatoria si type es company; se ignora si es natural.'
-        required: false
-        example: 'Constructora Altos S.A.S.'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
-        deprecated: false
-      nit:
-        custom: []
-        name: nit
-        description: 'NIT (único). Obligatorio si type es company; en persona natural es la cédula y es opcional.'
-        required: false
-        example: 900765432-8
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
-        deprecated: false
-      phone:
-        custom: []
-        name: phone
-        description: Teléfono.
-        required: true
-        example: '315 555 0202'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      city:
-        custom: []
-        name: city
-        description: Ciudad.
-        required: true
-        example: Bucaramanga
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      address:
-        custom: []
-        name: address
-        description: 'Dirección de entrega habitual.'
-        required: false
-        example: 'Carrera 27 # 45-10'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
-        deprecated: false
-      privacy_accepted:
-        custom: []
-        name: privacy_accepted
-        description: 'Debe ser true (política de tratamiento de datos).'
-        required: true
-        example: true
-        type: boolean
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      marketing_opt_in:
-        custom: []
-        name: marketing_opt_in
-        description: 'Acepta recibir promociones.'
-        required: false
-        example: false
-        type: boolean
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
-        deprecated: false
-    cleanBodyParameters:
-      name: 'Laura Gómez'
-      email: laura@constructoraaltos.test
-      password: ClaveSegura2026
-      type: company
-      company_name: 'Constructora Altos S.A.S.'
-      nit: 900765432-8
-      phone: '315 555 0202'
-      city: Bucaramanga
-      address: 'Carrera 27 # 45-10'
-      privacy_accepted: true
-      marketing_opt_in: false
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 201
-        content: '{"data":{"id":5,"name":"Laura Gómez","email":"laura@constructoraaltos.test","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Constructora Altos S.A.S.","nit":"900765432-8","contact_name":"Laura Gómez","phone":"315 555 0202","city":"Bucaramanga","address":null,"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T15:00:00.000000Z"}},"token":"1|abc123...","token_type":"Bearer"}'
-        headers: []
-        description: 'Cuenta creada'
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - POST
-    uri: api/v1/login
-    metadata:
-      custom: []
-      groupName: Autenticación
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Iniciar sesión'
-      description: |-
-        Devuelve un token Bearer. Sirve para clientes y para el administrador. Máximo 5 intentos
-        por minuto por correo y dirección IP. Credenciales incorrectas responden 401; un usuario
-        inactivo, 403.
-      authenticated: false
-      deprecated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      email:
-        custom: []
-        name: email
-        description: Correo.
-        required: true
-        example: laura@constructoraaltos.test
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      password:
-        custom: []
-        name: password
-        description: Contraseña.
-        required: true
-        example: ClaveSegura2026
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-    cleanBodyParameters:
-      email: laura@constructoraaltos.test
-      password: ClaveSegura2026
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 200
-        content: '{"data":{"id":5,"name":"Laura Gómez","email":"laura@constructoraaltos.test","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Constructora Altos S.A.S.","nit":"900765432-8","contact_name":"Laura Gómez","phone":"315 555 0202","city":"Bucaramanga","address":null,"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T15:00:00.000000Z"}},"token":"2|xyz789...","token_type":"Bearer"}'
-        headers: []
-        description: 'Sesión iniciada'
-      -
-        custom: []
-        status: 401
-        content: '{"message":"El correo o la contraseña no son correctos."}'
-        headers: []
-        description: 'Credenciales incorrectas'
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - POST
-    uri: api/v1/logout
-    metadata:
-      custom: []
-      groupName: Autenticación
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Cerrar sesión'
-      description: 'Revoca el token con el que se hizo la petición. Los tokens de otros dispositivos siguen activos.'
-      authenticated: true
-      deprecated: false
-    headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -269,18 +30,309 @@ endpoints:
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 204
-        content: '{}'
-        headers: []
-        description: 'Sesión cerrada'
+    responses: []
     responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/v1/lines
+    metadata:
+      custom: []
+      groupName: 'Catálogo por líneas (público)'
+      groupDescription: |-
+
+        Familia → categoría → línea (la ficha) → referencias (SKU). No necesita token.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Líneas del catálogo'
+      description: |-
+        Resumen de cada línea: rango de potencia, "desde" el precio más bajo con IVA, stock total y, si tiene una
+        sola referencia comprable, esa referencia lista para agregar al carrito.
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters:
+      q:
+        custom: []
+        name: q
+        description: 'Busca por línea, categoría, familia, marca, nombre de referencia o SKU.'
+        required: false
+        example: CFW300
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      family:
+        custom: []
+        name: family
+        description: 'Slug de la familia.'
+        required: false
+        example: motores-electricos
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: 'Slug de la categoría.'
+        required: false
+        example: motores-trifasicos
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      brand:
+        custom: []
+        name: brand
+        description: Marca.
+        required: false
+        example: WEG
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      mode:
+        custom: []
+        name: mode
+        description: 'direct (compra en línea) o quote (cotización o bajo pedido).'
+        required: false
+        example: direct
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      in_stock:
+        custom: []
+        name: in_stock
+        description: 'Solo líneas con unidades en bodega.'
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      hp_min:
+        custom: []
+        name: hp_min
+        description: 'Potencia mínima en HP de alguna referencia.'
+        required: false
+        example: 1.0
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      hp_max:
+        custom: []
+        name: hp_max
+        description: 'Potencia máxima en HP de alguna referencia.'
+        required: false
+        example: 5.0
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      per_page:
+        custom: []
+        name: per_page
+        description: 'Líneas por página (1 a 50; por defecto 50).'
+        required: false
+        example: 50
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanQueryParameters:
+      q: CFW300
+      family: motores-electricos
+      category: motores-trifasicos
+      brand: WEG
+      mode: direct
+      in_stock: true
+      hp_min: 1.0
+      hp_max: 5.0
+      per_page: 50
+    bodyParameters:
+      q:
+        custom: []
+        name: q
+        description: 'El campo value no puede tener más de 100 caracteres.'
+        required: false
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      family:
+        custom: []
+        name: family
+        description: 'El campo value no puede tener más de 255 caracteres.'
+        required: false
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: 'El campo value no puede tener más de 255 caracteres.'
+        required: false
+        example: g
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      brand:
+        custom: []
+        name: brand
+        description: 'El campo value no puede tener más de 100 caracteres.'
+        required: false
+        example: z
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      mode:
+        custom: []
+        name: mode
+        description: ''
+        required: false
+        example: quote
+        type: string
+        enumValues:
+          - direct
+          - quote
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      in_stock:
+        custom: []
+        name: in_stock
+        description: ''
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      hp_min:
+        custom: []
+        name: hp_min
+        description: 'El campo value debe ser al menos 0. El campo value no puede ser mayor que 5000.'
+        required: false
+        example: 17
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      hp_max:
+        custom: []
+        name: hp_max
+        description: 'El campo value debe ser al menos 0. El campo value no puede ser mayor que 5000.'
+        required: false
+        example: 15
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      per_page:
+        custom: []
+        name: per_page
+        description: 'El campo value debe ser al menos 1. El campo value no puede ser mayor que 50.'
+        required: false
+        example: 8
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      q: b
+      family: 'n'
+      category: g
+      brand: z
+      mode: quote
+      in_stock: true
+      hp_min: 17
+      hp_max: 15
+      per_page: 8
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/v1/lines/{slug}'
+    metadata:
+      custom: []
+      groupName: 'Catálogo por líneas (público)'
+      groupDescription: |-
+
+        Familia → categoría → línea (la ficha) → referencias (SKU). No necesita token.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Ficha de una línea'
+      description: |-
+        La línea con todas sus referencias (potencia, velocidad, corriente, tensión, protección, stock y precio con IVA)
+        y hasta 3 líneas relacionadas de la misma familia. Si no existe o está inactiva responde 404.
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      slug:
+        custom: []
+        name: slug
+        description: 'Slug de la línea.'
+        required: true
+        example: w22-iec-carcasa-hierro
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      slug: w22-iec-carcasa-hierro
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
     controller: null
     method: null
     route: null

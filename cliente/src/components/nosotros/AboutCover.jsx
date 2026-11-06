@@ -1,59 +1,30 @@
-import { Link } from 'react-router-dom'
-import { motion, useReducedMotion } from 'framer-motion'
-import { MapPin, Zap } from 'lucide-react'
-import WordReveal from '../ui/WordReveal'
+import { MapPin } from 'lucide-react'
 import { site } from '../../config/site'
+import Bezel from '../ui/Bezel'
+import Cover from '../ui/Cover'
+import Pill from '../ui/Pill'
 
-// Insignia blanca que flota con un movimiento leve (quieta con prefers-reduced-motion)
-function FloatBadge({ className, children, delay = 0 }) {
-  const reduced = useReducedMotion()
-  return (
-    <motion.div
-      className={`float-badge ${className}`}
-      animate={reduced ? undefined : { y: [0, -9, 0] }}
-      transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay }}
-    >
-      {children}
-    </motion.div>
-  )
-}
-
-// Portada dividida: texto sobre violeta a la izquierda y la fachada a sangre en la mitad derecha
-// (en celular, la foto va arriba en 16:9 y el texto debajo)
+// Portada: título a la izquierda y la fachada real en bisel con dos insignias flotantes
 export default function AboutCover() {
   return (
-    <header className="cover about-cover on-violet">
-      <div className="about-cover__photo">
-        <img src="/img/fachada.webp" alt="Fachada de Imagen Eléctrica en Bucaramanga" width="1600" height="800" fetchPriority="high" />
-        <div className="about-cover__badges">
-          <FloatBadge className="float-badge--years">
-            <strong>+{site.years}</strong>
-            <span>años</span>
-          </FloatBadge>
-          <FloatBadge className="float-badge--address" delay={1.2}>
-            <MapPin size={18} aria-hidden="true" />
-            <span>{site.address} · {site.city.split(',')[0]}</span>
-          </FloatBadge>
-        </div>
+    <Cover
+      eyebrow="Nosotros"
+      lines={[`Más de ${site.years} años`, 'impulsando', { text: 'tus proyectos', accent: true }]}
+      lead={`${site.tagline} en ${site.city.split(',')[0]}: material eléctrico industrial con asesoría técnica.`}
+      actions={
+        <>
+          <Pill as="link" to="/productos" tone="o">Ver productos</Pill>
+          <Pill as="a" href="#visitanos" tone="l">Visítanos</Pill>
+        </>
+      }
+    >
+      <div className="ab-photo">
+        <Bezel className="ab-photo__frame">
+          <img src="/img/fachada.webp" alt="Fachada de Imagen Eléctrica en Bucaramanga" width="1600" height="800" fetchPriority="high" />
+        </Bezel>
+        <div className="ab-badge ab-badge--years"><strong>+{site.years}</strong><span>años</span></div>
+        <div className="ab-badge ab-badge--address"><MapPin size={16} aria-hidden="true" /><span>{site.address} · {site.city.split(',')[0]}</span></div>
       </div>
-
-      <div className="container about-cover__inner">
-        <div className="about-cover__content">
-          <p className="tag-pill"><Zap size={14} aria-hidden="true" /> Nosotros</p>
-          <WordReveal
-            className="display about-cover__title"
-            delay={0.15}
-            lines={[{ text: `MÁS DE ${site.years} AÑOS` }, { text: 'IMPULSANDO' }, { text: 'TUS PROYECTOS', accent: true }]}
-          />
-          <p className="about-cover__text">
-            {site.tagline} en {site.city.split(',')[0]}: material eléctrico industrial con asesoría técnica.
-          </p>
-          <div className="about-cover__ctas">
-            <Link to="/productos" className="btn btn--accent btn--lg">Ver productos</Link>
-            <a href="#visitanos" className="btn btn--ghost-light btn--lg">Visítanos</a>
-          </div>
-        </div>
-      </div>
-    </header>
+    </Cover>
   )
 }

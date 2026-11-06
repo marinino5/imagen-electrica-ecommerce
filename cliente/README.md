@@ -12,8 +12,31 @@ npm run dev              # http://localhost:5173
 npm run build            # genera dist/
 ```
 
-Para usar el backend local, cambia `VITE_API_URL` en `.env` a `http://localhost:8000/api/v1`.
-El backend debe permitir el origen de la tienda en `CORS_ALLOWED_ORIGINS`.
+### Con el backend local
+
+Por defecto `npm run dev` usa la API de Render (`VITE_API_URL` de `.env`). Para trabajar contra tu Laravel local:
+
+```bash
+# Terminal 1: backend
+cd backend
+cp .env.example .env && php artisan key:generate   # solo la primera vez
+php artisan migrate --seed                         # tablas, usuarios y catálogo por líneas
+php artisan serve                                  # http://localhost:8000
+
+# Terminal 2: tienda apuntando al backend local
+cd cliente
+npm run dev:local                                  # usa .env.api-local
+```
+
+`npm run dev:local` lee `cliente/.env.api-local` (`VITE_API_URL=http://localhost:8000/api/v1`) y no toca tu `.env`.
+Si prefieres otro puerto, crea `cliente/.env.local` con `VITE_API_URL=...`: tiene prioridad sobre `.env` y no se sube a git.
+
+El backend permite por defecto los orígenes `http://localhost:5173` y `http://127.0.0.1:5173`
+(`CORS_ALLOWED_ORIGINS`). Si Vite usa otro puerto, agrégalo a esa variable en `backend/.env`.
+
+Si la tienda muestra «El servidor no tiene este contenido» (HTTP 404) o «Sin conexión con el servidor»,
+revisa que el backend al que apunta `VITE_API_URL` esté corriendo y tenga la versión actual:
+`bash docs/verificar-api.sh http://localhost:8000` (o la URL de Render).
 
 ## Estructura
 

@@ -1,26 +1,12 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { FileText, Menu, MessageCircle, Search, ShoppingCart, User, X } from 'lucide-react'
+import { Menu, MessageCircle, Phone, Search, ShoppingCart, User, X } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 import { useCart } from '../../context/CartContext'
+import { useFamilies } from '../../hooks/useFamilies'
 import { mainMenu, site } from '../../config/site'
 import '../../styles/header.css'
-
-function CountBadge({ count }) {
-  if (!count) return null
-  return (
-    <motion.span
-      key={count}
-      className="count-badge"
-      initial={{ scale: 0.4 }}
-      animate={{ scale: 1 }}
-      transition={{ type: 'spring', stiffness: 500, damping: 14 }}
-    >
-      {count > 99 ? '99+' : count}
-    </motion.span>
-  )
-}
 
 // Buscador del encabezado: lleva al catálogo con ?q=
 function HeaderSearch({ className = '', onDone }) {
@@ -56,7 +42,8 @@ function HeaderSearch({ className = '', onDone }) {
 export default function Header() {
   const { pathname } = useLocation()
   const { isAuthenticated } = useAuth()
-  const { purchaseCount, quoteCount } = useCart()
+  const { lines } = useCart()
+  const { data: families } = useFamilies()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -76,42 +63,40 @@ export default function Header() {
     }
   }, [open])
 
-  const account = isAuthenticated ? { to: '/mi-cuenta', label: 'Mi cuenta' } : { to: '/crear-cuenta', label: 'Crea tu cuenta' }
+  const account = isAuthenticated ? { to: '/mi-cuenta', label: 'Mi cuenta' } : { to: '/ingresar', label: 'Ingresar' }
+  const count = lines.length
 
   return (
     <header className="site-header">
-      {/* Isla flotante: igual sobre el hero y al hacer scroll; al bajar solo gana sombra */}
-      <div className={`island ${scrolled ? 'is-scrolled' : ''}`}>
-        <Link to="/" className="island__logo" aria-label="Imagen Eléctrica, ir al inicio">
-          <img src="/img/logo-blanco.png" alt="Imagen Eléctrica" width="40" height="44" />
-        </Link>
+      {/* Isla flotante tipo píldora, separada 12 px del borde */}
+      <div className="navw">
+        <nav className={`nav ${scrolled ? 'is-scrolled' : ''}`} aria-label="Principal">
+          <Link to="/" className="nav__logo" aria-label="Imagen Eléctrica, ir al inicio">
+            <img src="/img/logo-blanco.png" alt="Imagen Eléctrica" width="40" height="44" />
+          </Link>
 
-        <nav className="island__nav" aria-label="Principal">
-          {mainMenu.map((item) => (
-            <NavLink key={item.to} to={item.to} end={item.end}>
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
+          <div className="nav__links">
+            {mainMenu.map((item) => (
+              <NavLink key={item.to} to={item.to} end={item.end}>
+                {item.label}
+              </NavLink>
+            ))}
+          </div>
 
-        <div className="island__actions">
-          <HeaderSearch className="island__search" />
-          <Link to={account.to} className="island__account">
-            <User size={18} aria-hidden="true" />
-            <span>{account.label}</span>
+          <Link to="/productos?buscar=1" className="nav__icon" aria-label="Buscar productos">
+            <Search size={20} />
           </Link>
-          <Link to="/carrito#cotizacion" className="icon-btn island__quote" data-fly-target="quote" aria-label={`Cotización: ${quoteCount} productos`}>
-            <FileText size={22} />
-            <CountBadge count={quoteCount} />
+          <Link to={account.to} className="nav__icon nav__account" aria-label={account.label}>
+            <User size={20} />
           </Link>
-          <Link to="/carrito" className="icon-btn" data-fly-target="cart" aria-label={`Carrito: ${purchaseCount} productos`}>
-            <ShoppingCart size={22} />
-            <CountBadge count={purchaseCount} />
+          <Link to="/carrito" className="nav__cart" data-fly-target="cart" aria-label={`Carrito: ${count} ${count === 1 ? 'producto' : 'productos'}`}>
+            <span>Carrito</span>
+            <i>{count > 99 ? '99+' : count}</i>
           </Link>
-          <button type="button" className="icon-btn island__burger" onClick={() => setOpen(true)} aria-label="Abrir menú" aria-expanded={open}>
-            <Menu size={26} />
+          <button type="button" className="nav__icon nav__burger" onClick={() => setOpen(true)} aria-label="Abrir menú" aria-expanded={open}>
+            <Menu size={22} />
           </button>
-        </div>
+        </nav>
       </div>
 
       <AnimatePresence>
@@ -124,7 +109,7 @@ export default function Header() {
             initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
           >
             <div className="drawer__head">
               <img src="/img/logo-blanco.png" alt="Imagen Eléctrica" width="40" height="44" />
@@ -135,6 +120,17 @@ export default function Header() {
 
             <HeaderSearch className="drawer__search" onDone={() => setOpen(false)} />
 
+            {families.length > 0 && (
+              <section aria-labelledby="drawer-cats">
+                <h2 id="drawer-cats" className="drawer__title">Líneas</h2>
+                <ul className="drawer__cats">
+                  {families.map((f) => (
+                    <li key={f.id}><Link to={`/productos?familia=${f.slug}`}>{f.name}</Link></li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
             <nav className="drawer__nav" aria-label="Menú móvil">
               {mainMenu.map((item) => (
                 <NavLink key={item.to} to={item.to} end={item.end}>
@@ -143,16 +139,19 @@ export default function Header() {
               ))}
               <NavLink to={account.to}>{account.label}</NavLink>
               <NavLink to="/carrito">
-                Carrito {purchaseCount > 0 && <span className="drawer__count">{purchaseCount}</span>}
+                Carrito {count > 0 && <span className="drawer__count">{count}</span>}
               </NavLink>
-              <Link to="/carrito#cotizacion">
-                Cotización {quoteCount > 0 && <span className="drawer__count">{quoteCount}</span>}
-              </Link>
             </nav>
 
-            <a className="btn btn--accent btn--block" href={site.whatsappUrl} target="_blank" rel="noreferrer">
-              <MessageCircle size={18} aria-hidden="true" /> Escríbenos por WhatsApp
-            </a>
+            <div className="drawer__contact">
+              <a className="btn btn--accent btn--block btn--lg" href={site.whatsappUrl} target="_blank" rel="noreferrer">
+                <MessageCircle size={18} aria-hidden="true" /> Escríbenos por WhatsApp
+              </a>
+              <a className="btn btn--ghost-light btn--block" href={site.mainContact.href}>
+                <Phone size={18} aria-hidden="true" /> Llámanos: {site.mainContact.label}
+              </a>
+              <a className="drawer__mail" href={`mailto:${site.email}`}>{site.email}</a>
+            </div>
           </motion.aside>
         )}
       </AnimatePresence>

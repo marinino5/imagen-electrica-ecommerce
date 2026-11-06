@@ -51,6 +51,11 @@ class Category extends Model
     }
 
     /** 1:N */
+    public function productLines(): HasMany
+    {
+        return $this->hasMany(ProductLine::class);
+    }
+
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);

@@ -4,50 +4,57 @@ import { FileText, ShoppingCart } from 'lucide-react'
 export const MODES = {
   direct: {
     id: 'direct',
-    label: 'Compra directa',
+    label: 'Compra en línea',
+    short: 'Lo que está en bodega, con precio en COP e IVA incluido.',
     icon: ShoppingCart,
-    lead: 'Productos disponibles, con precio en COP e IVA incluido. Tu asesor confirma el pago y la entrega.',
-    cta: { label: 'Ver productos', to: '/productos' },
+    lead: 'Productos con precio y unidades en bodega. Los compras con tu cuenta y un asesor confirma el pago y la entrega.',
+    needs: ['Cuenta gratis (persona natural o empresa)', 'Referencias con precio y bodega', 'Pago y entrega confirmados por un asesor'],
+    cta: { label: 'Ver el catálogo', to: '/productos?modo=en-linea' },
   },
   quote: {
     id: 'quote',
     label: 'Cotización',
+    short: 'Para lo que no tiene precio publicado, está bajo pedido o es por volumen.',
     icon: FileText,
-    lead: 'Para productos industriales, bajo pedido o sin stock. Un asesor pone el precio y te responde.',
-    cta: { label: 'Solicitar cotización', to: '/productos?sale_mode=quote' },
+    lead: 'Para productos industriales, bajo pedido o por volumen. Envías tu lista sin crear cuenta y un asesor te responde con precio.',
+    needs: ['No necesitas cuenta', 'Nombre, WhatsApp, correo y ciudad', 'Un asesor responde con referencia y precio'],
+    cta: { label: 'Armar mi cotización', to: '/carrito#cotizacion' },
   },
 }
 
-// Seis pasos del recorrido. `screen` elige la mini pantalla que se muestra en la ventana del navegador.
+// Pasos de cada camino. `image` es una captura real de la tienda; sin imagen se muestra un icono.
 export const STEPS = {
   direct: [
-    { screen: 'search', path: '/productos', title: 'Busca o explora por línea', text: 'Escribe el nombre o la referencia y elige entre las sugerencias, o recorre el catálogo por línea.' },
-    { screen: 'product', path: '/productos', title: 'Agrega al carrito', text: 'Los productos con la insignia Disponible tienen precio en COP con IVA incluido y van directo a tu carrito.' },
-    { screen: 'auth', path: '/crear-cuenta', title: 'Ingresa o crea tu cuenta', text: 'Como persona natural o empresa. Tu carrito se conserva mientras te registras.' },
-    { screen: 'delivery', path: '/carrito', title: 'Elige cómo recibirlo y envía tu solicitud', text: 'Recoge en tienda, envío local o envío nacional. Enviar la solicitud no genera ningún cobro automático.' },
-    { screen: 'status', path: '/mi-cuenta', title: 'Sigue el estado en Mi cuenta', text: 'Tu pedido avanza de Pendiente de pago a Pagado, Enviado y Entregado, y lo ves en tiempo real.' },
-    { screen: 'advisor', path: '/mi-cuenta', title: 'El asesor confirma el pago y la entrega', text: 'Te indica los medios de pago disponibles, confirma tu pago y coordina la entrega.' },
+    { title: 'Busca y filtra', text: 'Escribe la referencia o recorre las líneas, y filtra por marca, potencia y disponibilidad.', image: 'paso-catalogo.webp', w: 900, h: 675, alt: 'Tarjeta de una línea del catálogo con su precio desde', path: '/productos' },
+    { title: 'Elige la variante', text: 'Escoge potencia, velocidad y referencia. El precio y las unidades en bodega se actualizan al instante.', image: 'paso-ficha.webp', w: 900, h: 778, alt: 'Selector de potencia, velocidad y referencia en la ficha', path: '/productos/w22-iec-carcasa-hierro' },
+    { title: 'Paga y elige el envío', text: 'Agrega al carrito, escoge cómo lo recibes y envía tu pedido. El pago en línea llegará más adelante: hoy un asesor confirma el pago y la entrega contigo.', image: 'paso-carrito.webp', w: 900, h: 1529, alt: 'Resumen del carrito con base, IVA y opciones de entrega', path: '/carrito' },
+    { title: 'Sigue tu pedido', text: 'En Mi cuenta ves cada pedido con su línea de estados: pago pendiente, pagado, enviado y entregado.', image: 'paso-pedido.webp', w: 900, h: 169, alt: 'Línea de estados de un pedido en Mi cuenta', path: '/mi-cuenta' },
   ],
   quote: [
-    { screen: 'search', path: '/productos', title: 'Busca o explora por línea', text: 'Escribe el nombre o la referencia, o recorre el catálogo. Si no ves tu referencia, también la puedes pedir.' },
-    { screen: 'product', path: '/productos', title: 'Agrega a tu cotización', text: 'Los productos Solo cotización, Bajo pedido o sin stock van a tu cotización, sin precio hasta que el asesor lo ponga.' },
-    { screen: 'auth', path: '/crear-cuenta', title: 'Ingresa o crea tu cuenta', text: 'Como persona natural o empresa. Tu cotización se conserva mientras te registras.' },
-    { screen: 'delivery', path: '/carrito', title: 'Elige cómo recibirlo y envía tu solicitud', text: 'Indica si recoges en tienda o prefieres envío local o nacional, y envía la solicitud.' },
-    { screen: 'status', path: '/mi-cuenta', title: 'Sigue el estado en Mi cuenta', text: 'Tu cotización pasa de Nueva a En revisión, Enviada al cliente y Aceptada.' },
-    { screen: 'advisor', path: '/mi-cuenta', title: 'El asesor te responde y coordina', text: 'Valora tu cotización con precios. Al aceptarla se crea tu pedido y el asesor confirma el pago y la entrega.' },
+    { title: 'Arma tu lista', text: 'Usa «Cotizar volumen» o «Solicitar cotización» en cada ficha. También puedes pedir líneas que se manejan bajo pedido.', image: 'paso-ficha.webp', w: 900, h: 778, alt: 'Ficha de una línea con los botones para cotizar', path: '/productos/w22-iec-carcasa-hierro' },
+    { title: 'Envía la solicitud sin cuenta', text: 'Déjanos tu nombre, WhatsApp, correo y ciudad. Empresa, NIT y mensaje son opcionales.', image: 'paso-cotizacion.webp', w: 900, h: 623, alt: 'Formulario de cotización sin cuenta', path: '/carrito#cotizacion' },
+    { title: 'El asesor responde', text: 'Te contacta por WhatsApp o correo con la referencia, el precio y el tiempo de entrega.', icon: 'headset' },
+    { title: 'Aprueba y paga', text: 'Cuando apruebes, el asesor confirma el pago y coordina la entrega. El pago en línea llegará más adelante.', icon: 'card' },
   ],
 }
 
+export const DELIVERY = [
+  { id: 'pickup', title: 'Recoger en tienda', tag: 'Gratis', text: 'Cra 18 No 24-32, Bucaramanga. Sin costo de envío.' },
+  { id: 'local', title: 'Domicilio', tag: 'Área metropolitana', text: 'En Bucaramanga y su área metropolitana. El costo lo confirma tu asesor.' },
+  { id: 'national', title: 'Envío nacional', tag: 'Todo el país', text: 'A donde estés. El costo lo confirma tu asesor.' },
+]
+
 export const FAQS = [
-  { modes: ['direct', 'quote'], q: '¿Necesito una cuenta para comprar o cotizar?', a: 'Sí. Para enviar tu solicitud crea una cuenta como persona natural o como empresa. Es gratis y tus datos quedan guardados para la próxima vez.' },
-  { modes: ['direct', 'quote'], q: '¿Qué pasa si mi carrito mezcla compra directa y cotización?', a: 'Creamos dos solicitudes separadas: un pedido con lo que está disponible y una cotización con el resto.' },
-  { modes: ['direct'], q: '¿Los precios incluyen IVA?', a: 'Sí. Los precios están en COP con el IVA incluido.' },
-  { modes: ['direct'], q: '¿Puedo pedir más unidades de las que hay disponibles?', a: 'No en compra directa. Si pides más que el stock, esa referencia pasa a tu cotización y un asesor te responde.' },
-  { modes: ['direct'], q: '¿Cuándo se descuenta el inventario?', a: 'Cuando el asesor confirma tu pago. En ese momento se vuelve a validar la disponibilidad y se descuenta el stock.' },
-  { modes: ['direct', 'quote'], q: '¿Puedo cancelar mi solicitud?', a: 'Pídeselo a tu asesor. Un pedido se puede cancelar mientras está pendiente de pago y una cotización mientras está nueva.' },
-  { modes: ['quote'], q: '¿Qué pasa si un producto está agotado?', a: 'Va a tu cotización: un asesor te responde con la disponibilidad y el precio.' },
-  { modes: ['quote'], q: '¿Cuándo recibo el precio?', a: 'Cuando el asesor valora tu cotización y te la envía. No se envía hasta tener el precio de todos los productos.' },
-  { modes: ['quote'], q: '¿Qué pasa cuando acepto la cotización?', a: 'Se genera un pedido nuevo con esos productos y tu cotización se conserva en Mi cuenta.' },
-  { modes: ['direct', 'quote'], q: '¿Cuánto cuesta el envío?', a: 'El costo se confirma con tu asesor según cómo lo recibas. Recoger en tienda no tiene costo de envío.' },
-  { modes: ['direct', 'quote'], q: '¿Cómo sigo el estado de mi solicitud?', a: 'En Mi cuenta ves todos tus pedidos y cotizaciones con su estado actual.' },
+  { modes: ['direct', 'quote'], q: '¿Necesito una cuenta?', a: 'Para cotizar no: envías tus datos y un asesor te responde. Para comprar en línea sí; la cuenta es gratis, como persona natural o empresa, y guarda tus datos para la próxima vez.' },
+  { modes: ['direct', 'quote'], q: '¿Qué pasa si mezclo compra en línea y cotización?', a: 'Van por separado: lo que se compra en línea se envía como pedido y la cotización tiene su propio bloque en el carrito.' },
+  { modes: ['direct'], q: '¿Los precios incluyen IVA?', a: 'Sí. Los precios están en COP con el IVA incluido y el carrito te muestra la base y el IVA.' },
+  { modes: ['direct'], q: '¿Puedo pedir más unidades de las que hay en bodega?', a: 'No en compra en línea. Si pides más que las unidades en bodega, esa referencia pasa a cotización y un asesor te responde.' },
+  { modes: ['direct'], q: '¿Cuándo se descuenta el inventario?', a: 'Cuando el asesor confirma tu pago: en ese momento se vuelve a validar la disponibilidad y se descuenta el stock.' },
+  { modes: ['direct', 'quote'], q: '¿Puedo cancelar mi solicitud?', a: 'Pídeselo a tu asesor. Un pedido se puede cancelar mientras está pendiente de pago.' },
+  { modes: ['quote'], q: '¿Qué pasa si una referencia está agotada?', a: 'Va a tu cotización: un asesor te responde con la disponibilidad y el precio.' },
+  { modes: ['quote'], q: '¿Cuándo recibo el precio?', a: 'Cuando el asesor revisa tu lista y te escribe por WhatsApp o correo. Suele ser lo primero que hace.' },
+  { modes: ['quote'], q: '¿Qué pasa cuando apruebo la cotización?', a: 'El asesor confirma el pago, coordina la entrega y arma tu pedido con esas referencias.' },
+  { modes: ['direct', 'quote'], q: '¿Cuánto cuesta el envío?', a: 'Recoger en tienda no tiene costo. Para domicilio o envío nacional, el costo lo confirma tu asesor.' },
+  { modes: ['direct'], q: '¿Cómo sigo el estado de mi pedido?', a: 'En Mi cuenta ves todos tus pedidos con su estado actual.' },
+  { modes: ['quote'], q: '¿Dónde veo mi cotización?', a: 'Las cotizaciones sin cuenta las responde un asesor por WhatsApp o correo, con los datos que dejaste.' },
 ]

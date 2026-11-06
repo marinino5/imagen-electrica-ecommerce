@@ -3,7 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import Header from './Header'
 import Footer from './Footer'
 import WhatsAppButton from './WhatsAppButton'
-import BrandBackdrop from './BrandBackdrop'
+import BottomNav, { barFor } from './BottomNav'
 
 // Al cambiar de ruta se vuelve arriba (o al ancla #, si la hay)
 function ScrollManager() {
@@ -23,16 +23,21 @@ export default function Layout() {
   // La portada del inicio pasa por debajo del encabezado; las demás páginas empiezan debajo
   const offset = pathname === '/' ? '' : 'main--offset'
 
+  // La barra fija de abajo (celular) empuja el contenido y el botón de WhatsApp
+  useEffect(() => {
+    document.documentElement.dataset.bar = barFor(pathname)
+  }, [pathname])
+
   return (
     <>
       <a className="skip-link" href="#contenido">Saltar al contenido</a>
-      <BrandBackdrop />
       <ScrollManager />
       <Header />
       <main id="contenido" className={offset}>
         <Outlet />
       </main>
-      <Footer />
+      <Footer hideCta={pathname === '/'} />
+      <BottomNav />
       <WhatsAppButton />
     </>
   )

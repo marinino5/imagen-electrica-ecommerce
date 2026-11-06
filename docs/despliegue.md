@@ -63,6 +63,8 @@ Se ponen en el servicio, en **Environment**. Los valores marcados como *secreto*
 | `SEED_COMERCIAL_PASSWORD` | *secreto* |
 | `SEED_CUSTOMER_PASSWORD` | *secreto* (solo si se carga el `DemoSeeder`) |
 
+El seeder `CatalogSeeder` carga el catálogo por líneas: 33 líneas y 351 referencias del inventario, desde `backend/database/data/catalogo.json` (se genera con `docs/datos/generar_catalogo.py`). Los precios del Excel son **simulados** y el panel los marca con la insignia "Simulado" hasta tener los reales. Es idempotente: no pisa precio ni stock cambiados después.
+
 ### Tienda
 
 | Variable | Valor |
@@ -75,6 +77,7 @@ Se ponen en el servicio, en **Environment**. Los valores marcados como *secreto*
 
 | Variable | Valor |
 |---|---|
+| `SANCTUM_TOKEN_EXPIRATION` | `10080` (minutos; el token de la API vence a los 7 días) |
 | `CORS_ALLOWED_ORIGINS` | orígenes permitidos separados por coma, ej. `http://localhost:5173,https://tu-tienda.pages.dev` |
 
 `PORT` lo define Render solo; no hay que ponerla.
@@ -105,3 +108,15 @@ Se ponen en el servicio, en **Environment**. Los valores marcados como *secreto*
 - Cada despliegue ejecuta `migrate --force`: las migraciones nuevas se aplican solas.
 - Para probar la imagen en tu máquina: `docker build -t imagen-electrica-backend backend` y correrla con las variables de arriba (con un MySQL local).
 - Las imágenes de productos son URLs públicas: no se guardan archivos en el disco del servidor (Render los borra al reiniciar).
+
+
+## Actualizar el despliegue (versión con catálogo por líneas)
+
+Si `https://<tu-servicio>.onrender.com/api/v1/families` o `/lines` responden **404** mientras `/brands` responde 200, Render tiene una versión vieja del backend.
+
+1. Render despliega la rama que se eligió en el servicio (*Settings → Build & Deploy → Branch*). Haz que esa rama tenga el código actual: integra `feature/fase1-ui-movil` con un Pull Request, o cambia la rama del servicio mientras pruebas.
+2. En *Manual Deploy* pulsa **Deploy latest commit** (o espera el auto-deploy).
+3. No hace falta tocar variables: al arrancar, `entrypoint.sh` corre las migraciones (incluye `product_lines` y `quote_requests`) y `ProductionCatalogSeeder`, que carga las 33 líneas y las 351 referencias **solo si todavía no hay líneas**. Así un siguiente despliegue no recrea una línea eliminada a propósito. `SEED_CATALOG=false` lo omite y `SEED_CATALOG=force` lo vuelve a correr (idempotente: no pisa precios ni stock cambiados).
+4. Verifica: `bash docs/verificar-api.sh https://<tu-servicio>.onrender.com`. Debe mostrar HTTP 200 en `families`, `lines`, `lines/w22-iec-carcasa-hierro`, `products` y `brands`, y los totales (33 líneas, 351 referencias).
+
+Variables nuevas opcionales: `SEED_CATALOG` (`false` o `force`) y `SANCTUM_TOKEN_EXPIRATION` (minutos; por defecto 10080).

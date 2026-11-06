@@ -22,7 +22,11 @@ const LINE_IMAGES = {
   cables: 'cables',
   compresores: 'compresores',
   plc: 'automatizacion',
+  'energia-solar': 'energia-solar',
 }
+
+// Líneas con foto real (sin arco ni curva propios): la tarjeta los dibuja por CSS
+export const PHOTO_LINES = new Set(['energia-solar'])
 
 export const lineImage = (rootSlug) =>
   LINE_IMAGES[rootSlug] ? `/img/categorias/${LINE_IMAGES[rootSlug]}.webp` : null

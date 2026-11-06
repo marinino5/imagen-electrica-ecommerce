@@ -11,6 +11,9 @@ const snapshot = (p) => ({
   sku: p.sku,
   name: p.name,
   slug: p.slug,
+  line_slug: p.line_slug ?? null,
+  line_name: p.line_name ?? null,
+  label: p.label ?? null,
   image_url: p.image_url,
   unit: p.unit,
   unit_label: p.unit_label,
@@ -18,7 +21,7 @@ const snapshot = (p) => ({
   tax_rate: p.tax_rate,
   stock: p.stock,
   sale_mode: p.sale_mode,
-  brand: p.brand?.name ?? null,
+  brand: p.brand?.name ?? p.brand ?? null,
   category: p.category ?? null,
 })
 
@@ -44,19 +47,21 @@ export function CartProvider({ children }) {
   }, [lines])
 
   const add = useCallback(
-    // origin: { rect, image } del botón pulsado, para animar el producto hacia el carrito
-    (product, quantity = 1, origin) => {
+    // origin: { rect, image } del botón pulsado, para animar el producto hacia el carrito.
+    // options.asQuote: la persona pidió cotizar (por ejemplo "Cotizar volumen"), aunque se pueda comprar en línea.
+    (product, quantity = 1, origin, options = {}) => {
+      const asQuote = options.asQuote === true
       const qty = Number(quantity) > 0 ? Number(quantity) : 1
       setLines((current) => {
         const found = current.find((l) => l.product.id === product.id)
         if (found) {
           return current.map((l) =>
-            l.product.id === product.id ? { ...l, product: snapshot(product), quantity: l.quantity + qty } : l,
+            l.product.id === product.id ? { ...l, product: snapshot(product), quantity: l.quantity + qty, asQuote } : l,
           )
         }
-        return [...current, { product: snapshot(product), quantity: qty }]
+        return [...current, { product: snapshot(product), quantity: qty, asQuote }]
       })
-      const direct = isDirectPurchase(product, qty)
+      const direct = !asQuote && isDirectPurchase(product, qty)
       if (origin) fly(origin.rect, direct ? 'cart' : 'quote', origin.image)
       notify(
         direct ? `«${product.name}» se agregó al carrito` : `«${product.name}» se agregó a tu cotización`,
@@ -80,8 +85,9 @@ export function CartProvider({ children }) {
 
   const value = useMemo(() => {
     // Misma clasificación que hace el backend al recibir la solicitud
-    const purchaseLines = lines.filter((l) => isDirectPurchase(l.product, l.quantity))
-    const quoteLines = lines.filter((l) => !isDirectPurchase(l.product, l.quantity))
+    const isPurchase = (l) => !l.asQuote && isDirectPurchase(l.product, l.quantity)
+    const purchaseLines = lines.filter(isPurchase)
+    const quoteLines = lines.filter((l) => !isPurchase(l))
     const purchaseTotal = purchaseLines.reduce((sum, l) => sum + l.product.price * l.quantity, 0)
     return {
       lines,

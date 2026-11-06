@@ -50,7 +50,9 @@ return [
     |
     */
 
-    'expiration' => null,
+    // Los tokens de la API vencen a los 7 días (10 080 minutos): un token robado no sirve para siempre.
+    // La tienda maneja el 401 y lleva a /ingresar con el aviso de sesión vencida.
+    'expiration' => (int) env('SANCTUM_TOKEN_EXPIRATION', 10080),
 
     /*
     |--------------------------------------------------------------------------

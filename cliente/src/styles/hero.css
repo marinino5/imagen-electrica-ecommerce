@@ -2,215 +2,143 @@
   position: relative;
   display: flex;
   align-items: center;
-  min-height: max(640px, 88svh);
-  padding-bottom: 112px; /* deja sitio a los controles y a la tarjeta de cifras que se monta encima */
-  color: var(--white);
+  min-height: max(640px, 90svh);
+  padding-block: 96px 140px; /* deja sitio a la isla y a la tarjeta de cifras que se monta encima */
   background: var(--ink);
-  overflow-x: clip;
+  color: #fff;
+  overflow: hidden;
 }
 .hero__media,
 .hero__slide,
-.hero__kenburns,
 .hero__overlay {
   position: absolute;
   inset: 0;
 }
-.hero__sharp {
-  position: absolute;
-  inset: 0;
+.hero__slide {
+  opacity: 0;
+  transition: opacity 0.9s var(--ease-sys);
 }
-.hero__sharp video,
-.hero__sharp img {
+.hero__slide.is-active {
+  opacity: 1;
+}
+.hero__slide video,
+.hero__slide img {
   width: 100%;
   height: 100%;
   object-fit: cover; /* el punto de enfoque se ajusta por diapositiva (object-position en línea) */
 }
-.hero__media {
-  overflow: hidden; /* recorta el zoom Ken Burns */
+/* Diapositiva sin clip aprobado: fondo de marca */
+.hero__slide--brand {
+  background:
+    radial-gradient(circle at 78% 30%, rgb(122 100 184 / 0.5), transparent 46%),
+    radial-gradient(circle at 12% 100%, rgb(242 106 0 / 0.14), transparent 40%),
+    linear-gradient(135deg, var(--ink) 0%, #463671 100%);
 }
-/* Degradado ink solo del lado del texto: la foto o el video se ven a color a la derecha */
+/* Degradado ink solo detrás del texto */
 .hero__overlay {
-  background: var(--overlay-hero-sm);
+  background: linear-gradient(180deg, rgb(30 22 49 / 0.45) 0%, rgb(30 22 49 / 0.72) 60%, rgb(30 22 49 / 0.5) 100%);
 }
 @media (min-width: 900px) {
   .hero__overlay {
-    background: var(--overlay-hero);
+    background: linear-gradient(90deg, rgb(30 22 49 / 0.82) 0%, rgb(30 22 49 / 0.55) 38%, rgb(30 22 49 / 0) 64%);
   }
-}
-
-/* ---- Arco y corriente ---- */
-.hero__deco {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  overflow: hidden;
-  pointer-events: none;
 }
 .hero__arc {
   position: absolute;
-  right: -90px;
-  bottom: -150px;
-  width: min(60vw, 560px);
-  height: auto;
-  pointer-events: none;
-  overflow: visible;
-}
-.hero__current {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 90px;
+  right: -160px;
+  bottom: -220px;
+  width: 560px;
+  height: 560px;
+  border: 8px solid var(--accent);
+  border-radius: 50%;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
   opacity: 0.9;
   pointer-events: none;
 }
-
-/* ---- Contenido ---- */
 .hero__inner {
   position: relative;
-  z-index: 4;
-  display: grid;
-  grid-template-columns: 1fr;
-  align-items: center;
-  gap: 32px;
-  padding-top: calc(var(--header-space) + 32px);
-  padding-bottom: 24px;
+  z-index: 2;
 }
 .hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
   max-width: 720px;
+  min-width: 0;
+  animation: hero-in 0.8s var(--ease-sys) both;
+}
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
 }
 .hero__title {
-  font-size: var(--fs-hero);
-  color: var(--white);
-  text-shadow: 0 2px 18px rgb(38 28 62 / 0.45); /* legible aunque el degradado sea ligero */
-}
-.hero__title em {
-  display: block;
-  font-style: normal;
-  color: var(--accent);
+  color: #fff;
+  font-size: clamp(40px, 6vw, 84px);
+  text-shadow: 0 2px 18px rgb(30 22 49 / 0.4);
 }
 .hero__text {
   max-width: 52ch;
-  margin: 18px 0 26px;
-  font-size: 1.1rem;
-  color: var(--white);
-  text-shadow: 0 1px 12px rgb(38 28 62 / 0.55);
+  margin: 0;
+  color: #fff;
+  font-size: 17px;
+  text-shadow: 0 1px 12px rgb(30 22 49 / 0.5);
 }
 .hero__ctas {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
 }
 .hero__search {
-  margin-top: 28px;
-  max-width: 640px;
-}
-
-/* ---- Tarjeta de productos destacados (escritorio): blanca, sólida y legible ---- */
-.feat-card {
-  justify-self: end;
-  width: 320px;
-  padding: 20px;
-  border-radius: var(--radius-lg);
-  background: var(--white);
-  color: var(--ink);
-  box-shadow: var(--shadow-lg);
-}
-.feat-card__tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  margin-bottom: 12px;
-  padding: 3px 10px;
-  border-radius: var(--radius-pill);
-  background: var(--lavender-2);
-  color: var(--primary);
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-.feat-card__tag svg {
-  color: var(--accent);
-}
-.feat-card img {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  height: auto;
-  margin-bottom: 12px;
-  border-radius: var(--radius);
-  background: var(--white);
-  object-fit: contain;
-}
-.feat-card__brand {
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--primary);
-}
-.feat-card h3 {
-  margin: 4px 0 10px;
-  min-height: 2.6em;
-  font-family: var(--font-body);
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--ink);
-}
-.feat-card .price {
-  margin-bottom: 14px;
-}
-.feat-card__dots {
   display: flex;
-  justify-content: center;
-  gap: 4px;
-  margin-top: 8px;
+  align-items: center;
+  gap: 8px;
+  width: min(100%, 560px);
+  padding: 6px 6px 6px 18px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--muted);
+  box-shadow: 0 18px 40px -22px rgb(30 22 49 / 0.7);
 }
-.feat-card__dots button {
-  position: relative;
-  width: 20px;
-  height: 20px;
-  padding: 0;
+.hero__search input {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
   border: 0;
-  background: transparent;
+  outline: 0;
+  background: none;
+  color: var(--ink);
+  font-size: 15px;
 }
-.feat-card__dots button::after {
-  content: '';
-  position: absolute;
-  inset: 7px;
-  border-radius: 50%;
-  background: var(--lavender-2);
-}
-.feat-card__dots button.is-on::after {
-  background: var(--primary);
-}
-
-@media (min-width: 1024px) {
-  .hero__inner {
-    grid-template-columns: minmax(0, 1fr) 320px;
-    gap: 56px;
-  }
+.hero__search button {
+  min-height: 44px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-weight: 700;
 }
 
-/* ---- Controles abajo a la izquierda ---- */
+/* ---- Controles: contador, barras y pausa ---- */
 .hero__controls-wrap {
   position: absolute;
-  left: 50%;
-  bottom: 72px;
+  inset: auto 0 84px;
   z-index: 3;
+  left: 50%;
   transform: translateX(-50%);
-  pointer-events: none;
 }
 .hero__controls {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 14px;
-  pointer-events: auto;
 }
 .hero__count {
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: 0.08em;
 }
@@ -221,7 +149,7 @@
 .bar {
   position: relative;
   width: 44px;
-  height: 20px; /* zona táctil; la barra visible es más delgada */
+  height: 44px; /* zona táctil; la barra visible es más delgada */
   padding: 0;
   border: 0;
   background: transparent;
@@ -229,20 +157,18 @@
 .bar::before {
   content: '';
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 8px;
+  inset: 20px 0 auto;
   height: 4px;
-  border-radius: var(--radius-pill);
-  background: var(--on-dark-line);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.25);
 }
 .bar span {
   position: absolute;
   left: 0;
-  top: 8px;
-  height: 4px;
+  top: 20px;
   width: 0;
-  border-radius: var(--radius-pill);
+  height: 4px;
+  border-radius: 999px;
   background: var(--accent);
 }
 .bar.is-done span {
@@ -263,16 +189,25 @@
   display: grid;
   place-items: center;
   flex: none;
-  width: 32px;
-  height: 32px;
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-pill);
-  background: var(--glass-bg);
-  color: var(--white);
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgb(255 255 255 / 0.3);
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.12);
+  color: #fff;
 }
-
+@media (max-width: 767px) {
+  .hero {
+    padding-block: 92px 150px;
+  }
+  .hero__text {
+    font-size: 15px;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
-  /* Sin avance automático: las barras muestran la diapositiva activa completa */
+  .hero__content {
+    animation: none;
+  }
   .bar.is-active span {
     animation: none;
     width: 100%;

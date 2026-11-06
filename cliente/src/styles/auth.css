@@ -507,3 +507,186 @@
     transform: none;
   }
 }
+
+.auth__wa {
+  margin-top: 12px;
+  background: var(--white);
+}
+
+.auth__photo {
+  order: 3;
+  position: relative;
+  margin: 0;
+  width: 100%;
+  max-width: 480px;
+  overflow: hidden;
+  border: 1px solid var(--lavender-2);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+.auth__photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.auth__photo::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  left: -30px;
+  width: 90px;
+  height: 90px;
+  border: 12px solid var(--accent);
+  border-radius: 50%;
+}
+
+/* ===== Rediseño Fase 1B: portada editorial, bisel y aviso de cotización ===== */
+.auth {
+  position: relative;
+  padding-block: 28px 96px;
+}
+.auth__ring {
+  position: absolute;
+  right: -160px;
+  top: -140px;
+  z-index: -1;
+  width: 520px;
+  height: 520px;
+  border: 44px solid rgb(242 106 0 / 0.13);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.auth__title {
+  font-size: clamp(46px, 6vw, 84px);
+  line-height: 0.88;
+}
+.auth__preview {
+  width: 100%;
+  max-width: 480px;
+}
+.auth__preview-label {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.auth .preview {
+  border: 0;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px -30px rgb(81 62 132 / 0.45);
+}
+.benefit-cards {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  max-width: 480px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.benefit-card__core {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  font-size: 14px;
+}
+.benefit-card__ic {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--lavender-2);
+  color: var(--primary);
+}
+.auth__main {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+.auth-note__core {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  padding: 12px 14px;
+}
+.auth-note__ic {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--orange-tint);
+  color: #8a3a00;
+}
+.auth-note p {
+  flex: 1;
+  min-width: 180px;
+  margin: 0;
+  font-size: 14px;
+}
+.auth-card {
+  border-radius: 30px;
+}
+.auth-card__bar {
+  height: 5px;
+  margin: 0 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--lavender-2);
+}
+.auth-card__bar span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+}
+.auth-card__body {
+  padding: clamp(20px, 3vw, 32px);
+  border-radius: 24px;
+  background: #fff;
+}
+.auth .input {
+  min-height: 48px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--lavender);
+}
+.auth__wa {
+  margin-top: 4px;
+}
+
+/* Orden en celular: título, formulario y, al final, el ejemplo y los beneficios */
+.auth__intro > .eyebrow,
+.auth__title {
+  order: 1;
+}
+.auth__preview,
+.benefit-cards {
+  order: 3;
+}
+@media (min-width: 960px) {
+  .auth__intro > .eyebrow,
+  .auth__title,
+  .auth__preview,
+  .benefit-cards {
+    order: 0;
+  }
+  .auth__intro {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+}
+.auth__intro > .eyebrow {
+  justify-self: start;
+}

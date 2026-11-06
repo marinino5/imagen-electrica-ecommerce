@@ -78,7 +78,7 @@ export default function OrderPreview({ kind = 'purchase' }) {
     <motion.aside
       className="preview"
       aria-label="Ejemplo de cómo verás tus pedidos en Mi cuenta"
-      animate={reduced ? undefined : { y: [0, -8, 0], rotate: [-0.8, 0.4, -0.8] }}
+      animate={reduced ? undefined : { y: [0, -6, 0] }}
       transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
     >
       <div className="preview__top">

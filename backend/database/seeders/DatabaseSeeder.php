@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             BrandSeeder::class,
             ProductSeeder::class,
+            CatalogSeeder::class, // líneas y referencias del inventario (351 SKU)
             OrderSeeder::class,
         ]);
     }
