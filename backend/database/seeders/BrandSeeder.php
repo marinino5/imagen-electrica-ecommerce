@@ -16,7 +16,9 @@ class BrandSeeder extends Seeder
             $legacy->update(['name' => 'WEG Cestari', 'slug' => 'weg-cestari']);
         }
 
-        $brands = ['WEG', 'WEG Cestari', 'WEG Solar', 'Siemens', 'Innomotics', 'Nexans', 'Sylvania', 'Delta', 'Soler & Palau'];
+        $brands = ['WEG', 'WEG Cestari', 'WEG Solar', 'Siemens', 'Innomotics', 'Nexans', 'Sylvania', 'Soler & Palau',
+            // Marcas de las referencias del inventario y de las líneas bajo pedido
+            'Nord', 'Nidec', 'ABB', 'Match Drive', 'EMI', 'AIRAL', 'YORK', 'FLUKE', 'Centelsa by Nexans'];
 
         foreach ($brands as $name) {
             // logo_url queda nulo hasta tener la URL pública de cada logo

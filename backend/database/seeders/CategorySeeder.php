@@ -35,9 +35,10 @@ class CategorySeeder extends Seeder
             );
 
             foreach ($children as $i => $childName) {
-                $parent->children()->firstOrCreate(
+                // Se busca por slug en toda la tabla: CatalogSeeder puede haber movido la categoría a otra familia
+                Category::firstOrCreate(
                     ['slug' => Str::slug($childName)],
-                    ['name' => $childName, 'sort_order' => $i + 1],
+                    ['parent_id' => $parent->id, 'name' => $childName, 'sort_order' => $i + 1],
                 );
             }
         }

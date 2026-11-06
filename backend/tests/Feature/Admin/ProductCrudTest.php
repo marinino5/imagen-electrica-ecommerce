@@ -243,4 +243,14 @@ class ProductCrudTest extends TestCase
         $this->actingAs($comercial)->get(route('admin.products.create'))->assertForbidden();
         $this->actingAs($comercial)->post(route('admin.products.store'), $this->payload())->assertForbidden();
     }
+
+    public function test_index_marks_simulated_prices(): void
+    {
+        Product::factory()->create(['name' => 'Motor con precio de prueba', 'price' => 500000, 'price_is_simulated' => true]);
+        Product::factory()->create(['name' => 'Motor con precio real', 'price' => 600000, 'price_is_simulated' => false]);
+
+        $this->actingAs($this->admin())->get(route('admin.products.index'))
+            ->assertOk()
+            ->assertSee('Simulado', false);
+    }
 }

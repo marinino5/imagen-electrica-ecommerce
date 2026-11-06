@@ -109,7 +109,7 @@
                                 </td>
                                 <td class="d-none d-lg-table-cell">{{ $product->category->name }}</td>
                                 <td class="d-none d-xl-table-cell">{{ $product->sale_mode->label() }}</td>
-                                <td class="text-end d-none d-md-table-cell">{{ Money::cop($product->price, 'Cotizar') }}</td>
+                                <td class="text-end d-none d-md-table-cell">{{ Money::cop($product->price, 'Cotizar') }}@if ($product->price_is_simulated) <span class="badge text-bg-warning ms-1" title="El precio viene del Excel de inventario y es de prueba">Simulado</span>@endif</td>
                                 <td class="text-end text-nowrap">
                                     @if ($product->stock <= 0)
                                         <span class="stock-badge is-out">Agotado</span>

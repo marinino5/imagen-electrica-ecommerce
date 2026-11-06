@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\Admin\ProductController as AdminProductControlle
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\BrandController;
 use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\LineController;
 use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\ProfileController;
@@ -19,6 +20,9 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:api')->group(function
     // Catálogo público: sin token
     Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::get('brands', [BrandController::class, 'index'])->name('brands.index');
+    Route::get('families', [LineController::class, 'families'])->name('families.index');
+    Route::get('lines', [LineController::class, 'index'])->name('lines.index');
+    Route::get('lines/{slug}', [LineController::class, 'show'])->name('lines.show');
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
     Route::get('products/{slug}', [ProductController::class, 'show'])->name('products.show');
 

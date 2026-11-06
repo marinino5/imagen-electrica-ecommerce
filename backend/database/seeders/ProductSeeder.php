@@ -82,13 +82,6 @@ class ProductSeeder extends Seeder
                 'price' => 2350000, 'stock' => 4, 'is_featured' => true,
             ],
             [
-                'sku' => 'VFD015EL21A', 'category' => 'variadores-de-frecuencia', 'brand' => 'delta',
-                'name' => 'Variador de frecuencia VFD-EL 1,5 kW 230 V monofásico',
-                'short_description' => 'Variador de entrada monofásica para motores trifásicos pequeños.',
-                'specs' => ['potencia_kw' => 1.5, 'voltaje_v' => 230, 'fases' => 1],
-                'price' => 1390000, 'stock' => 0, // Venta directa sin stock: entra como cotización
-            ],
-            [
                 'sku' => 'CFW500A07P0T2NB20', 'category' => 'variadores-de-frecuencia', 'brand' => 'weg',
                 'name' => 'Variador de frecuencia CFW500 7 A 220 V',
                 'short_description' => 'Variador modular con funciones de PLC integradas.',
@@ -131,13 +124,6 @@ class ProductSeeder extends Seeder
                 'short_description' => 'Módulo lógico con pantalla y servidor web integrado.',
                 'specs' => ['entradas_digitales' => 8, 'salidas_digitales' => 4, 'alimentacion_v' => 24],
                 'price' => 790000, 'stock' => 6,
-            ],
-            [
-                'sku' => 'DVP14SS211R', 'category' => 'plc-compactos', 'brand' => 'delta',
-                'name' => 'PLC DVP-SS2 de 14 puntos con salidas a relé',
-                'short_description' => 'PLC delgado de 8 entradas y 6 salidas, ampliable con módulos.',
-                'specs' => ['entradas_digitales' => 8, 'salidas_digitales' => 6, 'alimentacion_v' => 24],
-                'price' => 640000, 'stock' => 4,
             ],
 
             // Ventilación — Soler & Palau

@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[Fillable([
-    'category_id', 'brand_id', 'sku', 'name', 'slug', 'short_description',
+    'category_id', 'brand_id', 'line_id', 'sku', 'name', 'variant_label', 'price_is_simulated', 'slug', 'short_description',
     'description', 'image_url', 'specs', 'unit', 'price', 'cost_price', 'tax_rate', 'stock',
     'sale_mode', 'is_active', 'is_featured',
 ])]
@@ -43,6 +43,7 @@ class Product extends Model
             'stock' => 'integer',
             'is_active' => 'boolean',
             'is_featured' => 'boolean',
+            'price_is_simulated' => 'boolean',
         ];
     }
 
@@ -50,6 +51,12 @@ class Product extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /** Línea (ficha) a la que pertenece esta referencia; nulo en productos sueltos */
+    public function line(): BelongsTo
+    {
+        return $this->belongsTo(ProductLine::class, 'line_id');
     }
 
     /** 1:N (inversa) */
