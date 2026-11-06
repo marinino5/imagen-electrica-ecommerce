@@ -155,7 +155,7 @@ export default function SmartForm() {
               <label className="check">
                 <input type="checkbox" checked={data.privacy} onChange={setPerson('privacy')} />
                 <span>
-                  Acepto la <Link to="/politica-datos" target="_blank">política de tratamiento de datos personales</Link>.
+                  Acepto la <Link to="/politica-datos" target="_blank" rel="noopener">política de tratamiento de datos personales</Link>.
                 </span>
               </label>
               {errors.privacy && <span className="field-error">{errors.privacy}</span>}

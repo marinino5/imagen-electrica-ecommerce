@@ -19,4 +19,9 @@ class SecurityHeadersTest extends TestCase
             ->assertHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
         $this->assertStringContainsString("default-src 'none'", $response->headers->get('Content-Security-Policy'));
     }
+
+    public function test_los_tokens_de_la_api_vencen(): void
+    {
+        $this->assertGreaterThan(0, (int) config('sanctum.expiration'));
+    }
 }

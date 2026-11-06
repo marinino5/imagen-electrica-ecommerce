@@ -201,7 +201,7 @@ export default function Register() {
                     <label className="check">
                       <input type="checkbox" checked={form.privacy_accepted} onChange={set('privacy_accepted')} onBlur={blur('privacy_accepted')} />
                       <span>
-                        Acepto la <Link to="/politica-datos" target="_blank">política de tratamiento de datos personales</Link> de Imagen Eléctrica.
+                        Acepto la <Link to="/politica-datos" target="_blank" rel="noopener">política de tratamiento de datos personales</Link> de Imagen Eléctrica.
                       </span>
                     </label>
                     {err('privacy_accepted') && <span className="field-error">{err('privacy_accepted')}</span>}
