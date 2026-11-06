@@ -10,33 +10,51 @@ import Current from '../ui/Current'
 import { AddButton, ProductPrice } from '../ui/ProductCard'
 import '../../styles/hero.css'
 
-const SLIDE_MS = 8000
+const SLIDE_MS = 9000
 
-// Diapositivas del carrusel. Para agregar otra (por ejemplo el video de proyectos) basta una entrada nueva:
-// { id: 'proyectos', media: { type: 'video', webm: '/media/hero-proyectos.webm', mp4: '/media/hero-proyectos.mp4',
-//   poster: '/media/hero-proyectos-poster.jpg', pos: '50% 50%', posSm: '50% 50%' }, title, highlight, text }
-// El contador, las barras de progreso y el avance automático se ajustan solos a la cantidad de entradas.
+// Diapositivas del carrusel (exactamente 3). Cada una puede llevar un clip propio:
+//   media: { poster: '/media/hero-motores-poster.webp',
+//            desktop: { mp4: '/media/hero-motores.mp4', webm: '/media/hero-motores.webm' },   // 16:9
+//            mobile:  { mp4: '/media/hero-motores-m.mp4', webm: '/media/hero-motores-m.webm' }, // 9:16 o 4:5
+//            pos: '50% 50%', posSm: '50% 50%' }
+// Sin `media`, la diapositiva usa el fondo de marca (degradado y arcos) hasta tener material con licencia.
+// Los clips aprobados se registran en docs/recursos.md. El contador, las barras y el avance se ajustan solos.
 const slides = [
   {
-    id: 'tablero',
-    // pos / posSm: punto de enfoque en escritorio y en celular (donde el recorte es horizontal)
-    media: { type: 'video', webm: '/media/hero-tablero.webm', mp4: '/media/hero-tablero.mp4', poster: '/media/hero-tablero-poster.jpg', pos: '72% 45%', posSm: '78% 50%' },
-    title: 'Soluciones eléctricas',
-    highlight: 'para tu industria',
-    text: 'Motores, variadores, cables e iluminación con disponibilidad y asesoría técnica.',
+    id: 'motores',
+    media: null, // pendiente: motor industrial de 100 HP y motorreductor Cestari (material oficial o clip con licencia)
+    tag: 'Línea WEG',
+    title: 'Motores WEG y',
+    highlight: 'motorreductores WEG Cestari',
+    text: 'Primero el motor industrial de 100 HP; después el motorreductor Cestari. Dos equipos distintos de la línea WEG que distribuimos.',
+    cta: { to: '/productos?category=motores-electricos', label: 'Ver motores' },
   },
   {
-    id: 'motores',
-    media: { type: 'video', webm: '/media/hero-motores.webm', mp4: '/media/hero-motores.mp4', poster: '/media/hero-motores-poster.jpg', pos: '50% 58%', posSm: '46% 50%' },
-    title: 'Motores y motorreductores',
-    highlight: 'listos para trabajar',
-    text: 'Potencia y confiabilidad de las marcas que tu planta ya conoce.',
+    id: 'automatizacion',
+    media: null, // pendiente: panel industrial, persona operándolo, componentes, conexiones y controles
+    tag: 'Control y PLC',
+    title: 'Automatización',
+    highlight: 'y control',
+    text: 'Variadores, arrancadores y PLC para tableros y procesos industriales.',
+    cta: { to: '/productos?category=variadores-y-arrancadores', label: 'Ver automatización' },
+  },
+  {
+    id: 'extractores',
+    media: null, // pendiente: extractores industriales funcionando, ventilación e iluminación en instalaciones reales
+    tag: 'Aire y luz',
+    title: 'Extractores',
+    highlight: 'e iluminación',
+    text: 'Ventilación e iluminación industrial para bodegas, plantas y talleres.',
+    cta: { to: '/productos?category=ventilacion', label: 'Ver ventilación' },
   },
 ]
 
-function Slide({ slide, active, still, mobile }) {
+const saveData = () => typeof navigator !== 'undefined' && navigator.connection?.saveData === true
+
+function Slide({ slide, index, active, still, mobile }) {
   const videoRef = useRef(null)
   const { media } = slide
+  const clip = media && !still ? (mobile ? media.mobile : media.desktop) ?? media.desktop : null
 
   // Solo el video de la diapositiva activa se reproduce
   useEffect(() => {
@@ -48,37 +66,30 @@ function Slide({ slide, active, still, mobile }) {
     } else {
       video.pause()
     }
-  }, [active])
+  }, [active, clip])
 
-  const poster = media.type === 'video' ? media.poster : media.src
-  const fit = { objectPosition: mobile ? media.posSm : media.pos }
+  const fit = media ? { objectPosition: mobile ? media.posSm : media.pos } : undefined
 
   return (
     <motion.div
-      className="hero__slide"
+      className={`hero__slide ${media ? '' : 'hero__slide--brand'}`}
       initial={false}
       animate={{ opacity: active ? 1 : 0 }}
-      transition={{ duration: 1 }}
+      transition={{ duration: 0.8 }}
       aria-hidden={!active}
     >
-      {/* Efecto Ken Burns: zoom lento mientras la diapositiva está activa */}
-      <motion.div
-        className="hero__kenburns"
-        initial={false}
-        animate={{ scale: active ? 1.12 : 1 }}
-        transition={active ? { duration: SLIDE_MS / 1000 + 1, ease: 'linear' } : { duration: 0, delay: 1 }}
-      >
+      {media && (
         <div className="hero__sharp">
-          {media.type === 'video' && !still ? (
-            <video ref={videoRef} muted loop playsInline preload={slide.id === 'tablero' ? 'auto' : 'metadata'} poster={media.poster} style={fit}>
-              <source src={media.webm} type="video/webm" />
-              <source src={media.mp4} type="video/mp4" />
+          {clip ? (
+            <video ref={videoRef} key={clip.mp4} muted loop playsInline preload="metadata" poster={media.poster} style={fit}>
+              {clip.webm && <source src={clip.webm} type="video/webm" />}
+              <source src={clip.mp4} type="video/mp4" />
             </video>
           ) : (
-            <img src={poster} alt="" style={fit} fetchPriority={slide.id === 'tablero' ? 'high' : undefined} />
+            <img src={media.poster} alt="" style={fit} fetchPriority={index === 0 ? 'high' : undefined} />
           )}
         </div>
-      </motion.div>
+      )}
     </motion.div>
   )
 }
@@ -149,8 +160,8 @@ export default function Hero({ featured }) {
   const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
 
-  // Celular o movimiento reducido: imagen fija en lugar del video y sin avance automático
-  const still = isMobile || reduced
+  // Movimiento reducido o ahorro de datos: solo el poster (imagen fija), sin avance automático
+  const still = reduced || saveData()
   const slide = slides[index]
   const next = () => setIndex((n) => (n + 1) % slides.length)
   const pad = (n) => String(n).padStart(2, '0')
@@ -159,7 +170,7 @@ export default function Hero({ featured }) {
     <section className="hero" aria-roledescription="carrusel" aria-label="Destacados de Imagen Eléctrica">
       <div className="hero__media">
         {slides.map((s, n) => (
-          <Slide key={s.id} slide={s} active={n === index} still={still} mobile={isMobile} />
+          <Slide key={s.id} slide={s} index={n} active={n === index} still={still} mobile={isMobile} />
         ))}
         <div className="hero__overlay" />
       </div>
@@ -185,6 +196,7 @@ export default function Hero({ featured }) {
               transition={{ duration: 0.3, ease: 'easeInOut' }}
               aria-live="polite"
             >
+              <p className="hero__tag"><Zap size={14} aria-hidden="true" /> {slide.tag}</p>
               <h1 className="display hero__title">
                 {slide.title} <em>{slide.highlight}</em>
               </h1>
@@ -193,7 +205,7 @@ export default function Hero({ featured }) {
           </AnimatePresence>
 
           <div className="hero__ctas">
-            <Link to="/productos" className="btn btn--accent btn--lg">Ver productos</Link>
+            <Link to={slide.cta.to} className="btn btn--accent btn--lg">{slide.cta.label}</Link>
             <Link to="/productos?sale_mode=quote" className="btn btn--ghost-light btn--lg">Cotizar proyecto</Link>
           </div>
 
@@ -226,7 +238,7 @@ export default function Hero({ featured }) {
               </button>
             ))}
           </div>
-          {!reduced && (
+          {(
             <button type="button" className="hero__pause" onClick={() => setPaused((p) => !p)} aria-label={paused ? 'Reanudar carrusel' : 'Pausar carrusel'}>
               {paused ? <Play size={16} /> : <Pause size={16} />}
             </button>

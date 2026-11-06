@@ -52,6 +52,9 @@
 .island .island__quote {
   display: none;
 }
+.island .island__searchbtn {
+  display: inline-grid;
+}
 .icon-btn {
   position: relative;
 }
@@ -184,6 +187,9 @@
   .island .island__quote {
     display: inline-grid;
   }
+  .island .island__searchbtn {
+    display: none;
+  }
 }
 @media (min-width: 1024px) and (max-width: 1180px) {
   .island__account span {
@@ -261,4 +267,51 @@
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 0.8rem;
+}
+
+.drawer__title {
+  margin: 0 0 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--on-dark-muted);
+}
+.drawer__cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.drawer__cats a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-pill);
+  background: var(--glass-bg);
+  color: var(--white);
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+.drawer__nav a {
+  font-size: 1.35rem;
+  padding-block: 12px;
+  min-height: 48px;
+}
+.drawer__nav {
+  flex: none;
+}
+.drawer__contact {
+  display: grid;
+  gap: 10px;
+  margin-top: auto;
+}
+.drawer__mail {
+  text-align: center;
+  padding: 10px;
+  color: var(--on-dark-muted);
 }

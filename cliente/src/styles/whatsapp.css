@@ -40,3 +40,14 @@
     opacity: 1;
   }
 }
+
+/* Celular: sube sobre la barra fija (inferior o de compra) para no taparla ni tapar los botones de compra */
+@media (max-width: 767px) {
+  .whatsapp {
+    right: 12px;
+    bottom: calc(var(--bottom-offset) + 12px + env(safe-area-inset-bottom));
+    height: 48px;
+    min-width: 48px;
+    padding: 0 12px;
+  }
+}

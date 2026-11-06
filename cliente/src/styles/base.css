@@ -456,3 +456,16 @@ textarea.input {
   padding-top: var(--header-space);
   min-height: 70vh;
 }
+
+/* ---- Barra fija inferior en celular: el contenido deja espacio ---- */
+@media (max-width: 767px) {
+  :root[data-bar='nav'] {
+    --bottom-offset: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom));
+  }
+  :root[data-bar='action'] {
+    --bottom-offset: calc(72px + env(safe-area-inset-bottom));
+  }
+  :root[data-bar='nav'] .footer {
+    padding-bottom: var(--bottom-offset);
+  }
+}

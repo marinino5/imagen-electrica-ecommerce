@@ -11,6 +11,7 @@ import NotFound from './pages/NotFound'
 
 // El inicio carga de inmediato; el resto de páginas se descargan al visitarlas
 const Products = lazy(() => import('./pages/Products'))
+const ProductDetail = lazy(() => import('./pages/ProductDetail'))
 const Cart = lazy(() => import('./pages/Cart'))
 const Login = lazy(() => import('./pages/Login'))
 const Register = lazy(() => import('./pages/Register'))
@@ -32,6 +33,7 @@ export default function App() {
               <Route element={<Layout />}>
                 <Route index element={<Home />} />
                 <Route path="productos" element={<Products />} />
+                <Route path="productos/:slug" element={<ProductDetail />} />
                 <Route path="carrito" element={<Cart />} />
                 <Route path="ingresar" element={<Login />} />
                 <Route path="crear-cuenta" element={<Register />} />

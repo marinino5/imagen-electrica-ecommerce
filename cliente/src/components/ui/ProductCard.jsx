@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { FileText, Eye, ShoppingCart } from 'lucide-react'
 import { useCart } from '../../context/CartContext'
 import { useCategories } from '../../hooks/useCategories'
@@ -48,11 +49,13 @@ export default function ProductCard({ product, onQuickView, index, total }) {
         <span className="pcard__circle" aria-hidden="true" />
         <span className="pcard__arc" aria-hidden="true" />
         <span className="pcard__curve" aria-hidden="true" />
-        {image ? (
-          <img src={image} alt="" width="480" height="360" loading="lazy" />
-        ) : (
-          <div className="pcard__placeholder" aria-hidden="true">Sin imagen</div>
-        )}
+        <Link to={`/productos/${product.slug}`} className="pcard__imglink" tabIndex={-1} aria-hidden="true">
+          {image ? (
+            <img src={image} alt="" width="480" height="360" loading="lazy" />
+          ) : (
+            <div className="pcard__placeholder">Sin imagen</div>
+          )}
+        </Link>
         <span className={`badge badge--${stock.tone}`}>{stock.label}</span>
         {onQuickView && (
           <button type="button" className="pcard__quick" onClick={() => onQuickView(product)} aria-label={`Vista rápida de ${product.name}`}>
@@ -68,7 +71,7 @@ export default function ProductCard({ product, onQuickView, index, total }) {
           {product.brand?.name && <span className="pcard__brand">{product.brand.name}</span>}
           <span>Ref. {product.sku}</span>
         </p>
-        <h3 className="pcard__name">{product.name}</h3>
+        <h3 className="pcard__name"><Link to={`/productos/${product.slug}`}>{product.name}</Link></h3>
         {specs.length > 0 && (
           <ul className="pcard__specs">
             {specs.map(([key, value]) => {

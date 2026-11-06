@@ -221,7 +221,7 @@
 .bar {
   position: relative;
   width: 44px;
-  height: 20px; /* zona táctil; la barra visible es más delgada */
+  height: 44px; /* zona táctil; la barra visible es más delgada */
   padding: 0;
   border: 0;
   background: transparent;
@@ -231,7 +231,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 8px;
+  top: 20px;
   height: 4px;
   border-radius: var(--radius-pill);
   background: var(--on-dark-line);
@@ -239,7 +239,7 @@
 .bar span {
   position: absolute;
   left: 0;
-  top: 8px;
+  top: 20px;
   height: 4px;
   width: 0;
   border-radius: var(--radius-pill);
@@ -263,8 +263,8 @@
   display: grid;
   place-items: center;
   flex: none;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-pill);
   background: var(--glass-bg);
@@ -277,4 +277,29 @@
     animation: none;
     width: 100%;
   }
+}
+
+/* ---- Diapositiva sin foto ni video aprobados: fondo de marca ---- */
+.hero__slide--brand {
+  background:
+    radial-gradient(circle at 82% 22%, rgb(122 100 184 / 0.55), transparent 46%),
+    radial-gradient(circle at 12% 100%, rgb(238 124 54 / 0.12), transparent 40%),
+    var(--grad-ink);
+}
+.hero__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 14px;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  background: rgb(255 255 255 / 0.12);
+  color: var(--white);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.hero__tag svg {
+  color: var(--accent);
 }

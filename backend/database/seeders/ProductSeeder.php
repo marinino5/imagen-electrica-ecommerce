@@ -190,7 +190,7 @@ class ProductSeeder extends Seeder
 
             // Motorreductores — Cestari (PENDIENTE: código Siigo)
             [
-                'sku' => 'CES-SC-1HP-1-30', 'category' => 'sinfin-corona', 'brand' => 'cestari',
+                'sku' => 'CES-SC-1HP-1-30', 'category' => 'sinfin-corona', 'brand' => 'weg-cestari',
                 'name' => 'Motorreductor sinfín corona 1 HP relación 1:30',
                 'short_description' => 'Motorreductor de eje hueco para transportadores. Se cotiza según aplicación.',
                 'specs' => ['potencia_hp' => 1, 'relacion_reduccion' => 30],

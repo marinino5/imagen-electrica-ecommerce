@@ -63,11 +63,14 @@
   --header-h: 64px; /* alto de la isla del encabezado */
   --header-gap: 12px; /* separación de la isla con el borde de la pantalla */
   --header-space: calc(var(--header-h) + var(--header-gap) * 2); /* lo que ocupa el encabezado */
+  --bottom-nav-h: 64px; /* barra inferior del celular */
+  --bottom-offset: 0px; /* lo que ocupa abajo la barra activa: la fija Layout según la página */
   --section-y: clamp(64px, 8vw, 112px);
 
   /* Capas */
   --z-header: 50;
   --z-whatsapp: 45;
+  --z-bar: 46; /* barra inferior y barra de compra fija (celular) */
   --z-drawer: 70;
   --z-modal: 80;
   --z-toast: 90;

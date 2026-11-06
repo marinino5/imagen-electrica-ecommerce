@@ -18,11 +18,12 @@ class CategorySeeder extends Seeder
             'Motorreductores' => ['Sinfín corona', 'Coaxiales'],
             'Motores eléctricos' => ['Motores trifásicos', 'Motores monofásicos'],
             'Variadores y arrancadores' => ['Variadores de frecuencia', 'Arrancadores suaves', 'Guardamotores'],
-            'Ventilación' => ['Extractores', 'Ventiladores axiales'],
+            'Ventilación' => ['Extractores', 'Ventiladores axiales', 'Ventiladores de techo'],
             'Iluminación' => ['Reflectores LED', 'Tubos LED'],
             'Cables' => ['Cables THHN', 'Cables encauchetados'],
-            'Compresores' => ['Compresores de pistón'],
+            'Compresores' => ['Compresores de pistón', 'Compresores verticales'],
             'PLC' => ['PLC compactos', 'Relés programables'],
+            'Energía solar' => ['Paneles solares', 'Inversores solares'],
         ];
 
         $order = 0;

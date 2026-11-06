@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { FileText, Menu, MessageCircle, Search, ShoppingCart, User, X } from 'lucide-react'
+import { FileText, Menu, MessageCircle, Phone, Search, ShoppingCart, User, X } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 import { useCart } from '../../context/CartContext'
+import { useCategories } from '../../hooks/useCategories'
 import { mainMenu, site } from '../../config/site'
 import '../../styles/header.css'
 
@@ -57,6 +58,7 @@ export default function Header() {
   const { pathname } = useLocation()
   const { isAuthenticated } = useAuth()
   const { purchaseCount, quoteCount } = useCart()
+  const { data: categories } = useCategories()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -100,6 +102,9 @@ export default function Header() {
             <User size={18} aria-hidden="true" />
             <span>{account.label}</span>
           </Link>
+          <Link to="/productos?buscar=1" className="icon-btn island__searchbtn" aria-label="Buscar productos">
+            <Search size={22} />
+          </Link>
           <Link to="/carrito#cotizacion" className="icon-btn island__quote" data-fly-target="quote" aria-label={`Cotización: ${quoteCount} productos`}>
             <FileText size={22} />
             <CountBadge count={quoteCount} />
@@ -135,6 +140,17 @@ export default function Header() {
 
             <HeaderSearch className="drawer__search" onDone={() => setOpen(false)} />
 
+            {categories.roots.length > 0 && (
+              <section aria-labelledby="drawer-cats">
+                <h2 id="drawer-cats" className="drawer__title">Categorías</h2>
+                <ul className="drawer__cats">
+                  {categories.roots.map((c) => (
+                    <li key={c.id}><Link to={`/productos?category=${c.slug}`}>{c.name}</Link></li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
             <nav className="drawer__nav" aria-label="Menú móvil">
               {mainMenu.map((item) => (
                 <NavLink key={item.to} to={item.to} end={item.end}>
@@ -150,9 +166,15 @@ export default function Header() {
               </Link>
             </nav>
 
-            <a className="btn btn--accent btn--block" href={site.whatsappUrl} target="_blank" rel="noreferrer">
-              <MessageCircle size={18} aria-hidden="true" /> Escríbenos por WhatsApp
-            </a>
+            <div className="drawer__contact">
+              <a className="btn btn--accent btn--block btn--lg" href={site.whatsappUrl} target="_blank" rel="noreferrer">
+                <MessageCircle size={18} aria-hidden="true" /> WhatsApp con {site.mainContact.name}
+              </a>
+              <a className="btn btn--ghost-light btn--block" href={site.mainContact.href}>
+                <Phone size={18} aria-hidden="true" /> Llamar: {site.mainContact.label}
+              </a>
+              <a className="drawer__mail" href={`mailto:${site.email}`}>{site.email}</a>
+            </div>
           </motion.aside>
         )}
       </AnimatePresence>

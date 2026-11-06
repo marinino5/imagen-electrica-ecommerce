@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { X } from 'lucide-react'
 import { useCategories } from '../../hooks/useCategories'
 import { availability, isDirectPurchase, productImage } from '../../lib/catalog'
@@ -58,6 +59,7 @@ function QuickViewDialog({ product, onClose }) {
           </p>
           <h2>{product.name}</h2>
           <span className={`badge badge--${stock.tone}`}>{stock.label}</span>
+          <Link to={`/productos/${product.slug}`} className="qv__full" onClick={onClose}>Ver ficha completa</Link>
           {product.short_description && <p className="qv__desc">{product.short_description}</p>}
 
           {specs.length > 0 && (
