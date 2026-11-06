@@ -1,33 +1,30 @@
 import ContactCover from '../components/contacto/ContactCover'
+import ContactActions from '../components/contacto/ContactActions'
 import SmartForm from '../components/contacto/SmartForm'
-import ContactCard from '../components/contacto/ContactCard'
-import SectionHeading from '../components/ui/SectionHeading'
-import StoreMap from '../components/ui/StoreMap'
+import VisitMap from '../components/ui/VisitMap'
+import Bezel from '../components/ui/Bezel'
+import Eyebrow from '../components/ui/Eyebrow'
 import Reveal from '../components/ui/Reveal'
-import '../styles/pages.css'
-import '../styles/kit.css'
 import '../styles/contacto.css'
 
-// Climas: marca (portada) → claro (formulario) → profundo (visítanos)
 export default function Contacto() {
   return (
     <>
       <ContactCover />
+      <ContactActions />
 
-      <section className="section contact-main" aria-label="Escríbenos">
-        <div className="container contact-main__grid">
-          <Reveal><SmartForm /></Reveal>
-          <Reveal delay={0.1}><ContactCard /></Reveal>
-        </div>
+      <section className="wrap ct-form" aria-labelledby="h-ayuda">
+        <Reveal>
+          <Bezel className="smart-bz"><SmartForm /></Bezel>
+        </Reveal>
       </section>
 
-      <section className="section section--ink section--clip visit-ink" aria-labelledby="h-visitanos">
-        <div className="container">
-          <SectionHeading id="h-visitanos" eyebrow="Visítanos">
-            Pásate por <em>la tienda</em>
-          </SectionHeading>
-          <StoreMap />
-        </div>
+      <section className="wrap ct-map" aria-labelledby="h-visitanos">
+        <Reveal>
+          <Eyebrow>Visítanos</Eyebrow>
+          <h2 id="h-visitanos" className="h2-sys">Pásate por <em>la tienda</em></h2>
+        </Reveal>
+        <Reveal delay={0.06}><VisitMap /></Reveal>
       </section>
     </>
   )

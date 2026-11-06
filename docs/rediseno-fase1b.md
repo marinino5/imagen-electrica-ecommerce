@@ -41,3 +41,8 @@ Las referencias de abajo vienen de búsquedas en internet; son guías de proveed
 - El interruptor Compra en línea / Cotización vive en la portada y cambia el recorrido, la lista de requisitos y las preguntas. En cotización los pasos "El asesor responde" y "Aprueba y paga" no tienen pantalla (pasan fuera de la tienda), así que llevan un icono en lugar de una captura inventada.
 - Entregas: tres tarjetas y el mapa de puntos de Colombia con Bucaramanga marcada. El costo de domicilio y envío nacional no se inventa: lo confirma el asesor.
 - Preguntas frecuentes en dos columnas, reescritas para el nuevo flujo (cotizar no necesita cuenta; comprar en línea sí).
+
+## Contacto
+- Las guías de páginas de contacto B2B piden varios canales juntos, a la vista y sin obligar a llenar un formulario primero. Idea tomada: tres tarjetas de acción justo debajo de la portada (WhatsApp, llamar, correo), el formulario inteligente después y el mapa al final.
+- Portada sobre lavanda con un aro naranja grande y el teléfono en bisel con la conversación de ejemplo animada (burbujas una por una, marcada "Ejemplo"): enseña qué va a pasar al escribir.
+- Sin nombres propios: la línea principal va primero y las otras dos solo con su número.
