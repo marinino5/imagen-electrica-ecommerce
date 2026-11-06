@@ -31,7 +31,14 @@ const slides = [
   },
   {
     id: 'automatizacion',
-    media: null, // pendiente: panel industrial, persona operándolo, componentes, conexiones y controles
+    // Pixabay (licencia Pixabay Content License): técnico en tablero (id 159674) y cableado de control (id 86252). Ver docs/recursos.md
+    media: {
+      poster: '/media/hero-d2-poster.webp',
+      desktop: { mp4: '/media/hero-d2.mp4', webm: '/media/hero-d2.webm' },
+      mobile: { mp4: '/media/hero-d2-m.mp4', webm: '/media/hero-d2-m.webm' },
+      pos: '60% 50%',
+      posSm: '60% 50%',
+    },
     tag: 'Control y PLC',
     title: 'Automatización',
     highlight: 'y control',
@@ -40,7 +47,14 @@ const slides = [
   },
   {
     id: 'extractores',
-    media: null, // pendiente: extractores industriales funcionando, ventilación e iluminación en instalaciones reales
+    // Pixabay (licencia Pixabay Content License): unidades de ventilación en una cubierta industrial (id 235032). Ver docs/recursos.md
+    media: {
+      poster: '/media/hero-d3-poster.webp',
+      desktop: { mp4: '/media/hero-d3.mp4', webm: '/media/hero-d3.webm' },
+      mobile: { mp4: '/media/hero-d3-m.mp4', webm: '/media/hero-d3-m.webm' },
+      pos: '50% 50%',
+      posSm: '50% 50%',
+    },
     tag: 'Aire y luz',
     title: 'Extractores',
     highlight: 'e iluminación',
