@@ -29,3 +29,9 @@ Las referencias de abajo vienen de búsquedas en internet; son guías de proveed
 - Ideas tomadas de las guías de sitios industriales B2B: abrir con una propuesta clara y una acción principal (buscar una referencia o cotizar), mostrar prueba social/cifras justo debajo y llevar a las líneas con tarjetas grandes. Hero con 3 diapositivas, buscador dentro de la portada y una tarjeta de cifras que se monta sobre el borde.
 - Líneas en bento asimétrico (2 grandes y 4 pequeñas) con la imagen sobre fondo radial y `mix-blend-mode: multiply`; destacados en carril con las mismas tarjetas del catálogo; aplicaciones como mosaico de fotos en bisel (iluminación sale del mosaico hasta tener foto real).
 - Se quita "Así de fácil" del Inicio: vive en Cómo comprar. La banda final ink de cotización sin cuenta reemplaza a la del pie en esta página para no repetirla.
+
+## Nosotros
+- Las líneas de tiempo de empresas con trayectoria funcionan por épocas: nodos que se eligen y un panel que cambia (Ceros, Framer). Idea tomada: nodos navegables con teclado (flechas) y un panel de bisel; la línea naranja avanza hasta el hito activo.
+- La empresa aún no entregó hitos, así que solo hay datos confirmados al inicio ("más de 25 años en Bucaramanga") y al final (la tienda en línea). Los tres hitos del medio son espacios marcados "Por confirmar": no se inventan fechas.
+- Fachada real en bisel con dos insignias flotantes; espacios reservados (con borde punteado) para la foto del equipo y del interior, sin representar nada falso.
+- Razones en cascada en Z (rotaciones leves en escritorio, apiladas en celular) y marcas en bento de chips en bisel con WEG destacada.
