@@ -9,8 +9,8 @@ import '../../styles/hero.css'
 const SLIDE_MS = 9000
 
 // Orden fijo: video, imagen, video, imagen (Motores, Motorreductores, Automatización y control, Ventilación y extracción).
-// Los videos son de Pixabay (rotor de un electromotor y técnico en un tablero) y las imágenes combinan una foto de planta
-// con la foto oficial del producto recortado. Fuentes y licencias en docs/creditos-media.md.
+// Los videos son de Mixkit (cajas avanzando por una banda transportadora) y de Pixabay (manos cableando un tablero) y las
+// imágenes combinan una foto de planta con la foto oficial del producto recortado. Fuentes y licencias en docs/creditos-media.md.
 const slides = [
   {
     id: 'motores',
@@ -24,8 +24,8 @@ const slides = [
       poster: '/media/hero-v1-poster.webp',
       desktop: { mp4: '/media/hero-v1.mp4', webm: '/media/hero-v1.webm' },
       mobile: { mp4: '/media/hero-v1-m.mp4', webm: '/media/hero-v1-m.webm' },
-      pos: '55% 50%',
-      alt: 'Primer plano del eje de un electromotor girando',
+      pos: '60% 50%',
+      alt: 'Cajas avanzando por una banda transportadora en una línea de producción',
     },
   },
   {
@@ -51,8 +51,8 @@ const slides = [
       poster: '/media/hero-v3-poster.webp',
       desktop: { mp4: '/media/hero-v3.mp4', webm: '/media/hero-v3.webm' },
       mobile: { mp4: '/media/hero-v3-m.mp4', webm: '/media/hero-v3-m.webm' },
-      pos: '62% 50%',
-      alt: 'Técnico revisando los breakers de un tablero eléctrico con un multímetro',
+      pos: '50% 50%',
+      alt: 'Manos de un técnico conectando el cableado de un tablero eléctrico',
     },
   },
   {
@@ -64,13 +64,13 @@ const slides = [
     text: 'Aire limpio para naves, talleres y plantas: extractores axiales, centrífugos y de tejado.',
     cta: { to: '/productos?familia=ventilacion-y-climatizacion', label: 'Ver ventilación' },
     bg: { src: '/img/fotos/hero-extractores.webp', alt: 'Dos extractores axiales industriales en el muro de una nave', pos: '50% 50%' },
-    product: { src: '/img/catalogo/soler-palau-extractor-axial.webp', alt: 'Extractor axial industrial Soler & Palau', caption: 'Soler & Palau' },
+    product: { src: '/img/catalogo/soler-palau-extractor-axial.webp', alt: 'Extractor axial tubular industrial galvanizado Soler & Palau', caption: 'Soler & Palau' },
   },
 ]
 
 const saveData = () => typeof navigator !== 'undefined' && navigator.connection?.saveData === true
 
-function Slide({ slide, index, active, still, mobile }) {
+function Slide({ slide, index, active, still, mobile, paused }) {
   const videoRef = useRef(null)
   const { video, bg, product } = slide
   const clip = video && !still ? (mobile ? video.mobile : video.desktop) ?? video.desktop : null
@@ -79,13 +79,13 @@ function Slide({ slide, index, active, still, mobile }) {
   useEffect(() => {
     const el = videoRef.current
     if (!el) return
-    if (active) {
-      el.currentTime = 0
+    if (active && !paused) {
+      if (!el.currentTime || el.ended) el.currentTime = 0
       el.play().catch(() => {})
     } else {
       el.pause()
     }
-  }, [active, clip])
+  }, [active, clip, paused])
 
   return (
     <div className={`hero__slide ${active ? 'is-active' : ''}`} aria-hidden={!active}>
@@ -138,16 +138,15 @@ export default function Hero() {
     <section className="hero" aria-roledescription="carrusel" aria-label="Destacados de Imagen Eléctrica">
       <div className="hero__media">
         {slides.map((s, n) => (
-          <Slide key={s.id} slide={s} index={n} active={n === index} still={still} mobile={isMobile} />
+          <Slide key={s.id} slide={s} index={n} active={n === index} still={still} mobile={isMobile} paused={paused} />
         ))}
-        <div className="hero__tint" aria-hidden="true" />
         <div className="hero__overlay" />
       </div>
 
       <div className="wrap hero__inner">
         <div className="hero__content" key={slide.id}>
           <p className="hero__tag">{slide.tag}</p>
-          <h1 className="hero__title" aria-live="polite">
+          <h1 className="hero__title">
             <span>{slide.title}</span>
             <em>{slide.highlight}</em>
           </h1>

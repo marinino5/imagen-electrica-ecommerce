@@ -41,6 +41,10 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:api')->group(function
     Route::post('register', [AuthController::class, 'register'])->middleware('throttle:api-register')->name('register');
     Route::post('login', [AuthController::class, 'login'])->middleware('throttle:api-login')->name('login');
 
+    // Recuperar la contraseña: pública, con límite por IP
+    Route::post('password/forgot', [AuthController::class, 'forgotPassword'])->middleware('throttle:api-password-forgot')->name('password.forgot');
+    Route::post('password/reset', [AuthController::class, 'resetPassword'])->middleware('throttle:api-password-reset')->name('password.reset');
+
     // Cualquier usuario activo con token
     Route::middleware(['auth:sanctum', 'role:admin,comercial,cliente'])->group(function () {
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');

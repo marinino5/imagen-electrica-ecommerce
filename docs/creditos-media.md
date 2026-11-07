@@ -90,12 +90,12 @@ Secuencia: video → imagen → video → imagen. Todo con tinte violeta-700 al 
 
 | Diapositiva | Archivos | Fuente | Autor | Licencia |
 |---|---|---|---|---|
-| 1 · Motores (video) | `hero-v1*` | https://pixabay.com/videos/id-41477/ («rotor, electromotor»: primer plano del eje de un electromotor girando, sin personas) | DmitrySteshenko | [Pixabay Content License](https://pixabay.com/service/license-summary/) (uso comercial, sin atribución obligatoria) |
+| 1 · Motores (video) | `hero-v1*` | https://mixkit.co/free-stock-video/parcels-on-a-conveyor-belt-20770/ (cajas avanzando por una banda transportadora, 8 s; la alternativa descartada está en `docs/opciones-video/`) | Mixkit | [Licencia de Mixkit](https://mixkit.co/license/) (uso comercial, sin atribución) |
 | 2 · Motorreductores (imagen) | `fotos/hero-banda.webp` + `catalogo/weg-cestari-wcg01.webp` | https://pixabay.com/photos/factory-plant-industrial-hall-1137993/ (banda de rodillos con su motorreductor; pasó por `gradar-foto.py`) | falco | Pixabay Content License |
-| 3 · Automatización y control (video) | `hero-v3*` | https://pixabay.com/videos/id-159674/ (técnico con casco, de espaldas, revisando los breakers de un tablero con un multímetro; sin cara en primer plano) | CreativeCommonsCentral | Pixabay Content License |
-| 4 · Ventilación y extracción (imagen) | `fotos/hero-extractores.webp` + `catalogo/soler-palau-extractor-axial.webp` | https://pixabay.com/photos/industry-ventilation-metal-2182767/ (dos extractores axiales reales en el muro de una nave) | Ganossi | Pixabay Content License |
+| 3 · Automatización y control (video) | `hero-v3*` | https://pixabay.com/videos/id-86252/ (segundos 1 a 10: manos cableando un tablero, sin cuerpo ni cara; 9 s) | lumosajans | Pixabay Content License |
+| 4 · Ventilación y extracción (imagen) | `fotos/hero-extractores.webp` + `catalogo/soler-palau-extractor-axial.webp` | https://pixabay.com/photos/industry-ventilation-metal-2182767/ (dos extractores axiales reales en el muro de una nave) y foto oficial THGT de Soler & Palau | Ganossi / Soler & Palau | Pixabay Content License / foto oficial del fabricante |
 
-Los originales están en `cliente/media-fuente/videos-r5/` y `cliente/media-fuente/r5/` (carpetas ignoradas por git). Se descartó el video de cableado `id-86252` (reemplazado). Se revisaron también Mixkit (licencia libre con uso comercial) y Pixabay con 12 consultas de motores, bandas y tableros: ningún clip real de un motor WEG industrial; el del rotor es un primer plano oscuro y desenfocado. **Pendiente:** video propio o del fabricante de un motor WEG en operación.
+Los originales están en `cliente/media-fuente/` (carpeta ignorada por git). El velo de color del hero ya no tiñe el material: solo oscurece el lado del texto. Se revisaron también Mixkit (licencia libre con uso comercial) y Pixabay con 12 consultas de motores, bandas y tableros: ningún clip real de un motor WEG industrial; el rotor que se usó antes era un primer plano oscuro y desenfocado y se retiró. **Pendiente:** video propio o del fabricante de un motor WEG en operación.
 
 Mockups de «Cómo comprar»: `img/mockups/laptop.webp` es una captura propia de la tienda (`/productos?q=motor`).
 
@@ -114,3 +114,13 @@ Se volvió a consultar la API (`factory machine`, `forklift`, `welding`, `electr
 | `fotos/sector-solar.webp` | Pixabay, https://pixabay.com/photos/commercial-solar-pv-energy-panel-3397217/ (licencia de Pixabay), con `gradar-foto.py` | Sector Energía solar · SolarWEG |
 
 Nota: el extractor HCM-150N se descargó a 500 px; si se quiere más nitidez hay que pedir la foto al fabricante.
+
+
+## Ajustes de detalle (imágenes nuevas y re-recortadas)
+
+| Archivo | Origen | Uso |
+|---|---|---|
+| `catalogo/soler-palau-extractor-axial.webp` | Foto oficial del extractor axial tubular galvanizado THGT de Soler & Palau, https://www.solerpalau.com/media/catalog/product/T/H/THGT_product4.jpg (900 × 900 px), recortada con `normalizar-producto.py --huecos` (reemplaza al extractor doméstico de ventana HCM-150N) | Portada de la familia Ventilación, hero y mega-menú |
+| `catalogo/centelsa-cable-thhn.webp` | Nexans Colombia, rollo Línea Plus THHN/THWN-2, https://www.nexans.co/.rest/eservice/dam/v1/image/259435 (recorte del rollo) | Familia Cables |
+| `catalogo/weg-cfw100`, `cfw300`, `cfw900`, `cestari-wcg20`, `plc500`, `ssw07`, `accesorios-variadores`, `totalizadores`, `minibreakers` | Mismas fotos oficiales de WEG, re-recortadas (ver `docs/auditoria-imagenes.md`); `minibreakers` usa la imagen con máscara alfa de la p. 1 del PDF «Soluciones integradas para instalaciones eléctricas» | Fichas y tarjetas |
+| `img/mapa-tienda.webp` | Recorte de teselas de OpenStreetMap (© colaboradores de OpenStreetMap, [ODbL](https://www.openstreetmap.org/copyright)), descargadas una sola vez; ubicación de la tienda tomada de la geocodificación del mapa de Google ya incrustado | Miniatura de la dirección en Contacto |

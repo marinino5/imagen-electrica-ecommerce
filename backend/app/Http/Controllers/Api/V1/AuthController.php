@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\ForgotPasswordRequest;
 use App\Http\Requests\Api\V1\LoginRequest;
 use App\Http\Requests\Api\V1\RegisterRequest;
+use App\Http\Requests\Api\V1\ResetPasswordRequest;
 use App\Http\Resources\V1\UserResource;
 use App\Services\ApiAuthService;
 use App\Services\CustomerService;
+use App\Services\PasswordResetService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -20,6 +23,7 @@ class AuthController extends Controller
     public function __construct(
         private readonly CustomerService $customers,
         private readonly ApiAuthService $auth,
+        private readonly PasswordResetService $passwords,
     ) {}
 
     /**
@@ -88,6 +92,50 @@ class AuthController extends Controller
         $this->auth->logout($request->user());
 
         return response()->noContent();
+    }
+
+    /**
+     * Pedir enlace para recuperar la contraseña
+     *
+     * Siempre responde igual, exista o no el correo, para no revelar qué cuentas existen. Si el correo es de un usuario
+     * activo, le llega un enlace de un solo uso que vence en 60 minutos. Máximo 5 intentos por minuto y 20 por hora
+     * desde la misma IP.
+     *
+     * @unauthenticated
+     *
+     * @bodyParam email string required Correo de la cuenta. Example: laura@constructoraaltos.test
+     *
+     * @response 200 scenario="Siempre" {"message":"Si el correo existe, te enviamos un enlace para restablecer tu contraseña."}
+     */
+    public function forgotPassword(ForgotPasswordRequest $request): JsonResponse
+    {
+        $this->passwords->sendLink($request->validated('email'));
+
+        return response()->json(['message' => 'Si el correo existe, te enviamos un enlace para restablecer tu contraseña.']);
+    }
+
+    /**
+     * Restablecer la contraseña
+     *
+     * Usa el token y el correo del enlace que llegó por correo. El enlace funciona una sola vez y vence a los 60 minutos.
+     * Revoca los tokens de sesión anteriores; después de esto, la persona inicia sesión con la contraseña nueva.
+     * Máximo 10 intentos por minuto desde la misma IP.
+     *
+     * @unauthenticated
+     *
+     * @bodyParam token string required Token del enlace. Example: 3f1c0d...
+     * @bodyParam email string required Correo de la cuenta. Example: laura@constructoraaltos.test
+     * @bodyParam password string required Contraseña nueva (8 a 100 caracteres). Example: ClaveNueva2026
+     * @bodyParam password_confirmation string required Igual a la contraseña nueva. Example: ClaveNueva2026
+     *
+     * @response 200 scenario="Contraseña cambiada" {"message":"Cambiaste tu contraseña. Ya puedes ingresar."}
+     * @response 422 scenario="Enlace inválido o vencido" {"message":"El enlace no es válido o ya venció. Pide uno nuevo.","errors":{"token":["El enlace no es válido o ya venció. Pide uno nuevo."]}}
+     */
+    public function resetPassword(ResetPasswordRequest $request): JsonResponse
+    {
+        $this->passwords->reset($request->validated('email'), $request->validated('token'), $request->validated('password'));
+
+        return response()->json(['message' => 'Cambiaste tu contraseña. Ya puedes ingresar.']);
     }
 
     private function tokenResponse($user, string $token, int $status = Response::HTTP_OK): JsonResponse

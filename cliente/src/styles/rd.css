@@ -40,7 +40,7 @@ body::after {
 .rd-sec {
   position: relative;
   isolation: isolate;
-  padding-block: clamp(64px, 8vw, 112px);
+  padding-block: clamp(48px, 6vw, 88px);
 }
 .rd-sec > .wrap {
   position: relative;
@@ -337,10 +337,10 @@ body::after {
 :focus-visible {
   outline: 3px solid var(--primary);
   outline-offset: 3px;
-  border-radius: 4px;
 }
 .bg-ink :focus-visible,
-.on-dark :focus-visible {
+.on-dark :focus-visible,
+:is(.hero, .ct-hero, .ab-end, .wall__core-in, .fgh, .ed, .cat-mbar__f) :focus-visible {
   outline-color: var(--accent-light);
 }
 @media (prefers-reduced-motion: reduce) {

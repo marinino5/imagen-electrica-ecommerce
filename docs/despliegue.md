@@ -79,6 +79,8 @@ El seeder `CatalogSeeder` carga el catálogo por líneas: 33 líneas y 351 refer
 |---|---|
 | `SANCTUM_TOKEN_EXPIRATION` | `10080` (minutos; el token de la API vence a los 7 días) |
 | `CORS_ALLOWED_ORIGINS` | orígenes permitidos separados por coma, ej. `http://localhost:5173,https://tu-tienda.pages.dev` |
+| `STORE_URL` | URL de la tienda (React), por ejemplo `https://imagen-electrica.pages.dev`. A ella apunta el enlace del correo de «Recuperar contraseña» (`/restablecer?token=…`). Sin definirla usa `http://localhost:5173` |
+| `MAIL_MAILER` y datos SMTP | Para que el correo de recuperación **llegue de verdad** hay que configurar un SMTP real (con `MAIL_MAILER=log` el correo solo queda en el registro). Pendiente de elegir proveedor |
 
 `PORT` lo define Render solo; no hay que ponerla.
 

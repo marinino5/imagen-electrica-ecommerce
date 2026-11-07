@@ -77,6 +77,26 @@ const ART = {
       <rect x="610" y="426" width="40" height="28" rx="4" />
     </>
   ),
+  tablero: (
+    <>
+      <rect x="170" y="40" width="460" height="560" rx="14" />
+      <rect x="192" y="62" width="416" height="516" rx="8" />
+      <rect x="320" y="84" width="160" height="40" rx="4" />
+      <path d="M338 104h124" />
+      {[170, 280, 390].map((y) => (
+        <g key={y}>
+          <path d={`M216 ${y}H584`} />
+          {Array.from({ length: 8 }, (_, i) => <rect key={i} x={226 + i * 45} y={y + 12} width="34" height="62" rx="4" />)}
+          {Array.from({ length: 8 }, (_, i) => <path key={i} d={`M${243 + i * 45} ${y + 26}v14`} />)}
+        </g>
+      ))}
+      <rect x="216" y="500" width="150" height="56" rx="4" />
+      <circle cx="430" cy="528" r="22" />
+      <circle cx="430" cy="528" r="8" />
+      <path d="M480 512h104M480 528h104M480 544h70" />
+      <path d="M170 600v26M630 600v26M130 626h540" />
+    </>
+  ),
   plan: (
     <>
       {[110, 150, 190].map((y) => <path key={y} d={`M30 ${y}H770`} />)}

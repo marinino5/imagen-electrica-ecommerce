@@ -212,3 +212,29 @@ Cada página recibió un **recurso firma** propio y una **entrada propia**, y to
 ### Disponibilidad y bodega
 - **critique:** el dato de inventario era la decisión más repetida y la menos útil en B2B; ocupaba 5 lugares (ficha técnica, tabla de referencias, bajo el precio, chips, textos).
 - **Decisión:** se quitó de toda la vista. La validación de stock sigue en el backend (`InventoryService`); si la cantidad no alcanza, la tienda ofrece «Cotizar esta cantidad» sin mostrar números. Tabla de referencias: Referencia · SKU · Precio · Agregar/Cotizar. Las fotos `bodega-*` pasaron a `almacen-*`.
+
+---
+
+# Ajustes de detalle (sobre `4446cbb`)
+
+Misma forma de trabajo: `impeccable critique` (Evaluación A en un subagente aislado, leyendo código; Evaluación B con `impeccable detect`, **0 hallazgos** sobre los JSX cambiados), `design-taste-frontend` y `emil-design-eng` al implementar y `anti-ui-slop` como última pasada. Nota de método: la Evaluación A de esta ronda se hizo con las páginas ya reconstruidas (no antes de tocarlas); las correcciones que pidió se aplicaron antes del commit y las que no se aplicaron están al final.
+
+## Qué encontró el critique y qué se hizo
+
+| Página | Hallazgo (impeccable) | Referencia | Skill | Decisión |
+|---|---|---|---|---|
+| Inicio | Velo solo horizontal: en celular el texto ocupa todo el ancho y el lado derecho queda casi sin velo; el botón Pausa no pausaba el video; `aria-live` en el título anunciaba cada diapositiva | `se.com/co` (tarjeta entera clicable) y la hoja que sube sobre el hero (estilo WEG, citado en el encargo) | design-taste (hero asimétrico, sin tinte de color), emil (hoja con sombra hacia arriba; flecha 45° + 4 px, imagen −6 px en 240 ms), impeccable `polish` | Velo del encargo (`rgba(20,16,36,.9) → transparent`), sin multiply ni `hue-rotate`; en celular también desde abajo; Pausa detiene el video; sin `aria-live`; línea naranja de 2 × 120 px; la hoja de familias (−56 px, radio 40 px) y tarjetas con enlace `::after` que cubre toda la tarjeta |
+| Catálogo | La flecha «no llevaba a ningún lado» porque el `::before` del enlace quedaba dentro del cuerpo de la tarjeta; cabeceras de familia ausentes; dos `aria-current` a la vez | Cabeceras apiladas tipo agenda de contactos (iOS) y la franja de familia de `se.com` | design-taste (densidad media, sin cajas en cajas), emil (`transform`/`opacity`, `scale(.97)`), ui-ux-pro-max (44 px, hoja inferior) | Agrupado por familia con cabeceras `position: sticky` (la nueva empuja a la anterior), scrollspy en la columna (barra naranja de 3 px + abre sola sus categorías) y en los chips del celular; tarjetas de alto uniforme (imagen ≤ 240 px, nombre a 2 líneas, chips en una línea con «+N»); franja editorial de 220 px, una por familia |
+| Cuenta | Tarjeta blanca sobre fondo casi blanco (intercambiable) | Formularios sobrios de `se.com`; riel vertical de producto (marquee) de los listados de Awwwards | impeccable `bolder` sobre el fondo, `quieter` sobre el contenido | Dos zonas (55 / 45): tarjeta sobre cuadrícula y «riel de producto» con dos carriles de 40 s en sentidos opuestos (pausa con el mouse); errores dentro de la tarjeta con borde naranja de 3 px (lo pidió el encargo) e icono; enlace de WhatsApp en una sola línea |
+| Recuperar contraseña | No existía | Flujo estándar de Laravel (Password Broker) | laravel-specialist: Controller → FormRequest → Service → Repository, límite de peticiones, pruebas | `/recuperar` y `/restablecer`; respuesta idéntica exista o no el correo; enlace de un solo uso que vence en 60 min; revoca los tokens de sesión; correo con la marca; 12 pruebas |
+| Contacto | Mapa grande y formulario siempre visibles; mosaicos intercambiables | Tarjeta de presentación (franja de color + columnas) | impeccable `layout`, emil (altura animada 300 ms con `grid-template-rows`) | «Centro de atención»: hero oscuro, 4 mosaicos, formulario solo para «Estado de mi pedido» (sin sesión) y «Garantías y devoluciones», tarjeta de visita sobre banda diagonal, dirección con miniatura de mapa estática. El formulario cerrado queda `inert` |
+| Nosotros | Cifras repetidas, tarjetas intercambiables, mapa a sangre | Muro de producto: mosaico asimétrico de los sitios industriales de Awwwards | design-taste (varianza 8: grilla asimétrica con baldosa 2 × 2), emil (revelado por máscara escalonado) | Titular nuevo, muro de 12 productos con baldosa central, tres pilares con foto (60 %), marcos reservados, marcas sin tocar y cierre con arco naranja grande y sin mapa |
+| Carrito | `broken` quedaba en `true` para siempre: si la ruta guardada fallaba mientras cargaba el catálogo, no se reintentaba con la foto actual | — | impeccable `harden` | La miniatura sale de la línea actual del catálogo; la guardada es el último recurso; 88 px sobre pedestal lila-100 y radio de 16 px |
+
+## Hallazgos del critique que NO se aplicaron (y por qué)
+
+- **Eyebrows y numeración «01 — Portafolio»:** se quitaron de las páginas rehechas, pero siguen en Inicio y Catálogo porque son parte de la identidad que fijó la rúbrica (`DESIGN.md`).
+- **Quitar «Foto próximamente» de Nosotros y las tres tarjetas iguales:** el encargo pide explícitamente los marcos reservados y los tres pilares.
+- **Borde izquierdo de 3 px en las alertas y franja naranja de 8 px en la tarjeta de visita:** son especificaciones del encargo.
+- **Apilado fijo del celular (≈ 248 px de cabeceras fijas):** el encargo pide chips fijos y cabeceras de 56 px; se redujo la altura de los chips (44 px) pero no se quitó nada.
+- **Foco/trampa de foco de la hoja de filtros y del selector de compra rápida:** pendiente (accesibilidad); la compra rápida cierra con Escape y devuelve el foco al botón.

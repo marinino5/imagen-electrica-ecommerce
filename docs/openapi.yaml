@@ -325,6 +325,115 @@ paths:
                 - email
                 - password
       security: []
+  /api/v1/password/forgot:
+    post:
+      summary: 'Pedir enlace para recuperar la contraseña'
+      operationId: pedirEnlaceParaRecuperarLaContrasea
+      description: "Siempre responde igual, exista o no el correo, para no revelar qué cuentas existen. Si el correo es de un usuario\nactivo, le llega un enlace de un solo uso que vence en 60 minutos. Máximo 5 intentos por minuto y 20 por hora\ndesde la misma IP."
+      parameters: []
+      responses:
+        200:
+          description: Siempre
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Si el correo existe, te enviamos un enlace para restablecer tu contraseña.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Si el correo existe, te enviamos un enlace para restablecer tu contraseña.'
+      tags:
+        - Autenticación
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Correo de la cuenta.'
+                  example: laura@constructoraaltos.test
+              required:
+                - email
+      security: []
+  /api/v1/password/reset:
+    post:
+      summary: 'Restablecer la contraseña'
+      operationId: restablecerLaContrasea
+      description: "Usa el token y el correo del enlace que llegó por correo. El enlace funciona una sola vez y vence a los 60 minutos.\nRevoca los tokens de sesión anteriores; después de esto, la persona inicia sesión con la contraseña nueva.\nMáximo 10 intentos por minuto desde la misma IP."
+      parameters: []
+      responses:
+        200:
+          description: 'Contraseña cambiada'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Cambiaste tu contraseña. Ya puedes ingresar.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Cambiaste tu contraseña. Ya puedes ingresar.'
+        422:
+          description: 'Enlace inválido o vencido'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'El enlace no es válido o ya venció. Pide uno nuevo.'
+                  errors:
+                    token:
+                      - 'El enlace no es válido o ya venció. Pide uno nuevo.'
+                properties:
+                  message:
+                    type: string
+                    example: 'El enlace no es válido o ya venció. Pide uno nuevo.'
+                  errors:
+                    type: object
+                    properties:
+                      token:
+                        type: array
+                        example:
+                          - 'El enlace no es válido o ya venció. Pide uno nuevo.'
+                        items:
+                          type: string
+      tags:
+        - Autenticación
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: 'Token del enlace.'
+                  example: 3f1c0d...
+                email:
+                  type: string
+                  description: 'Correo de la cuenta.'
+                  example: laura@constructoraaltos.test
+                password:
+                  type: string
+                  description: 'Contraseña nueva (8 a 100 caracteres).'
+                  example: ClaveNueva2026
+                password_confirmation:
+                  type: string
+                  description: 'Igual a la contraseña nueva.'
+                  example: ClaveNueva2026
+              required:
+                - token
+                - email
+                - password
+                - password_confirmation
+      security: []
   /api/v1/logout:
     post:
       summary: 'Cerrar sesión'
@@ -1112,7 +1221,7 @@ paths:
                 featured:
                   type: boolean
                   description: ''
-                  example: false
+                  example: true
                   nullable: true
                 in_stock:
                   type: boolean
@@ -1122,7 +1231,7 @@ paths:
                 sort:
                   type: string
                   description: ''
-                  example: newest
+                  example: price_desc
                   enum:
                     - name
                     - newest
@@ -1310,7 +1419,7 @@ paths:
                       address: 'Calle Elizondo, 54, 27º C'
                       marketing_opt_in: false
                       marketing_opt_in_at: null
-                      privacy_accepted_at: '2026-11-07T05:34:09.000000Z'
+                      privacy_accepted_at: '2026-11-07T14:26:33.000000Z'
                 properties:
                   data:
                     type: object
@@ -1363,7 +1472,7 @@ paths:
                             nullable: true
                           privacy_accepted_at:
                             type: string
-                            example: '2026-11-07T05:34:09.000000Z'
+                            example: '2026-11-07T14:26:33.000000Z'
       tags:
         - 'Mi cuenta'
     put:
@@ -1395,7 +1504,7 @@ paths:
                       address: 'Plaça Juana, 979, 27º A'
                       marketing_opt_in: false
                       marketing_opt_in_at: null
-                      privacy_accepted_at: '2026-11-07T05:34:09.000000Z'
+                      privacy_accepted_at: '2026-11-07T14:26:33.000000Z'
                 properties:
                   data:
                     type: object
@@ -1448,7 +1557,7 @@ paths:
                             nullable: true
                           privacy_accepted_at:
                             type: string
-                            example: '2026-11-07T05:34:09.000000Z'
+                            example: '2026-11-07T14:26:33.000000Z'
       tags:
         - 'Mi cuenta'
       requestBody:
@@ -1558,7 +1667,7 @@ paths:
                       notes: null
                       expires_at: null
                       paid_at: null
-                      created_at: '2026-11-07T05:34:09.000000Z'
+                      created_at: '2026-11-07T14:26:33.000000Z'
                       items:
                         -
                           id: 8
@@ -1595,7 +1704,7 @@ paths:
                       notes: null
                       expires_at: null
                       paid_at: null
-                      created_at: '2026-11-07T05:34:09.000000Z'
+                      created_at: '2026-11-07T14:26:33.000000Z'
                       items:
                         -
                           id: 9
@@ -1665,7 +1774,7 @@ paths:
                         notes: null
                         expires_at: null
                         paid_at: null
-                        created_at: '2026-11-07T05:34:09.000000Z'
+                        created_at: '2026-11-07T14:26:33.000000Z'
                         items:
                           -
                             id: 8
@@ -1702,7 +1811,7 @@ paths:
                         notes: null
                         expires_at: null
                         paid_at: null
-                        created_at: '2026-11-07T05:34:09.000000Z'
+                        created_at: '2026-11-07T14:26:33.000000Z'
                         items:
                           -
                             id: 9
@@ -1793,7 +1902,7 @@ paths:
                           nullable: true
                         created_at:
                           type: string
-                          example: '2026-11-07T05:34:09.000000Z'
+                          example: '2026-11-07T14:26:33.000000Z'
                         items:
                           type: array
                           example:
@@ -1938,7 +2047,7 @@ paths:
                 status:
                   type: string
                   description: ''
-                  example: sent
+                  example: pending_payment
                   enum:
                     - pending_payment
                     - paid
@@ -1994,7 +2103,7 @@ paths:
                       notes: null
                       expires_at: null
                       paid_at: null
-                      created_at: '2026-11-07T05:34:09.000000Z'
+                      created_at: '2026-11-07T14:26:33.000000Z'
                       items:
                         -
                           id: 8
@@ -2031,7 +2140,7 @@ paths:
                       notes: null
                       expires_at: null
                       paid_at: null
-                      created_at: '2026-11-07T05:34:09.000000Z'
+                      created_at: '2026-11-07T14:26:33.000000Z'
                       items:
                         -
                           id: 9
@@ -2072,7 +2181,7 @@ paths:
                         notes: null
                         expires_at: null
                         paid_at: null
-                        created_at: '2026-11-07T05:34:09.000000Z'
+                        created_at: '2026-11-07T14:26:33.000000Z'
                         items:
                           -
                             id: 8
@@ -2109,7 +2218,7 @@ paths:
                         notes: null
                         expires_at: null
                         paid_at: null
-                        created_at: '2026-11-07T05:34:09.000000Z'
+                        created_at: '2026-11-07T14:26:33.000000Z'
                         items:
                           -
                             id: 9
@@ -2200,7 +2309,7 @@ paths:
                           nullable: true
                         created_at:
                           type: string
-                          example: '2026-11-07T05:34:09.000000Z'
+                          example: '2026-11-07T14:26:33.000000Z'
                         items:
                           type: array
                           example:
@@ -2360,7 +2469,7 @@ paths:
                     notes: null
                     expires_at: null
                     paid_at: null
-                    created_at: '2026-11-07T05:34:09.000000Z'
+                    created_at: '2026-11-07T14:26:33.000000Z'
                     items:
                       -
                         id: 8
@@ -2379,7 +2488,7 @@ paths:
                         to_status: pending_payment
                         to_status_label: 'Pendiente de pago'
                         note: null
-                        created_at: '2026-11-07T05:34:09.000000Z'
+                        created_at: '2026-11-07T14:26:33.000000Z'
                 properties:
                   data:
                     type: object
@@ -2459,7 +2568,7 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-07T05:34:09.000000Z'
+                        example: '2026-11-07T14:26:33.000000Z'
                       items:
                         type: array
                         example:
@@ -2516,7 +2625,7 @@ paths:
                             to_status: pending_payment
                             to_status_label: 'Pendiente de pago'
                             note: null
-                            created_at: '2026-11-07T05:34:09.000000Z'
+                            created_at: '2026-11-07T14:26:33.000000Z'
                         items:
                           type: object
                           properties:
@@ -2536,7 +2645,7 @@ paths:
                               nullable: true
                             created_at:
                               type: string
-                              example: '2026-11-07T05:34:09.000000Z'
+                              example: '2026-11-07T14:26:33.000000Z'
       tags:
         - 'Pedidos y cotizaciones (cliente)'
     parameters:
@@ -2586,7 +2695,7 @@ paths:
                     notes: null
                     expires_at: null
                     paid_at: null
-                    created_at: '2026-11-07T05:34:09.000000Z'
+                    created_at: '2026-11-07T14:26:33.000000Z'
                     items:
                       -
                         id: 8
@@ -2605,7 +2714,7 @@ paths:
                         to_status: pending_payment
                         to_status_label: 'Pendiente de pago'
                         note: null
-                        created_at: '2026-11-07T05:34:09.000000Z'
+                        created_at: '2026-11-07T14:26:33.000000Z'
                 properties:
                   data:
                     type: object
@@ -2685,7 +2794,7 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-07T05:34:09.000000Z'
+                        example: '2026-11-07T14:26:33.000000Z'
                       items:
                         type: array
                         example:
@@ -2742,7 +2851,7 @@ paths:
                             to_status: pending_payment
                             to_status_label: 'Pendiente de pago'
                             note: null
-                            created_at: '2026-11-07T05:34:09.000000Z'
+                            created_at: '2026-11-07T14:26:33.000000Z'
                         items:
                           type: object
                           properties:
@@ -2762,7 +2871,7 @@ paths:
                               nullable: true
                             created_at:
                               type: string
-                              example: '2026-11-07T05:34:09.000000Z'
+                              example: '2026-11-07T14:26:33.000000Z'
         422:
           description: 'Estado que no permite cancelar'
           content:
@@ -2901,8 +3010,8 @@ paths:
                         slug: empresa-dominguez-e-hijo
                         logo_url: null
                       is_active: true
-                      created_at: '2026-11-07T05:34:09.000000Z'
-                      updated_at: '2026-11-07T05:34:09.000000Z'
+                      created_at: '2026-11-07T14:26:33.000000Z'
+                      updated_at: '2026-11-07T14:26:33.000000Z'
                       deleted_at: null
                     -
                       id: 371
@@ -2934,8 +3043,8 @@ paths:
                         slug: casanova-y-almonte-y-asoc
                         logo_url: null
                       is_active: true
-                      created_at: '2026-11-07T05:34:09.000000Z'
-                      updated_at: '2026-11-07T05:34:09.000000Z'
+                      created_at: '2026-11-07T14:26:33.000000Z'
+                      updated_at: '2026-11-07T14:26:33.000000Z'
                       deleted_at: null
                   links:
                     first: '/?page=1'
@@ -3000,8 +3109,8 @@ paths:
                           slug: empresa-dominguez-e-hijo
                           logo_url: null
                         is_active: true
-                        created_at: '2026-11-07T05:34:09.000000Z'
-                        updated_at: '2026-11-07T05:34:09.000000Z'
+                        created_at: '2026-11-07T14:26:33.000000Z'
+                        updated_at: '2026-11-07T14:26:33.000000Z'
                         deleted_at: null
                       -
                         id: 371
@@ -3033,8 +3142,8 @@ paths:
                           slug: casanova-y-almonte-y-asoc
                           logo_url: null
                         is_active: true
-                        created_at: '2026-11-07T05:34:09.000000Z'
-                        updated_at: '2026-11-07T05:34:09.000000Z'
+                        created_at: '2026-11-07T14:26:33.000000Z'
+                        updated_at: '2026-11-07T14:26:33.000000Z'
                         deleted_at: null
                     items:
                       type: object
@@ -3131,10 +3240,10 @@ paths:
                           example: true
                         created_at:
                           type: string
-                          example: '2026-11-07T05:34:09.000000Z'
+                          example: '2026-11-07T14:26:33.000000Z'
                         updated_at:
                           type: string
-                          example: '2026-11-07T05:34:09.000000Z'
+                          example: '2026-11-07T14:26:33.000000Z'
                         deleted_at:
                           type: string
                           example: null
@@ -3277,8 +3386,8 @@ paths:
                       slug: asociacion-jaramillo-e-hija
                       logo_url: null
                     is_active: true
-                    created_at: '2026-11-07T05:34:09.000000Z'
-                    updated_at: '2026-11-07T05:34:09.000000Z'
+                    created_at: '2026-11-07T14:26:33.000000Z'
+                    updated_at: '2026-11-07T14:26:33.000000Z'
                     deleted_at: null
                 properties:
                   data:
@@ -3376,10 +3485,10 @@ paths:
                         example: true
                       created_at:
                         type: string
-                        example: '2026-11-07T05:34:09.000000Z'
+                        example: '2026-11-07T14:26:33.000000Z'
                       updated_at:
                         type: string
-                        example: '2026-11-07T05:34:09.000000Z'
+                        example: '2026-11-07T14:26:33.000000Z'
                       deleted_at:
                         type: string
                         example: null
@@ -3529,8 +3638,8 @@ paths:
                       slug: caban-de-llorente-s-de-h
                       logo_url: null
                     is_active: true
-                    created_at: '2026-11-07T05:34:09.000000Z'
-                    updated_at: '2026-11-07T05:34:09.000000Z'
+                    created_at: '2026-11-07T14:26:33.000000Z'
+                    updated_at: '2026-11-07T14:26:33.000000Z'
                     deleted_at: null
                 properties:
                   data:
@@ -3627,10 +3736,10 @@ paths:
                         example: true
                       created_at:
                         type: string
-                        example: '2026-11-07T05:34:09.000000Z'
+                        example: '2026-11-07T14:26:33.000000Z'
                       updated_at:
                         type: string
-                        example: '2026-11-07T05:34:09.000000Z'
+                        example: '2026-11-07T14:26:33.000000Z'
                       deleted_at:
                         type: string
                         example: null
@@ -3680,8 +3789,8 @@ paths:
                       slug: marroquin-ramirez-y-chapa-srl
                       logo_url: null
                     is_active: true
-                    created_at: '2026-11-07T05:34:09.000000Z'
-                    updated_at: '2026-11-07T05:34:09.000000Z'
+                    created_at: '2026-11-07T14:26:33.000000Z'
+                    updated_at: '2026-11-07T14:26:33.000000Z'
                     deleted_at: null
                 properties:
                   data:
@@ -3778,10 +3887,10 @@ paths:
                         example: true
                       created_at:
                         type: string
-                        example: '2026-11-07T05:34:09.000000Z'
+                        example: '2026-11-07T14:26:33.000000Z'
                       updated_at:
                         type: string
-                        example: '2026-11-07T05:34:09.000000Z'
+                        example: '2026-11-07T14:26:33.000000Z'
                       deleted_at:
                         type: string
                         example: null
@@ -3854,11 +3963,11 @@ paths:
                 is_active:
                   type: boolean
                   description: ''
-                  example: false
+                  example: true
                 is_featured:
                   type: boolean
                   description: ''
-                  example: false
+                  example: true
                 specs:
                   type: array
                   description: 'El campo value no puede tener más de 30 elementos.'
@@ -4118,7 +4227,7 @@ paths:
                 mode:
                   type: string
                   description: ''
-                  example: quote
+                  example: direct
                   enum:
                     - direct
                     - quote
@@ -4126,7 +4235,7 @@ paths:
                 in_stock:
                   type: boolean
                   description: ''
-                  example: true
+                  example: false
                   nullable: true
                 hp_min:
                   type: number

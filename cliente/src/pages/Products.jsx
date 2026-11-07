@@ -3,6 +3,8 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { ArrowRight, MessageCircle, Search, SlidersHorizontal, X } from 'lucide-react'
 import { site } from '../config/site'
 import { useFamilies } from '../hooks/useFamilies'
+import { useMediaQuery } from '../hooks/useMediaQuery'
+import { useScrollSpy } from '../hooks/useScrollSpy'
 import { useLineSearch, useLines } from '../hooks/useLines'
 import { filterLines, sortLines } from '../lib/lines'
 import Pill from '../components/ui/Pill'
@@ -15,7 +17,6 @@ import FamilyTree from '../components/catalog/FamilyTree'
 import FamilyChips from '../components/catalog/FamilyChips'
 import CatalogBanner from '../components/catalog/CatalogBanner'
 import { FAMILY_BLURB, familyPhoto } from '../lib/families'
-import SectionLabel from '../components/ui/SectionLabel'
 import Bgfx from '../components/ui/Bgfx'
 import '../styles/catalog.css'
 
@@ -129,12 +130,30 @@ export default function Products() {
 
   const filterProps = { st, set, toggleBrand, brands: meta.brands, finderRef }
 
-  // La grilla intercala una tarjeta editorial de ancho completo cada 8 fichas
-  const cells = []
-  shown.forEach((line, i) => {
-    cells.push(<Reveal key={line.slug} i={i % 4}><LineCard line={line} /></Reveal>)
-    if ((i + 1) % 8 === 0 && i + 1 < shown.length) cells.push(<EditorialCard key={`ed-${i}`} n={(i + 1) / 8} />)
-  })
+  // «Todo el catálogo» (sin familia ni categoría) se agrupa por familia, en el orden del portafolio; cada grupo lleva una
+  // cabecera fija. Con una familia elegida hay un solo grupo y no hay cabeceras.
+  const grouped = !st.family && !st.category
+  const groups = useMemo(() => {
+    if (!grouped) return []
+    const map = new Map()
+    shown.forEach((l) => {
+      const slug = l.family?.slug ?? 'otros'
+      if (!map.has(slug)) map.set(slug, { slug, name: l.family?.name ?? 'Otros', lines: [] })
+      map.get(slug).lines.push(l)
+    })
+    return [...map.values()]
+  }, [grouped, shown])
+  const phone = useMediaQuery('(max-width: 960px)')
+  // Línea (px desde arriba) donde quedan las cabeceras fijas: la familia cuyo grupo ya la cruzó es la que se está viendo
+  const spy = useScrollSpy(groups.map((g) => g.slug), phone ? 240 : 150)
+  const jump = (slug) => document.getElementById(`fgroup-${slug}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+
+  // Máximo una tarjeta editorial por familia: franja de ancho completo después de la sexta ficha
+  const cellsFor = (lines, g) =>
+    lines.flatMap((line, i) => {
+      const cell = <Reveal key={line.slug} i={i % 3}><LineCard line={line} /></Reveal>
+      return i === 5 && lines.length > 6 ? [cell, <EditorialStrip key={`ed-${g}`} e={EDITORIAL[g % EDITORIAL.length]} />] : [cell]
+    })
 
   return (
     <>
@@ -144,17 +163,16 @@ export default function Products() {
       <Bgfx d c="r" arcTop="30%" />
       <section className="wrap cat-layout" aria-label="Familias, filtros y fichas">
         <aside className="cat-side" aria-label="Familias">
-          <div className="cat-side__scroll"><FamilyTree families={families} st={st} set={set} /></div>
+          <div className="cat-side__scroll"><FamilyTree families={families} st={st} set={set} grouped={grouped} spy={spy} onJump={jump} /></div>
         </aside>
 
         <div className="cat-main" ref={resultsRef}>
-          <div className="cat-mfam"><FamilyChips families={families} st={st} set={set} /></div>
+          <div className="cat-mfam"><FamilyChips families={families} st={st} set={set} grouped={grouped} spy={spy} onJump={jump} /></div>
 
           {family && !st.q && (
             <header className="fam-banner">
               {photo && <img src={photo.sm} alt="" width="220" height="220" />}
               <div>
-                <SectionLabel>Familia</SectionLabel>
                 <h2 className="fam-banner__h">{family.name}</h2>
                 <p>{family.description ?? FAMILY_BLURB[family.slug]}</p>
                 <p className="fam-banner__n">{family.lines_count} {family.lines_count === 1 ? 'ficha' : 'fichas'}</p>
@@ -200,7 +218,25 @@ export default function Products() {
               <div className="cat-empty__cta"><Pill as="link" to="/cotizar" tone="o">Cotizar lo que necesito</Pill></div>
             </EmptyState>
           )}
-          {!loading && !error && shown.length > 0 && <div className="cat-grid">{cells}</div>}
+          {!loading && !error && shown.length > 0 && (grouped ? (
+            <div className="cat-groups">
+              {groups.map((g, gi) => {
+                const fam = families.find((f) => f.slug === g.slug)
+                const img = familyPhoto(g.slug)
+                return (
+                  <section key={g.slug} id={`fgroup-${g.slug}`} className="fgroup" aria-labelledby={`fgh-${g.slug}`}>
+                    <header className="fgh">
+                      {img && <img src={img.sm} alt="" width="64" height="64" loading="lazy" />}
+                      <h2 id={`fgh-${g.slug}`}>{fam?.name ?? g.name}</h2>
+                      <span className="fgh__n">{g.lines.length} {g.lines.length === 1 ? 'línea' : 'líneas'}</span>
+                      <Link to={`/productos?familia=${g.slug}`} className="fgh__more" aria-label={`Ver solo ${fam?.name ?? g.name}`}><span>Ver solo esta familia</span> <ArrowRight size={16} aria-hidden="true" /></Link>
+                    </header>
+                    <div className="cat-grid">{cellsFor(g.lines, gi)}</div>
+                  </section>
+                )
+              })}
+            </div>
+          ) : <div className="cat-grid">{cellsFor(shown, 0)}</div>)}
         </div>
       </section>
       </div>
@@ -234,21 +270,18 @@ const EDITORIAL = [
   { title: '¿Dudas entre dos referencias?', text: 'Dinos la aplicación y te mostramos la diferencia, con sus características y precio.', photo: '/img/fotos/electricista-tablero.webp', alt: 'Electricista comparando referencias en un tablero' },
   { title: '¿Compras para una obra o una planta?', text: 'Coordinamos la entrega en tu obra y te acompañamos con la compra recurrente.', photo: '/img/fotos/despacho-montacargas.webp', alt: 'Almacén con montacargas y estantería de material' },
 ]
-function EditorialCard({ n }) {
-  const e = EDITORIAL[(n - 1) % EDITORIAL.length]
+// Franja editorial: foto a la izquierda (40 %), texto y botón a la derecha, sobre violeta-950 con un arco naranja fino
+function EditorialStrip({ e }) {
   return (
     <Reveal className="cat-editorial">
       <article className="ed">
         <img src={e.photo} alt={e.alt} width="480" height="320" loading="lazy" />
         <div className="ed__txt">
-          <SectionLabel>Asesoría</SectionLabel>
           <h3>{e.title}</h3>
           <p>{e.text}</p>
-          <a className="pill pill--o" href={site.whatsappUrl} target="_blank" rel="noreferrer">
-            <span className="pill__label">Escribir por WhatsApp</span>
-            <span className="pill__ic" aria-hidden="true"><MessageCircle size={18} /></span>
-          </a>
+          <a className="ed__btn" href={site.whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle size={18} aria-hidden="true" /> Escribir por WhatsApp</a>
         </div>
+        <svg className="ed__arc" viewBox="0 0 220 220" aria-hidden="true" focusable="false"><path d="M220 0A220 220 0 0 0 0 220" /></svg>
       </article>
     </Reveal>
   )

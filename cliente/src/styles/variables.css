@@ -74,7 +74,7 @@
   --header-space: calc(var(--header-h) + var(--header-gap) * 2); /* lo que ocupa el encabezado */
   --bottom-nav-h: 64px; /* barra inferior del celular */
   --bottom-offset: 0px; /* lo que ocupa abajo la barra activa: la fija Layout según la página */
-  --section-y: clamp(64px, 8vw, 112px);
+  --section-y: clamp(48px, 6vw, 88px);
 
   /* Capas */
   --z-header: 50;

@@ -1,15 +1,9 @@
 /* ============================================================
-   Ingresar y crear cuenta (nivel 2): tarjeta centrada de 460 px sobre el degradado de marca
-   y un arco naranja fino. Sin foto. Sobrescribe lo de auth.css para el interior de la tarjeta.
+   Ingresar, crear cuenta y recuperar: tarjeta de 460 px sobre lila con cuadrícula (55 %) y riel de producto (45 %, escritorio).
+   Entrada propia de la página: la tarjeta sube 16 px con fundido.
    ============================================================ */
-.ax {
-  display: grid;
-  place-items: center;
-  min-height: 100vh;
-  padding: calc(var(--header-h) + 32px) 16px 56px;
-  overflow: hidden;
-  position: relative;
-}
+.ax { display: grid; grid-template-columns: minmax(0, 1fr); min-height: 100vh; min-height: 100svh; position: relative; }
+.ax__left { position: relative; isolation: isolate; display: grid; place-items: center; padding: calc(var(--header-h) + 32px) 16px 56px; }
 .ax__stage { position: relative; width: 100%; max-width: 460px; }
 .ax__card {
   position: relative;
@@ -19,27 +13,20 @@
   border-radius: var(--rd-radius);
   background: #fff;
   box-shadow: 0 24px 60px rgb(75 58 130 / 0.16);
-  /* Entrada propia de la página: la tarjeta sube 16 px con fundido */
   animation: ax-up 0.6s var(--ie-ease) both;
 }
 @keyframes ax-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .ax__card { animation: none; } }
-/* Silueta del motor al 6 % detrás de la tarjeta */
-.ax .bgfx__art { opacity: 0.06; }
-/* Distribuidores: cuatro logos pequeños en gris */
-.ax__brands { display: grid; justify-items: center; gap: 12px; margin-top: 28px; text-align: center; }
-.ax__brands p { margin: 0; color: var(--muted); font-size: 13px; font-weight: 600; }
-.ax__brands ul { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 28px; margin: 0; padding: 0; list-style: none; }
-.ax__brands img { display: block; width: auto; filter: grayscale(1); opacity: 0.55; }
 .ax__logo { display: inline-flex; margin-bottom: 14px; }
 .ax__logo img { width: auto; height: 48px; }
 .ax__title { margin: 0 0 6px; color: var(--ie-violet-950); font-family: var(--font-display); font-size: clamp(2.3rem, 7vw, 3rem); font-weight: 600; line-height: 0.95; text-transform: uppercase; }
 .ax__title em { color: var(--accent-title); font-style: normal; font-weight: 800; }
 .ax__quote { margin: 0 0 6px; color: var(--muted); font-size: 14px; }
 .ax__quote a { color: var(--primary); font-weight: 700; }
-.ax__help { margin: 14px 0 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
-.ax__help a { color: var(--primary); font-weight: 700; }
-.ax__help svg { vertical-align: -2px; }
+.ax__help { margin: 14px 0 0; font-size: 13px; }
+.ax__help a { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; color: var(--primary); font-weight: 700; white-space: nowrap; }
+.ax__help svg { flex: none; }
+.ax__forgot { display: inline-block; justify-self: start; margin: -6px 0 6px; color: var(--primary); font-size: 14px; font-weight: 700; text-underline-offset: 3px; }
 
 /* Interior: el bloque del formulario ya no es otra tarjeta */
 .ax .auth-card { border: 0; border-radius: 0; background: none; box-shadow: none; overflow: visible; }
@@ -50,7 +37,35 @@
 .ax .auth-form { margin-top: 12px; }
 .ax .auth__foot { margin: 18px 0 0; padding: 14px 0 0; border-top: 1px solid var(--lavender-2); font-size: 14.5px; text-align: center; }
 .ax .auth__foot a { color: var(--primary); font-weight: 800; }
-@media (max-width: 480px) {
-  .ax { padding-inline: 12px; }
-}
 .ax .form, .ax .auth-form { padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; }
+@media (max-width: 480px) { .ax__left { padding-inline: 12px; } }
+
+/* Errores: la alerta va dentro de la tarjeta, con borde izquierdo naranja de 3 px e icono; el campo con error, borde naranja */
+.ax .alert--error, .ax .alert--warning { display: flex; align-items: flex-start; gap: 10px; border: 0; border-left: 3px solid var(--ie-orange-500); border-radius: 8px; background: var(--ie-orange-100); color: var(--ie-violet-950); }
+.ax .alert > svg { flex: none; margin-top: 2px; color: var(--accent-text); }
+.ax .alert a { color: var(--primary); font-weight: 700; }
+.ax .input[aria-invalid='true'] { border-color: var(--ie-orange-500); box-shadow: 0 0 0 3px rgb(242 106 0 / 0.14); }
+.ax .field-error { color: var(--accent-text); font-weight: 600; }
+
+/* Celular: fila corta de 3 productos encima de la tarjeta, y los logos debajo */
+.ax__mrow { display: flex; justify-content: center; gap: 4px; margin: 0 0 8px; padding: 0; list-style: none; }
+.ax__mrow li { width: 84px; }
+.ax__brands { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 28px; margin: 28px 0 0; padding: 0; list-style: none; }
+.ax__brands img { display: block; width: auto; filter: grayscale(1); opacity: 0.55; }
+.ax__rail { display: none; }
+
+/* Escritorio: dos zonas */
+@media (min-width: 1024px) {
+  .ax { grid-template-columns: minmax(0, 55fr) minmax(0, 45fr); }
+  .ax__mrow, .ax__brands { display: none; }
+  .ax__rail { position: relative; isolation: isolate; display: block; overflow: hidden; background: var(--ie-lila-200); }
+  .ax__rail-arc { position: absolute; z-index: 0; left: -34%; bottom: -22%; width: 130%; aspect-ratio: 1; border: 2px solid var(--ie-orange-500); border-radius: 50%; }
+  .ax__rail-logos { position: absolute; z-index: 3; top: calc(var(--header-h) + 22px); left: 0; right: 0; display: flex; justify-content: center; gap: 28px; margin: 0; padding: 0; list-style: none; }
+  .ax__rail-logos img { display: block; width: auto; filter: grayscale(1); opacity: 0.55; }
+  .ax__lanes { position: absolute; z-index: 1; inset: calc(var(--header-h) + 72px) 6% 0; display: grid; grid-template-columns: 1fr 1fr; gap: 3vw; overflow: hidden; -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 88%, transparent 100%); mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 88%, transparent 100%); }
+  .ax__lane { display: grid; align-content: start; gap: 28px; margin: 0; padding: 0; list-style: none; animation: ax-lane 40s linear infinite; will-change: transform; }
+  .ax__lane.is-rev { animation-direction: reverse; margin-top: -90px; }
+  .ax__rail:hover .ax__lane { animation-play-state: paused; }
+  @keyframes ax-lane { to { transform: translateY(-50%); } }
+}
+@media (prefers-reduced-motion: reduce) { .ax__lane { animation: none; } }

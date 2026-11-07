@@ -3,7 +3,9 @@ import { familyIcon, familyPhoto } from '../../lib/families'
 
 // Columna izquierda: SOLO las familias, como acordeón. Cada una con su miniatura de foto y su contador; al abrirse (con
 // animación) muestra sus categorías. La activa queda resaltada con una barra naranja.
-export default function FamilyTree({ families, st, set }) {
+// Con el catálogo agrupado (`grouped`), la familia que se ve en pantalla (`spy`) se resalta con una barra naranja y abre sola su
+// lista de categorías; pulsar una familia lleva a su grupo (`onJump`) en vez de filtrar.
+export default function FamilyTree({ families, st, set, grouped = false, spy = '', onJump }) {
   const total = families.reduce((n, f) => n + f.lines_count, 0)
 
   return (
@@ -11,17 +13,18 @@ export default function FamilyTree({ families, st, set }) {
       <h2 className="fam-tree__title">Familias</h2>
       <ul>
         <li>
-          <button type="button" className={`fam-tree__all ${!st.family ? 'on' : ''}`} aria-current={!st.family ? 'true' : undefined} onClick={() => set({ family: '', category: '' })}>
+          <button type="button" className={`fam-tree__all ${!st.family && !spy ? 'on' : ''}`} aria-current={!st.family && !spy ? 'true' : undefined} onClick={() => set({ family: '', category: '' })}>
             Todo el catálogo <i>{total}</i>
           </button>
         </li>
         {families.map((f) => {
-          const open = st.family === f.slug
+          const spying = grouped && spy === f.slug
+          const open = st.family === f.slug || spying
           const photo = familyPhoto(f.slug)
           const Icon = familyIcon(f.slug)
           return (
-            <li key={f.id} className={`fam-tree__fam ${open ? 'open' : ''}`}>
-              <button type="button" className="fam-tree__row" aria-expanded={open} aria-controls={`cats-${f.slug}`} onClick={() => set({ family: open && !st.category ? '' : f.slug, category: '' })}>
+            <li key={f.id} className={`fam-tree__fam ${open ? 'open' : ''} ${spying ? 'is-spy' : ''}`}>
+              <button type="button" className="fam-tree__row" aria-expanded={open} aria-controls={`cats-${f.slug}`} aria-current={spying ? 'true' : undefined} onClick={() => (grouped ? onJump?.(f.slug) : set({ family: open && !st.category ? '' : f.slug, category: '' }))}>
                 <span className="fam-tree__thumb" aria-hidden="true">
                   {photo ? <img src={photo.sm} alt="" width="44" height="44" loading="lazy" /> : <Icon size={20} strokeWidth={1.6} />}
                 </span>

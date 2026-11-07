@@ -1,0 +1,29 @@
+meta {
+  name: Restablecer la contrasena
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{base_url}}/api/v1/password/reset
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "token": "TOKEN_DEL_ENLACE_DEL_CORREO",
+    "email": "{{client_email}}",
+    "password": "ClaveNueva2026",
+    "password_confirmation": "ClaveNueva2026"
+  }
+}
+
+docs {
+  Con el token del correo cambia la contrasena y revoca los tokens anteriores. El enlace funciona una sola vez; con un
+  token invalido o vencido responde 422 (error en el campo token).
+}
+
+assert {
+  res.status: eq 422
+}

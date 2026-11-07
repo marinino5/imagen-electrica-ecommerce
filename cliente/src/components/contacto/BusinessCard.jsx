@@ -27,13 +27,13 @@ export default function BusinessCard() {
         <ul className="bc__cols">
           <li>
             <span className="bc__ic"><MessageCircle size={20} aria-hidden="true" /></span>
-            <h2>WhatsApp</h2>
+            <h3>WhatsApp</h3>
             <p>Un asesor te responde en minutos.</p>
             <a className="bc__btn" href={site.whatsappUrl} target="_blank" rel="noreferrer">Escribir ahora</a>
           </li>
           <li>
             <span className="bc__ic"><Mail size={20} aria-hidden="true" /></span>
-            <h2>Correo</h2>
+            <h3>Correo</h3>
             <a className="bc__val" href={`mailto:${site.email}`}>{site.email}</a>
             <button type="button" className="bc__copy" onClick={copy}>
               {copied ? <Check size={16} aria-hidden="true" /> : <Copy size={16} aria-hidden="true" />}
@@ -42,7 +42,7 @@ export default function BusinessCard() {
           </li>
           <li>
             <span className="bc__ic"><Phone size={20} aria-hidden="true" /></span>
-            <h2>Llamada</h2>
+            <h3>Llamada</h3>
             <ul className="bc__phones">
               {site.contacts.map((c) => <li key={c.label}><a href={c.href}>{c.label}</a></li>)}
             </ul>

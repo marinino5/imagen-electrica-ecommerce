@@ -1,7 +1,11 @@
 """Recorta y normaliza una foto oficial de producto al formato único de la tienda.
 
-Uso (necesita Pillow y rembg: pip install rembg pillow numpy):
-    python3 normalizar-producto.py <origen> <destino-sin-extension> [--sin-recorte]
+Uso (necesita Pillow, rembg y scipy: pip install "rembg[cpu]" pillow numpy scipy):
+    python3 normalizar-producto.py <origen> <destino-sin-extension> [--sin-recorte] [--blanco]
+  --huecos: borra el blanco puro encerrado dentro del producto (lo que se ve a través de un ventilador o una rejilla).
+  --umbral=N: luminancia desde la que se considera blanco con --blanco (218 por defecto; 205 para reflejos grisáceos).
+  --blanco: además del recorte, quita el blanco del fondo y de los reflejos del piso que quedaron pegados al borde
+            (solo para productos que NO son blancos: variadores, motores, relés grises o azules).
 
 Formato (catálogo, miniaturas, mega-menú y bento):
   - WebP con fondo transparente, lienzo cuadrado de 1000 x 1000 px (más una versión -sm de 480 px).
@@ -16,22 +20,60 @@ _session = None
 
 
 def recortar(im):
+    """rembg con alpha matting: el borde sale con transparencia gradual, sin dientes de sierra."""
     global _session
     from rembg import remove, new_session
     if _session is None:
         _session = new_session('u2net')
-    return remove(im.convert('RGB'), session=_session)
+    return remove(
+        im.convert('RGB'), session=_session, alpha_matting=True,
+        alpha_matting_foreground_threshold=240, alpha_matting_background_threshold=12, alpha_matting_erode_size=8,
+    )
+
+
+def quitar_blanco(im, alcance=70, umbral=218):
+    """Borra el blanco (casi sin color) que sigue conectado al fondo, hasta `alcance` px del borde: reflejos del piso y halos."""
+    import numpy as np
+    from scipy import ndimage as ndi
+    a = np.asarray(im).astype(float)
+    rgb, alfa = a[..., :3], a[..., 3]
+    lum = rgb.mean(-1)
+    sat = rgb.max(-1) - rgb.min(-1)
+    blanco = (lum > umbral) & (sat < 26)
+    fondo = alfa < 40
+    cerca = ndi.binary_dilation(fondo, iterations=alcance)
+    comp = ndi.binary_propagation(fondo, mask=(blanco | fondo) & cerca)
+    alfa = np.where(comp & blanco, 0, alfa)
+    return Image.fromarray(np.dstack([rgb, alfa]).astype('uint8'), 'RGBA')
+
+
+def quitar_huecos(im, minimo=2500):
+    """Borra las zonas blancas puras y grandes que quedaron dentro del producto (el fondo que se ve a través de un ventilador, un asa o una rejilla)."""
+    import numpy as np
+    from scipy import ndimage as ndi
+    a = np.asarray(im).astype(float)
+    rgb, alfa = a[..., :3], a[..., 3]
+    puro = (rgb.min(-1) > 244) & (alfa > 40)
+    etiquetas, n = ndi.label(puro)
+    tam = ndi.sum(puro, etiquetas, range(1, n + 1))
+    grandes = np.isin(etiquetas, [i + 1 for i, t in enumerate(tam) if t >= minimo])
+    alfa = np.where(grandes, 0, alfa)
+    return Image.fromarray(np.dstack([rgb, alfa]).astype('uint8'), 'RGBA')
 
 
 def limpiar_borde(im):
-    """Quita el halo blanco: encoge el alfa 1 px y suaviza el borde."""
+    """Quita el halo: erosiona el alfa 1 px y suaviza el borde."""
     r, g, b, a = im.split()
     a = a.filter(ImageFilter.MinFilter(3)).filter(ImageFilter.GaussianBlur(0.8))
     return Image.merge('RGBA', (r, g, b, a))
 
 
-def normalizar(im, con_recorte=True):
+def normalizar(im, con_recorte=True, blanco=False, huecos=False, umbral=218):
     im = recortar(im) if con_recorte else im.convert('RGBA')
+    if blanco:
+        im = quitar_blanco(im, umbral=umbral)
+    if huecos:
+        im = quitar_huecos(im)
     im = limpiar_borde(im)
     box = im.getbbox()
     im = im.crop(box)
@@ -58,4 +100,4 @@ def guardar(lienzo, destino):
 
 if __name__ == '__main__':
     origen, destino = sys.argv[1], sys.argv[2]
-    guardar(normalizar(Image.open(origen), '--sin-recorte' not in sys.argv), destino)
+    guardar(normalizar(Image.open(origen), '--sin-recorte' not in sys.argv, '--blanco' in sys.argv, '--huecos' in sys.argv, int(next((a.split('=')[1] for a in sys.argv if a.startswith('--umbral=')), 218))), destino)

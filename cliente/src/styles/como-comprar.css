@@ -1,6 +1,6 @@
 /* Cómo comprar: línea de tiempo vertical, entregas con mapa y preguntas frecuentes */
 /* El circuito: línea naranja que serpentea y une los cuatro pasos; cada paso es un borne con su tarjeta */
-.cc { padding-block: clamp(64px, 8vw, 112px); }
+.cc { padding-block: clamp(48px, 6vw, 88px); }
 .cc__title { margin: 0; }
 .cc__list { position: relative; display: grid; gap: clamp(40px, 6vw, 72px); margin: clamp(40px, 5vw, 64px) 0 0; padding: 0; list-style: none; }
 .cc__wire { position: absolute; top: 0; left: 0; z-index: 0; overflow: visible; pointer-events: none; }

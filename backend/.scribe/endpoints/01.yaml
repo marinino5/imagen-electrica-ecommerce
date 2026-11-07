@@ -254,7 +254,7 @@ endpoints:
         name: mode
         description: ''
         required: false
-        example: quote
+        example: direct
         type: string
         enumValues:
           - direct
@@ -267,7 +267,7 @@ endpoints:
         name: in_stock
         description: ''
         required: false
-        example: true
+        example: false
         type: boolean
         enumValues: []
         exampleWasSpecified: false
@@ -311,8 +311,8 @@ endpoints:
       family: 'n'
       category: g
       brand: z
-      mode: quote
-      in_stock: true
+      mode: direct
+      in_stock: false
       hp_min: 17
       hp_max: 15
       per_page: 8

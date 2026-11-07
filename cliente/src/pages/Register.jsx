@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, Navigate, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowLeft, ArrowRight, Building2, UserRound } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Building2, CircleAlert, UserRound } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { useAuthRedirect } from '../hooks/useAuthRedirect'
 import Field from '../components/ui/Field'
@@ -120,7 +120,7 @@ export default function Register() {
         <h2 className="auth-card__title">{step === 1 ? 'Tu cuenta' : isCompany ? 'Datos de la empresa' : 'Tus datos'}</h2>
 
         <form className="form auth-form" onSubmit={submit} noValidate>
-          {general && <p className="alert alert--error" role="alert">{general}</p>}
+          {general && <p className="alert alert--error" role="alert"><CircleAlert size={18} aria-hidden="true" /> <span>{general}</span></p>}
 
           <AnimatePresence mode="wait" initial={false} custom={dir}>
             <motion.div

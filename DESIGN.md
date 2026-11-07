@@ -98,3 +98,11 @@ Inicio: hero con producto sin círculo (brillo naranja, arco de 2 px, sombra el�
 - **Ingresar / Crear cuenta:** «panel limpio» (tarjeta de 460 px, malla de color + motor al 6 % + arco fino, fila de 4 logos en gris). Entrada: la tarjeta sube 16 px con fundido.
 - **Mapa «Visítanos»:** dentro de un contenedor de radio 28 px, con tarjeta flotante y 120 px de margen inferior.
 - **Sin inventario a la vista:** no se muestra «disponibilidad», «en bodega» ni unidades; el backend sigue validando y la tienda ofrece «Cotizar esta cantidad».
+
+## Ajustes de detalle
+
+- **Inicio:** el velo del hero es solo `linear-gradient(90deg, rgba(20,16,36,.9) → transparent 80 %)` (sin tinte ni `hue-rotate`); línea naranja de 2 × 120 px junto al texto; la sección de familias sube 56 px sobre el hero (radio 40 px, sombra hacia arriba). Tarjeta de familia = un solo enlace (`::after`).
+- **Catálogo:** «Todo el catálogo» agrupado por familia con cabecera fija (72 px, violeta-950 al 95 %; 56 px en celular), scrollspy en columna (264 px, sticky a 96 px) y chips. Tarjeta de alto uniforme; franja editorial de 220 px, una por familia.
+- **Cuenta:** tarjeta de 460 px a la izquierda (55 %) y «riel de producto» a la derecha (45 %, dos carriles de 40 s en sentidos opuestos). Recuperar contraseña en `/recuperar` y `/restablecer`.
+- **Contacto:** hero oscuro de 420 px, cuatro mosaicos 2 × 2, formulario solo para dos motivos (altura animada 300 ms), tarjeta de visita sobre banda diagonal y dirección con mapa estático (sin iframe).
+- **Nosotros:** muro de producto (12 baldosas + central 2 × 2), tres pilares con foto al 60 %, cierre con arco naranja grande y sin mapa. Las imágenes del catálogo se recortan con alpha matting (ver `docs/auditoria-imagenes.md`).

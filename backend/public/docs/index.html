@@ -77,6 +77,12 @@
                                                                                 <li class="tocify-item level-2" data-unique="autenticacion-POSTapi-v1-login">
                                 <a href="#autenticacion-POSTapi-v1-login">Iniciar sesión</a>
                             </li>
+                                                                                <li class="tocify-item level-2" data-unique="autenticacion-POSTapi-v1-password-forgot">
+                                <a href="#autenticacion-POSTapi-v1-password-forgot">Pedir enlace para recuperar la contraseña</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="autenticacion-POSTapi-v1-password-reset">
+                                <a href="#autenticacion-POSTapi-v1-password-reset">Restablecer la contraseña</a>
+                            </li>
                                                                                 <li class="tocify-item level-2" data-unique="autenticacion-POSTapi-v1-logout">
                                 <a href="#autenticacion-POSTapi-v1-logout">Cerrar sesión</a>
                             </li>
@@ -744,6 +750,348 @@ You can check the Dev Tools console for debugging information.</code></pre>
         </div>
         </form>
 
+                    <h2 id="autenticacion-POSTapi-v1-password-forgot">Pedir enlace para recuperar la contraseña</h2>
+
+<p>
+</p>
+
+<p>Siempre responde igual, exista o no el correo, para no revelar qué cuentas existen. Si el correo es de un usuario
+activo, le llega un enlace de un solo uso que vence en 60 minutos. Máximo 5 intentos por minuto y 20 por hora
+desde la misma IP.</p>
+
+<span id="example-requests-POSTapi-v1-password-forgot">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/password/forgot" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"email\": \"laura@constructoraaltos.test\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/password/forgot"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "email": "laura@constructoraaltos.test"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-v1-password-forgot">
+            <blockquote>
+            <p>Example response (200, Siempre):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Si el correo existe, te enviamos un enlace para restablecer tu contrase&ntilde;a.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-v1-password-forgot" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-v1-password-forgot"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-v1-password-forgot"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-v1-password-forgot" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-v1-password-forgot">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-v1-password-forgot" data-method="POST"
+      data-path="api/v1/password/forgot"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-password-forgot', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-v1-password-forgot"
+                    onclick="tryItOut('POSTapi-v1-password-forgot');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-v1-password-forgot"
+                    onclick="cancelTryOut('POSTapi-v1-password-forgot');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-v1-password-forgot"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/v1/password/forgot</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-v1-password-forgot"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-v1-password-forgot"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="email"                data-endpoint="POSTapi-v1-password-forgot"
+               value="laura@constructoraaltos.test"
+               data-component="body">
+    <br>
+<p>Correo de la cuenta. Example: <code>laura@constructoraaltos.test</code></p>
+        </div>
+        </form>
+
+                    <h2 id="autenticacion-POSTapi-v1-password-reset">Restablecer la contraseña</h2>
+
+<p>
+</p>
+
+<p>Usa el token y el correo del enlace que llegó por correo. El enlace funciona una sola vez y vence a los 60 minutos.
+Revoca los tokens de sesión anteriores; después de esto, la persona inicia sesión con la contraseña nueva.
+Máximo 10 intentos por minuto desde la misma IP.</p>
+
+<span id="example-requests-POSTapi-v1-password-reset">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/password/reset" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"token\": \"3f1c0d...\",
+    \"email\": \"laura@constructoraaltos.test\",
+    \"password\": \"ClaveNueva2026\",
+    \"password_confirmation\": \"ClaveNueva2026\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/password/reset"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "token": "3f1c0d...",
+    "email": "laura@constructoraaltos.test",
+    "password": "ClaveNueva2026",
+    "password_confirmation": "ClaveNueva2026"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-v1-password-reset">
+            <blockquote>
+            <p>Example response (200, Contraseña cambiada):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Cambiaste tu contrase&ntilde;a. Ya puedes ingresar.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, Enlace inválido o vencido):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;El enlace no es v&aacute;lido o ya venci&oacute;. Pide uno nuevo.&quot;,
+    &quot;errors&quot;: {
+        &quot;token&quot;: [
+            &quot;El enlace no es v&aacute;lido o ya venci&oacute;. Pide uno nuevo.&quot;
+        ]
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-v1-password-reset" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-v1-password-reset"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-v1-password-reset"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-v1-password-reset" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-v1-password-reset">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-v1-password-reset" data-method="POST"
+      data-path="api/v1/password/reset"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-password-reset', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-v1-password-reset"
+                    onclick="tryItOut('POSTapi-v1-password-reset');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-v1-password-reset"
+                    onclick="cancelTryOut('POSTapi-v1-password-reset');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-v1-password-reset"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/v1/password/reset</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-v1-password-reset"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-v1-password-reset"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>token</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="token"                data-endpoint="POSTapi-v1-password-reset"
+               value="3f1c0d..."
+               data-component="body">
+    <br>
+<p>Token del enlace. Example: <code>3f1c0d...</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="email"                data-endpoint="POSTapi-v1-password-reset"
+               value="laura@constructoraaltos.test"
+               data-component="body">
+    <br>
+<p>Correo de la cuenta. Example: <code>laura@constructoraaltos.test</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="password"                data-endpoint="POSTapi-v1-password-reset"
+               value="ClaveNueva2026"
+               data-component="body">
+    <br>
+<p>Contraseña nueva (8 a 100 caracteres). Example: <code>ClaveNueva2026</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>password_confirmation</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="password_confirmation"                data-endpoint="POSTapi-v1-password-reset"
+               value="ClaveNueva2026"
+               data-component="body">
+    <br>
+<p>Igual a la contraseña nueva. Example: <code>ClaveNueva2026</code></p>
+        </div>
+        </form>
+
                     <h2 id="autenticacion-POSTapi-v1-logout">Cerrar sesión</h2>
 
 <p>
@@ -1314,9 +1662,9 @@ solo se vende por cotización. No requiere token.</p>
     \"category\": \"n\",
     \"brand\": \"g\",
     \"sale_mode\": \"quote\",
-    \"featured\": false,
+    \"featured\": true,
     \"in_stock\": true,
-    \"sort\": \"newest\",
+    \"sort\": \"price_desc\",
     \"per_page\": 16
 }"
 </code></pre></div>
@@ -1345,9 +1693,9 @@ let body = {
     "category": "n",
     "brand": "g",
     "sale_mode": "quote",
-    "featured": false,
+    "featured": true,
     "in_stock": true,
-    "sort": "newest",
+    "sort": "price_desc",
     "per_page": 16
 };
 
@@ -1651,7 +1999,7 @@ Must be one of:
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>in_stock</code></b>&nbsp;&nbsp;
@@ -1682,10 +2030,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="sort"                data-endpoint="GETapi-v1-products"
-               value="newest"
+               value="price_desc"
                data-component="body">
     <br>
-<p>Example: <code>newest</code></p>
+<p>Example: <code>price_desc</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>name</code></li> <li><code>newest</code></li> <li><code>price_asc</code></li> <li><code>price_desc</code></li></ul>
         </div>
@@ -1934,7 +2282,7 @@ fetch(url, {
             &quot;address&quot;: &quot;Calle Elizondo, 54, 27&ordm; C&quot;,
             &quot;marketing_opt_in&quot;: false,
             &quot;marketing_opt_in_at&quot;: null,
-            &quot;privacy_accepted_at&quot;: &quot;2026-11-07T05:34:09.000000Z&quot;
+            &quot;privacy_accepted_at&quot;: &quot;2026-11-07T14:26:33.000000Z&quot;
         }
     }
 }</code>
@@ -2106,7 +2454,7 @@ fetch(url, {
             &quot;address&quot;: &quot;Pla&ccedil;a Juana, 979, 27&ordm; A&quot;,
             &quot;marketing_opt_in&quot;: false,
             &quot;marketing_opt_in_at&quot;: null,
-            &quot;privacy_accepted_at&quot;: &quot;2026-11-07T05:34:09.000000Z&quot;
+            &quot;privacy_accepted_at&quot;: &quot;2026-11-07T14:26:33.000000Z&quot;
         }
     }
 }</code>
@@ -2305,7 +2653,7 @@ muestra las de otros clientes.</p>
     --header "Accept: application/json" \
     --data "{
     \"type\": \"purchase\",
-    \"status\": \"sent\",
+    \"status\": \"pending_payment\",
     \"per_page\": 1
 }"
 </code></pre></div>
@@ -2332,7 +2680,7 @@ const headers = {
 
 let body = {
     "type": "purchase",
-    "status": "sent",
+    "status": "pending_payment",
     "per_page": 1
 };
 
@@ -2376,7 +2724,7 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-07T05:34:09.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-07T14:26:33.000000Z&quot;,
             &quot;items&quot;: [
                 {
                     &quot;id&quot;: 8,
@@ -2416,7 +2764,7 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-07T05:34:09.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-07T14:26:33.000000Z&quot;,
             &quot;items&quot;: [
                 {
                     &quot;id&quot;: 9,
@@ -2613,10 +2961,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="status"                data-endpoint="GETapi-v1-orders"
-               value="sent"
+               value="pending_payment"
                data-component="body">
     <br>
-<p>Example: <code>sent</code></p>
+<p>Example: <code>pending_payment</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>pending_payment</code></li> <li><code>paid</code></li> <li><code>shipped</code></li> <li><code>delivered</code></li> <li><code>new</code></li> <li><code>in_review</code></li> <li><code>sent</code></li> <li><code>accepted</code></li> <li><code>rejected</code></li> <li><code>cancelled</code></li></ul>
         </div>
@@ -2736,7 +3084,7 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-07T05:34:09.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-07T14:26:33.000000Z&quot;,
             &quot;items&quot;: [
                 {
                     &quot;id&quot;: 8,
@@ -2776,7 +3124,7 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-07T05:34:09.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-07T14:26:33.000000Z&quot;,
             &quot;items&quot;: [
                 {
                     &quot;id&quot;: 9,
@@ -3050,7 +3398,7 @@ fetch(url, {
         &quot;notes&quot;: null,
         &quot;expires_at&quot;: null,
         &quot;paid_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-11-07T05:34:09.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-07T14:26:33.000000Z&quot;,
         &quot;items&quot;: [
             {
                 &quot;id&quot;: 8,
@@ -3071,7 +3419,7 @@ fetch(url, {
                 &quot;to_status&quot;: &quot;pending_payment&quot;,
                 &quot;to_status_label&quot;: &quot;Pendiente de pago&quot;,
                 &quot;note&quot;: null,
-                &quot;created_at&quot;: &quot;2026-11-07T05:34:09.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-11-07T14:26:33.000000Z&quot;
             }
         ]
     }
@@ -3247,7 +3595,7 @@ fetch(url, {
         &quot;notes&quot;: null,
         &quot;expires_at&quot;: null,
         &quot;paid_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-11-07T05:34:09.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-07T14:26:33.000000Z&quot;,
         &quot;items&quot;: [
             {
                 &quot;id&quot;: 8,
@@ -3268,7 +3616,7 @@ fetch(url, {
                 &quot;to_status&quot;: &quot;pending_payment&quot;,
                 &quot;to_status_label&quot;: &quot;Pendiente de pago&quot;,
                 &quot;note&quot;: null,
-                &quot;created_at&quot;: &quot;2026-11-07T05:34:09.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-11-07T14:26:33.000000Z&quot;
             }
         ]
     }
@@ -3488,8 +3836,8 @@ fetch(url, {
                 &quot;logo_url&quot;: null
             },
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-11-07T05:34:09.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-11-07T05:34:09.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-07T14:26:33.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-11-07T14:26:33.000000Z&quot;,
             &quot;deleted_at&quot;: null
         },
         {
@@ -3525,8 +3873,8 @@ fetch(url, {
                 &quot;logo_url&quot;: null
             },
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-11-07T05:34:09.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-11-07T05:34:09.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-07T14:26:33.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-11-07T14:26:33.000000Z&quot;,
             &quot;deleted_at&quot;: null
         }
     ],
@@ -3895,8 +4243,8 @@ fetch(url, {
             &quot;logo_url&quot;: null
         },
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-11-07T05:34:09.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-07T05:34:09.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-07T14:26:33.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-07T14:26:33.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -4303,8 +4651,8 @@ fetch(url, {
             &quot;logo_url&quot;: null
         },
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-11-07T05:34:09.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-07T05:34:09.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-07T14:26:33.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-07T14:26:33.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -4453,8 +4801,8 @@ se envían <code>is_active</code>, <code>is_featured</code> o <code>specs</code>
     \"cost_price\": 18,
     \"tax_rate\": 19,
     \"stock\": 6,
-    \"is_active\": false,
-    \"is_featured\": false,
+    \"is_active\": true,
+    \"is_featured\": true,
     \"specs\": [
         {
             \"key\": \"k\",
@@ -4490,8 +4838,8 @@ let body = {
     "cost_price": 18,
     "tax_rate": 19,
     "stock": 6,
-    "is_active": false,
-    "is_featured": false,
+    "is_active": true,
+    "is_featured": true,
     "specs": [
         {
             "key": "k",
@@ -4548,8 +4896,8 @@ fetch(url, {
             &quot;logo_url&quot;: null
         },
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-11-07T05:34:09.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-07T05:34:09.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-07T14:26:33.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-07T14:26:33.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -4844,7 +5192,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>is_featured</code></b>&nbsp;&nbsp;
@@ -4866,7 +5214,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
         <details>
@@ -5500,8 +5848,8 @@ sola referencia comprable, esa referencia lista para agregar al carrito.</p>
     \"family\": \"n\",
     \"category\": \"g\",
     \"brand\": \"z\",
-    \"mode\": \"quote\",
-    \"in_stock\": true,
+    \"mode\": \"direct\",
+    \"in_stock\": false,
     \"hp_min\": 17,
     \"hp_max\": 15,
     \"per_page\": 8
@@ -5538,8 +5886,8 @@ let body = {
     "family": "n",
     "category": "g",
     "brand": "z",
-    "mode": "quote",
-    "in_stock": true,
+    "mode": "direct",
+    "in_stock": false,
     "hp_min": 17,
     "hp_max": 15,
     "per_page": 8
@@ -5801,10 +6149,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="mode"                data-endpoint="GETapi-v1-lines"
-               value="quote"
+               value="direct"
                data-component="body">
     <br>
-<p>Example: <code>quote</code></p>
+<p>Example: <code>direct</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>direct</code></li> <li><code>quote</code></li></ul>
         </div>
@@ -5828,7 +6176,7 @@ Must be one of:
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>true</code></p>
+<p>Example: <code>false</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>hp_min</code></b>&nbsp;&nbsp;
@@ -6354,7 +6702,7 @@ solicitud y el tiempo estimado de respuesta.</p>
     --form "application=Bomba de agua"\
     --form "privacy_accepted=1"\
     --form "website=k"\
-    --form "attachment=@/private/var/folders/cr/7_9z3_7d765bhxff2r4jr80r0000gn/T/php4rn6t308tmlofFof0wB" </code></pre></div>
+    --form "attachment=@/private/var/folders/cr/7_9z3_7d765bhxff2r4jr80r0000gn/T/phpiui4lpcnp68881WKrVM" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -6594,7 +6942,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Foto, placa del equipo o lista de materiales (PDF, JPG o PNG, máx. 5 MB). Example: <code>/private/var/folders/cr/7_9z3_7d765bhxff2r4jr80r0000gn/T/php4rn6t308tmlofFof0wB</code></p>
+<p>Foto, placa del equipo o lista de materiales (PDF, JPG o PNG, máx. 5 MB). Example: <code>/private/var/folders/cr/7_9z3_7d765bhxff2r4jr80r0000gn/T/phpiui4lpcnp68881WKrVM</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>privacy_accepted</code></b>&nbsp;&nbsp;

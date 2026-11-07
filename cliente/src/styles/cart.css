@@ -133,7 +133,7 @@
 /* Renglón del carrito */
 .cart-item > .core {
   display: grid;
-  grid-template-columns: 96px minmax(0, 1fr) auto;
+  grid-template-columns: 88px minmax(0, 1fr) auto;
   grid-template-areas: 'img info remove' 'img qty total';
   gap: 8px 14px;
   align-items: center;
@@ -141,17 +141,32 @@
 }
 .cart-item__img {
   grid-area: img;
-  display: block;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 88px;
+  height: 88px;
   overflow: hidden;
   border-radius: 16px;
-  background: radial-gradient(circle at 50% 58%, #fff, var(--lavender-2));
+  background: var(--ie-lila-100);
+}
+/* Pedestal: elipse lila de luz bajo el producto */
+.cart-item__img::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  width: 62%;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ie-lila-200);
+  transform: translateX(-50%);
 }
 .cart-item__img img {
+  position: relative;
   width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 3;
+  height: 100%;
   object-fit: contain;
-  mix-blend-mode: multiply;
 }
 .cart-item__info {
   grid-area: info;
@@ -236,7 +251,7 @@
 }
 @media (max-width: 520px) {
   .cart-item > .core {
-    grid-template-columns: 72px minmax(0, 1fr) auto;
+    grid-template-columns: 88px minmax(0, 1fr) auto;
   }
   .cart-item__name {
     font-size: 17px;

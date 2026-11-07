@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\UserRole;
+use App\Notifications\ResetPasswordNotification;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -37,6 +38,12 @@ class User extends Authenticatable
             'role' => UserRole::class,
             'is_active' => 'boolean',
         ];
+    }
+
+    /** El correo de recuperación lleva la marca de la tienda y el enlace va a la tienda, no al panel. */
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 
     /** Ficha de empresa (solo usuarios con rol cliente). 1:1 */

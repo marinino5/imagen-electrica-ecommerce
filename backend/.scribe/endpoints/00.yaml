@@ -239,7 +239,7 @@ endpoints:
         name: featured
         description: ''
         required: false
-        example: false
+        example: true
         type: boolean
         enumValues: []
         exampleWasSpecified: false
@@ -261,7 +261,7 @@ endpoints:
         name: sort
         description: ''
         required: false
-        example: newest
+        example: price_desc
         type: string
         enumValues:
           - name
@@ -287,9 +287,9 @@ endpoints:
       category: 'n'
       brand: g
       sale_mode: quote
-      featured: false
+      featured: true
       in_stock: true
-      sort: newest
+      sort: price_desc
       per_page: 16
     fileParameters: []
     responses:

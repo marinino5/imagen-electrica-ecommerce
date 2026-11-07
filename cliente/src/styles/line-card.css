@@ -13,6 +13,7 @@
   position: relative;
   display: block;
   aspect-ratio: 1;
+  max-height: 240px;
   overflow: hidden;
   background: radial-gradient(circle at 50% 42%, #fff 0%, var(--lav-soft) 78%);
 }
@@ -99,6 +100,13 @@
   font-weight: 700;
   line-height: 1.08;
   text-wrap: balance;
+  /* Alto uniforme: nombre en máximo 2 líneas */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  min-height: 2.16em;
+  overflow: hidden;
 }
 .pc__name a {
   color: var(--ink);
@@ -112,13 +120,19 @@
 }
 .pc__chips {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow: hidden;
   gap: 6px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 .pc__chips li {
+  flex: none;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   padding: 3px 10px;
   border-radius: 999px;
   background: var(--lavender);
@@ -171,4 +185,18 @@
 }
 .pc__more:active {
   transform: scale(0.98);
+}
+
+/* El foco del enlace del nombre se dibuja en la tarjeta (el h3 recorta su propio contorno) */
+.pc:has(.pc__name a:focus-visible) { outline: 3px solid var(--primary); outline-offset: 2px; }
+.pc__name a:focus-visible { outline: none; }
+.pc__more-chip { background: var(--ie-lila-100) !important; }
+/* Celular: tarjetas compactas en 2 columnas (imagen 1:1, nombre de 2 líneas, precio y botón de carrito) */
+@media (max-width: 599px) {
+  .pc__body { gap: 4px; padding: 10px 10px 12px; }
+  .pc__brand span, .pc__chips, .pc__price small, .pc__more { display: none; }
+  .pc__name { font-size: 1.12rem; min-height: 2.16em; }
+  .pc__price strong { font-size: 0.95rem; }
+  .pc__actions { justify-content: flex-end; }
+  .pc__tag { top: 8px; left: 8px; padding: 3px 8px; font-size: 10.5px; }
 }

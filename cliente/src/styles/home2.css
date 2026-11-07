@@ -52,7 +52,7 @@
   color: var(--primary);
 }
 .fam__art svg { width: 56%; height: 56%; }
-.fam__body { position: relative; padding: 12px 16px 16px; }
+.fam__body { padding: 12px 16px 16px; } /* sin position: así el ::after del enlace se extiende por toda la tarjeta */
 .fam__num {
   font-size: 12px;
   font-weight: 800;
@@ -70,13 +70,18 @@
   text-wrap: balance;
 }
 .fam__link { color: inherit; text-decoration: none; }
-.fam__link::before { content: ''; position: absolute; inset: 0; z-index: 2; }
+.fam__link::after { content: ''; position: absolute; inset: 0; z-index: 2; border-radius: inherit; }
+.fam__link:focus-visible { outline: none; }
+.fam__link:focus-visible::after { outline: 2px solid var(--ie-orange-500); outline-offset: -2px; border-radius: var(--rd-radius); }
+/* Aparecen escalonadas al hacer scroll: fundido y subida de 24 px, 70 ms entre tarjetas */
+.fam--rise.rv { transform: translateY(24px); }
+.fam--rise.rv.is-in { transform: none; }
 .fam__count { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
 .fam__arrow {
   position: absolute;
   top: 12px;
   right: 12px;
-  z-index: 1;
+  z-index: 3;
   display: grid;
   place-items: center;
   width: 36px;
@@ -86,9 +91,12 @@
   color: var(--ink);
   transition: transform 0.25s var(--ease-out);
 }
-@media (hover: hover) {
-  .fam__card:hover .fam__arrow { transform: translate(2px, -2px); }
+@media (hover: hover) and (pointer: fine) {
+  /* Hover: la flecha gira 45° y se desplaza 4 px; la imagen sube 6 px y aparece la lista de categorías */
+  .fam__card:hover .fam__arrow { transform: translate(4px, -4px) rotate(45deg); }
+  .fam__card:hover .fam__media > img { transform: translateY(-6px); }
 }
+.fam__media > img { transition: transform 0.3s var(--ease-out); }
 /* Categorías: cubren la imagen al pasar el mouse o enfocar (solo con puntero fino) */
 .fam__cats {
   position: absolute;
@@ -370,3 +378,14 @@
   background: #fff;
   border-block: 1px solid var(--lavender-2);
 }
+
+/* ---------- La sección de familias sube sobre el hero como una hoja (sin hueco blanco) ---------- */
+.hm-fams {
+  z-index: 3;
+  margin-top: -56px;
+  padding-top: 56px;
+  overflow: clip;
+  border-radius: 40px 40px 0 0;
+  box-shadow: 0 -22px 40px -22px rgb(20 16 36 / 0.45);
+}
+@media (max-width: 767px) { .hm-fams { border-radius: 28px 28px 0 0; } }

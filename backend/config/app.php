@@ -16,6 +16,11 @@ return [
     'name' => env('APP_NAME', 'Laravel'),
 
     /*
+    | URL de la tienda (React). Los correos con enlaces para el cliente (recuperar contraseña) apuntan aquí.
+    */
+    'store_url' => env('STORE_URL', 'http://localhost:5173'),
+
+    /*
     |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------

@@ -6,6 +6,7 @@ import { site } from '../config/site'
 import { useAuth } from '../context/AuthContext'
 import { useCart } from '../context/CartContext'
 import { useLines } from '../hooks/useLines'
+import { lineImage, lineThumb } from '../lib/lines'
 import { formatCOP } from '../lib/format'
 import Bezel from '../components/ui/Bezel'
 import Cover from '../components/ui/Cover'
@@ -38,16 +39,23 @@ function breakdown(lines) {
   )
 }
 
+// La miniatura sale SIEMPRE de los datos actuales del catálogo (la línea del producto, por su slug), no de la ruta que quedó guardada
+// en el carrito al agregarlo: si la foto cambió después, la guardada ya no existe. La guardada solo es el último recurso.
 function Item({ line, showPrice }) {
   const { setQuantity, remove } = useCart()
+  const { data: catalog } = useLines()
   const { product, quantity } = line
+  const current = catalog.find((l) => l.slug === product.line_slug)
+  const thumb = (current && (lineThumb(current) || lineImage(current))) || product.image_url
+  // Si una ruta falla se recuerda cuál: al llegar el catálogo actual la miniatura cambia y se vuelve a intentar
+  const [brokenSrc, setBrokenSrc] = useState(null)
   const over = product.sale_mode === 'direct' && product.price !== null && quantity > product.stock
 
   return (
     <li className="bz cart-item">
       <div className="core">
         <Link to={itemHref(product)} className="cart-item__img" aria-hidden="true" tabIndex={-1}>
-          {product.image_url && <img src={product.image_url} alt="" width="96" height="72" loading="lazy" />}
+          {thumb && thumb !== brokenSrc && <img src={thumb} alt="" width="88" height="88" loading="lazy" onError={() => setBrokenSrc(thumb)} />}
         </Link>
         <div className="cart-item__info">
           <Link to={itemHref(product)} className="cart-item__name">{product.line_name ?? product.name}</Link>

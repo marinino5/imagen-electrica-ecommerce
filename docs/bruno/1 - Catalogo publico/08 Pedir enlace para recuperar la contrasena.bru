@@ -1,0 +1,26 @@
+meta {
+  name: Pedir enlace para recuperar la contrasena
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{base_url}}/api/v1/password/forgot
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "{{client_email}}"
+  }
+}
+
+docs {
+  Responde siempre 200 con el mismo mensaje, exista o no el correo. Si es de un usuario activo, llega un correo con un
+  enlace de un solo uso que vence en 60 minutos. En local el correo queda en backend/storage/logs/laravel.log.
+}
+
+assert {
+  res.status: eq 200
+}

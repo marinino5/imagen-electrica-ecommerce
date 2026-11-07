@@ -52,3 +52,9 @@ Video de un **motor WEG en operación**: no existe en Coverr, Pixabay ni Mixkit.
 - **Nosotros:** faltan las fotos del **equipo** y del **interior del almacén**; hoy son dos marcos 4:3 con «Foto próximamente».
 - **Extractor HCM-150N:** la foto disponible es de 500 px; pedir una de mayor resolución a Soler & Palau.
 - **Energía solar:** paneles e inversores existen como categorías pero no tienen líneas en el catálogo; la tarjeta SolarWEG lleva a `/cotizar`.
+
+
+## Pendiente tras los ajustes de detalle
+- **Foto de un asesor en un mostrador de material eléctrico** (hero de Contacto): ningún banco de imágenes tiene una con material eléctrico real; hoy se usa la foto de asesoría en tablero. Lo ideal es una foto propia en la tienda.
+- **Fotos oficiales por SKU de WEG** para las líneas de baja resolución (lista en `docs/auditoria-imagenes.md`).
+- **Video real de un motor WEG en operación** para la primera diapositiva (hoy, una banda transportadora de Mixkit).

@@ -22,7 +22,9 @@ export default function LineCard({ line, className = '' }) {
   const image = lineImage(line)
   const brand = (line.brand_label ?? '').split(' · ')[0]
   const range = line.hp_values?.length ? `${hpText(line.hp_min)} – ${hpText(line.hp_max)}` : null
-  const chips = uniqueChips([...(line.spec_chips ?? []), range]).slice(0, 3)
+  const all = uniqueChips([...(line.spec_chips ?? []), range])
+  const chips = all.slice(0, 2)
+  const more = all.length - chips.length
   const tagClass = line.sale_mode === 'direct' ? 'is-on' : 'is-q'
 
   return (
@@ -50,6 +52,7 @@ export default function LineCard({ line, className = '' }) {
         {chips.length > 0 && (
           <ul className="pc__chips">
             {chips.map((s) => <li key={s}>{s}</li>)}
+            {more > 0 && <li className="pc__more-chip" aria-label={`${more} datos más`}>+{more}</li>}
           </ul>
         )}
         <p className="pc__price">

@@ -7,5 +7,9 @@ export const authApi = {
   logout: () => post('/logout', undefined, { auth: true }),
   /** Usuario con los datos de su empresa (customer). */
   me: () => get('/me', { auth: true }),
+  /** Pide el enlace de recuperación. Siempre responde 200 con el mismo mensaje, exista o no el correo. */
+  forgotPassword: (email) => post('/password/forgot', { email }),
+  /** Cambia la contraseña con el token del correo. 422 si el enlace no sirve o venció. */
+  resetPassword: (payload) => post('/password/reset', payload),
   updateMe: (payload) => put('/me', payload, { auth: true }),
 }

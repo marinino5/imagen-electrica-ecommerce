@@ -1,4 +1,4 @@
-import { FileText, HelpCircle, PackageSearch, Settings2, Truck } from 'lucide-react'
+import { FileText, HelpCircle, PackageSearch, Settings2, ShieldCheck, Truck } from 'lucide-react'
 
 const lines = (...rows) => rows.filter(Boolean).join('\n')
 
@@ -59,6 +59,22 @@ export const topics = [
     icon: Truck,
     fields: [{ name: 'code', label: 'Código de tu pedido o cotización', placeholder: 'Ej.: PED-0001 o COT-0001', required: true }],
     template: (f) => `Hola, quiero consultar el estado de mi solicitud ${f.code || ''}.`.replace(' .', '.'),
+  },
+  {
+    id: 'warranty',
+    label: 'Garantías y devoluciones',
+    icon: ShieldCheck,
+    fields: [
+      { name: 'kind', label: '¿Qué necesitas?', type: 'select', options: ['Garantía de un producto', 'Devolución', 'Cambio de referencia'] },
+      { name: 'code', label: 'Código del pedido o referencia del producto', placeholder: 'Ej.: PED-0001 o el SKU', required: true },
+      { name: 'what', label: 'Cuéntanos qué pasó', type: 'textarea', placeholder: 'Qué falla presenta o por qué lo quieres devolver…', required: true },
+    ],
+    template: (f) =>
+      lines(
+        `Hola, necesito ${f.kind ? f.kind.toLowerCase() : 'gestionar una garantía o devolución'}.`,
+        f.code && `Pedido o referencia: ${f.code}.`,
+        f.what && `Detalle: ${f.what}`,
+      ),
   },
   {
     id: 'other',

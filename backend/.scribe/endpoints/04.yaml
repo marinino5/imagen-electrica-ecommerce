@@ -247,6 +247,152 @@ endpoints:
     custom: []
     httpMethods:
       - POST
+    uri: api/v1/password/forgot
+    metadata:
+      custom: []
+      groupName: Autenticación
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Pedir enlace para recuperar la contraseña'
+      description: |-
+        Siempre responde igual, exista o no el correo, para no revelar qué cuentas existen. Si el correo es de un usuario
+        activo, le llega un enlace de un solo uso que vence en 60 minutos. Máximo 5 intentos por minuto y 20 por hora
+        desde la misma IP.
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        custom: []
+        name: email
+        description: 'Correo de la cuenta.'
+        required: true
+        example: laura@constructoraaltos.test
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      email: laura@constructoraaltos.test
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"message":"Si el correo existe, te enviamos un enlace para restablecer tu contraseña."}'
+        headers: []
+        description: Siempre
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/v1/password/reset
+    metadata:
+      custom: []
+      groupName: Autenticación
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Restablecer la contraseña'
+      description: |-
+        Usa el token y el correo del enlace que llegó por correo. El enlace funciona una sola vez y vence a los 60 minutos.
+        Revoca los tokens de sesión anteriores; después de esto, la persona inicia sesión con la contraseña nueva.
+        Máximo 10 intentos por minuto desde la misma IP.
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      token:
+        custom: []
+        name: token
+        description: 'Token del enlace.'
+        required: true
+        example: 3f1c0d...
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      email:
+        custom: []
+        name: email
+        description: 'Correo de la cuenta.'
+        required: true
+        example: laura@constructoraaltos.test
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: 'Contraseña nueva (8 a 100 caracteres).'
+        required: true
+        example: ClaveNueva2026
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      password_confirmation:
+        custom: []
+        name: password_confirmation
+        description: 'Igual a la contraseña nueva.'
+        required: true
+        example: ClaveNueva2026
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      token: 3f1c0d...
+      email: laura@constructoraaltos.test
+      password: ClaveNueva2026
+      password_confirmation: ClaveNueva2026
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"message":"Cambiaste tu contraseña. Ya puedes ingresar."}'
+        headers: []
+        description: 'Contraseña cambiada'
+      -
+        custom: []
+        status: 422
+        content: '{"message":"El enlace no es válido o ya venció. Pide uno nuevo.","errors":{"token":["El enlace no es válido o ya venció. Pide uno nuevo."]}}'
+        headers: []
+        description: 'Enlace inválido o vencido'
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
     uri: api/v1/logout
     metadata:
       custom: []

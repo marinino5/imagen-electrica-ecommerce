@@ -29,8 +29,8 @@ function buildMessage(p, body) {
 }
 
 // Formulario inteligente: primero se elige el motivo; según la opción cambian los campos y la plantilla del mensaje
-export default function SmartForm() {
-  const [topicId, setTopicId] = useState(null)
+export default function SmartForm({ fixedTopic = null }) {
+  const [topicId, setTopicId] = useState(fixedTopic)
   const [values, setValues] = useState({}) // campos propios del motivo
   const [message, setMessage] = useState('')
   const [edited, setEdited] = useState(false) // true cuando la persona cambió el mensaje a mano
@@ -69,15 +69,18 @@ export default function SmartForm() {
 
   return (
     <div className="smart">
-      <h2 className="smart__title" id="h-ayuda">¿En qué te ayudamos?</h2>
+      <h2 className="smart__title" id="h-ayuda">{fixedTopic ? topic.label : '¿En qué te ayudamos?'}</h2>
 
-      <div className="chips" role="radiogroup" aria-labelledby="h-ayuda">
-        {topics.map(({ id, label, icon: Icon }) => (
-          <button key={id} type="button" role="radio" aria-checked={topicId === id} className={`chip ${topicId === id ? 'is-on' : ''}`} onClick={() => pick(id)}>
-            <Icon size={18} aria-hidden="true" /> {label}
-          </button>
-        ))}
-      </div>
+      {/* Con un motivo fijo (viene de los mosaicos de Contacto) no se piden otra vez los motivos */}
+      {!fixedTopic && (
+        <div className="chips" role="radiogroup" aria-labelledby="h-ayuda">
+          {topics.map(({ id, label, icon: Icon }) => (
+            <button key={id} type="button" role="radio" aria-checked={topicId === id} className={`chip ${topicId === id ? 'is-on' : ''}`} onClick={() => pick(id)}>
+              <Icon size={18} aria-hidden="true" /> {label}
+            </button>
+          ))}
+        </div>
+      )}
 
       <AnimatePresence mode="wait" initial={false}>
         {!topic && (

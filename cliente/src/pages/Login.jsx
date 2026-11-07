@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, Navigate, useLocation } from 'react-router-dom'
+import { CircleAlert } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { useAuthRedirect } from '../hooks/useAuthRedirect'
 import Field from '../components/ui/Field'
@@ -66,9 +67,10 @@ export default function Login() {
         {location.state?.notice && <p className="alert alert--warning" role="status">{location.state.notice}</p>}
 
         <form className="form auth-form" onSubmit={submit} noValidate>
-          {error && <p className="alert alert--error" role="alert">{error.message}</p>}
+          {error && <p className="alert alert--error" role="alert"><CircleAlert size={18} aria-hidden="true" /> <span>{error.message}</span></p>}
           <Field label="Correo electrónico" type="email" autoComplete="email" value={form.email} onChange={set('email')} onBlur={blur('email')} error={shown('email')} required />
           <PasswordField value={form.password} onChange={set('password')} onBlur={blur('password')} error={shown('password')} autoComplete="current-password" />
+          <Link to="/recuperar" state={{ email: form.email }} className="ax__forgot">¿Olvidaste tu contraseña?</Link>
           <button type="submit" className="btn btn--accent btn--lg btn--block" disabled={busy}>
             {busy ? 'Ingresando…' : 'Ingresar'}
           </button>

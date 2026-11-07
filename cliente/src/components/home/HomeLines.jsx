@@ -20,7 +20,7 @@ function FamilyTile({ family, index }) {
   const cats = family.categories ?? []
 
   return (
-    <Reveal as="li" i={index} className="fam">
+    <Reveal as="li" i={index} className="fam fam--rise">
       <article className="fam__card lift">
         <div className="fam__media" aria-hidden="true">
           {photo ? (
@@ -36,10 +36,15 @@ function FamilyTile({ family, index }) {
         </div>
         <div className="fam__body">
           <span className="fam__num" aria-hidden="true">{familyNumber(index)}</span>
-          <h3><Link to={`/productos?familia=${family.slug}`} className="fam__link">{family.name}</Link></h3>
-          <p className="fam__count">{family.lines_count} {family.lines_count === 1 ? 'ficha' : 'fichas'}</p>
+          <h3>
+            {/* Un solo enlace cubre toda la tarjeta (::after); la flecha va dentro del enlace */}
+            <Link to={`/productos?familia=${family.slug}`} className="fam__link">
+              {family.name}
+              <span className="fam__arrow" aria-hidden="true"><ArrowUpRight size={18} /></span>
+            </Link>
+          </h3>
+          <p className="fam__count">{family.lines_count} {family.lines_count === 1 ? 'línea' : 'líneas'}</p>
         </div>
-        <span className="fam__arrow" aria-hidden="true"><ArrowUpRight size={18} /></span>
       </article>
     </Reveal>
   )

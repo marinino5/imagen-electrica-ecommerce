@@ -4,8 +4,8 @@
    ============================================================ */
 
 /* ---------- 4.3 Asesoría y Entrega ---------- */
-.ie-xbs { padding-block: clamp(72px, 9vw, 120px); }
-.ie-xbs .xb + .xb { margin-top: clamp(72px, 9vw, 120px); }
+.ie-xbs { padding-block: clamp(48px, 6vw, 88px); }
+.ie-xbs .xb + .xb { margin-top: clamp(48px, 6vw, 88px); }
 .xb-list { display: grid; gap: 10px; margin: 22px 0 0; padding: 0; list-style: none; }
 .xb-list li { display: flex; align-items: center; gap: 12px; color: var(--ie-violet-950); font-size: 1rem; font-weight: 500; }
 .xb-list li > span {
@@ -56,7 +56,7 @@
 .hm-brands--band .hm-brands__track a > span { font-size: 1.5rem; color: var(--ie-violet-950); }
 
 /* ---------- 4.6 Cierre: asesoría clara + pie ---------- */
-.adv2 { --arc-top: 82%; padding-block: clamp(72px, 9vw, 120px); }
+.adv2 { --arc-top: 82%; padding-block: clamp(48px, 6vw, 88px); }
 .adv2__grid { display: grid; gap: 36px; align-items: center; }
 .adv2 .xb__text { opacity: 1; transform: none; }
 .adv2__title { margin: 0; }

@@ -5,9 +5,59 @@
 .pop.is-in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .pop { opacity: 1; transform: none; transition: none; } }
 
-.ct-hero { padding-block: clamp(40px, 6vw, 80px) clamp(56px, 7vw, 96px); }
-.ct-hero__head { margin-bottom: clamp(28px, 4vw, 44px); }
-.ct-hero__head .rd-lead { margin: 16px 0 0; color: var(--muted); }
+/* Hero oscuro (violeta-950, 420 px): titular a la izquierda; a la derecha la foto sobre un bloque violeta que sale hasta el borde */
+.ct-hero { position: relative; isolation: isolate; overflow: clip; min-height: 420px; padding-block: 44px 52px; background: var(--ie-violet-950); color: #fff; }
+.ct-hero::before { content: ''; position: absolute; z-index: -1; top: 14%; bottom: 14%; right: 0; width: clamp(180px, 46%, 640px); background: var(--ie-violet-700); }
+.ct-hero__grid { display: grid; gap: 28px; align-items: center; }
+@media (min-width: 900px) { .ct-hero__grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 56px; } }
+.ct-hero .ie-h1 { color: #fff; }
+.ct-hero .ie-h1 .hl { color: var(--accent-light); }
+.ct-hero .rd-lead { margin: 16px 0 0; color: rgb(255 255 255 / 0.82); }
+.ct-hero__photo img { display: block; width: 100%; aspect-ratio: 4 / 3; max-height: 320px; object-fit: cover; border-radius: 28px 28px 28px 0; box-shadow: 0 24px 48px rgb(0 0 0 / 0.35); }
+
+/* ¿Qué necesitas?: cuatro mosaicos grandes */
+.ct-need { padding-block: clamp(48px, 6vw, 88px); }
+.ct-tiles { display: grid; gap: 14px; margin: 28px 0 0; padding: 0; list-style: none; }
+@media (min-width: 700px) { .ct-tiles { grid-template-columns: 1fr 1fr; gap: 20px; } }
+.ct-tile { position: relative; display: grid; align-content: start; gap: 6px; width: 100%; min-height: 168px; padding: 24px 56px 24px 24px; border: 1px solid var(--ie-lila-200); border-radius: 20px; background: #fff; color: var(--ie-violet-950); font: inherit; text-align: left; text-decoration: none; cursor: pointer; transition: transform 0.24s ease-out, box-shadow 0.24s ease-out, border-color 0.24s ease-out; }
+.ct-tile strong { font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; line-height: 1.05; }
+.ct-tile > span:last-of-type { color: var(--muted); font-size: 0.98rem; line-height: 1.4; }
+.ct-tile__ic { color: var(--ie-violet-500); transition: color 0.24s ease-out; }
+.ct-tile__go { position: absolute; top: 22px; right: 22px; color: var(--accent-text); opacity: 0.35; transform: translate(-4px, 4px); transition: opacity 0.24s ease-out, transform 0.24s ease-out; }
+.ct-tile:active { transform: scale(0.985); }
+.ct-tile.is-open { border-color: var(--ie-orange-500); }
+.ct-tile.is-open .ct-tile__ic { color: var(--ie-orange-500); }
+@media (hover: hover) and (pointer: fine) {
+  .ct-tile:hover { transform: translateY(-4px); border-color: var(--ie-orange-500); box-shadow: 0 22px 40px -22px rgb(75 58 130 / 0.45); }
+  .ct-tile:hover .ct-tile__ic { color: var(--ie-orange-500); }
+  .ct-tile:hover .ct-tile__go { opacity: 1; transform: none; }
+}
+.ct-tile:focus-visible { outline: 2px solid var(--ie-orange-500); outline-offset: 3px; }
+@media (hover: none) { .ct-tile__go { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .ct-tile, .ct-tile__go { transition: none; } }
+
+/* Formulario: aparece con altura animada (300 ms) */
+.ct-reveal { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s var(--ie-ease); }
+.ct-reveal.is-open { grid-template-rows: 1fr; }
+.ct-reveal__in { min-height: 0; overflow: hidden; }
+.ct-reveal .ct-panel { width: min(100%, 860px); margin: 28px auto 4px; }
+@media (prefers-reduced-motion: reduce) { .ct-reveal { transition: none; } }
+
+.ct-card { padding-block: clamp(48px, 6vw, 88px); }
+.ct-where { padding-block: clamp(40px, 5vw, 72px) clamp(56px, 7vw, 96px); }
+
+/* Dirección compacta con miniatura de mapa estática */
+.sc { display: grid; overflow: hidden; border-radius: 24px; background: #fff; box-shadow: 0 24px 60px -30px rgb(75 58 130 / 0.4); }
+@media (min-width: 800px) { .sc { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); } }
+.sc__map { position: relative; display: block; min-height: 220px; overflow: hidden; background: var(--ie-lila-200); }
+.sc__map img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.sc__pin { position: absolute; left: 42%; top: 50%; color: var(--ie-orange-500); transform: translate(-50%, -100%); filter: drop-shadow(0 6px 6px rgb(28 22 48 / 0.35)); }
+.sc__map small { position: absolute; right: 8px; bottom: 6px; padding: 1px 6px; border-radius: 4px; background: rgb(255 255 255 / 0.85); color: var(--muted); font-size: 10px; }
+.sc__body { display: grid; gap: 14px; justify-items: start; align-content: center; padding: clamp(22px, 3.4vw, 40px); }
+.sc__body h2 { margin: 0; color: var(--ie-violet-950); font-family: var(--font-display); font-size: clamp(1.9rem, 1.4rem + 1.6vw, 2.6rem); font-weight: 700; line-height: 1; }
+.sc__addr { display: flex; gap: 10px; margin: 0; color: var(--ie-violet-950); line-height: 1.45; }
+.sc__addr svg { flex: none; margin-top: 3px; color: var(--ie-violet-500); }
+.sc__hours { margin: 0; color: var(--muted); }
 
 /* La tarjeta: blanca, franja naranja de 8 px a la izquierda, logo y datos en columnas */
 .bc__card { position: relative; display: grid; gap: 24px clamp(24px, 4vw, 56px); padding: clamp(24px, 4vw, 44px) clamp(20px, 4vw, 48px) clamp(24px, 4vw, 44px) calc(clamp(20px, 4vw, 48px) + 8px); overflow: visible; border-radius: 12px; background: #fff; box-shadow: 0 30px 70px -30px rgb(75 58 130 / 0.38); }
@@ -23,7 +73,7 @@
 .bc__cols { display: grid; gap: 22px; margin: 0; padding: 0; list-style: none; }
 .bc__cols > li { display: grid; align-content: start; justify-items: start; gap: 6px; padding-top: 20px; border-top: 1px solid var(--ie-lila-200); }
 .bc__ic { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--ie-lila-100); color: var(--ie-violet-500); }
-.bc__cols h2 { margin: 6px 0 0; color: var(--ie-violet-950); font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; line-height: 1; }
+.bc__cols h3 { margin: 6px 0 0; color: var(--ie-violet-950); font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; line-height: 1; }
 .bc__cols p { margin: 0; color: var(--muted); }
 .bc__val { color: var(--ie-violet-950); font-weight: 600; overflow-wrap: anywhere; text-decoration: none; }
 .bc__val:hover { text-decoration: underline; text-underline-offset: 3px; }
@@ -45,7 +95,7 @@
 }
 
 /* Formulario y mapa */
-.ct-formsec { padding-block: clamp(56px, 8vw, 104px); }
+.ct-formsec { padding-block: clamp(48px, 6vw, 88px); }
 .ct-formsec__wrap { display: flex; justify-content: center; }
 .ct-panel { position: relative; width: min(100%, 860px); padding: clamp(24px, 4vw, 48px); border-radius: 28px; background: #fff; box-shadow: 0 24px 60px rgb(75 58 130 / 0.14); }
 .ct-panel .smart { padding: 0; }
