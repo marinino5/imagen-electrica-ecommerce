@@ -59,8 +59,8 @@ Uso comercial permitido, sin atribución obligatoria (se anota el autor por cort
 | Archivo | Página de origen | Autor | Dónde se usa |
 |---|---|---|---|
 | `asesoria-tablero.webp` | https://pixabay.com/photos/electrician-electric-electricity-2755683/ | jarmoluk | Inicio, bloque de asesoría |
-| `entrega-bodega.webp` | https://pixabay.com/photos/hand-product-finished-goods-5983142/ | KaweewatT | Inicio, bloque de entrega |
-| `bodega-pasillo.webp` | https://pixabay.com/photos/factory-plant-industrial-hall-1137992/ | falco | Cómo comprar, encabezado |
+| `entrega-almacen.webp` | https://pixabay.com/photos/hand-product-finished-goods-5983142/ | KaweewatT | Inicio, bloque de entrega |
+| `almacen-pasillo.webp` | https://pixabay.com/photos/factory-plant-industrial-hall-1137992/ | falco | Cómo comprar, encabezado |
 | `busca-portatil.webp` | https://pixabay.com/photos/engineer-engineering-4941347/ | This_is_Engineering | Cómo comprar, paso «Busca» |
 | `despacho-montacargas.webp` | https://pixabay.com/photos/steel-coil-warehouse-4395773/ | jotoler | Cómo comprar, paso «Recibe»; «Dónde se usa» |
 | `sector-talleres.webp` | https://pixabay.com/photos/human-work-industry-man-one-2164189/ | stafichukanatoly | Sectores |
@@ -75,8 +75,8 @@ Uso comercial permitido, sin atribución obligatoria (se anota el autor por cort
 | `tablero-manos.webp` | https://pixabay.com/photos/electrician-electric-electricity-1080574/ | jarmoluk | Catálogo, 404 |
 | `planta-operando.webp` | https://pixabay.com/photos/lab-machine-technology-8499925/ | This_is_Engineering | Hero, ficha |
 | `bodega.webp` | https://pixabay.com/photos/hangar-stock-suite-building-5183399/ | AJS1 | Inicio, cierre |
-| `bodega-cajas.webp` | https://pixabay.com/photos/factory-storehouse-box-700591/ | FIONASUN | Nosotros |
-| `bodega-oscura.webp` | https://pixabay.com/photos/store-stacks-shelves-stock-5619201/ | tianya1223 | Hero, Nosotros |
+| `almacen-cajas.webp` | https://pixabay.com/photos/factory-storehouse-box-700591/ | FIONASUN | Nosotros |
+| `almacen-oscuro.webp` | https://pixabay.com/photos/store-stacks-shelves-stock-5619201/ | tianya1223 | Hero, Nosotros |
 | `contacto.webp` | Pixabay (módulos en un tablero) | | Contacto |
 | `aplicaciones/*` (bandas, bombeo, ventilación, fluke-en-tablero) | Pixabay / Fluke | | Ficha, «Dónde se usa» |
 
@@ -84,12 +84,20 @@ Uso comercial permitido, sin atribución obligatoria (se anota el autor por cort
 
 La **fachada** (`fachada.webp`) y los logos de la empresa son propios. Las capturas de los celulares de «Cómo comprar» (`public/img/mockups/`) son de la propia tienda (`cliente/scripts/capturar-mockups.mjs`).
 
-## Video del hero (`cliente/public/media/`)
+## Video e imágenes del hero (`cliente/public/media/`, `cliente/public/img/fotos/`)
 
-| Diapositiva | Archivos | Fuente | Autor |
-|---|---|---|---|
-| Automatización y control | `hero-d2*` | https://pixabay.com/videos/id-86252/ (segundos 1 a 10, cableado de un tablero; sin el tramo del técnico borroso) | lumosajans |
-| Motores, Motorreductores, Ventilación | Sin video: foto oficial del producto sobre foto de ambiente | Coverr no tiene motores, motorreductores ni extractores industriales (consultas en `imagenes-pendientes.md`) | |
+Secuencia: video → imagen → video → imagen. Todo con tinte violeta-700 al 18 % (`multiply`) y velo violeta en el CSS; los clips se procesan con `cliente/scripts/procesar-hero.sh` (16:9 a 1920 px y 4:5 a 720 px, MP4 y WebM, menos de 1 MB cada uno).
+
+| Diapositiva | Archivos | Fuente | Autor | Licencia |
+|---|---|---|---|---|
+| 1 · Motores (video) | `hero-v1*` | https://pixabay.com/videos/id-41477/ («rotor, electromotor»: primer plano del eje de un electromotor girando, sin personas) | DmitrySteshenko | [Pixabay Content License](https://pixabay.com/service/license-summary/) (uso comercial, sin atribución obligatoria) |
+| 2 · Motorreductores (imagen) | `fotos/hero-banda.webp` + `catalogo/weg-cestari-wcg01.webp` | https://pixabay.com/photos/factory-plant-industrial-hall-1137993/ (banda de rodillos con su motorreductor; pasó por `gradar-foto.py`) | falco | Pixabay Content License |
+| 3 · Automatización y control (video) | `hero-v3*` | https://pixabay.com/videos/id-159674/ (técnico con casco, de espaldas, revisando los breakers de un tablero con un multímetro; sin cara en primer plano) | CreativeCommonsCentral | Pixabay Content License |
+| 4 · Ventilación y extracción (imagen) | `fotos/hero-extractores.webp` + `catalogo/soler-palau-extractor-axial.webp` | https://pixabay.com/photos/industry-ventilation-metal-2182767/ (dos extractores axiales reales en el muro de una nave) | Ganossi | Pixabay Content License |
+
+Los originales están en `cliente/media-fuente/videos-r5/` y `cliente/media-fuente/r5/` (carpetas ignoradas por git). Se descartó el video de cableado `id-86252` (reemplazado). Se revisaron también Mixkit (licencia libre con uso comercial) y Pixabay con 12 consultas de motores, bandas y tableros: ningún clip real de un motor WEG industrial; el del rotor es un primer plano oscuro y desenfocado. **Pendiente:** video propio o del fabricante de un motor WEG en operación.
+
+Mockups de «Cómo comprar»: `img/mockups/laptop.webp` es una captura propia de la tienda (`/productos?q=motor`).
 
 ## Coverr
 

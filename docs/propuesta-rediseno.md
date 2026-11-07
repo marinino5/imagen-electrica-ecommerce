@@ -137,3 +137,78 @@ Sistema documentado en `DESIGN.md`. Flujo seguido: Taste Skill (dirección y ref
 | `/cotizar` | Formulario libre de 2 pasos con adjunto | **design-taste:** validación en línea bajo cada campo, etiqueta arriba, estados de envío y error. **emil:** el formulario se despliega en 300 ms; la validación no anima |
 
 **Pasada final (anti-ui-slop):** se revisó cada pantalla renderizada en 375 y 1440 px, sin errores de consola, sin imágenes rotas, sin desbordes horizontales y sin fondos blancos lisos. Se corrigió lo observado: arco de la ficha cortado (`non-scaling-stroke` rompe `stroke-dasharray`), tarjeta del mapa pegada al borde, texto blanco de WhatsApp que salía lila, indicador de pestañas sin medir y fotos de «Dónde se usa» que no cargaban dentro de un panel oculto.
+
+---
+
+# Ajustes finales (sobre `cb89924`)
+
+Cada página recibió un **recurso firma** propio y una **entrada propia**, y todas las secciones claras llevan «fondos con vida». Aquí queda, por página, qué encontró el `critique` de impeccable, qué referencia externa inspiró la solución y qué skill aportó cada decisión.
+
+## Cómo se trabajó
+
+- **Skills cargadas y ejecutadas** (no solo leídas): `design-taste-frontend` (dirección: varianza 8, movimiento 6, densidad 4; nada de tres columnas iguales ni de héroes centrados), `impeccable` (críticas, ver abajo), `frontend-design` + `ui-ux-pro-max` (implementación y chequeos de contraste, objetivos táctiles de 44 px, hoja inferior, formularios), `emil-design-eng` (curvas, duraciones, origen del popover, `scale(.97)` al presionar, `prefers-reduced-motion`) y `anti-ui-slop` (última pasada).
+- **impeccable, `critique`**: Evaluación A (revisión de diseño, en un subagente aislado, leyendo código) y Evaluación B (`impeccable detect` sobre los JSX cambiados: **0 hallazgos**). Nota de método: la A se hizo sobre el código, sin overlay de navegador. Puntuación heurística global de la A: **29/40** (7 y 10 `n/a`, superficie «Persuade»). Pasadas aplicadas: `layout` (ritmo y estructura por página), `typeset` (nombres de producto en minúscula normal; titulares con pesos mezclados), `bolder` (hero con video, circuito, tarjeta de visita), `quieter` (se quitaron barra de progreso al 100 %, panel violeta de acceso, doble titular, seis salidas secundarias) y `polish` (hover, foco, estados y `reduced-motion` de lo nuevo).
+- **Investigación externa** (solo ideas, nada copiado): se pudo leer `se.com/co/es` (tarjetas con imagen y título como zona clicable, categorías con foto cuadrada, accesos directos a WhatsApp y a contacto por región) y el listado de `awwwards.com/websites/industrial` (scroll con GSAP, secciones a pantalla completa, paletas industriales). `weg.net` responde 403 y `siemens.com` solo dio la estructura general (hero con pregunta, tarjetas con etiqueta de tipo y elevación sutil); `new.abb.com` agotó el tiempo; `htmlrev.com` es un directorio de plantillas sin ideas útiles; la búsqueda en Godly no devolvió resultados. Las ideas de «línea que se dibuja con el scroll» vienen de las referencias de dibujo SVG por `stroke-dashoffset` que listan los buscadores (Runway, Codrops).
+
+## Prohibiciones que se cumplen
+
+| Regla | Cómo |
+|---|---|
+| Sin fondos blancos o lavanda lisos | `Bgfx` en cada sección clara (ver tabla de combinaciones). La verificación recorre las secciones y no encuentra ninguna sin capa de fondo |
+| Misma estructura en dos páginas | Inicio: bloque extendido violeta; Cómo comprar: circuito; Nosotros: capa violeta + marcos; Contacto: tarjeta de visita; Cuenta: tarjeta única |
+| Misma animación de entrada en dos páginas | Inicio: desliza de lado · Cómo comprar: enciende la línea (scroll) · Nosotros: máscara de abajo hacia arriba 700 ms · Contacto: fundido con escala 0,98 → 1 · Cuenta: sube 16 px con fundido |
+
+## Fondos con vida (`Bgfx`, `bgfx.css`)
+
+`a` dibujo técnico (motor, engranaje, contactor, plano; trazo de 1 px, violeta-500 al 7 %, 60 % del ancho, cortado por el borde) · `b` malla de color (lila-200 + naranja al 10 %, esquinas opuestas) · `c` arco naranja de 1,5 px que se dibuja · `d` cuadrícula de plano de 32 px con máscara radial · `e` banda diagonal lila-100 a 6° · `f` esquineros en L de 24 px (clase `.tc`). Nunca más de dos por sección, salvo el panel de acceso, donde el encargo pide tres (malla + motor al 6 % + arco).
+
+| Sección | Combinación | Sección | Combinación |
+|---|---|---|---|
+| Inicio · Portafolio | a (engranaje) + b | Cómo comprar · Hero | a (contactor) + e |
+| Inicio · Ofertas | d + c | Cómo comprar · Circuito | d + b (+ f en las tarjetas) |
+| Inicio · Asesoría y entrega | e + b | Cómo comprar · Entregas | e + c |
+| Inicio · Sectores | a (contactor) + d | Cómo comprar · Preguntas | a (motor) + d |
+| Inicio · Marcas | b + c | Nosotros · Hero | a (engranaje) + c |
+| Inicio · Cierre | a (plano) + c del propio fondo | Nosotros · Equipo y almacén | b + e |
+| Catálogo · Banner | a (plano) + b | Nosotros · Marcas | d + c |
+| Catálogo · Listado | d + c | Contacto · Hero | b + a (motor) |
+| Ficha | b + e | Contacto · Formulario | d + c |
+| Carrito | d + e | Visítanos (Nosotros / Contacto) | a (plano) + b / e + a (engranaje) |
+| Mi cuenta | b + a (engranaje) | Cotizar | a (contactor) + c del propio fondo |
+| Política de datos | a (plano) + d | Ingresar / Crear cuenta | b + a (motor, 6 %) + c |
+
+## Por página
+
+### Inicio
+- **critique (impeccable):** el `h1` del hero cambiaba cada 9 s con `aria-live` en el título, el hero acumulaba más de nueve controles, el producto no aparecía en celular y la primera diapositiva dejaba la cara del trabajador detrás del producto. Las tarjetas mostraban un solo botón y nombres en mayúsculas condensadas.
+- **Referencia:** `se.com/co/es` (tarjeta entera clicable con imagen y título; acceso directo a WhatsApp), `awwwards.com/websites/industrial` (video a pantalla completa con velo de color).
+- **Skill:** `design-taste-frontend` (hero asimétrico, texto a la izquierda y activo a la derecha), `impeccable layout/bolder` (secuencia video → imagen → video → imagen; velo violeta + tinte `multiply` al 18 %), `emil-design-eng` (entrada lateral de 56 px, 700 ms, solo `transform`/`opacity`).
+- **Decisiones:** el texto del hero entra deslizándose de lado (entrada firma del Inicio). Las tarjetas (catálogo y Inicio) tienen **dos acciones**: «Ver ficha» en contorno y el botón circular naranja de 44 px con carrito y «+». Compra rápida: una referencia → directo; varias → popover en escritorio (origen en el botón, 160 ms, `ease-out`) u hoja inferior en celular (280 ms, curva de cajón); toast abajo a la derecha, pulso del contador (1 → 1,15 → 1 en 300 ms) y check 1,2 s. Las líneas solo de cotización muestran un documento y abren la cotización con la línea precargada. Sin números de inventario: si no alcanza, «Cotizar esta cantidad».
+
+### Cómo comprar — recurso «circuito»
+- **critique:** la línea de tiempo con foto y texto alternados era la receta de plantilla; el bloque `prefers-reduced-motion` apuntaba a clases que ya no existían; los números 01/02/03 repetían la receta de `SectionLabel`; `.phone` estaba definido dos veces (en `como-comprar.css` y en `contacto.css`).
+- **Referencia:** técnicas de dibujo SVG con `stroke-dashoffset` ligado al scroll (Codrops, Runway) y la idea de «recorrido» de los sitios de ingeniería eléctrica de la lista.
+- **Skill:** `design-taste-frontend` («Scroll Progress Path»), `impeccable layout` (bornes con tarjetas de radio 24 px, esquineros en L), `ui-ux-pro-max` (mockups pequeños, no a media pantalla), `emil-design-eng` (los bornes se encienden con `transition` de 300 ms, no con keyframes).
+- **Decisiones:** una línea naranja de 3 px serpentea (curvas alternas de 46 px en escritorio, vertical a la izquierda en celular), se mide sobre el DOM real y se «enciende» con el scroll con un punto luminoso en la punta; cada borne (círculo violeta-950 de 64 px, aro naranja, número en Barlow, dos lengüetas) y su tarjeta se activan cuando la corriente llega. Imágenes: portátil con el buscador (captura real nueva, sin la foto de cableado automotriz), ficha en celular, asesor por WhatsApp (conversación) y despacho de cajas. El escenario de cada mockup lleva cuadrícula de plano y una mancha naranja. Hero dividido, sin cuadro difuminado; un cable naranja abraza la foto y se enciende al cargar. Se quitaron los números de sección y se eliminó el CSS duplicado de `.phone`.
+
+### Nosotros — recurso «galería editorial»
+- **critique:** 3 de 5 diapositivas eran «Próximamente» dentro de una galería fijada de 100vh; las etiquetas empezaban en «03»; el `h1` era solo un número decorativo; el marco en arco cortaba el letrero; `nosotros.css` estaba casi todo muerto.
+- **Referencia:** maquetas editoriales de capas (foto con un bloque de color desplazado) de los listados de plantillas; `awwwards.com/websites/industrial` (cifras grandes y pocas).
+- **Skill:** `impeccable typeset` (cifras en Barlow 800 con el «+» en naranja), `frontend-design` (una sola cosa memorable: la fachada con su capa), `emil-design-eng` (revelado con `clip-path` de abajo hacia arriba, 700 ms).
+- **Decisiones:** solo dos cifras, «+25 años en el sector» y «+1.000 productos» (sin fundación ni fechas). Fachada en marco 16:10, radio 28 px, 56 % del ancho, con el letrero completo; detrás, un rectángulo violeta-700 desplazado 24 px abajo a la derecha; tarjeta flotante «Bucaramanga, Santander». Dos espacios reservados 4:3 («Nuestro equipo» y «Nuestro almacén por dentro»): panel lila-200 con cuadrícula, logo al 8 %, título y «Foto próximamente»; al pasar `photo` y `alt` a `PhotoSlot` la foto reemplaza el panel sin tocar el diseño. Ninguna foto repetida. Marcas con logos, sin tocar. Visítanos: mapa en contenedor de 28 px, tarjeta flotante y 120 px de margen inferior.
+
+### Contacto — recurso «tarjeta de visita»
+- **critique:** doble encabezado («Escríbenos» dos veces) con `id="h-ayuda"` duplicado; texto blanco sobre naranja (≈3:1) en el canal de WhatsApp; el botón decía «Enviar mensaje» pero solo prepara el mensaje.
+- **Referencia:** `se.com/co/es` (canales directos a WhatsApp y a contacto en una sola zona) y las tarjetas de presentación de los listados de Godly/Awwwards (franja de color, logo y datos en columnas).
+- **Skill:** `impeccable layout/clarify`, `ui-ux-pro-max` (texto `ink` sobre naranja, objetivos de 44 px), `emil-design-eng` (fundido con escala 0,98 → 1, 600 ms).
+- **Decisiones:** los tres canales forman una gran tarjeta blanca con franja naranja de 8 px, logo y columnas; el botón de WhatsApp lleva texto `ink`. Formulario y mapa debajo, con el mapa redondeado y 120 px de margen inferior. «Preparar mensaje» en lugar de «Enviar mensaje».
+
+### Ingresar y Crear cuenta — recurso «panel limpio»
+- **critique:** la parte más intercambiable (tarjeta centrada); la franja violeta era `aria-hidden` y solo aparecía desde 1024 px; «Ingresar» aparecía cuatro veces; barra de progreso al 100 % en un formulario de un paso; seis salidas secundarias; props muertas en `AuthLayout`.
+- **Referencia:** formularios sobrios de `se.com` (una acción principal, el resto en texto pequeño).
+- **Skill:** `impeccable quieter` (se quitaron el panel violeta, los beneficios y la barra), `design-taste-frontend` (varianza baja aquí a propósito), `emil-design-eng` (la tarjeta sube 16 px con fundido).
+- **Decisiones:** tarjeta de 460 px; fondo con malla de color, silueta de un motor en línea al 6 % y arco naranja fino; «No necesitas cuenta» sube debajo del título; bajo la tarjeta, cuatro logos en gris con «Distribuidores de WEG, ABB, Siemens y Fluke».
+
+### Disponibilidad y bodega
+- **critique:** el dato de inventario era la decisión más repetida y la menos útil en B2B; ocupaba 5 lugares (ficha técnica, tabla de referencias, bajo el precio, chips, textos).
+- **Decisión:** se quitó de toda la vista. La validación de stock sigue en el backend (`InventoryService`); si la cantidad no alcanza, la tienda ofrece «Cotizar esta cantidad» sin mostrar números. Tabla de referencias: Referencia · SKU · Precio · Agregar/Cotizar. Las fotos `bodega-*` pasaron a `almacen-*`.

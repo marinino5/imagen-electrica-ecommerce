@@ -1,6 +1,7 @@
 import { Info } from 'lucide-react'
 import Cover from '../components/ui/Cover'
 import { site } from '../config/site'
+import Bgfx from '../components/ui/Bgfx'
 import '../styles/info-pages.css'
 
 // Solo la estructura: el texto legal lo valida la empresa. No se redacta ni se inventa contenido aquí.
@@ -23,6 +24,7 @@ export default function PoliticaDatos() {
       />
 
       <section className="section">
+        <Bgfx a="plan:r" d />
         <div className="container policy">
           <p className="alert alert--warning policy__notice" role="note">
             <Info size={18} aria-hidden="true" /> Texto en validación con la empresa

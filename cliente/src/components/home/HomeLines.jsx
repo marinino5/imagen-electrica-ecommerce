@@ -7,6 +7,7 @@ import Reveal from '../ui/Reveal'
 import Hl from '../ui/Hl'
 import Pill from '../ui/Pill'
 import ErrorState from '../ui/ErrorState'
+import Bgfx from '../ui/Bgfx'
 import '../../styles/home.css'
 import '../../styles/home2.css'
 
@@ -49,6 +50,7 @@ export default function HomeLines() {
 
   return (
     <section className="rd-sec bg-lav hm-fams" id="portafolio" aria-labelledby="h-lineas">
+      <Bgfx a="gear:r" b />
             <div className="wrap">
         <div className="hm-head">
           <div>

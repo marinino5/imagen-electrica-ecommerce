@@ -1,0 +1,107 @@
+/* Compra rápida de las tarjetas: botón circular naranja de 44 px, popover (escritorio) y hoja inferior (celular) */
+.qa__btn {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.2s ease-out, transform 0.16s ease-out;
+}
+.qa__btn:hover { background: var(--accent-hover); }
+.qa__btn:active { transform: scale(0.94); }
+.qa__btn.is-done { background: var(--ie-violet-950); color: #fff; }
+.qa__btn.is-quote { background: var(--primary); color: #fff; }
+.qa__btn.is-quote:hover { background: var(--primary-dark); }
+.qa__plus {
+  position: absolute;
+  top: 3px;
+  right: 2px;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: #fff;
+}
+
+.qa {
+  z-index: var(--z-modal);
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--lavender-2);
+  background: #fff;
+  color: var(--ink);
+}
+.qa--pop { position: fixed; border-radius: 16px; box-shadow: 0 24px 56px -12px rgb(28 22 48 / 0.35); }
+.qa--sheet {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-height: 82dvh;
+  overflow-y: auto;
+  padding: 20px 16px calc(20px + env(safe-area-inset-bottom));
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -18px 50px rgb(28 22 48 / 0.3);
+}
+.qa--sheet::before { content: ''; width: 40px; height: 4px; margin: -8px auto 0; border-radius: 4px; background: var(--lav-3); }
+.qa__backdrop { position: fixed; inset: 0; z-index: var(--z-modal); background: rgb(28 22 48 / 0.5); }
+.qa__head { display: flex; align-items: center; justify-content: space-between; }
+.qa__head p { margin: 0; font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; }
+.qa__x { display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 50%; background: var(--lav-soft); color: var(--ink); cursor: pointer; }
+.qa__line { margin: -6px 0 0; color: var(--muted); font-size: 14px; }
+.qa__msg { margin: 0; color: var(--muted); font-size: 14px; }
+.qa__link { padding: 0; border: 0; background: none; color: var(--primary); font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; }
+.qa__chips { display: flex; flex-wrap: wrap; gap: 8px; max-height: 148px; padding: 2px; overflow-y: auto; }
+.qa__chips button {
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--lav-3);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s ease-out, background 0.2s ease-out;
+}
+.qa__chips button:hover { border-color: var(--ie-violet-500); }
+.qa__chips button.is-on { border-color: var(--ie-violet-950); background: var(--ie-violet-950); color: #fff; }
+.qa__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.qa__price { display: grid; margin: 0; }
+.qa__price strong { font-size: 1.2rem; font-variant-numeric: tabular-nums; }
+.qa__price small { color: var(--muted); font-size: 12px; }
+.qa__qty { display: inline-flex; align-items: center; border: 1px solid var(--lav-3); border-radius: 999px; }
+.qa__qty button { display: grid; place-items: center; width: 40px; height: 40px; border: 0; background: none; color: var(--ink); cursor: pointer; }
+.qa__qty input { width: 44px; border: 0; background: none; color: var(--ink); font: inherit; font-weight: 700; text-align: center; font-variant-numeric: tabular-nums; -moz-appearance: textfield; appearance: textfield; }
+.qa__qty input::-webkit-outer-spin-button, .qa__qty input::-webkit-inner-spin-button { appearance: none; margin: 0; }
+.qa__go {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease-out, transform 0.16s ease-out;
+}
+.qa__go:hover { background: var(--accent-hover); }
+.qa__go:active { transform: scale(0.98); }
+.qa__go--quote { background: var(--primary); color: #fff; }
+.qa__go--quote:hover { background: var(--primary-dark); }
+@media (prefers-reduced-motion: reduce) { .qa__btn, .qa__go { transition: none; } }

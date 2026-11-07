@@ -17,7 +17,7 @@ Licencia de todos: [Pixabay Content License](https://pixabay.com/service/license
 
 | Diapositiva | Origen (pageURL) | Autor | Archivos en `public/media/` | Notas |
 |---|---|---|---|---|
-| Automatización y control | https://pixabay.com/videos/id-86252/ (segundos 1 a 10 de la versión 4K) | lumosajans | `hero-d2.mp4/.webm`, `hero-d2-m.mp4/.webm`, `hero-d2-poster.webp` | Cableado de control y tablero, sin personas de frente: arranca directo en los cables. Se quitó el tramo del técnico de espaldas (id-159674) y el fundido borroso entre los dos clips |
+| Motores (video) / Automatización y control (video) | https://pixabay.com/videos/id-41477/ y https://pixabay.com/videos/id-159674/ | DmitrySteshenko / CreativeCommonsCentral | `hero-v1*`, `hero-v3*` | Ver `docs/creditos-media.md` |
 | Ventilación | **Sin video.** Se eliminó el clip anterior (id-235032) | | | Diseño gráfico de marca (arcos y ventilador). No hay extractores industriales en primer plano con licencia en Coverr ni en Pixabay: ver `docs/opciones-video/` |
 | Motores | **Sin video.** Diseño gráfico de marca | | | Sin motores industriales reales en Coverr ni en Pixabay (solo renders de pistones). Material oficial pendiente, ver abajo |
 

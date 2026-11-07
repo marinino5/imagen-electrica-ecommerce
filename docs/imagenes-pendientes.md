@@ -22,10 +22,10 @@ Lo que **no** se pudo conseguir con licencia y calidad suficientes. La tienda nu
 
 | Pieza | Estado |
 |---|---|
-| Foto interior del almacén | Pendiente: «Nuestro almacén por dentro» muestra un diseño gráfico de marca sin texto de relleno |
-| Foto del equipo | Pendiente: «Nuestro equipo» muestra un diseño gráfico de marca sin texto de relleno |
+| Foto del equipo | Pendiente: «Nuestro equipo» muestra un panel lila con cuadrícula, el logo al 8 % y «Foto próximamente» |
+| Foto interior del almacén | Pendiente: «Nuestro almacén por dentro» muestra el mismo panel |
 
-Cuando lleguen: pasarlas por `cliente/scripts/gradar-foto.py <origen> cliente/public/img/fotos/<nombre>.webp --aspecto 4:3`, ponerlas en el `<figure className="ab-slot">` de `cliente/src/pages/Nosotros.jsx` y anotar la fuente en `docs/creditos-media.md`.
+Cuando lleguen: pasarlas por `cliente/scripts/gradar-foto.py <origen> cliente/public/img/fotos/<nombre>.webp --aspecto 4:3`, poner `photo` y `alt` en el arreglo `SLOTS` de `cliente/src/pages/Nosotros.jsx` (el marco `PhotoSlot` reemplaza el panel sin tocar el diseño) y anotar la fuente en `docs/creditos-media.md`.
 
 ## Sitios que bloquearon la descarga automática
 
@@ -38,7 +38,7 @@ Sylvania, York, EMI y Centelsa: no se encontró un archivo oficial. Se muestra e
 
 ## Videos
 
-Video de motor industrial, motorreductor o extractores: no existen en Coverr ni en Pixabay (solo renders y ventiladores domésticos). Las diapositivas de Motores, Motorreductores y Ventilación usan la foto oficial del producto sobre una foto de ambiente.
+Video de un **motor WEG en operación**: no existe en Coverr, Pixabay ni Mixkit. La diapositiva 1 usa un primer plano del eje de un electromotor (Pixabay id-41477); lo ideal es material propio o del fabricante. Detalle en `docs/creditos-media.md`.
 
 ## Cómo asignar una imagen nueva
 
@@ -49,6 +49,6 @@ Video de motor industrial, motorreductor o extractores: no existen en Coverr ni 
 
 
 ## Pendiente tras el rediseño 4
-- **Nosotros, galería horizontal:** faltan las fotos del **interior del almacén**, del **mostrador** y del **equipo**; hoy muestran un panel «Próximamente» con el logo en marca de agua.
+- **Nosotros:** faltan las fotos del **equipo** y del **interior del almacén**; hoy son dos marcos 4:3 con «Foto próximamente».
 - **Extractor HCM-150N:** la foto disponible es de 500 px; pedir una de mayor resolución a Soler & Palau.
 - **Energía solar:** paneles e inversores existen como categorías pero no tienen líneas en el catálogo; la tarjeta SolarWEG lleva a `/cotizar`.

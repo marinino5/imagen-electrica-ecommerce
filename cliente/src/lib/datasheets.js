@@ -19,7 +19,7 @@ export const WHERE_USED = {
     ['Obras y construcción', '/img/fotos/sector-construccion.webp'],
   ],
   'ventilacion-y-climatizacion': [
-    ['Bodegas', '/img/fotos/bodega-cajas.webp'],
+    ['Almacenes', '/img/fotos/almacen-cajas.webp'],
     ['Talleres', '/img/fotos/sector-talleres.webp'],
     ['Plantas industriales', '/img/aplicaciones/ventilacion.webp'],
   ],
@@ -29,7 +29,7 @@ export const WHERE_USED = {
     ['Plantas industriales', '/img/fotos/planta-operando.webp'],
   ],
   iluminacion: [
-    ['Bodegas', '/img/fotos/bodega-pasillo.webp'],
+    ['Almacenes', '/img/fotos/almacen-pasillo.webp'],
     ['Plantas industriales', '/img/fotos/planta-operando.webp'],
     ['Obras y construcción', '/img/fotos/sector-construccion.webp'],
   ],

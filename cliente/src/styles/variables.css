@@ -19,7 +19,8 @@
   --accent: #f26a00; /* CTA principal y "la corriente"; el botón lleva siempre texto --ink */
   --accent-title: #dc5a00; /* naranja de los títulos grandes sobre blanco o lavanda: 3,5:1 (el #f26a00 da 2,8:1 sobre lavanda) */
   --accent-light: #ffb27a; /* naranja claro para resaltar texto sobre fondos oscuros (contraste AA) */
-  --success: #1e7a3a; /* etiqueta "En bodega" */
+  --accent-hover: #ff7d14; /* hover del naranja */
+  --success: #1e7a3a; /* confirmaciones */
   --success-tint: #e3f4e8;
 
   /* Degradados de marca */

@@ -37,7 +37,7 @@ export const FAMILY_APP_PHOTO = {
   'control-y-automatizacion': { src: '/img/fotos/electricista-tablero.webp', alt: 'Electricista conectando un tablero' },
   'ventilacion-y-climatizacion': { src: '/img/aplicaciones/ventilacion.webp', alt: 'Ventilador industrial instalado' },
   'cables-y-conductores': { src: '/img/fotos/tablero-cerca.webp', alt: 'Cableado de un tablero eléctrico' },
-  iluminacion: { src: '/img/fotos/bodega-oscura.webp', alt: 'Bodega con estanterías' },
+  iluminacion: { src: '/img/fotos/almacen-oscuro.webp', alt: 'Almacén con estanterías' },
   compresores: { src: '/img/aplicaciones/bombeo.webp', alt: 'Tubería y equipos de una planta' },
   'medicion-y-testeo': { src: '/img/aplicaciones/fluke-en-tablero.webp', alt: 'Multímetro Fluke midiendo en un tablero' },
 }
@@ -54,9 +54,9 @@ export const FAMILY_BLURB = {
   'motores-electricos': 'Motores monofásicos y trifásicos de uso general, alta eficiencia y a prueba de explosión.',
   'reductores-y-motorreductores': 'Reductores de sinfín y corona y helicoidales para bandas, mezcladoras y elevadores.',
   'control-y-automatizacion': 'Variadores, arrancadores, contactores, relés, PLC y protección para tableros.',
-  'ventilacion-y-climatizacion': 'Extractores y ventiladores industriales para bodegas, talleres y plantas.',
+  'ventilacion-y-climatizacion': 'Extractores y ventiladores industriales para almacenes, talleres y plantas.',
   'cables-y-conductores': 'Conductores THHN / THWN-2 para instalaciones eléctricas.',
-  iluminacion: 'Iluminación industrial LED para naves, bodegas y talleres.',
+  iluminacion: 'Iluminación industrial LED para naves, almacenes y talleres.',
   compresores: 'Compresores de pistón para taller e industria.',
   'medicion-y-testeo': 'Multímetros y equipos de medición Fluke para electricistas y técnicos.',
 }

@@ -1,0 +1,56 @@
+/* ============================================================
+   Contacto: «tarjeta de visita» con franja naranja, formulario y mapa. Entrada propia: fundido con escala 0,98 → 1.
+   ============================================================ */
+.pop { opacity: 0; transform: scale(0.98); transition: opacity 0.6s ease-out var(--d, 0ms), transform 0.6s var(--ie-ease) var(--d, 0ms); }
+.pop.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .pop { opacity: 1; transform: none; transition: none; } }
+
+.ct-hero { padding-block: clamp(40px, 6vw, 80px) clamp(56px, 7vw, 96px); }
+.ct-hero__head { margin-bottom: clamp(28px, 4vw, 44px); }
+.ct-hero__head .rd-lead { margin: 16px 0 0; color: var(--muted); }
+
+/* La tarjeta: blanca, franja naranja de 8 px a la izquierda, logo y datos en columnas */
+.bc__card { position: relative; display: grid; gap: 24px clamp(24px, 4vw, 56px); padding: clamp(24px, 4vw, 44px) clamp(20px, 4vw, 48px) clamp(24px, 4vw, 44px) calc(clamp(20px, 4vw, 48px) + 8px); overflow: visible; border-radius: 12px; background: #fff; box-shadow: 0 30px 70px -30px rgb(75 58 130 / 0.38); }
+.bc__card > * { position: relative; z-index: 1; }
+.bc__card::before { /* franja naranja: sustituye al esquinero superior del recurso .tc, que aquí solo marca la esquina inferior */
+  content: ''; position: absolute; inset: 0 auto 0 0; width: 8px; height: auto; border: 0; border-radius: 12px 0 0 12px; background: var(--ie-orange-500);
+}
+.bc__brand { display: flex; align-items: center; gap: 16px; }
+.bc__brand img { width: 64px; height: auto; }
+.bc__brand p { display: grid; margin: 0; }
+.bc__brand strong { color: var(--ie-violet-950); font-family: var(--font-display); font-size: 1.9rem; font-weight: 700; line-height: 1; }
+.bc__brand span { color: var(--muted); font-size: 0.95rem; }
+.bc__cols { display: grid; gap: 22px; margin: 0; padding: 0; list-style: none; }
+.bc__cols > li { display: grid; align-content: start; justify-items: start; gap: 6px; padding-top: 20px; border-top: 1px solid var(--ie-lila-200); }
+.bc__ic { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--ie-lila-100); color: var(--ie-violet-500); }
+.bc__cols h2 { margin: 6px 0 0; color: var(--ie-violet-950); font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; line-height: 1; }
+.bc__cols p { margin: 0; color: var(--muted); }
+.bc__val { color: var(--ie-violet-950); font-weight: 600; overflow-wrap: anywhere; text-decoration: none; }
+.bc__val:hover { text-decoration: underline; text-underline-offset: 3px; }
+.bc__btn { display: inline-flex; align-items: center; min-height: 44px; margin-top: 6px; padding: 0 20px; border-radius: 999px; background: var(--ie-orange-500); color: var(--ink); font-weight: 700; text-decoration: none; transition: background 0.2s ease-out, transform 0.16s ease-out; }
+.bc__btn:hover { background: var(--accent-hover); }
+.bc__btn:active { transform: scale(0.98); }
+.bc__copy { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0; border: 0; background: none; color: var(--ie-violet-700); font: inherit; font-size: 0.9rem; font-weight: 700; cursor: pointer; }
+.bc__phones { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.bc__phones a { display: inline-flex; align-items: center; min-height: 36px; color: var(--ie-violet-950); font-weight: 600; font-variant-numeric: tabular-nums; text-decoration: none; }
+.bc__phones a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.bc__more { margin: 18px 0 0; color: var(--muted); }
+.bc__more a { color: var(--ie-violet-700); font-weight: 700; text-underline-offset: 3px; }
+@media (min-width: 900px) {
+  .bc__card { grid-template-columns: auto minmax(0, 1fr); align-items: center; }
+  .bc__brand { flex-direction: column; align-items: flex-start; padding-right: clamp(24px, 4vw, 56px); border-right: 1px solid var(--ie-lila-200); align-self: stretch; justify-content: center; }
+  .bc__brand img { width: 84px; }
+  .bc__cols { grid-template-columns: 1.1fr 1.3fr 1fr; gap: clamp(20px, 3vw, 40px); }
+  .bc__cols > li { padding-top: 0; border-top: 0; }
+}
+
+/* Formulario y mapa */
+.ct-formsec { padding-block: clamp(56px, 8vw, 104px); }
+.ct-formsec__wrap { display: flex; justify-content: center; }
+.ct-panel { position: relative; width: min(100%, 860px); padding: clamp(24px, 4vw, 48px); border-radius: 28px; background: #fff; box-shadow: 0 24px 60px rgb(75 58 130 / 0.14); }
+.ct-panel .smart { padding: 0; }
+.ct-panel .smart .input { min-height: 52px; border: 1px solid var(--ie-lila-200); border-radius: 14px; background: var(--ie-lila-50); transition: border-color 0.24s ease-out, box-shadow 0.24s ease-out; }
+.ct-panel .smart textarea.input { min-height: 120px; }
+.ct-panel .smart .input:focus, .ct-panel .smart .input:focus-visible { outline: none; border: 2px solid var(--ie-orange-500); box-shadow: 0 0 0 4px rgb(242 106 0 / 0.15); }
+.ct-panel .smart .chip { border: 1px solid var(--ie-lila-200); background: #fff; }
+.ct-panel .smart .chip.is-on { border-color: var(--ie-violet-950); background: var(--ie-violet-950); }

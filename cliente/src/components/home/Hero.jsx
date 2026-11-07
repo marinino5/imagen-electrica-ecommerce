@@ -8,9 +8,9 @@ import '../../styles/hero.css'
 
 const SLIDE_MS = 9000
 
-// Orden fijo: Motores, Motorreductores, Automatización y control, Ventilación y extracción.
-// Cada diapositiva lleva video o, si no hay uno con licencia, la foto oficial del producto sobre una foto de ambiente.
-// Coverr no tiene material de motores, motorreductores ni extractores (docs/imagenes-pendientes.md).
+// Orden fijo: video, imagen, video, imagen (Motores, Motorreductores, Automatización y control, Ventilación y extracción).
+// Los videos son de Pixabay (rotor de un electromotor y técnico en un tablero) y las imágenes combinan una foto de planta
+// con la foto oficial del producto recortado. Fuentes y licencias en docs/creditos-media.md.
 const slides = [
   {
     id: 'motores',
@@ -20,8 +20,13 @@ const slides = [
     highlight: 'industriales WEG',
     text: 'Del monofásico de taller al trifásico de planta, con la referencia exacta que tu equipo necesita.',
     cta: { to: '/productos?familia=motores-electricos', label: 'Ver motores' },
-    bg: { src: '/img/fotos/planta-operando.webp', alt: '', pos: '50% 40%', zoom: 1.2, origin: '100% 50%' },
-    product: { src: '/img/catalogo/weg-w22-iec.webp', alt: 'Tres motores eléctricos WEG W22 de distinto tamaño', caption: 'WEG W22' },
+    video: {
+      poster: '/media/hero-v1-poster.webp',
+      desktop: { mp4: '/media/hero-v1.mp4', webm: '/media/hero-v1.webm' },
+      mobile: { mp4: '/media/hero-v1-m.mp4', webm: '/media/hero-v1-m.webm' },
+      pos: '55% 50%',
+      alt: 'Primer plano del eje de un electromotor girando',
+    },
   },
   {
     id: 'motorreductores',
@@ -31,7 +36,7 @@ const slides = [
     highlight: 'WEG Cestari',
     text: 'Para bandas, mezcladoras y elevadores: sinfín y corona o helicoidales, listos para tu máquina.',
     cta: { to: '/productos?familia=reductores-y-motorreductores', label: 'Ver motorreductores' },
-    bg: { src: '/img/fotos/bodega-oscura.webp', alt: '', pos: '50% 50%' },
+    bg: { src: '/img/fotos/hero-banda.webp', alt: 'Banda transportadora de rodillos con su motorreductor', pos: '40% 50%' },
     product: { src: '/img/catalogo/weg-cestari-wcg01.webp', alt: 'Motorreductor de sinfín y corona WEG Cestari WCG01', caption: 'WEG Cestari WCG01' },
   },
   {
@@ -43,11 +48,11 @@ const slides = [
     text: 'Variadores, arrancadores, contactores y PLC para tableros y procesos industriales.',
     cta: { to: '/productos?familia=control-y-automatizacion', label: 'Ver automatización' },
     video: {
-      poster: '/media/hero-d2-poster.webp',
-      desktop: { mp4: '/media/hero-d2.mp4', webm: '/media/hero-d2.webm' },
-      mobile: { mp4: '/media/hero-d2-m.mp4', webm: '/media/hero-d2-m.webm' },
-      pos: '60% 50%',
-      alt: 'Manos de un técnico conectando el cableado de control de un tablero eléctrico',
+      poster: '/media/hero-v3-poster.webp',
+      desktop: { mp4: '/media/hero-v3.mp4', webm: '/media/hero-v3.webm' },
+      mobile: { mp4: '/media/hero-v3-m.mp4', webm: '/media/hero-v3-m.webm' },
+      pos: '62% 50%',
+      alt: 'Técnico revisando los breakers de un tablero eléctrico con un multímetro',
     },
   },
   {
@@ -56,10 +61,10 @@ const slides = [
     tag: 'Ventilación y extracción',
     title: 'Extractores',
     highlight: 'industriales',
-    text: 'Aire limpio para bodegas, talleres y plantas: extractores axiales, centrífugos y de tejado.',
+    text: 'Aire limpio para naves, talleres y plantas: extractores axiales, centrífugos y de tejado.',
     cta: { to: '/productos?familia=ventilacion-y-climatizacion', label: 'Ver ventilación' },
-    bg: { src: '/img/aplicaciones/ventilacion.webp', alt: '', pos: '50% 50%' },
-    product: { src: '/img/catalogo/soler-palau-extractor-centrifugo.webp', alt: 'Extractor centrífugo industrial Soler & Palau', caption: 'Soler & Palau' },
+    bg: { src: '/img/fotos/hero-extractores.webp', alt: 'Dos extractores axiales industriales en el muro de una nave', pos: '50% 50%' },
+    product: { src: '/img/catalogo/soler-palau-extractor-axial.webp', alt: 'Extractor axial industrial Soler & Palau', caption: 'Soler & Palau' },
   },
 ]
 
@@ -135,6 +140,7 @@ export default function Hero() {
         {slides.map((s, n) => (
           <Slide key={s.id} slide={s} index={n} active={n === index} still={still} mobile={isMobile} />
         ))}
+        <div className="hero__tint" aria-hidden="true" />
         <div className="hero__overlay" />
       </div>
 

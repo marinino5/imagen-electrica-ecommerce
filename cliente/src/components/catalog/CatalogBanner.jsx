@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import { Search } from 'lucide-react'
 import Pedestal from '../ui/Pedestal'
 import Hl from '../ui/Hl'
+import Bgfx from '../ui/Bgfx'
 import '../../styles/catalog.css'
 import '../../styles/catalog2.css'
 import '../../styles/ie-catalog.css'
@@ -31,6 +32,7 @@ export default function CatalogBanner({ finderRef, initial, onSearch, quick }) {
 
   return (
     <section className="cban bg-lila-fade" aria-labelledby="cat-banner">
+      <Bgfx a="plan:r" b="flip" />
       <div className="wrap cban__grid">
         <div className="cban__copy">
           <p className="rd-label">Catálogo industrial</p>

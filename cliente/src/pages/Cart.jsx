@@ -14,6 +14,7 @@ import Field from '../components/ui/Field'
 import Pill from '../components/ui/Pill'
 import Reveal from '../components/ui/Reveal'
 import LineCard from '../components/catalog/LineCard'
+import Bgfx from '../components/ui/Bgfx'
 import '../styles/cart.css'
 import '../styles/rd-pages.css'
 
@@ -52,7 +53,7 @@ function Item({ line, showPrice }) {
           <Link to={itemHref(product)} className="cart-item__name">{product.line_name ?? product.name}</Link>
           <span className="cart-item__variant">{product.label ?? product.name}{product.sku ? ` · SKU ${product.sku}` : ' · Bajo pedido'}</span>
           {showPrice && <span className="cart-item__unit">{formatCOP(product.price)} por {product.unit}</span>}
-          {over && <span className="cart-item__warn">Pides más de lo que hay en bodega ({product.stock}): va como cotización.</span>}
+          {over && <span className="cart-item__warn">Esta cantidad se envía como cotización: un asesor te responde con precio y tiempo de entrega.</span>}
         </div>
         <div className="cart-item__qty" role="group" aria-label={`Cantidad de ${product.name}`}>
           <button type="button" onClick={() => setQuantity(product.id, quantity - 1)} disabled={quantity <= 1} aria-label="Restar uno"><Minus size={16} /></button>
@@ -280,6 +281,8 @@ export default function Cart() {
           </div>
         </Bezel>
       </Cover>
+      <div className="pgbody bg-lila-soft">
+        <Bgfx d e />
 
       {empty && (
         <section className="wrap cart-sug" aria-labelledby="h-sug">
@@ -287,7 +290,7 @@ export default function Cart() {
             <div className="cart-sug__img" aria-hidden="true"><img src="/img/catalogo/weg-accesorios-variadores.webp" alt="" width="240" height="240" /></div>
             <div>
               <h2 id="h-sug" className="rd-h2">Empieza por <span className="hl is-in">lo más pedido</span></h2>
-              <p className="rd-lead">Agrega referencias desde el catálogo: lo que está en bodega se compra en línea y lo demás se cotiza sin cuenta.</p>
+              <p className="rd-lead">Agrega referencias desde el catálogo: lo que tiene precio publicado se compra en línea y lo demás se cotiza sin cuenta.</p>
             </div>
           </div>
           {featured.length > 0 && <ul className="cart-sug__grid">{featured.map((l) => <li key={l.slug}><LineCard line={l} /></li>)}</ul>}
@@ -393,6 +396,8 @@ export default function Cart() {
           </aside>
         </div>
       )}
+
+      </div>
 
       {/* Resumen fijo abajo en celular */}
       {!empty && (

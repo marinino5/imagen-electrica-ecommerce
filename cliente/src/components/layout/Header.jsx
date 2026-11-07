@@ -62,7 +62,7 @@ function Mega({ families, onClose }) {
 export default function Header() {
   const { pathname } = useLocation()
   const { isAuthenticated } = useAuth()
-  const { lines } = useCart()
+  const { lines, pulse } = useCart()
   const { data: families } = useFamilies()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
@@ -148,7 +148,7 @@ export default function Header() {
         <Link to="/cotizar" className="nav__quote">Cotizar</Link>
         <Link to="/carrito" className="nav__cart" data-fly-target="cart" aria-label={`Carrito: ${count} ${count === 1 ? 'producto' : 'productos'}`}>
           <span>Carrito</span>
-          <i>{count > 99 ? '99+' : count}</i>
+          <i key={pulse} className={pulse ? 'is-pulse' : ''}>{count > 99 ? '99+' : count}</i>
         </Link>
         <button type="button" className="nav__icon nav__burger" onClick={() => setOpen(true)} aria-label="Abrir menú" aria-expanded={open}>
           <Menu size={24} />

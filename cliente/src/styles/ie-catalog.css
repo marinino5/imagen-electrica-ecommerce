@@ -68,7 +68,7 @@
   cursor: pointer;
   transition: transform 0.16s ease-out, background 0.24s ease-out;
 }
-.cban__search button:hover { background: #ff7d14; }
+.cban__search button:hover { background: var(--accent-hover); }
 .cban__search button:active { transform: scale(0.97); }
 .cban__quick { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; color: var(--muted); font-size: 13px; }
 .cban__quick button {

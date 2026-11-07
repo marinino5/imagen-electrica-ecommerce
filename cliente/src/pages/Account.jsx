@@ -14,6 +14,7 @@ import EmptyState from '../components/ui/EmptyState'
 import Bezel from '../components/ui/Bezel'
 import Cover from '../components/ui/Cover'
 import Pill from '../components/ui/Pill'
+import Bgfx from '../components/ui/Bgfx'
 import '../styles/pages.css'
 import '../styles/account.css'
 
@@ -83,7 +84,7 @@ function Reorder({ order }) {
       }
     }
     setBusy(false)
-    if (added < items.length) notify(`Se agregaron ${added} de ${items.length} productos; el resto ya no está disponible o no se pudo consultar.`)
+    if (added < items.length) notify(`Se agregaron ${added} de ${items.length} productos; el resto ya no se puede agregar o no se pudo consultar.`)
   }
 
   if (items.length === 0) return null
@@ -245,6 +246,8 @@ export default function Account() {
           </li>
         </ul>
       </Cover>
+      <div className="pgbody bg-lila-fade acc-body">
+        <Bgfx b a="gear:r" />
 
       <div className="wrap acc-grid">
         <div className="acc-side">
@@ -252,7 +255,7 @@ export default function Account() {
           <Bezel as="section" className="acc-card" aria-labelledby="h-dir">
             <div className="acc-card__core">
               <h2 id="h-dir" className="block-title"><MapPin size={20} aria-hidden="true" /> Direcciones guardadas</h2>
-              <p className="muted-box">Aún no están disponibles. Por ahora indicas la dirección de entrega al enviar tu solicitud.</p>
+              <p className="muted-box">Aún no se pueden guardar. Por ahora indicas la dirección de entrega al enviar tu solicitud.</p>
               <button type="button" className="btn btn--ghost btn--sm" disabled>Agregar dirección</button>
             </div>
           </Bezel>
@@ -279,6 +282,7 @@ export default function Account() {
             <ul className="acc-list">{orders.map((o) => <OrderRow key={o.code} order={o} />)}</ul>
           )}
         </section>
+      </div>
       </div>
     </>
   )

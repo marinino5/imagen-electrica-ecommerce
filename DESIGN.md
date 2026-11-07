@@ -86,3 +86,15 @@ H1 Barlow Condensed 700, 40–88 px, interlineado .92, mayúsculas, tracking −
 
 ### Pantallas
 Inicio: hero con producto sin círculo (brillo naranja, arco de 2 px, sombra elíptica, píldora), sectores 4 + 3 con SolarWEG, marcas sin franja blanca (logos al 45 %) y cierre claro con pie de esquinas curvas de 48 px. Catálogo: banner «vitrina» de 520 px con cinco productos en escalera. Ficha: panel de imagen con pedestal y arco, tarjeta de compra sticky, pestañas con indicador deslizante, especificaciones y ficha técnica a ancho completo. Acceso: franja violeta con tres productos. Nosotros: «25» en contorno que se rellena, galería horizontal fijada e hitos con línea que se llena. `/cotizar`: cotización libre en dos pasos.
+
+
+## Ajustes finales (recurso firma por página)
+
+- **Fondos con vida** (`Bgfx`, `styles/bgfx.css`): `a` dibujo técnico de línea (motor, engranaje, contactor, plano; 1 px, violeta-500 al 7 %), `b` malla de color (lila-200 + naranja al 10 %), `c` arco naranja de 1,5 px que se dibuja, `d` cuadrícula de plano de 32 px con máscara radial, `e` banda diagonal lila-100 a 6°, `f` esquineros en L de 24 px (`.tc`). Máximo dos por sección y nunca la misma combinación en dos seguidas (tabla en `docs/propuesta-rediseno.md`).
+- **Inicio:** hero video → imagen → video → imagen, con tinte violeta-700 al 18 % (`multiply`) y velo `linear-gradient(90deg, …)`. Entrada: el texto se desliza de lado. Tarjetas con «Ver ficha» en contorno y botón circular naranja de 44 px (`QuickAdd`: directo, popover o hoja inferior).
+- **Cómo comprar:** «circuito» (línea naranja de 3 px que serpentea y se enciende con el scroll; bornes de 64 px con tarjetas de radio 24 px y esquineros).
+- **Nosotros:** «galería editorial» (fachada 16:10 con capa violeta desplazada 24 px, dos cifras, dos marcos 4:3 reservados). Entrada: máscara de abajo hacia arriba en 700 ms.
+- **Contacto:** «tarjeta de visita» (franja naranja de 8 px, logo y tres canales en columnas). Entrada: fundido con escala 0,98 → 1.
+- **Ingresar / Crear cuenta:** «panel limpio» (tarjeta de 460 px, malla de color + motor al 6 % + arco fino, fila de 4 logos en gris). Entrada: la tarjeta sube 16 px con fundido.
+- **Mapa «Visítanos»:** dentro de un contenedor de radio 28 px, con tarjeta flotante y 120 px de margen inferior.
+- **Sin inventario a la vista:** no se muestra «disponibilidad», «en bodega» ni unidades; el backend sigue validando y la tienda ofrece «Cotizar esta cantidad».

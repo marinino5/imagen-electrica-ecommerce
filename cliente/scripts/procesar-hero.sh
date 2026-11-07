@@ -8,9 +8,9 @@
 set -euo pipefail
 IN="$1"; NAME="$2"; SS="${3:-0}"; CX="${4:-0.5}"
 OUT="$(dirname "$0")/../public/media"; mkdir -p "$OUT"
-DUR=9
+DUR="${DUR:-9}"
 # Gradación común: contraste y saturación suaves, sin virar el color; fundido de entrada y salida para el loop
-GRADE="eq=contrast=1.04:saturation=1.05:brightness=0.0,fade=t=in:st=0:d=0.5,fade=t=out:st=$(echo "$DUR - 0.5" | bc):d=0.5"
+GRADE="eq=contrast=1.04:saturation=1.05:brightness=${BRIGHT:-0.0},fade=t=in:st=0:d=0.5,fade=t=out:st=$(echo "$DUR - 0.5" | bc):d=0.5"
 COMMON=(-ss "$SS" -t "$DUR" -i "$IN" -an -r 25 -movflags +faststart)
 
 # Escritorio 16:9 a 1920 px, desde la fuente de mayor resolución (si la fuente es más chica no se agranda).
@@ -26,7 +26,7 @@ ffmpeg -y -loglevel error "${COMMON[@]}" -vf "$V_M" -c:v libvpx-vp9 -crf 38 -b:v
 
 # Poster WebP (fotograma a 1 s, sin fundido). ffmpeg local no trae libwebp: se pasa por PNG y cwebp
 TMP="$(mktemp -t hero-poster).png"
-ffmpeg -y -loglevel error -ss "$(echo "$SS + 1" | bc)" -i "$IN" -frames:v 1 -vf "scale='min(1920,iw)':-2:flags=lanczos,crop='min(iw,ih*16/9)':'min(ih,iw*9/16)',eq=contrast=1.04:saturation=1.05" "$TMP"
+ffmpeg -y -loglevel error -ss "$(echo "$SS + 1" | bc)" -i "$IN" -frames:v 1 -vf "scale='min(1920,iw)':-2:flags=lanczos,crop='min(iw,ih*16/9)':'min(ih,iw*9/16)',eq=contrast=1.04:saturation=1.05:brightness=${BRIGHT:-0.0}" "$TMP"
 cwebp -quiet -q 80 "$TMP" -o "$OUT/$NAME-poster.webp"
 rm -f "$TMP"
 

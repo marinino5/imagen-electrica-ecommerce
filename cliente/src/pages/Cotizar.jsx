@@ -6,6 +6,7 @@ import { site } from '../config/site'
 import Hl from '../components/ui/Hl'
 import Mix from '../components/ui/Mix'
 import Reveal from '../components/ui/Reveal'
+import Bgfx from '../components/ui/Bgfx'
 import '../styles/ie-cotizar.css'
 
 const MAX_BYTES = 5 * 1024 * 1024
@@ -124,6 +125,7 @@ export default function Cotizar() {
   if (status === 'done') {
     return (
       <section className="cz-head bg-lila-arc cz-done" aria-labelledby="h-cz-ok">
+        <Bgfx a="contactor:l" />
         <div className="wrap">
           <Reveal className="cz-ok">
             <span className="cz-ok__ic"><CheckCircle2 size={40} aria-hidden="true" /></span>
@@ -146,6 +148,7 @@ export default function Cotizar() {
   return (
     <>
       <section className="cz-head bg-lila-arc" aria-labelledby="h-cz">
+        <Bgfx a="contactor:l" />
         <div className="wrap">
           <Reveal>
             <p className="rd-label">Cotización libre</p>

@@ -7,6 +7,7 @@ import { lineThumb } from '../../lib/lines'
 import SectionLabel from '../ui/SectionLabel'
 import Hl from '../ui/Hl'
 import Reveal from '../ui/Reveal'
+import Bgfx from '../ui/Bgfx'
 import '../../styles/home2.css'
 
 // Tarjeta de sector: es un botón (aria-pressed) que gira 180° en 3D al activarlo con clic, toque, Enter o Espacio.
@@ -74,6 +75,7 @@ export default function SectorsFlip() {
 
   return (
     <section className="rd-sec bg-lav hm-sectors" id="sectores" aria-labelledby="h-sectores">
+      <Bgfx a="contactor:l" d />
       <div className="wrap">
         <div className="hm-head">
           <div>

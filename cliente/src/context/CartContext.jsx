@@ -37,6 +37,8 @@ function load() {
 export function CartProvider({ children }) {
   const { notify, fly } = useToast()
   const [lines, setLines] = useState(load)
+  // Sube cada vez que se agrega algo: el contador del carrito lo usa para dar un pulso de 300 ms
+  const [pulse, setPulse] = useState(0)
 
   useEffect(() => {
     try {
@@ -63,8 +65,11 @@ export function CartProvider({ children }) {
       })
       const direct = !asQuote && isDirectPurchase(product, qty)
       if (origin) fly(origin.rect, direct ? 'cart' : 'quote', origin.image)
+      setPulse((n) => n + 1)
+      // «Agregado: W22 5 HP · Ver carrito»: nombre de la línea y referencia, sin repetir el SKU
+      const name = product.line_name && product.label ? `${product.line_name} ${product.label}` : product.name
       notify(
-        direct ? `«${product.name}» se agregó al carrito` : `«${product.name}» se agregó a tu cotización`,
+        direct ? `Agregado: ${name}` : `Agregado a tu cotización: ${name}`,
         { to: '/carrito', label: direct ? 'Ver carrito' : 'Ver cotización' },
       )
     },
@@ -95,6 +100,7 @@ export function CartProvider({ children }) {
       quoteLines,
       purchaseCount: purchaseLines.length,
       quoteCount: quoteLines.length,
+      pulse,
       purchaseTotal, // precios con IVA incluido
       add,
       setQuantity,

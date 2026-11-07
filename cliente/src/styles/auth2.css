@@ -19,16 +19,24 @@
   border-radius: var(--rd-radius);
   background: #fff;
   box-shadow: 0 24px 60px rgb(75 58 130 / 0.16);
+  /* Entrada propia de la página: la tarjeta sube 16 px con fundido */
+  animation: ax-up 0.6s var(--ie-ease) both;
 }
+@keyframes ax-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .ax__card { animation: none; } }
+/* Silueta del motor al 6 % detrás de la tarjeta */
+.ax .bgfx__art { opacity: 0.06; }
+/* Distribuidores: cuatro logos pequeños en gris */
+.ax__brands { display: grid; justify-items: center; gap: 12px; margin-top: 28px; text-align: center; }
+.ax__brands p { margin: 0; color: var(--muted); font-size: 13px; font-weight: 600; }
+.ax__brands ul { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 28px; margin: 0; padding: 0; list-style: none; }
+.ax__brands img { display: block; width: auto; filter: grayscale(1); opacity: 0.55; }
 .ax__logo { display: inline-flex; margin-bottom: 14px; }
 .ax__logo img { width: auto; height: 48px; }
-.ax__eyebrow { margin: 0 0 4px; color: var(--accent-text); font-size: 12.5px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; }
-.ax__title { margin: 0 0 8px; font-family: var(--font-display); font-size: clamp(2.3rem, 7vw, 3rem); font-weight: 600; line-height: 0.95; text-transform: uppercase; }
-.ax__title span, .ax__title em { display: inline; }
-.ax__title em { margin-left: 0.25em; color: var(--accent-title); font-style: normal; font-weight: 800; }
-.ax__perks { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 10px; margin: 22px 0 0; padding: 16px 0 0; border-top: 1px solid var(--lavender-2); list-style: none; }
-.ax__perks li { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 12.5px; font-weight: 600; }
-.ax__perks svg { flex: none; color: var(--primary); }
+.ax__title { margin: 0 0 6px; color: var(--ie-violet-950); font-family: var(--font-display); font-size: clamp(2.3rem, 7vw, 3rem); font-weight: 600; line-height: 0.95; text-transform: uppercase; }
+.ax__title em { color: var(--accent-title); font-style: normal; font-weight: 800; }
+.ax__quote { margin: 0 0 6px; color: var(--muted); font-size: 14px; }
+.ax__quote a { color: var(--primary); font-weight: 700; }
 .ax__help { margin: 14px 0 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
 .ax__help a { color: var(--primary); font-weight: 700; }
 .ax__help svg { vertical-align: -2px; }

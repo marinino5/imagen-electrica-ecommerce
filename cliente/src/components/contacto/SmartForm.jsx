@@ -69,7 +69,6 @@ export default function SmartForm() {
 
   return (
     <div className="smart">
-      <span className="eyebrow">Escríbenos</span>
       <h2 className="smart__title" id="h-ayuda">¿En qué te ayudamos?</h2>
 
       <div className="chips" role="radiogroup" aria-labelledby="h-ayuda">
@@ -161,7 +160,7 @@ export default function SmartForm() {
               {errors.privacy && <span className="field-error">{errors.privacy}</span>}
             </div>
 
-            <button type="submit" className="btn btn--accent btn--lg smart__submit">Enviar mensaje</button>
+            <button type="submit" className="btn btn--accent btn--lg smart__submit">Preparar mensaje</button>
           </motion.form>
         )}
 

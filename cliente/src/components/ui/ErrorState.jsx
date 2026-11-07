@@ -19,7 +19,7 @@ function describe(error) {
     return {
       Icon: ServerCrash,
       title: 'El servidor no tiene este contenido',
-      text: 'El catálogo no está disponible en este momento. Inténtalo en unos minutos o escríbenos por WhatsApp.',
+      text: 'El catálogo no responde en este momento. Inténtalo en unos minutos o escríbenos por WhatsApp.',
     }
   }
   if (error?.kind === 'server') {

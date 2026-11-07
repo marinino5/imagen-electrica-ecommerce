@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Link, Navigate, useLocation } from 'react-router-dom'
-import { ClipboardList, FileText, ShoppingCart } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { useAuthRedirect } from '../hooks/useAuthRedirect'
 import Field from '../components/ui/Field'
@@ -8,12 +7,6 @@ import AuthLayout from '../components/auth/AuthLayout'
 import AuthCard from '../components/auth/AuthCard'
 import PasswordField from '../components/auth/PasswordField'
 import '../styles/pages.css'
-
-const benefits = [
-  { icon: ClipboardList, text: 'Consulta el estado de tus pedidos y cotizaciones.' },
-  { icon: FileText, text: 'Envía tu carrito y recibe tu cotización valorada.' },
-  { icon: ShoppingCart, text: 'Tu carrito te espera tal como lo dejaste.' },
-]
 
 const emailOk = (v) => /^\S+@\S+\.\S+$/.test(v.trim())
 
@@ -64,14 +57,8 @@ export default function Login() {
   }
 
   return (
-    <AuthLayout
-      eyebrow="Mi cuenta"
-      lines={[{ text: 'Bienvenido' }, { text: 'de nuevo', accent: true }]}
-      benefits={benefits}
-      previewKind="quote"
-    >
-      <AuthCard progress={1} caption="Ingresar">
-        <h2 className="auth-card__title">Ingresar</h2>
+    <AuthLayout title={<>Bienvenido <em>de nuevo</em></>}>
+      <AuthCard>
         <p className="auth-card__lead">
           {fromCart ? 'Ingresa para enviar tu carrito. Tus productos siguen aquí.' : 'Accede a tu cuenta para enviar solicitudes y ver tus pedidos.'}
         </p>

@@ -5,6 +5,7 @@ import Mix from '../ui/Mix'
 import SectionLabel from '../ui/SectionLabel'
 import Pill from '../ui/Pill'
 import { site } from '../../config/site'
+import Bgfx from '../ui/Bgfx'
 import '../../styles/ie-home.css'
 
 function Bullets({ items }) {
@@ -25,16 +26,17 @@ function Bullets({ items }) {
 export default function BrandBlocks() {
   return (
     <section className="ie-xbs bg-lila-fade" aria-label="Cómo trabajamos">
+      <Bgfx e b="flip" />
       <Xb
         side="l"
         photo={<img src="/img/fotos/asesoria-tablero.webp" alt="Técnico con casco junto a un tablero eléctrico abierto, revisando las conexiones" width="1280" height="960" loading="lazy" decoding="async" />}
       >
         <SectionLabel n="03">Asesoría</SectionLabel>
         <h2 className="rd-h2"><Mix light="Asesoría técnica">de quien <Hl>conoce el producto</Hl></Mix></h2>
-        <p className="rd-lead">Cuéntanos qué máquina vas a mover o qué tablero vas a armar y te recomendamos la referencia exacta, con su potencia, su protección y la disponibilidad en bodega.</p>
+        <p className="rd-lead">Cuéntanos qué máquina vas a mover o qué tablero vas a armar y te recomendamos la referencia exacta, con su potencia, su protección y el tiempo de entrega.</p>
         <Bullets items={[
           { icon: Zap, text: 'Referencia exacta según tu máquina o tablero' },
-          { icon: Boxes, text: 'Disponibilidad real en bodega' },
+          { icon: Boxes, text: 'Productos originales de fabricantes reconocidos' },
           { icon: FileText, text: 'Fichas técnicas del fabricante' },
         ]} />
         <div className="xb-actions">
@@ -44,7 +46,7 @@ export default function BrandBlocks() {
 
       <Xb
         side="r"
-        photo={<img src="/img/fotos/entrega-bodega.webp" alt="Operario de bodega escaneando una caja de material eléctrico con un lector de código" width="1280" height="960" loading="lazy" decoding="async" />}
+        photo={<img src="/img/fotos/entrega-almacen.webp" alt="Operario de almacén escaneando una caja de material eléctrico con un lector de código" width="1280" height="960" loading="lazy" decoding="async" />}
       >
         <SectionLabel n="04">Entrega</SectionLabel>
         <h2 className="rd-h2"><Mix light="Del catálogo">directo <Hl>a tu obra</Hl></Mix></h2>

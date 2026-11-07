@@ -16,6 +16,7 @@ import Pill from '../components/ui/Pill'
 import Reveal from '../components/ui/Reveal'
 import ErrorState from '../components/ui/ErrorState'
 import LineCard from '../components/catalog/LineCard'
+import Bgfx from '../components/ui/Bgfx'
 import '../styles/product-detail.css'
 import '../styles/ie-ficha.css'
 
@@ -139,14 +140,13 @@ export default function ProductDetail() {
         [Layers, 'Categoría', line.category?.name ?? null],
       ].filter(([, , value]) => value)
     : line.spec_chips.map((chip, i) => [Layers, `Dato ${i + 1}`, chip])
-  // Tabla de la ficha técnica: lo mismo en filas, más identificación y disponibilidad
+  // Tabla de la ficha técnica: lo mismo en filas, más identificación
   const sheetRows = current
     ? [
         ['Línea', line.name],
         ['Referencia', current.label],
         ['SKU', current.sku],
         ...specs.map(([, label, value]) => [label, value]),
-        ['Disponibilidad', current.stock > 0 ? `En bodega: ${current.stock}` : 'Por pedido'],
       ].filter(([, v], i, rows) => v && rows.findIndex(([l]) => l === rows[i][0]) === i)
     : []
   const needle = refTerm.trim().toLowerCase()
@@ -158,6 +158,7 @@ export default function ProductDetail() {
 
   return (
     <div className="fx bg-lila-fade">
+      <Bgfx b e />
       <div className="wrap pd-back">
         <Link to="/productos" className="pd-back__link"><ArrowLeft size={18} aria-hidden="true" /> Volver al catálogo</Link>
       </div>
@@ -234,16 +235,12 @@ export default function ProductDetail() {
                 )}
               </div>
 
-              {/* 5 · Separador · precio de 44 px · IVA · disponibilidad */}
+              {/* 5 · Separador · precio de 44 px · IVA */}
               <hr className="pd-sep" />
               <div className="pd-pricebox">
                 <p className="pd-price" aria-live="polite">
                   <strong>{direct ? formatCOP(current.price) : 'Precio por cotización'}</strong>
                   <small>{direct ? 'IVA incluido' : 'Te respondemos con precio y tiempo de entrega'}</small>
-                </p>
-                <p className={`pd-stock ${current.stock > 0 ? 'is-stock' : 'is-order'}`}>
-                  <span className="pd-stock__dot" aria-hidden="true" />
-                  {current.stock > 0 ? `${current.stock} en bodega` : 'Bajo pedido'}
                 </p>
               </div>
 
@@ -258,7 +255,7 @@ export default function ProductDetail() {
                 {total !== null && qty > 1 && <span className="pd-total">Total: <strong>{formatCOP(total)}</strong></span>}
               </div>
               {current.sale_mode === 'direct' && current.stock > 0 && !purchasable && (
-                <p className="pd-note">Pides más de lo que hay en bodega ({current.stock}): se enviará como cotización.</p>
+                <p className="pd-note">Esta cantidad no se compra en línea: usa «Solicitar cotización» y un asesor te responde con precio.</p>
               )}
 
               {/* 8 · Dos botones grandes */}
@@ -387,7 +384,6 @@ export default function ProductDetail() {
                   <tr>
                     <th scope="col">Referencia</th>
                     <th scope="col">SKU</th>
-                    <th scope="col">Disponibilidad</th>
                     <th scope="col" className="pd-table__num">Precio</th>
                     <th scope="col"><span className="sr-only">Acción</span></th>
                   </tr>
@@ -402,9 +398,6 @@ export default function ProductDetail() {
                           <button type="button" className="pd-table__pick" aria-pressed={selected} onClick={() => choose(v)}>{v.label}</button>
                         </td>
                         <td data-label="SKU" className="pd-table__sku">{v.sku}</td>
-                        <td data-label="Disponibilidad">
-                          <span className={`pd-avail ${v.stock > 0 ? 'is-stock' : 'is-order'}`}>{v.stock > 0 ? `En bodega: ${v.stock}` : 'Por pedido'}</span>
-                        </td>
                         <td data-label="Precio" className="pd-table__num">{v.sale_mode === 'direct' && v.price !== null ? formatCOP(v.price) : 'Cotizar'}</td>
                         <td className="pd-table__act">
                           {buy ? (
@@ -420,7 +413,7 @@ export default function ProductDetail() {
                       </tr>
                     )
                   })}
-                  {shownRefs.length === 0 && <tr><td colSpan={5} className="pd-table__none">Ninguna referencia coincide con «{refTerm}».</td></tr>}
+                  {shownRefs.length === 0 && <tr><td colSpan={4} className="pd-table__none">Ninguna referencia coincide con «{refTerm}».</td></tr>}
                 </tbody>
               </table>
             </div>
@@ -495,7 +488,7 @@ export default function ProductDetail() {
         ) : (
           <p>{line.spec_chips.join(' · ')}</p>
         )}
-        <footer>Ficha elaborada por {site.name}. Precios y disponibilidad sujetos a confirmación de un asesor.</footer>
+        <footer>Ficha elaborada por {site.name}. Precios sujetos a confirmación de un asesor.</footer>
       </section>
     </div>
   )

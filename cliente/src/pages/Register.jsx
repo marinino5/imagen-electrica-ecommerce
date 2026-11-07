@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, Navigate, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowLeft, ArrowRight, BadgeCheck, Building2, ClipboardList, FileText, Headset, UserRound } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Building2, UserRound } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { useAuthRedirect } from '../hooks/useAuthRedirect'
 import Field from '../components/ui/Field'
@@ -9,13 +9,6 @@ import AuthLayout from '../components/auth/AuthLayout'
 import AuthCard from '../components/auth/AuthCard'
 import PasswordField from '../components/auth/PasswordField'
 import '../styles/pages.css'
-
-const benefits = [
-  { icon: FileText, text: 'Solicita cotizaciones en línea y recíbelas valoradas por un asesor.' },
-  { icon: ClipboardList, text: 'Sigue el estado de tus pedidos y cotizaciones.' },
-  { icon: BadgeCheck, text: 'Tus datos quedan guardados para comprar más rápido.' },
-  { icon: Headset, text: 'Asesoría técnica de un equipo con más de 25 años en el sector.' },
-]
 
 const types = [
   { value: 'natural', icon: UserRound, title: 'Persona natural', text: 'Compras a título personal. Solo necesitas tu nombre.' },
@@ -121,12 +114,7 @@ export default function Register() {
   }
 
   return (
-    <AuthLayout
-      eyebrow="Cuenta gratuita"
-      lines={[{ text: 'Crea tu' }, { text: 'cuenta', accent: true }]}
-      benefits={benefits}
-      previewKind="purchase"
-    >
+    <AuthLayout title={<>Crea tu <em>cuenta</em></>}>
       <AuthCard progress={step / 2} caption={`Paso ${step} de 2`}>
         <p className="auth-card__step">Paso {step} de 2</p>
         <h2 className="auth-card__title">{step === 1 ? 'Tu cuenta' : isCompany ? 'Datos de la empresa' : 'Tus datos'}</h2>

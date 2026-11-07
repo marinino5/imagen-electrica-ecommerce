@@ -52,7 +52,7 @@ function BrandMenu({ brands, selected, toggle }) {
 }
 
 // Barra de filtros arriba de la grilla: buscador (nombre, referencia o SKU), cómo comprar y marca con logos.
-// Es la misma en escritorio y dentro de la hoja del celular. Potencia, disponibilidad y orden ya no se ofrecen.
+// Es la misma en escritorio y dentro de la hoja del celular. Potencia y orden ya no se ofrecen.
 export default function CatalogFilters({ st, set, toggleBrand, brands, finderRef, sheet = false }) {
   return (
     <div className={`fb ${sheet ? 'fb--sheet' : ''}`} role="group" aria-label="Filtros">

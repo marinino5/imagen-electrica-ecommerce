@@ -95,8 +95,13 @@
   transition: background 0.3s;
 }
 .nav__cart:hover {
-  background: #ff7d14;
+  background: var(--accent-hover);
 }
+/* Pulso del contador al agregar: 1 → 1,15 → 1 en 300 ms */
+.nav__cart i.is-pulse,
+.bottom-nav .count-badge.is-pulse { animation: cart-pulse 300ms var(--ease-out); }
+@keyframes cart-pulse { 50% { transform: scale(1.15); } }
+@media (prefers-reduced-motion: reduce) { .nav__cart i.is-pulse, .bottom-nav .count-badge.is-pulse { animation: none; } }
 .nav__cart i {
   display: grid;
   place-items: center;

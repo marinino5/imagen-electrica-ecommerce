@@ -119,24 +119,6 @@
   appearance: none;
   margin: 0;
 }
-.pd-stock {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 10px 0 0;
-  color: var(--primary);
-  font-size: 12.5px;
-  font-weight: 600;
-}
-.pd-stock__dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--primary);
-}
-.pd-stock__dot.no {
-  background: var(--accent);
-}
 .pd-note {
   margin: 8px 0 0;
   color: var(--muted);
@@ -237,22 +219,6 @@
 .pd-table tr.on td {
   background: rgb(242 106 0 / 0.08);
   border-color: var(--accent);
-}
-.pd-avail {
-  display: inline-block;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  white-space: nowrap;
-}
-.pd-avail.is-stock {
-  background: var(--success-tint);
-  color: var(--success);
-}
-.pd-avail.is-order {
-  background: var(--lavender-2);
-  color: var(--muted);
 }
 .pd-row-btn {
   display: inline-flex;
@@ -408,7 +374,7 @@
 
 /* ============================================================
    Ficha (nivel 2): jerarquía clara. Arriba imagen + decisión de compra en el orden
-   marca → nombre → descripción → referencia → precio → disponibilidad → cantidad → botones.
+   marca → nombre → descripción → referencia → precio → cantidad → botones.
    Abajo, pestañas. Todo con las variables de variables.css.
    ============================================================ */
 .pd { padding-bottom: 28px; }
@@ -453,12 +419,6 @@
 .pd-price { margin: 0; }
 .pd-price strong { display: block; color: var(--ink); font-family: var(--font-display); font-size: clamp(2.6rem, 4vw, 3.4rem); font-weight: 700; line-height: 1; }
 .pd-price small { display: block; margin-top: 4px; color: var(--muted); font-size: 13px; }
-.pd-stock { margin: 10px 0 0; font-size: 14px; font-weight: 700; }
-.pd-stock.is-stock { color: var(--success); }
-.pd-stock.is-order { color: var(--muted); }
-.pd-stock__dot { width: 9px; height: 9px; background: currentColor; }
-.pd-stock.is-stock .pd-stock__dot { box-shadow: 0 0 0 4px var(--success-tint); }
-.pd-stock__dot.no { background: currentColor; }
 .pd-qtyrow { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; width: 100%; }
 .pd-qtyrow > span:first-child { color: var(--muted); font-size: 11.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
 .pd-qty { background: var(--lav-soft); }
@@ -483,7 +443,7 @@
 }
 .pd-btn:active { scale: 0.98; }
 .pd-btn--buy { background: var(--accent); color: var(--ink); box-shadow: 0 14px 28px -16px rgb(242 106 0 / 0.9); }
-.pd-btn--buy:hover { background: #ff7d14; }
+.pd-btn--buy:hover { background: var(--accent-hover); }
 .pd-btn--quote { background: transparent; border-color: var(--primary); color: var(--primary); }
 .pd-btn--quote:hover { background: var(--primary); color: #fff; }
 .pd-btn--main { background: var(--primary); color: #fff; }

@@ -8,7 +8,7 @@ import '../../styles/bottom-nav.css'
 // No se muestra donde ya hay una barra de acción fija (ficha de producto y carrito).
 export default function BottomNav() {
   const { isAuthenticated } = useAuth()
-  const { lines } = useCart()
+  const { lines, pulse } = useCart()
   const { pathname } = useLocation()
   if (barFor(pathname) !== 'nav') return null
 
@@ -32,7 +32,7 @@ export default function BottomNav() {
         >
           <span className="bottom-nav__icon">
             <Icon size={22} aria-hidden="true" />
-            {count > 0 && <b className="count-badge" aria-label={`${count} en el carrito`}>{count > 99 ? '99+' : count}</b>}
+            {count > 0 && <b key={pulse} className={`count-badge ${pulse ? 'is-pulse' : ''}`} aria-label={`${count} en el carrito`}>{count > 99 ? '99+' : count}</b>}
           </span>
           {label}
         </NavLink>

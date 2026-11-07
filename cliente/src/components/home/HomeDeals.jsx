@@ -7,10 +7,13 @@ import { usePromotions } from '../../hooks/usePromotions'
 import { formatCOP } from '../../lib/format'
 import { lineImage, priceNote } from '../../lib/lines'
 import LineVisual from '../catalog/LineVisual'
+import QuickAdd from '../catalog/QuickAdd'
 import SectionLabel from '../ui/SectionLabel'
 import Hl from '../ui/Hl'
 import Pill from '../ui/Pill'
 import Reveal from '../ui/Reveal'
+import Bgfx from '../ui/Bgfx'
+import '../../styles/line-card.css'
 import '../../styles/home2.css'
 
 const dateFmt = new Intl.DateTimeFormat('es-CO', { day: 'numeric', month: 'long', timeZone: 'America/Bogota' })
@@ -43,6 +46,10 @@ function PromoCard({ p }) {
           )}
         </div>
         <p className="deal__until">Vigente hasta el {untilText(p.ends_at)} · IVA incluido</p>
+        <div className="deal__actions">
+          <Link to={to} className="pc__more" aria-label={`Ver ficha de ${p.title}`}>Ver ficha</Link>
+          <QuickAdd line={p.line} image={p.line.image_url} preselect={p.sku} />
+        </div>
       </div>
     </article>
   )
@@ -64,6 +71,10 @@ function TrendCard({ line }) {
           {line.price_from !== null ? <strong><small>Desde </small>{formatCOP(line.price_from)}</strong> : <strong className="deal__ask">Cotiza con un asesor</strong>}
         </div>
         <p className="deal__until">{priceNote(line)}</p>
+        <div className="deal__actions">
+          <Link to={`/productos/${line.slug}`} className="pc__more" aria-label={`Ver ficha de ${line.name}`}>Ver ficha</Link>
+          <QuickAdd line={line} image={img} />
+        </div>
       </div>
     </article>
   )
@@ -92,6 +103,7 @@ export default function HomeDeals() {
 
   return (
     <section className="rd-sec bg-soft hm-deals" aria-labelledby="h-ofertas">
+      <Bgfx d c="l" arcTop="12%" />
       <div className="wrap">
         <div className="hm-head">
           <div>

@@ -41,13 +41,19 @@
   transform: scale(var(--zoom, 1.04));
   transform-origin: var(--zoom-origin, 50% 50%);
 }
+/* Tinte violeta-700 al 18 % (multiply) sobre todo el material, y encima el velo violeta que deja leer el texto a la izquierda */
+.hero__tint {
+  position: absolute;
+  inset: 0;
+  background: rgb(81 62 132 / 0.18);
+  mix-blend-mode: multiply;
+}
 .hero__overlay {
   position: absolute;
   inset: 0;
-  /* Degradado solo del lado del texto; arriba, una franja corta para que el menú blanco se lea sobre la foto */
   background:
     linear-gradient(180deg, rgb(28 22 48 / 0.5) 0%, transparent 150px),
-    linear-gradient(90deg, rgb(28 22 48 / 0.88) 0%, rgb(28 22 48 / 0.55) 45%, transparent 75%);
+    linear-gradient(90deg, rgba(28, 22, 48, 0.92) 0%, rgba(75, 58, 130, 0.7) 40%, rgba(75, 58, 130, 0.15) 70%, transparent 85%);
 }
 /* Producto recortado, sin círculo, abajo a la derecha: brillo naranja detrás, arco de 2 px que lo envuelve,
    sombra elíptica en el piso y etiqueta en píldora pegada a la base */
@@ -137,8 +143,9 @@
   max-width: 640px;
   animation: hero-in 0.7s var(--ease-out) both;
 }
+/* Entrada propia del Inicio: el texto del hero se desliza de lado */
 @keyframes hero-in {
-  from { opacity: 0; transform: translateY(18px); }
+  from { opacity: 0; transform: translateX(-56px); }
   to { opacity: 1; transform: none; }
 }
 .hero__tag {

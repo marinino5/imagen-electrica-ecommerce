@@ -16,6 +16,7 @@ import FamilyChips from '../components/catalog/FamilyChips'
 import CatalogBanner from '../components/catalog/CatalogBanner'
 import { FAMILY_BLURB, familyPhoto } from '../lib/families'
 import SectionLabel from '../components/ui/SectionLabel'
+import Bgfx from '../components/ui/Bgfx'
 import '../styles/catalog.css'
 
 const QUICK = [
@@ -47,7 +48,7 @@ function readState(params, families) {
     q: params.get('q') ?? '',
     mode,
     brands: (params.get('marca') ?? '').split(',').filter(Boolean),
-    // Sin filtros de potencia, corriente, disponibilidad ni orden (se quitaron del catálogo): valores neutros
+    // Sin filtros de potencia, corriente ni orden (se quitaron del catálogo): valores neutros
     hp: '',
     amp: '',
     stock: false,
@@ -139,6 +140,8 @@ export default function Products() {
     <>
       <CatalogBanner finderRef={finderRef} initial={st.q} onSearch={search} quick={QUICK} />
 
+      <div className="cat-body bg-lila-soft">
+      <Bgfx d c="r" arcTop="30%" />
       <section className="wrap cat-layout" aria-label="Familias, filtros y fichas">
         <aside className="cat-side" aria-label="Familias">
           <div className="cat-side__scroll"><FamilyTree families={families} st={st} set={set} /></div>
@@ -200,6 +203,7 @@ export default function Products() {
           {!loading && !error && shown.length > 0 && <div className="cat-grid">{cells}</div>}
         </div>
       </section>
+      </div>
 
       {/* Hoja inferior (celular): los filtros en un panel que se desliza desde abajo */}
       <div className={`cat-sheet ${sheet ? 'open' : ''}`} role={sheet ? 'dialog' : undefined} aria-modal={sheet ? 'true' : undefined} aria-label="Filtrar el catálogo" aria-hidden={!sheet}>
@@ -227,8 +231,8 @@ export default function Products() {
 const EDITORIAL = [
   { title: '¿No sabes qué motor necesitas? Un asesor te ayuda', text: 'Cuéntanos la carga, la tensión y el tipo de arranque y te recomendamos la referencia exacta.', photo: '/img/fotos/planta-operando.webp', alt: 'Operario revisando un motor en una planta industrial' },
   { title: 'Armas un tablero y necesitas una lista completa', text: 'Envíanos tu lista y te cotizamos contactores, relés, guardamotores y borneras en un solo mensaje.', photo: '/img/fotos/tablero-manos.webp', alt: 'Manos de un técnico trabajando en un tablero eléctrico' },
-  { title: '¿Dudas entre dos referencias?', text: 'Dinos la aplicación y te mostramos la diferencia, con disponibilidad en bodega y precio.', photo: '/img/fotos/electricista-tablero.webp', alt: 'Electricista comparando referencias en un tablero' },
-  { title: '¿Compras para una obra o una planta?', text: 'Coordinamos la entrega en tu obra y te acompañamos con la compra recurrente.', photo: '/img/fotos/despacho-montacargas.webp', alt: 'Bodega con montacargas y estantería de material' },
+  { title: '¿Dudas entre dos referencias?', text: 'Dinos la aplicación y te mostramos la diferencia, con sus características y precio.', photo: '/img/fotos/electricista-tablero.webp', alt: 'Electricista comparando referencias en un tablero' },
+  { title: '¿Compras para una obra o una planta?', text: 'Coordinamos la entrega en tu obra y te acompañamos con la compra recurrente.', photo: '/img/fotos/despacho-montacargas.webp', alt: 'Almacén con montacargas y estantería de material' },
 ]
 function EditorialCard({ n }) {
   const e = EDITORIAL[(n - 1) % EDITORIAL.length]

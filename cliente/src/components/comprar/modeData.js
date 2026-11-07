@@ -6,10 +6,10 @@ export const MODES = {
   direct: {
     id: 'direct',
     label: 'Compra en línea',
-    short: 'Lo que está en bodega, con precio en COP e IVA incluido.',
+    short: 'Productos con precio publicado, listos para comprar en línea. IVA incluido.',
     icon: ShoppingCart,
-    lead: 'Productos con precio y unidades en bodega. Los compras con tu cuenta y un asesor confirma el pago y la entrega.',
-    needs: ['Cuenta gratis (persona natural o empresa)', 'Referencias con precio y bodega', 'Pago y entrega confirmados por un asesor'],
+    lead: 'Productos con precio publicado, listos para comprar en línea. Los compras con tu cuenta y un asesor confirma el pago y la entrega. Si necesitas más cantidad o algo especial, cotízalo.',
+    needs: ['Cuenta gratis (persona natural o empresa)', 'Referencias con precio publicado', 'Pago y entrega confirmados por un asesor'],
     cta: { label: 'Ver el catálogo', to: '/productos?modo=en-linea' },
   },
   quote: {
@@ -23,21 +23,23 @@ export const MODES = {
   },
 }
 
-// Pasos de cada camino. Cada paso lleva una foto que muestra exactamente lo que dice o, si no hay una foto exacta, una captura
-// real de la tienda dentro de un celular (`mock`: 'ficha' | 'carrito' | 'cotizacion' en public/img/mockups/) o la conversación
-// de WhatsApp con el asesor (`chat`). Las capturas se generan con cliente/scripts/capturar-mockups.mjs.
+// Pasos de cada camino. Cada paso lleva una imagen pequeña dentro de su tarjeta del circuito:
+//  - `mock: 'laptop'` | 'ficha' | 'carrito' | 'cotizacion': captura real de la tienda dentro de un portátil o un celular
+//    (public/img/mockups/*.webp, se generan con cliente/scripts/capturar-mockups.mjs);
+//  - `chat`: el asesor respondiendo por WhatsApp ('order' o 'quote');
+//  - `photo`: foto real.
 export const STEPS = {
   direct: [
-    { title: 'Busca y filtra', text: 'Escribe el nombre, la referencia o el SKU, o recorre las familias y categorías. Filtra por forma de compra y por marca.', photo: '/img/fotos/busca-portatil.webp', alt: 'Persona buscando una referencia en un portátil junto a una máquina industrial', path: '/productos' },
-    { title: 'Elige la referencia y agrega', text: 'Escoge potencia, velocidad y referencia. El precio y las unidades en bodega se actualizan al instante; agrégala al carrito.', mock: 'ficha', alt: 'Ficha de un motor en el celular, con el selector de referencia y el botón Agregar al carrito', path: '/productos/w22-iec-carcasa-hierro' },
-    { title: 'Envía tu pedido; un asesor confirma pago y entrega', text: 'Revisa el carrito, escoge cómo lo recibes y envía tu pedido. Un asesor te contacta para confirmar el pago y la entrega; el pago en línea llegará más adelante.', mock: 'carrito', alt: 'Carrito de compras en el celular con un producto y las opciones de entrega', path: '/carrito' },
-    { title: 'Recibe y sigue tu pedido', text: 'Recógelo en la tienda o recíbelo en tu obra o planta. En Mi cuenta ves cada pedido con su línea de estados: pago pendiente, pagado, enviado y entregado.', photo: '/img/fotos/despacho-montacargas.webp', alt: 'Bodega con estanterías y un montacargas listo para despachar cajas', path: '/mi-cuenta' },
+    { title: 'Busca y filtra', text: 'Escribe el nombre, la referencia o el SKU, o recorre las familias. Filtra por marca y forma de compra.', mock: 'laptop', alt: 'La tienda en un portátil con el buscador y los resultados de motores' },
+    { title: 'Elige la referencia', text: 'Escoge potencia, velocidad y referencia; el precio se actualiza al instante y la agregas al carrito.', mock: 'ficha', alt: 'Ficha de un motor en el celular, con el selector de referencia y el botón Agregar al carrito' },
+    { title: 'Envía y un asesor confirma', text: 'Revisa el carrito, elige cómo lo recibes y envía. Un asesor confirma el pago y la entrega por WhatsApp.', chat: 'order', alt: 'Conversación de WhatsApp en la que un asesor de Imagen Eléctrica confirma un pedido' },
+    { title: 'Recibe y sigue tu pedido', text: 'Recógelo en la tienda o recíbelo en tu obra. En Mi cuenta ves cada pedido con su estado.', photo: '/img/fotos/entrega-almacen.webp', alt: 'Operario escaneando una caja de material eléctrico para despacharla' },
   ],
   quote: [
-    { title: 'Arma tu lista', text: 'Usa «Solicitar cotización» en cada ficha, también en las líneas que se manejan bajo pedido, y ve sumando referencias.', mock: 'ficha', alt: 'Ficha de un motor en el celular con el botón Solicitar cotización', path: '/productos/w22-iec-carcasa-hierro' },
-    { title: 'Envía la solicitud sin cuenta', text: 'Déjanos tu nombre, WhatsApp, correo y ciudad. Empresa, NIT y mensaje son opcionales.', mock: 'cotizacion', alt: 'Formulario de cotización en el celular con la lista de referencias', path: '/carrito#cotizacion' },
-    { title: 'El asesor responde', text: 'Te contacta por WhatsApp o correo con la referencia, el precio y el tiempo de entrega.', chat: true, alt: 'Conversación de WhatsApp en la que un asesor de Imagen Eléctrica responde una cotización' },
-    { title: 'Aprueba y coordina la entrega', text: 'Cuando apruebes, el asesor confirma el pago y coordina la entrega. El pago en línea llegará más adelante.', photo: '/img/fotos/despacho-montacargas.webp', alt: 'Bodega con estanterías y un montacargas listo para despachar cajas' },
+    { title: 'Arma tu lista', text: 'Usa «Solicitar cotización» en cada ficha y suma las referencias que necesitas.', mock: 'ficha', alt: 'Ficha de un motor en el celular con el botón Solicitar cotización' },
+    { title: 'Envía sin cuenta', text: 'Déjanos nombre, WhatsApp, correo y ciudad. Empresa, NIT y mensaje son opcionales.', mock: 'cotizacion', alt: 'Formulario de cotización en el celular con la lista de referencias' },
+    { title: 'El asesor responde', text: 'Te escribe por WhatsApp o correo con la referencia, el precio y el tiempo de entrega.', chat: 'quote', alt: 'Conversación de WhatsApp en la que un asesor de Imagen Eléctrica responde una cotización' },
+    { title: 'Aprueba y recibe', text: 'Cuando apruebes, el asesor confirma el pago y coordina la entrega.', photo: '/img/fotos/entrega-almacen.webp', alt: 'Operario escaneando una caja de material eléctrico para despacharla' },
   ],
 }
 
@@ -51,9 +53,8 @@ export const FAQS = [
   { modes: ['direct', 'quote'], q: '¿Necesito una cuenta?', a: 'Para cotizar no: envías tus datos y un asesor te responde. Para comprar en línea sí; la cuenta es gratis, como persona natural o empresa, y guarda tus datos para la próxima vez.' },
   { modes: ['direct', 'quote'], q: '¿Qué pasa si mezclo compra en línea y cotización?', a: 'Van por separado: lo que se compra en línea se envía como pedido y la cotización tiene su propio bloque en el carrito.' },
   { modes: ['direct'], q: '¿Los precios incluyen IVA?', a: 'Sí. Los precios están en COP con el IVA incluido y el carrito te muestra la base y el IVA.' },
-  { modes: ['direct'], q: '¿Puedo pedir más unidades de las que hay en bodega?', a: 'No en compra en línea. Si pides más que las unidades en bodega, esa referencia pasa a cotización y un asesor te responde.' },
   { modes: ['direct', 'quote'], q: '¿Puedo cancelar mi solicitud?', a: 'Pídeselo a tu asesor. Un pedido se puede cancelar mientras está pendiente de pago.' },
-  { modes: ['quote'], q: '¿Qué pasa si una referencia está agotada?', a: 'Va a tu cotización: un asesor te responde con la disponibilidad y el precio.' },
+  { modes: ['quote'], q: '¿Puedo cotizar una referencia que no tiene precio?', a: 'Sí. Va a tu cotización y un asesor te responde con el precio y el tiempo de entrega.' },
   { modes: ['quote'], q: '¿Cuándo recibo el precio?', a: 'Cuando el asesor revisa tu lista y te escribe por WhatsApp o correo. Suele ser lo primero que hace.' },
   { modes: ['quote'], q: '¿Qué pasa cuando apruebo la cotización?', a: 'El asesor confirma el pago, coordina la entrega y arma tu pedido con esas referencias.' },
   { modes: ['direct', 'quote'], q: '¿Cuánto cuesta el envío?', a: 'Recoger en tienda no tiene costo. Para domicilio o envío nacional, el costo lo confirma tu asesor.' },

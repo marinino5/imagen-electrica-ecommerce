@@ -108,7 +108,7 @@
 .cz-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 26px; }
 .cz-next, .cz-back { display: inline-flex; align-items: center; gap: 8px; min-height: 52px; padding: 0 26px; border-radius: 999px; font: inherit; font-weight: 700; cursor: pointer; transition: transform 0.16s ease-out, background 0.24s ease-out; }
 .cz-next { margin-left: auto; border: 0; background: var(--ie-orange-500); color: var(--ink); }
-.cz-next:hover:not(:disabled) { background: #ff7d14; }
+.cz-next:hover:not(:disabled) { background: var(--accent-hover); }
 .cz-next:disabled { opacity: 0.7; cursor: progress; }
 .cz-back { border: 2px solid var(--ie-violet-500); background: #fff; color: var(--ie-violet-700); }
 .cz-next:active, .cz-back:active { transform: scale(0.98); }

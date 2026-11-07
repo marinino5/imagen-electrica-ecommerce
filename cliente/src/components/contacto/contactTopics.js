@@ -27,7 +27,7 @@ export const topics = [
   },
   {
     id: 'stock',
-    label: 'Consultar disponibilidad',
+    label: 'Consultar un producto',
     icon: PackageSearch,
     fields: [
       { name: 'product', label: 'Referencia o nombre del producto', placeholder: 'Ej.: referencia o nombre', required: true },
@@ -35,7 +35,7 @@ export const topics = [
     ],
     template: (f) =>
       lines(
-        `Hola, quiero saber si tienen disponible ${f.product || 'un producto'}.`,
+        `Hola, quiero consultar ${f.product || 'un producto'}.`,
         f.quantity && `Cantidad: ${f.quantity}.`,
       ),
   },
