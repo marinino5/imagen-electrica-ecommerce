@@ -1,6 +1,6 @@
 /* Cómo comprar: hero con foto, línea de tiempo vertical, entregas con mapa y preguntas frecuentes */
 .how-hero { position: relative; isolation: isolate; overflow: hidden; padding: calc(var(--header-h) + 56px) 0 72px; background: var(--night); color: #fff; }
-.how-hero__bg { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; filter: saturate(0.8); }
+.how-hero__bg { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
 .how-hero::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(23 15 41 / 0.95) 0%, rgb(23 15 41 / 0.78) 55%, rgb(23 15 41 / 0.5) 100%); }
 .how-hero__grid { display: grid; gap: 36px; align-items: center; }
 @media (min-width: 900px) { .how-hero__grid { grid-template-columns: 1.1fr 1fr; gap: 56px; } }
@@ -75,3 +75,17 @@
 .faq__panel > div { overflow: hidden; min-height: 0; }
 .faq__panel p { margin: 0; padding: 0 18px 18px; color: var(--muted); }
 @media (prefers-reduced-motion: reduce) { .how-hero__lead, .how-switch__needs, .colombia-map__pulse { animation: none; } .faq__panel, .faq__plus { transition: none; } }
+
+/* Celular con captura real de la tienda (o con la conversación del asesor) */
+.tl__mock { position: relative; display: grid; justify-items: center; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--rd-radius); background: radial-gradient(70% 90% at 50% 0%, #fff 0%, var(--lav-soft) 100%); border: 1px solid var(--lavender-2); }
+.phone { width: min(240px, 58%); margin-top: 22px; }
+.phone__bezel { position: relative; padding: 9px; border-radius: 34px 34px 0 0; background: var(--ink); box-shadow: 0 30px 50px -24px rgb(38 28 62 / 0.55); }
+.phone__notch { position: absolute; left: 50%; top: 9px; z-index: 2; width: 62px; height: 14px; border-radius: 0 0 10px 10px; background: var(--ink); transform: translateX(-50%); }
+.phone__screen { aspect-ratio: 390 / 560; overflow: hidden; border-radius: 26px 26px 0 0; background: #fff; }
+.phone__screen img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.phone__chat { display: flex; flex-direction: column; gap: 8px; height: 100%; padding: 0 12px 12px; background: #e9e3f4; font-size: 12px; line-height: 1.35; }
+.phone__chat header { display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 6px; margin: 0 -12px 6px; padding: 26px 14px 10px; background: var(--primary); color: #fff; }
+.phone__chat header small { grid-column: 2; color: rgb(255 255 255 / 0.75); }
+.phone__chat p { max-width: 82%; margin: 0; padding: 8px 10px; border-radius: 12px; }
+.phone__chat .in { align-self: flex-end; background: #fff; color: var(--ink); border-top-right-radius: 2px; }
+.phone__chat .out { align-self: flex-start; background: var(--primary); color: #fff; border-top-left-radius: 2px; }

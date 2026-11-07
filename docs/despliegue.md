@@ -150,3 +150,9 @@ docker rm -f ie_mysql_test
 ```
 
 Después de desplegar: `bash docs/verificar-api.sh` (comprueba `families`, `lines`, `POST /newsletter` → 422 sin datos y que `/lines` traiga imágenes).
+
+## Imágenes de producto recortadas (nivel 2)
+
+La migración de datos `2026_11_09_100000_assign_cutout_product_images` apunta las líneas y **cada una de sus referencias** a las imágenes recortadas de `cliente/public/img/catalogo/`. Reemplaza solo las rutas antiguas del proyecto (`/img/productos/…`, `/img/familias/…`) y llena vacíos; una URL cambiada a mano no se pisa. Se probó contra MySQL 8 estricto (instalación nueva, actualización con rutas antiguas, URL propia respetada y segunda corrida idempotente).
+
+**Orden de despliegue:** las rutas antiguas desaparecen del sitio estático, así que conviene desplegar la tienda (Cloudflare Pages) y el backend (Render, que corre la migración) casi a la vez; entre una y otra algunas miniaturas pueden tardar en verse. Después: `bash docs/verificar-api.sh`.

@@ -1,0 +1,58 @@
+// Sectores que atiende la empresa. Cada uno tiene su foto (4:5, tratamiento único de color), para qué usa el equipo
+// eléctrico y 3 líneas recomendadas (slug de la línea en la API). `to` lleva al catálogo de la familia principal.
+export const sectors = [
+  {
+    id: 'construccion',
+    name: 'Construcción y obra',
+    photo: '/img/fotos/sector-construccion.webp',
+    alt: 'Obrero con casco y chaleco naranja frente a una estructura en construcción',
+    use: 'Tableros de obra, protección de circuitos y cable para instalaciones nuevas y ampliaciones.',
+    lines: ['minibreakers', 'totalizadores', 'thhn-thwn-2-centelsa'],
+    to: '/productos?familia=control-y-automatizacion',
+  },
+  {
+    id: 'agroindustria',
+    name: 'Agroindustria',
+    photo: '/img/fotos/sector-agroindustria.webp',
+    alt: 'Silos de almacenamiento de grano de una planta agroindustrial',
+    use: 'Motores y variadores para silos, trilladoras y secadoras, y ventilación para galpones.',
+    lines: ['w22-iec-carcasa-hierro', 'variador-cfw500', 'extractores-airmax-gl-y-ttt500'],
+    to: '/productos?familia=motores-electricos',
+  },
+  {
+    id: 'petroleo',
+    name: 'Petróleo y gas',
+    photo: '/img/fotos/sector-petroleo.webp',
+    alt: 'Planta de procesamiento de petróleo y gas iluminada de noche',
+    use: 'Motores a prueba de explosión para zonas clasificadas, con arranque suave y protección.',
+    lines: ['w22-a-prueba-de-explosion', 'arrancador-suave-ssw07', 'guardamotores'],
+    to: '/productos?familia=motores-electricos',
+  },
+  {
+    id: 'alimentos',
+    name: 'Alimentos y bebidas',
+    photo: '/img/fotos/sector-alimentos.webp',
+    alt: 'Operarios en una planta de procesamiento de alimentos',
+    use: 'Control y velocidad variable para líneas de producción continuas, mezcladoras y bandas.',
+    lines: ['variador-cfw300', 'contactores', 'reles-de-control-y-proteccion'],
+    to: '/productos?familia=control-y-automatizacion',
+  },
+  {
+    id: 'mineria',
+    name: 'Minería',
+    photo: '/img/fotos/sector-mineria.webp',
+    alt: 'Excavadora de rueda de cangilones en una mina a cielo abierto',
+    use: 'Motorreducción y arranque para equipos de trabajo pesado, trituradoras y transportadores.',
+    lines: ['motorreductor-sinfin-wcg01', 'w22-nema-premium-efficiency', 'arrancador-suave-ssw07'],
+    to: '/productos?familia=reductores-y-motorreductores',
+  },
+  {
+    id: 'talleres',
+    name: 'Talleres de mantenimiento industrial',
+    photo: '/img/fotos/sector-talleres.webp',
+    alt: 'Mecánico con casco ajustando una tubería en un taller industrial',
+    use: 'Motores de reposición, protección y medición para quien mantiene la planta funcionando.',
+    lines: ['w21-iec-carcasa-aluminio', 'guardamotores', 'instrumentos-de-medicion-fluke'],
+    to: '/productos?familia=motores-electricos',
+  },
+]

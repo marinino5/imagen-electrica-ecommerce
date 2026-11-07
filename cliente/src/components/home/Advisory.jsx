@@ -33,7 +33,7 @@ export default function Advisory() {
         </Reveal>
         <div className="adv__copy">
           <Reveal>
-            <SectionLabel n="08">Asesoría</SectionLabel>
+            <SectionLabel n="07">Asesoría</SectionLabel>
             <h2 id="h-asesoria" className="rd-h2 adv__title">¿Qué necesitas <Hl>mover hoy?</Hl></h2>
             <p className="rd-lead">Un asesor te responde con la referencia, el precio y el tiempo de entrega. Escoge el canal que prefieras.</p>
           </Reveal>

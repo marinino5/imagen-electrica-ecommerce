@@ -6,6 +6,16 @@ import BrandMark from '../ui/BrandMark'
 import LineVisual from './LineVisual'
 import '../../styles/line-card.css'
 
+// Mismo rango escrito de dos formas («0,25 HP – 3 HP» y «0,25–3 HP») cuenta como uno solo: se compara sin unidades,
+// espacios ni guiones y se conserva la primera forma.
+const uniqueChips = (list) => {
+  const seen = new Set()
+  return list.filter(Boolean).filter((c) => {
+    const key = c.toLowerCase().replace(/hp|\s|–|-/g, '')
+    return !seen.has(key) && seen.add(key)
+  })
+}
+
 // Tarjeta por LÍNEA (la ficha): imagen oficial grande sobre fondo claro, marca con su logo, nombre, rangos y precio "Desde".
 // Si la línea tiene una segunda vista (image_alt_url) la imagen cambia a ella al pasar el mouse.
 export default function LineCard({ line, className = '' }) {
@@ -14,7 +24,7 @@ export default function LineCard({ line, className = '' }) {
   const brand = (line.brand_label ?? '').split(' · ')[0]
   const quick = line.quick_variant
   const range = line.hp_values?.length ? `${hpText(line.hp_min)} – ${hpText(line.hp_max)}` : null
-  const chips = [range, ...(line.spec_chips ?? [])].filter(Boolean).slice(0, 3)
+  const chips = uniqueChips([...(line.spec_chips ?? []), range]).slice(0, 3)
   const tagClass = line.sale_mode === 'direct' ? 'is-on' : 'is-q'
 
   return (
@@ -22,8 +32,8 @@ export default function LineCard({ line, className = '' }) {
       <Link to={`/productos/${line.slug}`} className="pc__media" tabIndex={-1} aria-hidden="true">
         {image ? (
           <>
-            <img className="pc__img zoom prod-img" src={image} alt="" width="600" height="600" loading="lazy" />
-            {line.image_alt_url && <img className="pc__img pc__img--alt prod-img" src={line.image_alt_url} alt="" width="600" height="600" loading="lazy" />}
+            <img className="pc__img zoom" src={image} alt="" width="600" height="600" loading="lazy" />
+            {line.image_alt_url && <img className="pc__img pc__img--alt" src={line.image_alt_url} alt="" width="600" height="600" loading="lazy" />}
           </>
         ) : (
           <LineVisual line={line} />

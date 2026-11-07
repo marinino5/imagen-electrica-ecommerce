@@ -284,7 +284,7 @@ export default function Cart() {
       {empty && (
         <section className="wrap cart-sug" aria-labelledby="h-sug">
           <div className="cart-sug__hero">
-            <div className="cart-sug__img" aria-hidden="true"><img src="/img/productos/control/weg-accesorios-variadores.webp" alt="" width="240" height="240" /></div>
+            <div className="cart-sug__img" aria-hidden="true"><img src="/img/catalogo/weg-accesorios-variadores.webp" alt="" width="240" height="240" /></div>
             <div>
               <h2 id="h-sug" className="rd-h2">Empieza por <span className="hl is-in">lo más pedido</span></h2>
               <p className="rd-lead">Agrega referencias desde el catálogo: lo que está en bodega se compra en línea y lo demás se cotiza sin cuenta.</p>

@@ -1,22 +1,24 @@
 /* Nosotros: fachada a pantalla ancha, cifras, historia, valores, marcas y visita */
-.ab-hero { position: relative; isolation: isolate; display: flex; align-items: flex-end; min-height: max(70vh, 520px); overflow: hidden; background: var(--night); color: #fff; }
-.ab-hero__px { position: absolute !important; inset: 0; z-index: -2; }
-.ab-hero::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgb(23 15 41 / 0.55) 0%, rgb(23 15 41 / 0.1) 40%, rgb(23 15 41 / 0.9) 100%); }
-.ab-hero__txt { padding-block: 120px 56px; }
+.ab-hero { position: relative; isolation: isolate; display: flex; align-items: flex-end; height: clamp(520px, 64vw, 680px); overflow: hidden; background: var(--night); color: #fff; }
+/* A sangre y sin deformar: cover con el punto focal en el letrero; sin zoom, sin parallax ni capas encima de la foto */
+.ab-hero__img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 28% 50%; }
+.ab-hero::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgb(23 15 41 / 0) 40%, rgb(23 15 41 / 0.88) 100%); }
+.ab-hero__txt { padding-block: 120px 48px; }
 .ab-hero__tag { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 14px; font-size: 12.5px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--on-dark-muted); }
 .ab-hero__tag::before { content: ''; width: 36px; height: 3px; border-radius: 3px; background: var(--accent); }
-.ab-hero h1 { margin: 0; color: #fff; font-family: var(--font-display); font-size: clamp(3rem, 8vw, 7rem); font-weight: 500; line-height: 0.9; text-transform: uppercase; }
+.ab-hero h1 { margin: 0; color: #fff; font-family: var(--font-display); font-size: clamp(3rem, 7vw, 6rem); font-weight: 500; line-height: 0.9; text-transform: uppercase; }
 .ab-hero h1 strong { display: block; font-weight: 800; color: var(--accent-light); }
-.ab-hero__txt > p:last-child { max-width: 46ch; margin: 18px 0 0; font-size: 1.1rem; color: rgb(255 255 255 / 0.9); }
+.ab-hero__txt > p:last-child { max-width: 46ch; margin: 18px 0 0; font-size: 1.1rem; color: rgb(255 255 255 / 0.92); }
 
 .ab-stats { position: relative; isolation: isolate; padding-block: clamp(48px, 6vw, 80px); background: var(--night); color: #fff; }
 .ab-stats > img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
 .ab-stats::before { content: ''; position: absolute; inset: 0; z-index: -1; background: rgb(23 15 41 / 0.86); }
 .ab-stats ul { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px 16px; margin-inline: auto; padding: 0 16px; list-style: none; }
-@media (min-width: 800px) { .ab-stats ul { grid-template-columns: repeat(4, 1fr); } }
-.ab-stats li { display: grid; gap: 4px; padding-left: 18px; border-left: 3px solid var(--accent); }
-.ab-stats__n { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5rem); font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
-.ab-stats li > span:last-child { color: var(--on-dark-muted); font-size: 14px; }
+@media (min-width: 800px) { .ab-stats ul { max-width: 900px; gap: 40px; } }
+.ab-stats li { position: relative; display: grid; gap: 4px; padding-top: 18px; }
+.ab-stats li::before { content: ''; position: absolute; left: 0; top: 0; width: 36px; height: 3px; border-radius: 3px; background: var(--accent); }
+.ab-stats__n { font-family: var(--font-display); font-size: clamp(3.4rem, 9vw, 7.5rem); font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+.ab-stats li > span:last-child { color: var(--on-dark-muted); font-size: clamp(0.95rem, 1.6vw, 1.2rem); }
 
 .ab-story__stack { display: grid; gap: clamp(64px, 9vw, 120px); }
 .ab-capsule { aspect-ratio: 5 / 4; }
@@ -31,7 +33,7 @@
 .ab-val::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 25%, rgb(23 15 41 / 0.94) 100%); }
 .ab-val__txt { position: absolute; z-index: 1; inset: auto 0 0 0; display: grid; gap: 6px; padding: 20px; }
 .ab-val svg { color: var(--accent-light); }
-.ab-val h3 { margin: 0; font-family: var(--font-display); font-size: 1.8rem; text-transform: uppercase; }
+.ab-val h3 { margin: 0; color: #fff; font-family: var(--font-display); font-size: 1.8rem; text-transform: uppercase; }
 .ab-val p { margin: 0; color: rgb(255 255 255 / 0.9); }
 .ab-val__extra { max-height: 0; overflow: hidden; opacity: 0; font-size: 14px; transition: max-height 0.5s var(--ease-out), opacity 0.4s; }
 .ab-val:hover .ab-val__extra, .ab-val:focus-visible .ab-val__extra, .ab-val:focus-within .ab-val__extra { max-height: 140px; opacity: 1; }
@@ -58,3 +60,15 @@
 .ab-visit__info ul { margin: 4px 0 10px; padding: 0; list-style: none; }
 .ab-visit__info li a { display: inline-block; padding: 6px 0; font-weight: 600; font-variant-numeric: tabular-nums; }
 .ab-visit__info .pill { justify-self: start; }
+
+/* Espacios para las fotos que enviará la empresa: diseño de marca, sin texto de relleno */
+.ab-slots__grid { display: grid; gap: 18px; margin: 0; padding: 0; list-style: none; }
+@media (min-width: 800px) { .ab-slots__grid { grid-template-columns: 1fr 1fr; gap: 24px; } }
+.ab-slot { position: relative; display: flex; align-items: flex-end; aspect-ratio: 4 / 3; margin: 0; overflow: hidden; border-radius: var(--rd-radius); background: radial-gradient(60% 80% at 100% 0%, rgb(135 116 190 / 0.5), transparent 70%), linear-gradient(135deg, #2b2145 0%, #46356f 100%); color: #fff; }
+.ab-slot::before, .ab-slot::after { content: ''; position: absolute; border: 2px solid var(--accent); border-radius: 50%; border-color: var(--accent) transparent transparent var(--accent); }
+.ab-slot::before { width: 62%; aspect-ratio: 1; right: -12%; top: -22%; opacity: 0.9; }
+.ab-slot::after { width: 38%; aspect-ratio: 1; right: 6%; top: -4%; opacity: 0.45; }
+.ab-slot__art { position: absolute; left: 50%; top: 42%; display: grid; place-items: center; width: 34%; aspect-ratio: 1; color: rgb(255 255 255 / 0.18); transform: translate(-50%, -50%); }
+.ab-slot__art svg { width: 100%; height: 100%; }
+.ab-slot figcaption { position: relative; z-index: 1; padding: 22px 24px; font-family: var(--font-display); font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: 500; line-height: 1; text-transform: uppercase; }
+.ab-slot figcaption strong { color: var(--accent-light); font-weight: 800; }

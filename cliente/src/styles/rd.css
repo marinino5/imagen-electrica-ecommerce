@@ -9,7 +9,8 @@
   --accent-text: #b84800; /* naranja para texto pequeño sobre claro: 5,3:1 sobre blanco y lavanda */
   --night: #170f29; /* violeta casi negro, para capas sobre fotos */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --header-h: 76px;
+  --lav-soft: #f4f1fa; /* lavanda muy suave: fondo de las secciones alternas (ver DESIGN.md) */
+  --header-h: 84px;
   --header-gap: 0px;
   --header-space: var(--header-h);
   --rd-radius: 8px;
@@ -18,8 +19,15 @@
 html {
   scroll-padding-top: calc(var(--header-h) + 12px);
 }
+html {
+  background: var(--lav-soft);
+}
+/* Ninguna página queda en blanco plano: el degradado de marca blanco → lavanda cubre la primera pantalla */
 body {
-  background: var(--white);
+  background: linear-gradient(180deg, #ffffff 0%, var(--lav-soft) 880px);
+}
+@media (max-width: 1023px) {
+  :root { --header-h: 68px; }
 }
 body::after {
   display: none; /* sin grano global: la textura va solo en los fondos claros */
@@ -38,16 +46,16 @@ body::after {
   position: relative;
   z-index: 1;
 }
-.bg-white { background: var(--white); }
-.bg-lav { background: linear-gradient(180deg, #faf9fc 0%, var(--lavender) 100%); }
-.bg-warm { background: var(--warm); }
+.bg-white { background: linear-gradient(180deg, #ffffff 0%, #fcfbfe 100%); }
+.bg-lav { background: linear-gradient(180deg, #ffffff 0%, var(--lav-soft) 100%); }
+.bg-soft,
+.bg-warm { background: var(--lav-soft); }
 .bg-ink {
   background: var(--night);
   color: #fff;
 }
 /* Textura de plano eléctrico: puntos o líneas al 5 % */
-.tex-dots::before,
-.tex-lines::before {
+.tex-dots::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -58,10 +66,6 @@ body::after {
 .tex-dots::before {
   background-image: radial-gradient(var(--primary) 1.2px, transparent 1.4px);
   background-size: 22px 22px;
-}
-.tex-lines::before {
-  background-image: linear-gradient(var(--primary) 1px, transparent 1px), linear-gradient(90deg, var(--primary) 1px, transparent 1px);
-  background-size: 48px 48px;
 }
 
 /* ---------- Etiqueta de sección con línea naranja y número ---------- */
@@ -305,20 +309,23 @@ body::after {
 
 /* ---------- Tarjetas: se elevan 4 px y la foto crece a 1.04 ---------- */
 .lift {
-  transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out), border-color 0.4s;
+  transition: transform 0.22s var(--ease-out), box-shadow 0.22s var(--ease-out), border-color 0.22s;
 }
 .lift .zoom {
-  transition: transform 0.7s var(--ease-out);
+  transition: transform 0.5s var(--ease-out);
 }
+/* Elevación sutil (quieter): 3 px y una sombra corta teñida de violeta; solo con puntero fino */
 @media (hover: hover) {
   .lift:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px -18px rgb(81 62 132 / 0.4);
+    border-color: var(--lav-3);
   }
   .lift:hover .zoom {
-    transform: scale(1.04);
+    transform: scale(1.03);
   }
 }
+.lift:active { transform: scale(0.99); }
 
 /* ---------- Producto sobre fondo claro: el blanco de la foto desaparece ---------- */
 .prod-img {

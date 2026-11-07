@@ -25,6 +25,8 @@ class VariantResource extends JsonResource
             'name' => $this->name,
             'slug' => $this->slug,
             'label' => $this->variant_label,
+            // Foto de la referencia: el fabricante usa la misma para toda la línea, así que casi siempre es la de la línea
+            'image_url' => $this->image_url,
             'hp' => $specs['potencia_hp'] ?? null,
             'rpm' => $specs['velocidad_rpm'] ?? null,
             'amp' => $specs['corriente_a'] ?? null,

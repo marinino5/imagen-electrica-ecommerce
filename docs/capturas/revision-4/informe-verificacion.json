@@ -1,0 +1,445 @@
+{
+ "report": [
+  {
+   "w": 375,
+   "name": "inicio",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 9551
+  },
+  {
+   "w": 375,
+   "name": "productos",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 23276
+  },
+  {
+   "w": 375,
+   "name": "productos-motores",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 8783
+  },
+  {
+   "w": 375,
+   "name": "ficha-motor",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 5599
+  },
+  {
+   "w": 375,
+   "name": "ficha-arrancadores",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 5408
+  },
+  {
+   "w": 375,
+   "name": "como-comprar",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 6971
+  },
+  {
+   "w": 375,
+   "name": "nosotros",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 9390
+  },
+  {
+   "w": 375,
+   "name": "contacto",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 4242
+  },
+  {
+   "w": 375,
+   "name": "carrito",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 5193
+  },
+  {
+   "w": 375,
+   "name": "ingresar",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 2723
+  },
+  {
+   "w": 375,
+   "name": "crear-cuenta",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 3122
+  },
+  {
+   "w": 375,
+   "name": "404",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 2621
+  },
+  {
+   "w": 768,
+   "name": "inicio",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 9978
+  },
+  {
+   "w": 768,
+   "name": "productos",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 13768
+  },
+  {
+   "w": 768,
+   "name": "productos-motores",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 5755
+  },
+  {
+   "w": 768,
+   "name": "ficha-motor",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 5135
+  },
+  {
+   "w": 768,
+   "name": "ficha-arrancadores",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 4939
+  },
+  {
+   "w": 768,
+   "name": "como-comprar",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 6921
+  },
+  {
+   "w": 768,
+   "name": "nosotros",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 8535
+  },
+  {
+   "w": 768,
+   "name": "contacto",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 3499
+  },
+  {
+   "w": 768,
+   "name": "carrito",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 3832
+  },
+  {
+   "w": 768,
+   "name": "ingresar",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 2124
+  },
+  {
+   "w": 768,
+   "name": "crear-cuenta",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 2372
+  },
+  {
+   "w": 768,
+   "name": "404",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 2087
+  },
+  {
+   "w": 1440,
+   "name": "inicio",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 7943
+  },
+  {
+   "w": 1440,
+   "name": "productos",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 9914
+  },
+  {
+   "w": 1440,
+   "name": "productos-motores",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 4274
+  },
+  {
+   "w": 1440,
+   "name": "ficha-motor",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 3275
+  },
+  {
+   "w": 1440,
+   "name": "ficha-arrancadores",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 3079
+  },
+  {
+   "w": 1440,
+   "name": "como-comprar",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 5310
+  },
+  {
+   "w": 1440,
+   "name": "nosotros",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 6252
+  },
+  {
+   "w": 1440,
+   "name": "contacto",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 2255
+  },
+  {
+   "w": 1440,
+   "name": "carrito",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 2052
+  },
+  {
+   "w": 1440,
+   "name": "ingresar",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 1613
+  },
+  {
+   "w": 1440,
+   "name": "crear-cuenta",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 1861
+  },
+  {
+   "w": 1440,
+   "name": "404",
+   "errors": [],
+   "overflowX": 0,
+   "brokenImgs": [],
+   "notRevealedAfterScroll": 0,
+   "height": 1560
+  }
+ ],
+ "jumps": [
+  {
+   "kind": "scrollTo",
+   "name": "inicio",
+   "frac": 0.35,
+   "enPantallaSinRevelar": 0
+  },
+  {
+   "kind": "scrollTo",
+   "name": "inicio",
+   "frac": 0.6,
+   "enPantallaSinRevelar": 0
+  },
+  {
+   "kind": "scrollTo",
+   "name": "inicio",
+   "frac": 0.9,
+   "enPantallaSinRevelar": 0
+  },
+  {
+   "kind": "atrás",
+   "name": "inicio",
+   "enPantallaSinRevelar": 0
+  },
+  {
+   "kind": "scrollTo",
+   "name": "como-comprar",
+   "frac": 0.35,
+   "enPantallaSinRevelar": 0
+  },
+  {
+   "kind": "scrollTo",
+   "name": "como-comprar",
+   "frac": 0.6,
+   "enPantallaSinRevelar": 0
+  },
+  {
+   "kind": "scrollTo",
+   "name": "como-comprar",
+   "frac": 0.9,
+   "enPantallaSinRevelar": 0
+  },
+  {
+   "kind": "atrás",
+   "name": "como-comprar",
+   "enPantallaSinRevelar": 0
+  },
+  {
+   "kind": "scrollTo",
+   "name": "nosotros",
+   "frac": 0.35,
+   "enPantallaSinRevelar": 0
+  },
+  {
+   "kind": "scrollTo",
+   "name": "nosotros",
+   "frac": 0.6,
+   "enPantallaSinRevelar": 0
+  },
+  {
+   "kind": "scrollTo",
+   "name": "nosotros",
+   "frac": 0.9,
+   "enPantallaSinRevelar": 0
+  },
+  {
+   "kind": "atrás",
+   "name": "nosotros",
+   "enPantallaSinRevelar": 0
+  },
+  {
+   "kind": "scrollTo",
+   "name": "productos",
+   "frac": 0.35,
+   "enPantallaSinRevelar": 0
+  },
+  {
+   "kind": "scrollTo",
+   "name": "productos",
+   "frac": 0.6,
+   "enPantallaSinRevelar": 0
+  },
+  {
+   "kind": "scrollTo",
+   "name": "productos",
+   "frac": 0.9,
+   "enPantallaSinRevelar": 0
+  },
+  {
+   "kind": "atrás",
+   "name": "productos",
+   "enPantallaSinRevelar": 0
+  },
+  {
+   "kind": "scrollTo",
+   "name": "ficha-motor",
+   "frac": 0.35,
+   "enPantallaSinRevelar": 0
+  },
+  {
+   "kind": "scrollTo",
+   "name": "ficha-motor",
+   "frac": 0.6,
+   "enPantallaSinRevelar": 0
+  },
+  {
+   "kind": "scrollTo",
+   "name": "ficha-motor",
+   "frac": 0.9,
+   "enPantallaSinRevelar": 0
+  },
+  {
+   "kind": "atrás",
+   "name": "ficha-motor",
+   "enPantallaSinRevelar": 0
+  }
+ ]
+}

@@ -22,20 +22,21 @@ export const MODES = {
   },
 }
 
-// Pasos de cada camino. `image` es una captura real de la tienda; `art` es una ilustración de la pantalla (StepArt)
-// (ya no se usa: cada paso lleva una foto real).
+// Pasos de cada camino. Cada paso lleva una foto que muestra exactamente lo que dice o, si no hay una foto exacta, una captura
+// real de la tienda dentro de un celular (`mock`: 'ficha' | 'carrito' | 'cotizacion' en public/img/mockups/) o la conversación
+// de WhatsApp con el asesor (`chat`). Las capturas se generan con cliente/scripts/capturar-mockups.mjs.
 export const STEPS = {
   direct: [
-    { title: 'Busca y filtra', text: 'Escribe la referencia o recorre las familias y categorías. Filtra por forma de compra, marca y disponibilidad; en motores y variadores también por potencia, y en control por corriente.', photo: '/img/fotos/electricista-tablero.webp', alt: 'Electricista revisando un tablero para elegir la referencia', path: '/productos' },
-    { title: 'Elige la variante', text: 'Escoge potencia, velocidad y referencia. El precio y las unidades en bodega se actualizan al instante.', photo: '/img/fotos/tablero-cerca.webp', alt: 'Cableado de un tablero eléctrico en detalle', path: '/productos/w22-iec-carcasa-hierro' },
-    { title: 'Envía tu pedido; un asesor confirma pago y entrega', text: 'Agrega al carrito, escoge cómo lo recibes y envía tu pedido. Un asesor te contacta para confirmar el pago y la entrega; el pago en línea llegará más adelante.', photo: '/img/fotos/recepcion.webp', alt: 'Persona atendiendo en un escritorio y confirmando un pedido', path: '/carrito' },
-    { title: 'Sigue tu pedido', text: 'En Mi cuenta ves cada pedido con su línea de estados: pago pendiente, pagado, enviado y entregado.', photo: '/img/fotos/pedido-empacado.webp', alt: 'Cajas de un pedido empacado y cerradas con cinta', path: '/mi-cuenta' },
+    { title: 'Busca y filtra', text: 'Escribe el nombre, la referencia o el SKU, o recorre las familias y categorías. Filtra por forma de compra y por marca.', photo: '/img/fotos/busca-portatil.webp', alt: 'Persona buscando una referencia en un portátil junto a una máquina industrial', path: '/productos' },
+    { title: 'Elige la referencia y agrega', text: 'Escoge potencia, velocidad y referencia. El precio y las unidades en bodega se actualizan al instante; agrégala al carrito.', mock: 'ficha', alt: 'Ficha de un motor en el celular, con el selector de referencia y el botón Agregar al carrito', path: '/productos/w22-iec-carcasa-hierro' },
+    { title: 'Envía tu pedido; un asesor confirma pago y entrega', text: 'Revisa el carrito, escoge cómo lo recibes y envía tu pedido. Un asesor te contacta para confirmar el pago y la entrega; el pago en línea llegará más adelante.', mock: 'carrito', alt: 'Carrito de compras en el celular con un producto y las opciones de entrega', path: '/carrito' },
+    { title: 'Recibe y sigue tu pedido', text: 'Recógelo en la tienda o recíbelo en tu obra o planta. En Mi cuenta ves cada pedido con su línea de estados: pago pendiente, pagado, enviado y entregado.', photo: '/img/fotos/despacho-montacargas.webp', alt: 'Bodega con estanterías y un montacargas listo para despachar cajas', path: '/mi-cuenta' },
   ],
   quote: [
-    { title: 'Arma tu lista', text: 'Usa «Cotizar volumen» o «Solicitar cotización» en cada ficha. También puedes pedir líneas que se manejan bajo pedido.', photo: '/img/fotos/tablero-manos.webp', alt: 'Manos de un técnico armando la lista de un tablero', path: '/productos/w22-iec-carcasa-hierro' },
-    { title: 'Envía la solicitud sin cuenta', text: 'Déjanos tu nombre, WhatsApp, correo y ciudad. Empresa, NIT y mensaje son opcionales.', photo: '/img/fotos/obra-casco.webp', alt: 'Obrero con casco revisando la lista de materiales de una obra', path: '/carrito#cotizacion' },
-    { title: 'El asesor responde', text: 'Te contacta por WhatsApp o correo con la referencia, el precio y el tiempo de entrega.', photo: '/img/fotos/asesor-linea.webp', alt: 'Asesora con diadema respondiendo una cotización' },
-    { title: 'Aprueba y coordina la entrega', text: 'Cuando apruebes, el asesor confirma el pago y coordina la entrega. El pago en línea llegará más adelante.', photo: '/img/fotos/entrega.webp', alt: 'Mensajero entregando un pedido en una puerta' },
+    { title: 'Arma tu lista', text: 'Usa «Solicitar cotización» en cada ficha, también en las líneas que se manejan bajo pedido, y ve sumando referencias.', mock: 'ficha', alt: 'Ficha de un motor en el celular con el botón Solicitar cotización', path: '/productos/w22-iec-carcasa-hierro' },
+    { title: 'Envía la solicitud sin cuenta', text: 'Déjanos tu nombre, WhatsApp, correo y ciudad. Empresa, NIT y mensaje son opcionales.', mock: 'cotizacion', alt: 'Formulario de cotización en el celular con la lista de referencias', path: '/carrito#cotizacion' },
+    { title: 'El asesor responde', text: 'Te contacta por WhatsApp o correo con la referencia, el precio y el tiempo de entrega.', chat: true, alt: 'Conversación de WhatsApp en la que un asesor de Imagen Eléctrica responde una cotización' },
+    { title: 'Aprueba y coordina la entrega', text: 'Cuando apruebes, el asesor confirma el pago y coordina la entrega. El pago en línea llegará más adelante.', photo: '/img/fotos/despacho-montacargas.webp', alt: 'Bodega con estanterías y un montacargas listo para despachar cajas' },
   ],
 }
 

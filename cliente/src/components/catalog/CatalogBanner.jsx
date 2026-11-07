@@ -1,14 +1,17 @@
 import { useRef, useState } from 'react'
 import { Search } from 'lucide-react'
 import '../../styles/catalog.css'
+import '../../styles/catalog2.css'
 
-// Productos que flotan en el banner (fotos oficiales) con movimiento lento y continuo + parallax con el mouse
+// Productos recortados que flotan a la derecha con profundidad: distinto tamaño, desenfoque y sombra según la distancia,
+// movimiento lento y parallax leve con el mouse (`depth` = cuántos px se mueve). Son las imágenes oficiales del catálogo.
 const FLOATERS = [
-  { src: '/img/productos/motores/weg-w22-nema-premium.webp', alt: 'Motor WEG W22', size: 220, x: '56%', y: '10%', depth: 28, delay: 0 },
-  { src: '/img/productos/control/weg-cfw500.webp', alt: 'Variador WEG CFW500', size: 170, x: '72%', y: '52%', depth: 44, delay: -2 },
-  { src: '/img/productos/control/weg-contactores.webp', alt: 'Contactor WEG', size: 140, x: '49%', y: '58%', depth: 36, delay: -4 },
-  { src: '/img/productos/reductores/weg-cestari-wcg20.webp', alt: 'Motorreductor WEG Cestari', size: 190, x: '77%', y: '8%', depth: 52, delay: -1 },
-  { src: '/img/productos/medicion/fluke-multimetro-117.webp', alt: 'Multímetro Fluke 117', size: 130, x: '90%', y: '34%', depth: 24, delay: -3 },
+  { src: '/img/catalogo/weg-w22-nema-premium.webp', size: 300, x: '60%', y: '4%', depth: 30, dur: 11, delay: 0, z: 3 },
+  { src: '/img/catalogo/weg-cfw500.webp', size: 230, x: '79%', y: '44%', depth: 46, dur: 9, delay: -2, z: 4 },
+  { src: '/img/catalogo/weg-contactores.webp', size: 170, x: '55%', y: '52%', depth: 38, dur: 10, delay: -4, z: 2 },
+  { src: '/img/catalogo/weg-cestari-wcg20.webp', size: 210, x: '81%', y: '2%', depth: 54, dur: 12, delay: -1, z: 3 },
+  { src: '/img/catalogo/fluke-multimetro-117.webp', size: 150, x: '93%', y: '30%', depth: 20, dur: 13, delay: -3, z: 1, far: true },
+  { src: '/img/catalogo/weg-ssw07.webp', size: 130, x: '48%', y: '14%', depth: 16, dur: 14, delay: -5, z: 1, far: true },
 ]
 
 export default function CatalogBanner({ finderRef, initial, onSearch, quick }) {
@@ -27,7 +30,7 @@ export default function CatalogBanner({ finderRef, initial, onSearch, quick }) {
     <section className="cban on-dark" aria-labelledby="cat-banner" ref={box} onMouseMove={onMove}>
       <div className="cban__floaters" aria-hidden="true">
         {FLOATERS.map((f) => (
-          <span key={f.src} className="cban__fl" style={{ left: f.x, top: f.y, width: f.size, height: f.size, '--depth': f.depth, '--delay': `${f.delay}s` }}>
+          <span key={f.src} className={`cban__fl ${f.far ? 'is-far' : ''}`} style={{ left: f.x, top: f.y, width: f.size, height: f.size, zIndex: f.z, '--depth': f.depth, '--delay': `${f.delay}s`, '--dur': `${f.dur}s` }}>
             <span className="cban__bob"><img src={f.src} alt="" width={f.size} height={f.size} loading="lazy" /></span>
           </span>
         ))}
@@ -35,6 +38,7 @@ export default function CatalogBanner({ finderRef, initial, onSearch, quick }) {
       <div className="wrap cban__inner">
         <p className="cban__tag">Catálogo industrial</p>
         <h1 id="cat-banner">Todo para mover tu proyecto <strong>en un solo lugar</strong></h1>
+        <p className="cban__lead">Motores, variadores, control y protección de las marcas que distribuimos, con la referencia exacta y el precio a la vista.</p>
         <form className="cban__search" role="search" onSubmit={(e) => { e.preventDefault(); onSearch(term.trim()) }}>
           <Search size={20} aria-hidden="true" />
           <input ref={finderRef} type="search" enterKeyHint="search" autoComplete="off" placeholder="Motor 5 HP 1800, CFW300, contactor 25 A…" aria-label="Buscar en el catálogo" value={term} onChange={(e) => setTerm(e.target.value)} />

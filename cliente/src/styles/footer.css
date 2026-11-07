@@ -56,19 +56,9 @@
 .ft__check a { color: var(--accent-light); text-decoration: underline; }
 .ft__news-msg { min-height: 20px; margin: 8px 0 0; font-size: 13px; color: var(--accent-light); }
 .ft__news-msg.is-error { color: #ffb4a8; }
-.ft__pay {
-  display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px;
-  margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--on-dark-line);
-  font-size: 13px; color: var(--on-dark-muted);
-}
-.ft__pay ul { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
-.ft__pay li {
-  display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 14px;
-  border: 1px solid var(--on-dark-line); border-radius: 999px; color: #fff; font-size: 13px;
-}
 .ft__legal {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 24px;
-  margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--on-dark-line);
+  margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--on-dark-line);
   font-size: 13px; color: var(--on-dark-muted);
 }
 .ft__legal nav { display: flex; flex-wrap: wrap; gap: 4px 18px; }

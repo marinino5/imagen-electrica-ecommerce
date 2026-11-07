@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom'
-import { Boxes, Headset, Navigation, ShieldCheck, Truck } from 'lucide-react'
+import { Boxes, Headset, Navigation, ShieldCheck, Truck, Users, Warehouse } from 'lucide-react'
 import { site } from '../config/site'
 import { withLogos } from '../config/brands'
 import { useFamilies } from '../hooks/useFamilies'
 import Arc from '../components/ui/Arc'
 import Counter from '../components/ui/Counter'
 import Hl from '../components/ui/Hl'
-import Parallax from '../components/ui/Parallax'
 import Pill from '../components/ui/Pill'
 import Reveal from '../components/ui/Reveal'
 import SectionLabel from '../components/ui/SectionLabel'
@@ -40,27 +39,26 @@ const story = [
 ]
 
 const values = [
-  { Icon: Headset, title: 'Asesoría', text: 'Te ayudamos a elegir.', extra: 'Potencia, tensión y protección para tu motor, tablero o instalación.', photo: '/img/fotos/asesor-linea.webp', alt: 'Asesora con diadema' },
+  { Icon: Headset, title: 'Asesoría', text: 'Te ayudamos a elegir.', extra: 'Potencia, tensión y protección para tu motor, tablero o instalación.', photo: '/img/fotos/electricista-tablero.webp', alt: 'Electricista revisando las conexiones de un tablero' },
   { Icon: Boxes, title: 'Disponibilidad', text: 'Bodega con rotación.', extra: 'Lo que está en bodega lo ves con su unidad y su precio; lo demás lo conseguimos.', photo: '/img/fotos/bodega.webp', alt: 'Bodega con estanterías altas' },
   { Icon: ShieldCheck, title: 'Marcas reconocidas', text: 'Las que la industria ya conoce.', extra: 'WEG, ABB, Siemens, Fluke y más, con respaldo del fabricante.', photo: '/img/fotos/planta-operando.webp', alt: 'Operario en una planta industrial' },
-  { Icon: Truck, title: 'Envíos', text: 'A donde estés.', extra: 'Recoge en Bucaramanga o recibe en tu obra o planta, en todo el país.', photo: '/img/fotos/pedido-empacado.webp', alt: 'Cajas de un pedido empacado' },
+  { Icon: Truck, title: 'Envíos', text: 'A donde estés.', extra: 'Recoge en Bucaramanga o recibe en tu obra o planta, en todo el país.', photo: '/img/fotos/despacho-montacargas.webp', alt: 'Bodega con estanterías y un montacargas' },
 ]
 
 export default function Nosotros() {
   const { meta } = useFamilies()
   const brands = withLogos()
+  // Los dos protagonistas: los años en el sector y las referencias reales del catálogo (de la API, nunca escritas a mano)
   const stats = [
     { value: site.years, prefix: '+', label: 'años en el sector' },
     { value: meta.references, label: 'referencias' },
-    { value: meta.lines, label: 'líneas de producto' },
-    { value: meta.families, label: 'familias' },
   ].filter((s) => s.value > 0)
 
   return (
     <>
-      {/* Hero: la fachada a pantalla ancha, con parallax */}
+      {/* Hero: una sola foto de la fachada, a sangre y sin deformar (object-fit: cover con punto focal en el letrero) */}
       <section className="ab-hero on-dark" aria-labelledby="h-nosotros">
-        <Parallax src="/img/fachada.webp" alt="Fachada de la tienda Imagen Eléctrica en Bucaramanga" className="ab-hero__px" loading="eager" rate={0.14} />
+        <img className="ab-hero__img" src="/img/fachada.webp" alt="Fachada de la tienda Imagen Eléctrica en Bucaramanga, con su letrero y el interior iluminado" width="1600" height="800" fetchPriority="high" />
         <div className="wrap ab-hero__txt">
           <p className="ab-hero__tag">Nosotros</p>
           <h1 id="h-nosotros">Soluciones <strong>industriales</strong></h1>
@@ -68,7 +66,7 @@ export default function Nosotros() {
         </div>
       </section>
 
-      {/* Cifras sobre la bodega oscurecida */}
+      {/* Protagonistas: años en el sector y referencias, grandes y animados */}
       {stats.length > 0 && (
         <section className="ab-stats on-dark" aria-label="Imagen Eléctrica en cifras">
           <img src="/img/fotos/bodega-oscura.webp" alt="" width="1280" height="853" loading="lazy" />
@@ -101,6 +99,27 @@ export default function Nosotros() {
               </div>
             )
           })}
+        </div>
+      </section>
+
+      {/* Dos espacios para las fotos que enviará la empresa. Mientras tanto, un diseño de marca sin texto de relleno
+          (pendientes en docs/imagenes-pendientes.md: «foto interior del almacén» y «foto del equipo»). */}
+      <section className="rd-sec bg-soft ab-slots" aria-label="El almacén y el equipo">
+        <div className="wrap">
+          <ul className="ab-slots__grid">
+            <Reveal as="li" i={0}>
+              <figure className="ab-slot">
+                <span className="ab-slot__art" aria-hidden="true"><Warehouse strokeWidth={1} /></span>
+                <figcaption>Nuestro almacén <strong>por dentro</strong></figcaption>
+              </figure>
+            </Reveal>
+            <Reveal as="li" i={1}>
+              <figure className="ab-slot">
+                <span className="ab-slot__art" aria-hidden="true"><Users strokeWidth={1} /></span>
+                <figcaption>Nuestro <strong>equipo</strong></figcaption>
+              </figure>
+            </Reveal>
+          </ul>
         </div>
       </section>
 
@@ -148,7 +167,7 @@ export default function Nosotros() {
       </section>
 
       {/* Visítanos */}
-      <section className="rd-sec bg-warm ab-visit" aria-labelledby="h-visitanos" id="visitanos">
+      <section className="rd-sec bg-soft ab-visit" aria-labelledby="h-visitanos" id="visitanos">
         <div className="wrap">
           <SectionLabel n="05">Visítanos</SectionLabel>
           <h2 id="h-visitanos" className="rd-h2">Estamos en <Hl>Bucaramanga</Hl></h2>
@@ -157,7 +176,6 @@ export default function Nosotros() {
               <iframe title="Mapa: Bucaramanga, Santander, Colombia" src={site.mapUrl} loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
             </Reveal>
             <Reveal side="r" delay={0.12} className="ab-visit__info">
-              <img src="/img/fachada.webp" alt="Fachada de la tienda" width="800" height="400" loading="lazy" />
               <h3>{site.address}</h3>
               <p>{site.city}</p>
               <ul>

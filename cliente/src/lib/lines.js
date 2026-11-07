@@ -6,6 +6,12 @@ import { HP_CATEGORIES } from './families'
 // muestra el diseño de marca (LineVisual), así dos líneas distintas nunca comparten la misma imagen.
 export const lineImage = (line) => line?.image_url ?? null
 
+// Miniatura de 480 px de la foto de la línea (mega-menú, tarjetas pequeñas): el formato recortado trae `-sm`
+export const lineThumb = (line) => {
+  const url = lineImage(line)
+  return url && url.startsWith('/img/catalogo/') ? url.replace(/\.webp$/, '-sm.webp') : url
+}
+
 export const hpText = (hp) => `${String(hp).replace('.', ',')} HP`
 
 // Rangos de potencia y de corriente para los chips de filtro

@@ -2,6 +2,7 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { FileText, MapPin, Plus, ShoppingCart, Store, Truck } from 'lucide-react'
 import { DELIVERY, FAQS, MODES, STEPS } from '../components/comprar/modeData'
+import PhoneMock from '../components/comprar/PhoneMock'
 import ColombiaMap from '../components/ui/ColombiaMap'
 import Hl from '../components/ui/Hl'
 import Pill from '../components/ui/Pill'
@@ -43,7 +44,7 @@ function Journey({ mode }) {
   }, [mode])
 
   return (
-    <section className="rd-sec bg-white tex-lines how-journey" aria-labelledby="h-pasos">
+    <section className="rd-sec bg-white how-journey" aria-labelledby="h-pasos">
       <div className="wrap">
         <SectionLabel n="01">Paso a paso</SectionLabel>
         <h2 id="h-pasos" className="rd-h2">Así funciona la <Hl>{mode === 'direct' ? 'compra en línea' : 'cotización'}</Hl></h2>
@@ -55,7 +56,11 @@ function Journey({ mode }) {
               <li key={s.title} className={`tl__step ${flip ? 'is-flip' : ''}`}>
                 <span className="tl__node" aria-hidden="true">{i + 1}</span>
                 <Reveal side={flip ? 'r' : 'l'} className="tl__media">
-                  <div className="capsule tl__capsule"><img src={s.photo} alt={s.alt} width="800" height="600" loading="lazy" /></div>
+                  {s.photo ? (
+                    <div className="capsule tl__capsule"><img src={s.photo} alt={s.alt} width="800" height="600" loading="lazy" /></div>
+                  ) : (
+                    <div className="tl__mock"><PhoneMock mock={s.mock} chat={s.chat} alt={s.alt} /></div>
+                  )}
                 </Reveal>
                 <Reveal side={flip ? 'l' : 'r'} delay={0.12} className="tl__text">
                   <h3><span className="sr-only">Paso {i + 1}: </span>{s.title}</h3>
@@ -150,7 +155,7 @@ export default function ComoComprar() {
   return (
     <>
       <section className="how-hero on-dark" aria-labelledby="h-how">
-        <img className="how-hero__bg" src="/img/fotos/asesor-mostrador.webp" alt="" width="859" height="1280" fetchPriority="high" />
+        <img className="how-hero__bg" src="/img/fotos/bodega-pasillo.webp" alt="" width="1920" height="1280" fetchPriority="high" />
         <div className="wrap how-hero__grid">
           <div>
             <p className="how-hero__tag">Cómo comprar</p>

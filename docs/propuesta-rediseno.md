@@ -70,3 +70,52 @@ Todo se construyó con el sistema de `cliente/src/styles/rd.css` y los component
 | Parallax suave, máscara de abajo hacia arriba, arcos que se dibujan, subrayado que se dibuja | Encargo | Inicio, Nosotros, Cómo comprar |
 
 **Sobre las skills.** No se cargaron una por una con la herramienta de skills: las decisiones de diseño salen de las guías ya resumidas en la sección 1 de este documento (`frontend-design`, `high-end-visual-design`, `emil-design-eng`, `ui-ux-pro-max`, `web-design-guidelines`) y de la auditoría con axe-core. La auditoría con `web-quality-audit` no se corrió.
+
+
+## 6. Rediseño nivel 2: qué se tomó de dónde
+
+Sistema documentado en `DESIGN.md`. Flujo seguido: Taste Skill (dirección y referencias) → Impeccable (crítica, composición, acabado) → frontend-design + ui-ux-pro-max (implementación) → Emil (movimiento) → anti-ui-slop (patrones genéricos) → Playwright (capturas en `docs/capturas/revision-4/` y pruebas de interacción).
+
+**Skills usadas y qué aportó cada una** (las tres nuevas se leyeron antes de usarlas; Impeccable se instaló en el proyecto con `npx impeccable install`, sin ganchos):
+
+| Skill | Qué aportó | Dónde se ve |
+|---|---|---|
+| `design-taste-frontend` (Taste) | Evitar el «3 tarjetas iguales» y las composiciones centradas; estados completos; `transform`/`opacity` solamente; sombras teñidas. **Descartó** (por marca): la prohibición del violeta y de Inter | Tarjeta de sector con reverso; familias parejas; ficha asimétrica |
+| `impeccable` (critique, layout, typeset, quieter, polish, audit) | Crítica de lo genérico (ver abajo), detector mecánico de «side-tab» y rejillas decorativas, reducción de efectos | Elevación de tarjetas más sutil; sin franjas laterales de color |
+| `emil-design-eng` | Presión `scale(.97–.98)` en 160 ms, interfaz entre 160 y 300 ms con `ease-out`, hover solo con puntero fino, foco que acompaña a la cara visible | Flip de sectores, botones de la ficha, mega-menú |
+| `anti-ui-slop` | Cubrir estados (carga, vacío, error) y quitar piezas sin sentido de producto | Quitar medios de pago, la cuadrícula «bento» desigual, las fotos de oficina |
+| `frontend-design`, `ui-ux-pro-max` | Jerarquía clara en la ficha, contraste AA, objetivos táctiles de 44 px, 375/768/1440 px | Ficha, filtros, acceso |
+
+**Referencias de sitios.** Se sigue usando lo ya documentado de WEG, Siemens, ABB y Schneider (secciones 2 y 3). `weg.net` y Siemens siguen bloqueando la navegación automática, así que esas ideas vienen del patrón y no de una revisión en vivo.
+
+**htmlrev.com.** Se revisó el listado (no se abrieron las vistas previas ni la licencia de cada plantilla): el sitio afirma que sus plantillas son gratuitas para uso personal y comercial, pero cada una enlaza a su fuente. En la categoría Bootstrap aparecen plantillas de servicios industriales y de construcción (Industro, Electra, Spectrum, Apex, Boldiz). **No se copió código, diseño ni recurso de ninguna**; solo se confirmó que el patrón «cifras grandes sobre fondo oscuro con acento naranja» es habitual en el sector, y ya estaba en Nosotros. No se reutilizó ningún archivo de htmlrev.
+
+**Figma MCP:** está conectado (herramientas `mcp__claude_ai_Figma__*`), pero no se usó: ninguna sección necesitó comparar composiciones fuera del navegador.
+
+| Idea | Fuente | Página |
+|---|---|---|
+| Tarjeta que gira y muestra «para qué se usa» con 3 equipos recomendados | Soluciones por industria de Schneider Electric y WEG (patrón), flip 3D de Taste Skill | Inicio, Sectores y aplicaciones |
+| Imagen de producto recortada en un formato único (mismo tamaño visual en cuadrícula) | Catálogos de McMaster-Carr y RS Components (miniaturas parejas) | Todo el sitio |
+| Precio anterior tachado, precio nuevo grande y vigencia | Grainger (precio de lista junto al precio) | Inicio, Ofertas |
+| Filtros mínimos: buscador, cómo comprar y marca; familias en acordeón | McMaster-Carr (árbol navegable) y ABB (sobriedad) | Catálogo |
+| Ficha en jerarquía: imagen + decisión de compra, pestañas debajo | Grainger (tabla de referencias con compra en la fila), RS Components | Ficha |
+| Ficha técnica dentro de la tienda y PDF propio sin datos del fabricante | Decisión de negocio (el PDF de WEG trae contactos y está en portugués) | Ficha |
+| Capturas reales de la tienda en un celular | Práctica común en B2B SaaS; más fiel que una foto genérica | Cómo comprar |
+| Cifras grandes y animadas sobre fondo oscuro | WEG (datos clave) | Nosotros |
+| Tarjeta de acceso centrada con un arco fino | Marca (arcos del logo) | Ingresar y Crear cuenta |
+
+### Crítica de Impeccable y lo que se corrigió
+
+| Qué se veía genérico o «hecho por IA» | Corrección |
+|---|---|
+| Fondo plano blanco en todo el sitio | Degradado de marca blanco → lavanda y alternancia de blanco, lavanda suave y franja oscura con foto |
+| Bento de familias con tamaños desiguales (Motores enorme, otras diminutas) | Cuadrícula pareja con la misma imagen recortada y el mismo margen |
+| Dos secciones casi iguales (Sectores y Aplicaciones) con imágenes de 40 px de ancho | Una sola sección con 6 tarjetas 4:5 que giran |
+| Marcas pegadas al hero | Franja propia con título, antesala del cierre |
+| Fichas con tres bloques apilados (selector, precio, datos, tabla, fotos) | Jerarquía de 9 pasos + 3 pestañas; precio y botones protagonistas |
+| Foto principal de ficha = foto de stock | Siempre el producto oficial recortado; la foto de ambiente solo en «Dónde se usa» |
+| Fotos de oficina y de gente posando (asesora con diadema, recepción, mensajero en una puerta) | Fotos industriales que coinciden con el texto, o capturas reales de la tienda |
+| Franjas laterales de color en avisos, categorías activas y cifras (detector de Impeccable) | Contorno suave, estado activo con contador naranja, línea corta sobre la cifra |
+| Elevación de tarjetas de 4 px con sombra grande al pasar el mouse | 3 px, sombra corta, 220 ms |
+| Mega-menú con categorías que se juntaban en una línea | Lista vertical, una por renglón |
+| Panel de acceso con foto de stock | Tarjeta sobria de 460 px con tres beneficios en una línea |

@@ -1,13 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ChevronDown, Search } from 'lucide-react'
-import { AMP_RANGES, HP_RANGES } from '../../lib/lines'
 import BrandMark from '../ui/BrandMark'
-
-const ORDERS = [
-  ['', 'Recomendados'],
-  ['refs', 'Más referencias'],
-  ['stock', 'En bodega primero'],
-]
 
 // Desplegable de marca con buscador y logos
 function BrandMenu({ brands, selected, toggle }) {
@@ -58,11 +51,17 @@ function BrandMenu({ brands, selected, toggle }) {
   )
 }
 
-// Barra horizontal de filtros arriba de la grilla: cómo comprar, marca, disponibilidad, potencia o corriente (solo donde
-// aplican) y ordenar. Es la misma en escritorio y dentro de la hoja del celular.
-export default function CatalogFilters({ st, set, toggleBrand, brands, ranges, tech, onReset, activeCount, sheet = false }) {
+// Barra de filtros arriba de la grilla: buscador (nombre, referencia o SKU), cómo comprar y marca con logos.
+// Es la misma en escritorio y dentro de la hoja del celular. Potencia, disponibilidad y orden ya no se ofrecen.
+export default function CatalogFilters({ st, set, toggleBrand, brands, finderRef, sheet = false }) {
   return (
     <div className={`fb ${sheet ? 'fb--sheet' : ''}`} role="group" aria-label="Filtros">
+      <label className="fb__search">
+        <Search size={18} aria-hidden="true" />
+        <span className="sr-only">Buscar productos</span>
+        <input ref={sheet ? undefined : finderRef} type="search" enterKeyHint="search" autoComplete="off" placeholder="Busca por nombre, referencia o SKU" value={st.q} onChange={(e) => set({ q: e.target.value })} />
+      </label>
+
       <div className="fb__item">
         <span className="fb__label">Cómo comprar</span>
         <div className="cat-seg" role="group" aria-label="Cómo comprar">
@@ -78,41 +77,6 @@ export default function CatalogFilters({ st, set, toggleBrand, brands, ranges, t
           <BrandMenu brands={brands} selected={st.brands} toggle={toggleBrand} />
         </div>
       )}
-
-      <div className="fb__item">
-        <span className="fb__label">Disponibilidad</span>
-        <button type="button" role="switch" aria-checked={st.stock} className={`fb__switch ${st.stock ? 'on' : ''}`} onClick={() => set({ stock: !st.stock })}>
-          <i aria-hidden="true" /> En bodega
-        </button>
-      </div>
-
-      {tech.hp && ranges.hp.length > 0 && (
-        <div className="fb__item">
-          <label className="fb__label" htmlFor="f-hp">Potencia</label>
-          <select id="f-hp" className="fb__select" value={st.hp} onChange={(e) => set({ hp: e.target.value })}>
-            <option value="">Todas</option>
-            {HP_RANGES.filter((r) => ranges.hp.includes(r) || st.hp === r.key).map((r) => <option key={r.key} value={r.key}>{r.label}</option>)}
-          </select>
-        </div>
-      )}
-
-      {tech.amp && ranges.amp.length > 0 && (
-        <div className="fb__item">
-          <label className="fb__label" htmlFor="f-amp">Corriente</label>
-          <select id="f-amp" className="fb__select" value={st.amp} onChange={(e) => set({ amp: e.target.value })}>
-            <option value="">Todas</option>
-            {AMP_RANGES.filter((r) => ranges.amp.includes(r) || st.amp === r.key).map((r) => <option key={r.key} value={r.key}>{r.label}</option>)}
-          </select>
-        </div>
-      )}
-
-      <div className="fb__item fb__item--sort">
-        <label className="fb__label" htmlFor="f-sort">Ordenar</label>
-        <select id="f-sort" className="fb__select" value={st.order} onChange={(e) => set({ order: e.target.value })}>
-          {ORDERS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
-        </select>
-      </div>
-      {sheet && activeCount > 0 && <button type="button" className="cat-reset" onClick={onReset}>Limpiar filtros ({activeCount})</button>}
     </div>
   )
 }

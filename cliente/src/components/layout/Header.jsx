@@ -29,7 +29,8 @@ function HeaderSearch({ className = '', onDone }) {
   )
 }
 
-// Mega-menú: las familias del portafolio con su foto y sus categorías
+// Mega-menú: las 8 familias del portafolio en dos filas de cuatro. Cada una lleva su miniatura (formato único de la
+// tienda) y una lista vertical limpia de categorías, una por renglón: nada de categorías que se juntan en la misma línea.
 function Mega({ families, onClose }) {
   return (
     <div className="mega" role="region" aria-label="Familias de productos">
@@ -38,15 +39,17 @@ function Mega({ families, onClose }) {
           const photo = familyPhoto(f.slug)
           return (
             <li key={f.id} className="mega__fam">
-              <span className="mega__thumb" aria-hidden="true">
-                {photo && <img className={photo.product ? '' : 'is-photo'} src={photo.src} alt="" width="76" height="76" loading="lazy" />}
-              </span>
-              <Link className="mega__name" to={`/productos?familia=${f.slug}`} onClick={onClose}>{f.name}</Link>
-              <ul className="mega__cats">
-                {(f.categories ?? []).map((c) => (
-                  <li key={c.id}><Link to={`/productos?familia=${f.slug}&categoria=${c.slug}`} onClick={onClose}>{c.name}</Link></li>
-                ))}
-              </ul>
+              <Link className="mega__thumb" to={`/productos?familia=${f.slug}`} onClick={onClose} tabIndex={-1} aria-hidden="true">
+                {photo && <img src={photo.sm} alt="" width="72" height="72" loading="lazy" />}
+              </Link>
+              <div className="mega__col">
+                <Link className="mega__name" to={`/productos?familia=${f.slug}`} onClick={onClose}>{f.name}</Link>
+                <ul className="mega__cats">
+                  {(f.categories ?? []).map((c) => (
+                    <li key={c.id}><Link to={`/productos?familia=${f.slug}&categoria=${c.slug}`} onClick={onClose}>{c.name}</Link></li>
+                  ))}
+                </ul>
+              </div>
             </li>
           )
         })}

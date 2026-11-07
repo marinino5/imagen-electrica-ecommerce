@@ -24,7 +24,7 @@ export default function Contacto() {
   return (
     <>
       <section className="pg-hero on-dark" aria-labelledby="h-contacto">
-        <img className="pg-hero__bg" src="/img/fotos/recepcion.webp" alt="Persona atendiendo en un escritorio con computador y teléfono" width="1280" height="854" fetchPriority="high" />
+        <img className="pg-hero__bg" src="/img/fotos/contacto.webp" alt="Manos de un técnico conectando módulos en un tablero eléctrico" width="1280" height="854" fetchPriority="high" />
         <div className="wrap pg-hero__txt">
           <p className="pg-hero__tag">Contacto</p>
           <h1 id="h-contacto">Hablemos de <strong>tu proyecto</strong></h1>

@@ -14,11 +14,11 @@ export default function BrandBlocks() {
         <div className="split">
           <Reveal side="l" className="split__media">
             <div className="capsule hm-capsule">
-              <Parallax src="/img/fotos/asesor-mostrador.webp" alt="Asesora de Imagen Eléctrica atendiendo con diadema" className="hm-capsule__px" />
+              <Parallax src="/img/fotos/asesoria-tablero.webp" alt="Técnico con casco junto a un tablero eléctrico abierto, revisando las conexiones" className="hm-capsule__px" />
             </div>
           </Reveal>
           <Reveal side="r" delay={0.12} className="split__text">
-            <SectionLabel n="02">Asesoría</SectionLabel>
+            <SectionLabel n="03">Asesoría</SectionLabel>
             <h2 className="rd-h2">Asesoría técnica de quien <Hl>conoce el producto</Hl></h2>
             <p className="rd-lead">Cuéntanos qué máquina vas a mover o qué tablero vas a armar. Te recomendamos la referencia exacta, con su potencia, su protección y la disponibilidad real en bodega.</p>
             <div className="hm-actions">
@@ -30,11 +30,11 @@ export default function BrandBlocks() {
         <div className="split split--flip">
           <Reveal side="r" className="split__media">
             <div className="capsule capsule--r hm-capsule">
-              <Parallax src="/img/fotos/entrega.webp" alt="Mensajero entregando paquetes en una puerta" className="hm-capsule__px" />
+              <Parallax src="/img/fotos/entrega-bodega.webp" alt="Operario de bodega escaneando una caja de material eléctrico con un lector de código" className="hm-capsule__px" />
             </div>
           </Reveal>
           <Reveal side="l" delay={0.12} className="split__text">
-            <SectionLabel n="03">Entrega</SectionLabel>
+            <SectionLabel n="04">Entrega</SectionLabel>
             <h2 className="rd-h2">Del catálogo <Hl>a tu obra</Hl></h2>
             <p className="rd-lead">Recógelo en nuestra tienda de Bucaramanga o recíbelo en tu obra o planta. Un asesor confirma el pago y coordina la entrega para que llegue completo.</p>
             <div className="hm-actions">

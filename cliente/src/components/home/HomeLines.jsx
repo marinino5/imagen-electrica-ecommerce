@@ -6,26 +6,31 @@ import SectionLabel from '../ui/SectionLabel'
 import Reveal from '../ui/Reveal'
 import Hl from '../ui/Hl'
 import Pill from '../ui/Pill'
-import Arc from '../ui/Arc'
 import ErrorState from '../ui/ErrorState'
 import '../../styles/home.css'
+import '../../styles/home2.css'
 
-// Bento: Motores grande primero y las 8 familias, cada una con su foto. Al pasar el mouse (o enfocar) aparece la lista de
-// categorías con su contador. Sin foto (Compresores) se dibuja el diseño de marca, nunca un render.
+// Las 8 familias en una cuadrícula pareja: todas con la imagen recortada en el mismo formato (mismo tamaño visual y mismo
+// margen). Al pasar el mouse (o enfocar) aparece la lista de categorías con su contador. Compresores usa la ilustración
+// de marca en el mismo formato (ver docs/imagenes-pendientes.md).
 function FamilyTile({ family, index }) {
   const photo = familyPhoto(family.slug)
   const Icon = familyIcon(family.slug)
-  const size = index === 0 ? 'fam--big' : index === 3 ? 'fam--wide' : ''
   const cats = family.categories ?? []
 
   return (
-    <Reveal as="li" i={index} className={`fam ${size}`}>
+    <Reveal as="li" i={index} className="fam">
       <article className="fam__card lift">
-        <div className={`fam__media ${photo?.product === false ? 'is-photo' : ''}`} aria-hidden="true">
+        <div className="fam__media" aria-hidden="true">
           {photo ? (
-            <img className={`zoom ${photo.product ? 'prod-img' : ''}`} src={photo.src} alt="" width="800" height="800" loading="lazy" />
+            <img className="zoom" src={photo.sm} alt="" width="480" height="480" loading="lazy" />
           ) : (
             <span className="fam__art"><Icon strokeWidth={1.1} /></span>
+          )}
+          {cats.length > 0 && (
+            <ul className="fam__cats" aria-hidden="true">
+              {cats.map((c) => <li key={c.id}><span>{c.name}<b>{c.lines_count}</b></span></li>)}
+            </ul>
           )}
         </div>
         <div className="fam__body">
@@ -33,16 +38,7 @@ function FamilyTile({ family, index }) {
           <h3><Link to={`/productos?familia=${family.slug}`} className="fam__link">{family.name}</Link></h3>
           <p className="fam__count">{family.lines_count} {family.lines_count === 1 ? 'ficha' : 'fichas'}</p>
         </div>
-        {cats.length > 0 && (
-          <ul className="fam__cats" aria-label={`Categorías de ${family.name}`}>
-            {cats.map((c) => (
-              <li key={c.id}>
-                <Link to={`/productos?familia=${family.slug}&categoria=${c.slug}`}>{c.name}<span>{c.lines_count}</span></Link>
-              </li>
-            ))}
-          </ul>
-        )}
-        <span className="fam__arrow" aria-hidden="true"><ArrowUpRight size={20} /></span>
+        <span className="fam__arrow" aria-hidden="true"><ArrowUpRight size={18} /></span>
       </article>
     </Reveal>
   )
@@ -52,9 +48,8 @@ export default function HomeLines() {
   const { data: families, loading, error, reload } = useFamilies()
 
   return (
-    <section className="rd-sec bg-lav tex-dots hm-fams" id="portafolio" aria-labelledby="h-lineas">
-      <Arc pos="tr" />
-      <div className="wrap">
+    <section className="rd-sec bg-lav hm-fams" id="portafolio" aria-labelledby="h-lineas">
+            <div className="wrap">
         <div className="hm-head">
           <div>
             <SectionLabel n="01">Portafolio</SectionLabel>

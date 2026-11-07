@@ -82,4 +82,34 @@ class LineImageSeederTest extends TestCase
 
         $this->assertSame('/img/productos/control/weg-contactores.webp', $line['image_url']);
     }
+
+    public function test_el_modo_migracion_reemplaza_rutas_antiguas_pero_no_las_urls_propias(): void
+    {
+        ProductLine::where('slug', 'contactores')->update(['image_url' => '/img/productos/control/weg-contactores.webp']);
+        ProductLine::where('slug', 'guardamotores')->update(['image_url' => 'https://cdn.ejemplo.com/foto.webp']);
+        file_put_contents($this->manifest, json_encode([
+            'contactores' => '/img/catalogo/weg-contactores.webp',
+            'guardamotores' => '/img/catalogo/weg-guardamotores.webp',
+        ]));
+
+        (new LineImageSeeder(replaceLegacy: true))->run();
+        (new LineImageSeeder(replaceLegacy: true))->run(); // idempotente
+
+        $this->assertSame('/img/catalogo/weg-contactores.webp', ProductLine::where('slug', 'contactores')->value('image_url'));
+        $this->assertSame('https://cdn.ejemplo.com/foto.webp', ProductLine::where('slug', 'guardamotores')->value('image_url'));
+    }
+
+    public function test_las_referencias_comparten_la_foto_de_su_linea_y_la_api_la_expone(): void
+    {
+        file_put_contents($this->manifest, json_encode(['contactores' => '/img/catalogo/weg-contactores.webp']));
+
+        $this->seed(LineImageSeeder::class);
+
+        $line = ProductLine::where('slug', 'contactores')->first();
+        $this->assertGreaterThan(0, $line->variants()->count());
+        $this->assertSame(0, $line->variants()->whereNull('image_url')->count());
+
+        $detail = $this->getJson('/api/v1/lines/contactores')->json('data.variants.0');
+        $this->assertSame('/img/catalogo/weg-contactores.webp', $detail['image_url']);
+    }
 }

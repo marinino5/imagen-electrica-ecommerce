@@ -4,7 +4,7 @@ import { ArrowRight, MessageCircle, Search, SlidersHorizontal, X } from 'lucide-
 import { site } from '../config/site'
 import { useFamilies } from '../hooks/useFamilies'
 import { useLineSearch, useLines } from '../hooks/useLines'
-import { AMP_RANGES, HP_RANGES, availableRanges, filterLines, sortLines, techFilters } from '../lib/lines'
+import { filterLines, sortLines } from '../lib/lines'
 import Pill from '../components/ui/Pill'
 import Reveal from '../components/ui/Reveal'
 import ErrorState from '../components/ui/ErrorState'
@@ -47,10 +47,11 @@ function readState(params, families) {
     q: params.get('q') ?? '',
     mode,
     brands: (params.get('marca') ?? '').split(',').filter(Boolean),
-    hp: params.get('potencia') ?? '',
-    amp: params.get('corriente') ?? '',
-    stock: params.get('bodega') === '1',
-    order: params.get('orden') ?? '',
+    // Sin filtros de potencia, corriente, disponibilidad ni orden (se quitaron del catálogo): valores neutros
+    hp: '',
+    amp: '',
+    stock: false,
+    order: '',
   }
 }
 
@@ -61,10 +62,6 @@ function writeState(st) {
   if (st.q) p.set('q', st.q)
   if (st.mode) p.set('modo', st.mode === 'on' ? 'en-linea' : 'cotizar')
   if (st.brands.length) p.set('marca', st.brands.join(','))
-  if (st.hp) p.set('potencia', st.hp)
-  if (st.amp) p.set('corriente', st.amp)
-  if (st.stock) p.set('bodega', '1')
-  if (st.order) p.set('orden', st.order)
   return p
 }
 
@@ -99,20 +96,13 @@ export default function Products() {
     // Buscar por texto recorre todo el catálogo; elegir una familia o categoría limpia el texto
     if ('q' in changes && changes.q) Object.assign(next, { family: '', category: '' })
     if (('family' in changes || 'category' in changes) && !('q' in changes)) next.q = ''
-    // Potencia y corriente solo existen en ciertas familias: al cambiar de familia se descartan
-    if ('family' in changes || 'category' in changes) Object.assign(next, { hp: '', amp: '' })
     setParams(writeState(next), { replace: 'q' in changes })
   }
   const toggleBrand = (name) => set({ brands: st.brands.includes(name) ? st.brands.filter((b) => b !== name) : [...st.brands, name] })
-  const reset = () => setParams(writeState({ ...st, mode: '', brands: [], hp: '', amp: '', stock: false }))
-  const clearAll = () => setParams(writeState({ ...st, family: '', category: '', q: '', mode: '', brands: [], hp: '', amp: '', stock: false }))
+  const clearAll = () => setParams(writeState({ ...st, family: '', category: '', q: '', mode: '', brands: [] }))
 
-  const tech = techFilters(st)
   const filtered = useMemo(() => filterLines(lines, { ...st, slugs }), [lines, st, slugs])
   const shown = useMemo(() => sortLines(filtered, st.order, families), [filtered, st.order, families])
-  // Los rangos de potencia y corriente solo ofrecen lo que existe en la selección actual de familia y categoría
-  const base = useMemo(() => filterLines(lines, { ...st, mode: '', brands: [], hp: '', amp: '', stock: false, slugs }), [lines, st, slugs])
-  const ranges = useMemo(() => availableRanges(base), [base])
 
   const family = families.find((f) => f.slug === st.family)
   const category = family?.categories.find((c) => c.slug === st.category)
@@ -123,13 +113,12 @@ export default function Products() {
   // Chips de filtros activos, cada uno con su X
   const chips = [
     st.q && { key: 'q', label: `Búsqueda: ${st.q}`, off: () => set({ q: '' }) },
+    family && { key: 'family', label: family.name, off: () => set({ family: '', category: '' }) },
+    category && { key: 'category', label: category.name, off: () => set({ category: '' }) },
     st.mode && { key: 'mode', label: st.mode === 'on' ? 'Compra en línea' : 'Cotizar', off: () => set({ mode: '' }) },
     ...st.brands.map((b) => ({ key: `b-${b}`, label: b, off: () => toggleBrand(b) })),
-    st.stock && { key: 'stock', label: 'Con unidades en bodega', off: () => set({ stock: false }) },
-    tech.hp && st.hp && { key: 'hp', label: HP_RANGES.find((r) => r.key === st.hp)?.label, off: () => set({ hp: '' }) },
-    tech.amp && st.amp && { key: 'amp', label: AMP_RANGES.find((r) => r.key === st.amp)?.label, off: () => set({ amp: '' }) },
   ].filter((c) => c && c.label)
-  const activeCount = chips.filter((c) => c.key !== 'q').length
+  const activeCount = chips.length
 
   const scrollToResults = () => resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   const search = (q) => {
@@ -137,7 +126,7 @@ export default function Products() {
     scrollToResults()
   }
 
-  const filterProps = { st, set, toggleBrand, brands: meta.brands, ranges, tech, onReset: reset, activeCount }
+  const filterProps = { st, set, toggleBrand, brands: meta.brands, finderRef }
 
   // La grilla intercala una tarjeta editorial de ancho completo cada 8 fichas
   const cells = []
@@ -160,7 +149,7 @@ export default function Products() {
 
           {family && !st.q && (
             <header className="fam-banner">
-              {photo && <img className={photo.product ? 'prod-img' : 'is-photo'} src={photo.src} alt="" width="220" height="220" />}
+              {photo && <img src={photo.sm} alt="" width="220" height="220" />}
               <div>
                 <SectionLabel>Familia</SectionLabel>
                 <h2 className="fam-banner__h">{family.name}</h2>
@@ -184,7 +173,7 @@ export default function Products() {
                   <button type="button" onClick={c.off} aria-label={`Quitar filtro: ${c.label}`}>{c.label} <X size={14} aria-hidden="true" /></button>
                 </li>
               ))}
-              <li><button type="button" className="cat-active__all" onClick={clearAll}>Limpiar todo</button></li>
+              <li><button type="button" className="cat-active__all" onClick={clearAll}>Limpiar</button></li>
             </ul>
           )}
 
@@ -235,10 +224,10 @@ export default function Products() {
 
 // Tarjeta editorial de ancho completo entre las fichas
 const EDITORIAL = [
-  { title: '¿No sabes qué motor necesitas? Un asesor te ayuda', text: 'Cuéntanos la carga, la tensión y el tipo de arranque y te recomendamos la referencia exacta.', photo: '/img/fotos/asesor-linea.webp', alt: 'Asesora con diadema lista para atender' },
-  { title: 'Armas un tablero y necesitas una lista completa', text: 'Envíanos tu lista y te cotizamos contactores, relés, guardamotores y borneras en un solo mensaje.', photo: '/img/fotos/electricista-tablero.webp', alt: 'Electricista conectando un tablero' },
-  { title: '¿Dudas entre dos referencias?', text: 'Dinos la aplicación y te mostramos la diferencia, con disponibilidad en bodega y precio.', photo: '/img/fotos/asesor-mostrador.webp', alt: 'Asesora con diadema atendiendo una consulta' },
-  { title: '¿Compras para una obra o una planta?', text: 'Coordinamos la entrega en tu obra y te acompañamos con la compra recurrente.', photo: '/img/fotos/recepcion.webp', alt: 'Recepción de una oficina con una persona atendiendo' },
+  { title: '¿No sabes qué motor necesitas? Un asesor te ayuda', text: 'Cuéntanos la carga, la tensión y el tipo de arranque y te recomendamos la referencia exacta.', photo: '/img/fotos/planta-operando.webp', alt: 'Operario revisando un motor en una planta industrial' },
+  { title: 'Armas un tablero y necesitas una lista completa', text: 'Envíanos tu lista y te cotizamos contactores, relés, guardamotores y borneras en un solo mensaje.', photo: '/img/fotos/tablero-manos.webp', alt: 'Manos de un técnico trabajando en un tablero eléctrico' },
+  { title: '¿Dudas entre dos referencias?', text: 'Dinos la aplicación y te mostramos la diferencia, con disponibilidad en bodega y precio.', photo: '/img/fotos/electricista-tablero.webp', alt: 'Electricista comparando referencias en un tablero' },
+  { title: '¿Compras para una obra o una planta?', text: 'Coordinamos la entrega en tu obra y te acompañamos con la compra recurrente.', photo: '/img/fotos/despacho-montacargas.webp', alt: 'Bodega con montacargas y estantería de material' },
 ]
 function EditorialCard({ n }) {
   const e = EDITORIAL[(n - 1) % EDITORIAL.length]

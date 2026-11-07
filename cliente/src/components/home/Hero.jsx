@@ -21,7 +21,7 @@ const slides = [
     text: 'Del monofásico de taller al trifásico de planta, con la referencia exacta que tu equipo necesita.',
     cta: { to: '/productos?familia=motores-electricos', label: 'Ver motores' },
     bg: { src: '/img/fotos/planta-operando.webp', alt: '', pos: '50% 40%' },
-    product: { src: '/img/productos/motores/weg-w22-iec.webp', alt: 'Tres motores eléctricos WEG W22 de distinto tamaño', caption: 'WEG W22' },
+    product: { src: '/img/catalogo/weg-w22-iec.webp', alt: 'Tres motores eléctricos WEG W22 de distinto tamaño', caption: 'WEG W22' },
   },
   {
     id: 'motorreductores',
@@ -32,7 +32,7 @@ const slides = [
     text: 'Para bandas, mezcladoras y elevadores: sinfín y corona o helicoidales, listos para tu máquina.',
     cta: { to: '/productos?familia=reductores-y-motorreductores', label: 'Ver motorreductores' },
     bg: { src: '/img/fotos/bodega-oscura.webp', alt: '', pos: '50% 50%' },
-    product: { src: '/img/productos/reductores/weg-cestari-wcg01.webp', alt: 'Motorreductor de sinfín y corona WEG Cestari WCG01', caption: 'WEG Cestari WCG01' },
+    product: { src: '/img/catalogo/weg-cestari-wcg01.webp', alt: 'Motorreductor de sinfín y corona WEG Cestari WCG01', caption: 'WEG Cestari WCG01' },
   },
   {
     id: 'automatizacion',
@@ -59,7 +59,7 @@ const slides = [
     text: 'Aire limpio para bodegas, talleres y plantas: extractores axiales, centrífugos y de tejado.',
     cta: { to: '/productos?familia=ventilacion-y-climatizacion', label: 'Ver ventilación' },
     bg: { src: '/img/aplicaciones/ventilacion.webp', alt: '', pos: '50% 50%' },
-    product: { src: '/img/productos/ventilacion/soler-palau-extractor-centrifugo.webp', alt: 'Extractor centrífugo industrial Soler & Palau', caption: 'Soler & Palau' },
+    product: { src: '/img/catalogo/soler-palau-extractor-centrifugo.webp', alt: 'Extractor centrífugo industrial Soler & Palau', caption: 'Soler & Palau' },
   },
 ]
 

@@ -4,5 +4,5 @@ import { brandLogo } from '../../config/brands'
 export default function BrandMark({ name, className = '' }) {
   const logo = brandLogo(name)
   if (!logo) return <span className={`brandmark brandmark--text ${className}`}>{name}</span>
-  return <img className={`brandmark ${className}`} src={logo} alt={name} loading="lazy" />
+  return <img className={`brandmark ${className}`} src={logo} alt={name} height="22" loading="lazy" />
 }

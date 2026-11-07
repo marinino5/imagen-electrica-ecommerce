@@ -18,7 +18,7 @@ export default function FamilyChips({ families, st, set }) {
             <li key={f.id}>
               <button type="button" className={st.family === f.slug ? 'on' : ''} aria-current={st.family === f.slug ? 'true' : undefined} onClick={() => set({ family: f.slug, category: '' })}>
                 <span className="fam-chips__img" aria-hidden="true">
-                  {photo ? <img className={photo.product ? 'prod-img' : 'is-photo'} src={photo.src} alt="" width="64" height="64" loading="lazy" /> : <Icon size={24} />}
+                  {photo ? <img src={photo.sm} alt="" width="64" height="64" loading="lazy" /> : <Icon size={24} />}
                 </span>
                 <span>{f.name}</span>
               </button>

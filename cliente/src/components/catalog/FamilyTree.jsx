@@ -23,7 +23,7 @@ export default function FamilyTree({ families, st, set }) {
             <li key={f.id} className={`fam-tree__fam ${open ? 'open' : ''}`}>
               <button type="button" className="fam-tree__row" aria-expanded={open} aria-controls={`cats-${f.slug}`} onClick={() => set({ family: open && !st.category ? '' : f.slug, category: '' })}>
                 <span className="fam-tree__thumb" aria-hidden="true">
-                  {photo ? <img className={photo.product ? 'prod-img' : 'is-photo'} src={photo.src} alt="" width="44" height="44" loading="lazy" /> : <Icon size={20} strokeWidth={1.6} />}
+                  {photo ? <img src={photo.sm} alt="" width="44" height="44" loading="lazy" /> : <Icon size={20} strokeWidth={1.6} />}
                 </span>
                 <span className="fam-tree__name">{f.name}</span>
                 <i>{f.lines_count}</i>

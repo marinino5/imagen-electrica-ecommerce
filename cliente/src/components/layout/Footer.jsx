@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Banknote, Building2, Landmark, Mail, MapPin, MessageCircle, Phone, Store } from 'lucide-react'
+import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
 import { site } from '../../config/site'
 import { newsletterApi } from '../../api'
 import { useFamilies } from '../../hooks/useFamilies'
@@ -15,14 +15,6 @@ const helpLinks = [
   { to: '/contacto', label: 'Contacto y tienda' },
   { to: '/crear-cuenta', label: 'Crea tu cuenta' },
 ]
-
-// Medios de pago que la empresa acepta hoy. El espacio de PSE y tarjetas queda preparado y oculto hasta la fase 2.
-const payments = [
-  { Icon: Landmark, label: 'Transferencia' },
-  { Icon: Banknote, label: 'Consignación' },
-  { Icon: Store, label: 'Efectivo en tienda' },
-]
-const SHOW_ONLINE_PAYMENTS = false
 
 function Newsletter() {
   const [email, setEmail] = useState('')
@@ -114,14 +106,6 @@ export default function Footer() {
             <p>Novedades y promociones de material eléctrico industrial.</p>
             <Newsletter />
           </div>
-        </div>
-
-        <div className="ft__pay" aria-label="Medios de pago">
-          <span>Medios de pago</span>
-          <ul>
-            {payments.map(({ Icon, label }) => <li key={label}><Icon size={16} aria-hidden="true" /> {label}</li>)}
-            {SHOW_ONLINE_PAYMENTS && <li><Building2 size={16} aria-hidden="true" /> PSE y tarjetas</li>}
-          </ul>
         </div>
 
         <div className="ft__legal">

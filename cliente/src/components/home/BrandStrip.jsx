@@ -2,7 +2,10 @@ import { useState } from 'react'
 import { Pause, Play } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { withLogos } from '../../config/brands'
+import SectionLabel from '../ui/SectionLabel'
+import Hl from '../ui/Hl'
 import '../../styles/home.css'
+import '../../styles/home2.css'
 
 // Logos oficiales en gris que pasan a color con el mouse, en un loop continuo. Sin logo, el nombre en la tipografía de marca.
 export default function BrandStrip() {
@@ -11,9 +14,12 @@ export default function BrandStrip() {
   const track = [...brands, ...brands]
 
   return (
-    <section className="hm-brands" aria-labelledby="h-marcas">
+    <section className="rd-sec bg-soft hm-brands hm-brands--band" aria-labelledby="h-marcas">
       <div className="wrap hm-brands__head">
-        <h2 id="h-marcas" className="hm-brands__title">Marcas que <strong>distribuimos</strong></h2>
+        <div>
+          <SectionLabel n="06">Aliados</SectionLabel>
+          <h2 id="h-marcas" className="rd-h2">Marcas que <Hl>distribuimos</Hl></h2>
+        </div>
         <button type="button" className="hm-brands__pause" onClick={() => setPaused((p) => !p)} aria-label={paused ? 'Reanudar el desplazamiento de marcas' : 'Pausar el desplazamiento de marcas'}>
           {paused ? <Play size={16} /> : <Pause size={16} />}
         </button>
