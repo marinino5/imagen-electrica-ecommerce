@@ -120,3 +120,33 @@ Si `https://<tu-servicio>.onrender.com/api/v1/families` o `/lines` responden **4
 4. Verifica: `bash docs/verificar-api.sh https://<tu-servicio>.onrender.com`. Debe mostrar HTTP 200 en `families`, `lines`, `lines/w22-iec-carcasa-hierro`, `products` y `brands`, y los totales (33 líneas, 351 referencias).
 
 Variables nuevas opcionales: `SEED_CATALOG` (`false` o `force`) y `SANCTUM_TOKEN_EXPIRATION` (minutos; por defecto 10080).
+
+
+## Antes de subir migraciones o seeders: probar contra MySQL 8 en modo estricto
+
+SQLite (las pruebas de `php artisan test`) es permisivo con los tipos; MySQL en Aiven no. Un error típico: PHP convierte las claves de array numéricas (`'10046368' => ...`) en **enteros**, y `where('sku', 10046368)` sobre la columna de texto `sku` hace que MySQL convierta todos los SKU a número y falle con `Truncated incorrect DOUBLE value` en los alfanuméricos. Reglas: los SKU siempre como **string** (en listas de tuplas, no como clave de array; `(string) $sku` en `where`/`whereIn`) y las migraciones de datos **idempotentes**, porque MySQL no revierte los cambios de datos hechos antes de un error.
+
+Pasos (desde `backend/`; no toca tu `.env` ni tu MySQL de `docker compose`):
+
+```bash
+# 1. MySQL 8 limpio en otro puerto (modo estricto por defecto)
+docker run -d --name ie_mysql_test -p 3399:3306 -e MYSQL_DATABASE=ie_test -e MYSQL_ROOT_PASSWORD=testpass mysql:8.0
+export DB_CONNECTION=mysql DB_HOST=127.0.0.1 DB_PORT=3399 DB_DATABASE=ie_test DB_USERNAME=root DB_PASSWORD=testpass
+
+# 2. Instalación nueva
+php artisan migrate:fresh --seed --force
+
+# 3. Actualización de producción: revierte las migraciones nuevas (cambia --step al número de pendientes) y vuelve a aplicarlas
+php artisan migrate:rollback --step=7 --force
+php artisan migrate --force
+
+# 4. Idempotencia: seeders dos veces y, si cambiaste una migración de datos, borra su fila y córrela otra vez
+php artisan db:seed --force && php artisan db:seed --force
+docker exec ie_mysql_test mysql -uroot -ptestpass ie_test -e "delete from migrations where migration='<nombre_de_la_migracion>'"
+php artisan migrate --force
+
+# 5. Limpieza
+docker rm -f ie_mysql_test
+```
+
+Después de desplegar: `bash docs/verificar-api.sh` (comprueba `families`, `lines`, `POST /newsletter` → 422 sin datos y que `/lines` traiga imágenes).

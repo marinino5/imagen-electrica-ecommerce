@@ -16,18 +16,24 @@ use Illuminate\Support\Str;
  *  3. La familia 08 "Medición y testeo" existía sin fichas y por eso no salía en /families: se crea la línea
  *     "Instrumentos de medición Fluke" (bajo pedido, se cotiza) para que la familia sea real.
  *
- * Solo actúa si el catálogo por líneas ya está cargado (si no, lo siembra CatalogSeeder con estos mismos datos)
- * y solo toca lo que todavía tiene el valor anterior.
+ * Solo actúa si el catálogo por líneas ya está cargado (si no, lo siembra CatalogSeeder con estos mismos datos).
+ * Es idempotente: cada paso solo toca lo que todavía tiene el valor anterior o crea lo que falta (firstOrCreate), así
+ * que puede correr dos veces, o reanudarse tras un fallo a medias (MySQL no revierte cambios de datos).
  */
 return new class extends Migration
 {
+    /**
+     * [sku, etiqueta anterior, etiqueta nueva]. Es una lista y no un array con el SKU como clave: PHP convierte las
+     * claves numéricas ('10046368') en enteros, y comparar la columna de texto `sku` con un entero hace que MySQL
+     * (modo estricto) convierta todos los SKU a número y falle con los alfanuméricos ("Truncated incorrect DOUBLE").
+     */
     private const TWIN_LABELS = [
-        '10046368' => ['5.6-8 A', '5.6-8 A · 220 V'],
-        '15570522' => ['5.6-8 A', '5.6-8 A · 110 V'],
-        '14870194' => ['2 HP', '2 HP · 110 V'],
-        '14870191' => ['2 HP', '2 HP · 220 V'],
-        '15575728' => ['10 HP', '10 HP · 220 V'],
-        '15577022' => ['10 HP', '10 HP · 440 V'],
+        ['10046368', '5.6-8 A', '5.6-8 A · 220 V'],
+        ['15570522', '5.6-8 A', '5.6-8 A · 110 V'],
+        ['14870194', '2 HP', '2 HP · 110 V'],
+        ['14870191', '2 HP', '2 HP · 220 V'],
+        ['15575728', '10 HP', '10 HP · 220 V'],
+        ['15577022', '10 HP', '10 HP · 440 V'],
     ];
 
     public function up(): void
@@ -43,8 +49,8 @@ return new class extends Migration
         }
 
         // 2. Referencias gemelas
-        foreach (self::TWIN_LABELS as $sku => [$old, $new]) {
-            Product::query()->where('sku', $sku)->where('variant_label', $old)->update(['variant_label' => $new]);
+        foreach (self::TWIN_LABELS as [$sku, $old, $new]) {
+            Product::query()->where('sku', (string) $sku)->where('variant_label', $old)->update(['variant_label' => $new]);
         }
 
         // 3. Familia 08 con su ficha

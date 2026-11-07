@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Schema;
  * {"image": ruta, "alt": ruta} cuando la línea tiene una segunda vista que se muestra al pasar el mouse:
  * {"slug-de-la-linea": "/img/productos/familia/marca-linea.webp"}.
  *
- * Solo llena imágenes VACÍAS: una foto que el equipo ya cambió no se pisa. Es idempotente, así que se puede volver a
+ * Solo llena imágenes VACÍAS (foto y segunda vista por separado): una foto que el equipo ya cambió no se pisa. Es idempotente, así que se puede volver a
  * correr (php artisan db:seed --class=LineImageSeeder) cada vez que se agreguen entradas al manifiesto.
  * El origen de cada archivo se registra en docs/creditos-media.md; lo que falta, en docs/imagenes-pendientes.md.
  */
@@ -28,14 +28,19 @@ class LineImageSeeder extends Seeder
 
         foreach ($map as $slug => $entry) {
             $image = is_array($entry) ? $entry['image'] : $entry;
-            $values = ['image_url' => $image];
-            if ($hasAlt) {
-                $values['image_alt_url'] = is_array($entry) ? ($entry['alt'] ?? null) : null;
-            }
+            $alt = is_array($entry) ? ($entry['alt'] ?? null) : null;
 
             ProductLine::where('slug', $slug)
                 ->where(fn ($q) => $q->whereNull('image_url')->orWhere('image_url', ''))
-                ->update($values);
+                ->update(['image_url' => $image]);
+
+            // La segunda vista se llena aparte y solo si está vacía: una línea puede haber recibido su foto antes de que
+            // existiera la columna (migración anterior), y entonces la condición de arriba ya no la alcanza.
+            if ($hasAlt && $alt) {
+                ProductLine::where('slug', $slug)
+                    ->where(fn ($q) => $q->whereNull('image_alt_url')->orWhere('image_alt_url', ''))
+                    ->update(['image_alt_url' => $alt]);
+            }
         }
     }
 }
