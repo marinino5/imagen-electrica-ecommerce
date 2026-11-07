@@ -13,6 +13,8 @@ export const ordersApi = {
 export const quotesApi = {
   /** Cotización sin cuenta: público, con límite por IP. items: [{ product_id | line, quantity }] */
   create: (payload) => post('/quote-requests', payload),
+  /** Cotización libre (sin elegir productos), con adjunto opcional: payload es un FormData. Responde { reference, response_time }. */
+  createFree: (formData) => post('/quote-requests/free', formData),
 }
 
 export const newsletterApi = {

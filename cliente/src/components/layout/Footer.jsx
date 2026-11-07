@@ -10,7 +10,7 @@ import '../../styles/footer.css'
 
 const helpLinks = [
   { to: '/como-comprar', label: 'Cómo comprar' },
-  { to: '/carrito#cotizacion', label: 'Cotizar sin cuenta' },
+  { to: '/cotizar', label: 'Cotizar lo que necesites' },
   { to: '/nosotros', label: 'Nosotros' },
   { to: '/contacto', label: 'Contacto y tienda' },
   { to: '/crear-cuenta', label: 'Crea tu cuenta' },

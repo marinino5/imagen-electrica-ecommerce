@@ -1,151 +1,158 @@
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Boxes, Headset, Navigation, ShieldCheck, Truck, Users, Warehouse } from 'lucide-react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { site } from '../config/site'
 import { withLogos } from '../config/brands'
 import { useFamilies } from '../hooks/useFamilies'
-import Arc from '../components/ui/Arc'
+import { useMediaQuery } from '../hooks/useMediaQuery'
 import Counter from '../components/ui/Counter'
 import Hl from '../components/ui/Hl'
-import Pill from '../components/ui/Pill'
+import Mix from '../components/ui/Mix'
 import Reveal from '../components/ui/Reveal'
 import SectionLabel from '../components/ui/SectionLabel'
+import VisitFull from '../components/ui/VisitFull'
+import Xb from '../components/ui/Xb'
 import '../styles/nosotros.css'
+import '../styles/ie-nosotros.css'
 
-const story = [
-  {
-    n: '01',
-    label: 'Nuestra historia',
-    title: ['Más de 25 años', 'distribuyendo', 'energía'],
-    hl: 2,
-    text: [
-      'Imagen Eléctrica es una distribuidora de material eléctrico industrial en Bucaramanga, Santander.',
-      'Acompañamos a empresas y a técnicos con motores, variadores, cables, iluminación y automatización.',
-    ],
-    photo: '/img/fotos/bodega-cajas.webp',
-    alt: 'Pasillo de la bodega con cajas en estanterías',
-  },
-  {
-    n: '02',
-    label: 'Cómo trabajamos',
-    title: ['El producto', 'correcto,', 'con respaldo'],
-    hl: 1,
-    text: [
-      'Un asesor revisa tu lista, te muestra la referencia y te dice qué hay en bodega.',
-      'Hoy llevamos esa atención a la tienda en línea: compra lo disponible o cotiza sin cuenta.',
-    ],
-    photo: '/img/fotos/tablero-cerca.webp',
-    alt: 'Cableado de un tablero eléctrico',
-  },
+// Galería horizontal: fachada, interior del almacén, mostrador, despacho y equipo. Las fotos que aún no existen muestran un
+// panel «Próximamente» (pendientes en docs/imagenes-pendientes.md); no hay texto de relleno.
+const GALLERY = [
+  { id: 'fachada', caption: 'Nuestra fachada en Bucaramanga', photo: '/img/fachada.webp', alt: 'Fachada de la tienda Imagen Eléctrica con su letrero' },
+  { id: 'interior', caption: 'El almacén por dentro' },
+  { id: 'mostrador', caption: 'El mostrador' },
+  { id: 'despacho', caption: 'Despacho de pedidos', photo: '/img/fotos/despacho-montacargas.webp', alt: 'Bodega con estanterías y un montacargas listo para despachar cajas' },
+  { id: 'equipo', caption: 'Nuestro equipo' },
 ]
 
-const values = [
-  { Icon: Headset, title: 'Asesoría', text: 'Te ayudamos a elegir.', extra: 'Potencia, tensión y protección para tu motor, tablero o instalación.', photo: '/img/fotos/electricista-tablero.webp', alt: 'Electricista revisando las conexiones de un tablero' },
-  { Icon: Boxes, title: 'Disponibilidad', text: 'Bodega con rotación.', extra: 'Lo que está en bodega lo ves con su unidad y su precio; lo demás lo conseguimos.', photo: '/img/fotos/bodega.webp', alt: 'Bodega con estanterías altas' },
-  { Icon: ShieldCheck, title: 'Marcas reconocidas', text: 'Las que la industria ya conoce.', extra: 'WEG, ABB, Siemens, Fluke y más, con respaldo del fabricante.', photo: '/img/fotos/planta-operando.webp', alt: 'Operario en una planta industrial' },
-  { Icon: Truck, title: 'Envíos', text: 'A donde estés.', extra: 'Recoge en Bucaramanga o recibe en tu obra o planta, en todo el país.', photo: '/img/fotos/despacho-montacargas.webp', alt: 'Bodega con estanterías y un montacargas' },
-]
+function Slide({ g }) {
+  return (
+    <figure className="gal2__slide">
+      {g.photo ? (
+        <img src={g.photo} alt={g.alt} width="1200" height="800" loading="lazy" />
+      ) : (
+        <div className="gal2__soon bg-lila-soft" role="img" aria-label={`${g.caption}: próximamente`}>
+          <img className="gal2__mark" src="/img/logo-ajustado.png" alt="" width="120" height="145" />
+          <span>Próximamente</span>
+        </div>
+      )}
+      <figcaption>{g.caption}</figcaption>
+    </figure>
+  )
+}
+
+// Con el scroll, la sección se queda fija y las fotos se desplazan en horizontal. En celular es un carrusel normal.
+function Gallery() {
+  const wide = useMediaQuery('(min-width: 900px)')
+  const sec = useRef(null)
+  const track = useRef(null)
+  const [shift, setShift] = useState(0)
+  const { scrollYProgress } = useScroll({ target: sec, offset: ['start start', 'end end'] })
+  const x = useTransform(scrollYProgress, [0, 1], [0, -shift])
+
+  useEffect(() => {
+    if (!wide) return
+    const measure = () => track.current && setShift(Math.max(0, track.current.scrollWidth - window.innerWidth))
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [wide])
+
+  if (!wide) {
+    return (
+      <section className="gal2 gal2--swipe bg-lila-fade" aria-label="Galería">
+        <ul className="gal2__row">{GALLERY.map((g) => <li key={g.id}><Slide g={g} /></li>)}</ul>
+      </section>
+    )
+  }
+  return (
+    <section className="gal2 bg-lila-fade" ref={sec} style={{ height: `calc(100vh + ${shift}px)` }} aria-label="Galería">
+      <div className="gal2__pin">
+        <motion.ul className="gal2__row" ref={track} style={{ x }}>{GALLERY.map((g) => <li key={g.id}><Slide g={g} /></li>)}</motion.ul>
+      </div>
+    </section>
+  )
+}
+
+// Tres hitos con una línea vertical que se llena con el scroll. Solo datos reales: años, referencias del catálogo y la tienda en línea.
+function Milestones({ references }) {
+  const list = useRef(null)
+  useEffect(() => {
+    const el = list.current
+    if (!el) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return el.style.setProperty('--fill', '1')
+    let frame = 0
+    const update = () => {
+      frame = 0
+      const r = el.getBoundingClientRect()
+      el.style.setProperty('--fill', String(Math.min(1, Math.max(0, (window.innerHeight * 0.65 - r.top) / r.height))))
+    }
+    const onScroll = () => { if (!frame) frame = requestAnimationFrame(update) }
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => { cancelAnimationFrame(frame); window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll) }
+  }, [])
+
+  const items = [
+    { big: <Counter to={site.years} prefix="+" />, title: 'años en el sector', text: 'Una distribuidora de material eléctrico industrial en Bucaramanga, Santander, que acompaña a empresas y técnicos.' },
+    references > 0 && { big: <Counter to={references} />, title: 'referencias en catálogo', text: 'Motores, variadores, cables, iluminación y automatización de marcas reconocidas, con su disponibilidad real.' },
+    { big: <span>Hoy</span>, title: 'también en línea', text: 'La misma atención de la tienda, ahora desde el celular: compra lo disponible o cotiza lo que necesites.' },
+  ].filter(Boolean)
+
+  return (
+    <section className="rd-sec bg-lila-soft ms" aria-labelledby="h-historia">
+      <div className="wrap">
+        <SectionLabel n="03">Nuestra historia</SectionLabel>
+        <h2 id="h-historia" className="rd-h2"><Mix light="Experiencia que"><Hl>se nota</Hl></Mix></h2>
+        <ol className="ms__list" ref={list}>
+          <span className="ms__line" aria-hidden="true"><span /></span>
+          {items.map((m, i) => (
+            <Reveal as="li" key={m.title} i={i} className="ms__item">
+              <span className="ms__dot" aria-hidden="true" />
+              <b className="ms__big">{m.big}</b>
+              <div><h3>{m.title}</h3><p>{m.text}</p></div>
+            </Reveal>
+          ))}
+        </ol>
+      </div>
+    </section>
+  )
+}
 
 export default function Nosotros() {
   const { meta } = useFamilies()
   const brands = withLogos()
-  // Los dos protagonistas: los años en el sector y las referencias reales del catálogo (de la API, nunca escritas a mano)
-  const stats = [
-    { value: site.years, prefix: '+', label: 'años en el sector' },
-    { value: meta.references, label: 'referencias' },
-  ].filter((s) => s.value > 0)
 
   return (
     <>
-      {/* Hero: una sola foto de la fachada, a sangre y sin deformar (object-fit: cover con punto focal en el letrero) */}
-      <section className="ab-hero on-dark" aria-labelledby="h-nosotros">
-        <img className="ab-hero__img" src="/img/fachada.webp" alt="Fachada de la tienda Imagen Eléctrica en Bucaramanga, con su letrero y el interior iluminado" width="1600" height="800" fetchPriority="high" />
-        <div className="wrap ab-hero__txt">
-          <p className="ab-hero__tag">Nosotros</p>
-          <h1 id="h-nosotros">Soluciones <strong>industriales</strong></h1>
-          <p>Material eléctrico industrial en Bucaramanga, con la experiencia de quien conoce cada referencia.</p>
-        </div>
+      {/* 10.1 Hero editorial: el «25» en contorno que se rellena de abajo hacia arriba y una sola foto de la fachada en arco */}
+      <section className="ab2 bg-lila-fade" aria-labelledby="h-nosotros">
+        <Xb
+          side="r"
+          arch
+          col="52%"
+          ratio="4 / 5"
+          photo={<img src="/img/fachada.webp" alt="Fachada de la tienda Imagen Eléctrica en Bucaramanga, con su letrero y el interior iluminado" width="1600" height="800" fetchPriority="high" loading="eager" />}
+        >
+          <p className="rd-label">Nosotros</p>
+          <h1 id="h-nosotros" className="ab2__h1">
+            <span className="ab2__25" aria-hidden="true"><i>{site.years}</i><i className="ab2__fill">{site.years}</i></span>
+            <span className="sr-only">{site.years} años en el sector</span>
+            <span className="ab2__years" aria-hidden="true">Años en el sector</span>
+          </h1>
+          {meta.references > 0 && (
+            <p className="ab2__refs"><Counter to={meta.references} className="ab2__refs-n" /> <span>referencias en catálogo</span></p>
+          )}
+          <p className="rd-lead">Material eléctrico industrial en Bucaramanga, con la experiencia de quien conoce cada referencia.</p>
+        </Xb>
       </section>
 
-      {/* Protagonistas: años en el sector y referencias, grandes y animados */}
-      {stats.length > 0 && (
-        <section className="ab-stats on-dark" aria-label="Imagen Eléctrica en cifras">
-          <img src="/img/fotos/bodega-oscura.webp" alt="" width="1280" height="853" loading="lazy" />
-          <ul className="wrap">
-            {stats.map((s) => (
-              <li key={s.label}>
-                <Counter to={s.value} prefix={s.prefix} className="ab-stats__n" />
-                <span>{s.label}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+      {/* 10.2 Galería en scroll horizontal fijado */}
+      <Gallery />
 
-      {/* Historia: bloques alternados con la foto en cápsula */}
-      <section className="rd-sec bg-white tex-dots ab-story" aria-label="Historia">
-        <div className="wrap ab-story__stack">
-          {story.map((b, i) => {
-            const flip = i % 2 === 1
-            return (
-              <div key={b.n} className={`split ${flip ? 'split--flip' : ''}`}>
-                <Reveal side={flip ? 'r' : 'l'} className="split__media">
-                  <div className={`capsule ${flip ? 'capsule--r' : ''} ab-capsule`}><img src={b.photo} alt={b.alt} width="1000" height="800" loading="lazy" /></div>
-                </Reveal>
-                <Reveal side={flip ? 'l' : 'r'} delay={0.12} className="split__text">
-                  <SectionLabel n={b.n}>{b.label}</SectionLabel>
-                  <h2 className="rd-h2">{b.title.map((t, k) => <span key={t} className="ab-line">{k === b.hl ? <Hl>{t}</Hl> : t}</span>)}</h2>
-                  {b.text.map((t) => <p key={t} className="rd-lead ab-p">{t}</p>)}
-                </Reveal>
-              </div>
-            )
-          })}
-        </div>
-      </section>
-
-      {/* Dos espacios para las fotos que enviará la empresa. Mientras tanto, un diseño de marca sin texto de relleno
-          (pendientes en docs/imagenes-pendientes.md: «foto interior del almacén» y «foto del equipo»). */}
-      <section className="rd-sec bg-soft ab-slots" aria-label="El almacén y el equipo">
-        <div className="wrap">
-          <ul className="ab-slots__grid">
-            <Reveal as="li" i={0}>
-              <figure className="ab-slot">
-                <span className="ab-slot__art" aria-hidden="true"><Warehouse strokeWidth={1} /></span>
-                <figcaption>Nuestro almacén <strong>por dentro</strong></figcaption>
-              </figure>
-            </Reveal>
-            <Reveal as="li" i={1}>
-              <figure className="ab-slot">
-                <span className="ab-slot__art" aria-hidden="true"><Users strokeWidth={1} /></span>
-                <figcaption>Nuestro <strong>equipo</strong></figcaption>
-              </figure>
-            </Reveal>
-          </ul>
-        </div>
-      </section>
-
-      {/* Valores: 4 tarjetas con foto; al pasar el mouse revelan una frase extra */}
-      <section className="rd-sec bg-lav ab-values" aria-labelledby="h-valores">
-        <Arc pos="tr" />
-        <div className="wrap">
-          <SectionLabel n="03">Lo que nos define</SectionLabel>
-          <h2 id="h-valores" className="rd-h2">Hecho para <Hl>tu proyecto</Hl></h2>
-          <ul className="ab-values__grid">
-            {values.map(({ Icon, title, text, extra, photo, alt }, i) => (
-              <Reveal as="li" key={title} i={i}>
-                <article className="ab-val lift" tabIndex={0}>
-                  <img className="zoom" src={photo} alt={alt} width="600" height="800" loading="lazy" />
-                  <div className="ab-val__txt">
-                    <Icon size={26} aria-hidden="true" />
-                    <h3>{title}</h3>
-                    <p>{text}</p>
-                    <p className="ab-val__extra">{extra}</p>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
-          </ul>
-        </div>
-      </section>
+      {/* 10.3 Historia en tres hitos */}
+      <Milestones references={meta.references} />
 
       {/* Marcas: tarjetas con el logo oficial (gris que pasa a color) y las líneas que distribuimos */}
       <section className="rd-sec bg-white ab-brands" aria-labelledby="h-marcas">
@@ -166,26 +173,8 @@ export default function Nosotros() {
         </div>
       </section>
 
-      {/* Visítanos */}
-      <section className="rd-sec bg-soft ab-visit" aria-labelledby="h-visitanos" id="visitanos">
-        <div className="wrap">
-          <SectionLabel n="05">Visítanos</SectionLabel>
-          <h2 id="h-visitanos" className="rd-h2">Estamos en <Hl>Bucaramanga</Hl></h2>
-          <div className="ab-visit__grid">
-            <Reveal side="l" className="ab-visit__map">
-              <iframe title="Mapa: Bucaramanga, Santander, Colombia" src={site.mapUrl} loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
-            </Reveal>
-            <Reveal side="r" delay={0.12} className="ab-visit__info">
-              <h3>{site.address}</h3>
-              <p>{site.city}</p>
-              <ul>
-                {site.contacts.map((c) => <li key={c.href}><a href={c.href}>{c.label}</a></li>)}
-              </ul>
-              <Pill as="a" href={site.directionsUrl} target="_blank" rel="noreferrer" tone="o" icon={Navigation}>Cómo llegar</Pill>
-            </Reveal>
-          </div>
-        </div>
-      </section>
+      {/* 10.5 Visítanos: mapa grande con tarjeta flotante (sin repetir la foto de la fachada) */}
+      <VisitFull id="visitanos" n="05" />
     </>
   )
 }

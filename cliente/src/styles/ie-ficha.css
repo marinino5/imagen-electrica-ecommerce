@@ -1,0 +1,128 @@
+/* ============================================================
+   Ficha de producto (rediseño 4). Todo cuelga de .fx para ganar en especificidad
+   a product-detail.css sin importar el orden en que carguen las hojas.
+   ============================================================ */
+.fx { padding-bottom: 40px; }
+.fx .pd { gap: 32px; padding-bottom: 48px; }
+@media (min-width: 961px) {
+  .fx .pd { grid-template-columns: 52fr 48fr; gap: 40px; }
+  /* La columna más corta es la que se queda fija: normalmente la imagen; la tarjeta de compra también lo es si la imagen es más alta */
+  .fx .pd__gal { position: sticky; top: 104px; }
+  .fx .pd__info { position: sticky; top: 104px; }
+}
+
+/* ---------- Panel de imagen ---------- */
+.fx .gal { gap: 16px; }
+.fx .gal__main {
+  position: relative;
+  border: 0;
+  border-radius: 28px;
+  background: radial-gradient(circle at 50% 46%, var(--ie-lila-100) 0%, var(--ie-lila-200) 100%);
+  cursor: zoom-in;
+}
+.fx .gal__main img { position: relative; z-index: 2; padding: 4%; object-fit: contain; transition: transform 0.24s ease-out; }
+.fx .gal__arc { position: absolute; z-index: 0; left: 8%; bottom: 14%; width: 84%; overflow: visible; pointer-events: none; }
+.fx .gal__arc path { fill: none; stroke: var(--ie-orange-500); stroke-width: 1.5; }
+/* Pedestal: misma elipse lila que el catálogo, bajo la línea base del producto (88 % del lienzo) */
+.fx .gal__ped {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: calc(86% - 8px);
+  width: 56%;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--ie-lila-200);
+  border-top: 1px solid rgb(255 255 255 / 0.6);
+  box-shadow: 0 12px 16px -6px rgb(28 22 48 / 0.3);
+  transform: translateX(-50%);
+}
+.fx .gal__main .lv-art { z-index: 2; }
+.fx .gal__thumbs { gap: 10px; }
+.fx .gal__thumbs button { width: 64px; height: 64px; border: 2px solid var(--ie-lila-200); border-radius: 999px; background: #fff; transition: border-color 0.24s ease-out, transform 0.16s ease-out; }
+.fx .gal__thumbs button:hover { border-color: var(--ie-violet-500); }
+.fx .gal__thumbs button:active { transform: scale(0.97); }
+.fx .gal__thumbs button.on { border-color: var(--ie-orange-500); }
+
+/* ---------- Tarjeta de compra ---------- */
+.fx .pd__info {
+  padding: 32px;
+  gap: 14px;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 16px 40px rgb(75 58 130 / 0.1);
+}
+.fx .pd__name { font-size: clamp(2.25rem, 1.6rem + 1.8vw, 3rem); font-weight: 700; line-height: 0.95; letter-spacing: -0.3px; color: var(--ie-violet-950); }
+.fx .pd__desc { margin: 0; max-width: 52ch; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.fx .pd-sel { width: 100%; }
+.fx .pd-vg { gap: 8px; }
+.fx .pd-vg button {
+  border: 1px solid var(--ie-lila-200);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ie-violet-950);
+  transition: background 0.24s ease-out, color 0.24s ease-out, border-color 0.24s ease-out, transform 0.16s ease-out;
+}
+.fx .pd-vg button:hover:not(:disabled):not(.on) { border-color: var(--ie-violet-500); }
+.fx .pd-vg button:active:not(:disabled) { transform: scale(0.97); }
+.fx .pd-vg button.on { border-color: var(--ie-violet-950); background: var(--ie-violet-950); color: #fff; transform: none; }
+.fx .pd-sep { width: 100%; height: 1px; margin: 4px 0; border: 0; background: var(--ie-lila-200); }
+.fx .pd-pricebox { width: 100%; padding-top: 0; border-top: 0; }
+.fx .pd-price strong { font-family: var(--font-display); font-size: 2.75rem; font-weight: 700; line-height: 1; letter-spacing: -0.3px; color: var(--ie-violet-950); font-variant-numeric: tabular-nums; }
+.fx .pd-stock { color: var(--ie-violet-950); font-size: 14px; }
+.fx .pd-stock.is-stock .pd-stock__dot { background: var(--success); }
+.fx .pd-stock.is-order .pd-stock__dot { background: var(--ie-orange-500); }
+.fx .pd-cta { display: grid; gap: 12px; width: 100%; }
+.fx .pd-btn { width: 100%; min-height: 56px; border-radius: 999px; transition: background 0.24s ease-out, border-color 0.24s ease-out, transform 0.16s ease-out; }
+.fx .pd-btn:active { transform: scale(0.98); }
+.fx .pd-btn--buy { background: var(--ie-orange-500); color: var(--ink); }
+.fx .pd-btn--quote, .fx .pd-btn--main { border: 2px solid var(--ie-violet-500); background: #fff; color: var(--ie-violet-700); }
+.fx .pd-btn--quote:hover, .fx .pd-btn--main:hover { background: var(--ie-lila-100); }
+.fx .pd-guar { display: flex; flex-wrap: wrap; gap: 8px 18px; width: 100%; margin: 4px 0 0; padding: 16px 0 0; border-top: 1px solid var(--ie-lila-200); list-style: none; color: var(--muted); font-size: 13px; font-weight: 600; }
+.fx .pd-guar li { display: inline-flex; align-items: center; gap: 6px; }
+.fx .pd-guar svg { color: var(--ie-violet-500); flex: none; }
+
+/* ---------- Pestañas a ancho completo con indicador deslizante ---------- */
+.fx .pd-tabs { padding-block: 8px 48px; }
+.fx .pd-tabs__list { position: relative; border-bottom: 1px solid var(--ie-lila-200); }
+.fx .pd-tabs__list button.on::after { display: none; }
+.fx .pd-tabs__bar {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100px;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: var(--ie-orange-500);
+  transform-origin: left center;
+  transition: transform 0.24s ease-out;
+  pointer-events: none;
+}
+.fx .pd-panel { padding-top: 28px; }
+
+/* ---------- Especificaciones: tarjetas a ancho completo, sin cortar palabras ---------- */
+.fx .pd-cards { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+.fx .pd-card { padding: 18px; border: 1px solid var(--ie-lila-200); border-radius: 16px; background: #fff; }
+.fx .pd-card__ic { width: 40px; height: 40px; border-radius: 50%; background: var(--ie-lila-100); color: var(--ie-violet-500); }
+.fx .pd-card dt { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+.fx .pd-card dd { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; line-height: 1.1; overflow-wrap: normal; word-break: normal; hyphens: none; }
+
+/* ---------- Ficha técnica: tabla a ancho completo, pares dato | valor en dos columnas ---------- */
+.fx .pd-panel__h { position: relative; margin: 36px 0 14px; padding-top: 14px; font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; text-transform: uppercase; color: var(--ie-violet-950); }
+.fx .pd-panel__h::before { content: ''; position: absolute; top: 0; left: 0; width: 28px; height: 2px; background: var(--ie-orange-500); }
+.fx .pd-sheet { display: block; width: 100%; max-width: none; border: 1px solid var(--ie-lila-200); border-radius: 16px; overflow: hidden; background: #fff; }
+.fx .pd-sheet tbody { display: grid; grid-template-columns: 1fr; }
+.fx .pd-sheet tr { display: grid; grid-template-columns: minmax(110px, 0.8fr) 1.2fr; border-bottom: 1px solid var(--ie-lila-200); }
+.fx .pd-sheet tr:nth-child(even) { background: var(--ie-lila-50); }
+.fx .pd-sheet th, .fx .pd-sheet td { border: 0; overflow-wrap: normal; hyphens: none; }
+@media (min-width: 760px) {
+  .fx .pd-sheet tbody { grid-template-columns: 1fr 1fr; }
+  .fx .pd-sheet tr:nth-child(even) { background: transparent; }
+  .fx .pd-sheet tr:nth-child(4n+3), .fx .pd-sheet tr:nth-child(4n+4) { background: var(--ie-lila-50); }
+  .fx .pd-sheet tr:nth-child(odd) { border-right: 1px solid var(--ie-lila-200); }
+}
+
+/* ---------- Dónde se usa y tabla de referencias: fila elegida en naranja suave ---------- */
+.fx .pd-table tr.on td { background: var(--ie-orange-100); }
+.fx .pd-used li img { background: var(--ie-lila-200); }
+@media (prefers-reduced-motion: reduce) { .fx .pd-tabs__bar { transition: none; } }

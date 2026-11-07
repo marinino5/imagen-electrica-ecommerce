@@ -81,7 +81,9 @@ export async function request(method, path, { params, body, auth = false, signal
   }
 
   const headers = { Accept: 'application/json' }
-  if (body !== undefined) headers['Content-Type'] = 'application/json'
+  // FormData (adjuntos): el navegador pone el Content-Type con su boundary; JSON para todo lo demás
+  const isForm = typeof FormData !== 'undefined' && body instanceof FormData
+  if (body !== undefined && !isForm) headers['Content-Type'] = 'application/json'
 
   const token = auth ? tokenStore.get() : null
   if (token) headers.Authorization = `Bearer ${token}`
@@ -100,7 +102,7 @@ export async function request(method, path, { params, body, auth = false, signal
     response = await fetch(buildUrl(path, params), {
       method,
       headers,
-      body: body !== undefined ? JSON.stringify(body) : undefined,
+      body: body !== undefined ? (isForm ? body : JSON.stringify(body)) : undefined,
       signal: controller.signal,
     })
   } catch (error) {

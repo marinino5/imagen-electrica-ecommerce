@@ -11,8 +11,8 @@
 @section('content')
     <div class="page-header d-flex flex-wrap justify-content-between align-items-start gap-3">
         <div>
-            <h1>{{ $quote->name }}</h1>
-            <p>Recibida el {{ $quote->created_at->timezone(config('app.timezone'))->format('d/m/Y H:i') }} · {{ $quote->status->label() }}</p>
+            <h1>{{ $quote->name }} @if ($quote->isFree())<span class="badge text-bg-warning align-middle fs-6">Cotización libre</span>@endif</h1>
+            <p>{{ $quote->reference() }} · Recibida el {{ $quote->created_at->timezone(config('app.timezone'))->format('d/m/Y H:i') }} · {{ $quote->status->label() }}</p>
         </div>
         <form method="POST" action="{{ route('admin.quote-requests.update', $quote) }}" class="d-flex gap-2">
             @csrf
@@ -35,15 +35,21 @@
                     <dl class="row mb-0">
                         <dt class="col-sm-4">Teléfono</dt>
                         <dd class="col-sm-8"><a href="https://wa.me/{{ preg_replace('/\D/', '', $quote->phone) }}" target="_blank" rel="noopener">{{ $quote->phone }}</a></dd>
-                        <dt class="col-sm-4">Correo</dt>
-                        <dd class="col-sm-8"><a href="mailto:{{ $quote->email }}">{{ $quote->email }}</a></dd>
+                        @if ($quote->email)
+                            <dt class="col-sm-4">Correo</dt>
+                            <dd class="col-sm-8"><a href="mailto:{{ $quote->email }}">{{ $quote->email }}</a></dd>
+                        @endif
                         <dt class="col-sm-4">Ciudad</dt>
                         <dd class="col-sm-8">{{ $quote->city }}</dd>
+                        @if ($quote->address)
+                            <dt class="col-sm-4">Dirección</dt>
+                            <dd class="col-sm-8">{{ $quote->address }}</dd>
+                        @endif
                         @if ($quote->company)
                             <dt class="col-sm-4">Empresa</dt>
                             <dd class="col-sm-8">{{ $quote->company }}@if ($quote->nit) · NIT {{ $quote->nit }}@endif</dd>
                         @endif
-                        @if ($quote->message)
+                        @if ($quote->message && ! $quote->isFree())
                             <dt class="col-sm-4">Mensaje</dt>
                             <dd class="col-sm-8">{{ $quote->message }}</dd>
                         @endif
@@ -57,6 +63,17 @@
             <div class="card h-100">
                 <div class="card-body">
                     <h2 class="h6 text-uppercase text-body-secondary">Lo que pidió</h2>
+                    @if ($quote->isFree())
+                        <p class="mb-3" style="white-space: pre-line">{{ $quote->message }}</p>
+                        @if ($quote->application)<p class="mb-3"><strong>Aplicación:</strong> {{ $quote->application }}</p>@endif
+                        @if ($quote->attachment_name)
+                            <a class="btn btn-outline-primary" href="{{ route('admin.quote-requests.attachment', $quote) }}">
+                                <i class="bi bi-download" aria-hidden="true"></i> Descargar adjunto: {{ $quote->attachment_name }}
+                            </a>
+                        @else
+                            <p class="text-body-secondary mb-0">Sin adjunto.</p>
+                        @endif
+                    @else
                     <div class="table-responsive">
                         <table class="table table-dashboard align-middle mb-0">
                             <thead><tr><th scope="col">Producto</th><th scope="col">SKU</th><th scope="col" class="text-end">Cantidad</th></tr></thead>
@@ -71,6 +88,7 @@
                             </tbody>
                         </table>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

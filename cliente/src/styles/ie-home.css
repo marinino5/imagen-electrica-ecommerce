@@ -1,0 +1,68 @@
+/* ============================================================
+   Inicio (rediseño 4): asesoría y entrega con bloque extendido, sectores 4 + 3,
+   marcas sobre el fondo, cierre claro con arco y transición al pie.
+   ============================================================ */
+
+/* ---------- 4.3 Asesoría y Entrega ---------- */
+.ie-xbs { padding-block: clamp(72px, 9vw, 120px); }
+.ie-xbs .xb + .xb { margin-top: clamp(72px, 9vw, 120px); }
+.xb-list { display: grid; gap: 10px; margin: 22px 0 0; padding: 0; list-style: none; }
+.xb-list li { display: flex; align-items: center; gap: 12px; color: var(--ie-violet-950); font-size: 1rem; font-weight: 500; }
+.xb-list li > span {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--ie-orange-100);
+  color: var(--ie-orange-500);
+}
+.xb-actions { margin-top: 28px; }
+.xb-actions .pill { display: inline-flex; }
+
+/* ---------- 4.4 Sectores: 4 + 3 centradas ---------- */
+@media (min-width: 900px) {
+  .sx-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 22px; }
+  .sx { flex: 0 0 calc((100% - 66px) / 4); }
+}
+
+/* ---------- 4.5 Marcas: logos sobre el fondo, sin franja blanca ---------- */
+.hm-brands--band { background-color: var(--ie-lila-100); }
+.hm-brands--band .hm-brands__loop {
+  position: relative;
+  padding-block: 18px;
+  background: none;
+  border: 0;
+  mask-image: linear-gradient(90deg, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
+}
+/* Dos líneas finas de 1 px arriba y abajo del carrusel, con el mismo desvanecido de 80 px */
+.hm-brands--band .hm-brands__loop::before,
+.hm-brands--band .hm-brands__loop::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--ie-lila-200);
+}
+.hm-brands--band .hm-brands__loop::before { top: 0; }
+.hm-brands--band .hm-brands__loop::after { bottom: 0; }
+.hm-brands--band .hm-brands__track a { height: 36px; min-width: 0; opacity: 0.45; filter: grayscale(1) brightness(0.35); transition: filter 0.2s ease-out, opacity 0.2s ease-out; }
+.hm-brands--band .hm-brands__track a:hover,
+.hm-brands--band .hm-brands__track a:focus-visible { filter: none; opacity: 1; transform: none; }
+.hm-brands--band .hm-brands__track { align-items: center; gap: clamp(44px, 6vw, 84px); }
+.hm-brands--band .hm-brands__track img { height: calc(36px * var(--optical, 1)); max-height: 56px; max-width: none; }
+.hm-brands--band .hm-brands__track a > span { font-size: 1.5rem; color: var(--ie-violet-950); }
+
+/* ---------- 4.6 Cierre: asesoría clara + pie ---------- */
+.adv2 { --arc-top: 82%; padding-block: clamp(72px, 9vw, 120px); }
+.adv2__grid { display: grid; gap: 36px; align-items: center; }
+.adv2 .xb__text { opacity: 1; transform: none; }
+.adv2__title { margin: 0; }
+.adv2__copy .rd-lead { margin-bottom: 24px; }
+.adv2__strip { margin: 40px auto 0; text-align: center; color: var(--muted); font-size: 0.95rem; }
+.adv2__strip a { color: var(--ie-violet-700); font-weight: 700; text-underline-offset: 3px; }
+
+/* El pie es el único bloque oscuro: empieza con un borde superior curvo de 48 px */
+.ft { border-radius: 48px 48px 0 0; }

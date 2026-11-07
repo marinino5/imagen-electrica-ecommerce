@@ -39,6 +39,8 @@ export const site = {
   legalName: import.meta.env.VITE_LEGAL_NAME ?? '',
   nit: import.meta.env.VITE_NIT ?? '',
   sicUrl: 'https://www.sic.gov.co',
+  // Tiempo de respuesta de una cotización (mismo texto que el backend: QUOTE_RESPONSE_TIME). Pendiente de confirmar con la empresa.
+  quoteResponse: import.meta.env.VITE_QUOTE_RESPONSE ?? 'el mismo día hábil',
   // Horario: pendiente de confirmar; no se muestra hasta tenerlo
   hours: null,
 }

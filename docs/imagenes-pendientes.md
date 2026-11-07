@@ -6,7 +6,7 @@ Lo que **no** se pudo conseguir con licencia y calidad suficientes. La tienda nu
 
 - **351 de 351 referencias tienen imagen** (todas comparten la foto oficial recortada de su línea; el fabricante usa la misma foto para todas las variantes). Detalle por SKU en `docs/imagenes-referencias.csv`.
 - **33 de 34 líneas con imagen oficial**; el CSV también lista las 8 líneas sin referencias (se cotizan).
-- Falta **1 foto oficial**: Compresor vertical (ver abajo). La tarjeta usa una **ilustración de marca** en el mismo formato (`cliente/public/img/catalogo/compresor-ilustracion.svg`).
+- ~~Falta 1 foto oficial: Compresor vertical~~ **Resuelto en el rediseño 4**: foto oficial ABAC (`abac-compresor-vertical.webp`). Antes la tarjeta usaba una ilustración de marca en el mismo formato (`cliente/public/img/catalogo/compresor-ilustracion.svg`).
 
 ## Pendientes de producto
 
@@ -46,3 +46,9 @@ Video de motor industrial, motorreductor o extractores: no existen en Coverr ni 
 2. Agregarla a `backend/database/data/line-images.json` (`"slug-de-la-linea": "/img/catalogo/<nombre>.webp"`).
 3. Correr `php artisan db:seed --class=LineImageSeeder` (llena vacíos) o crear una migración de datos con `new LineImageSeeder(replaceLegacy: true)`; **probarla antes contra MySQL 8 estricto** (ver `docs/despliegue.md`).
 4. Anotar la fuente en `docs/creditos-media.md`.
+
+
+## Pendiente tras el rediseño 4
+- **Nosotros, galería horizontal:** faltan las fotos del **interior del almacén**, del **mostrador** y del **equipo**; hoy muestran un panel «Próximamente» con el logo en marca de agua.
+- **Extractor HCM-150N:** la foto disponible es de 500 px; pedir una de mayor resolución a Soler & Palau.
+- **Energía solar:** paneles e inversores existen como categorías pero no tienen líneas en el catálogo; la tarjeta SolarWEG lleva a `/cotizar`.

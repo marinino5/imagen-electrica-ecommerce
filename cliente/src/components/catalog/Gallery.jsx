@@ -2,8 +2,10 @@ import { useState } from 'react'
 import LineVisual from './LineVisual'
 import '../../styles/product-detail.css'
 
-// Galería de la ficha: la imagen oficial del producto, recortada y grande, con zoom (al pasar el mouse o con los botones
-// de lupa) y miniaturas de sus otras vistas. Las fotos de ambiente NO van aquí: están en la pestaña «Dónde se usa».
+// Galería de la ficha: el producto recortado sobre un pedestal con un arco naranja detrás, lupa de 2× al pasar el mouse
+// y miniaturas en píldoras de 64 px. La imagen principal nunca es perezosa (loading="eager", fetchpriority="high") y,
+// si falla, cae en el diseño de marca en vez de mostrar solo el texto alternativo.
+// Las fotos de ambiente no van aquí: están en la pestaña «Dónde se usa».
 export default function Gallery({ line }) {
   const slides = [
     line.image_url && { src: line.image_url, alt: line.name },
@@ -11,7 +13,8 @@ export default function Gallery({ line }) {
   ].filter(Boolean)
   const [i, setI] = useState(0)
   const [zoom, setZoom] = useState(null)
-  const cur = slides[i]
+  const [failed, setFailed] = useState({})
+  const cur = slides[i] && !failed[slides[i].src] ? slides[i] : null
 
   const move = (e) => {
     const r = e.currentTarget.getBoundingClientRect()
@@ -22,14 +25,23 @@ export default function Gallery({ line }) {
     <div className="gal">
       <div className="gal__main" onMouseMove={cur ? move : undefined} onMouseLeave={() => setZoom(null)}>
         {cur ? (
-          <img
-            src={cur.src}
-            alt={cur.alt}
-            width="900"
-            height="900"
-            style={zoom ? { transform: 'scale(2)', transformOrigin: `${zoom.x}% ${zoom.y}%` } : undefined}
-            fetchPriority="high"
-          />
+          <>
+            <svg className="gal__arc" viewBox="0 0 400 200" aria-hidden="true" focusable="false">
+              <path d="M10 200 A190 190 0 0 1 390 200" />
+            </svg>
+            <span className="gal__ped" aria-hidden="true" />
+            <img
+              src={cur.src}
+              alt={cur.alt}
+              width="900"
+              height="900"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              onError={() => setFailed((f) => ({ ...f, [cur.src]: true }))}
+              style={zoom ? { transform: 'scale(2)', transformOrigin: `${zoom.x}% ${zoom.y}%` } : undefined}
+            />
+          </>
         ) : (
           <LineVisual line={line} eager />
         )}
@@ -40,7 +52,7 @@ export default function Gallery({ line }) {
           {slides.map((s, n) => (
             <li key={s.src}>
               <button type="button" className={n === i ? 'on' : ''} aria-label={`Ver imagen ${n + 1}: ${s.alt}`} aria-pressed={n === i} onClick={() => setI(n)}>
-                <img src={s.src} alt="" width="84" height="84" loading="lazy" />
+                <img src={s.src} alt="" width="64" height="64" loading="lazy" />
               </button>
             </li>
           ))}

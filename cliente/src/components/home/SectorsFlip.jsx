@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, RotateCw, X } from 'lucide-react'
+import { ArrowRight, RotateCw, Sun, X } from 'lucide-react'
 import { sectors } from '../../config/sectors'
 import { useLines } from '../../hooks/useLines'
 import { lineThumb } from '../../lib/lines'
@@ -22,7 +22,7 @@ function SectorCard({ sector, lines }) {
     // El foco acompaña a la cara visible: el lector de pantalla y el teclado no se quedan en la cara oculta
     requestAnimationFrame(() => (next ? back : front).current?.focus({ preventScroll: true }))
   }
-  const picks = sector.lines.map((slug) => lines.find((l) => l.slug === slug)).filter(Boolean)
+  const picks = (sector.lines ?? []).map((slug) => lines.find((l) => l.slug === slug)).filter(Boolean)
 
   return (
     <li className={`sx ${flipped ? 'is-flipped' : ''}`} onKeyDown={(e) => e.key === 'Escape' && flipped && flip(false)}>
@@ -42,6 +42,15 @@ function SectorCard({ sector, lines }) {
           <h3>{sector.name}</h3>
           <p className="sx__use">{sector.use}</p>
           <ul className="sx__picks">
+            {sector.quotes?.map((qt) => (
+              <li key={qt.q}>
+                <Link to={`/cotizar?q=${encodeURIComponent(qt.q)}`}>
+                  <span className="sx__thumb"><Sun size={22} aria-hidden="true" /></span>
+                  <span className="sx__pick">{qt.label}</span>
+                  <ArrowRight size={16} aria-hidden="true" />
+                </Link>
+              </li>
+            ))}
             {picks.map((l) => (
               <li key={l.slug}>
                 <Link to={`/productos/${l.slug}`}>
@@ -52,14 +61,14 @@ function SectorCard({ sector, lines }) {
               </li>
             ))}
           </ul>
-          <Link className="sx__cta" to={sector.to}>Ver productos para este sector <ArrowRight size={16} aria-hidden="true" /></Link>
+          <Link className="sx__cta" to={sector.to}>{sector.cta ?? 'Ver productos para este sector'} <ArrowRight size={16} aria-hidden="true" /></Link>
         </div>
       </div>
     </li>
   )
 }
 
-// Sectores y aplicaciones: una sola sección con 6 tarjetas 4:5 (3 × 2 en escritorio, carrusel con imán en el celular).
+// Sectores y aplicaciones: una sola sección con 7 tarjetas 4:5 (4 + 3 centradas en escritorio, carrusel con imán en el celular).
 export default function SectorsFlip() {
   const { data: lines } = useLines()
 

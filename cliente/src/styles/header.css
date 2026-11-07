@@ -5,7 +5,7 @@
   z-index: var(--z-header);
   height: var(--header-h);
   color: #fff;
-  transition: background 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out), color 0.4s;
+  transition: background 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out), color 0.4s, height 0.24s ease-out;
 }
 .site-header.is-solid {
   background: rgb(255 255 255 / 0.92);
@@ -19,7 +19,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  height: var(--header-h);
+  height: 100%;
   max-width: 1280px;
   margin-inline: auto;
   padding-inline: 16px; /* igual que .wrap: el logo queda en el borde de la grilla */
@@ -32,10 +32,32 @@
 }
 .nav__logo img {
   width: auto;
-  height: 40px;
+  height: 44px; /* altura visible del dibujo (el archivo ya está recortado al borde) */
+  transition: height 0.24s ease-out;
 }
 @media (min-width: 1024px) {
-  .nav__logo img { height: 56px; }
+  .nav__logo img { height: 64px; }
+  .site-header.is-scrolled { height: 68px; }
+  .is-scrolled .nav__logo img { height: 52px; }
+}
+.nav__quote { display: none; }
+@media (min-width: 640px) {
+  .nav__quote {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 18px;
+    border: 1.5px solid var(--ie-violet-500);
+    border-radius: 999px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.24s ease-out, color 0.24s ease-out, transform 0.16s ease-out;
+  }
+  .is-solid .nav__quote { color: var(--ie-violet-700); }
+  .nav__quote:hover { background: var(--ie-violet-700); border-color: var(--ie-violet-700); color: #fff; }
+  .nav__quote:active { transform: scale(0.98); }
 }
 .nav__links {
   display: none;

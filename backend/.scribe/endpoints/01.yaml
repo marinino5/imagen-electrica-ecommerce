@@ -311,8 +311,8 @@ endpoints:
       family: 'n'
       category: g
       brand: z
-      mode: direct
-      in_stock: false
+      mode: quote
+      in_stock: true
       hp_min: 17
       hp_max: 15
       per_page: 8

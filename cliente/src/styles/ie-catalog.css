@@ -1,0 +1,122 @@
+/* ============================================================
+   Catálogo (rediseño 4): banner «vitrina» y, más abajo, la ficha de producto.
+   ============================================================ */
+.cban {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  padding-block: 40px 28px;
+}
+/* Arco naranja gigante de 2 px (radio de 900 px) que entra desde la derecha */
+.cban::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  right: -1180px;
+  width: 1800px;
+  aspect-ratio: 1;
+  border: 2px solid var(--ie-orange-500);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.cban__grid { display: grid; gap: 28px; align-items: center; width: 100%; }
+.cban__copy { min-width: 0; }
+.cban__h1 {
+  margin: 0;
+  max-width: 16ch;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 1.4rem + 3.2vw, 4.25rem);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+  color: var(--ie-violet-950);
+  text-wrap: balance;
+}
+.cban__lead { max-width: 46ch; margin: 18px 0 22px; color: var(--muted); font-size: 1.0625rem; line-height: 1.55; }
+.cban__search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 560px;
+  height: 64px;
+  padding: 0 8px 0 22px;
+  border: 2px solid transparent;
+  border-radius: 32px;
+  background: #fff;
+  color: var(--ie-violet-500);
+  box-shadow: 0 12px 32px rgb(75 58 130 / 0.14);
+  transition: border-color 0.24s ease-out, box-shadow 0.24s ease-out;
+}
+.cban__search:focus-within { border-color: var(--ie-orange-500); box-shadow: 0 18px 44px rgb(75 58 130 / 0.22); }
+.cban__search input { flex: 1; min-width: 0; height: 100%; border: 0; background: transparent; color: var(--ie-violet-950); font: inherit; font-size: 16px; }
+.cban__search input:focus, .cban__search input:focus-visible { outline: none; }
+.cban__search button {
+  height: 48px;
+  padding: 0 26px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ie-orange-500);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.16s ease-out, background 0.24s ease-out;
+}
+.cban__search button:hover { background: #ff7d14; }
+.cban__search button:active { transform: scale(0.97); }
+.cban__quick { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; color: var(--muted); font-size: 13px; }
+.cban__quick button {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--ie-lila-200);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ie-violet-700);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.24s ease-out, transform 0.16s ease-out;
+}
+.cban__quick button:hover { border-color: var(--ie-orange-500); }
+.cban__quick button:active { transform: scale(0.97); }
+
+/* Escalera de productos: cada .sc es una capa con parallax; .sc__in lleva la entrada */
+.cban__stage { position: relative; display: flex; gap: 8px; margin-inline: calc(var(--gutter, 16px) * -1); padding: 8px var(--gutter, 16px) 4px; overflow-x: auto; scrollbar-width: none; }
+.cban__stage::-webkit-scrollbar { display: none; }
+.sc { flex: 0 0 150px; transform: translate(calc(var(--mx, 0) * var(--d) * 1px), calc(var(--my, 0) * var(--d) * 0.6px)); transition: transform 0.18s ease-out; }
+.sc__in {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: sc-up 0.6s var(--ie-ease) calc(var(--i) * 80ms + 120ms) forwards;
+}
+.sc .ped > img { filter: drop-shadow(0 10px 12px rgb(28 22 48 / 0.22)); transition: transform 0.24s ease-out, filter 0.24s ease-out; }
+/* Celular: fila deslizable de 3 productos sobre pedestales */
+.sc-contactor, .sc-fluke { display: none; }
+.sc { flex-basis: 170px; }
+@keyframes sc-up { to { opacity: 1; transform: none; } }
+@media (hover: hover) and (pointer: fine) {
+  .sc:hover .ped > img { transform: translateY(-6px); filter: drop-shadow(0 18px 22px rgb(28 22 48 / 0.2)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sc { transform: none; transition: none; }
+  .sc__in { animation: none; opacity: 1; transform: none; }
+}
+@media (min-width: 960px) {
+  .sc-contactor, .sc-fluke { display: block; }
+  .cban__grid { grid-template-columns: 45% minmax(0, 1fr); gap: 24px; }
+  .cban__stage { display: block; height: 440px; margin: 0; padding: 0; overflow: visible; }
+  .sc { position: absolute; flex: none; }
+  /* Tres alturas: frente (motor), medio (variador y motorreductor), fondo (laterales) */
+  .sc-motor { width: 330px; left: 33%; bottom: 0; z-index: 4; }
+  .sc-reductor { width: 240px; left: 5%; bottom: 40%; z-index: 2; }
+  .sc-variador { width: 230px; left: 66%; bottom: 44%; z-index: 2; }
+  .sc-contactor { width: 160px; left: 0; bottom: 4%; z-index: 3; }
+  .sc-fluke { width: 150px; right: 0; bottom: 6%; z-index: 3; }
+}

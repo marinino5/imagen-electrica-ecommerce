@@ -1,48 +1,63 @@
-import Reveal from '../ui/Reveal'
+import { Boxes, FileText, PhoneCall, Store, Truck, Zap } from 'lucide-react'
+import Xb from '../ui/Xb'
 import Hl from '../ui/Hl'
+import Mix from '../ui/Mix'
 import SectionLabel from '../ui/SectionLabel'
 import Pill from '../ui/Pill'
-import Parallax from '../ui/Parallax'
 import { site } from '../../config/site'
-import '../../styles/home.css'
+import '../../styles/ie-home.css'
 
-// Dos bloques alternados foto / texto: la foto entra desde un lado y el texto desde el contrario con 120 ms de retraso.
+function Bullets({ items }) {
+  return (
+    <ul className="xb-list">
+      {items.map(({ icon: Icon, text }) => (
+        <li key={text}>
+          <span aria-hidden="true"><Icon size={15} /></span>
+          {text}
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+// Dos bloques con el recurso «bloque extendido» sobre un mismo fondo continuo: Asesoría (foto a la izquierda, bloque desde
+// el borde izquierdo) y Entrega (foto a la derecha, bloque desde el borde derecho). Cada uno entra desde su lado.
 export default function BrandBlocks() {
   return (
-    <section className="rd-sec bg-white hm-blocks" aria-label="Cómo trabajamos">
-      <div className="wrap hm-blocks__stack">
-        <div className="split">
-          <Reveal side="l" className="split__media">
-            <div className="capsule hm-capsule">
-              <Parallax src="/img/fotos/asesoria-tablero.webp" alt="Técnico con casco junto a un tablero eléctrico abierto, revisando las conexiones" className="hm-capsule__px" />
-            </div>
-          </Reveal>
-          <Reveal side="r" delay={0.12} className="split__text">
-            <SectionLabel n="03">Asesoría</SectionLabel>
-            <h2 className="rd-h2">Asesoría técnica de quien <Hl>conoce el producto</Hl></h2>
-            <p className="rd-lead">Cuéntanos qué máquina vas a mover o qué tablero vas a armar. Te recomendamos la referencia exacta, con su potencia, su protección y la disponibilidad real en bodega.</p>
-            <div className="hm-actions">
-              <Pill as="a" href={site.whatsappUrl} target="_blank" rel="noreferrer" tone="o">Hablar con un asesor</Pill>
-            </div>
-          </Reveal>
+    <section className="ie-xbs bg-lila-fade" aria-label="Cómo trabajamos">
+      <Xb
+        side="l"
+        photo={<img src="/img/fotos/asesoria-tablero.webp" alt="Técnico con casco junto a un tablero eléctrico abierto, revisando las conexiones" width="1280" height="960" loading="lazy" decoding="async" />}
+      >
+        <SectionLabel n="03">Asesoría</SectionLabel>
+        <h2 className="rd-h2"><Mix light="Asesoría técnica">de quien <Hl>conoce el producto</Hl></Mix></h2>
+        <p className="rd-lead">Cuéntanos qué máquina vas a mover o qué tablero vas a armar y te recomendamos la referencia exacta, con su potencia, su protección y la disponibilidad en bodega.</p>
+        <Bullets items={[
+          { icon: Zap, text: 'Referencia exacta según tu máquina o tablero' },
+          { icon: Boxes, text: 'Disponibilidad real en bodega' },
+          { icon: FileText, text: 'Fichas técnicas del fabricante' },
+        ]} />
+        <div className="xb-actions">
+          <Pill as="a" href={site.whatsappUrl} target="_blank" rel="noreferrer" tone="o">Hablar con un asesor</Pill>
         </div>
+      </Xb>
 
-        <div className="split split--flip">
-          <Reveal side="r" className="split__media">
-            <div className="capsule capsule--r hm-capsule">
-              <Parallax src="/img/fotos/entrega-bodega.webp" alt="Operario de bodega escaneando una caja de material eléctrico con un lector de código" className="hm-capsule__px" />
-            </div>
-          </Reveal>
-          <Reveal side="l" delay={0.12} className="split__text">
-            <SectionLabel n="04">Entrega</SectionLabel>
-            <h2 className="rd-h2">Del catálogo <Hl>a tu obra</Hl></h2>
-            <p className="rd-lead">Recógelo en nuestra tienda de Bucaramanga o recíbelo en tu obra o planta. Un asesor confirma el pago y coordina la entrega para que llegue completo.</p>
-            <div className="hm-actions">
-              <Pill as="link" to="/como-comprar" tone="d">Así compras</Pill>
-            </div>
-          </Reveal>
+      <Xb
+        side="r"
+        photo={<img src="/img/fotos/entrega-bodega.webp" alt="Operario de bodega escaneando una caja de material eléctrico con un lector de código" width="1280" height="960" loading="lazy" decoding="async" />}
+      >
+        <SectionLabel n="04">Entrega</SectionLabel>
+        <h2 className="rd-h2"><Mix light="Del catálogo">directo <Hl>a tu obra</Hl></Mix></h2>
+        <p className="rd-lead">Recógelo en nuestra tienda de Bucaramanga o recíbelo en tu obra o planta. Un asesor confirma el pago y coordina la entrega para que llegue completo.</p>
+        <Bullets items={[
+          { icon: Store, text: 'Recogida en nuestra tienda de Bucaramanga' },
+          { icon: Truck, text: 'Envío a tu obra o planta' },
+          { icon: PhoneCall, text: 'Un asesor confirma pago y entrega' },
+        ]} />
+        <div className="xb-actions">
+          <Pill as="link" to="/como-comprar" tone="d">Así compras</Pill>
         </div>
-      </div>
+      </Xb>
     </section>
   )
 }

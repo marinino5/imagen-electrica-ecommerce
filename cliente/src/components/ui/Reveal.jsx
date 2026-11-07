@@ -6,8 +6,8 @@ import { useInView } from './useInView'
  * `delay` (segundos) suma un retraso fijo, por ejemplo 0.12 para el texto que acompaña a una imagen.
  */
 export default function Reveal({ children, delay = 0, i = 0, side, mask = false, className = '', as: Tag = 'div', style, ...props }) {
-  const [ref, seen] = useInView()
-  const classes = [mask ? 'mask' : 'rv', side === 'l' && 'rv--l', side === 'r' && 'rv--r', seen && 'is-in', className].filter(Boolean).join(' ')
+  const [ref, seen, instant] = useInView()
+  const classes = [mask ? 'mask' : 'rv', side === 'l' && 'rv--l', side === 'r' && 'rv--r', seen && 'is-in', instant && 'rv--now', className].filter(Boolean).join(' ')
   return (
     <Tag ref={ref} className={classes} style={{ '--d': `${Math.round(delay * 1000 + i * 70)}ms`, ...style }} {...props}>
       {children}

@@ -225,7 +225,7 @@ endpoints:
         name: sale_mode
         description: ''
         required: false
-        example: direct
+        example: quote
         type: string
         enumValues:
           - direct
@@ -250,7 +250,7 @@ endpoints:
         name: in_stock
         description: ''
         required: false
-        example: false
+        example: true
         type: boolean
         enumValues: []
         exampleWasSpecified: false
@@ -261,7 +261,7 @@ endpoints:
         name: sort
         description: ''
         required: false
-        example: price_asc
+        example: newest
         type: string
         enumValues:
           - name
@@ -286,10 +286,10 @@ endpoints:
       q: b
       category: 'n'
       brand: g
-      sale_mode: direct
+      sale_mode: quote
       featured: false
-      in_stock: false
-      sort: price_asc
+      in_stock: true
+      sort: newest
       per_page: 16
     fileParameters: []
     responses:

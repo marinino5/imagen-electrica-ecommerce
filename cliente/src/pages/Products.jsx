@@ -192,8 +192,9 @@ export default function Products() {
           {!loading && error && <ErrorState error={error} onRetry={reload} />}
           {!loading && !error && shown.length === 0 && (
             <EmptyState title="No encontramos fichas con esos filtros">
-              Quita algún filtro o cuéntanos qué referencia buscas y te la cotizamos.
-              <div className="cat-empty__cta"><Pill as="link" to="/carrito#cotizacion" tone="d">Solicitar cotización</Pill></div>
+              Quita algún filtro o cuéntanos qué buscas y te lo cotizamos.
+              <strong className="cat-empty__ask">¿No encontraste lo que buscas? Cotízalo aquí</strong>
+              <div className="cat-empty__cta"><Pill as="link" to="/cotizar" tone="o">Cotizar lo que necesito</Pill></div>
             </EmptyState>
           )}
           {!loading && !error && shown.length > 0 && <div className="cat-grid">{cells}</div>}

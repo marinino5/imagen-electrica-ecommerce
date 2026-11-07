@@ -42,10 +42,11 @@
                                 <td class="text-nowrap">{{ $request->created_at->timezone(config('app.timezone'))->format('d/m/Y H:i') }}</td>
                                 <td>
                                     <span class="fw-semibold">{{ $request->name }}</span>
+                                    @if ($request->isFree())<span class="badge text-bg-warning ms-1">Cotización libre</span>@endif
                                     @if ($request->company)<small class="d-block text-body-secondary">{{ $request->company }}</small>@endif
                                 </td>
                                 <td class="d-none d-md-table-cell">{{ $request->city }}</td>
-                                <td class="text-end">{{ count($request->items) }}</td>
+                                <td class="text-end">{{ $request->isFree() ? '—' : count($request->items) }}</td>
                                 <td><span @class(['status-badge', 'status-new' => $request->status->value === 'new', 'status-paid' => $request->status->value === 'contacted', 'status-cancelled' => $request->status->value === 'closed'])>{{ $request->status->label() }}</span></td>
                                 <td class="text-end">
                                     <a href="{{ route('admin.quote-requests.show', $request) }}" class="btn btn-sm btn-outline-primary">

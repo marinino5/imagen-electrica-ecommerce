@@ -55,4 +55,19 @@ export const sectors = [
     lines: ['w21-iec-carcasa-aluminio', 'guardamotores', 'instrumentos-de-medicion-fluke'],
     to: '/productos?familia=motores-electricos',
   },
+  {
+    id: 'solar',
+    name: 'Energía solar · SolarWEG',
+    photo: '/img/fotos/sector-solar.webp',
+    alt: 'Paneles solares sobre una cubierta metálica de gran tamaño',
+    use: 'Autogeneración en plantas y comercios: produce parte de tu propia energía y baja el costo de la factura.',
+    // Paneles e inversores existen como categorías pero aún no tienen líneas en el catálogo: se cotizan por /cotizar
+    quotes: [
+      { label: 'Paneles solares', q: 'Paneles solares' },
+      { label: 'Inversores solares', q: 'Inversores solares' },
+      { label: 'Estructura de montaje', q: 'Estructura de montaje para paneles solares' },
+    ],
+    to: '/cotizar?q=Sistema%20solar',
+    cta: 'Cotizar sistema solar',
+  },
 ]

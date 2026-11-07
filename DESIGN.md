@@ -1,6 +1,6 @@
 # Sistema visual de la tienda (cliente React)
 
-Documenta lo que **ya está construido** en `cliente/src/styles/` (no es una propuesta). Los valores viven en `variables.css` y `rd.css`; las vistas nunca llevan colores sueltos.
+Documenta lo que **ya está construido** en `cliente/src/styles/` (no es una propuesta). Los valores viven en `variables.css`, `rd.css` y `ie.css`; las vistas nunca llevan colores sueltos. **`ie.css` (rediseño 4) manda sobre lo anterior** donde se contradicen: ver la sección «Rediseño 4» al final.
 
 ## Color
 
@@ -31,7 +31,7 @@ Documenta lo que **ya está construido** en `cliente/src/styles/` (no es una pro
 - Contenedor `.wrap`: 1280 px máx., gutter 16 px (el logo del encabezado se alinea a este borde). Secciones: `padding-block: clamp(64px, 8vw, 112px)`.
 - Radios: `--rd-radius` **8 px** para tarjetas, imágenes, paneles y botones de interfaz; `--radius-pill` para botones y chips; el arco de las cápsulas de foto es el único radio grande.
 - Sombras teñidas de violeta: `--shadow-sm`, `--shadow`, `--shadow-lg`. La elevación de tarjetas (`.lift`) es sutil: 3 px y una sombra corta (`0 14px 30px -18px`), solo con puntero fino.
-- Encabezado: 84 px en escritorio, 68 px en celular; logo de 56 px (40 px en celular).
+- Encabezado: 84 px en escritorio (baja a 68 px al hacer scroll, 240 ms) y 68 px en celular. Logo recortado al borde del dibujo (`logo-ajustado.png`): 64 px visibles en escritorio (52 px con scroll) y 44 px en celular. Botón «Cotizar» (contorno violeta-500) junto al carrito.
 
 ## Imagen de producto (formato único)
 
@@ -52,3 +52,37 @@ Fotos de ambiente (`cliente/public/img/fotos/`, `aplicaciones/`): todas pasan po
 ## Movimiento
 
 Curva única `--ease-out: cubic-bezier(.22, 1, .36, 1)`. Interfaz entre 160 y 300 ms; revelados de 450–600 ms. Solo `transform` y `opacity`. El revelado **no depende del scroll**: lo que está en pantalla o por encima se muestra al montar, hay IntersectionObserver con `rootMargin` del 12 % y un respaldo a los 1,5 s. Hover solo con puntero fino. `prefers-reduced-motion` desactiva giros, parallax y flotado.
+
+
+## Rediseño 4 (`ie.css`, `ie-*.css`)
+
+### Tokens y roles
+
+Comprobados contra el logo (píxeles del PNG: naranja ≈ `#F86800` tras cuantizar, violeta ≈ `#500078`) y contra `CLAUDE.md`. Donde el valor pedido no coincidía con el de marca, manda la marca.
+
+| Token | Valor | Rol | Nota |
+|---|---|---|---|
+| `--ie-violet-950` | `#1e1631` | Footer y texto de máximo contraste | = `--ink`; coincide con el ≈`#1C1630` pedido |
+| `--ie-violet-700` | `#513e84` | Bloques extendidos y titulares oscuros | = `--primary` de marca; el ≈`#4B3A82` pedido no coincide, se usa el de marca |
+| `--ie-violet-500` | `#6e5bb0` | Iconos, bordes activos, enlaces | nuevo |
+| `--ie-lila-200` | `#e9e3f4` | Pedestales, bordes de tarjeta, filas alternas | = `--lavender-2` |
+| `--ie-lila-100` | `#f4f1fa` | Fondos de sección | = `--lav-soft` |
+| `--ie-lila-50` | `#faf8fd` | Fondos de tarjeta suaves y de campos | nuevo |
+| `--ie-orange-500` | `#f26a00` | CTAs, arcos, etiquetas, subrayados | naranja del logo |
+| `--ie-orange-100` | `#ffe6d3` | Etiquetas de descuento y filas seleccionadas | = `--orange-tint` |
+
+**Fondos de sección** (nunca `#fff` liso): `bg-lila-fade` (blanco → lila-100), `bg-lila-soft` (lila-100 + puntos de 1,5 px cada 24 px al 5 %) y `bg-lila-arc` (fade + arco naranja de 1,5 px que sale por el borde derecho; `--arc-top` ajusta dónde). Las clases viejas `bg-white`, `bg-lav`, `bg-soft` y `bg-warm` ahora apuntan a estas tres.
+
+### Tipografía
+H1 Barlow Condensed 700, 40–88 px, interlineado .92, mayúsculas, tracking −0,5 px (`.ie-h1`). H2 44–56 px. Titulares de pesos mezclados con `Mix`: primera parte en 300 y segunda en 700. Etiqueta de sección Inter 600, 12 px, tracking 2 px, línea naranja de 28 × 2 px. Cuerpo Inter 17 px / 1,6, máximo 62 caracteres. Subrayado de la palabra clave: 4 px, separado 6 px, crece en 600 ms.
+
+### Componentes nuevos
+- **Bloque extendido** (`Xb`): rectángulo violeta-700 que nace en el borde de la pantalla y llega al 38 % de la foto; la foto (radio 28 px, sombra `0 24px 48px`) entra desde su lado, el texto desde el contrario y el arco naranja se dibuja. Tiempos: bloque 700 ms, foto 650 ms (+120), texto 550 ms (+240), arco 900 ms (+400). Variantes `side="l|r"`, `arch` y `col`. Con `prefers-reduced-motion` solo hay fundido de 200 ms. Se usa en Inicio (Asesoría, Entrega y cierre), Cómo comprar, Contacto y Nosotros.
+- **Pedestal** (`Pedestal`, `.ped`): elipse lila-200 de 14 px de alto (70 % del producto) con borde superior blanco al 60 % y sombra de contacto.
+- **Tarjetas de canal** (`ChannelCards`): WhatsApp naranja sólido con **texto blanco grande y en negrita** (3,07:1, AA solo para texto grande; es la excepción pedida a la regla «naranja con texto ink»), Correo y Llamada en blanco con borde lila-200 que pasa a naranja al hover.
+- **Visítanos** (`VisitFull`): mapa a ancho completo con tarjeta blanca flotante.
+- **Revelado** (`useInView`): umbral 0,15, margen −8 %; lo que ya está en pantalla al cargar se muestra sin animar; respaldo a los 1,5 s.
+- **Movimiento global:** tarjetas −4 px y escala 1,04 en 240 ms; flecha de los botones +4 px; presión `scale(.98)`. Sin rebotes, giros (salvo el flip de Sectores) ni parpadeos; ninguna entrada pasa de 900 ms (los bucles de marcas y mapa son continuos).
+
+### Pantallas
+Inicio: hero con producto sin círculo (brillo naranja, arco de 2 px, sombra elíptica, píldora), sectores 4 + 3 con SolarWEG, marcas sin franja blanca (logos al 45 %) y cierre claro con pie de esquinas curvas de 48 px. Catálogo: banner «vitrina» de 520 px con cinco productos en escalera. Ficha: panel de imagen con pedestal y arco, tarjeta de compra sticky, pestañas con indicador deslizante, especificaciones y ficha técnica a ancho completo. Acceso: franja violeta con tres productos. Nosotros: «25» en contorno que se rellena, galería horizontal fijada e hitos con línea que se llena. `/cotizar`: cotización libre en dos pasos.

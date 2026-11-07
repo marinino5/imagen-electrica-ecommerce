@@ -10,20 +10,28 @@ const reducedMotion = () => typeof window !== 'undefined' && window.matchMedia('
  *  3. Respaldo: a los 1,5 s, y luego cada 700 ms, se fuerza a visible lo que esté en pantalla; también al volver a la
  *     página desde el historial (pageshow/popstate) y al cambiar el hash.
  */
-export function useInView({ threshold = 0, margin = '0px 0px 12% 0px' } = {}) {
+export function useInView({ threshold = 0.15, margin = '0px 0px -8% 0px', always = false } = {}) {
   const ref = useRef(null)
   const [seen, setSeen] = useState(false)
+  const [instant, setInstant] = useState(false)
 
   useEffect(() => {
     const el = ref.current
     if (!el || seen) return
     if (reducedMotion() || !('IntersectionObserver' in window)) {
+      setInstant(true)
       setSeen(true)
       return
     }
-    // En pantalla, justo debajo del borde o por encima: ya no hay nada que animar al entrar
-    const due = () => el.getBoundingClientRect().top < window.innerHeight * 1.08
+    // Ya en pantalla al cargar, o por encima (salto de ancla, botón atrás): se muestra sin animación
+    const due = () => el.getBoundingClientRect().top < window.innerHeight * 0.92
     if (due()) {
+      // `always`: la animación de entrada ES el contenido (bloque extendido): se dispara aunque ya esté en pantalla
+      if (always) {
+        const t = setTimeout(() => setSeen(true), 80)
+        return () => clearTimeout(t)
+      }
+      setInstant(true)
       setSeen(true)
       return
     }
@@ -43,9 +51,9 @@ export function useInView({ threshold = 0, margin = '0px 0px 12% 0px' } = {}) {
       window.removeEventListener('popstate', check)
       window.removeEventListener('hashchange', check)
     }
-  }, [seen, threshold, margin])
+  }, [seen, threshold, margin, always])
 
-  return [ref, seen]
+  return [ref, seen, instant]
 }
 
 export { reducedMotion }

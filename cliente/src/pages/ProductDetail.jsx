@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
-import { Activity, ArrowLeft, ArrowRight, BadgeCheck, Download, FileText, Gauge, Layers, MessageCircle, Minus, Plug, Plus, Search, ShieldCheck, ShoppingCart, Zap } from 'lucide-react'
+import { Activity, ArrowLeft, ArrowRight, BadgeCheck, Download, FileText, Gauge, Headset, Layers, MessageCircle, Minus, Plug, Plus, Search, ShieldCheck, ShoppingCart, Truck, Zap } from 'lucide-react'
 import { catalogApi } from '../api'
 import { site } from '../config/site'
 import { useCart } from '../context/CartContext'
@@ -17,6 +17,7 @@ import Reveal from '../components/ui/Reveal'
 import ErrorState from '../components/ui/ErrorState'
 import LineCard from '../components/catalog/LineCard'
 import '../styles/product-detail.css'
+import '../styles/ie-ficha.css'
 
 function DetailSkeleton() {
   return (
@@ -43,6 +44,21 @@ const TABS = [
 function useTabs(initial = 'spec') {
   const [tab, setTab] = useState(initial)
   const refs = useRef({})
+  const [bar, setBar] = useState({ x: 0, w: 0 })
+  // Indicador naranja de 3 px que se desliza hasta la pestaña activa (transform, 240 ms)
+  // Se mide tras cada render (las pestañas aparecen cuando carga la ficha); solo se actualiza si cambió
+  useLayoutEffect(() => {
+    const el = refs.current[tab]
+    if (el) setBar((b) => (b.x === el.offsetLeft && b.w === el.offsetWidth ? b : { x: el.offsetLeft, w: el.offsetWidth }))
+  })
+  useEffect(() => {
+    const measure = () => {
+      const el = refs.current[tab]
+      if (el) setBar({ x: el.offsetLeft, w: el.offsetWidth })
+    }
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [tab])
   const onKeyDown = (e) => {
     const i = TABS.findIndex(([k]) => k === tab)
     const next = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: TABS.length - 1 }[e.key]
@@ -52,7 +68,7 @@ function useTabs(initial = 'spec') {
     setTab(key)
     refs.current[key]?.focus()
   }
-  return { tab, setTab, refs, onKeyDown }
+  return { tab, setTab, refs, onKeyDown, bar }
 }
 
 export default function ProductDetail() {
@@ -141,7 +157,7 @@ export default function ProductDetail() {
   const printSheet = () => window.print()
 
   return (
-    <>
+    <div className="fx bg-lila-fade">
       <div className="wrap pd-back">
         <Link to="/productos" className="pd-back__link"><ArrowLeft size={18} aria-hidden="true" /> Volver al catálogo</Link>
       </div>
@@ -218,11 +234,12 @@ export default function ProductDetail() {
                 )}
               </div>
 
-              {/* 5 · Precio grande · 6 · Disponibilidad */}
+              {/* 5 · Separador · precio de 44 px · IVA · disponibilidad */}
+              <hr className="pd-sep" />
               <div className="pd-pricebox">
                 <p className="pd-price" aria-live="polite">
                   <strong>{direct ? formatCOP(current.price) : 'Precio por cotización'}</strong>
-                  <small>{direct ? 'IVA incluido · por unidad' : 'Te respondemos con precio y tiempo de entrega'}</small>
+                  <small>{direct ? 'IVA incluido' : 'Te respondemos con precio y tiempo de entrega'}</small>
                 </p>
                 <p className={`pd-stock ${current.stock > 0 ? 'is-stock' : 'is-order'}`}>
                   <span className="pd-stock__dot" aria-hidden="true" />
@@ -262,7 +279,14 @@ export default function ProductDetail() {
             </div>
           )}
 
-          {/* 9 · Dudas, pequeño */}
+          {/* 9 · Tres microgarantías */}
+          <ul className="pd-guar">
+            <li><BadgeCheck size={16} aria-hidden="true" /> Referencia original</li>
+            <li><Headset size={16} aria-hidden="true" /> Asesoría técnica</li>
+            <li><Truck size={16} aria-hidden="true" /> Envío a todo el país</li>
+          </ul>
+
+          {/* 10 · Dudas, pequeño */}
           <p className="pd-assist">
             ¿Dudas?{' '}
             <a href={site.whatsappLink(waText)} target="_blank" rel="noreferrer">
@@ -298,6 +322,7 @@ export default function ProductDetail() {
               {key === 'refs' && variants.length > 0 && <i>{variants.length}</i>}
             </button>
           ))}
+          <span className="pd-tabs__bar" aria-hidden="true" style={{ transform: `translateX(${tabs.bar.x}px) scaleX(${tabs.bar.w / 100})` }} />
         </div>
 
         <div role="tabpanel" id="panel-spec" aria-labelledby="tab-spec" hidden={tabs.tab !== 'spec'} className="pd-panel">
@@ -405,14 +430,17 @@ export default function ProductDetail() {
         </div>
 
         <div role="tabpanel" id="panel-used" aria-labelledby="tab-used" hidden={tabs.tab !== 'used'} className="pd-panel">
-          <ul className="pd-used">
-            {used.map(([name, photo]) => (
-              <li key={name}>
-                <img src={photo} alt="" width="480" height="320" loading="lazy" />
-                <span>{name}</span>
-              </li>
-            ))}
-          </ul>
+          {/* Las fotos se montan al abrir la pestaña y cargan de inmediato: un lazy dentro de un panel oculto dejaba imágenes sin cargar */}
+          {tabs.tab === 'used' && (
+            <ul className="pd-used">
+              {used.map(([name, photo]) => (
+                <li key={name}>
+                  <img src={photo} alt="" width="480" height="320" loading="eager" decoding="async" onError={(e) => { e.currentTarget.style.visibility = 'hidden' }} />
+                  <span>{name}</span>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </section>
 
@@ -469,6 +497,6 @@ export default function ProductDetail() {
         )}
         <footer>Ficha elaborada por {site.name}. Precios y disponibilidad sujetos a confirmación de un asesor.</footer>
       </section>
-    </>
+    </div>
   )
 }

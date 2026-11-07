@@ -112,10 +112,10 @@ export default function Header() {
   const isActive = (item) => (item.end ? pathname === item.to : pathname.startsWith(item.to))
 
   return (
-    <header className={`site-header ${solid ? 'is-solid' : ''}`}>
+    <header className={`site-header ${solid ? 'is-solid' : ''} ${scrolled ? 'is-scrolled' : ''}`}>
       <nav className="nav" aria-label="Principal">
         <Link to="/" className="nav__logo" aria-label="Imagen Eléctrica, ir al inicio">
-          <img src={solid ? '/img/logo.png' : '/img/logo-blanco.png'} alt="Imagen Eléctrica" width="49" height="54" />
+          <img src={solid ? '/img/logo-ajustado.png' : '/img/logo-blanco-ajustado.png'} alt="Imagen Eléctrica" width="53" height="64" />
         </Link>
 
         <div className="nav__links">
@@ -145,6 +145,7 @@ export default function Header() {
 
         <Link to="/productos?buscar=1" className="nav__icon" aria-label="Buscar productos"><Search size={22} /></Link>
         <Link to={account.to} className="nav__icon nav__account" aria-label={account.label}><User size={22} /></Link>
+        <Link to="/cotizar" className="nav__quote">Cotizar</Link>
         <Link to="/carrito" className="nav__cart" data-fly-target="cart" aria-label={`Carrito: ${count} ${count === 1 ? 'producto' : 'productos'}`}>
           <span>Carrito</span>
           <i>{count > 99 ? '99+' : count}</i>
@@ -158,7 +159,7 @@ export default function Header() {
         {open && (
           <motion.aside className="drawer" role="dialog" aria-modal="true" aria-label="Menú" initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}>
             <div className="drawer__head">
-              <img src="/img/logo-blanco.png" alt="Imagen Eléctrica" width="40" height="44" />
+              <img src="/img/logo-blanco-ajustado.png" alt="Imagen Eléctrica" width="36" height="44" />
               <button type="button" className="icon-btn" onClick={() => setOpen(false)} aria-label="Cerrar menú"><X size={26} /></button>
             </div>
             <HeaderSearch className="drawer__search" onDone={() => setOpen(false)} />
@@ -173,6 +174,7 @@ export default function Header() {
             <nav className="drawer__nav" aria-label="Menú móvil">
               {mainMenu.map((item) => <NavLink key={item.to} to={item.to} end={item.end}>{item.label}</NavLink>)}
               <NavLink to={account.to}>{account.label}</NavLink>
+              <NavLink to="/cotizar">Cotizar</NavLink>
               <NavLink to="/carrito">Carrito {count > 0 && <span className="drawer__count">{count}</span>}</NavLink>
             </nav>
             <div className="drawer__contact">

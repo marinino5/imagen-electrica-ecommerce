@@ -115,4 +115,17 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Avisos de cotización libre
+    |--------------------------------------------------------------------------
+    |
+    | Correo que recibe el aviso de cada cotización libre de la tienda y el
+    | tiempo de respuesta que se le promete a quien la envía (texto libre).
+    |
+    */
+
+    'quote_to' => env('QUOTE_NOTIFY_EMAIL', 'imagenelectrica@gmail.com'),
+    'quote_response_time' => env('QUOTE_RESPONSE_TIME', 'el mismo día hábil'),
+
 ];

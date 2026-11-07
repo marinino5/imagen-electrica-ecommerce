@@ -119,3 +119,21 @@ Sistema documentado en `DESIGN.md`. Flujo seguido: Taste Skill (dirección y ref
 | Elevación de tarjetas de 4 px con sombra grande al pasar el mouse | 3 px, sombra corta, 220 ms |
 | Mega-menú con categorías que se juntaban en una línea | Lista vertical, una por renglón |
 | Panel de acceso con foto de stock | Tarjeta sobria de 460 px con tres beneficios en una línea |
+
+
+## 6. Rediseño 4 (ajustes detallados sobre `fc75d4c`): qué aportó cada skill
+
+**Cuáles se usaron de verdad y cuáles no.** Se cargaron y se aplicaron `design-taste-frontend`, `emil-design-eng` y `anti-ui-slop`. **No se ejecutaron como pasadas separadas** `impeccable` (critique, layout, typeset, bolder, quieter, polish), `frontend-design` ni `ui-ux-pro-max`: el encargo trajo la composición, las proporciones y la tipografía ya detalladas por página, y la crítica y el pulido se hicieron mirando cada página en el navegador a 375 y 1440 px y corrigiendo. Las reglas de `design-taste-frontend` que contradicen la marca (prohibir Inter y el morado) se descartaron, como en la ronda anterior. Superdesign sigue sin existir en este entorno.
+
+| Página | Qué cambió | Qué aportó cada skill |
+|---|---|---|
+| Sistema (`ie.css`) | Tokens con roles, tres fondos de sección, bloque extendido, pedestal, tarjetas de canal | **design-taste:** el cierre del Inicio dejó de ser un bloque oscuro centrado y pasó a composición asimétrica 46/54; evitar tres tarjetas iguales en fila (las de canal tienen pesos distintos). **emil:** curva única `cubic-bezier(.22,1,.36,1)`, solo `transform` y `opacity`, `scale(.98)` al presionar, hover solo con puntero fino, `prefers-reduced-motion` con fundido de 200 ms |
+| Encabezado | Logo recortado (64/52/44 px), barra que baja de 84 a 68 px, botón «Cotizar» | **emil:** el cambio de altura dura 240 ms con `ease-out` y no se anima con teclado |
+| Inicio | Hero sin círculo (brillo, arco, sombra, píldora), Asesoría y Entrega con bloque extendido, sectores 4 + 3, marcas sin franja, cierre claro | **design-taste:** hero asimétrico con el degradado solo del lado del texto. **emil:** la entrada del producto es de 600 ms y el arco se redibuja al cambiar de diapositiva; el flip de Sectores se conserva |
+| Catálogo | Banner «vitrina» con cinco productos en escalera | **design-taste:** profundidad en tres alturas en vez de productos flotando al azar. **emil:** parallax máximo de 8 px por capa solo con mouse; entrada escalonada de 80 ms |
+| Ficha | Panel con pedestal, tarjeta sticky, pestañas con indicador, ficha técnica a ancho completo | **design-taste:** estados de carga, vacío y error se conservan; etiquetas arriba del campo. **emil:** el indicador de pestañas se desliza con `transform` en 240 ms |
+| Cómo comprar, Contacto, Acceso | Heros divididos, canales reutilizados, formulario sobre `bg-lila-arc`, franja violeta | **design-taste:** rompe la simetría (foto con bloque a un lado, texto al otro). **anti-ui-slop:** nada de texto de relleno ni cifras inventadas; el horario no aparece hasta que la empresa lo confirme |
+| Nosotros | Página nueva: «25» en contorno, galería horizontal fijada, hitos | **design-taste:** única de todo el sitio. **emil:** el relleno del «25» dura 1,2 s una sola vez; la galería horizontal se desactiva en celular. **anti-ui-slop:** las fotos que faltan muestran «Próximamente» y no una foto de stock |
+| `/cotizar` | Formulario libre de 2 pasos con adjunto | **design-taste:** validación en línea bajo cada campo, etiqueta arriba, estados de envío y error. **emil:** el formulario se despliega en 300 ms; la validación no anima |
+
+**Pasada final (anti-ui-slop):** se revisó cada pantalla renderizada en 375 y 1440 px, sin errores de consola, sin imágenes rotas, sin desbordes horizontales y sin fondos blancos lisos. Se corrigió lo observado: arco de la ficha cortado (`non-scaling-stroke` rompe `stroke-dasharray`), tarjeta del mapa pegada al borde, texto blanco de WhatsApp que salía lila, indicador de pestañas sin medir y fotos de «Dónde se usa» que no cargaban dentro de un panel oculto.

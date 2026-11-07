@@ -51,6 +51,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Cotizaciones enviadas sin cuenta desde la tienda: admin y comercial
         Route::get('quote-requests', [QuoteRequestController::class, 'index'])->name('quote-requests.index');
         Route::get('quote-requests/{quoteRequest}', [QuoteRequestController::class, 'show'])->name('quote-requests.show');
+        Route::get('quote-requests/{quoteRequest}/attachment', [QuoteRequestController::class, 'attachment'])->name('quote-requests.attachment');
         Route::patch('quote-requests/{quoteRequest}', [QuoteRequestController::class, 'update'])->name('quote-requests.update');
 
         // Suscriptores del boletín (pie de la tienda): admin y comercial

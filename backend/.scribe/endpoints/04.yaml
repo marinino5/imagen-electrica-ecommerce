@@ -1,66 +1,25 @@
-name: 'Mi cuenta'
+name: Autenticación
 description: ''
 endpoints:
   -
     custom: []
     httpMethods:
-      - GET
-    uri: api/v1/me
+      - POST
+    uri: api/v1/register
     metadata:
       custom: []
-      groupName: 'Mi cuenta'
+      groupName: Autenticación
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Ver mi perfil'
-      description: 'Usuario autenticado y, si es cliente, los datos de su empresa.'
-      authenticated: true
-      deprecated: false
-    headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 200
-        content: '{"data":{"id":6,"name":"Omar Dom\u00ednguez","email":"arredondo.juana@example.com","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Calero de Zamora S.A.S.","nit":"990122162-7","contact_name":"Sr. H\u00e9ctor Zelaya","phone":"379 091 5066","city":"Gir\u00f3n","address":"Calle Elizondo, 54, 27\u00ba C","marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-11-06T23:09:41.000000Z"}}}'
-        headers: []
-        description: ''
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - PUT
-    uri: api/v1/me
-    metadata:
-      custom: []
-      groupName: 'Mi cuenta'
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Actualizar mi perfil'
+      title: 'Registrar cliente'
       description: |-
-        Cambia el nombre de contacto y los datos del cliente. El correo, el tipo y el NIT o cédula
-        no se modifican desde aquí. Solo clientes.
-      authenticated: true
+        Crea la cuenta (rol cliente) como empresa o persona natural y devuelve un token listo
+        para usar. Aceptar la política de datos es obligatorio; el marketing es opcional.
+        Máximo 5 intentos por minuto.
+      authenticated: false
       deprecated: false
     headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -71,9 +30,42 @@ endpoints:
       name:
         custom: []
         name: name
-        description: 'Nombre de contacto.'
+        description: 'Nombre de la persona de contacto.'
         required: true
         example: 'Laura Gómez'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      email:
+        custom: []
+        name: email
+        description: 'Correo (único).'
+        required: true
+        example: laura@constructoraaltos.test
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: 'Mínimo 8 caracteres.'
+        required: true
+        example: ClaveSegura2026
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      type:
+        custom: []
+        name: type
+        description: 'Tipo de cliente: `company` (empresa, por defecto) o `natural` (persona natural).'
+        required: false
+        example: company
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -82,9 +74,20 @@ endpoints:
       company_name:
         custom: []
         name: company_name
-        description: 'Razón social. Obligatoria para empresas; las personas naturales no la tienen.'
+        description: 'Razón social. Obligatoria si type es company; se ignora si es natural.'
         required: false
         example: 'Constructora Altos S.A.S.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      nit:
+        custom: []
+        name: nit
+        description: 'NIT (único). Obligatorio si type es company; en persona natural es la cédula y es opcional.'
+        required: false
+        example: 900765432-8
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -106,7 +109,7 @@ endpoints:
         name: city
         description: Ciudad.
         required: true
-        example: Girón
+        example: Bucaramanga
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -123,12 +126,23 @@ endpoints:
         exampleWasSpecified: true
         nullable: true
         deprecated: false
+      privacy_accepted:
+        custom: []
+        name: privacy_accepted
+        description: 'Debe ser true (política de tratamiento de datos).'
+        required: true
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
       marketing_opt_in:
         custom: []
         name: marketing_opt_in
         description: 'Acepta recibir promociones.'
         required: false
-        example: true
+        example: false
         type: boolean
         enumValues: []
         exampleWasSpecified: true
@@ -136,19 +150,132 @@ endpoints:
         deprecated: false
     cleanBodyParameters:
       name: 'Laura Gómez'
+      email: laura@constructoraaltos.test
+      password: ClaveSegura2026
+      type: company
       company_name: 'Constructora Altos S.A.S.'
+      nit: 900765432-8
       phone: '315 555 0202'
-      city: Girón
+      city: Bucaramanga
       address: 'Carrera 27 # 45-10'
-      marketing_opt_in: true
+      privacy_accepted: true
+      marketing_opt_in: false
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 201
+        content: '{"data":{"id":5,"name":"Laura Gómez","email":"laura@constructoraaltos.test","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Constructora Altos S.A.S.","nit":"900765432-8","contact_name":"Laura Gómez","phone":"315 555 0202","city":"Bucaramanga","address":null,"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T15:00:00.000000Z"}},"token":"1|abc123...","token_type":"Bearer"}'
+        headers: []
+        description: 'Cuenta creada'
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/v1/login
+    metadata:
+      custom: []
+      groupName: Autenticación
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Iniciar sesión'
+      description: |-
+        Devuelve un token Bearer. Sirve para clientes y para el administrador. Máximo 5 intentos
+        por minuto por correo y dirección IP. Credenciales incorrectas responden 401; un usuario
+        inactivo, 403.
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        custom: []
+        name: email
+        description: Correo.
+        required: true
+        example: laura@constructoraaltos.test
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: Contraseña.
+        required: true
+        example: ClaveSegura2026
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      email: laura@constructoraaltos.test
+      password: ClaveSegura2026
     fileParameters: []
     responses:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":6,"name":"Emilia Murillo","email":"juribe@example.org","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Rivas y Sevilla SA S.A.S.","nit":"968210674-8","contact_name":"Adri\u00e1n Cavazos Hijo","phone":"315 175 7680","city":"Barrancabermeja","address":"Pla\u00e7a Juana, 979, 27\u00ba A","marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-11-06T23:09:41.000000Z"}}}'
+        content: '{"data":{"id":5,"name":"Laura Gómez","email":"laura@constructoraaltos.test","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Constructora Altos S.A.S.","nit":"900765432-8","contact_name":"Laura Gómez","phone":"315 555 0202","city":"Bucaramanga","address":null,"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T15:00:00.000000Z"}},"token":"2|xyz789...","token_type":"Bearer"}'
         headers: []
-        description: ''
+        description: 'Sesión iniciada'
+      -
+        custom: []
+        status: 401
+        content: '{"message":"El correo o la contraseña no son correctos."}'
+        headers: []
+        description: 'Credenciales incorrectas'
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/v1/logout
+    metadata:
+      custom: []
+      groupName: Autenticación
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Cerrar sesión'
+      description: 'Revoca el token con el que se hizo la petición. Los tokens de otros dispositivos siguen activos.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 204
+        content: '{}'
+        headers: []
+        description: 'Sesión cerrada'
     responseFields: []
     auth:
       - headers

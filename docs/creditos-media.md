@@ -34,7 +34,7 @@ Todo lo de terceros viene de una fuente oficial del fabricante o de Pixabay. Se 
 | `fluke-multimetro-117`, `fluke-multimetro-117-kit` | Fluke | https://www.fluke.com/es-co/producto/comprobacion-electrica/multimetros-digitales/fluke-117 (`media.fluke.com`) |
 | `soler-palau-extractor-tejado`, `soler-palau-extractor-centrifugo` | Soler & Palau | https://www.solerpalau.com (fotos de producto CRVB y CRMT) |
 | `airmax-gl`, `airmax-gl-persianas` | AIRAL | https://www.airal.com.co/airmaxgl (vistas frontal y de persianas del AirMax GL; sitio oficial de la marca, descarga normal con pausas) |
-| `thhn-centelsa` | Centelsa by Nexans | https://www.nexans.co/.rest/eservice/dam/v1/image/259435, imagen de la ficha oficial de Nexans Colombia (https://www.nexans.co/en/products/Construcci%C3%B3n/Cables-de-Cobre-de-Baja-Tensi%C3%B3n-Aislados/Alambre-THHN-THWN-2/Wire-Type-24145.html); se recortó el rollo del banner |
+| `thhn-centelsa` (reemplazada por `centelsa-cable-thhn`) | Centelsa by Nexans | https://www.nexans.co/.rest/eservice/dam/v1/image/259435, imagen de la ficha oficial de Nexans Colombia (https://www.nexans.co/en/products/Construcci%C3%B3n/Cables-de-Cobre-de-Baja-Tensi%C3%B3n-Aislados/Alambre-THHN-THWN-2/Wire-Type-24145.html); se recortó el rollo del banner |
 | `sylvania-start-highbay` | Sylvania | https://sylvania-colombia.com/media/c2xp4nhs/gc101-st-producto-05.jpg (START High Bay GC101-ST, https://sylvania-colombia.com/productos/sylvania-start/led-high-bay-gc101-st/) |
 | `compresor-ilustracion.svg` | Imagen Eléctrica | Ilustración propia (sin foto oficial: falta la marca del equipo) |
 
@@ -94,3 +94,15 @@ La **fachada** (`fachada.webp`) y los logos de la empresa son propios. Las captu
 ## Coverr
 
 Se volvió a consultar la API (`factory machine`, `forklift`, `welding`, `electric`, `machine`, `power plant`, `technician`, `cables`, `warehouse shelves`): solo hay videos de madera, máquinas de café, routers y similares. **No se usó ningún archivo de Coverr.** Licencia aplicable: https://coverr.co/license.
+
+
+## Rediseño 4 (imágenes nuevas)
+
+| Archivo | Origen | Uso |
+|---|---|---|
+| `catalogo/abac-compresor-vertical.webp` | Catálogo oficial ABAC serie PRO (`abacaircompressors.com`, «ABAC Catálogo de la serie PRO», PRO B7000 270 VT10). Imagen extraída del PDF y recortada con `normalizar-producto.py` (se quitó la sombra del piso del catálogo) | Familia Compresores, línea Compresor vertical |
+| `catalogo/centelsa-cable-thhn.webp` | Nexans Colombia, familia «Cable THHN/THWN-2» (`nexans.co/.rest/catalog/v1/family/image/24144`), conductor de cobre visible | Familia Cables, línea THHN/THWN-2 (reemplaza al rollo empacado) |
+| `catalogo/soler-palau-extractor-axial.webp` | Foto del fabricante Soler & Palau del extractor axial de ventana HCM-150N, tomada de la ficha del distribuidor groupsumi.es (`cdn.groupsumi.com`); solerpalau.com no la sirve de forma abierta | Portada de la familia Ventilación (reemplaza al extractor de tejado) |
+| `fotos/sector-solar.webp` | Pixabay, https://pixabay.com/photos/commercial-solar-pv-energy-panel-3397217/ (licencia de Pixabay), con `gradar-foto.py` | Sector Energía solar · SolarWEG |
+
+Nota: el extractor HCM-150N se descargó a 500 px; si se quiere más nitidez hay que pedir la foto al fabricante.

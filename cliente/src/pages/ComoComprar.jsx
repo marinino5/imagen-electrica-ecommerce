@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
-import { FileText, MapPin, Plus, ShoppingCart, Store, Truck } from 'lucide-react'
+import { Link, useSearchParams } from 'react-router-dom'
+import { Check, FileText, MapPin, Plus, ShoppingCart, Store, Truck } from 'lucide-react'
 import { DELIVERY, FAQS, MODES, STEPS } from '../components/comprar/modeData'
 import PhoneMock from '../components/comprar/PhoneMock'
 import ColombiaMap from '../components/ui/ColombiaMap'
@@ -9,8 +9,11 @@ import Pill from '../components/ui/Pill'
 import Reveal from '../components/ui/Reveal'
 import SectionLabel from '../components/ui/SectionLabel'
 import Arc from '../components/ui/Arc'
+import Xb from '../components/ui/Xb'
+import Mix from '../components/ui/Mix'
 import { useInView } from '../components/ui/useInView'
 import '../styles/como-comprar.css'
+import '../styles/ie-pages.css'
 
 // Línea de tiempo vertical: la línea naranja se llena con el scroll y cada paso es un bloque foto + texto alternado
 function Journey({ mode }) {
@@ -112,7 +115,7 @@ function Delivery() {
   )
 }
 
-function FaqItem({ q, a }) {
+function FaqItem({ q, a, link }) {
   const id = useId()
   const [open, setOpen] = useState(false)
   return (
@@ -124,7 +127,7 @@ function FaqItem({ q, a }) {
         </button>
       </h3>
       <div id={id} role="region" className="faq__panel" aria-hidden={!open}>
-        <div><p>{a}</p></div>
+        <div><p>{a}</p>{link && <p><Link to={link.to} className="faq__link" tabIndex={open ? 0 : -1}>{link.label} →</Link></p>}</div>
       </div>
     </div>
   )
@@ -154,34 +157,35 @@ export default function ComoComprar() {
 
   return (
     <>
-      <section className="how-hero on-dark" aria-labelledby="h-how">
-        <img className="how-hero__bg" src="/img/fotos/bodega-pasillo.webp" alt="" width="1920" height="1280" fetchPriority="high" />
-        <div className="wrap how-hero__grid">
-          <div>
-            <p className="how-hero__tag">Cómo comprar</p>
-            <h1 id="h-how">Comprar es <strong>así de fácil</strong></h1>
-            <p className="how-hero__lead" key={mode}>{current.lead}</p>
-            <Pill as="link" to={current.cta.to} tone="o" key={`cta-${mode}`}>{current.cta.label}</Pill>
+      <section className="how-hero2 bg-lila-fade" aria-labelledby="h-how">
+        <Xb
+          side="r"
+          col="55%"
+          photo={<img src="/img/fotos/bodega-pasillo.webp" alt="Pasillo de la bodega de Imagen Eléctrica con estanterías de material eléctrico" width="1600" height="1067" fetchPriority="high" loading="eager" />}
+        >
+          <p className="rd-label">Cómo comprar</p>
+          <h1 id="h-how" className="ie-h1"><Mix light="Comprar es">así de <Hl>fácil</Hl></Mix></h1>
+          <p className="rd-lead" key={mode}>{current.lead}</p>
+          <p className="how-q" id="how-q">Elige cómo quieres comprar</p>
+          <div className="how-opts" role="radiogroup" aria-labelledby="how-q">
+            {Object.values(MODES).map((m) => {
+              const Icon = m.id === 'direct' ? ShoppingCart : FileText
+              const on = mode === m.id
+              return (
+                <button key={m.id} type="button" role="radio" aria-checked={on} className={`how-opt ${on ? 'is-on' : ''}`} onClick={() => setMode(m.id)}>
+                  <span className="how-opt__ic"><Icon size={20} aria-hidden="true" /></span>
+                  <strong>{m.label}</strong>
+                  <small>{m.short}</small>
+                  {on && <span className="how-opt__check" aria-hidden="true"><Check size={14} strokeWidth={3} /></span>}
+                </button>
+              )
+            })}
           </div>
-          <div className="how-switch">
-            <p className="how-switch__q" id="how-q">Elige cómo quieres comprar</p>
-            <div className="how-switch__opts" role="radiogroup" aria-labelledby="how-q">
-              {Object.values(MODES).map((m) => {
-                const Icon = m.id === 'direct' ? ShoppingCart : FileText
-                return (
-                  <button key={m.id} type="button" role="radio" aria-checked={mode === m.id} className={mode === m.id ? 'is-on' : ''} onClick={() => setMode(m.id)}>
-                    <span className="how-switch__ic"><Icon size={22} aria-hidden="true" /></span>
-                    <strong>{m.label}</strong>
-                    <small>{m.short}</small>
-                  </button>
-                )
-              })}
-            </div>
-            <ul className="how-switch__needs" aria-live="polite" key={`needs-${mode}`}>
-              {current.needs.map((n) => <li key={n}>{n}</li>)}
-            </ul>
-          </div>
-        </div>
+          <ul className="how-needs" aria-live="polite" key={`needs-${mode}`}>
+            {current.needs.map((n) => <li key={n}>{n}</li>)}
+          </ul>
+          <Pill as="link" to={current.cta.to} tone="o" key={`cta-${mode}`}>{current.cta.label}</Pill>
+        </Xb>
       </section>
 
       <Journey mode={mode} key={mode} />

@@ -1,0 +1,32 @@
+meta {
+  name: Cotización libre (sin productos)
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{base_url}}/api/v1/quote-requests/free
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  name: Laura Gómez
+  phone: 300 123 4567
+  address: Cra 18 No 24-32
+  city: Bucaramanga
+  message: 20 metros de cable 4x10 THHN y un guardamotor de 10 a 16 A
+  application: Bomba de agua
+  privacy_accepted: 1
+  ~attachment: @file(placa.png)
+}
+
+assert {
+  res.status: eq 201
+  res.body.data.reference: matches ^LIB-\d{4}$
+  res.body.data.response_time: isString
+}
+
+docs {
+  Cotización libre: público, sin token. El adjunto (PDF, JPG o PNG, máx. 5 MB) es opcional; activa la línea `attachment` y elige un archivo para probarlo. Límite: 5 por minuto y 20 por hora por IP.
+}

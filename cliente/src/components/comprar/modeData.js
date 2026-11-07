@@ -1,4 +1,5 @@
 import { FileText, ShoppingCart } from 'lucide-react'
+import { site } from '../../config/site'
 
 // Los dos caminos de compra. Todo el contenido de la página cambia según el modo elegido.
 export const MODES = {
@@ -51,7 +52,6 @@ export const FAQS = [
   { modes: ['direct', 'quote'], q: '¿Qué pasa si mezclo compra en línea y cotización?', a: 'Van por separado: lo que se compra en línea se envía como pedido y la cotización tiene su propio bloque en el carrito.' },
   { modes: ['direct'], q: '¿Los precios incluyen IVA?', a: 'Sí. Los precios están en COP con el IVA incluido y el carrito te muestra la base y el IVA.' },
   { modes: ['direct'], q: '¿Puedo pedir más unidades de las que hay en bodega?', a: 'No en compra en línea. Si pides más que las unidades en bodega, esa referencia pasa a cotización y un asesor te responde.' },
-  { modes: ['direct'], q: '¿Cuándo se descuenta el inventario?', a: 'Cuando el asesor confirma tu pago: en ese momento se vuelve a validar la disponibilidad y se descuenta el stock.' },
   { modes: ['direct', 'quote'], q: '¿Puedo cancelar mi solicitud?', a: 'Pídeselo a tu asesor. Un pedido se puede cancelar mientras está pendiente de pago.' },
   { modes: ['quote'], q: '¿Qué pasa si una referencia está agotada?', a: 'Va a tu cotización: un asesor te responde con la disponibilidad y el precio.' },
   { modes: ['quote'], q: '¿Cuándo recibo el precio?', a: 'Cuando el asesor revisa tu lista y te escribe por WhatsApp o correo. Suele ser lo primero que hace.' },
@@ -59,4 +59,7 @@ export const FAQS = [
   { modes: ['direct', 'quote'], q: '¿Cuánto cuesta el envío?', a: 'Recoger en tienda no tiene costo. Para domicilio o envío nacional, el costo lo confirma tu asesor.' },
   { modes: ['direct'], q: '¿Cómo sigo el estado de mi pedido?', a: 'En Mi cuenta ves todos tus pedidos con su estado actual.' },
   { modes: ['quote'], q: '¿Dónde veo mi cotización?', a: 'Las cotizaciones sin cuenta las responde un asesor por WhatsApp o correo, con los datos que dejaste.' },
+  { modes: ['direct', 'quote'], q: '¿Puedo cotizar algo que no está en el catálogo?', a: 'Sí. Descríbenos lo que necesitas, con foto, placa del equipo o lista de materiales si la tienes, y un asesor lo busca y te responde con precio.', link: { to: '/cotizar', label: 'Cotizar lo que necesito' } },
+  { modes: ['direct', 'quote'], q: '¿Cuánto tardan en responder una cotización?', a: `Un asesor responde ${site.quoteResponse}, por WhatsApp o por correo, con la referencia, el precio y el tiempo de entrega.` },
+  { modes: ['direct', 'quote'], q: '¿Cotizan por volumen o para proyectos?', a: 'Sí. Envía tu lista completa o descríbela en la cotización libre y el asesor te responde con precio por cantidad y tiempo de entrega.', link: { to: '/cotizar', label: 'Cotizar mi proyecto' } },
 ]

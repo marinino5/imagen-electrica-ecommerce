@@ -1,52 +1,60 @@
 import { useRef, useState } from 'react'
 import { Search } from 'lucide-react'
+import Pedestal from '../ui/Pedestal'
+import Hl from '../ui/Hl'
 import '../../styles/catalog.css'
 import '../../styles/catalog2.css'
+import '../../styles/ie-catalog.css'
 
-// Productos recortados que flotan a la derecha con profundidad: distinto tamaño, desenfoque y sombra según la distancia,
-// movimiento lento y parallax leve con el mouse (`depth` = cuántos px se mueve). Son las imágenes oficiales del catálogo.
-const FLOATERS = [
-  { src: '/img/catalogo/weg-w22-nema-premium.webp', size: 300, x: '60%', y: '4%', depth: 30, dur: 11, delay: 0, z: 3 },
-  { src: '/img/catalogo/weg-cfw500.webp', size: 230, x: '79%', y: '44%', depth: 46, dur: 9, delay: -2, z: 4 },
-  { src: '/img/catalogo/weg-contactores.webp', size: 170, x: '55%', y: '52%', depth: 38, dur: 10, delay: -4, z: 2 },
-  { src: '/img/catalogo/weg-cestari-wcg20.webp', size: 210, x: '81%', y: '2%', depth: 54, dur: 12, delay: -1, z: 3 },
-  { src: '/img/catalogo/fluke-multimetro-117.webp', size: 150, x: '93%', y: '30%', depth: 20, dur: 13, delay: -3, z: 1, far: true },
-  { src: '/img/catalogo/weg-ssw07.webp', size: 130, x: '48%', y: '14%', depth: 16, dur: 14, delay: -5, z: 1, far: true },
+// Vitrina: cinco productos recortados sobre pedestales, en escalera de tres alturas. El motor grande va al frente y al
+// centro; detrás, dos medianos; a los lados, dos pequeños. `d` = cuántos px se mueve cada capa con el mouse (máx. 8).
+const SHOWCASE = [
+  { src: '/img/catalogo/weg-w22-nema-premium.webp', alt: 'Motor eléctrico WEG W22', cls: 'sc-motor', d: 8 },
+  { src: '/img/catalogo/weg-cestari-wcg20.webp', alt: 'Motorreductor WEG Cestari', cls: 'sc-reductor', d: 5 },
+  { src: '/img/catalogo/weg-cfw500.webp', alt: 'Variador de frecuencia WEG CFW500', cls: 'sc-variador', d: 5 },
+  { src: '/img/catalogo/weg-contactores.webp', alt: 'Contactor WEG', cls: 'sc-contactor', d: 3 },
+  { src: '/img/catalogo/fluke-multimetro-117.webp', alt: 'Multímetro Fluke 117', cls: 'sc-fluke', d: 3 },
 ]
 
 export default function CatalogBanner({ finderRef, initial, onSearch, quick }) {
   const [term, setTerm] = useState(initial)
-  const box = useRef(null)
+  const stage = useRef(null)
 
+  // Parallax leve: solo con puntero fino y sin movimiento reducido
   const onMove = (e) => {
-    const el = box.current
-    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const el = stage.current
+    if (!el || e.pointerType !== 'mouse' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const r = el.getBoundingClientRect()
-    el.style.setProperty('--mx', ((e.clientX - r.left) / r.width - 0.5).toFixed(3))
-    el.style.setProperty('--my', ((e.clientY - r.top) / r.height - 0.5).toFixed(3))
+    el.style.setProperty('--mx', (((e.clientX - r.left) / r.width - 0.5) * 2).toFixed(3))
+    el.style.setProperty('--my', (((e.clientY - r.top) / r.height - 0.5) * 2).toFixed(3))
   }
 
   return (
-    <section className="cban on-dark" aria-labelledby="cat-banner" ref={box} onMouseMove={onMove}>
-      <div className="cban__floaters" aria-hidden="true">
-        {FLOATERS.map((f) => (
-          <span key={f.src} className={`cban__fl ${f.far ? 'is-far' : ''}`} style={{ left: f.x, top: f.y, width: f.size, height: f.size, zIndex: f.z, '--depth': f.depth, '--delay': `${f.delay}s`, '--dur': `${f.dur}s` }}>
-            <span className="cban__bob"><img src={f.src} alt="" width={f.size} height={f.size} loading="lazy" /></span>
-          </span>
-        ))}
-      </div>
-      <div className="wrap cban__inner">
-        <p className="cban__tag">Catálogo industrial</p>
-        <h1 id="cat-banner">Todo para mover tu proyecto <strong>en un solo lugar</strong></h1>
-        <p className="cban__lead">Motores, variadores, control y protección de las marcas que distribuimos, con la referencia exacta y el precio a la vista.</p>
-        <form className="cban__search" role="search" onSubmit={(e) => { e.preventDefault(); onSearch(term.trim()) }}>
-          <Search size={20} aria-hidden="true" />
-          <input ref={finderRef} type="search" enterKeyHint="search" autoComplete="off" placeholder="Motor 5 HP 1800, CFW300, contactor 25 A…" aria-label="Buscar en el catálogo" value={term} onChange={(e) => setTerm(e.target.value)} />
-          <button type="submit">Buscar</button>
-        </form>
-        <div className="cban__quick">
-          <span>Búsquedas frecuentes</span>
-          {quick.map(([label, text]) => <button key={label} type="button" onClick={() => { setTerm(text); onSearch(text) }}>{label}</button>)}
+    <section className="cban bg-lila-fade" aria-labelledby="cat-banner">
+      <div className="wrap cban__grid">
+        <div className="cban__copy">
+          <p className="rd-label">Catálogo industrial</p>
+          <h1 id="cat-banner" className="cban__h1">Todo para mover tu proyecto <Hl>en un solo lugar</Hl></h1>
+          <p className="cban__lead">Motores, variadores, control y protección con la referencia exacta y el precio a la vista.</p>
+          <form className="cban__search" role="search" onSubmit={(e) => { e.preventDefault(); onSearch(term.trim()) }}>
+            <Search size={20} aria-hidden="true" />
+            <input ref={finderRef} type="search" enterKeyHint="search" autoComplete="off" placeholder="Motor 5 HP 1800, CFW300, contactor 25 A…" aria-label="Buscar en el catálogo" value={term} onChange={(e) => setTerm(e.target.value)} />
+            <button type="submit">Buscar</button>
+          </form>
+          <div className="cban__quick">
+            <span>Búsquedas frecuentes</span>
+            {quick.map(([label, text]) => <button key={label} type="button" onClick={() => { setTerm(text); onSearch(text) }}>{label}</button>)}
+          </div>
+        </div>
+
+        <div className="cban__stage" ref={stage} onPointerMove={onMove} aria-hidden="true">
+          {SHOWCASE.map((p, i) => (
+            <div key={p.src} className={`sc ${p.cls}`} style={{ '--d': p.d, '--i': i }}>
+              <div className="sc__in">
+                <Pedestal lift src={p.src} alt="" loading={i === 0 ? 'eager' : 'lazy'} />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

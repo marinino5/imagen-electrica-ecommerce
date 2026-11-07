@@ -3,10 +3,10 @@
 // listan las que la empresa quiere destacar. `slugs` une marcas que se muestran como una sola.
 export const showcaseBrands = [
   { name: 'WEG', slugs: ['weg'], logo: '/img/marcas/weg.png', lines: 'motores, variadores, control y automatización', big: true },
-  { name: 'WEG Cestari', slugs: ['weg-cestari'], logo: '/img/marcas/weg-cestari.svg', lines: 'reductores y motorreductores' },
+  { name: 'WEG Cestari', slugs: ['weg-cestari'], logo: '/img/marcas/weg-cestari.svg', optical: 1.35, lines: 'reductores y motorreductores' },
   { name: 'Nexans / CENTELSA', slugs: ['nexans', 'centelsa-by-nexans'], logo: '/img/marcas/nexans.svg', lines: 'cables y conductores THHN / THWN-2' },
   { name: 'Sylvania', slugs: ['sylvania'], logo: null, lines: 'iluminación industrial LED' },
-  { name: 'Soler & Palau', slugs: ['soler-palau'], logo: '/img/marcas/soler-palau.svg', lines: 'ventilación y extracción' },
+  { name: 'Soler & Palau', slugs: ['soler-palau'], logo: '/img/marcas/soler-palau.svg', optical: 1.55, lines: 'ventilación y extracción' },
   { name: 'AIRAL', slugs: ['airal'], logo: '/img/marcas/airal.png', lines: 'extractores y ventiladores axiales' },
   { name: 'ABB', slugs: ['abb'], logo: '/img/marcas/abb.svg', lines: 'motores y automatización' },
   { name: 'Siemens', slugs: ['siemens'], logo: '/img/marcas/siemens.svg', lines: 'contactores y maniobra' },

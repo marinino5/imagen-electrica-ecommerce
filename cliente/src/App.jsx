@@ -19,6 +19,7 @@ const Account = lazy(() => import('./pages/Account'))
 const ComoComprar = lazy(() => import('./pages/ComoComprar'))
 const Nosotros = lazy(() => import('./pages/Nosotros'))
 const Contacto = lazy(() => import('./pages/Contacto'))
+const Cotizar = lazy(() => import('./pages/Cotizar'))
 const PoliticaDatos = lazy(() => import('./pages/PoliticaDatos'))
 
 export default function App() {
@@ -41,6 +42,7 @@ export default function App() {
                 <Route path="como-comprar" element={<ComoComprar />} />
                 <Route path="nosotros" element={<Nosotros />} />
                 <Route path="contacto" element={<Contacto />} />
+                <Route path="cotizar" element={<Cotizar />} />
                 <Route path="politica-datos" element={<PoliticaDatos />} />
                 <Route path="*" element={<NotFound />} />
               </Route>

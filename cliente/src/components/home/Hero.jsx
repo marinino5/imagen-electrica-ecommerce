@@ -20,7 +20,7 @@ const slides = [
     highlight: 'industriales WEG',
     text: 'Del monofásico de taller al trifásico de planta, con la referencia exacta que tu equipo necesita.',
     cta: { to: '/productos?familia=motores-electricos', label: 'Ver motores' },
-    bg: { src: '/img/fotos/planta-operando.webp', alt: '', pos: '50% 40%' },
+    bg: { src: '/img/fotos/planta-operando.webp', alt: '', pos: '50% 40%', zoom: 1.2, origin: '100% 50%' },
     product: { src: '/img/catalogo/weg-w22-iec.webp', alt: 'Tres motores eléctricos WEG W22 de distinto tamaño', caption: 'WEG W22' },
   },
   {
@@ -93,10 +93,14 @@ function Slide({ slide, index, active, still, mobile }) {
         ) : (
           <img src={video.poster} alt={video.alt} width="1920" height="1080" style={{ objectPosition: video.pos }} />
         ))}
-      {bg && <img className="hero__bg" src={bg.src} alt={bg.alt} width="1600" height="900" style={{ objectPosition: bg.pos }} fetchPriority={index === 0 ? 'high' : undefined} loading={index === 0 ? 'eager' : 'lazy'} />}
+      {bg && <img className="hero__bg" src={bg.src} alt={bg.alt} width="1600" height="900" style={{ objectPosition: bg.pos, '--zoom': bg.zoom, '--zoom-origin': bg.origin }} fetchPriority={index === 0 ? 'high' : undefined} loading={index === 0 ? 'eager' : 'lazy'} />}
       {product && (
         <figure className="hero__stage">
-          <span className="hero__stage-ring" aria-hidden="true" />
+          <span className="hero__glow" aria-hidden="true" />
+          <svg className="hero__arc" viewBox="0 0 1000 500" aria-hidden="true" focusable="false">
+            <path pathLength="1" d="M0 500 A500 500 0 0 1 1000 500" />
+          </svg>
+          <span className="hero__floor" aria-hidden="true" />
           <img src={product.src} alt={product.alt} width="1000" height="1000" loading={index === 0 ? 'eager' : 'lazy'} />
           <figcaption>{product.caption}</figcaption>
         </figure>

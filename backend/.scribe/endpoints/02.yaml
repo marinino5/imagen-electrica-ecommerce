@@ -198,3 +198,187 @@ endpoints:
     controller: null
     method: null
     route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/v1/quote-requests/free
+    metadata:
+      custom: []
+      groupName: 'Cotización sin cuenta'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Enviar una cotización libre'
+      description: |-
+        Público: sin token y sin elegir productos. Se envía como `multipart/form-data` porque puede llevar un adjunto
+        (PDF, JPG o PNG de hasta 5 MB). Mismo límite que la cotización con productos. Responde con el número de
+        solicitud y el tiempo estimado de respuesta.
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        custom: []
+        name: name
+        description: Nombre.
+        required: true
+        example: 'Laura Gómez'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      phone:
+        custom: []
+        name: phone
+        description: 'Teléfono o WhatsApp.'
+        required: true
+        example: '3001234567'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      address:
+        custom: []
+        name: address
+        description: Dirección.
+        required: true
+        example: 'Cra 18 No 24-32'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      city:
+        custom: []
+        name: city
+        description: Ciudad.
+        required: true
+        example: Bucaramanga
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      email:
+        custom: []
+        name: email
+        description: Correo.
+        required: false
+        example: laura@empresa.co
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      company:
+        custom: []
+        name: company
+        description: Empresa.
+        required: false
+        example: 'Constructora Demo SAS'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      nit:
+        custom: []
+        name: nit
+        description: NIT.
+        required: false
+        example: '900123456'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      message:
+        custom: []
+        name: message
+        description: 'Qué productos necesita (10 a 3000 caracteres).'
+        required: true
+        example: '20 metros de cable 4x10 y un guardamotor.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      application:
+        custom: []
+        name: application
+        description: 'Para qué aplicación.'
+        required: false
+        example: 'Bomba de agua'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      attachment:
+        custom: []
+        name: attachment
+        description: 'Foto, placa del equipo o lista de materiales (PDF, JPG o PNG, máx. 5 MB).'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      privacy_accepted:
+        custom: []
+        name: privacy_accepted
+        description: 'Autoriza el tratamiento de datos (Ley 1581 de 2012).'
+        required: true
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      website:
+        custom: []
+        name: website
+        description: 'El campo value no puede tener más de 255 caracteres.'
+        required: false
+        example: k
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      name: 'Laura Gómez'
+      phone: '3001234567'
+      address: 'Cra 18 No 24-32'
+      city: Bucaramanga
+      email: laura@empresa.co
+      company: 'Constructora Demo SAS'
+      nit: '900123456'
+      message: '20 metros de cable 4x10 y un guardamotor.'
+      application: 'Bomba de agua'
+      privacy_accepted: true
+      website: k
+    fileParameters:
+      attachment: null
+    responses:
+      -
+        custom: []
+        status: 201
+        content: '{"data":{"message":"Recibimos tu solicitud. Un asesor te responderá pronto.","reference":"LIB-0001","response_time":"el mismo día hábil"}}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null

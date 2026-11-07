@@ -14,7 +14,7 @@ export default function BrandStrip() {
   const track = [...brands, ...brands]
 
   return (
-    <section className="rd-sec bg-soft hm-brands hm-brands--band" aria-labelledby="h-marcas">
+    <section className="rd-sec bg-lila-soft hm-brands hm-brands--band" aria-labelledby="h-marcas">
       <div className="wrap hm-brands__head">
         <div>
           <SectionLabel n="06">Aliados</SectionLabel>
@@ -29,7 +29,7 @@ export default function BrandStrip() {
           {track.map((b, i) => (
             <li key={`${b.name}-${i}`} aria-hidden={i >= brands.length ? 'true' : undefined}>
               <Link to={`/productos?marca=${encodeURIComponent(b.name.split(' / ')[0])}`} tabIndex={i >= brands.length ? -1 : undefined} aria-label={`Ver productos de ${b.name}`}>
-                {b.logo_url ? <img src={b.logo_url} alt={b.name} height="48" loading="lazy" /> : <span>{b.name}</span>}
+                {b.logo_url ? <img src={b.logo_url} alt={b.name} height="36" loading="lazy" style={{ '--optical': b.optical }} /> : <span>{b.name}</span>}
               </Link>
             </li>
           ))}

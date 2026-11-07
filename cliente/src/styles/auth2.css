@@ -8,12 +8,9 @@
   min-height: 100vh;
   padding: calc(var(--header-h) + 32px) 16px 56px;
   overflow: hidden;
+  position: relative;
 }
 .ax__stage { position: relative; width: 100%; max-width: 460px; }
-/* Arcos finos de adorno: solo dos bordes del círculo, detrás de la tarjeta */
-.ax__arc { position: absolute; z-index: 0; border: 2px solid var(--accent); border-radius: 50%; pointer-events: none; }
-.ax__arc--a { width: 520px; aspect-ratio: 1; left: -150px; top: -110px; border-color: var(--accent) transparent transparent var(--accent); opacity: 0.85; }
-.ax__arc--b { width: 300px; aspect-ratio: 1; right: -120px; bottom: -90px; border-color: transparent var(--accent) var(--accent) transparent; opacity: 0.4; }
 .ax__card {
   position: relative;
   z-index: 1;
@@ -21,10 +18,10 @@
   border: 1px solid var(--lavender-2);
   border-radius: var(--rd-radius);
   background: #fff;
-  box-shadow: 0 24px 60px -30px rgb(81 62 132 / 0.35);
+  box-shadow: 0 24px 60px rgb(75 58 130 / 0.16);
 }
 .ax__logo { display: inline-flex; margin-bottom: 14px; }
-.ax__logo img { width: auto; height: 56px; }
+.ax__logo img { width: auto; height: 48px; }
 .ax__eyebrow { margin: 0 0 4px; color: var(--accent-text); font-size: 12.5px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; }
 .ax__title { margin: 0 0 8px; font-family: var(--font-display); font-size: clamp(2.3rem, 7vw, 3rem); font-weight: 600; line-height: 0.95; text-transform: uppercase; }
 .ax__title span, .ax__title em { display: inline; }
@@ -47,6 +44,5 @@
 .ax .auth__foot a { color: var(--primary); font-weight: 800; }
 @media (max-width: 480px) {
   .ax { padding-inline: 12px; }
-  .ax__arc--a { left: -190px; }
 }
 .ax .form, .ax .auth-form { padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; }

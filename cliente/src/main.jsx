@@ -6,6 +6,7 @@ import './styles/variables.css'
 import './styles/base.css'
 import './styles/system.css'
 import './styles/rd.css'
+import './styles/ie.css'
 import App from './App'
 
 createRoot(document.getElementById('root')).render(

@@ -32,6 +32,7 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:api')->group(function
 
     // Cotización sin cuenta: pública, con límite por IP
     Route::post('quote-requests', [QuoteRequestController::class, 'store'])->middleware('throttle:api-quote')->name('quote-requests.store');
+    Route::post('quote-requests/free', [QuoteRequestController::class, 'storeFree'])->middleware('throttle:api-quote')->name('quote-requests.store-free');
 
     // Boletín desde el pie de la tienda: público, con límite por IP
     Route::post('newsletter', [NewsletterController::class, 'store'])->middleware('throttle:api-newsletter')->name('newsletter.store');
