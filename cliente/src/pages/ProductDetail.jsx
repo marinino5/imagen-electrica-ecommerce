@@ -7,7 +7,7 @@ import { useCart } from '../context/CartContext'
 import { useApi } from '../hooks/useApi'
 import { isDirectPurchase } from '../lib/catalog'
 import { formatCOP } from '../lib/format'
-import { cartItem, hpText, lineImage, lineQuoteItem, twinTag } from '../lib/lines'
+import { cartItem, hpText, imageMatchesBrand, lineBrands, lineImage, lineQuoteItem, twinTag } from '../lib/lines'
 import { WHERE_USED } from '../lib/datasheets'
 import BrandMark from '../components/ui/BrandMark'
 import Eyebrow from '../components/ui/Eyebrow'
@@ -126,7 +126,9 @@ export default function ProductDetail() {
   const addQuote = (e) => add(item, qty, { rect: e.currentTarget.getBoundingClientRect(), image }, { asQuote: true })
   const total = current && direct ? current.price * qty : null
   const waText = `Hola, quiero información sobre ${line.name}${current ? ` (${current.label}, SKU ${current.sku})` : ''}.`
-  const brand = (line.brand_label ?? '').split(' · ')[0]
+  // El logo y la foto siguen a la referencia elegida: nunca un logo de ABB junto a un motor WEG
+  const brand = current?.brand?.name ?? lineBrands(line)[0] ?? ''
+  const galleryLine = imageMatchesBrand(line.image_url, brand) ? line : { ...line, image_url: null, image_alt_url: null }
 
   // Datos técnicos de la referencia elegida. Los que no tienen valor no se muestran (nada de «—»).
   const specs = current
@@ -165,7 +167,7 @@ export default function ProductDetail() {
 
       <article className="wrap pd">
         <Reveal className="pd__gal">
-          <Gallery line={line} />
+          <Gallery line={galleryLine} />
         </Reveal>
 
         <Reveal className="pd__info" delay={0.05}>
@@ -383,6 +385,7 @@ export default function ProductDetail() {
                 <thead>
                   <tr>
                     <th scope="col">Referencia</th>
+                    <th scope="col">Marca</th>
                     <th scope="col">SKU</th>
                     <th scope="col" className="pd-table__num">Precio</th>
                     <th scope="col"><span className="sr-only">Acción</span></th>
@@ -397,6 +400,7 @@ export default function ProductDetail() {
                         <td data-label="Referencia">
                           <button type="button" className="pd-table__pick" aria-pressed={selected} onClick={() => choose(v)}>{v.label}</button>
                         </td>
+                        <td data-label="Marca" className="pd-table__brand">{v.brand?.name ? <BrandMark name={v.brand.name} /> : '—'}</td>
                         <td data-label="SKU" className="pd-table__sku">{v.sku}</td>
                         <td data-label="Precio" className="pd-table__num">{v.sale_mode === 'direct' && v.price !== null ? formatCOP(v.price) : 'Cotizar'}</td>
                         <td className="pd-table__act">
@@ -413,7 +417,7 @@ export default function ProductDetail() {
                       </tr>
                     )
                   })}
-                  {shownRefs.length === 0 && <tr><td colSpan={4} className="pd-table__none">Ninguna referencia coincide con «{refTerm}».</td></tr>}
+                  {shownRefs.length === 0 && <tr><td colSpan={5} className="pd-table__none">Ninguna referencia coincide con «{refTerm}».</td></tr>}
                 </tbody>
               </table>
             </div>

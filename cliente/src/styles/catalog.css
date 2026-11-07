@@ -145,7 +145,7 @@
 /* ---------- Franja editorial: 220 px de alto, ocupa toda la grilla ---------- */
 .cat-editorial { grid-column: 1 / -1; }
 .ed { position: relative; isolation: isolate; display: grid; grid-template-columns: 92px minmax(0, 1fr); align-items: stretch; min-height: 120px; overflow: hidden; border-radius: 16px; background: var(--ie-violet-950); color: #fff; }
-.ed img { width: 100%; height: 100%; object-fit: cover; }
+.ed img { width: 100%; height: 100%; max-height: 220px; object-fit: cover; object-position: 50% 62%; }
 .ed__txt { display: grid; align-content: center; gap: 6px; padding: 14px 16px; }
 .ed__txt h3 { margin: 0; color: #fff; font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; line-height: 1.05; text-wrap: balance; }
 .ed__txt p { display: none; margin: 0; color: rgb(255 255 255 / 0.78); font-size: 0.95rem; }

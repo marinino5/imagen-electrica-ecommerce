@@ -556,3 +556,6 @@
   .pd-print th { background: #f4f1fa; }
   .pd-print footer { margin-top: 18px; color: #5d5672; font-size: 10px; }
 }
+
+/* Marca de cada referencia en la tabla */
+.pd-table__brand .brandmark { height: 20px; max-width: 72px; }

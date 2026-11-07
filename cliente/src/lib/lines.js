@@ -6,6 +6,31 @@ import { HP_CATEGORIES } from './families'
 // muestra el diseño de marca (LineVisual), así dos líneas distintas nunca comparten la misma imagen.
 export const lineImage = (line) => line?.image_url ?? null
 
+// ---- Marca ↔ imagen ----
+// Una línea puede reunir varias marcas («ABB · Match Drive · Nidec · Nord · WEG»). Las marcas que se muestran son las de
+// sus referencias; en «Motores de otras marcas» no va WEG porque ya tiene sus propias líneas.
+export const lineBrands = (line) => {
+  const all = (line?.brand_label ?? '').split(' · ').map((b) => b.trim()).filter((b) => b && b !== 'None')
+  return /otras marcas/i.test(line?.name ?? '') ? all.filter((b) => b.toLowerCase() !== 'weg') : all
+}
+
+// Las fotos del catálogo se nombran «<marca>-<producto>»: la foto de un motor WEG no puede ilustrar una referencia de ABB.
+// `brand` = marca que se está mostrando; si la foto es de WEG y la marca es otra, no se usa (se ve el diseño de marca).
+export const imageMatchesBrand = (url, brand) => {
+  if (!url || !brand) return true
+  const file = url.split('/').pop().toLowerCase()
+  const isWeg = file.startsWith('weg-') && !file.startsWith('weg-cestari')
+  if (!isWeg) return true
+  return brand.trim().toLowerCase() === 'weg'
+}
+
+// Foto de la tarjeta: solo si coincide con alguna de las marcas visibles
+export const cardImage = (line) => {
+  const url = lineImage(line)
+  const brands = lineBrands(line)
+  return brands.length && !brands.some((b) => imageMatchesBrand(url, b)) ? null : url
+}
+
 // Miniatura de 480 px de la foto de la línea (mega-menú, tarjetas pequeñas): el formato recortado trae `-sm`
 export const lineThumb = (line) => {
   const url = lineImage(line)

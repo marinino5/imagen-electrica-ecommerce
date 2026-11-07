@@ -77,6 +77,27 @@ export default function Products() {
   const resultsRef = useRef(null)
   const finderRef = useRef(null)
 
+  // Alto real de la barra fija (filtros en escritorio; botón + chips de familia en celular). Las cabeceras de familia y la
+  // columna se fijan 16 px debajo de ella: si la barra cambia de alto (filtros en dos líneas), se recalculan solas.
+  useEffect(() => {
+    const wrap = resultsRef.current
+    if (!wrap) return undefined
+    const measure = () => {
+      const bar = wrap.querySelector('.cat-fbar')
+      const barShown = bar && getComputedStyle(bar).display !== 'none'
+      const h = barShown ? bar.offsetHeight : (wrap.querySelector('.cat-mbar')?.offsetHeight ?? 0) + 6 + (wrap.querySelector('.cat-mfam')?.offsetHeight ?? 0)
+      wrap.style.setProperty('--fbar-h', `${h}px`)
+    }
+    measure()
+    const ro = new ResizeObserver(measure)
+    wrap.querySelectorAll('.cat-fbar, .cat-mbar, .cat-mfam').forEach((el) => ro.observe(el))
+    window.addEventListener('resize', measure)
+    return () => {
+      ro.disconnect()
+      window.removeEventListener('resize', measure)
+    }
+  }, [])
+
   useEffect(() => {
     if (params.get('buscar')) finderRef.current?.focus()
   }, [params])
@@ -146,13 +167,20 @@ export default function Products() {
   const phone = useMediaQuery('(max-width: 960px)')
   // Línea (px desde arriba) donde quedan las cabeceras fijas: la familia cuyo grupo ya la cruzó es la que se está viendo
   const spy = useScrollSpy(groups.map((g) => g.slug), phone ? 240 : 150)
-  const jump = (slug) => document.getElementById(`fgroup-${slug}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  // Salta a una familia; las imágenes perezosas de las fichas de arriba cambian la altura mientras se desplaza, así que se
+  // reajusta una vez al terminar para que la cabecera quede justo bajo la barra fija
+  const jump = (slug) => {
+    const el = document.getElementById(`fgroup-${slug}`)
+    el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    window.setTimeout(() => el?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 700)
+  }
 
-  // Máximo una tarjeta editorial por familia: franja de ancho completo después de la sexta ficha
+  // Una sola franja editorial por página (así su foto nunca se repite): va en el primer grupo con más de seis fichas, después de la sexta
+  const edGroup = grouped ? groups.findIndex((g) => g.lines.length > 6) : 0
   const cellsFor = (lines, g) =>
     lines.flatMap((line, i) => {
       const cell = <Reveal key={line.slug} i={i % 3}><LineCard line={line} /></Reveal>
-      return i === 5 && lines.length > 6 ? [cell, <EditorialStrip key={`ed-${g}`} e={EDITORIAL[g % EDITORIAL.length]} />] : [cell]
+      return i === 5 && lines.length > 6 && g === edGroup ? [cell, <EditorialStrip key="ed" e={EDITORIAL} />] : [cell]
     })
 
   return (
@@ -161,84 +189,86 @@ export default function Products() {
 
       <div className="cat-body bg-lila-soft">
       <Bgfx d c="r" arcTop="30%" />
-      <section className="wrap cat-layout" aria-label="Familias, filtros y fichas">
-        <aside className="cat-side" aria-label="Familias">
-          <div className="cat-side__scroll"><FamilyTree families={families} st={st} set={set} grouped={grouped} spy={spy} onJump={jump} /></div>
-        </aside>
-
-        <div className="cat-main" ref={resultsRef}>
-          <div className="cat-mfam"><FamilyChips families={families} st={st} set={set} grouped={grouped} spy={spy} onJump={jump} /></div>
-
-          {family && !st.q && (
-            <header className="fam-banner">
-              {photo && <img src={photo.sm} alt="" width="220" height="220" />}
-              <div>
-                <h2 className="fam-banner__h">{family.name}</h2>
-                <p>{family.description ?? FAMILY_BLURB[family.slug]}</p>
-                <p className="fam-banner__n">{family.lines_count} {family.lines_count === 1 ? 'ficha' : 'fichas'}</p>
-              </div>
-            </header>
-          )}
-
-          <div className="cat-mbar">
-            <button type="button" className="cat-mbar__f" onClick={() => setSheet(true)} aria-haspopup="dialog">
-              <SlidersHorizontal size={18} aria-hidden="true" /> Filtrar{activeCount ? <b className="cat-mbar__n">{activeCount}</b> : null}
-            </button>
-          </div>
-          <div className="cat-fbar"><CatalogFilters {...filterProps} /></div>
-
-          {chips.length > 0 && (
-            <ul className="cat-active" aria-label="Filtros activos">
-              {chips.map((c) => (
-                <li key={c.key}>
-                  <button type="button" onClick={c.off} aria-label={`Quitar filtro: ${c.label}`}>{c.label} <X size={14} aria-hidden="true" /></button>
-                </li>
-              ))}
-              <li><button type="button" className="cat-active__all" onClick={clearAll}>Limpiar</button></li>
-            </ul>
-          )}
-
-          <div className="cat-rhead">
-            {!(family && !st.q) && <h2 className="cat-rhead__h">{title}</h2>}
-            <p aria-live="polite">
-              {loading ? 'Cargando…' : error ? 'No pudimos cargar el catálogo' : `${shown.length} ${shown.length === 1 ? 'ficha' : 'fichas'} · ${refs} referencias`}
-            </p>
-          </div>
-
-          {loading && (
-            <div className="cat-grid" aria-busy="true" aria-label="Cargando líneas">
-              {[0, 1, 2, 3, 4, 5].map((i) => <div key={i} className="skeleton cat-skel" />)}
-            </div>
-          )}
-          {!loading && error && <ErrorState error={error} onRetry={reload} />}
-          {!loading && !error && shown.length === 0 && (
-            <EmptyState title="No encontramos fichas con esos filtros">
-              Quita algún filtro o cuéntanos qué buscas y te lo cotizamos.
-              <strong className="cat-empty__ask">¿No encontraste lo que buscas? Cotízalo aquí</strong>
-              <div className="cat-empty__cta"><Pill as="link" to="/cotizar" tone="o">Cotizar lo que necesito</Pill></div>
-            </EmptyState>
-          )}
-          {!loading && !error && shown.length > 0 && (grouped ? (
-            <div className="cat-groups">
-              {groups.map((g, gi) => {
-                const fam = families.find((f) => f.slug === g.slug)
-                const img = familyPhoto(g.slug)
-                return (
-                  <section key={g.slug} id={`fgroup-${g.slug}`} className="fgroup" aria-labelledby={`fgh-${g.slug}`}>
-                    <header className="fgh">
-                      {img && <img src={img.sm} alt="" width="64" height="64" loading="lazy" />}
-                      <h2 id={`fgh-${g.slug}`}>{fam?.name ?? g.name}</h2>
-                      <span className="fgh__n">{g.lines.length} {g.lines.length === 1 ? 'línea' : 'líneas'}</span>
-                      <Link to={`/productos?familia=${g.slug}`} className="fgh__more" aria-label={`Ver solo ${fam?.name ?? g.name}`}><span>Ver solo esta familia</span> <ArrowRight size={16} aria-hidden="true" /></Link>
-                    </header>
-                    <div className="cat-grid">{cellsFor(g.lines, gi)}</div>
-                  </section>
-                )
-              })}
-            </div>
-          ) : <div className="cat-grid">{cellsFor(shown, 0)}</div>)}
+      <div className="wrap cat-wrap" ref={resultsRef}>
+        {/* Barra de herramientas: hijos directos del bloque alto para que se queden fijos mientras se recorre el catálogo */}
+        <div className="cat-mbar">
+          <button type="button" className="cat-mbar__f" onClick={() => setSheet(true)} aria-haspopup="dialog">
+            <SlidersHorizontal size={18} aria-hidden="true" /> Filtrar{activeCount ? <b className="cat-mbar__n">{activeCount}</b> : null}
+          </button>
         </div>
-      </section>
+        <div className="cat-mfam"><FamilyChips families={families} st={st} set={set} grouped={grouped} spy={spy} onJump={jump} /></div>
+        <div className="cat-fbar"><CatalogFilters {...filterProps} /></div>
+
+        <section className="cat-layout" aria-label="Familias, filtros y fichas">
+          <aside className="cat-side" aria-label="Familias">
+            <div className="cat-side__scroll"><FamilyTree families={families} st={st} set={set} grouped={grouped} spy={spy} onJump={jump} /></div>
+          </aside>
+
+          <div className="cat-main">
+            {family && !st.q && (
+              <header className="fam-banner">
+                {photo && <img src={photo.sm} alt="" width="220" height="220" />}
+                <div>
+                  <h2 className="fam-banner__h">{family.name}</h2>
+                  <p>{family.description ?? FAMILY_BLURB[family.slug]}</p>
+                  <p className="fam-banner__n">{family.lines_count} {family.lines_count === 1 ? 'ficha' : 'fichas'}</p>
+                </div>
+              </header>
+            )}
+
+            {chips.length > 0 && (
+              <ul className="cat-active" aria-label="Filtros activos">
+                {chips.map((c) => (
+                  <li key={c.key}>
+                    <button type="button" onClick={c.off} aria-label={`Quitar filtro: ${c.label}`}>{c.label} <X size={14} aria-hidden="true" /></button>
+                  </li>
+                ))}
+                <li><button type="button" className="cat-active__all" onClick={clearAll}>Limpiar</button></li>
+              </ul>
+            )}
+
+            <div className="cat-rhead">
+              {!(family && !st.q) && <h2 className="cat-rhead__h">{title}</h2>}
+              <p aria-live="polite">
+                {loading ? 'Cargando…' : error ? 'No pudimos cargar el catálogo' : `${shown.length} ${shown.length === 1 ? 'ficha' : 'fichas'} · ${refs} referencias`}
+              </p>
+            </div>
+
+            {loading && (
+              <div className="cat-grid" aria-busy="true" aria-label="Cargando líneas">
+                {[0, 1, 2, 3, 4, 5].map((i) => <div key={i} className="skeleton cat-skel" />)}
+              </div>
+            )}
+            {!loading && error && <ErrorState error={error} onRetry={reload} />}
+            {!loading && !error && shown.length === 0 && (
+              <EmptyState title="No encontramos fichas con esos filtros">
+                Quita algún filtro o cuéntanos qué buscas y te lo cotizamos.
+                <strong className="cat-empty__ask">¿No encontraste lo que buscas? Cotízalo aquí</strong>
+                <div className="cat-empty__cta"><Pill as="link" to="/cotizar" tone="o">Cotizar lo que necesito</Pill></div>
+              </EmptyState>
+            )}
+            {!loading && !error && shown.length > 0 && (grouped ? (
+              <div className="cat-groups">
+                {groups.map((g, gi) => {
+                  const fam = families.find((f) => f.slug === g.slug)
+                  const img = familyPhoto(g.slug)
+                  return (
+                    <section key={g.slug} id={`fgroup-${g.slug}`} className="fgroup" aria-labelledby={`fgh-${g.slug}`}>
+                      <header className="fgh">
+                        {img && <img src={img.sm} alt="" width="64" height="64" loading="lazy" />}
+                        <h2 id={`fgh-${g.slug}`}>{fam?.name ?? g.name}</h2>
+                        <span className="fgh__n">{g.lines.length} {g.lines.length === 1 ? 'línea' : 'líneas'}</span>
+                        <Link to={`/productos?familia=${g.slug}`} className="fgh__more" aria-label={`Ver solo ${fam?.name ?? g.name}`}><span>Ver solo esta familia</span> <ArrowRight size={16} aria-hidden="true" /></Link>
+                      </header>
+                      <div className="cat-grid">{cellsFor(g.lines, gi)}</div>
+                    </section>
+                  )
+                })}
+              </div>
+            ) : <div className="cat-grid">{cellsFor(shown, 0)}</div>)}
+          </div>
+        </section>
+      </div>
       </div>
 
       {/* Hoja inferior (celular): los filtros en un panel que se desliza desde abajo */}
@@ -263,19 +293,19 @@ export default function Products() {
   )
 }
 
-// Tarjeta editorial de ancho completo entre las fichas
-const EDITORIAL = [
-  { title: '¿No sabes qué motor necesitas? Un asesor te ayuda', text: 'Cuéntanos la carga, la tensión y el tipo de arranque y te recomendamos la referencia exacta.', photo: '/img/fotos/planta-operando.webp', alt: 'Operario revisando un motor en una planta industrial' },
-  { title: 'Armas un tablero y necesitas una lista completa', text: 'Envíanos tu lista y te cotizamos contactores, relés, guardamotores y borneras en un solo mensaje.', photo: '/img/fotos/tablero-manos.webp', alt: 'Manos de un técnico trabajando en un tablero eléctrico' },
-  { title: '¿Dudas entre dos referencias?', text: 'Dinos la aplicación y te mostramos la diferencia, con sus características y precio.', photo: '/img/fotos/electricista-tablero.webp', alt: 'Electricista comparando referencias en un tablero' },
-  { title: '¿Compras para una obra o una planta?', text: 'Coordinamos la entrega en tu obra y te acompañamos con la compra recurrente.', photo: '/img/fotos/despacho-montacargas.webp', alt: 'Almacén con montacargas y estantería de material' },
-]
+// Tarjeta editorial de ancho completo entre las fichas (foto: técnica con un motor y su tablero, Pexels)
+const EDITORIAL = {
+  title: '¿No sabes qué motor necesitas? Un asesor te ayuda',
+  text: 'Cuéntanos la carga, la tensión y el tipo de arranque y te recomendamos la referencia exacta.',
+  photo: '/img/fotos/tecnico-motor.webp',
+  alt: 'Técnica conectando un tablero eléctrico con un motor trifásico en primer plano',
+}
 // Franja editorial: foto a la izquierda (40 %), texto y botón a la derecha, sobre violeta-950 con un arco naranja fino
 function EditorialStrip({ e }) {
   return (
     <Reveal className="cat-editorial">
       <article className="ed">
-        <img src={e.photo} alt={e.alt} width="480" height="320" loading="lazy" />
+        <img src={e.photo} alt={e.alt} width="480" height="220" loading="lazy" />
         <div className="ed__txt">
           <h3>{e.title}</h3>
           <p>{e.text}</p>

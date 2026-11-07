@@ -1,0 +1,147 @@
+/* ============================================================
+   Cómo comprar (revisión 7). Recurso firma: «pantalla fija que cambia».
+   Hero claro · compra en línea y cotización con celular fijo · lo que recibes · envíos · preguntas · cierre claro.
+   ============================================================ */
+
+/* ---------- 4.1 Hero ---------- */
+.cb-hero { display: flex; align-items: center; min-height: max(70vh, 540px); padding-block: clamp(32px, 6vw, 72px); }
+.cb-hero__grid { display: grid; gap: clamp(32px, 5vw, 56px); align-items: center; width: 100%; }
+@media (min-width: 900px) { .cb-hero__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); } }
+.cb-h1 { margin: 0; font-family: var(--font-display); font-size: clamp(2.6rem, 1rem + 5.6vw, 5.5rem); line-height: 0.92; letter-spacing: -0.5px; text-transform: uppercase; color: var(--ie-violet-950); }
+.cb-h1__thin { display: block; font-weight: 300; }
+.cb-h1__strong { display: block; font-weight: 800; color: var(--accent-title); }
+.cb-hero .rd-lead { margin: 20px 0 28px; color: var(--muted); }
+.cb-hero__btns { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* Portátil y celular superpuestos sobre un arco naranja y una mancha lila */
+.cb-hero__art { position: relative; isolation: isolate; min-height: 300px; padding: 8px 0 28px; }
+.cb-hero__arc { position: absolute; z-index: -1; right: -8%; bottom: -14%; width: 86%; aspect-ratio: 1; border: 2px solid var(--ie-orange-500); border-radius: 50%; }
+.cb-hero__blob { position: absolute; z-index: -2; left: -6%; top: 6%; width: 74%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, var(--ie-lila-200) 0%, transparent 68%); filter: blur(24px); }
+.laptop { width: 88%; }
+.laptop__lid { padding: 10px 10px 12px; border-radius: 16px 16px 4px 4px; background: var(--ie-violet-950); box-shadow: var(--ie-shadow-photo); }
+.laptop__lid img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border-radius: 6px; background: #fff; }
+.laptop__base { height: 12px; margin-inline: -4%; border-radius: 0 0 14px 14px; background: linear-gradient(180deg, #c9c0de 0%, #a99dc9 100%); }
+.cb-hero__art .cb-hero__phone { position: absolute; right: 2%; bottom: 0; }
+.phone--md { width: clamp(104px, 26%, 190px); }
+
+/* ---------- Celular (también el grande y fijo de las secciones) ---------- */
+.phone { position: relative; }
+.phone__bezel { position: relative; height: 100%; padding: 9px; border-radius: 38px; background: var(--ie-violet-950); box-shadow: 0 30px 56px -24px rgb(38 28 62 / 0.6), inset 0 0 0 1.5px rgb(255 255 255 / 0.08); }
+.phone__notch { position: absolute; left: 50%; top: 15px; z-index: 3; width: 30%; height: 18px; border-radius: 12px; background: var(--ie-violet-950); transform: translateX(-50%); }
+.phone__screen { position: relative; height: 100%; overflow: hidden; border-radius: 30px; background: #fff; }
+.phone--md .phone__screen { aspect-ratio: 390 / 844; height: auto; }
+.phone__layer { position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s ease-out; }
+.phone__layer.is-on { opacity: 1; }
+.phone--md .phone__layer { position: relative; }
+.phone__layer img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.phone__chat { display: flex; flex-direction: column; gap: 10px; height: 100%; padding: 0 14px 14px; background: var(--ie-lila-200); font-size: 13px; line-height: 1.4; }
+.phone__chat header { display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 8px; margin: 0 -14px 8px; padding: 40px 16px 12px; background: var(--primary); color: #fff; }
+.phone__chat header small { grid-column: 2; color: rgb(255 255 255 / 0.78); }
+.phone__chat p { max-width: 84%; margin: 0; padding: 10px 12px; border-radius: 14px; }
+.phone__chat .in { align-self: flex-end; background: #fff; color: var(--ink); border-top-right-radius: 3px; }
+.phone__chat .out { align-self: flex-start; background: var(--primary); color: #fff; border-top-left-radius: 3px; }
+
+/* ---------- 4.2 y 4.3 Pantalla fija que cambia ---------- */
+.cb-flow { position: relative; isolation: isolate; padding-top: clamp(56px, 8vw, 104px); scroll-margin-top: calc(var(--header-h) - 8px); }
+.cb-flow__title { margin: 0 0 8px; }
+.cb-flow__grid { display: grid; grid-template-columns: minmax(0, 1fr); }
+/* Celular: el aparato queda fijo arriba y los pasos pasan debajo */
+.cb-stage { position: sticky; top: calc(var(--header-h) + 4px); z-index: 3; margin-inline: -16px; padding: 10px 16px 18px; background: linear-gradient(var(--ie-lila-100) 82%, transparent); }
+.cb-stage__in { display: flex; align-items: center; justify-content: center; gap: 18px; }
+.cb-flow .phone--lg { height: calc(46svh - 16px); aspect-ratio: 390 / 844; }
+.cb-dots { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.cb-dots button { display: grid; place-items: center; width: 24px; height: 24px; padding: 0; border: 0; background: none; cursor: pointer; }
+.cb-dots button::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--ie-lila-200); box-shadow: inset 0 0 0 1.5px var(--ie-violet-500); transition: background 0.3s ease-out, transform 0.3s ease-out; }
+.cb-dots button.is-on::before { background: var(--ie-orange-500); box-shadow: none; transform: scale(1.3); }
+.cb-steps { margin: 0; padding: 0; list-style: none; }
+.cb-step { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 12px; min-height: 70svh; padding-block: 24px; opacity: 0.4; transition: opacity 0.3s ease-out; }
+.cb-step.is-on { opacity: 1; }
+.cb-step__n { font-family: var(--font-display); font-size: clamp(88px, 14vw, 120px); font-weight: 700; line-height: 0.85; color: transparent; -webkit-text-stroke: 2px var(--ie-orange-500); }
+.cb-step h3 { margin: 0; font-family: var(--font-display); font-size: clamp(1.9rem, 1rem + 2vw, 2.6rem); font-weight: 700; line-height: 1; color: var(--ie-violet-950); }
+.cb-step p { max-width: 46ch; margin: 0; color: var(--muted); font-size: 1.0625rem; line-height: 1.55; }
+.cb-pill { display: inline-flex; align-items: center; min-height: 36px; padding: 6px 16px; border-radius: 999px; background: var(--ie-orange-100); color: var(--ink); font-size: 14px; font-weight: 700; }
+@media (min-width: 900px) {
+  .cb-flow__grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: clamp(32px, 6vw, 96px); }
+  .cb-flow--mirror .cb-flow__grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+  .cb-flow--mirror .cb-stage { order: 2; }
+  .cb-flow--mirror .cb-stage__in { flex-direction: row-reverse; }
+  .cb-stage { top: var(--header-h); display: grid; align-items: center; height: calc(100svh - var(--header-h)); margin-inline: 0; padding: 0; background: none; }
+  .cb-flow .phone--lg { height: min(660px, calc(100svh - var(--header-h) - 56px)); }
+  .cb-step { min-height: 70vh; }
+  /* Margen arriba y abajo de los pasos: así el celular fijo sigue centrado desde el primer paso hasta el último ((100 − 70) / 2 vh) */
+  .cb-steps { padding-block: 15vh; }
+}
+/* Cotización: fondo distinto (lila suave con banda diagonal) */
+.cb-flow--quote { background-color: var(--ie-lila-100); }
+@media (prefers-reduced-motion: reduce) {
+  .phone__layer, .cb-step, .cb-dots button::before { transition: none; }
+  .cb-step { opacity: 1; }
+}
+
+/* ---------- 4.4 Lo que recibes ---------- */
+.cb-recv { padding-block: clamp(64px, 9vw, 120px); }
+.cb-recv__grid { display: grid; gap: 24px; margin: clamp(28px, 4vw, 48px) 0 0; padding: 0; list-style: none; }
+@media (min-width: 800px) { .cb-recv__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.cb-card { display: grid; grid-template-rows: 60fr 40fr; height: 100%; min-height: 440px; overflow: hidden; border: 1px solid var(--ie-lila-200); border-radius: 8px; background: #fff; }
+.cb-card__photo { overflow: hidden; background: var(--ie-lila-100); }
+.cb-card__photo img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s var(--ie-ease); }
+.cb-card__body { padding: 20px 22px 24px; }
+.cb-card h3 { margin: 0 0 6px; font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; line-height: 1.02; color: var(--ie-violet-950); }
+.cb-card p { margin: 0; color: var(--muted); }
+@media (hover: hover) and (pointer: fine) { .cb-card:hover .cb-card__photo img { transform: scale(1.05); } }
+@media (prefers-reduced-motion: reduce) { .cb-card__photo img { transition: none; } }
+
+/* ---------- 4.5 Envíos ---------- */
+.cb-ship { padding-block: clamp(64px, 9vw, 120px); }
+.cb-ship__grid { display: grid; gap: clamp(32px, 5vw, 64px); align-items: center; }
+@media (min-width: 900px) { .cb-ship__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.cb-map { padding: 16px; border: 1px solid var(--ie-lila-200); border-radius: 8px; background: #fff; }
+.cb-map__svg { display: block; width: 100%; max-height: 520px; }
+.colombia-map__pulse { transform-box: fill-box; transform-origin: center; animation: map-pulse 2.4s ease-out infinite; opacity: 0; }
+.colombia-map__pulse--b { animation-delay: 1.2s; }
+@keyframes map-pulse { 0% { transform: scale(0.6); opacity: 0.6; } 100% { transform: scale(2.6); opacity: 0; } }
+.colombia-map__route path { fill: none; stroke: var(--ie-orange-500); stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.6s var(--ie-ease); transition-delay: calc(var(--i) * 140ms); vector-effect: non-scaling-stroke; }
+.colombia-map__route circle { fill: var(--primary); opacity: 0; transition: opacity 0.4s 1.2s; }
+.colombia-map__route text { fill: var(--ink); font-size: 8.5px; font-weight: 700; opacity: 0; transition: opacity 0.4s 1.2s; }
+.cb-map.is-in .colombia-map__route path { stroke-dashoffset: 0; }
+.cb-map.is-in .colombia-map__route circle, .cb-map.is-in .colombia-map__route text { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .colombia-map__pulse { animation: none; opacity: 0.35; }
+  .colombia-map__route path { stroke-dashoffset: 0; transition: none; }
+  .colombia-map__route circle, .colombia-map__route text { opacity: 1; transition: none; }
+}
+.cb-ship__list { display: grid; margin: 24px 0 0; padding: 0; list-style: none; }
+.cb-ship__list li { display: grid; grid-template-columns: minmax(7.5rem, 9rem) minmax(0, 1fr); align-items: center; gap: 16px; padding-block: 18px; border-top: 1px solid var(--ie-lila-200); }
+.cb-ship__list li:last-child { border-bottom: 1px solid var(--ie-lila-200); }
+.cb-ship__big { font-family: var(--font-display); font-size: clamp(1.8rem, 1.2rem + 1.6vw, 2.5rem); font-weight: 800; line-height: 1; text-transform: uppercase; color: var(--accent-title); }
+.cb-ship__list h3 { margin: 0; font-size: 1.0625rem; font-weight: 700; color: var(--ie-violet-950); }
+.cb-ship__list p { margin: 2px 0 0; color: var(--muted); }
+
+/* ---------- 4.6 Preguntas frecuentes: pestañas + acordeón de 2 columnas ---------- */
+.cb-faq { padding-block: clamp(64px, 9vw, 120px); }
+.cb-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: clamp(24px, 3vw, 36px) 0 24px; }
+.cb-tabs button { min-height: 48px; padding: 0 22px; border: 1.5px solid var(--ie-lila-200); border-radius: 999px; background: #fff; color: var(--ie-violet-700); font: inherit; font-weight: 700; cursor: pointer; transition: background 0.24s ease-out, border-color 0.24s ease-out, transform 0.16s ease-out; }
+.cb-tabs button:hover { border-color: var(--ie-violet-500); }
+.cb-tabs button:active { transform: scale(0.97); }
+.cb-tabs button.is-on { border-color: var(--ie-violet-700); background: var(--ie-violet-700); color: #fff; }
+.faq { display: grid; gap: 12px; }
+.cb-faq__grid { align-items: start; }
+@media (min-width: 800px) { .cb-faq__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; } }
+.faq__item { overflow: hidden; border: 1px solid var(--ie-lila-200); border-radius: 8px; background: #fff; }
+.faq__item h3 { margin: 0; }
+.faq__item button { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; min-height: 60px; padding: 14px 18px; border: 0; background: transparent; color: var(--ink); font: inherit; font-weight: 700; text-align: left; cursor: pointer; }
+.faq__plus { display: grid; place-items: center; flex: none; width: 32px; height: 32px; border-radius: 50%; background: var(--lavender); color: var(--primary); transition: transform 0.3s var(--ie-ease), background 0.3s; }
+.faq__item.is-open .faq__plus { transform: rotate(135deg); background: var(--ie-orange-500); color: var(--ink); }
+.faq__panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s var(--ie-ease); }
+.faq__item.is-open .faq__panel { grid-template-rows: 1fr; }
+.faq__panel > div { overflow: hidden; min-height: 0; }
+.faq__panel p { margin: 0; padding: 0 18px 18px; color: var(--muted); }
+.faq__panel p + p { margin-top: -8px; }
+.faq__link { color: var(--ie-violet-700); font-weight: 700; text-underline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .faq__panel, .faq__plus, .cb-tabs button { transition: none; } }
+
+/* ---------- 4.7 Cierre claro ---------- */
+.cb-end { padding-block: clamp(80px, 11vw, 144px); }
+.cb-end__in { max-width: 760px; }
+.cb-end .rd-lead { margin: 18px 0 28px; color: var(--muted); }
+.cb-end__btns { display: flex; flex-wrap: wrap; gap: 12px; }

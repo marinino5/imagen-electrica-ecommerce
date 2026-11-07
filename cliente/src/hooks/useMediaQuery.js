@@ -13,3 +13,15 @@ export function useMediaQuery(query) {
 
   return matches
 }
+
+// Ancho de la ventana (px), actualizado al cambiar el tamaño
+export function useViewportWidth() {
+  const [w, setW] = useState(() => window.innerWidth)
+  useEffect(() => {
+    const onResize = () => setW(document.documentElement.clientWidth)
+    onResize()
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
+  return w
+}

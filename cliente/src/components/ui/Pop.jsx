@@ -5,9 +5,9 @@ import { useInView } from './useInView'
  * (`always`); con movimiento reducido aparece sin animar. Las reglas viven en ie-contacto.css.
  */
 export default function Pop({ children, delay = 0, className = '', as: Tag = 'div', ...props }) {
-  const [ref, seen] = useInView({ always: true })
+  const [ref, seen, instant] = useInView({ always: true })
   return (
-    <Tag ref={ref} className={`pop ${seen ? 'is-in' : ''} ${className}`} style={{ '--d': `${Math.round(delay * 1000)}ms` }} {...props}>
+    <Tag ref={ref} className={`pop ${seen ? 'is-in' : ''} ${instant ? 'pop--now' : ''} ${className}`} style={{ '--d': `${Math.round(delay * 1000)}ms` }} {...props}>
       {children}
     </Tag>
   )

@@ -66,6 +66,33 @@
   .ax__lane { display: grid; align-content: start; gap: 28px; margin: 0; padding: 0; list-style: none; animation: ax-lane 40s linear infinite; will-change: transform; }
   .ax__lane.is-rev { animation-direction: reverse; margin-top: -90px; }
   .ax__rail:hover .ax__lane { animation-play-state: paused; }
-  @keyframes ax-lane { to { transform: translateY(-50%); } }
+  @keyframes ax-lane { to { transform: translateY(-25%); } }
 }
 @media (prefers-reduced-motion: reduce) { .ax__lane { animation: none; } }
+
+/* ---------- Revisión 7: tarjeta de 520 px, campos grandes y riel nítido ---------- */
+.ax__stage { max-width: 520px; }
+.ax__card { padding: clamp(28px, 9vw, 48px); } /* 48 px en pantallas anchas; en celular se reduce para no apretar los campos */
+.ax__title { font-size: clamp(2.5rem, 12vw, 3.5rem); line-height: 0.95; } /* 56 px */
+.ax__logo { margin-bottom: 20px; }
+.ax .auth-card__lead { font-size: 16px; }
+.ax .field label { font-size: 15px; }
+.ax .input { min-height: 56px; height: 56px; padding-inline: 16px; font-size: 17px; }
+.ax textarea.input, .ax select.input { height: auto; }
+.ax .btn, .ax .auth-form__actions button, .ax .auth-form button[type='submit'] { min-height: 60px; font-size: 17px; }
+.ax .alert--error, .ax .alert--warning { border-left: 0; box-shadow: inset 0 0 0 1px rgb(242 106 0 / 0.35); } /* sin franja de color a un lado */
+@media (min-width: 1024px) {
+  /* Cada producto ocupa 180 px de alto (mismo tamaño visual), 60 % de opacidad; el carril del fondo, con 2 px de desenfoque */
+  .ax__lane { gap: 28px; opacity: 0.6; }
+  .ax__lane li { display: flex; align-items: center; justify-content: center; height: 180px; }
+  .ax__lane .ped { height: 100%; }
+  .ax__lane .ped > img { width: auto; max-width: 100%; height: 100%; object-fit: contain; }
+  .ax__lane.is-rev { filter: blur(2px); margin-top: -90px; }
+}
+/* La página ya empieza bajo el encabezado (main--offset): no se vuelve a sumar su alto. Tarjeta centrada en el espacio visible */
+.ax { min-height: calc(100svh - var(--header-h)); }
+.ax__left { padding: 32px 16px; }
+@media (min-width: 1024px) {
+  .ax__rail-logos { top: 28px; }
+  .ax__lanes { inset: 76px 6% 0; }
+}

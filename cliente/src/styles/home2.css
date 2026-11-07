@@ -389,3 +389,44 @@
   box-shadow: 0 -22px 40px -22px rgb(20 16 36 / 0.45);
 }
 @media (max-width: 767px) { .hm-fams { border-radius: 28px 28px 0 0; } }
+
+/* ---------- Ofertas: sección fijada con desplazamiento horizontal (escritorio) ---------- */
+.hm-deals--pin {
+  position: relative;
+  z-index: 1;
+  /* 100vh de pantalla fija + lo que hay que recorrer en horizontal: --dx lo mide el componente */
+  height: calc(100vh + var(--dx, 0) * 1px);
+}
+.hm-deals .hm-pin {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  height: 100svh;
+  padding-block: calc(var(--header-h) + 8px) 28px;
+  overflow: clip;
+  isolation: isolate;
+}
+.hm-pin .hm-head { margin-bottom: clamp(16px, 2.4vh, 28px); }
+.hm-hscroll { overflow: clip; }
+.hm-hscroll__track {
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  /* el primer borde se alinea con el contenedor de 1280 px */
+  padding: 6px max(var(--gutter, 16px), calc((100vw - 1280px) / 2 + var(--gutter, 16px)));
+  list-style: none;
+  width: max-content;
+  transform: translate3d(calc(var(--p, 0) * var(--dx, 0) * -1px), 0, 0);
+  will-change: transform;
+}
+.hm-hscroll__track .deal-slide { flex: 0 0 clamp(260px, 21vw, 320px); }
+.hm-progress { height: 4px; margin-top: clamp(16px, 2.4vh, 28px); overflow: hidden; border-radius: 2px; background: var(--ie-lila-200); }
+.hm-progress span { display: block; height: 100%; border-radius: 2px; background: var(--ie-orange-500); transform-origin: 0 50%; transform: scaleX(var(--p, 0)); }
+/* Pantallas bajas: la tarjeta cabe en los 100vh con la foto algo más ancha que alta */
+@media (max-height: 820px) { .hm-pin .deal__media { aspect-ratio: 4 / 3; } .hm-pin .deal__price strong { font-size: 1.8rem; } }
+@media (max-height: 700px) { .hm-pin .deal__media { aspect-ratio: 16 / 9; } .hm-pin .deal__until { display: none; } }
+/* Movimiento reducido (o pocas tarjetas): grilla estática */
+.hm-dealgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; margin: 0; padding: 0; list-style: none; }

@@ -14,14 +14,15 @@ const BRANDS = [
   { name: 'Fluke', src: '/img/marcas/fluke.svg', h: 20 },
 ]
 
-// Dos carriles de producto recortado que se desplazan muy despacio en sentidos opuestos (riel de escritorio)
-const LANE_A = ['weg-w22-iec', 'weg-cfw300', 'weg-contactores', 'weg-guardamotores', 'weg-cestari-wcg01']
-const LANE_B = ['weg-cfw500', 'weg-w21-aluminio', 'weg-minibreakers', 'weg-ssw05', 'weg-plc500']
-const MOBILE = ['weg-cfw300', 'weg-w22-iec', 'weg-contactores']
+// Dos carriles de producto recortado que se desplazan muy despacio en sentidos opuestos (riel de escritorio). Solo van fotos
+// nítidas (resolución efectiva de 450 px o más, ver docs/auditoria-imagenes.md) y todas se muestran a 180 px de alto.
+const LANE_A = ['weg-minibreakers', 'weg-cfw500', 'soler-palau-extractor-axial', 'fluke-multimetro-117', 'weg-accesorios-variadores']
+const LANE_B = ['airmax-gl', 'weg-cestari-wcg20', 'fluke-multimetro-117-kit', 'weg-cfw900', 'airmax-gl-persianas']
+const MOBILE = ['weg-cfw500', 'weg-minibreakers', 'fluke-multimetro-117']
 
 function Lane({ items, reverse }) {
-  // La lista va dos veces: al llegar a la mitad el desplazamiento vuelve a empezar sin salto
-  const list = [...items, ...items]
+  // La lista va cuatro veces: el desplazamiento recorre una sola copia (25 %) y vuelve a empezar sin salto ni huecos, aun en pantallas altas
+  const list = [...items, ...items, ...items, ...items]
   return (
     <ul className={`ax__lane ${reverse ? 'is-rev' : ''}`}>
       {list.map((n, i) => (

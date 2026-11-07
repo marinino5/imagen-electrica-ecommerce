@@ -120,3 +120,39 @@
   .sc-contactor { width: 160px; left: 0; bottom: 4%; z-index: 3; }
   .sc-fluke { width: 150px; right: 0; bottom: 6%; z-index: 3; }
 }
+
+/* ============================================================
+   Apilado fijo y márgenes (revisión 7)
+   Orden de arriba abajo al recorrer el catálogo: encabezado del sitio → barra de filtros (fija) → 16 px → cabecera de la
+   familia (fija) → fichas. Ninguna cabecera tapa precios porque cada nivel se ancla al alto REAL del anterior
+   (--fbar-h lo mide Products.jsx).
+   ============================================================ */
+.cat-wrap {
+  --cat-top: calc(var(--header-h) + 8px);
+  --fbar-h: 70px;
+  --fgh-h: 72px;
+  --stack: calc(var(--cat-top) + var(--fbar-h) + 16px); /* línea donde queda la cabecera de familia */
+  scroll-margin-top: 0;
+  padding-block: 24px 64px;
+}
+.cat-fbar { position: sticky; top: var(--cat-top); z-index: 12; margin: 0; box-shadow: 0 10px 20px -16px rgb(30 22 49 / 0.45); }
+.cat-layout { margin-top: 16px; padding-block: 0; gap: 32px; }
+@media (min-width: 961px) {
+  /* La columna y la grilla nacen en la misma línea: ambas están en .cat-layout, sin nada encima de la grilla */
+  .cat-side { top: var(--stack); }
+  .cat-side__scroll { max-height: calc(100vh - var(--stack) - 16px); }
+}
+.cat-grid { gap: 12px; }
+@media (min-width: 700px) { .cat-grid { gap: 24px; } }
+.cat-groups { gap: 48px; }
+.fgh { top: var(--stack); height: var(--fgh-h); margin-bottom: 16px; }
+.fgroup { scroll-margin-top: calc(var(--stack) - var(--header-h) - 12px); } /* el html ya reserva header-h + 12 px (scroll-padding-top) */
+.cat-rhead { margin-bottom: 20px; }
+@media (max-width: 960px) {
+  .cat-wrap { --fgh-h: 56px; padding-block: 12px 56px; }
+  .cat-mbar { top: var(--cat-top); margin: 0 0 6px; }
+  .cat-mfam { top: calc(var(--cat-top) + 48px + 6px); margin-inline: -16px; }
+  .fgh { top: var(--stack); height: var(--fgh-h); margin-bottom: 12px; }
+  .fgroup { scroll-margin-top: calc(var(--stack) - var(--header-h) - 12px); } /* el html ya reserva header-h + 12 px (scroll-padding-top) */
+  .cat-groups { gap: 48px; }
+}

@@ -353,3 +353,18 @@
     transition: none;
   }
 }
+
+/* ---------- Hero fijo: la hoja de familias lo cubre al bajar ---------- */
+.hero { position: sticky; top: 0; z-index: 0; }
+.hero--flow { position: relative; }
+/* Oscurecimiento del video atado al scroll: 0 → 40 % mientras la hoja sube */
+.hero__dim { position: absolute; inset: 0; background: var(--night); opacity: calc(var(--cover, 0) * 0.4); pointer-events: none; }
+/* La hoja (primera sección tras el hero) pasa por encima: esquinas redondeadas y una sombra hacia arriba */
+.hero ~ .hm-fams {
+  position: relative;
+  z-index: 2;
+  border-radius: 28px 28px 0 0;
+  box-shadow: 0 -24px 48px -28px rgb(20 16 36 / 0.45);
+}
+/* Todo lo que va después del hero también tapa al hero fijo */
+.hero ~ * { position: relative; z-index: 2; }

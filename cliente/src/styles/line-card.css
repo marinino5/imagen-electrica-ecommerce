@@ -194,9 +194,14 @@
 /* Celular: tarjetas compactas en 2 columnas (imagen 1:1, nombre de 2 líneas, precio y botón de carrito) */
 @media (max-width: 599px) {
   .pc__body { gap: 4px; padding: 10px 10px 12px; }
-  .pc__brand span, .pc__chips, .pc__price small, .pc__more { display: none; }
+  .pc__brand > span:not(.pc__logos), .pc__chips, .pc__price small, .pc__more { display: none; }
   .pc__name { font-size: 1.12rem; min-height: 2.16em; }
   .pc__price strong { font-size: 0.95rem; }
   .pc__actions { justify-content: flex-end; }
   .pc__tag { top: 8px; left: 8px; padding: 3px 8px; font-size: 10.5px; }
 }
+
+/* Fila de logos de las marcas de la línea (hasta 4): cada logo con la misma altura visual */
+.pc__logos { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; min-width: 0; }
+.pc__logos .brandmark { height: 20px; max-width: 64px; }
+.pc__logos .brandmark--text { font-size: 0.9rem; }

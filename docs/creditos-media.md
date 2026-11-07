@@ -124,3 +124,25 @@ Nota: el extractor HCM-150N se descargó a 500 px; si se quiere más nitidez hay
 | `catalogo/centelsa-cable-thhn.webp` | Nexans Colombia, rollo Línea Plus THHN/THWN-2, https://www.nexans.co/.rest/eservice/dam/v1/image/259435 (recorte del rollo) | Familia Cables |
 | `catalogo/weg-cfw100`, `cfw300`, `cfw900`, `cestari-wcg20`, `plc500`, `ssw07`, `accesorios-variadores`, `totalizadores`, `minibreakers` | Mismas fotos oficiales de WEG, re-recortadas (ver `docs/auditoria-imagenes.md`); `minibreakers` usa la imagen con máscara alfa de la p. 1 del PDF «Soluciones integradas para instalaciones eléctricas» | Fichas y tarjetas |
 | `img/mapa-tienda.webp` | Recorte de teselas de OpenStreetMap (© colaboradores de OpenStreetMap, [ODbL](https://www.openstreetmap.org/copyright)), descargadas una sola vez; ubicación de la tienda tomada de la geocodificación del mapa de Google ya incrustado | Miniatura de la dirección en Contacto |
+
+
+## Revisión 7 (fotos de Pexels)
+
+Todas de [Pexels](https://www.pexels.com) ([Pexels License](https://www.pexels.com/license/): uso comercial, sin atribución). Bajadas a 2400 px de ancho (`images.pexels.com/photos/<id>/pexels-photo-<id>.jpeg?w=2400`), conservadas en `cliente/media-fuente/r7/` (ignorada por git) y pasadas por `cliente/scripts/gradar-foto.py`. El detalle de dónde se usa cada una está en `docs/mapa-imagenes.md`.
+
+| Archivo | Pexels | Nota |
+|---|---|---|
+| `fotos/tecnico-motor.webp` | 34526423 | Técnica con un motor y su tablero |
+| `fotos/contacto-mostrador.webp` | 12917478 | Volteada horizontalmente |
+| `fotos/contacto-cotizar.webp` | 6615107 | |
+| `fotos/contacto-asesoria.webp` | 8867631 | |
+| `fotos/contacto-pedido.webp` | 6868621 | |
+| `fotos/contacto-garantia.webp` | 9242911 | |
+| `fotos/comprar-caja.webp` | 11781094 | Recorte 4:5 |
+| `fotos/comprar-tecnico.webp` | 33694016 | Recorte 4:5 |
+| `fotos/comprar-despacho.webp` | 4487383 | |
+| `fotos/nosotros-asesoria.webp` | 34054501 | Recorte 16:9 |
+| `fotos/nosotros-estanteria.webp` | 38195854 | Recorte 16:9 |
+| `fotos/nosotros-despacho.webp` | 4480982 | Recorte 16:9 |
+
+Las capturas de `public/img/como-comprar/` son de la propia tienda (`cliente/scripts/capturar-mockups.mjs`, con los envíos simulados: no crean pedidos). Las maquetas anteriores de `public/img/mockups/` se retiraron.

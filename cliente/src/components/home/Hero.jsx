@@ -3,29 +3,30 @@ import { useNavigate } from 'react-router-dom'
 import { Pause, Play, Search } from 'lucide-react'
 import { useReducedMotion } from 'framer-motion'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
+import { clamp01, useScrollFrame } from '../../hooks/useScrollFrame'
 import Pill from '../ui/Pill'
 import '../../styles/hero.css'
 
 const SLIDE_MS = 9000
 
-// Orden fijo: video, imagen, video, imagen (Motores, Motorreductores, Automatización y control, Ventilación y extracción).
-// Los videos son de Mixkit (cajas avanzando por una banda transportadora) y de Pixabay (manos cableando un tablero) y las
+// Orden fijo: video, imagen, video, imagen (Cables, Motorreductores, Banda transportadora / motores, Ventilación y extracción).
+// Los videos son de Pixabay (manos cableando un tablero) y de Mixkit (cajas avanzando por una banda transportadora) y las
 // imágenes combinan una foto de planta con la foto oficial del producto recortado. Fuentes y licencias en docs/creditos-media.md.
 const slides = [
   {
-    id: 'motores',
-    short: 'Motores',
-    tag: 'Motores eléctricos',
-    title: 'Motores',
-    highlight: 'industriales WEG',
-    text: 'Del monofásico de taller al trifásico de planta, con la referencia exacta que tu equipo necesita.',
-    cta: { to: '/productos?familia=motores-electricos', label: 'Ver motores' },
+    id: 'cables',
+    short: 'Cables',
+    tag: 'Cables y conductores',
+    title: 'Cables',
+    highlight: 'THHN / THWN-2',
+    text: 'Conductores Centelsa by Nexans para tableros, obras y plantas, por metro o por rollo y con la referencia exacta.',
+    cta: { to: '/productos?familia=cables-y-conductores', label: 'Ver cables' },
     video: {
-      poster: '/media/hero-v1-poster.webp',
-      desktop: { mp4: '/media/hero-v1.mp4', webm: '/media/hero-v1.webm' },
-      mobile: { mp4: '/media/hero-v1-m.mp4', webm: '/media/hero-v1-m.webm' },
-      pos: '60% 50%',
-      alt: 'Cajas avanzando por una banda transportadora en una línea de producción',
+      poster: '/media/hero-v3-poster.webp',
+      desktop: { mp4: '/media/hero-v3.mp4', webm: '/media/hero-v3.webm' },
+      mobile: { mp4: '/media/hero-v3-m.mp4', webm: '/media/hero-v3-m.webm' },
+      pos: '50% 50%',
+      alt: 'Manos de un técnico conectando el cableado de un tablero eléctrico',
     },
   },
   {
@@ -40,19 +41,19 @@ const slides = [
     product: { src: '/img/catalogo/weg-cestari-wcg01.webp', alt: 'Motorreductor de sinfín y corona WEG Cestari WCG01', caption: 'WEG Cestari WCG01' },
   },
   {
-    id: 'automatizacion',
-    short: 'Automatización y control',
-    tag: 'Control y PLC',
-    title: 'Automatización',
-    highlight: 'y control',
-    text: 'Variadores, arrancadores, contactores y PLC para tableros y procesos industriales.',
-    cta: { to: '/productos?familia=control-y-automatizacion', label: 'Ver automatización' },
+    id: 'motores',
+    short: 'Banda transportadora',
+    tag: 'Motores eléctricos',
+    title: 'Motores',
+    highlight: 'industriales WEG',
+    text: 'Del monofásico de taller al trifásico de planta, con la referencia exacta que tu equipo necesita.',
+    cta: { to: '/productos?familia=motores-electricos', label: 'Ver motores' },
     video: {
-      poster: '/media/hero-v3-poster.webp',
-      desktop: { mp4: '/media/hero-v3.mp4', webm: '/media/hero-v3.webm' },
-      mobile: { mp4: '/media/hero-v3-m.mp4', webm: '/media/hero-v3-m.webm' },
-      pos: '50% 50%',
-      alt: 'Manos de un técnico conectando el cableado de un tablero eléctrico',
+      poster: '/media/hero-v1-poster.webp',
+      desktop: { mp4: '/media/hero-v1.mp4', webm: '/media/hero-v1.webm' },
+      mobile: { mp4: '/media/hero-v1-m.mp4', webm: '/media/hero-v1-m.webm' },
+      pos: '60% 50%',
+      alt: 'Cajas avanzando por una banda transportadora en una línea de producción',
     },
   },
   {
@@ -121,9 +122,21 @@ export default function Hero() {
   const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
   const [term, setTerm] = useState('')
+  const root = useRef(null)
+  const [covered, setCovered] = useState(false)
 
   // Movimiento reducido o ahorro de datos: imagen fija y sin avance automático
   const still = reduced || saveData()
+
+  // Hero fijo: la hoja de familias sube y lo cubre. --cover (0 → 1) = cuánto lo ha cubierto; el CSS oscurece el video de 0 a 40 %.
+  // Con movimiento reducido el hero no se fija ni se oscurece (flujo normal). Cuando queda cubierto del todo, el video se pausa.
+  useScrollFrame(() => {
+    const el = root.current
+    if (!el) return
+    const c = clamp01(window.scrollY / Math.max(1, el.offsetHeight))
+    el.style.setProperty('--cover', c.toFixed(4))
+    setCovered((prev) => (prev === c >= 1 ? prev : c >= 1))
+  }, !reduced)
   const slide = slides[index]
   const nextSlide = slides[(index + 1) % slides.length]
   const next = () => setIndex((n) => (n + 1) % slides.length)
@@ -135,12 +148,13 @@ export default function Hero() {
   }
 
   return (
-    <section className="hero" aria-roledescription="carrusel" aria-label="Destacados de Imagen Eléctrica">
+    <section ref={root} className={`hero ${reduced ? 'hero--flow' : ''}`} aria-roledescription="carrusel" aria-label="Destacados de Imagen Eléctrica">
       <div className="hero__media">
         {slides.map((s, n) => (
-          <Slide key={s.id} slide={s} index={n} active={n === index} still={still} mobile={isMobile} paused={paused} />
+          <Slide key={s.id} slide={s} index={n} active={n === index} still={still} mobile={isMobile} paused={paused || covered} />
         ))}
         <div className="hero__overlay" />
+        <div className="hero__dim" aria-hidden="true" />
       </div>
 
       <div className="wrap hero__inner">

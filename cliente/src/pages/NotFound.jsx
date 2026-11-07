@@ -7,7 +7,7 @@ import '../styles/rd-pages.css'
 export default function NotFound() {
   return (
     <section className="nf on-dark" aria-labelledby="h-404">
-      <img className="pg-hero__bg" src="/img/fotos/tablero-manos.webp" alt="Manos de un técnico trabajando en un tablero eléctrico con los cables abiertos" width="852" height="1280" fetchPriority="high" />
+      <img className="pg-hero__bg" src="/img/fotos/busca-portatil.webp" alt="Persona buscando una referencia en un portátil junto a una máquina industrial" width="1280" height="960" fetchPriority="high" />
       <div className="wrap nf__txt">
         <p className="pg-hero__tag">Error 404</p>
         <h1 id="h-404">Este circuito <strong>no cierra</strong></h1>

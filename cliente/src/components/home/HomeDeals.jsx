@@ -1,8 +1,11 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import useEmblaCarousel from 'embla-carousel-react'
+import { useReducedMotion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, TrendingUp } from 'lucide-react'
 import { useLines } from '../../hooks/useLines'
+import { useMediaQuery, useViewportWidth } from '../../hooks/useMediaQuery'
+import { clamp01, useScrollFrame } from '../../hooks/useScrollFrame'
 import { usePromotions } from '../../hooks/usePromotions'
 import { formatCOP } from '../../lib/format'
 import { lineImage, priceNote } from '../../lib/lines'
@@ -82,13 +85,34 @@ function TrendCard({ line }) {
 
 // «En promoción y tendencia»: primero las promociones vigentes (tabla promotions del panel); después, las fichas más
 // pedidas que no estén ya en promoción, para no repetir la misma foto. Sin datos, la sección no existe.
+//
+// Tres presentaciones según el dispositivo:
+//  · pin      (escritorio): la sección se fija 100vh y, al bajar, las tarjetas se desplazan en horizontal con una barra de
+//             progreso naranja. El progreso (--p, 0 → 1) lo escribe useScrollFrame y el CSS mueve la pista (home2.css).
+//  · carousel (celular): carrusel con deslizamiento táctil (Embla), sin fijar nada.
+//  · grid     (escritorio con movimiento reducido): grilla estática, todas las tarjetas visibles y sin animación.
 export default function HomeDeals() {
   const { data: lines, loading } = useLines()
   const { data: promos } = usePromotions()
+  const wide = useMediaQuery('(min-width: 900px)')
+  const reduced = useReducedMotion()
   const [ref, embla] = useEmblaCarousel({ align: 'start', containScroll: 'trimSnaps' })
   const [can, setCan] = useState({ prev: false, next: false })
+  const section = useRef(null)
+  const vw = useViewportWidth()
   const promoted = new Set(promos.map((p) => p.line.slug))
   const trending = lines.filter((l, i) => l.is_featured && !promoted.has(l.slug) && lines.findIndex((x) => x.slug === l.slug) === i)
+  const count = promos.length + trending.length
+
+  // Recorrido horizontal total (px), calculado con las mismas medidas del CSS (tarjeta clamp(260, 21vw, 320), hueco de 24 y
+  // margen lateral alineado al contenedor de 1280): así no depende de medir el DOM mientras las tarjetas aún cargan
+  const cardW = Math.min(320, Math.max(260, vw * 0.21))
+  const pad = Math.max(16, (vw - 1280) / 2 + 16)
+  const n = loading ? 3 : count
+  const dx = Math.max(0, Math.round(pad * 2 + n * cardW + Math.max(0, n - 1) * 24 - vw))
+
+  // Con pocas tarjetas que caben en pantalla no hay nada que recorrer: se muestran quietas
+  const mode = !wide ? 'carousel' : reduced || (!loading && dx <= 24) ? 'grid' : 'pin'
 
   const update = useCallback(() => embla && setCan({ prev: embla.canScrollPrev(), next: embla.canScrollNext() }), [embla])
   useEffect(() => {
@@ -97,39 +121,76 @@ export default function HomeDeals() {
     embla.on('select', update).on('reInit', update)
     return () => embla.off('select', update).off('reInit', update)
   }, [embla, update])
-  useEffect(() => { embla?.reInit() }, [embla, promos.length, trending.length])
+  useEffect(() => { embla?.reInit() }, [embla, count, mode])
 
-  if (!loading && promos.length === 0 && trending.length === 0) return null
+  // Progreso 0 → 1 mientras la sección fijada recorre su altura extra
+  useScrollFrame(() => {
+    const el = section.current
+    if (!el || mode !== 'pin') return
+    const top = el.getBoundingClientRect().top
+    el.style.setProperty('--p', clamp01(dx > 0 ? -top / dx : 0).toFixed(4))
+  }, mode === 'pin', [dx, mode])
 
-  return (
-    <section className="rd-sec bg-soft hm-deals" aria-labelledby="h-ofertas">
-      <Bgfx d c="l" arcTop="12%" />
-      <div className="wrap">
-        <div className="hm-head">
-          <div>
-            <SectionLabel n="02">Ofertas y lo más pedido</SectionLabel>
-            <h2 id="h-ofertas" className="rd-h2">En promoción y <Hl>tendencia</Hl></h2>
-          </div>
-          <div className="hm-arrows">
+  if (!loading && count === 0) return null
+
+  const cards = loading
+    ? [0, 1, 2].map((i) => <li key={i} className="hm-rail__slide deal-slide"><div className="skeleton" style={{ height: 440, borderRadius: 8 }} /></li>)
+    : (
+      <>
+        {promos.map((p) => <li key={`p${p.id}`} className="hm-rail__slide deal-slide"><PromoCard p={p} /></li>)}
+        {trending.map((l) => <li key={l.slug} className="hm-rail__slide deal-slide"><TrendCard line={l} /></li>)}
+      </>
+    )
+
+  const heading = (
+    <div className="hm-head">
+      <div>
+        <SectionLabel n="02">Ofertas y lo más pedido</SectionLabel>
+        <h2 id="h-ofertas" className="rd-h2">En promoción y <Hl>tendencia</Hl></h2>
+      </div>
+      <div className="hm-arrows">
+        {mode === 'carousel' && (
+          <>
             <button type="button" className="hm-arrow" onClick={() => embla?.scrollPrev()} disabled={!can.prev} aria-label="Anteriores"><ChevronLeft size={20} /></button>
             <button type="button" className="hm-arrow" onClick={() => embla?.scrollNext()} disabled={!can.next} aria-label="Siguientes"><ChevronRight size={20} /></button>
-            <Pill as="link" to="/productos" tone="l" size="sm">Ver catálogo</Pill>
+          </>
+        )}
+        <Pill as="link" to="/productos" tone="l" size="sm">Ver catálogo</Pill>
+      </div>
+    </div>
+  )
+
+  if (mode === 'pin') {
+    return (
+      <section ref={section} className="hm-deals hm-deals--pin bg-soft" aria-labelledby="h-ofertas" style={{ '--dx': dx, '--p': 0 }}>
+        <div className="hm-pin">
+          <Bgfx d c="l" arcTop="12%" />
+          <div className="wrap">{heading}</div>
+          <div className="hm-hscroll">
+            <ul className="hm-hscroll__track">{cards}</ul>
+          </div>
+          <div className="wrap">
+            <div className="hm-progress" role="presentation"><span /></div>
           </div>
         </div>
-        <Reveal>
-          <div className="hm-rail" ref={ref}>
-            <ul className="hm-rail__track">
-              {loading
-                ? [0, 1, 2].map((i) => <li key={i} className="hm-rail__slide deal-slide"><div className="skeleton" style={{ height: 440, borderRadius: 8 }} /></li>)
-                : (
-                  <>
-                    {promos.map((p) => <li key={`p${p.id}`} className="hm-rail__slide deal-slide"><PromoCard p={p} /></li>)}
-                    {trending.map((l) => <li key={l.slug} className="hm-rail__slide deal-slide"><TrendCard line={l} /></li>)}
-                  </>
-                )}
-            </ul>
-          </div>
-        </Reveal>
+      </section>
+    )
+  }
+
+  return (
+    <section className={`rd-sec bg-soft hm-deals hm-deals--${mode}`} aria-labelledby="h-ofertas">
+      <Bgfx d c="l" arcTop="12%" />
+      <div className="wrap">
+        {heading}
+        {mode === 'carousel' ? (
+          <Reveal>
+            <div className="hm-rail" ref={ref}>
+              <ul className="hm-rail__track">{cards}</ul>
+            </div>
+          </Reveal>
+        ) : (
+          <ul className="hm-dealgrid">{cards}</ul>
+        )}
       </div>
     </section>
   )

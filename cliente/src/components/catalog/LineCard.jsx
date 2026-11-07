@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { hpText, lineImage, modeTag, priceNote, priceText } from '../../lib/lines'
+import { cardImage, hpText, lineBrands, modeTag, priceNote, priceText } from '../../lib/lines'
 import BrandMark from '../ui/BrandMark'
 import LineVisual from './LineVisual'
 import QuickAdd from './QuickAdd'
@@ -19,8 +19,8 @@ const uniqueChips = (list) => {
 // Dos acciones: «Ver ficha» (contorno) y el botón circular de compra rápida (QuickAdd).
 // Si la línea tiene una segunda vista (image_alt_url) la imagen cambia a ella al pasar el mouse.
 export default function LineCard({ line, className = '' }) {
-  const image = lineImage(line)
-  const brand = (line.brand_label ?? '').split(' · ')[0]
+  const image = cardImage(line)
+  const brands = lineBrands(line)
   const range = line.hp_values?.length ? `${hpText(line.hp_min)} – ${hpText(line.hp_max)}` : null
   const all = uniqueChips([...(line.spec_chips ?? []), range])
   const chips = all.slice(0, 2)
@@ -43,7 +43,7 @@ export default function LineCard({ line, className = '' }) {
 
       <div className="pc__body">
         <p className="pc__brand">
-          {brand && <BrandMark name={brand} />}
+          {brands.length > 0 && <span className="pc__logos">{brands.slice(0, 4).map((b) => <BrandMark key={b} name={b} />)}</span>}
           <span>{line.category?.name}</span>
         </p>
         <h3 className="pc__name">
