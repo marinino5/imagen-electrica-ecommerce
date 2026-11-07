@@ -1,26 +1,27 @@
 import Hero from '../components/home/Hero'
 import BrandStrip from '../components/home/BrandStrip'
 import HomeLines from '../components/home/HomeLines'
+import BrandBlocks from '../components/home/BrandBlocks'
 import Promotions from '../components/home/Promotions'
 import HomeFeatured from '../components/home/HomeFeatured'
-import Applications from '../components/home/Applications'
-import StepsStrip from '../components/home/StepsStrip'
-import WhyUs from '../components/home/WhyUs'
-import JoinCta from '../components/home/JoinCta'
+import Solutions from '../components/home/Solutions'
+import Sectors from '../components/home/Sectors'
+import Advisory from '../components/home/Advisory'
 
-// El cierre (CTA de cotizar y pie) lo pone Layout. Las cifras viven solo aquí, dentro del hero.
+// Orden: Hero → Marcas → Familias → Bloques de marca → Promociones → Destacados → Aplicaciones → Sectores → Asesoría.
+// El cierre es la sección de asesoría (único llamado a la acción del Inicio); el pie lo pone Layout.
 export default function Home() {
   return (
     <>
       <Hero />
       <BrandStrip />
       <HomeLines />
+      <BrandBlocks />
       <Promotions />
       <HomeFeatured />
-      <Applications />
-      <StepsStrip />
-      <WhyUs />
-      <JoinCta />
+      <Solutions />
+      <Sectors />
+      <Advisory />
     </>
   )
 }

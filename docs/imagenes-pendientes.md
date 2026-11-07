@@ -1,37 +1,39 @@
 # Imágenes y videos pendientes
 
-Lo que **no** se pudo conseguir con licencia y calidad suficientes. En su lugar la tienda muestra un diseño gráfico de marca (arcos, icono grande o el dato clave de la ficha); nunca texto de relleno ni material genérico.
+Lo que **no** se pudo conseguir con licencia y calidad suficientes. La tienda lo resuelve con el diseño de marca de la línea (arcos y su dato clave), nunca con un renglón vacío ni con la foto de otra marca.
+
+## Líneas sin foto oficial (4 de 34)
+
+| Línea | Qué se intentó | Resultado |
+|---|---|---|
+| Extractores AirMax GL y TTT500 (EMI · AIRAL) | https://www.airal.com.co, https://www.airal.com.co/productos-avicola, búsqueda de fichas y catálogos | El sitio de AIRAL no publica imágenes de producto por referencia; no hay catálogo PDF oficial localizado |
+| THHN / THWN-2 (Centelsa by Nexans) | https://www.centelsa.com, https://www.centelsa.com.co, https://www.centelsa.com/es (tiempo de espera agotado); nexans.com no publica THHN | Sin imagen oficial. Solo hay catálogos de Centelsa alojados en distribuidores y tiendas, que no se usan |
+| START Highbay LED (Sylvania) | https://www.sylvania-lighting.com y https://product.sylvania-group.com/... | Responden «Attention Required» de Cloudflare (403). No se esquivó |
+| Compresor vertical | https://www.york.com.co (error SSL), https://jci.com (403) | No se identificó el producto exacto ni hay catálogo oficial de compresores de pistón |
+
+La línea «Motores de otras marcas» usa una foto WEG de otro ángulo porque NORD publica sus imágenes de producto en 250 px con rótulos (https://media.nord.com/res/1210x726-WEBP/167081.webp y similares) y ABB no respondió (`new.abb.com`, error HTTP/2).
+
+## Sitios que bloquearon la descarga automática
+
+- `weg.net` (todas sus rutas) responde «Access Denied» incluso con Chrome real; Siemens responde «Human Verification». Se usaron los catálogos PDF oficiales de `static.weg.net`, que sí son públicos.
+- Algunos enlaces de catálogos que aparecen en buscadores devuelven 404 (por ejemplo W01 rolled steel y el catálogo W22 europeo): se reemplazaron por catálogos vigentes de las mismas líneas.
+
+## Logos sin archivo
+
+Sylvania, York, EMI y Centelsa: no se encontró un archivo oficial. Se muestra el nombre de la marca.
 
 ## Videos y fotos de ambiente
 
-| Pieza | Dónde iría | Qué se buscó | Resultado |
-|---|---|---|---|
-| Video de motor industrial | Hero, diapositiva Motores | Coverr: `electric motor`, `motor`, `rotating machinery`, `turbine`. Pixabay: `electric motor`, `industrial motor` | Nada adecuado (renders de pistones, tractor, motos). Ver `docs/opciones-video/` |
-| Video de extractores industriales | Hero, diapositiva Ventilación | Coverr: `exhaust fan`, `industrial fan`, `extractor`, `ventilator`, `air vent`. Pixabay: `industrial exhaust fan`, `ventilation fan`, `roof ventilator` | Solo ventiladores domésticos o de cubierta lejana |
-| Foto del asesor atendiendo | Inicio (Por qué elegirnos) y Cómo comprar (paso 3 de la cotización) | Coverr: `customer service`, `call center`, `phone call`, `headset`, `cashier` | Solo personas al teléfono en oficinas y cajeros de ropa; ninguno en un entorno de material eléctrico. En su lugar: diseño de marca y una ilustración de la conversación |
-| Foto de entrega de pedido | Cómo comprar (paso 4 de la cotización) | Coverr: `delivery`, `courier`, `package box`, `warehouse` | Un reparto de comida en bicicleta, una caja con marca de Amazon (no se puede usar: lleva marca) y almacenes de ropa. En su lugar: ilustración del seguimiento |
-| Foto de mostrador de material eléctrico | Nosotros | Coverr: `shop counter`, `hardware store`, `store owner`, `small business` | 0 resultados de ferretería; solo cafeterías y tiendas de ropa. En su lugar: tarjeta «Atención en tienda» con la dirección. La fachada real (`img/fachada.webp`) queda en la portada |
+| Pieza | Resultado |
+|---|---|
+| Video de motor industrial, motorreductor o banda, extractores en primer plano | No existen en Coverr ni en Pixabay (solo renders de pistones, motos, ventiladores domésticos). Las diapositivas de Motores, Motorreductores y Ventilación usan la foto oficial del producto |
+| Foto de asesor en mostrador de material eléctrico, pedido en bodega | Coverr no tiene fotos (el endpoint responde 404). Se usan fotos de Pixabay de una asesora con diadema, una recepción, cajas empacadas y un mensajero |
+| Ingeniero con casco recortado en PNG | No hay herramienta de recorte en este entorno. La foto del técnico se muestra en forma de arco con CSS |
+| Foto real de compresores y de cables en uso | Sin foto de la familia Compresores: la tarjeta usa el diseño de marca |
 
-Coverr solo ofrece **videos** (el endpoint de fotos responde 404). La clave está en `cliente/.env` bajo el nombre `COVERR_API_BASE_URL`, aunque es una clave: renómbrala a `COVERR_API_KEY`.
+## Cómo desbloquearlo
 
-## Imágenes de producto por línea
-
-Meta: una imagen por línea desde el sitio oficial de la marca, fondo blanco, cuadrada, WebP de máximo 1200 px, en `cliente/public/img/productos/<familia>/<marca>-<linea>.webp` y asignada con el manifiesto `backend/database/data/line-images.json` (se corre con `php artisan db:seed --class=LineImageSeeder`, que solo llena imágenes vacías).
-
-**Ninguna se pudo descargar.** Qué pasó:
-
-| Marca | Líneas | Motivo |
-|---|---|---|
-| WEG | 27 de las 34 fichas: contactores, relés térmicos, relés de control, guardamotores, arrancadores directos, minibreakers, totalizadores, pulsadores, borneras, accesorios, CFW100/300/500/900, SSW05/SSW07, W01, W12, W21, W22 (monofásico, IEC, NEMA y a prueba de explosión), PLC200/500 y motores de otras marcas (comparte ficha con WEG) | `weg.net` responde 403 a cualquier descarga automática (también la herramienta de lectura web). No se esquivó el bloqueo. Las únicas imágenes accesibles están dentro de folletos PDF en `static.weg.net` o en distribuidores, y el encargo pide fuentes oficiales con imagen de cada línea |
-| WEG Cestari | WCG01, WCG20 | `wegcestari.com.br` responde, pero sin URLs de imagen por línea en el HTML inicial; falta navegar el catálogo a mano |
-| Siemens | Contactores (comparte ficha con WEG), accesorios | La página pública solo ofrece fotos de tarjetas de campaña recortadas con rostros, no el producto aislado |
-| Fluke | Instrumentos de medición Fluke | `media.fluke.com` entrega las imágenes de categoría en 150 × 100 px; a 1200 px se ven borrosas |
-| ABB | Motores de otras marcas (un motor ABB) | `new.abb.com` no respondió a la descarga |
-| AIRAL / EMI | AirMax GL y TTT500 | La portada de `airal.com.co` no incluye imágenes de producto; están dentro de cada página de producto |
-| Centelsa by Nexans | THHN / THWN-2 | `nexans.com` no publica el THHN; Centelsa tiene su propio sitio, que no respondió |
-| Sylvania | START Highbay LED | `sylvania-lighting.com` responde 403 |
-| York | Compresor vertical (ficha sin marca asignada) | No se identificó el producto exacto para pedir su imagen |
-
-Mientras tanto, cada ficha sin foto muestra el diseño de marca con su dato clave (por ejemplo «9–95 A»), y no la foto de otra línea.
-
-**Cómo desbloquearlo:** descargar a mano las imágenes desde los sitios oficiales (o pedirlas a los distribuidores de cada marca), procesarlas a WebP cuadrado sobre blanco, copiarlas a `cliente/public/img/productos/<familia>/`, agregar su URL de origen a `docs/creditos-media.md` y escribir la entrada `"slug-de-la-linea": "/img/productos/..."` en el manifiesto.
+1. Pedir a cada distribuidor oficial la imagen de la línea (o descargarla a mano desde su sitio).
+2. Procesarla a WebP cuadrado sobre blanco, copiarla a `cliente/public/img/productos/<familia>/`.
+3. Agregarla a `backend/database/data/line-images.json` y correr `php artisan db:seed --class=LineImageSeeder` (solo llena vacíos).
+4. Anotar la fuente en `docs/creditos-media.md`.

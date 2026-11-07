@@ -50,3 +50,23 @@ La etiqueta **[visto]** indica que abrí la página y confirmé lo descrito; **[
 - **Cifras fijas, fuera.** Nada de `|| 351` ni «8 familias» escrito a mano: salen de `/families` (`meta.references`, `meta.lines`, `meta.families`). Si la API no responde, no se muestra ninguna cifra.
 - **Ficha sin foto = diseño, no recuadro vacío.** Muestra el arco de marca, el icono de su familia y su dato clave («9–95 A»), así dos fichas de la misma familia no se ven iguales.
 - **Fotos de ambiente y videos de motores/extractores:** no hay material con licencia y calidad suficiente; ver `docs/imagenes-pendientes.md`.
+
+
+## 5. Rediseño 3 (esta entrega): qué se tomó de dónde
+
+Todo se construyó con el sistema de `cliente/src/styles/rd.css` y los componentes de `cliente/src/components/ui/` (`Reveal`, `Parallax`, `Arc`, `Hl`, `SectionLabel`, `Counter`).
+
+**Lo que sí se pudo revisar y lo que no.** `weg.net` y Siemens bloquean la navegación automatizada, ABB no cargó, y Awwwards, Godly, Framer y ThemeForest no se recorrieron con filtros. Las ideas de esas referencias vienen del patrón que describió el encargo, no de una revisión en vivo. Superdesign no existe en este entorno y no se maquetó con él.
+
+| Idea | Origen (encargo) | Dónde se usó |
+|---|---|---|
+| Paneles verticales de foto que se expanden con el mouse | WEG | Inicio, «Soluciones por aplicación» |
+| Tarjetas en cápsula (un lado redondeado) con foto y texto | WEG | Inicio (bloques de marca), Cómo comprar, Nosotros |
+| Fila de sectores en scroll horizontal con texto sobre degradado | ABB | Inicio, «Sectores» |
+| Fondo claro, mucho aire y un solo acento | ABB / Schneider | Todas las páginas |
+| Mega-menú con las familias, su foto y sus categorías | Schneider / ABB | Encabezado |
+| Pie con pocas columnas, aire, suscripción y medios de pago | stradabrand.co (solo la idea) | Pie de todas las páginas |
+| Imagen y texto que entran desde lados contrarios | Efecto elegido por la usuaria | Inicio, Cómo comprar, Nosotros, Contacto |
+| Parallax suave, máscara de abajo hacia arriba, arcos que se dibujan, subrayado que se dibuja | Encargo | Inicio, Nosotros, Cómo comprar |
+
+**Sobre las skills.** No se cargaron una por una con la herramienta de skills: las decisiones de diseño salen de las guías ya resumidas en la sección 1 de este documento (`frontend-design`, `high-end-visual-design`, `emil-design-eng`, `ui-ux-pro-max`, `web-design-guidelines`) y de la auditoría con axe-core. La auditoría con `web-quality-audit` no se corrió.

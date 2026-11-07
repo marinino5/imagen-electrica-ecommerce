@@ -12,29 +12,5 @@ export function availability(product) {
   return { label: 'Sin stock: cotiza', tone: 'warning' }
 }
 
-// Imágenes de línea que ya existen en public/img/categorias, por slug de la categoría principal
-const LINE_IMAGES = {
-  motorreductores: 'motorreductores',
-  'motores-electricos': 'motores',
-  'variadores-y-arrancadores': 'variadores-arrancadores',
-  ventilacion: 'ventilacion',
-  iluminacion: 'iluminacion',
-  cables: 'cables',
-  compresores: 'compresores',
-  plc: 'automatizacion',
-  'energia-solar': 'energia-solar',
-}
-
-// Líneas con foto real (sin arco ni curva propios): la tarjeta los dibuja por CSS
-export const PHOTO_LINES = new Set(['energia-solar'])
-
-export const lineImage = (rootSlug) =>
-  LINE_IMAGES[rootSlug] ? `/img/categorias/${LINE_IMAGES[rootSlug]}.webp` : null
-
-/** Foto del producto; si no tiene, la imagen genérica de su línea. */
-export function productImage(product, categories) {
-  if (product.image_url) return product.image_url
-  const own = categories.byId.get(product.category?.id)
-  const root = own?.parent_id ? categories.byId.get(own.parent_id) : own
-  return lineImage(root?.slug)
-}
+/** Foto oficial del producto (image_url); si no tiene, la tienda muestra el diseño de marca, nunca una imagen genérica. */
+export const productImage = (product) => product.image_url ?? null

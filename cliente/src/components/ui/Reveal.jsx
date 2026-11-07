@@ -1,31 +1,15 @@
-import { useEffect, useRef } from 'react'
+import { useInView } from './useInView'
 
-// Aparece al hacer scroll: translateY 24 px y opacidad, con IntersectionObserver. Solo anima lo que
-// empieza fuera de la pantalla y se queda quieto con prefers-reduced-motion.
-export default function Reveal({ children, delay = 0, className = '', as: Tag = 'div', ...props }) {
-  const ref = useRef(null)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el || !('IntersectionObserver' in window)) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    if (el.getBoundingClientRect().top <= window.innerHeight) return
-    el.classList.add('pre')
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          el.classList.remove('pre')
-          io.disconnect()
-        }
-      },
-      { rootMargin: '0px 0px -40px 0px' },
-    )
-    io.observe(el)
-    return () => io.disconnect()
-  }, [])
-
+/**
+ * Aparece al entrar en pantalla (450–600 ms). `i` escalona 70 ms por posición; `side` ('l' | 'r') hace que
+ * entre deslizándose desde ese lado 60 px; `mask` abre la foto con un clip-path de abajo hacia arriba.
+ * `delay` (segundos) suma un retraso fijo, por ejemplo 0.12 para el texto que acompaña a una imagen.
+ */
+export default function Reveal({ children, delay = 0, i = 0, side, mask = false, className = '', as: Tag = 'div', style, ...props }) {
+  const [ref, seen] = useInView()
+  const classes = [mask ? 'mask' : 'rv', side === 'l' && 'rv--l', side === 'r' && 'rv--r', seen && 'is-in', className].filter(Boolean).join(' ')
   return (
-    <Tag ref={ref} className={`reveal ${className}`} style={delay ? { transitionDelay: `${delay}s` } : undefined} {...props}>
+    <Tag ref={ref} className={classes} style={{ '--d': `${Math.round(delay * 1000 + i * 70)}ms`, ...style }} {...props}>
       {children}
     </Tag>
   )

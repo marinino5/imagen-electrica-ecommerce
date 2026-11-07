@@ -1,49 +1,50 @@
 import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import { useFamilies } from '../../hooks/useFamilies'
-import { FAMILY_COVER, familyIcon, familyNumber } from '../../lib/families'
-import Eyebrow from '../ui/Eyebrow'
+import { familyIcon, familyNumber, familyPhoto } from '../../lib/families'
+import SectionLabel from '../ui/SectionLabel'
+import Reveal from '../ui/Reveal'
+import Hl from '../ui/Hl'
 import Pill from '../ui/Pill'
+import Arc from '../ui/Arc'
 import ErrorState from '../ui/ErrorState'
 import '../../styles/home.css'
 
-// Bento de las familias del portafolio. Cada tarjeta lleva su portada, el número real de fichas (de la API) y,
-// al pasar el mouse o enfocar con el teclado, las categorías que contiene. Sin portada se dibuja el diseño de marca.
+// Bento: Motores grande primero y las 8 familias, cada una con su foto. Al pasar el mouse (o enfocar) aparece la lista de
+// categorías con su contador. Sin foto (Compresores) se dibuja el diseño de marca, nunca un render.
 function FamilyTile({ family, index }) {
-  const cover = FAMILY_COVER[family.slug]
+  const photo = familyPhoto(family.slug)
   const Icon = familyIcon(family.slug)
-  const size = index === 0 ? 'hm-fam--big' : index === 3 ? 'hm-fam--wide' : ''
+  const size = index === 0 ? 'fam--big' : index === 3 ? 'fam--wide' : ''
   const cats = family.categories ?? []
 
   return (
-    <li className={`hm-fam ${size}`}>
-      <article className="hm-fam__card">
-        <div className="hm-fam__media" aria-hidden="true">
-          {cover ? (
-            <img src={`/img/categorias/${cover}.webp`} alt="" width="900" height="675" loading="lazy" />
+    <Reveal as="li" i={index} className={`fam ${size}`}>
+      <article className="fam__card lift">
+        <div className={`fam__media ${photo?.product === false ? 'is-photo' : ''}`} aria-hidden="true">
+          {photo ? (
+            <img className={`zoom ${photo.product ? 'prod-img' : ''}`} src={photo.src} alt="" width="800" height="800" loading="lazy" />
           ) : (
-            <span className="hm-fam__art"><span className="hm-fam__arc" /><Icon strokeWidth={1.3} /></span>
+            <span className="fam__art"><Icon strokeWidth={1.1} /></span>
           )}
         </div>
-        <div className="hm-fam__body">
-          <span className="hm-fam__num" aria-hidden="true">{familyNumber(index)}</span>
-          <h3>
-            <Link to={`/productos?familia=${family.slug}`} className="hm-fam__link">{family.name}</Link>
-          </h3>
-          <p className="hm-fam__count">{family.lines_count} {family.lines_count === 1 ? 'ficha' : 'fichas'}</p>
-          {cats.length > 0 && (
-            <ul className="hm-fam__cats" aria-label={`Categorías de ${family.name}`}>
-              {cats.map((c) => (
-                <li key={c.id}>
-                  <Link to={`/productos?familia=${family.slug}&categoria=${c.slug}`}>{c.name}<span>{c.lines_count}</span></Link>
-                </li>
-              ))}
-            </ul>
-          )}
-          <span className="hm-fam__arrow" aria-hidden="true"><ArrowUpRight size={20} /></span>
+        <div className="fam__body">
+          <span className="fam__num" aria-hidden="true">{familyNumber(index)}</span>
+          <h3><Link to={`/productos?familia=${family.slug}`} className="fam__link">{family.name}</Link></h3>
+          <p className="fam__count">{family.lines_count} {family.lines_count === 1 ? 'ficha' : 'fichas'}</p>
         </div>
+        {cats.length > 0 && (
+          <ul className="fam__cats" aria-label={`Categorías de ${family.name}`}>
+            {cats.map((c) => (
+              <li key={c.id}>
+                <Link to={`/productos?familia=${family.slug}&categoria=${c.slug}`}>{c.name}<span>{c.lines_count}</span></Link>
+              </li>
+            ))}
+          </ul>
+        )}
+        <span className="fam__arrow" aria-hidden="true"><ArrowUpRight size={20} /></span>
       </article>
-    </li>
+    </Reveal>
   )
 }
 
@@ -51,22 +52,25 @@ export default function HomeLines() {
   const { data: families, loading, error, reload } = useFamilies()
 
   return (
-    <section className="wrap hm-section" id="portafolio" aria-labelledby="h-lineas">
-      <div className="hm-head">
-        <div>
-          <Eyebrow>Portafolio</Eyebrow>
-          <h2 id="h-lineas" className="h2-sys">Todo para <em>tu proyecto</em></h2>
+    <section className="rd-sec bg-lav tex-dots hm-fams" id="portafolio" aria-labelledby="h-lineas">
+      <Arc pos="tr" />
+      <div className="wrap">
+        <div className="hm-head">
+          <div>
+            <SectionLabel n="01">Portafolio</SectionLabel>
+            <h2 id="h-lineas" className="rd-h2">Todo para <Hl>tu proyecto</Hl></h2>
+          </div>
+          <Pill as="link" to="/productos" tone="l" size="sm">Ver todo el catálogo</Pill>
         </div>
-        <Pill as="link" to="/productos" tone="l" size="sm">Ver todo el catálogo</Pill>
-      </div>
 
-      {loading && <div className="skeleton" style={{ height: 520, borderRadius: 30 }} aria-hidden="true" />}
-      {error && <ErrorState error={error} onRetry={reload} />}
-      {!loading && !error && (
-        <ul className="hm-bento">
-          {families.map((f, i) => <FamilyTile key={f.id} family={f} index={i} />)}
-        </ul>
-      )}
+        {loading && <div className="skeleton" style={{ height: 520, borderRadius: 8 }} aria-hidden="true" />}
+        {error && <ErrorState error={error} onRetry={reload} />}
+        {!loading && !error && (
+          <ul className="fam-grid">
+            {families.map((f, i) => <FamilyTile key={f.id} family={f} index={i} />)}
+          </ul>
+        )}
+      </div>
     </section>
   )
 }

@@ -1,0 +1,359 @@
+/* ============================================================
+   Sistema del rediseño 3: ritmo de fondos, revelado rápido, bloques con
+   entrada lateral, parallax, máscara, arcos que se dibujan, subrayado,
+   cápsulas y texturas. Se carga después de system.css y lo sobrescribe.
+   Los colores salen de variables.css: aquí solo hay mezclas de la marca.
+   ============================================================ */
+:root {
+  --warm: #f3f0ec; /* gris cálido claro del ritmo de fondos */
+  --accent-text: #b84800; /* naranja para texto pequeño sobre claro: 5,3:1 sobre blanco y lavanda */
+  --night: #170f29; /* violeta casi negro, para capas sobre fotos */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --header-h: 76px;
+  --header-gap: 0px;
+  --header-space: var(--header-h);
+  --rd-radius: 8px;
+  --rd-capsule: 999px;
+}
+html {
+  scroll-padding-top: calc(var(--header-h) + 12px);
+}
+body {
+  background: var(--white);
+}
+body::after {
+  display: none; /* sin grano global: la textura va solo en los fondos claros */
+}
+[id] {
+  scroll-margin-top: calc(var(--header-h) + 16px);
+}
+
+/* ---------- Ritmo de fondos: cada sección cubre su espacio con fondo propio ---------- */
+.rd-sec {
+  position: relative;
+  isolation: isolate;
+  padding-block: clamp(64px, 8vw, 112px);
+}
+.rd-sec > .wrap {
+  position: relative;
+  z-index: 1;
+}
+.bg-white { background: var(--white); }
+.bg-lav { background: linear-gradient(180deg, #faf9fc 0%, var(--lavender) 100%); }
+.bg-warm { background: var(--warm); }
+.bg-ink {
+  background: var(--night);
+  color: #fff;
+}
+/* Textura de plano eléctrico: puntos o líneas al 5 % */
+.tex-dots::before,
+.tex-lines::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.05;
+}
+.tex-dots::before {
+  background-image: radial-gradient(var(--primary) 1.2px, transparent 1.4px);
+  background-size: 22px 22px;
+}
+.tex-lines::before {
+  background-image: linear-gradient(var(--primary) 1px, transparent 1px), linear-gradient(90deg, var(--primary) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ---------- Etiqueta de sección con línea naranja y número ---------- */
+.rd-label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 0 14px;
+  color: var(--primary);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.rd-label::before {
+  content: '';
+  width: 36px;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--accent);
+  transform-origin: left;
+  transition: transform 0.6s var(--ease-out);
+}
+.rd-label b {
+  color: var(--accent-text);
+  font-weight: 800;
+  margin-right: 6px;
+}
+.on-dark .rd-label,
+.bg-ink .rd-label {
+  color: var(--on-dark-muted);
+}
+.on-dark .rd-label b,
+.bg-ink .rd-label b {
+  color: var(--accent-light);
+}
+
+/* ---------- Titulares: peso fino + grueso en Barlow Condensed ---------- */
+.rd-h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4.2vw, 3.9rem);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.2px;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--ink);
+}
+.rd-h2 strong {
+  font-weight: 800;
+}
+.on-dark .rd-h2,
+.bg-ink .rd-h2 {
+  color: #fff;
+}
+.rd-lead {
+  max-width: 56ch;
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+.on-dark .rd-lead,
+.bg-ink .rd-lead {
+  color: var(--on-dark-muted);
+}
+
+/* Palabra clave en naranja con subrayado que se dibuja de izquierda a derecha */
+.hl {
+  position: relative;
+  display: inline-block;
+  color: var(--accent-title);
+  font-weight: 800;
+  white-space: nowrap;
+}
+.hl::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.06em;
+  height: 0.09em;
+  min-height: 3px;
+  border-radius: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.7s var(--ease-out) 0.25s;
+}
+.hl.is-in::after {
+  transform: scaleX(1);
+}
+.on-dark .hl,
+.bg-ink .hl {
+  color: var(--accent-light);
+}
+
+/* ---------- Revelado: 450–600 ms, escalonado de 70 ms, nada invisible a la vista ---------- */
+.rv {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition: opacity 0.5s var(--ease-out), transform 0.55s var(--ease-out);
+  transition-delay: var(--d, 0ms);
+  will-change: opacity, transform;
+}
+.rv--l { transform: translate3d(-60px, 0, 0); transition-duration: 0.6s, 0.6s; }
+.rv--r { transform: translate3d(60px, 0, 0); transition-duration: 0.6s, 0.6s; }
+.rv--zoom { transform: scale(0.96); }
+.rv.is-in {
+  opacity: 1;
+  transform: none;
+}
+.rv.is-in:not(.rv--l):not(.rv--r) {
+  will-change: auto;
+}
+/* Escalonado de hijos: cada uno entra 70 ms después del anterior */
+.rv-stagger > * {
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+/* Fotos grandes: máscara que se abre de abajo hacia arriba */
+.mask {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.9s var(--ease-out);
+}
+.mask.is-in {
+  clip-path: inset(0 0 0 0);
+}
+.rd-label.is-in::before { transform: scaleX(1); }
+.rv-label::before { transform: scaleX(0); }
+.rv-label.is-in::before { transform: scaleX(1); }
+
+/* ---------- Bloque imagen + texto alternado ---------- */
+.split {
+  display: grid;
+  align-items: center;
+  gap: clamp(28px, 5vw, 72px);
+  grid-template-columns: 1fr;
+}
+.split__media {
+  position: relative;
+  min-width: 0;
+}
+.split__text {
+  min-width: 0;
+}
+@media (min-width: 900px) {
+  .split {
+    grid-template-columns: 1.05fr 1fr;
+  }
+  .split--flip {
+    grid-template-columns: 1fr 1.05fr;
+  }
+  .split--flip .split__media {
+    order: 2;
+  }
+}
+
+/* ---------- Tarjeta en cápsula: un lado totalmente redondeado ---------- */
+.capsule {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--rd-capsule) var(--rd-radius) var(--rd-radius) var(--rd-capsule);
+  background: #fff;
+  border: 1px solid var(--lavender-2);
+  box-shadow: var(--shadow-sm);
+}
+.capsule--r {
+  border-radius: var(--rd-radius) var(--rd-capsule) var(--rd-capsule) var(--rd-radius);
+}
+.capsule img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Foto con parallax suave ---------- */
+.px {
+  position: relative;
+  overflow: hidden;
+  background: var(--lavender-2);
+}
+.px > img,
+.px > video {
+  position: absolute;
+  left: 0;
+  top: -9%;
+  width: 100%;
+  height: 118%;
+  object-fit: cover;
+  will-change: transform;
+}
+.px--sized {
+  aspect-ratio: 4 / 3;
+}
+
+/* ---------- Arcos naranjas que se dibujan (stroke-dashoffset) ---------- */
+.arc {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  width: clamp(120px, 16vw, 240px);
+  height: auto;
+  overflow: visible;
+}
+.arc path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.4s var(--ease-out);
+  vector-effect: non-scaling-stroke;
+}
+.arc path:nth-child(2) {
+  stroke-width: 1.2;
+  opacity: 0.7;
+  transition-delay: 0.2s;
+}
+.arc.is-in path {
+  stroke-dashoffset: 0;
+}
+.arc--tl { top: -1px; left: -1px; }
+.arc--tr { top: -1px; right: -1px; transform: scaleX(-1); }
+.arc--bl { bottom: -1px; left: -1px; transform: scaleY(-1); }
+.arc--br { bottom: -1px; right: -1px; transform: scale(-1, -1); }
+
+/* ---------- Botones píldora: la flecha se desplaza 4 px ---------- */
+.pill:hover .pill__ic,
+.pill:focus-visible .pill__ic {
+  transform: translateX(4px);
+}
+.pill__ic svg {
+  transition: transform 0.4s var(--ease-out);
+}
+.pill:hover .pill__ic svg {
+  transform: translateX(0);
+}
+
+/* ---------- Tarjetas: se elevan 4 px y la foto crece a 1.04 ---------- */
+.lift {
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out), border-color 0.4s;
+}
+.lift .zoom {
+  transition: transform 0.7s var(--ease-out);
+}
+@media (hover: hover) {
+  .lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  .lift:hover .zoom {
+    transform: scale(1.04);
+  }
+}
+
+/* ---------- Producto sobre fondo claro: el blanco de la foto desaparece ---------- */
+.prod-img {
+  mix-blend-mode: multiply;
+  object-fit: contain;
+}
+
+/* ---------- Foco visible y movimiento reducido ---------- */
+:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.bg-ink :focus-visible,
+.on-dark :focus-visible {
+  outline-color: var(--accent-light);
+}
+@media (prefers-reduced-motion: reduce) {
+  .rv,
+  .rv--l,
+  .rv--r,
+  .rv--zoom,
+  .mask,
+  .hl::after,
+  .arc path,
+  .rd-label::before {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+  .hl::after { transform: scaleX(1); }
+  .lift,
+  .lift .zoom { transition: none; }
+  .px > img,
+  .px > video { transform: none !important; }
+}

@@ -46,12 +46,32 @@ class LineImageSeederTest extends TestCase
         $this->assertSame('/img/productos/control/otra.webp', ProductLine::where('slug', 'guardamotores')->value('image_url'));
     }
 
-    public function test_el_manifiesto_vacio_no_cambia_nada_y_es_idempotente(): void
+    public function test_es_idempotente_y_guarda_la_imagen_alterna(): void
     {
+        file_put_contents($this->manifest, json_encode([
+            'contactores' => ['image' => '/img/a.webp', 'alt' => '/img/b.webp'],
+        ]));
+
         $this->seed(LineImageSeeder::class);
         $this->seed(LineImageSeeder::class);
 
-        $this->assertSame(0, ProductLine::whereNotNull('image_url')->count());
+        $line = ProductLine::where('slug', 'contactores')->first();
+        $this->assertSame('/img/a.webp', $line->image_url);
+        $this->assertSame('/img/b.webp', $line->image_alt_url);
+        $this->assertSame(1, ProductLine::whereNotNull('image_url')->count());
+    }
+
+    public function test_el_manifiesto_oficial_solo_apunta_a_lineas_y_archivos_que_existen(): void
+    {
+        $map = json_decode((string) $this->original, true, 512, JSON_THROW_ON_ERROR);
+
+        foreach ($map as $slug => $entry) {
+            $this->assertTrue(ProductLine::where('slug', $slug)->exists(), "La línea $slug no existe");
+            $paths = is_array($entry) ? array_filter([$entry['image'], $entry['alt'] ?? null]) : [$entry];
+            foreach ($paths as $path) {
+                $this->assertFileExists(base_path('../cliente/public'.$path));
+            }
+        }
     }
 
     public function test_la_api_expone_image_url(): void

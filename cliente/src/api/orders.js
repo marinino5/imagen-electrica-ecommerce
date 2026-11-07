@@ -14,3 +14,8 @@ export const quotesApi = {
   /** Cotización sin cuenta: público, con límite por IP. items: [{ product_id | line, quantity }] */
   create: (payload) => post('/quote-requests', payload),
 }
+
+export const newsletterApi = {
+  /** Suscripción al boletín del pie: público, con límite por IP. Requiere la autorización de datos (Ley 1581). */
+  subscribe: (payload) => post('/newsletter', payload),
+}

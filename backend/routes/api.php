@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\BrandController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\LineController;
+use App\Http\Controllers\Api\V1\NewsletterController;
 use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\PromotionController;
@@ -31,6 +32,9 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:api')->group(function
 
     // Cotización sin cuenta: pública, con límite por IP
     Route::post('quote-requests', [QuoteRequestController::class, 'store'])->middleware('throttle:api-quote')->name('quote-requests.store');
+
+    // Boletín desde el pie de la tienda: público, con límite por IP
+    Route::post('newsletter', [NewsletterController::class, 'store'])->middleware('throttle:api-newsletter')->name('newsletter.store');
 
     // Registro e inicio de sesión: límite de intentos por minuto
     Route::post('register', [AuthController::class, 'register'])->middleware('throttle:api-register')->name('register');

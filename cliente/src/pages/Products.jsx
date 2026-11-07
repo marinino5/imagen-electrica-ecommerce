@@ -1,17 +1,21 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { ArrowRight, ChevronRight, MessageCircle, Search, SlidersHorizontal, X } from 'lucide-react'
+import { ArrowRight, MessageCircle, Search, SlidersHorizontal, X } from 'lucide-react'
 import { site } from '../config/site'
 import { useFamilies } from '../hooks/useFamilies'
 import { useLineSearch, useLines } from '../hooks/useLines'
 import { AMP_RANGES, HP_RANGES, availableRanges, filterLines, sortLines, techFilters } from '../lib/lines'
 import Pill from '../components/ui/Pill'
-import Eyebrow from '../components/ui/Eyebrow'
 import Reveal from '../components/ui/Reveal'
 import ErrorState from '../components/ui/ErrorState'
 import EmptyState from '../components/ui/EmptyState'
 import LineCard from '../components/catalog/LineCard'
 import CatalogFilters from '../components/catalog/CatalogFilters'
+import FamilyTree from '../components/catalog/FamilyTree'
+import FamilyChips from '../components/catalog/FamilyChips'
+import CatalogBanner from '../components/catalog/CatalogBanner'
+import { FAMILY_BLURB, familyPhoto } from '../lib/families'
+import SectionLabel from '../components/ui/SectionLabel'
 import '../styles/catalog.css'
 
 const QUICK = [
@@ -19,11 +23,6 @@ const QUICK = [
   ['Variador CFW300', 'CFW300'],
   ['Contactores', 'Contactores'],
   ['Monofásicos', 'Monofásico'],
-]
-const ORDERS = [
-  ['', 'Recomendados'],
-  ['refs', 'Más referencias'],
-  ['stock', 'En bodega primero'],
 ]
 
 // Los filtros viven en la URL: se pueden compartir y el botón Atrás no los pierde
@@ -76,11 +75,9 @@ export default function Products() {
   const st = useMemo(() => readState(params, families), [params, families])
   const slugs = useLineSearch(st.q)
   const [sheet, setSheet] = useState(false)
-  const [term, setTerm] = useState(st.q)
   const resultsRef = useRef(null)
   const finderRef = useRef(null)
 
-  useEffect(() => setTerm(st.q), [st.q])
   useEffect(() => {
     if (params.get('buscar')) finderRef.current?.focus()
   }, [params])
@@ -113,7 +110,7 @@ export default function Products() {
   const tech = techFilters(st)
   const filtered = useMemo(() => filterLines(lines, { ...st, slugs }), [lines, st, slugs])
   const shown = useMemo(() => sortLines(filtered, st.order, families), [filtered, st.order, families])
-  // Los chips de potencia y corriente solo ofrecen rangos que existen en la selección actual de familia y categoría
+  // Los rangos de potencia y corriente solo ofrecen lo que existe en la selección actual de familia y categoría
   const base = useMemo(() => filterLines(lines, { ...st, mode: '', brands: [], hp: '', amp: '', stock: false, slugs }), [lines, st, slugs])
   const ranges = useMemo(() => availableRanges(base), [base])
 
@@ -121,6 +118,7 @@ export default function Products() {
   const category = family?.categories.find((c) => c.slug === st.category)
   const title = st.q ? `Resultados para “${st.q}”` : (category?.name ?? family?.name ?? 'Todo el catálogo')
   const refs = shown.reduce((n, l) => n + l.refs_count, 0)
+  const photo = family ? familyPhoto(family.slug) : null
 
   // Chips de filtros activos, cada uno con su X
   const chips = [
@@ -134,114 +132,68 @@ export default function Products() {
   const activeCount = chips.filter((c) => c.key !== 'q').length
 
   const scrollToResults = () => resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  const submitFinder = (e) => {
-    e.preventDefault()
-    set({ q: term.trim() })
-    scrollToResults()
-  }
-  const quick = (text) => {
-    set({ q: text })
+  const search = (q) => {
+    set({ q })
     scrollToResults()
   }
 
-  const filtersPanel = (
-    <CatalogFilters st={st} set={set} toggleBrand={toggleBrand} brands={meta.brands} families={families} ranges={ranges} tech={tech} onReset={reset} activeCount={activeCount} />
-  )
+  const filterProps = { st, set, toggleBrand, brands: meta.brands, ranges, tech, onReset: reset, activeCount }
+
+  // La grilla intercala una tarjeta editorial de ancho completo cada 8 fichas
+  const cells = []
+  shown.forEach((line, i) => {
+    cells.push(<Reveal key={line.slug} i={i % 4}><LineCard line={line} /></Reveal>)
+    if ((i + 1) % 8 === 0 && i + 1 < shown.length) cells.push(<EditorialCard key={`ed-${i}`} n={(i + 1) / 8} />)
+  })
 
   return (
     <>
-      {/* Encabezado compacto: título, buscador y búsquedas frecuentes. Las cifras del catálogo viven solo en el Inicio. */}
-      <section className="wrap cat-top" aria-labelledby="cat-title">
-        <div className="cat-top__title">
-          <Eyebrow>Catálogo industrial</Eyebrow>
-          <h1 id="cat-title" className="cat-top__h1">Encuentra tu referencia</h1>
-        </div>
-        <div className="cat-top__find">
-          <form className="cat-top__search" role="search" onSubmit={submitFinder}>
-            <Search size={20} aria-hidden="true" />
-            <input
-              ref={finderRef}
-              type="search"
-              enterKeyHint="search"
-              autoComplete="off"
-              placeholder="Motor 5 HP 1800, CFW300, contactor 25 A…"
-              aria-label="Buscar en el catálogo"
-              value={term}
-              onChange={(e) => setTerm(e.target.value)}
-            />
-            <button type="submit">Buscar</button>
-          </form>
-          <div className="cat-top__quick">
-            <span>Búsquedas frecuentes</span>
-            {QUICK.map(([label, text]) => (
-              <button key={label} type="button" onClick={() => quick(text)}>{label}</button>
-            ))}
-          </div>
-        </div>
-      </section>
+      <CatalogBanner finderRef={finderRef} initial={st.q} onSearch={search} quick={QUICK} />
 
       <section className="wrap cat-layout" aria-label="Familias, filtros y fichas">
-        {/* Columna fija: familias y filtros. El carrito no va aquí: vive en el encabezado y en la barra inferior. */}
-        <aside className="bz cat-side" aria-label="Familias y filtros">
-          <div className="core">
-            <div className="cat-side__scroll">{filtersPanel}</div>
-          </div>
+        <aside className="cat-side" aria-label="Familias">
+          <div className="cat-side__scroll"><FamilyTree families={families} st={st} set={set} /></div>
         </aside>
 
         <div className="cat-main" ref={resultsRef}>
+          <div className="cat-mfam"><FamilyChips families={families} st={st} set={set} /></div>
+
+          {family && !st.q && (
+            <header className="fam-banner">
+              {photo && <img className={photo.product ? 'prod-img' : 'is-photo'} src={photo.src} alt="" width="220" height="220" />}
+              <div>
+                <SectionLabel>Familia</SectionLabel>
+                <h2 className="fam-banner__h">{family.name}</h2>
+                <p>{family.description ?? FAMILY_BLURB[family.slug]}</p>
+                <p className="fam-banner__n">{family.lines_count} {family.lines_count === 1 ? 'ficha' : 'fichas'}</p>
+              </div>
+            </header>
+          )}
+
           <div className="cat-mbar">
             <button type="button" className="cat-mbar__f" onClick={() => setSheet(true)} aria-haspopup="dialog">
               <SlidersHorizontal size={18} aria-hidden="true" /> Filtrar{activeCount ? <b className="cat-mbar__n">{activeCount}</b> : null}
             </button>
-            <label className="cat-mbar__sort">
-              <span className="sr-only">Ordenar</span>
-              <select value={st.order} onChange={(e) => set({ order: e.target.value })}>
-                {ORDERS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
-              </select>
-            </label>
           </div>
-
-          <div className="cat-rhead">
-            <div>
-              <nav className="cat-crumbs" aria-label="Ruta">
-                <ol>
-                  <li><Link to="/productos">Catálogo</Link></li>
-                  {family && (
-                    <li>
-                      <ChevronRight size={14} aria-hidden="true" />
-                      {category ? <Link to={`/productos?familia=${family.slug}`}>{family.name}</Link> : <span aria-current="page">{family.name}</span>}
-                    </li>
-                  )}
-                  {category && <li><ChevronRight size={14} aria-hidden="true" /><span aria-current="page">{category.name}</span></li>}
-                </ol>
-              </nav>
-              <h2 className="h2-sys">{title}</h2>
-              <p aria-live="polite">
-                {loading ? 'Cargando…' : error ? 'No pudimos cargar el catálogo' : `${shown.length} ${shown.length === 1 ? 'ficha' : 'fichas'} · ${refs} referencias`}
-              </p>
-            </div>
-            <label className="cat-sort">
-              <span className="sr-only">Ordenar</span>
-              <select value={st.order} onChange={(e) => set({ order: e.target.value })}>
-                {ORDERS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
-              </select>
-            </label>
-          </div>
+          <div className="cat-fbar"><CatalogFilters {...filterProps} /></div>
 
           {chips.length > 0 && (
             <ul className="cat-active" aria-label="Filtros activos">
               {chips.map((c) => (
                 <li key={c.key}>
-                  <button type="button" onClick={c.off} aria-label={`Quitar filtro: ${c.label}`}>
-                    {c.label} <X size={14} aria-hidden="true" />
-                  </button>
+                  <button type="button" onClick={c.off} aria-label={`Quitar filtro: ${c.label}`}>{c.label} <X size={14} aria-hidden="true" /></button>
                 </li>
               ))}
-              {chips.length > 1 && (
-                <li><button type="button" className="cat-active__all" onClick={() => setParams(writeState({ ...st, q: '', mode: '', brands: [], hp: '', amp: '', stock: false }))}>Quitar todos</button></li>
-              )}
+              <li><button type="button" className="cat-active__all" onClick={clearAll}>Limpiar todo</button></li>
             </ul>
           )}
+
+          <div className="cat-rhead">
+            {!(family && !st.q) && <h2 className="cat-rhead__h">{title}</h2>}
+            <p aria-live="polite">
+              {loading ? 'Cargando…' : error ? 'No pudimos cargar el catálogo' : `${shown.length} ${shown.length === 1 ? 'ficha' : 'fichas'} · ${refs} referencias`}
+            </p>
+          </div>
 
           {loading && (
             <div className="cat-grid" aria-busy="true" aria-label="Cargando líneas">
@@ -255,36 +207,11 @@ export default function Products() {
               <div className="cat-empty__cta"><Pill as="link" to="/carrito#cotizacion" tone="d">Solicitar cotización</Pill></div>
             </EmptyState>
           )}
-          {!loading && !error && shown.length > 0 && (
-            <div className="cat-grid">
-              {shown.map((line, i) => (
-                <Reveal key={line.slug} delay={Math.min(i, 6) * 0.04}>
-                  <LineCard line={line} />
-                </Reveal>
-              ))}
-              <Reveal className="cat-help-wrap">
-                <div className="bz cat-help">
-                  <div className="core">
-                    <div>
-                      <Eyebrow className="eyebrow--light">Cotización sin cuenta</Eyebrow>
-                      <h3>¿No encuentras la referencia?</h3>
-                      <p>Escríbenos qué necesitas mover, proteger o controlar y un asesor te responde con referencia y precio.</p>
-                    </div>
-                    <div className="cat-help__actions">
-                      <Pill as="link" to="/carrito#cotizacion" tone="o">Solicitar cotización</Pill>
-                      <a className="cat-help__wa" href={site.whatsappUrl} target="_blank" rel="noreferrer">
-                        <MessageCircle size={16} aria-hidden="true" /> Escríbenos por WhatsApp
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-            </div>
-          )}
+          {!loading && !error && shown.length > 0 && <div className="cat-grid">{cells}</div>}
         </div>
       </section>
 
-      {/* Hoja inferior (celular): todos los filtros en un panel que se desliza desde abajo */}
+      {/* Hoja inferior (celular): los filtros en un panel que se desliza desde abajo */}
       <div className={`cat-sheet ${sheet ? 'open' : ''}`} role={sheet ? 'dialog' : undefined} aria-modal={sheet ? 'true' : undefined} aria-label="Filtrar el catálogo" aria-hidden={!sheet}>
         <div className="cat-sheet__bg" aria-hidden="true" onClick={() => setSheet(false)} />
         <div className="cat-sheet__panel">
@@ -293,7 +220,7 @@ export default function Products() {
             <h2>Filtrar{activeCount ? ` (${activeCount})` : ''}</h2>
             <button type="button" className="cat-sheet__x" onClick={() => setSheet(false)} aria-label="Cerrar filtros"><X size={20} /></button>
           </div>
-          <div className="cat-sheet__scroll">{filtersPanel}</div>
+          <div className="cat-sheet__scroll"><CatalogFilters {...filterProps} sheet /></div>
           <div className="cat-sheet__apply">
             <button type="button" className="cat-sheet__clear" onClick={clearAll}>Limpiar</button>
             <button type="button" className="cat-sheet__ok" onClick={() => setSheet(false)}>
@@ -303,5 +230,32 @@ export default function Products() {
         </div>
       </div>
     </>
+  )
+}
+
+// Tarjeta editorial de ancho completo entre las fichas
+const EDITORIAL = [
+  { title: '¿No sabes qué motor necesitas? Un asesor te ayuda', text: 'Cuéntanos la carga, la tensión y el tipo de arranque y te recomendamos la referencia exacta.', photo: '/img/fotos/asesor-linea.webp', alt: 'Asesora con diadema lista para atender' },
+  { title: 'Armas un tablero y necesitas una lista completa', text: 'Envíanos tu lista y te cotizamos contactores, relés, guardamotores y borneras en un solo mensaje.', photo: '/img/fotos/electricista-tablero.webp', alt: 'Electricista conectando un tablero' },
+  { title: '¿Dudas entre dos referencias?', text: 'Dinos la aplicación y te mostramos la diferencia, con disponibilidad en bodega y precio.', photo: '/img/fotos/asesor-mostrador.webp', alt: 'Asesora con diadema atendiendo una consulta' },
+  { title: '¿Compras para una obra o una planta?', text: 'Coordinamos la entrega en tu obra y te acompañamos con la compra recurrente.', photo: '/img/fotos/recepcion.webp', alt: 'Recepción de una oficina con una persona atendiendo' },
+]
+function EditorialCard({ n }) {
+  const e = EDITORIAL[(n - 1) % EDITORIAL.length]
+  return (
+    <Reveal className="cat-editorial">
+      <article className="ed">
+        <img src={e.photo} alt={e.alt} width="480" height="320" loading="lazy" />
+        <div className="ed__txt">
+          <SectionLabel>Asesoría</SectionLabel>
+          <h3>{e.title}</h3>
+          <p>{e.text}</p>
+          <a className="pill pill--o" href={site.whatsappUrl} target="_blank" rel="noreferrer">
+            <span className="pill__label">Escribir por WhatsApp</span>
+            <span className="pill__ic" aria-hidden="true"><MessageCircle size={18} /></span>
+          </a>
+        </div>
+      </article>
+    </Reveal>
   )
 }

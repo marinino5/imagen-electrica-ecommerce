@@ -48,6 +48,12 @@ class AppServiceProvider extends ServiceProvider
 
         RateLimiter::for('api-register', fn (Request $request) => Limit::perMinute(5)->by($request->ip()));
 
+        // Boletín: por IP, 5 por minuto y 20 por hora
+        RateLimiter::for('api-newsletter', fn (Request $request) => [
+            Limit::perMinute(5)->by('m:'.$request->ip()),
+            Limit::perHour(20)->by('h:'.$request->ip()),
+        ]);
+
         // Cotización sin cuenta: por IP, 5 por minuto y 20 por hora
         RateLimiter::for('api-quote', fn (Request $request) => [
             Limit::perMinute(5)->by('m:'.$request->ip()),

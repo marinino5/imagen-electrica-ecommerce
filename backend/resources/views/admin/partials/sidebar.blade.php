@@ -7,6 +7,7 @@
             ['admin.dashboard', 'admin.dashboard', 'grid-1x2', 'Dashboard'],
             ['admin.orders.index', 'admin.orders.*', 'inboxes', 'Solicitudes'],
             ['admin.quote-requests.index', 'admin.quote-requests.*', 'chat-left-text', 'Cotizaciones sin cuenta'],
+            ['admin.newsletter.index', 'admin.newsletter.*', 'envelope-paper', 'Suscriptores'],
         ],
     ];
 

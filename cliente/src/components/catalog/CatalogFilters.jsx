@@ -1,90 +1,118 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { ChevronDown, Search } from 'lucide-react'
 import { AMP_RANGES, HP_RANGES } from '../../lib/lines'
-import FamilyTree from './FamilyTree'
+import BrandMark from '../ui/BrandMark'
 
-const TOP_BRANDS = 6
+const ORDERS = [
+  ['', 'Recomendados'],
+  ['refs', 'Más referencias'],
+  ['stock', 'En bodega primero'],
+]
 
-// Filtros del catálogo, en este orden: familias → categorías, cómo comprar, marca, disponibilidad y, solo donde
-// aplican, potencia o corriente. Es el mismo panel en la columna de escritorio y en la hoja del celular.
-export default function CatalogFilters({ st, set, toggleBrand, brands, families, ranges, tech, onReset, activeCount }) {
-  const [moreBrands, setMoreBrands] = useState(false)
-  // Las marcas ya vienen ordenadas por número de fichas: se muestran las 6 con más y el resto tras «Ver más»
-  const hiddenSelected = brands.slice(TOP_BRANDS).some((b) => st.brands.includes(b.name))
-  const expanded = moreBrands || hiddenSelected
-  const shownBrands = expanded ? brands : brands.slice(0, TOP_BRANDS)
+// Desplegable de marca con buscador y logos
+function BrandMenu({ brands, selected, toggle }) {
+  const [open, setOpen] = useState(false)
+  const [term, setTerm] = useState('')
+  const box = useRef(null)
+  const list = useMemo(() => brands.filter((b) => b.name.toLowerCase().includes(term.trim().toLowerCase())), [brands, term])
+
+  useEffect(() => {
+    if (!open) return
+    const out = (e) => !box.current?.contains(e.target) && setOpen(false)
+    const key = (e) => e.key === 'Escape' && setOpen(false)
+    document.addEventListener('mousedown', out)
+    document.addEventListener('keydown', key)
+    return () => {
+      document.removeEventListener('mousedown', out)
+      document.removeEventListener('keydown', key)
+    }
+  }, [open])
 
   return (
-    <div className="cat-filters">
-      <FamilyTree families={families} st={st} set={set} />
-
-      <div className="cat-fsec">
-        <div className="cat-sh">
-          <h3>Filtros</h3>
-          {activeCount > 0 && <button type="button" className="cat-reset" onClick={onReset}>Limpiar ({activeCount})</button>}
+    <div className="fb__drop" ref={box}>
+      <button type="button" className={`fb__btn ${selected.length ? 'on' : ''}`} aria-expanded={open} aria-haspopup="true" onClick={() => setOpen((v) => !v)}>
+        Marca{selected.length ? ` (${selected.length})` : ''} <ChevronDown size={16} aria-hidden="true" />
+      </button>
+      {open && (
+        <div className="fb__pop">
+          <label className="fb__find">
+            <Search size={16} aria-hidden="true" />
+            <span className="sr-only">Buscar marca</span>
+            <input type="search" placeholder="Buscar marca" value={term} onChange={(e) => setTerm(e.target.value)} autoFocus />
+          </label>
+          <ul>
+            {list.map((b) => (
+              <li key={b.name}>
+                <label>
+                  <input type="checkbox" checked={selected.includes(b.name)} onChange={() => toggle(b.name)} />
+                  <span className="fb__logo"><BrandMark name={b.name} /></span>
+                  <span className="fb__n">{b.count}</span>
+                </label>
+              </li>
+            ))}
+            {list.length === 0 && <li className="fb__none">Sin resultados</li>}
+          </ul>
         </div>
+      )}
+    </div>
+  )
+}
 
-        <h4>Cómo comprar</h4>
+// Barra horizontal de filtros arriba de la grilla: cómo comprar, marca, disponibilidad, potencia o corriente (solo donde
+// aplican) y ordenar. Es la misma en escritorio y dentro de la hoja del celular.
+export default function CatalogFilters({ st, set, toggleBrand, brands, ranges, tech, onReset, activeCount, sheet = false }) {
+  return (
+    <div className={`fb ${sheet ? 'fb--sheet' : ''}`} role="group" aria-label="Filtros">
+      <div className="fb__item">
+        <span className="fb__label">Cómo comprar</span>
         <div className="cat-seg" role="group" aria-label="Cómo comprar">
           {[['', 'Todo'], ['on', 'En línea'], ['q', 'Cotizar']].map(([value, label]) => (
-            <button key={label} type="button" className={st.mode === value ? 'on' : ''} aria-pressed={st.mode === value} onClick={() => set({ mode: value })}>
-              {label}
-            </button>
+            <button key={label} type="button" className={st.mode === value ? 'on' : ''} aria-pressed={st.mode === value} onClick={() => set({ mode: value })}>{label}</button>
           ))}
         </div>
       </div>
 
       {brands.length > 0 && (
-        <div className="cat-fsec">
-          <h4>Marca</h4>
-          <div className="cat-chips">
-            {shownBrands.map((b) => (
-              <button key={b.name} type="button" className={`cat-chip ${st.brands.includes(b.name) ? 'on' : ''}`} aria-pressed={st.brands.includes(b.name)} onClick={() => toggleBrand(b.name)}>
-                {b.name} <span>{b.count}</span>
-              </button>
-            ))}
-          </div>
-          {brands.length > TOP_BRANDS && !hiddenSelected && (
-            <button type="button" className="cat-more" aria-expanded={moreBrands} onClick={() => setMoreBrands((v) => !v)}>
-              {moreBrands ? 'Ver menos' : `Ver más (${brands.length - TOP_BRANDS})`}
-            </button>
-          )}
+        <div className="fb__item">
+          <span className="fb__label">Marca</span>
+          <BrandMenu brands={brands} selected={st.brands} toggle={toggleBrand} />
         </div>
       )}
 
-      <div className="cat-fsec">
-        <h4>Disponibilidad</h4>
-        <div className="cat-chips">
-          <button type="button" className={`cat-chip ${st.stock ? 'on' : ''}`} aria-pressed={st.stock} onClick={() => set({ stock: !st.stock })}>
-            Con unidades en bodega
-          </button>
-        </div>
+      <div className="fb__item">
+        <span className="fb__label">Disponibilidad</span>
+        <button type="button" role="switch" aria-checked={st.stock} className={`fb__switch ${st.stock ? 'on' : ''}`} onClick={() => set({ stock: !st.stock })}>
+          <i aria-hidden="true" /> En bodega
+        </button>
       </div>
 
       {tech.hp && ranges.hp.length > 0 && (
-        <div className="cat-fsec">
-          <h4>Potencia</h4>
-          <div className="cat-chips">
-            {HP_RANGES.filter((r) => ranges.hp.includes(r) || st.hp === r.key).map((r) => (
-              <button key={r.key} type="button" className={`cat-chip ${st.hp === r.key ? 'on' : ''}`} aria-pressed={st.hp === r.key} onClick={() => set({ hp: st.hp === r.key ? '' : r.key })}>
-                {r.label}
-              </button>
-            ))}
-          </div>
+        <div className="fb__item">
+          <label className="fb__label" htmlFor="f-hp">Potencia</label>
+          <select id="f-hp" className="fb__select" value={st.hp} onChange={(e) => set({ hp: e.target.value })}>
+            <option value="">Todas</option>
+            {HP_RANGES.filter((r) => ranges.hp.includes(r) || st.hp === r.key).map((r) => <option key={r.key} value={r.key}>{r.label}</option>)}
+          </select>
         </div>
       )}
 
       {tech.amp && ranges.amp.length > 0 && (
-        <div className="cat-fsec">
-          <h4>Corriente</h4>
-          <div className="cat-chips">
-            {AMP_RANGES.filter((r) => ranges.amp.includes(r) || st.amp === r.key).map((r) => (
-              <button key={r.key} type="button" className={`cat-chip ${st.amp === r.key ? 'on' : ''}`} aria-pressed={st.amp === r.key} onClick={() => set({ amp: st.amp === r.key ? '' : r.key })}>
-                {r.label}
-              </button>
-            ))}
-          </div>
+        <div className="fb__item">
+          <label className="fb__label" htmlFor="f-amp">Corriente</label>
+          <select id="f-amp" className="fb__select" value={st.amp} onChange={(e) => set({ amp: e.target.value })}>
+            <option value="">Todas</option>
+            {AMP_RANGES.filter((r) => ranges.amp.includes(r) || st.amp === r.key).map((r) => <option key={r.key} value={r.key}>{r.label}</option>)}
+          </select>
         </div>
       )}
+
+      <div className="fb__item fb__item--sort">
+        <label className="fb__label" htmlFor="f-sort">Ordenar</label>
+        <select id="f-sort" className="fb__select" value={st.order} onChange={(e) => set({ order: e.target.value })}>
+          {ORDERS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+        </select>
+      </div>
+      {sheet && activeCount > 0 && <button type="button" className="cat-reset" onClick={onReset}>Limpiar filtros ({activeCount})</button>}
     </div>
   )
 }

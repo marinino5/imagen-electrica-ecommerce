@@ -1,15 +1,18 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
-import { Activity, ArrowLeft, ArrowRight, BadgeCheck, FileText, Gauge, Layers, MessageCircle, Minus, Plug, Plus, ShieldCheck, ShoppingCart, Zap } from 'lucide-react'
+import { Activity, ArrowLeft, ArrowRight, BadgeCheck, Download, FileText, Gauge, Layers, MessageCircle, Minus, Plug, Plus, Search, ShieldCheck, ShoppingCart, Zap } from 'lucide-react'
 import { catalogApi } from '../api'
 import { site } from '../config/site'
 import { useCart } from '../context/CartContext'
 import { useApi } from '../hooks/useApi'
 import { isDirectPurchase } from '../lib/catalog'
 import { formatCOP } from '../lib/format'
-import { cartItem, hpText, lineImage, lineQuoteItem, modeTag, twinTag, variantTag } from '../lib/lines'
+import { cartItem, hpText, lineImage, lineQuoteItem, modeTag, twinTag } from '../lib/lines'
+import { FAMILY_APP_PHOTO } from '../lib/families'
+import { WHERE_USED, datasheet } from '../lib/datasheets'
 import Bezel from '../components/ui/Bezel'
 import Eyebrow from '../components/ui/Eyebrow'
+import Gallery from '../components/catalog/Gallery'
 import Pill from '../components/ui/Pill'
 import Reveal from '../components/ui/Reveal'
 import ErrorState from '../components/ui/ErrorState'
@@ -38,6 +41,7 @@ export default function ProductDetail() {
   const { data, loading, error, reload } = useApi(() => catalogApi.line(slug), [slug])
   const { add } = useCart()
   const [qty, setQty] = useState(1)
+  const [refTerm, setRefTerm] = useState('')
   const line = data?.data
   const related = data?.related ?? []
   const variants = useMemo(() => line?.variants ?? [], [line])
@@ -46,7 +50,10 @@ export default function ProductDetail() {
   const refSku = params.get('ref')
   const current = variants.find((v) => v.sku === refSku) ?? variants[0] ?? null
 
-  useEffect(() => setQty(1), [slug])
+  useEffect(() => {
+    setQty(1)
+    setRefTerm('')
+  }, [slug])
 
   if (loading) return <DetailSkeleton />
   if (error?.status === 404) {
@@ -92,6 +99,10 @@ export default function ProductDetail() {
         [Layers, 'Categoría', line.category?.name ?? null],
       ].filter(([, , value]) => value)
     : line.spec_chips.map((chip, i) => [Layers, `Dato ${i + 1}`, chip])
+  const needle = refTerm.trim().toLowerCase()
+  const shownRefs = needle ? variants.filter((v) => `${v.label} ${v.sku} ${v.name}`.toLowerCase().includes(needle)) : variants
+  const sheet = datasheet(line.slug)
+  const used = WHERE_USED[line.family?.slug] ?? WHERE_USED.default
   const addRow = (v) => (e) => add(cartItem(line, v), 1, { rect: e.currentTarget.getBoundingClientRect(), image })
   const quoteRow = (v) => (e) => add(cartItem(line, v), 1, { rect: e.currentTarget.getBoundingClientRect(), image }, { asQuote: true })
 
@@ -103,13 +114,7 @@ export default function ProductDetail() {
 
       <article className="wrap pd">
         <Reveal className="pd__gal">
-          <Bezel className="pd-gal">
-            <LineVisual line={line} eager />
-            <div className="pd-gal__badges">
-              <span>{modeTag(line)}</span>
-              {line.refs_count > 0 && <span>{line.refs_count} referencias</span>}
-            </div>
-          </Bezel>
+          <Gallery line={line} appPhoto={FAMILY_APP_PHOTO[line.family?.slug]} />
         </Reveal>
 
         <Reveal className="pd__info" delay={0.05}>
@@ -254,7 +259,14 @@ export default function ProductDetail() {
 
         {variants.length > 1 && (
           <div className="pd-refs">
-            <h3>Referencias de esta ficha</h3>
+            <div className="pd-refs__bar">
+              <h3>Referencias de esta ficha</h3>
+              <label className="pd-refs__find">
+                <Search size={16} aria-hidden="true" />
+                <span className="sr-only">Buscar en las referencias</span>
+                <input type="search" placeholder="Buscar referencia o SKU" value={refTerm} onChange={(e) => setRefTerm(e.target.value)} />
+              </label>
+            </div>
             <table className="pd-table">
               <caption className="sr-only">Referencias de {line.name}: toca el nombre para elegir una</caption>
               <thead>
@@ -267,7 +279,7 @@ export default function ProductDetail() {
                 </tr>
               </thead>
               <tbody>
-                {variants.map((v) => {
+                {shownRefs.map((v) => {
                   const selected = v.sku === current?.sku
                   const buy = isDirectPurchase(v, 1)
                   return (
@@ -294,9 +306,28 @@ export default function ProductDetail() {
                     </tr>
                   )
                 })}
+                {shownRefs.length === 0 && <tr><td colSpan={5} className="pd-table__none">Ninguna referencia coincide con «{refTerm}».</td></tr>}
               </tbody>
             </table>
           </div>
+        )}
+      </Reveal>
+
+      <Reveal as="section" className="wrap pd-used" aria-labelledby="used-title">
+        <h2 id="used-title" className="h2-sys">Dónde <em>se usa</em></h2>
+        <ul>
+          {used.map(([name, photo]) => (
+            <li key={name}>
+              <img src={photo} alt="" width="480" height="320" loading="lazy" />
+              <span>{name}</span>
+            </li>
+          ))}
+        </ul>
+        {sheet && (
+          <a className="pd-dl" href={sheet[0]} target="_blank" rel="noreferrer">
+            <Download size={20} aria-hidden="true" />
+            <span><b>Ficha técnica oficial</b><small>{sheet[1]} · PDF del fabricante</small></span>
+          </a>
         )}
       </Reveal>
 

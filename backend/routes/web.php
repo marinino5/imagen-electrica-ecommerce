@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\OrderAssignmentController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\OrderPricingController;
@@ -51,6 +52,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('quote-requests', [QuoteRequestController::class, 'index'])->name('quote-requests.index');
         Route::get('quote-requests/{quoteRequest}', [QuoteRequestController::class, 'show'])->name('quote-requests.show');
         Route::patch('quote-requests/{quoteRequest}', [QuoteRequestController::class, 'update'])->name('quote-requests.update');
+
+        // Suscriptores del boletín (pie de la tienda): admin y comercial
+        Route::get('newsletter', [NewsletterController::class, 'index'])->name('newsletter.index');
 
         // Catálogo y análisis: solo admin
         Route::middleware('role:admin')->group(function () {

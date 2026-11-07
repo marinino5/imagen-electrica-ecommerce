@@ -23,19 +23,19 @@ export const MODES = {
 }
 
 // Pasos de cada camino. `image` es una captura real de la tienda; `art` es una ilustración de la pantalla (StepArt)
-// mientras no haya fotos con licencia del asesor atendiendo y de la entrega (docs/imagenes-pendientes.md).
+// (ya no se usa: cada paso lleva una foto real).
 export const STEPS = {
   direct: [
-    { title: 'Busca y filtra', text: 'Escribe la referencia o recorre las familias y categorías. Filtra por forma de compra, marca y disponibilidad; en motores y variadores también por potencia, y en control por corriente.', image: 'paso-catalogo.webp', w: 900, h: 675, alt: 'Tarjeta de una línea del catálogo con su precio desde', path: '/productos' },
-    { title: 'Elige la variante', text: 'Escoge potencia, velocidad y referencia. El precio y las unidades en bodega se actualizan al instante.', image: 'paso-ficha.webp', w: 900, h: 778, alt: 'Selector de potencia, velocidad y referencia en la ficha', path: '/productos/w22-iec-carcasa-hierro' },
-    { title: 'Envía tu pedido; un asesor confirma pago y entrega', text: 'Agrega al carrito, escoge cómo lo recibes y envía tu pedido. Un asesor te contacta para confirmar el pago y la entrega; el pago en línea llegará más adelante.', image: 'paso-carrito.webp', w: 900, h: 1529, alt: 'Resumen del carrito con base, IVA y opciones de entrega', path: '/carrito' },
-    { title: 'Sigue tu pedido', text: 'En Mi cuenta ves cada pedido con su línea de estados: pago pendiente, pagado, enviado y entregado.', image: 'paso-pedido.webp', w: 900, h: 169, alt: 'Línea de estados de un pedido en Mi cuenta', path: '/mi-cuenta' },
+    { title: 'Busca y filtra', text: 'Escribe la referencia o recorre las familias y categorías. Filtra por forma de compra, marca y disponibilidad; en motores y variadores también por potencia, y en control por corriente.', photo: '/img/fotos/electricista-tablero.webp', alt: 'Electricista revisando un tablero para elegir la referencia', path: '/productos' },
+    { title: 'Elige la variante', text: 'Escoge potencia, velocidad y referencia. El precio y las unidades en bodega se actualizan al instante.', photo: '/img/fotos/tablero-cerca.webp', alt: 'Cableado de un tablero eléctrico en detalle', path: '/productos/w22-iec-carcasa-hierro' },
+    { title: 'Envía tu pedido; un asesor confirma pago y entrega', text: 'Agrega al carrito, escoge cómo lo recibes y envía tu pedido. Un asesor te contacta para confirmar el pago y la entrega; el pago en línea llegará más adelante.', photo: '/img/fotos/recepcion.webp', alt: 'Persona atendiendo en un escritorio y confirmando un pedido', path: '/carrito' },
+    { title: 'Sigue tu pedido', text: 'En Mi cuenta ves cada pedido con su línea de estados: pago pendiente, pagado, enviado y entregado.', photo: '/img/fotos/pedido-empacado.webp', alt: 'Cajas de un pedido empacado y cerradas con cinta', path: '/mi-cuenta' },
   ],
   quote: [
-    { title: 'Arma tu lista', text: 'Usa «Cotizar volumen» o «Solicitar cotización» en cada ficha. También puedes pedir líneas que se manejan bajo pedido.', image: 'paso-ficha.webp', w: 900, h: 778, alt: 'Ficha de una línea con los botones para cotizar', path: '/productos/w22-iec-carcasa-hierro' },
-    { title: 'Envía la solicitud sin cuenta', text: 'Déjanos tu nombre, WhatsApp, correo y ciudad. Empresa, NIT y mensaje son opcionales.', image: 'paso-cotizacion.webp', w: 900, h: 623, alt: 'Formulario de cotización sin cuenta', path: '/carrito#cotizacion' },
-    { title: 'El asesor responde', text: 'Te contacta por WhatsApp o correo con la referencia, el precio y el tiempo de entrega.', art: 'chat' },
-    { title: 'Aprueba y coordina la entrega', text: 'Cuando apruebes, el asesor confirma el pago y coordina la entrega. El pago en línea llegará más adelante.', art: 'approve' },
+    { title: 'Arma tu lista', text: 'Usa «Cotizar volumen» o «Solicitar cotización» en cada ficha. También puedes pedir líneas que se manejan bajo pedido.', photo: '/img/fotos/tablero-manos.webp', alt: 'Manos de un técnico armando la lista de un tablero', path: '/productos/w22-iec-carcasa-hierro' },
+    { title: 'Envía la solicitud sin cuenta', text: 'Déjanos tu nombre, WhatsApp, correo y ciudad. Empresa, NIT y mensaje son opcionales.', photo: '/img/fotos/obra-casco.webp', alt: 'Obrero con casco revisando la lista de materiales de una obra', path: '/carrito#cotizacion' },
+    { title: 'El asesor responde', text: 'Te contacta por WhatsApp o correo con la referencia, el precio y el tiempo de entrega.', photo: '/img/fotos/asesor-linea.webp', alt: 'Asesora con diadema respondiendo una cotización' },
+    { title: 'Aprueba y coordina la entrega', text: 'Cuando apruebes, el asesor confirma el pago y coordina la entrega. El pago en línea llegará más adelante.', photo: '/img/fotos/entrega.webp', alt: 'Mensajero entregando un pedido en una puerta' },
   ],
 }
 

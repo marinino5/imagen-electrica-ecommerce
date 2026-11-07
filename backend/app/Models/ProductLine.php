@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * de una misma familia de equipos, por ejemplo "W22 IEC · carcasa hierro".
  */
 #[Fillable([
-    'category_id', 'brand_id', 'brand_label', 'name', 'slug', 'description', 'image_key', 'image_url',
+    'category_id', 'brand_id', 'brand_label', 'name', 'slug', 'description', 'image_key', 'image_url', 'image_alt_url',
     'spec_chips', 'sale_mode', 'is_active', 'is_featured', 'sort_order',
 ])]
 class ProductLine extends Model

@@ -50,6 +50,8 @@ class LineResource extends JsonResource
             'image' => $this->image_key,
             // Foto propia de la línea (ruta pública en la tienda); nula hasta que se carga. Sin ella la tienda usa 'image'.
             'image_url' => $this->image_url,
+            // Segunda vista de la línea (la tarjeta la muestra al pasar el mouse); nula si no hay
+            'image_alt_url' => $this->image_alt_url,
             'spec_chips' => $this->spec_chips ?? [],
             'sale_mode' => $this->sale_mode->value,
             'sale_mode_label' => $this->sale_mode->label(),

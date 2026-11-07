@@ -15,6 +15,7 @@ import Pill from '../components/ui/Pill'
 import Reveal from '../components/ui/Reveal'
 import LineCard from '../components/catalog/LineCard'
 import '../styles/cart.css'
+import '../styles/rd-pages.css'
 
 const deliveryOptions = [
   { value: 'pickup', label: 'Recoger en tienda', note: 'Sin costo · Cra 18 No 24-32, Bucaramanga' },
@@ -215,6 +216,8 @@ export default function Cart() {
   const [created, setCreated] = useState(null)
 
   const money = useMemo(() => breakdown(purchaseLines), [purchaseLines])
+  // Carrito vacío: 4 fichas destacadas para empezar
+  const featured = useMemo(() => catalog.filter((l) => l.is_featured).slice(0, 4), [catalog])
   // Sugerencias: otras líneas de las mismas familias que ya están en el carrito
   const suggestions = useMemo(() => {
     const inCart = new Set(lines.map((l) => l.product.line_slug))
@@ -277,6 +280,19 @@ export default function Cart() {
           </div>
         </Bezel>
       </Cover>
+
+      {empty && (
+        <section className="wrap cart-sug" aria-labelledby="h-sug">
+          <div className="cart-sug__hero">
+            <div className="cart-sug__img" aria-hidden="true"><img src="/img/productos/control/weg-accesorios-variadores.webp" alt="" width="240" height="240" /></div>
+            <div>
+              <h2 id="h-sug" className="rd-h2">Empieza por <span className="hl is-in">lo más pedido</span></h2>
+              <p className="rd-lead">Agrega referencias desde el catálogo: lo que está en bodega se compra en línea y lo demás se cotiza sin cuenta.</p>
+            </div>
+          </div>
+          {featured.length > 0 && <ul className="cart-sug__grid">{featured.map((l) => <li key={l.slug}><LineCard line={l} /></li>)}</ul>}
+        </section>
+      )}
 
       {!empty && (
         <div className="wrap cart-layout">

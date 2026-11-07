@@ -1,4 +1,4 @@
 export { ApiError, tokenStore, setUnauthorizedHandler } from './http'
 export { authApi } from './auth'
 export { catalogApi } from './catalog'
-export { ordersApi, quotesApi } from './orders'
+export { ordersApi, quotesApi, newsletterApi } from './orders'

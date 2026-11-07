@@ -45,14 +45,42 @@ const DOTS = (() => {
 // Bucaramanga: 7.12° N, 73.12° O
 const [BGA_X, BGA_Y] = project(-73.12, 7.12)
 
-// Mapa de puntos lavanda con Bucaramanga marcada en naranja y un pulso
-export default function ColombiaMap({ className = '' }) {
+// Ciudades principales a las que llegan los envíos: [nombre, longitud, latitud]
+const CITIES = [
+  ['Bogotá', -74.07, 4.71],
+  ['Medellín', -75.57, 6.25],
+  ['Cali', -76.53, 3.45],
+  ['Barranquilla', -74.78, 10.96],
+  ['Cartagena', -75.51, 10.39],
+  ['Cúcuta', -72.5, 7.89],
+]
+
+// Curva suave de Bucaramanga a cada ciudad (control a medio camino, levantado)
+const route = ([lon, lat]) => {
+  const [x, y] = project(lon, lat)
+  const mx = (BGA_X + x) / 2
+  const my = (BGA_Y + y) / 2 - 18
+  return `M${BGA_X.toFixed(1)} ${BGA_Y.toFixed(1)} Q${mx.toFixed(1)} ${my.toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)}`
+}
+
+// Mapa de puntos lavanda con Bucaramanga marcada en naranja y rutas animadas hacia las ciudades principales
+export default function ColombiaMap({ className = '', routes = false }) {
   const dots = useMemo(() => DOTS, [])
   return (
     <svg className={`colombia-map ${className}`} viewBox={`0 0 ${WIDTH} ${HEIGHT}`} role="img" aria-label="Mapa de Colombia con Bucaramanga marcada" preserveAspectRatio="xMidYMid meet">
       {dots.map(([x, y], i) => (
         <circle key={i} cx={x.toFixed(1)} cy={y.toFixed(1)} r="1.35" fill="var(--lavender-2)" opacity="0.7" />
       ))}
+      {routes && CITIES.map(([name, lon, lat], i) => {
+        const [x, y] = project(lon, lat)
+        return (
+          <g key={name} className="colombia-map__route" style={{ '--i': i }}>
+            <path d={route([lon, lat])} pathLength="1" />
+            <circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="3" />
+            <text x={(x + 6).toFixed(1)} y={(y + 3).toFixed(1)}>{name}</text>
+          </g>
+        )
+      })}
       <g transform={`translate(${BGA_X.toFixed(1)} ${BGA_Y.toFixed(1)})`}>
         <circle className="colombia-map__pulse" r="7" fill="var(--accent)" />
         <circle className="colombia-map__pulse colombia-map__pulse--b" r="7" fill="var(--accent)" />
