@@ -1,8 +1,7 @@
-import { useRef, useState } from 'react'
-import { Search } from 'lucide-react'
+import { useRef } from 'react'
 import Pedestal from '../ui/Pedestal'
 import Hl from '../ui/Hl'
-import Bgfx from '../ui/Bgfx'
+import Squares from '../ui/Squares'
 import '../../styles/catalog.css'
 import '../../styles/catalog2.css'
 import '../../styles/ie-catalog.css'
@@ -17,8 +16,8 @@ const SHOWCASE = [
   { src: '/img/catalogo/fluke-multimetro-117.webp', alt: 'Multímetro Fluke 117', cls: 'sc-fluke', d: 3 },
 ]
 
-export default function CatalogBanner({ finderRef, initial, onSearch, quick }) {
-  const [term, setTerm] = useState(initial)
+// Sin buscador propio: el único buscador de la página es el de la barra de filtros (fija). Las búsquedas frecuentes llenan ese buscador.
+export default function CatalogBanner({ onQuick, quick }) {
   const stage = useRef(null)
 
   // Parallax leve: solo con puntero fino y sin movimiento reducido
@@ -31,21 +30,16 @@ export default function CatalogBanner({ finderRef, initial, onSearch, quick }) {
   }
 
   return (
-    <section className="cban bg-lila-fade" aria-labelledby="cat-banner">
-      <Bgfx a="plan:r" b="flip" />
+    <section className="cban bgt bgt-b" aria-labelledby="cat-banner">
+      <Squares items={[{ w: 240, h: 200, tone: 'orange', rate: 0.1, top: '14%', right: '30%' }, { w: 150, tone: 'violet', rate: -0.12, bottom: '8%', left: '3%' }]} />
       <div className="wrap cban__grid">
         <div className="cban__copy">
           <p className="rd-label">Catálogo industrial</p>
           <h1 id="cat-banner" className="cban__h1">Todo para mover tu proyecto <Hl>en un solo lugar</Hl></h1>
           <p className="cban__lead">Motores, variadores, control y protección con la referencia exacta y el precio a la vista.</p>
-          <form className="cban__search" role="search" onSubmit={(e) => { e.preventDefault(); onSearch(term.trim()) }}>
-            <Search size={20} aria-hidden="true" />
-            <input ref={finderRef} type="search" enterKeyHint="search" autoComplete="off" placeholder="Motor 5 HP 1800, CFW300, contactor 25 A…" aria-label="Buscar en el catálogo" value={term} onChange={(e) => setTerm(e.target.value)} />
-            <button type="submit">Buscar</button>
-          </form>
           <div className="cban__quick">
             <span>Búsquedas frecuentes</span>
-            {quick.map(([label, text]) => <button key={label} type="button" onClick={() => { setTerm(text); onSearch(text) }}>{label}</button>)}
+            {quick.map(([label, text]) => <button key={label} type="button" onClick={() => onQuick(text)}>{label}</button>)}
           </div>
         </div>
 

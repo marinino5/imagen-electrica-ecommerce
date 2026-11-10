@@ -24,7 +24,6 @@
   "w22-iec-carcasa-hierro": "/img/catalogo/weg-w22-iec.webp",
   "w22-nema-premium-efficiency": "/img/catalogo/weg-w22-nema-premium.webp",
   "w22-a-prueba-de-explosion": "/img/catalogo/weg-w22-explosion.webp",
-  "motores-de-otras-marcas": "/img/catalogo/weg-w22-lateral.webp",
   "motorreductor-sinfin-wcg01": "/img/catalogo/weg-cestari-wcg01.webp",
   "reductor-helicoidal-wcg20": "/img/catalogo/weg-cestari-wcg20.webp",
   "plc-weg-plc200-y-plc500": "/img/catalogo/weg-plc500.webp",
@@ -38,5 +37,9 @@
   },
   "thhn-thwn-2-centelsa": "/img/catalogo/centelsa-cable-thhn.webp",
   "start-highbay-led": "/img/catalogo/sylvania-start-highbay.webp",
-  "compresor-vertical": "/img/catalogo/abac-compresor-vertical.webp"
+  "compresor-vertical": "/img/catalogo/abac-compresor-vertical.webp",
+  "motor-trifasico-weg-de-bobinado": "/img/catalogo/weg-w22-lateral.webp",
+  "motores-abb": "/img/catalogo/abb-motor.webp",
+  "motores-nidec-us-motors": "/img/catalogo/nidec-motor.webp",
+  "motores-nord": "/img/catalogo/nord-motor.webp"
 }

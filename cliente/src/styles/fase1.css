@@ -1,0 +1,144 @@
+/* ============================================================
+   Fase 1A: barra superior por página, los 5 fondos de sección (A–E) y los «cuadros de color».
+   Se carga con especificidad doble (.bgt.bgt-x) para ganar a los estilos por página sin depender del orden de los CSS.
+   Colores solo desde los tokens de marca (ie.css / variables.css).
+   ============================================================ */
+:root {
+  --ie-orange-50: #fff5ec; /* fondo cálido del tipo D */
+}
+
+/* ---------- Barra superior ----------
+   Heros oscuros (Inicio, Contacto): transparente con texto blanco. Heros claros: blanca con texto oscuro.
+   Con scroll (o mega-menú abierto): blanco al 85 % con desenfoque. */
+body .site-header.is-solid {
+  background: #fff;
+  color: var(--ink);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+body .site-header.is-solid.is-scrolled-bar {
+  background: rgb(255 255 255 / 0.85);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+}
+body .site-header:not(.is-solid) { background: transparent; box-shadow: none; }
+
+/* Tras un salto de scroll (o al volver con «atrás») los bloques extendidos aparecen ya, sin la entrada animada */
+.xb--now .xb__block, .xb--now .xb__photo, .xb--now .xb__text, .xb--now .xb__arc path { transition: none !important; }
+
+/* ---------- Fondos de sección ---------- */
+:where(.bgt) { position: relative; isolation: isolate; overflow: clip; }
+
+/* A · blanco con textura (cuadrícula de puntos muy tenue + veta diagonal) */
+.bgt.bgt-a {
+  background-color: #fff;
+  background-image:
+    radial-gradient(circle, rgb(110 91 176 / 0.09) 0.8px, transparent 1px),
+    linear-gradient(115deg, transparent 0 62%, rgb(244 241 250 / 0.7) 62% 100%);
+  background-size: 22px 22px, 100% 100%;
+}
+/* B · lila-100 */
+.bgt.bgt-b { background: var(--ie-lila-100); }
+/* C · degradado diagonal violeta-700 → violeta-500, con tarjetas blancas encima */
+.bgt.bgt-c { background: linear-gradient(135deg, var(--ie-violet-700) 0%, var(--ie-violet-500) 100%); color: #fff; }
+/* D · naranja cálido con arco naranja */
+.bgt.bgt-d { background: linear-gradient(180deg, var(--ie-orange-50) 0%, var(--ie-orange-100) 100%); }
+.bgt.bgt-d::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: var(--arc-top, 50%);
+  right: calc(min(56vw, 780px) * -0.46);
+  width: min(56vw, 780px);
+  aspect-ratio: 1;
+  border: 1.5px solid var(--ie-orange-500);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.bgt.bgt-d.bgt--arc-l::after { right: auto; left: calc(min(56vw, 780px) * -0.46); }
+/* E · violeta-950 (uno por página, nunca junto al pie) */
+.bgt.bgt-e { background: var(--ie-violet-950); color: #fff; }
+
+/* Texto sobre C y E: blanco / naranja claro (el contraste lo pide) */
+.bgt-c .rd-h2, .bgt-e .rd-h2, .bgt-c .rd-lead, .bgt-e .rd-lead, .bgt-c .rd-label, .bgt-e .rd-label { color: #fff; }
+.bgt-c .hl, .bgt-e .hl { color: var(--accent-light); }
+.bgt-c .hl::after, .bgt-e .hl::after { background: var(--accent-light); }
+.bgt-c .rd-lead, .bgt-e .rd-lead { color: rgb(255 255 255 / 0.86); }
+
+/* ---------- Cuadros de color ---------- */
+.sqs { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.sq {
+  position: absolute;
+  border-radius: 28px;
+  transform: translate3d(0, calc(var(--sq-c, 0) * var(--rate, 0.1) * 1px), 0);
+  will-change: transform;
+}
+.sq--lila { background: var(--ie-lila-200); }
+.sq--orange { background: var(--ie-orange-100); }
+.sq--violet { background: rgb(110 91 176 / 0.15); }
+.bgt-c .sq--lila { background: rgb(255 255 255 / 0.1); }
+@media (max-width: 767px) { .sq { transform: scale(0.7) translate3d(0, calc(var(--sq-c, 0) * var(--rate, 0.1) * 1px), 0); } }
+@media (prefers-reduced-motion: reduce) { .sq { transform: none; will-change: auto; } }
+
+/* ---------- Hero del Inicio: el motor de la primera diapositiva es grande ---------- */
+@media (min-width: 768px) {
+  .hero__stage.hero__stage--big { width: clamp(380px, 44vw, 700px); bottom: 64px; right: max(1vw, calc((100vw - 1280px) / 2 - 40px)); }
+  .hero__stage--big img { filter: drop-shadow(0 30px 40px rgb(10 6 24 / 0.55)); }
+}
+
+/* ---------- Catálogo: pedestales lila bajo los productos del hero (sin tarjetas) ---------- */
+.cban .ped::before {
+  top: calc(88% - 14px);
+  width: 74%;
+  height: 30px;
+  background: linear-gradient(180deg, #faf8fd 0%, var(--ie-lila-200) 100%);
+  border-top: 2px solid #fff;
+  box-shadow: 0 12px 0 -3px #d6ccea, 0 24px 26px -10px rgb(28 22 48 / 0.38);
+}
+.cban .sc .ped > img { filter: drop-shadow(0 12px 14px rgb(28 22 48 / 0.24)); }
+
+/* ---------- Cómo comprar ---------- */
+/* El celular fijo (móvil) lleva un degradado del color de su sección para no cortar el fondo */
+.bgt-a .cb-stage { background: linear-gradient(#fff 82%, transparent); }
+.bgt-b .cb-stage { background: linear-gradient(var(--ie-lila-100) 82%, transparent); }
+@media (min-width: 900px) { .bgt-a .cb-stage, .bgt-b .cb-stage { background: none; } }
+.cb-hero.bgt-a .cb-hero__blob { display: none; }
+/* «Lo que recibes»: 3 tarjetas de foto a sangre de 420 px, velo oscuro abajo, número grande en contorno naranja */
+.cb-recv .cb-card {
+  position: relative;
+  display: block;
+  height: 420px;
+  min-height: 420px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 8px;
+  background: var(--ie-violet-950);
+  color: #fff;
+  box-shadow: 0 24px 48px -24px rgb(10 6 24 / 0.55);
+  isolation: isolate;
+}
+.cb-recv .cb-card__img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ie-ease); }
+.cb-recv .cb-card__veil { position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgb(20 16 36 / 0.92) 0%, rgb(20 16 36 / 0.62) 38%, rgb(20 16 36 / 0) 72%); transition: opacity 0.4s ease-out; }
+.cb-recv .cb-card__n { position: absolute; top: 14px; left: 20px; font-family: var(--font-display); font-size: 120px; font-weight: 700; line-height: 0.9; color: transparent; -webkit-text-stroke: 2px var(--ie-orange-500); }
+.cb-recv .cb-card__body { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 24px 26px; }
+.cb-recv .cb-card h3 { margin: 0 0 6px; color: #fff; font-size: 2rem; }
+.cb-recv .cb-card p { max-width: 36ch; color: rgb(255 255 255 / 0.9); }
+@media (hover: hover) and (pointer: fine) {
+  .cb-recv .cb-card:hover .cb-card__img { transform: scale(1.06); }
+  .cb-recv .cb-card:hover .cb-card__veil { opacity: 0.72; }
+}
+@media (prefers-reduced-motion: reduce) { .cb-recv .cb-card__img, .cb-recv .cb-card__veil { transition: none; } }
+/* Envíos sobre fondo cálido: la tarjeta del mapa sigue blanca */
+.cb-ship.bgt-d .cb-map { border-color: var(--ie-orange-100); }
+
+/* ---------- Contacto ---------- */
+/* El hero oscuro pasa por debajo de la barra transparente */
+.ct-hero.bgt-e { min-height: max(68vh, 500px); }
+.ct-hero .ct-hero__in { padding-block: calc(var(--header-h) + 40px) 56px; }
+/* La foto del asesor ocupa la derecha y se funde con el violeta a la izquierda, donde va el texto */
+@media (min-width: 768px) {
+  .ct-hero__bg { left: auto; right: 0; width: 64%; object-position: 50% 30%; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 34%); mask-image: linear-gradient(90deg, transparent 0, #000 34%); }
+  .ct-hero__veil { background: linear-gradient(90deg, var(--ie-violet-950) 0%, rgb(30 22 49 / 0.55) 34%, rgb(30 22 49 / 0) 60%); }
+}
+@media (max-width: 767px) { .ct-hero__bg { object-position: 50% 22%; } }

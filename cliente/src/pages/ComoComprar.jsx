@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, MessageCircle, Plus } from 'lucide-react'
 import { FAQ_TABS, ONLINE, QUOTE, RECEIVE, SHIPPING } from '../components/comprar/comprarData'
 import PhoneMock from '../components/comprar/PhoneMock'
-import Bgfx from '../components/ui/Bgfx'
+import Squares from '../components/ui/Squares'
 import ColombiaMap from '../components/ui/ColombiaMap'
 import Hl from '../components/ui/Hl'
 import Pill from '../components/ui/Pill'
@@ -18,8 +18,8 @@ const shot = (name) => `/img/como-comprar/${name}.webp`
 /* ---------- 4.1 Hero: portátil y celular con capturas reales ---------- */
 function Hero() {
   return (
-    <section className="cb-hero bg-lila-fade" aria-labelledby="h-how">
-      <Bgfx b />
+    <section className="cb-hero bgt bgt-a" aria-labelledby="h-how">
+      <Squares items={[{ w: 200, h: 240, tone: 'lila', rate: 0.1, top: '8%', left: '46%' }, { w: 130, tone: 'orange', rate: -0.1, bottom: '6%', left: '3%' }]} />
       <div className="wrap cb-hero__grid">
         <div className="cb-hero__text">
           <h1 id="h-how" className="cb-h1">
@@ -70,8 +70,10 @@ function StickyFlow({ id, title, hl, steps, mirror = false, band = false, classN
   const go = (i) => box.current?.querySelectorAll('.cb-step')[i]?.scrollIntoView({ behavior: 'smooth', block: 'center' })
 
   return (
-    <section id={id} className={`cb-flow ${mirror ? 'cb-flow--mirror' : ''} ${className}`} aria-labelledby={`h-${id}`}>
-      {band ? <Bgfx e /> : <Bgfx d />}
+    <section id={id} className={`cb-flow bgt ${mirror ? 'cb-flow--mirror' : ''} ${className}`} aria-labelledby={`h-${id}`}>
+      <Squares items={mirror
+        ? [{ w: 180, h: 220, tone: 'orange', rate: 0.1, top: '18%', right: '-40px' }, { w: 140, tone: 'violet', rate: -0.1, bottom: '14%', left: '2%' }]
+        : [{ w: 200, h: 160, tone: 'lila', rate: 0.1, top: '20%', left: '-50px' }, { w: 150, h: 190, tone: 'orange', rate: -0.12, bottom: '12%', right: '3%' }]} />
       <div className="wrap">
         <Reveal><h2 id={`h-${id}`} className="rd-h2 cb-flow__title">{title} <Hl>{hl}</Hl></h2></Reveal>
         <div className="cb-flow__grid" ref={box}>
@@ -106,15 +108,17 @@ function StickyFlow({ id, title, hl, steps, mirror = false, band = false, classN
 /* ---------- 4.4 Lo que recibes ---------- */
 function Receive() {
   return (
-    <section className="cb-recv bg-lila-fade" aria-labelledby="h-recibes">
-      <Bgfx a="plan:r" />
+    <section className="cb-recv bgt bgt-c" aria-labelledby="h-recibes">
+      <Squares items={[{ w: 220, h: 180, tone: 'lila', rate: 0.1, top: '6%', right: '4%' }, { w: 150, tone: 'violet', rate: -0.12, bottom: '8%', left: '2%' }]} />
       <div className="wrap">
         <Reveal><h2 id="h-recibes" className="rd-h2">Lo que <Hl>recibes</Hl></h2></Reveal>
         <ul className="cb-recv__grid">
           {RECEIVE.map((r, i) => (
             <Reveal as="li" key={r.title} i={i}>
               <article className="cb-card">
-                <div className="cb-card__photo"><img src={r.photo} alt={r.alt} width="800" height="640" loading="lazy" decoding="async" /></div>
+                <img className="cb-card__img" src={r.photo} alt={r.alt} width="800" height="640" loading="lazy" decoding="async" />
+                <span className="cb-card__veil" aria-hidden="true" />
+                <span className="cb-card__n" aria-hidden="true">{i + 1}</span>
                 <div className="cb-card__body">
                   <h3>{r.title}</h3>
                   <p>{r.text}</p>
@@ -132,7 +136,7 @@ function Receive() {
 function Shipping() {
   const [ref, seen] = useInView({ threshold: 0.25 })
   return (
-    <section className="cb-ship bg-lila-soft" aria-labelledby="h-envios">
+    <section className="cb-ship bgt bgt-d" aria-labelledby="h-envios">
       <div className="wrap cb-ship__grid">
         <div className={`cb-map ${seen ? 'is-in' : ''}`} ref={ref}>
           <ColombiaMap className="cb-map__svg" routes />
@@ -184,8 +188,8 @@ function Faq() {
     document.getElementById(`${base}-t${next}`)?.focus()
   }
   return (
-    <section className="cb-faq bg-lila-fade" aria-labelledby="h-faq">
-      <Bgfx a="motor:l" d />
+    <section className="cb-faq bgt bgt-a" aria-labelledby="h-faq">
+      <Squares items={[{ w: 180, h: 200, tone: 'lila', rate: 0.1, top: '10%', right: '-40px' }]} />
       <div className="wrap">
         <Reveal><h2 id="h-faq" className="rd-h2">Resolvemos tus <Hl>dudas</Hl></h2></Reveal>
         <div className="cb-tabs" role="tablist" aria-label="Tema de las preguntas" onKeyDown={onKey}>
@@ -206,7 +210,8 @@ function Faq() {
 /* ---------- 4.7 Cierre claro ---------- */
 function Closing() {
   return (
-    <section className="cb-end bg-lila-arc" aria-labelledby="h-fin">
+    <section className="cb-end bgt bgt-b" aria-labelledby="h-fin">
+      <Squares items={[{ w: 200, h: 200, tone: 'orange', rate: 0.1, top: '18%', right: '8%' }, { w: 130, tone: 'violet', rate: -0.1, bottom: '12%', right: '26%' }]} />
       <div className="wrap cb-end__in">
         <h2 id="h-fin" className="rd-h2">¿No encuentras <Hl>lo que buscas?</Hl></h2>
         <p className="rd-lead">Cuéntanos qué necesitas, con foto o la placa del equipo si la tienes, y un asesor lo busca y te responde con el precio.</p>
@@ -223,8 +228,8 @@ export default function ComoComprar() {
   return (
     <>
       <Hero />
-      <StickyFlow id="compra" title="Compra" hl="en línea" steps={ONLINE} className="bg-lila-fade" />
-      <StickyFlow id="cotizacion" title="Pide una" hl="cotización" steps={QUOTE} mirror band className="cb-flow--quote bg-lila-soft" />
+      <StickyFlow id="compra" title="Compra" hl="en línea" steps={ONLINE} className="bgt-b" />
+      <StickyFlow id="cotizacion" title="Pide una" hl="cotización" steps={QUOTE} mirror className="cb-flow--quote bgt-a" />
       <Receive />
       <Shipping />
       <Faq />

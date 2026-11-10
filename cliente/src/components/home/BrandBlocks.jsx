@@ -5,7 +5,7 @@ import Mix from '../ui/Mix'
 import SectionLabel from '../ui/SectionLabel'
 import Pill from '../ui/Pill'
 import { site } from '../../config/site'
-import Bgfx from '../ui/Bgfx'
+import Squares from '../ui/Squares'
 import '../../styles/ie-home.css'
 
 function Bullets({ items }) {
@@ -21,12 +21,13 @@ function Bullets({ items }) {
   )
 }
 
-// Dos bloques con el recurso «bloque extendido» sobre un mismo fondo continuo: Asesoría (foto a la izquierda, bloque desde
-// el borde izquierdo) y Entrega (foto a la derecha, bloque desde el borde derecho). Cada uno entra desde su lado.
+// Dos bloques con el recurso «bloque extendido», cada uno en su propia sección: Asesoría (fondo D cálido, foto a la izquierda,
+// bloque desde el borde izquierdo) y Entrega (fondo B lila, foto a la derecha, bloque desde el borde derecho).
 export default function BrandBlocks() {
   return (
-    <section className="ie-xbs bg-lila-fade" aria-label="Cómo trabajamos">
-      <Bgfx e b="flip" />
+    <>
+    <section className="ie-xbs bgt bgt-d bgt--arc-l" aria-label="Asesoría técnica">
+      <Squares items={[{ w: 180, h: 220, tone: 'orange', rate: 0.1, top: '10%', right: '5%' }, { w: 130, tone: 'lila', rate: -0.1, bottom: '8%', left: '42%' }]} />
       <Xb
         side="l"
         photo={<img src="/img/fotos/asesoria-tablero.webp" alt="Técnico con casco junto a un tablero eléctrico abierto, revisando las conexiones" width="1280" height="960" loading="lazy" decoding="async" />}
@@ -43,7 +44,10 @@ export default function BrandBlocks() {
           <Pill as="a" href={site.whatsappUrl} target="_blank" rel="noreferrer" tone="o">Hablar con un asesor</Pill>
         </div>
       </Xb>
+    </section>
 
+    <section className="ie-xbs bgt bgt-b" aria-label="Entrega">
+      <Squares items={[{ w: 200, h: 160, tone: 'violet', rate: 0.1, top: '12%', left: '4%' }, { w: 140, h: 180, tone: 'lila', rate: -0.12, bottom: '10%', right: '8%' }]} />
       <Xb
         side="r"
         photo={<img src="/img/fotos/entrega-almacen.webp" alt="Operario de almacén escaneando una caja de material eléctrico con un lector de código" width="1280" height="960" loading="lazy" decoding="async" />}
@@ -61,5 +65,6 @@ export default function BrandBlocks() {
         </div>
       </Xb>
     </section>
+    </>
   )
 }

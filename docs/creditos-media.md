@@ -90,9 +90,9 @@ Secuencia: video → imagen → video → imagen. Todo con tinte violeta-700 al 
 
 | Diapositiva | Archivos | Fuente | Autor | Licencia |
 |---|---|---|---|---|
-| 1 · Motores (video) | `hero-v1*` | https://mixkit.co/free-stock-video/parcels-on-a-conveyor-belt-20770/ (cajas avanzando por una banda transportadora, 8 s; la alternativa descartada está en `docs/opciones-video/`) | Mixkit | [Licencia de Mixkit](https://mixkit.co/license/) (uso comercial, sin atribución) |
-| 2 · Motorreductores (imagen) | `fotos/hero-banda.webp` + `catalogo/weg-cestari-wcg01.webp` | https://pixabay.com/photos/factory-plant-industrial-hall-1137993/ (banda de rodillos con su motorreductor; pasó por `gradar-foto.py`) | falco | Pixabay Content License |
-| 3 · Automatización y control (video) | `hero-v3*` | https://pixabay.com/videos/id-86252/ (segundos 1 a 10: manos cableando un tablero, sin cuerpo ni cara; 9 s) | lumosajans | Pixabay Content License |
+| 1 · Motores (imagen) | `fotos/hero-motores.webp` + `catalogo/weg-w22-iec.webp` | https://www.pexels.com/photo/17728782/ (sala de máquinas industrial con motores y reductores; pasó por `gradar-foto.py`) y foto oficial de WEG | Pexels / WEG | Pexels License / foto oficial del fabricante |
+| 2 · Automatización (video) | `hero-v3*` | https://pixabay.com/videos/id-86252/ (segundos 1 a 10: manos cableando un tablero, sin cuerpo ni cara; 9 s) | lumosajans | Pixabay Content License |
+| 3 · Motorreductores (imagen) | `fotos/hero-banda.webp` + `catalogo/weg-cestari-wcg01.webp` | https://pixabay.com/photos/factory-plant-industrial-hall-1137993/ (banda de rodillos con su motorreductor; pasó por `gradar-foto.py`) | falco | Pixabay Content License |
 | 4 · Ventilación y extracción (imagen) | `fotos/hero-extractores.webp` + `catalogo/soler-palau-extractor-axial.webp` | https://pixabay.com/photos/industry-ventilation-metal-2182767/ (dos extractores axiales reales en el muro de una nave) y foto oficial THGT de Soler & Palau | Ganossi / Soler & Palau | Pixabay Content License / foto oficial del fabricante |
 
 Los originales están en `cliente/media-fuente/` (carpeta ignorada por git). El velo de color del hero ya no tiñe el material: solo oscurece el lado del texto. Se revisaron también Mixkit (licencia libre con uso comercial) y Pixabay con 12 consultas de motores, bandas y tableros: ningún clip real de un motor WEG industrial; el rotor que se usó antes era un primer plano oscuro y desenfocado y se retiró. **Pendiente:** video propio o del fabricante de un motor WEG en operación.
@@ -133,7 +133,8 @@ Todas de [Pexels](https://www.pexels.com) ([Pexels License](https://www.pexels.c
 | Archivo | Pexels | Nota |
 |---|---|---|
 | `fotos/tecnico-motor.webp` | 34526423 | Técnica con un motor y su tablero |
-| `fotos/contacto-mostrador.webp` | 12917478 | Volteada horizontalmente |
+| `fotos/contacto-asesor.webp` | 4484045 | Fase 1A: hero de Contacto (asesor sonriente con ropa de trabajo), recortada 4:3 |
+| `fotos/hero-motores.webp` | 17728782 | Fase 1A: primera diapositiva del hero del Inicio, recortada 16:9 |
 | `fotos/contacto-cotizar.webp` | 6615107 | |
 | `fotos/contacto-asesoria.webp` | 8867631 | |
 | `fotos/contacto-pedido.webp` | 6868621 | |

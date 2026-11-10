@@ -50,8 +50,18 @@ function run(force = false) {
   if (!pending.size) unbind()
 }
 
+// Red de seguridad tras cualquier desplazamiento: cuando el scroll se detiene 180 ms, todo lo que toque la pantalla
+// (o haya quedado por encima) se muestra, aunque ningún otro cálculo lo haya alcanzado. Así un salto de scroll
+// (scrollTo, ancla, botón atrás) nunca deja una sección en blanco.
+let settleTimer = 0
+const settle = () => {
+  settleTimer = 0
+  if (pending.size) run(true)
+}
 const schedule = () => {
   if (!raf) raf = requestAnimationFrame(() => run())
+  clearTimeout(settleTimer)
+  settleTimer = window.setTimeout(settle, 180)
 }
 const forceNow = () => run(true)
 
@@ -82,6 +92,8 @@ function unbind() {
   window.removeEventListener('hashchange', schedule)
   document.removeEventListener('visibilitychange', schedule)
   clearInterval(timer)
+  clearTimeout(settleTimer)
+  settleTimer = 0
 }
 
 /** Parsea el margen inferior de rootMargin ('0px 0px -8% 0px' → 0.08) para conservar la firma anterior. */

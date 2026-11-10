@@ -25,7 +25,7 @@ class LineCatalogTest extends TestCase
     {
         $response = $this->getJson('/api/v1/lines')->assertOk();
 
-        $this->assertCount(34, $response->json('data'));
+        $this->assertCount(38, $response->json('data'));
         $response->assertJsonStructure(['data' => [['slug', 'name', 'family', 'category', 'refs_count', 'price_from', 'hp_min', 'hp_max', 'sale_mode']]]);
     }
 
@@ -46,10 +46,10 @@ class LineCatalogTest extends TestCase
     public function test_filtra_por_familia_y_categoria(): void
     {
         $familia = $this->getJson('/api/v1/lines?family=motores-electricos')->assertOk()->json('data');
-        $this->assertCount(9, $familia);
+        $this->assertCount(13, $familia);
 
         $categoria = $this->getJson('/api/v1/lines?category=motores-monofasicos')->assertOk()->json('data');
-        $this->assertCount(4, $categoria);
+        $this->assertCount(5, $categoria);
     }
 
     public function test_filtra_por_forma_de_compra_marca_y_bodega(): void
@@ -96,7 +96,7 @@ class LineCatalogTest extends TestCase
     {
         ProductLine::where('slug', 'variador-cfw300')->update(['is_active' => false]);
 
-        $this->assertCount(33, $this->getJson('/api/v1/lines')->json('data'));
+        $this->assertCount(37, $this->getJson('/api/v1/lines')->json('data'));
         $this->getJson('/api/v1/lines/variador-cfw300')->assertNotFound();
     }
 
@@ -138,8 +138,8 @@ class LineCatalogTest extends TestCase
         $response = $this->getJson('/api/v1/families')->assertOk();
 
         $motores = collect($response->json('data'))->firstWhere('slug', 'motores-electricos');
-        $this->assertSame(9, $motores['lines_count']);
-        $this->assertSame(34, $response->json('meta.lines'));
+        $this->assertSame(13, $motores['lines_count']);
+        $this->assertSame(38, $response->json('meta.lines'));
         $this->assertSame(351, $response->json('meta.references'));
         $this->assertSame('WEG', $response->json('meta.brands.0.name'));
     }

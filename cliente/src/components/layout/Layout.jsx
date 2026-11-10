@@ -69,8 +69,8 @@ function ScrollManager() {
 
 export default function Layout() {
   const { pathname } = useLocation()
-  // La portada del inicio pasa por debajo del encabezado; las demás páginas empiezan debajo
-  const offset = pathname === '/' ? '' : 'main--offset'
+  // La portada del inicio y la de contacto (heros oscuros) pasan por debajo del encabezado; las demás páginas empiezan debajo
+  const offset = pathname === '/' || pathname === '/contacto' ? '' : 'main--offset'
 
   // La barra fija de abajo (celular) empuja el contenido y el botón de WhatsApp
   useEffect(() => {

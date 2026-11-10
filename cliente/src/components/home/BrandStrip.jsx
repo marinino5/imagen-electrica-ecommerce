@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { withLogos } from '../../config/brands'
 import SectionLabel from '../ui/SectionLabel'
 import Hl from '../ui/Hl'
-import Bgfx from '../ui/Bgfx'
+import Squares from '../ui/Squares'
 import '../../styles/home.css'
 import '../../styles/home2.css'
 
@@ -15,8 +15,8 @@ export default function BrandStrip() {
   const track = [...brands, ...brands]
 
   return (
-    <section className="rd-sec bg-lila-soft hm-brands hm-brands--band" aria-labelledby="h-marcas">
-      <Bgfx b c="r" arcTop="20%" />
+    <section className="rd-sec bgt bgt-b hm-brands hm-brands--band" aria-labelledby="h-marcas">
+      <Squares items={[{ w: 160, h: 120, tone: 'violet', rate: 0.1, top: '-20px', right: '8%' }]} />
       <div className="wrap hm-brands__head">
         <div>
           <SectionLabel n="06">Aliados</SectionLabel>

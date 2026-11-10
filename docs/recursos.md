@@ -17,7 +17,7 @@ Licencia de todos: [Pixabay Content License](https://pixabay.com/service/license
 
 | Diapositiva | Origen (pageURL) | Autor | Archivos en `public/media/` | Notas |
 |---|---|---|---|---|
-| Motores (video) / Automatización y control (video) | https://pixabay.com/videos/id-41477/ y https://pixabay.com/videos/id-159674/ | DmitrySteshenko / CreativeCommonsCentral | `hero-v1*`, `hero-v3*` | Ver `docs/creditos-media.md` |
+| Automatización y control (video de cables) | https://pixabay.com/videos/id-86252/ | lumosajans | `hero-v3*` | Ver `docs/creditos-media.md`. El video de la banda (`hero-v1*`) se retiró en la Fase 1A |
 | Ventilación | **Sin video.** Se eliminó el clip anterior (id-235032) | | | Diseño gráfico de marca (arcos y ventilador). No hay extractores industriales en primer plano con licencia en Coverr ni en Pixabay: ver `docs/opciones-video/` |
 | Motores | **Sin video.** Diseño gráfico de marca | | | Sin motores industriales reales en Coverr ni en Pixabay (solo renders de pistones). Material oficial pendiente, ver abajo |
 

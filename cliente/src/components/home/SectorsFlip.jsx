@@ -6,8 +6,7 @@ import { useLines } from '../../hooks/useLines'
 import { lineThumb } from '../../lib/lines'
 import SectionLabel from '../ui/SectionLabel'
 import Hl from '../ui/Hl'
-import Reveal from '../ui/Reveal'
-import Bgfx from '../ui/Bgfx'
+import Squares from '../ui/Squares'
 import '../../styles/home2.css'
 
 // Tarjeta de sector: es un botón (aria-pressed) que gira 180° en 3D al activarlo con clic, toque, Enter o Espacio.
@@ -74,8 +73,8 @@ export default function SectorsFlip() {
   const { data: lines } = useLines()
 
   return (
-    <section className="rd-sec bg-lav hm-sectors" id="sectores" aria-labelledby="h-sectores">
-      <Bgfx a="contactor:l" d />
+    <section className="rd-sec bgt bgt-a hm-sectors" id="sectores" aria-labelledby="h-sectores">
+      <Squares items={[{ w: 240, h: 200, tone: 'lila', rate: 0.1, top: '6%', right: '-30px' }, { w: 150, tone: 'orange', rate: -0.12, bottom: '10%', left: '2%' }]} />
       <div className="wrap">
         <div className="hm-head">
           <div>
@@ -84,11 +83,10 @@ export default function SectorsFlip() {
             <p className="rd-lead">Toca un sector para ver para qué usa el equipo eléctrico y qué le recomendamos.</p>
           </div>
         </div>
-        <Reveal>
-          <ul className="sx-grid" aria-label="Sectores que atendemos">
-            {sectors.map((s) => <SectorCard key={s.id} sector={s} lines={lines} />)}
-          </ul>
-        </Reveal>
+        {/* Sin Reveal: la rejilla es alta (1100 px) y nunca debe quedar oculta tras un salto de scroll */}
+        <ul className="sx-grid" aria-label="Sectores que atendemos">
+          {sectors.map((s) => <SectorCard key={s.id} sector={s} lines={lines} />)}
+        </ul>
       </div>
     </section>
   )

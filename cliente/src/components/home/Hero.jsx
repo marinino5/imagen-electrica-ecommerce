@@ -9,18 +9,29 @@ import '../../styles/hero.css'
 
 const SLIDE_MS = 9000
 
-// Orden fijo: video, imagen, video, imagen (Cables, Motorreductores, Banda transportadora / motores, Ventilación y extracción).
-// Los videos son de Pixabay (manos cableando un tablero) y de Mixkit (cajas avanzando por una banda transportadora) y las
-// imágenes combinan una foto de planta con la foto oficial del producto recortado. Fuentes y licencias en docs/creditos-media.md.
+// Orden fijo: Motores (foto industrial + W22 grande), Automatización (video de cables), Motorreductores y Ventilación (foto +
+// producto recortado). El video de cables es de Pixabay (manos cableando un tablero). Las fotos y el producto oficial recortado
+// salen de Pexels y de los fabricantes; fuentes y licencias en docs/creditos-media.md.
 const slides = [
   {
-    id: 'cables',
-    short: 'Cables',
-    tag: 'Cables y conductores',
-    title: 'Cables',
-    highlight: 'THHN / THWN-2',
-    text: 'Conductores Centelsa by Nexans para tableros, obras y plantas, por metro o por rollo y con la referencia exacta.',
-    cta: { to: '/productos?familia=cables-y-conductores', label: 'Ver cables' },
+    id: 'motores',
+    short: 'Motores',
+    tag: 'Motores eléctricos',
+    title: 'Motores',
+    highlight: 'industriales WEG',
+    text: 'Del monofásico de taller al trifásico de planta, con la referencia exacta que tu equipo necesita.',
+    cta: { to: '/productos?familia=motores-electricos', label: 'Ver motores' },
+    bg: { src: '/img/fotos/hero-motores.webp', alt: 'Nave industrial con motores, reductores y tuberías en una línea de planta', pos: '50% 50%' },
+    product: { src: '/img/catalogo/weg-w22-iec.webp', alt: 'Motor trifásico WEG W22 IEC de carcasa de hierro', caption: 'WEG W22 IEC', big: true },
+  },
+  {
+    id: 'automatizacion',
+    short: 'Automatización',
+    tag: 'Control y automatización',
+    title: 'Automatización',
+    highlight: 'y control WEG',
+    text: 'Variadores, arrancadores, contactores y guardamotores para arrancar, proteger y controlar tus motores.',
+    cta: { to: '/productos?familia=control-y-automatizacion', label: 'Ver automatización' },
     video: {
       poster: '/media/hero-v3-poster.webp',
       desktop: { mp4: '/media/hero-v3.mp4', webm: '/media/hero-v3.webm' },
@@ -39,22 +50,6 @@ const slides = [
     cta: { to: '/productos?familia=reductores-y-motorreductores', label: 'Ver motorreductores' },
     bg: { src: '/img/fotos/hero-banda.webp', alt: 'Banda transportadora de rodillos con su motorreductor', pos: '40% 50%' },
     product: { src: '/img/catalogo/weg-cestari-wcg01.webp', alt: 'Motorreductor de sinfín y corona WEG Cestari WCG01', caption: 'WEG Cestari WCG01' },
-  },
-  {
-    id: 'motores',
-    short: 'Banda transportadora',
-    tag: 'Motores eléctricos',
-    title: 'Motores',
-    highlight: 'industriales WEG',
-    text: 'Del monofásico de taller al trifásico de planta, con la referencia exacta que tu equipo necesita.',
-    cta: { to: '/productos?familia=motores-electricos', label: 'Ver motores' },
-    video: {
-      poster: '/media/hero-v1-poster.webp',
-      desktop: { mp4: '/media/hero-v1.mp4', webm: '/media/hero-v1.webm' },
-      mobile: { mp4: '/media/hero-v1-m.mp4', webm: '/media/hero-v1-m.webm' },
-      pos: '60% 50%',
-      alt: 'Cajas avanzando por una banda transportadora en una línea de producción',
-    },
   },
   {
     id: 'ventilacion',
@@ -101,7 +96,7 @@ function Slide({ slide, index, active, still, mobile, paused }) {
         ))}
       {bg && <img className="hero__bg" src={bg.src} alt={bg.alt} width="1600" height="900" style={{ objectPosition: bg.pos, '--zoom': bg.zoom, '--zoom-origin': bg.origin }} fetchPriority={index === 0 ? 'high' : undefined} loading={index === 0 ? 'eager' : 'lazy'} />}
       {product && (
-        <figure className="hero__stage">
+        <figure className={`hero__stage ${product.big ? 'hero__stage--big' : ''}`}>
           <span className="hero__glow" aria-hidden="true" />
           <svg className="hero__arc" viewBox="0 0 1000 500" aria-hidden="true" focusable="false">
             <path pathLength="1" d="M0 500 A500 500 0 0 1 1000 500" />

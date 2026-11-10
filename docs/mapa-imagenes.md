@@ -8,9 +8,9 @@ Origen abreviado: **Pexels** = [Pexels License](https://www.pexels.com/license/)
 
 | Sección | Archivo | Origen |
 |---|---|---|
-| Hero · 1 · Cables (video) | `media/hero-v3*` (+ póster) | Pixabay video 86252 (manos cableando un tablero) |
-| Hero · 2 · Motorreductores | `fotos/hero-banda.webp` + `catalogo/weg-cestari-wcg01.webp` | Pixabay 1137993 + fabricante (WEG) |
-| Hero · 3 · Banda transportadora (video) | `media/hero-v1*` (+ póster) | Mixkit 20770 |
+| Hero · 1 · Motores | `fotos/hero-motores.webp` + `catalogo/weg-w22-iec.webp` (grande) | Pexels 17728782 (nave con motores y reductores) + fabricante (WEG) |
+| Hero · 2 · Automatización (video) | `media/hero-v3*` (+ póster) | Pixabay video 86252 (manos cableando un tablero) |
+| Hero · 3 · Motorreductores | `fotos/hero-banda.webp` + `catalogo/weg-cestari-wcg01.webp` | Pixabay 1137993 + fabricante (WEG) |
 | Hero · 4 · Ventilación | `fotos/hero-extractores.webp` + `catalogo/soler-palau-extractor-axial.webp` | Pixabay 2182767 + fabricante (Soler & Palau) |
 | Familias | `catalogo/*-sm.webp` | fabricante |
 | Ofertas / lo más pedido | foto de cada línea (`catalogo/*`) | fabricante |
@@ -27,7 +27,7 @@ Origen abreviado: **Pexels** = [Pexels License](https://www.pexels.com/license/)
 | Vitrina del banner | `catalogo/weg-w22-nema-premium`, `weg-cestari-wcg20`, `weg-cfw500`, `weg-contactores`, `fluke-multimetro-117` | fabricante |
 | Cabeceras de familia / miniaturas | `catalogo/*-sm.webp` | fabricante |
 | Franja editorial (una por página) | `fotos/tecnico-motor.webp` | Pexels 34526423 |
-| Tarjeta «Motores de otras marcas» | sin foto WEG: diseño de marca + logos ABB, Match Drive, Nidec, Nord | ver pendientes |
+| «Motores de otras marcas» (ahora una línea por marca) | `catalogo/abb-motor`, `nidec-motor`, `nord-motor`; Match Drive sin foto (panel de marca) | ABB (`www07.abb.com`), Nidec US Motors (`acim.nidec.com`), Nord (`digital-trade-fair.nord.com`): fotos oficiales del fabricante |
 
 ## Cómo comprar (`/como-comprar`)
 
@@ -45,7 +45,7 @@ Origen abreviado: **Pexels** = [Pexels License](https://www.pexels.com/license/)
 
 | Sección | Archivo | Origen |
 |---|---|---|
-| Hero | `fotos/contacto-mostrador.webp` | Pexels 12917478 (volteada) |
+| Hero | `fotos/contacto-asesor.webp` | Pexels 4484045 (asesor sonriente con ropa de trabajo frente a una estantería) |
 | Bento · Cotizar un proyecto | `fotos/contacto-cotizar.webp` | Pexels 6615107 |
 | Bento · Asesoría técnica | `fotos/contacto-asesoria.webp` | Pexels 8867631 |
 | Bento · Estado de mi pedido | `fotos/contacto-pedido.webp` | Pexels 6868621 |
@@ -82,10 +82,10 @@ Riel de producto con fotos nítidas a 180 px: `catalogo/weg-minibreakers`, `weg-
 - **Ficha · «Dónde se usa»** (`lib/datasheets.js`) usa las mismas fotos de sector y de planta para varias familias (por ejemplo `planta-operando` en cuatro) y repite las de la tarjeta de Sectores del Inicio. Se dejó así porque son fotos de contexto por aplicación, no de una página; cambiarlas pide fotos nuevas por cada aplicación.
 - Las portadas de familia (`lib/families.js`) reutilizan `planta-operando`, `bandas`, `ventilacion`, `bombeo` y `fluke-en-tablero` de la ficha.
 
-Ya no se repiten: el trabajador del hero en la franja editorial del Catálogo (ahora `tecnico-motor`), y la foto de asesoría del Inicio en el hero de Contacto (ahora `contacto-mostrador`).
+Ya no se repiten: el trabajador del hero en la franja editorial del Catálogo (ahora `tecnico-motor`), y la foto de asesoría del Inicio en el hero de Contacto (ahora `contacto-asesor`).
 
 ## Pendientes de imagen
 
-1. **Foto oficial de un motor ABB** para «Motores de otras marcas». `new.abb.com` bloquea las descargas automáticas (error de protocolo) y no se esquivó; mientras tanto la tarjeta muestra el diseño de marca con los logos de sus marcas, en lugar de un motor WEG.
+1. ~~Foto oficial de un motor ABB~~ **Resuelto en la Fase 1A**: «Motores de otras marcas» se dividió en una línea por marca; ABB, Nidec y Nord llevan su foto oficial. Solo **Match Drive** queda con panel de marca (ver `docs/imagenes-pendientes.md`).
 2. **Estantería con marcas reales de la tienda** (la actual es de cajas rotuladas, sin marcas visibles), **equipo** y **almacén por dentro** (Nosotros y Contacto).
 3. **Video de cables** propio: el primero del hero es el de manos cableando un tablero (Pixabay), no un video de un rollo o un cable THHN.

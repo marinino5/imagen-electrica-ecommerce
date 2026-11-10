@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { ArrowUpRight, MessageCircle, Navigation } from 'lucide-react'
 import { useReducedMotion } from 'framer-motion'
 import { withLogos } from '../config/brands'
-import Bgfx from '../components/ui/Bgfx'
+import Squares from '../components/ui/Squares'
 import Counter from '../components/ui/Counter'
 import Hl from '../components/ui/Hl'
 import PhotoSlot from '../components/ui/PhotoSlot'
@@ -21,22 +21,38 @@ const SLOTS = [
   { id: 'almacen', title: 'Nuestro almacén por dentro' },
 ]
 
-// Muro de producto: 12 productos recortados de distintas familias sobre baldosas lila de tamaños distintos. `t` es la forma de la
-// baldosa en la grilla de escritorio (w: ancho doble, h: alto doble). Al pasar el mouse (o enfocar) aparece su nombre y su familia.
+// Órbita de producto: 12 productos recortados de distintas familias (64–160 px) flotan alrededor del bloque «+1.000 productos».
+// Al llegar la sección a la pantalla se acercan a su órbita, cada uno a su propia velocidad (`v`), y flotan ±6 px.
+// Al pasar el mouse (o enfocar) aparece el nombre; cada uno enlaza con su familia del catálogo.
 const WALL = [
-  { src: 'weg-w22-iec', name: 'Motor trifásico W22', fam: 'Motores eléctricos', slug: 'motores-electricos', t: 'w' },
-  { src: 'weg-cfw500', name: 'Variador CFW500', fam: 'Control y automatización', slug: 'control-y-automatizacion' },
-  { src: 'soler-palau-extractor-axial', name: 'Extractor axial tubular', fam: 'Ventilación y climatización', slug: 'ventilacion-y-climatizacion' },
-  { src: 'weg-cestari-wcg20', name: 'Motorreductor helicoidal', fam: 'Reductores y motorreductores', slug: 'reductores-y-motorreductores', t: 'h' },
-  { src: 'fluke-multimetro-117', name: 'Multímetro Fluke 117', fam: 'Medición y testeo', slug: 'medicion-y-testeo', t: 'h' },
-  { src: 'weg-contactores', name: 'Contactores CWB', fam: 'Control y automatización', slug: 'control-y-automatizacion' },
-  { src: 'weg-guardamotores', name: 'Guardamotor MPW', fam: 'Control y automatización', slug: 'control-y-automatizacion' },
-  { src: 'centelsa-cable-thhn', name: 'Cable THHN/THWN-2', fam: 'Cables y conductores', slug: 'cables-y-conductores', t: 'w' },
-  { src: 'sylvania-start-highbay', name: 'Campana LED START', fam: 'Iluminación', slug: 'iluminacion' },
-  { src: 'abac-compresor-vertical', name: 'Compresor vertical', fam: 'Compresores', slug: 'compresores' },
-  { src: 'weg-plc500', name: 'PLC WEG PLC500', fam: 'Control y automatización', slug: 'control-y-automatizacion' },
-  { src: 'weg-ssw05', name: 'Arrancador suave SSW05', fam: 'Control y automatización', slug: 'control-y-automatizacion' },
+  { src: 'weg-w22-iec', name: 'Motor trifásico W22', fam: 'Motores eléctricos', slug: 'motores-electricos', size: 160 },
+  { src: 'weg-cfw500', name: 'Variador CFW500', fam: 'Control y automatización', slug: 'control-y-automatizacion', size: 104 },
+  { src: 'soler-palau-extractor-axial', name: 'Extractor axial tubular', fam: 'Ventilación y climatización', slug: 'ventilacion-y-climatizacion', size: 132 },
+  { src: 'weg-cestari-wcg20', name: 'Motorreductor helicoidal', fam: 'Reductores y motorreductores', slug: 'reductores-y-motorreductores', size: 84 },
+  { src: 'fluke-multimetro-117', name: 'Multímetro Fluke 117', fam: 'Medición y testeo', slug: 'medicion-y-testeo', size: 124 },
+  { src: 'weg-contactores', name: 'Contactores CWB', fam: 'Control y automatización', slug: 'control-y-automatizacion', size: 64 },
+  { src: 'centelsa-cable-thhn', name: 'Cable THHN/THWN-2', fam: 'Cables y conductores', slug: 'cables-y-conductores', size: 150 },
+  { src: 'weg-guardamotores', name: 'Guardamotor MPW', fam: 'Control y automatización', slug: 'control-y-automatizacion', size: 92 },
+  { src: 'sylvania-start-highbay', name: 'Campana LED START', fam: 'Iluminación', slug: 'iluminacion', size: 116 },
+  { src: 'abac-compresor-vertical', name: 'Compresor vertical', fam: 'Compresores', slug: 'compresores', size: 140 },
+  { src: 'weg-plc500', name: 'PLC WEG PLC500', fam: 'Control y automatización', slug: 'control-y-automatizacion', size: 72 },
+  { src: 'weg-ssw05', name: 'Arrancador suave SSW05', fam: 'Control y automatización', slug: 'control-y-automatizacion', size: 98 },
 ]
+
+// Posición de cada producto en la elipse (grados desde −90°, de 30° en 30°), velocidad de acercamiento y fase del flotado
+const ORBIT = WALL.map((p, i) => {
+  const a = ((i * 30 - 90) * Math.PI) / 180
+  return {
+    ...p,
+    x: +(50 + 41 * Math.cos(a)).toFixed(2),
+    y: +(50 + 39 * Math.sin(a)).toFixed(2),
+    ox: Math.round(Math.cos(a) * (170 + (i % 3) * 40)), // cuánto más lejos del centro parte (px)
+    oy: Math.round(Math.sin(a) * (150 + (i % 3) * 30)),
+    v: [1, 1.25, 1.1, 1.4, 1.05, 1.2][i % 6], // velocidad relativa del acercamiento
+    fd: [4, 5.2, 4.6, 6, 4.4, 5.6][i % 6], // duración del flotado (s)
+    fl: -((i * 0.7) % 4).toFixed(1), // fase: cada uno flota desfasado
+  }
+})
 
 // Cómo trabajamos: tres paneles de foto que se apilan al bajar (tarjetas apiladas)
 const PILLARS = [
@@ -50,17 +66,6 @@ const MANIFEST = [
   ['Durante'], ['más'], ['de'], ['25'], ['años'], ['hemos'], ['acompañado'], ['a'], ['talleres,'], ['plantas'], ['y'], ['obras'], ['de'], ['Santander', 1],
   ['con'], ['la'], ['referencia', 1], ['exacta,'], ['asesoría', 1], ['de'], ['verdad'], ['y'], ['las'], ['marcas', 1], ['en'], ['las'], ['que'], ['confía'], ['la'], ['industria.', 1],
 ]
-
-function WallTile({ p, i }) {
-  return (
-    <Reveal as="li" mask delay={(i % 6) * 0.07} className={`wall__t ${p.t ? `wall__t--${p.t}` : ''}`}>
-      <Link to={`/productos?familia=${p.slug}`} className="wall__link" aria-label={`${p.name}, ${p.fam}`}>
-        <img src={`/img/catalogo/${p.src}-sm.webp`} alt="" width="480" height="480" loading="lazy" decoding="async" />
-        <span className="wall__cap"><strong>{p.name}</strong>{p.fam}</span>
-      </Link>
-    </Reveal>
-  )
-}
 
 const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2) // cúbica in-out
 
@@ -101,8 +106,8 @@ function GrowHero({ reduced }) {
 
   return (
     <section ref={sec} className={`ab-pin ${reduced ? 'ab-pin--flow' : ''}`} aria-labelledby="h-nosotros">
-      <div ref={stick} className="ab-pin__stick bg-lila-fade">
-        <Bgfx a="gear:l" c="r" arcTop="10%" />
+      <div ref={stick} className="ab-pin__stick bgt bgt-a">
+        <Squares items={[{ w: 200, h: 240, tone: 'lila', rate: 0.1, top: '12%', right: '-40px' }, { w: 140, tone: 'orange', rate: -0.1, bottom: '12%', left: '3%' }]} />
         <div className="wrap ab__grid">
           <div className="ab__text">
             <h1 id="h-nosotros" className="ie-h1">Más de {site.years} años <span className="mix-l">impulsando la industria</span> de <Hl>Santander</Hl></h1>
@@ -146,7 +151,7 @@ function Manifesto({ reduced }) {
   }, !reduced)
 
   return (
-    <section ref={sec} className={`mf bg-lila-soft ${reduced ? 'mf--flow' : ''}`} style={{ '--n': MANIFEST.length, '--p': reduced ? 1 : 0 }} aria-labelledby="h-manifiesto">
+    <section ref={sec} className={`mf bgt bgt-b ${reduced ? 'mf--flow' : ''}`} style={{ '--n': MANIFEST.length, '--p': reduced ? 1 : 0 }} aria-labelledby="h-manifiesto">
       <div className="mf__stick">
         <h2 id="h-manifiesto" className="sr-only">Quiénes somos</h2>
         <p className="mf__text">
@@ -157,34 +162,39 @@ function Manifesto({ reduced }) {
   )
 }
 
-/* ---------- 6.3 Muro de producto con parallax por columnas ---------- */
+/* ---------- 6.3 Órbita de producto ---------- */
 function Wall({ reduced }) {
-  const wide = useMediaQuery('(min-width: 900px)')
   const box = useRef(null)
-  // --wp va de −1 a 1 mientras el muro cruza la ventana; el CSS lo multiplica por −40, 0 o +40 px según la columna
+  const wide = useMediaQuery('(min-width: 900px)')
+  // --p va de 0 (la sección entra por abajo) a 1 (su centro llega al centro de la pantalla): los productos parten más lejos
+  // del bloque central y se acercan a su órbita; el CSS multiplica --p por la velocidad de cada uno
   useScrollFrame(() => {
     const el = box.current
     if (!el) return
     const r = el.getBoundingClientRect()
     const vh = window.innerHeight
-    el.style.setProperty('--wp', Math.max(-1, Math.min(1, (vh / 2 - (r.top + r.height / 2)) / (vh / 2 + r.height / 2))).toFixed(4))
-  }, wide && !reduced, [wide, reduced])
+    el.style.setProperty('--p', clamp01((vh - r.top) / (vh / 2 + r.height / 2)).toFixed(4))
+  }, !reduced)
 
   return (
-    <section className="ab-wall bg-lila-fade" aria-labelledby="h-muro">
-      <Bgfx d b="flip" />
+    <section className="ab-wall bgt bgt-a" aria-labelledby="h-muro">
+      <Squares items={[{ w: 220, h: 170, tone: 'orange', rate: 0.1, top: '24%', left: '27%' }, { w: 170, tone: 'lila', rate: -0.12, bottom: '20%', right: '26%' }]} />
       <div className="wrap">
         <h2 id="h-muro" className="sr-only">Productos que distribuimos</h2>
-        <ul className="wall" ref={box}>
-          {WALL.slice(0, 5).map((p, i) => <WallTile key={p.src} p={p} i={i} />)}
-          <li className="wall__core">
-            <Reveal mask delay={0.2} className="wall__core-in">
-              <p className="wall__big">+1.000</p>
-              <p className="wall__txt">productos de las mejores marcas</p>
-              <Pill as="link" to="/productos" tone="o" icon={ArrowUpRight}>Explorar catálogo</Pill>
-            </Reveal>
+        <ul className={`orbit ${wide ? '' : 'orbit--sm'}`} ref={box} style={{ '--p': reduced ? 1 : 0 }}>
+          {ORBIT.map((p) => (
+            <li key={p.src} className="orbit__item" style={{ '--x': p.x, '--y': p.y, '--sz': p.size, '--ox': p.ox, '--oy': p.oy, '--v': p.v, '--fd': `${p.fd}s`, '--fl': `${p.fl}s` }}>
+              <Link to={`/productos?familia=${p.slug}`} className="orbit__link" aria-label={`${p.name}, ${p.fam}`}>
+                <span className="orbit__f"><img src={`/img/catalogo/${p.src}-sm.webp`} alt="" width="480" height="480" loading="lazy" decoding="async" /></span>
+                <span className="orbit__cap"><strong>{p.name}</strong>{p.fam}</span>
+              </Link>
+            </li>
+          ))}
+          <li className="orbit__core">
+            <p className="orbit__big">+1.000</p>
+            <p className="orbit__txt">productos de las mejores marcas</p>
+            <Pill as="link" to="/productos" tone="o" icon={ArrowUpRight}>Explorar catálogo</Pill>
           </li>
-          {WALL.slice(5).map((p, i) => <WallTile key={p.src} p={p} i={i + 5} />)}
         </ul>
       </div>
     </section>
@@ -207,8 +217,8 @@ function Stack({ reduced }) {
   }, !reduced)
 
   return (
-    <section className="ab-how bg-lav" aria-labelledby="h-trabajamos">
-      <Bgfx a="contactor:r" e />
+    <section className="ab-how bgt bgt-d" aria-labelledby="h-trabajamos">
+      <Squares items={[{ w: 200, h: 160, tone: 'orange', rate: 0.1, top: '6%', right: '4%' }, { w: 150, tone: 'lila', rate: -0.1, bottom: '10%', left: '-30px' }]} />
       <div className="wrap">
         <h2 id="h-trabajamos" className="rd-h2">Cómo <Hl>trabajamos</Hl></h2>
         <ul className="stk" ref={box}>
@@ -242,8 +252,7 @@ export default function Nosotros() {
       <Stack reduced={reduced} />
 
       {/* 6.5 Equipo y almacén: dos marcos escalonados, cada uno con un bloque violeta extendido detrás */}
-      <section className="ab-gal bg-lila-soft" aria-label="Nuestro equipo y nuestro almacén">
-        <Bgfx b="flip" />
+      <section className="ab-gal bgt bgt-b" aria-label="Nuestro equipo y nuestro almacén">
         <div className="wrap">
           <ul className="ab-gal__grid">
             {SLOTS.map((s, i) => (
@@ -256,8 +265,8 @@ export default function Nosotros() {
       </section>
 
       {/* 6.6 Marcas: tarjetas con el logo oficial (gris que pasa a color) y las líneas que distribuimos */}
-      <section className="rd-sec bg-white ab-brands" aria-labelledby="h-marcas">
-        <Bgfx d c="l" arcTop="6%" />
+      <section className="rd-sec bgt bgt-a ab-brands" aria-labelledby="h-marcas">
+        <Squares items={[{ w: 180, h: 200, tone: 'lila', rate: 0.1, top: '8%', right: '-40px' }]} />
         <div className="wrap">
           <h2 id="h-marcas" className="rd-h2">Marcas que <Hl>distribuimos</Hl></h2>
           <ul className="ab-brands__grid">
@@ -275,7 +284,8 @@ export default function Nosotros() {
       </section>
 
       {/* 6.7 Cierre claro: tarjeta blanca con arco naranja, sin franja violeta */}
-      <section className="ab-end2 bg-lila-fade" aria-labelledby="h-cierre">
+      <section className="ab-end2 bgt bgt-d" aria-labelledby="h-cierre">
+        <Squares items={[{ w: 200, h: 160, tone: 'orange', rate: 0.1, top: '10%', left: '3%' }, { w: 140, tone: 'violet', rate: -0.1, bottom: '10%', right: '6%' }]} />
         <div className="wrap">
           <Reveal className="ab-end2__card">
             <svg className="ab-end2__arc" viewBox="0 0 320 320" aria-hidden="true" focusable="false"><path d="M320 0A320 320 0 0 1 0 320" /></svg>

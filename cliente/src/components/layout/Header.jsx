@@ -59,6 +59,8 @@ function Mega({ families, onClose }) {
   )
 }
 
+const DARK_HERO = ['/', '/contacto']
+
 export default function Header() {
   const { pathname } = useLocation()
   const { isAuthenticated } = useAuth()
@@ -69,8 +71,10 @@ export default function Header() {
   const [mega, setMega] = useState(false)
   const closeTimer = useRef(null)
 
-  const isHome = pathname === '/'
-  const solid = scrolled || !isHome || mega
+  // Páginas con hero oscuro: la barra empieza transparente con texto blanco. En el resto empieza blanca con texto oscuro.
+  // Al hacer scroll (o abrir el mega-menú) todas pasan a blanco al 85 % con desenfoque.
+  const darkHero = DARK_HERO.includes(pathname)
+  const solid = scrolled || !darkHero || mega
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -112,7 +116,7 @@ export default function Header() {
   const isActive = (item) => (item.end ? pathname === item.to : pathname.startsWith(item.to))
 
   return (
-    <header className={`site-header ${solid ? 'is-solid' : ''} ${scrolled ? 'is-scrolled' : ''}`}>
+    <header className={`site-header ${solid ? 'is-solid' : ''} ${scrolled || mega ? 'is-scrolled-bar' : ''} ${scrolled ? 'is-scrolled' : ''}`}>
       <nav className="nav" aria-label="Principal">
         <Link to="/" className="nav__logo" aria-label="Imagen Eléctrica, ir al inicio">
           <img src={solid ? '/img/logo-ajustado.png' : '/img/logo-blanco-ajustado.png'} alt="Imagen Eléctrica" width="53" height="64" />

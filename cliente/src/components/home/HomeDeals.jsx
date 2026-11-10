@@ -15,7 +15,7 @@ import SectionLabel from '../ui/SectionLabel'
 import Hl from '../ui/Hl'
 import Pill from '../ui/Pill'
 import Reveal from '../ui/Reveal'
-import Bgfx from '../ui/Bgfx'
+import Squares from '../ui/Squares'
 import '../../styles/line-card.css'
 import '../../styles/home2.css'
 
@@ -155,16 +155,16 @@ export default function HomeDeals() {
             <button type="button" className="hm-arrow" onClick={() => embla?.scrollNext()} disabled={!can.next} aria-label="Siguientes"><ChevronRight size={20} /></button>
           </>
         )}
-        <Pill as="link" to="/productos" tone="l" size="sm">Ver catálogo</Pill>
+        <Pill as="link" to="/productos" tone="o" size="sm">Ver catálogo</Pill>
       </div>
     </div>
   )
 
   if (mode === 'pin') {
     return (
-      <section ref={section} className="hm-deals hm-deals--pin bg-soft" aria-labelledby="h-ofertas" style={{ '--dx': dx, '--p': 0 }}>
+      <section ref={section} className="hm-deals hm-deals--pin bgt bgt-c" aria-labelledby="h-ofertas" style={{ '--dx': dx, '--p': 0 }}>
         <div className="hm-pin">
-          <Bgfx d c="l" arcTop="12%" />
+          <Squares items={[{ w: 200, h: 240, tone: 'lila', rate: 0.1, top: '10%', right: '6%' }, { w: 140, tone: 'violet', rate: -0.08, bottom: '8%', left: '3%' }]} />
           <div className="wrap">{heading}</div>
           <div className="hm-hscroll">
             <ul className="hm-hscroll__track">{cards}</ul>
@@ -178,8 +178,8 @@ export default function HomeDeals() {
   }
 
   return (
-    <section className={`rd-sec bg-soft hm-deals hm-deals--${mode}`} aria-labelledby="h-ofertas">
-      <Bgfx d c="l" arcTop="12%" />
+    <section className={`rd-sec bgt bgt-c hm-deals hm-deals--${mode}`} aria-labelledby="h-ofertas">
+      <Squares items={[{ w: 200, h: 240, tone: 'lila', rate: 0.1, top: '10%', right: '6%' }, { w: 140, tone: 'violet', rate: -0.08, bottom: '8%', left: '3%' }]} />
       <div className="wrap">
         {heading}
         {mode === 'carousel' ? (

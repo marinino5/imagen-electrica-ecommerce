@@ -5522,11 +5522,11 @@
   {
    "family": "Motores eléctricos",
    "category": "Motores trifásicos",
-   "name": "Motores de otras marcas",
-   "brand_label": "ABB · Match Drive · Nidec · Nord · WEG",
+   "name": "Motor trifásico WEG de bobinado",
+   "brand_label": "WEG",
    "image": "motores",
    "specs": [
-    "1–125 HP",
+    "1 HP",
     "1800 RPM"
    ],
    "mode": "direct",
@@ -5545,22 +5545,21 @@
      "mode": "direct",
      "price": 760000,
      "weight": 11
-    },
-    {
-     "sku": "PEND-003",
-     "label": "20 HP · 1800 RPM",
-     "name": "Motor Trifasico 20 Hp 1800 Rpm Us Motors Nidec",
-     "brand": "Nidec",
-     "stock": 1,
-     "hp": 20,
-     "rpm": 1800,
-     "amp": null,
-     "volt": null,
-     "ip": null,
-     "mode": "quote",
-     "price": 8650000,
-     "weight": 120.8
-    },
+    }
+   ]
+  },
+  {
+   "family": "Motores eléctricos",
+   "category": "Atmósferas explosivas",
+   "name": "Motores ABB",
+   "brand_label": "ABB",
+   "image": "motores",
+   "specs": [
+    "125 HP",
+    "1800 RPM"
+   ],
+   "mode": "quote",
+   "variants": [
     {
      "sku": "2419627-1",
      "label": "125 HP · 1800 RPM",
@@ -5575,37 +5574,50 @@
      "mode": "quote",
      "price": 36125000,
      "weight": 523.5
-    },
+    }
+   ]
+  },
+  {
+   "family": "Motores eléctricos",
+   "category": "Motores trifásicos",
+   "name": "Motores Nidec US Motors",
+   "brand_label": "Nidec",
+   "image": "motores",
+   "specs": [
+    "20 HP",
+    "1800 RPM"
+   ],
+   "mode": "quote",
+   "variants": [
     {
-     "sku": "003-001-106-020159",
-     "label": "1 HP · 1800 RPM",
-     "name": "Motor Monofasico 1.0 Hp 1800 Rpm Tapa B3 T:90L",
-     "brand": "Match Drive",
-     "stock": 2,
-     "hp": 1,
-     "rpm": 1800,
-     "amp": null,
-     "volt": null,
-     "ip": null,
-     "mode": "direct",
-     "price": 760000,
-     "weight": 11
-    },
-    {
-     "sku": "038-108-100531",
-     "label": "2 HP · 1800 RPM",
-     "name": "Motor Monofasico 2.0 Hp 1800 Rpm Brida B14 T:90L",
-     "brand": "Match Drive",
+     "sku": "PEND-003",
+     "label": "20 HP · 1800 RPM",
+     "name": "Motor Trifasico 20 Hp 1800 Rpm Us Motors Nidec",
+     "brand": "Nidec",
      "stock": 1,
-     "hp": 2,
+     "hp": 20,
      "rpm": 1800,
      "amp": null,
      "volt": null,
      "ip": null,
-     "mode": "direct",
-     "price": 1410000,
-     "weight": 19.2
-    },
+     "mode": "quote",
+     "price": 8650000,
+     "weight": 120.8
+    }
+   ]
+  },
+  {
+   "family": "Motores eléctricos",
+   "category": "Motores trifásicos",
+   "name": "Motores Nord",
+   "brand_label": "Nord",
+   "image": "motores",
+   "specs": [
+    "1–7,5 HP",
+    "1800 RPM"
+   ],
+   "mode": "direct",
+   "variants": [
     {
      "sku": "003-004-510-026581",
      "label": "1 HP · 1800 RPM",
@@ -5650,6 +5662,50 @@
      "mode": "quote",
      "price": 3950000,
      "weight": 55.1
+    }
+   ]
+  },
+  {
+   "family": "Motores eléctricos",
+   "category": "Motores monofásicos",
+   "name": "Motores Match Drive",
+   "brand_label": "Match Drive",
+   "image": "motores",
+   "specs": [
+    "1–2 HP",
+    "1800 RPM"
+   ],
+   "mode": "direct",
+   "variants": [
+    {
+     "sku": "003-001-106-020159",
+     "label": "1 HP · 1800 RPM",
+     "name": "Motor Monofasico 1.0 Hp 1800 Rpm Tapa B3 T:90L",
+     "brand": "Match Drive",
+     "stock": 2,
+     "hp": 1,
+     "rpm": 1800,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "direct",
+     "price": 760000,
+     "weight": 11
+    },
+    {
+     "sku": "038-108-100531",
+     "label": "2 HP · 1800 RPM",
+     "name": "Motor Monofasico 2.0 Hp 1800 Rpm Brida B14 T:90L",
+     "brand": "Match Drive",
+     "stock": 1,
+     "hp": 2,
+     "rpm": 1800,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "direct",
+     "price": 1410000,
+     "weight": 19.2
     }
    ]
   },

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { ArrowUpRight, Camera, Copy, FileText, Headset, Mail, MapPin, MessageCircle, Navigation, PackageSearch, Phone, ShieldCheck } from 'lucide-react'
 import CallPill from '../components/contacto/CallPill'
 import SmartForm from '../components/contacto/SmartForm'
-import Bgfx from '../components/ui/Bgfx'
+import Squares from '../components/ui/Squares'
 import Hl from '../components/ui/Hl'
 import Pill from '../components/ui/Pill'
 import Pop from '../components/ui/Pop'
@@ -15,7 +15,7 @@ import '../styles/contacto.css'
 import '../styles/ie-contacto.css'
 
 // Contacto como «centro de atención». Recurso firma: el bento de fotos.
-//  1. Hero oscuro de 60vh con foto a sangre y velo solo a la izquierda, con tres acciones.
+//  1. Hero oscuro (fondo E) bajo la barra transparente, con la foto del asesor a la derecha y tres acciones.
 //  2. «¿Qué necesitas?»: bento asimétrico (una tarjeta 2 × 2 y tres medianas), cada una con su foto.
 //  3. Formulario con altura animada (solo para «Estado de mi pedido» sin sesión y «Garantías y devoluciones»).
 //  4. Canales: tres columnas con separadores lila.
@@ -55,8 +55,8 @@ export default function Contacto() {
   return (
     <>
       {/* 5.1 Hero oscuro de 60vh */}
-      <section className="ct-hero" aria-labelledby="h-contacto">
-        <img className="ct-hero__bg" src="/img/fotos/contacto-mostrador.webp" alt="Vendedor de pie en el mostrador de una tienda de material y herramientas, rodeado de producto" width="2000" height="1333" fetchPriority="high" loading="eager" />
+      <section className="ct-hero bgt bgt-e" aria-labelledby="h-contacto">
+        <img className="ct-hero__bg" src="/img/fotos/contacto-asesor.webp" alt="Asesor sonriente con ropa de trabajo frente a las estanterías de un almacén de material" width="1600" height="1200" fetchPriority="high" loading="eager" />
         <span className="ct-hero__veil" aria-hidden="true" />
         <div className="wrap ct-hero__in">
           <Pop className="ct-hero__text">
@@ -75,8 +75,8 @@ export default function Contacto() {
       </section>
 
       {/* 5.2 Bento de fotos */}
-      <section className="ct-need bg-lila-fade" aria-labelledby="h-need">
-        <Bgfx b a="tablero:r" />
+      <section className="ct-need bgt bgt-a" aria-labelledby="h-need">
+        <Squares items={[{ w: 220, h: 200, tone: 'lila', rate: 0.1, top: '4%', right: '-40px' }, { w: 140, tone: 'orange', rate: -0.1, bottom: '10%', left: '-30px' }]} />
         <div className="wrap">
           <Pop><h2 id="h-need" className="rd-h2">¿Qué <Hl>necesitas?</Hl></h2></Pop>
           <ul className="bento">
@@ -115,8 +115,8 @@ export default function Contacto() {
       </section>
 
       {/* 5.3 Canales: tres columnas con separadores lila */}
-      <section className="ct-chan bg-lila-soft" aria-label="Formas de contactarnos">
-        <Bgfx e />
+      <section className="ct-chan bgt bgt-d bgt--arc-l" aria-label="Formas de contactarnos">
+        <Squares items={[{ w: 160, h: 200, tone: 'orange', rate: 0.1, top: '10%', right: '6%' }, { w: 120, tone: 'lila', rate: -0.1, bottom: '12%', left: '30%' }]} />
         <div className="wrap">
           <ul className="chan3">
             <Reveal as="li" i={0}>
@@ -142,8 +142,8 @@ export default function Contacto() {
       </section>
 
       {/* 5.5 Visítanos */}
-      <section className="ct-where bg-lila-fade" aria-labelledby="h-visit">
-        <Bgfx d c="l" arcTop="12%" />
+      <section className="ct-where bgt bgt-b" aria-labelledby="h-visit">
+        <Squares items={[{ w: 200, h: 160, tone: 'violet', rate: 0.1, top: '14%', left: '-40px' }, { w: 150, tone: 'orange', rate: -0.1, bottom: '16%', right: '3%' }]} />
         <div className="wrap">
           <Pop>
             <div className="visit2">

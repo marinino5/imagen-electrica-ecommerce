@@ -8,8 +8,8 @@ import { useInView } from './useInView'
  * bloque (scaleX), foto (desde su lado), texto (desde el lado contrario) y arco (stroke-dashoffset).
  */
 export default function Xb({ side = 'l', arch = false, ratio, col, photo, children, className = '', as: Tag = 'div', ...props }) {
-  const [ref, seen] = useInView({ always: true })
-  const classes = ['xb', side === 'r' && 'xb--r', arch && 'xb--arch', seen && 'is-in', className].filter(Boolean).join(' ')
+  const [ref, seen, instant] = useInView({ always: true })
+  const classes = ['xb', side === 'r' && 'xb--r', arch && 'xb--arch', seen && 'is-in', instant && 'xb--now', className].filter(Boolean).join(' ')
   return (
     <Tag ref={ref} className={classes} {...props}>
       <div className="wrap xb__grid" style={col ? { '--col': col } : undefined}>

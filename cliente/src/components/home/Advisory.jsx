@@ -4,15 +4,15 @@ import Hl from '../ui/Hl'
 import Reveal from '../ui/Reveal'
 import SectionLabel from '../ui/SectionLabel'
 import ChannelCards from '../ui/ChannelCards'
-import Bgfx from '../ui/Bgfx'
+import Squares from '../ui/Squares'
 import '../../styles/ie-home.css'
 
 // Cierre claro del Inicio: fondo lila con arco naranja, el técnico en arco alto con bloque extendido desde el borde izquierdo,
 // el titular y los tres canales. El pie oscuro viene justo después.
 export default function Advisory() {
   return (
-    <section className="adv2 bg-lila-arc" aria-labelledby="h-asesoria">
-      <Bgfx a="plan:l" />
+    <section className="adv2 bgt bgt-d" aria-labelledby="h-asesoria">
+      <Squares items={[{ w: 200, h: 240, tone: 'orange', rate: 0.1, top: '14%', left: '-30px' }, { w: 140, tone: 'lila', rate: -0.1, bottom: '16%', right: '6%' }]} />
       <Xb
         side="l"
         arch

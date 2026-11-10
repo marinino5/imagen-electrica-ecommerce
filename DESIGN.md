@@ -106,3 +106,13 @@ Inicio: hero con producto sin círculo (brillo naranja, arco de 2 px, sombra el�
 - **Cuenta:** tarjeta de 460 px a la izquierda (55 %) y «riel de producto» a la derecha (45 %, dos carriles de 40 s en sentidos opuestos). Recuperar contraseña en `/recuperar` y `/restablecer`.
 - **Contacto:** hero oscuro de 420 px, cuatro mosaicos 2 × 2, formulario solo para dos motivos (altura animada 300 ms), tarjeta de visita sobre banda diagonal y dirección con mapa estático (sin iframe).
 - **Nosotros:** muro de producto (12 baldosas + central 2 × 2), tres pilares con foto al 60 %, cierre con arco naranja grande y sin mapa. Las imágenes del catálogo se recortan con alpha matting (ver `docs/auditoria-imagenes.md`).
+
+
+## Fase 1A: barra superior, fondos por tipo y cuadros de color (`fase1.css`)
+
+- **Barra superior por página.** Heros oscuros (Inicio, Contacto): transparente con texto y logo blancos. Heros claros: blanca al 100 % con texto oscuro. Con scroll (o con el mega-menú abierto): blanco al 85 % con desenfoque de 16 px. La lista de páginas oscuras es `DARK_HERO` en `Header.jsx`; `Layout.jsx` quita el margen superior en esas páginas.
+- **Cinco fondos de sección** (`.bgt.bgt-a` … `.bgt-e`, nunca dos seguidos iguales): **A** blanco con textura de puntos; **B** lila-100; **C** degradado diagonal violeta-700 → violeta-500 con tarjetas blancas encima y texto blanco; **D** naranja cálido (`--ie-orange-50` → `--ie-orange-100`) con arco naranja; **E** violeta-950, uno por página y nunca pegado al pie. Secuencias: Inicio A·C·D·B·A·B·D; Catálogo B·A; Cómo comprar A·B·A·C·D·A·B; Contacto E·A·D·B; Nosotros A·B·A·D·B·A·D; Ingresar E (banda superior) + B.
+- **Cuadros de color** (`Squares.jsx`): máximo 2 por sección, rectángulos redondeados de 120–240 px en lila-200, naranja-100 o violeta-500 al 15 % detrás de fotos y tarjetas, con parallax leve (`--sq-c` lo escribe `useScrollFrame`). Con movimiento reducido no se mueven.
+- **Ingresar / Crear cuenta / Recuperar**: dos bandas (violeta-950 arriba con la «e» del logo en contorno al 6 % y un arco naranja; lila-100 abajo), tarjeta de 520 px a caballo con sombra profunda y tres productos que asoman detrás (solo desde 768 px). En celular, banda de 160 px y la tarjeta debajo.
+- **Nosotros · órbita de producto**: 12 productos de 64 a 160 px flotan (±6 px, 4 a 6 s) alrededor del bloque central en fondo C y se acercan a su órbita mientras la sección entra, cada uno a su velocidad.
+- **Saltos de scroll**: `scroll-behavior` quedó en `auto` (el salto es instantáneo) y `useInView` fuerza a mostrar todo lo que toque la pantalla 180 ms después de que el scroll se detenga; los bloques extendidos (`Xb`) respetan `instant` y la rejilla de Sectores ya no espera a un revelado.

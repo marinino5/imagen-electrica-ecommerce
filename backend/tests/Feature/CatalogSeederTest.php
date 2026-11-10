@@ -20,9 +20,9 @@ class CatalogSeederTest extends TestCase
         $this->seed([BrandSeeder::class, CatalogSeeder::class]);
     }
 
-    public function test_carga_34_lineas_y_351_referencias_del_inventario(): void
+    public function test_carga_38_lineas_y_351_referencias_del_inventario(): void
     {
-        $this->assertSame(34, ProductLine::count());
+        $this->assertSame(38, ProductLine::count());
         $this->assertSame(351, Product::whereNotNull('line_id')->count());
     }
 
@@ -62,7 +62,7 @@ class CatalogSeederTest extends TestCase
 
         $this->seed(CatalogSeeder::class);
 
-        $this->assertSame(34, ProductLine::count());
+        $this->assertSame(38, ProductLine::count());
         $this->assertSame(351, Product::whereNotNull('line_id')->count());
         $this->assertEquals(999000, Product::where('sku', '15331270')->value('price'));
     }
@@ -81,14 +81,14 @@ class CatalogSeederTest extends TestCase
         Product::query()->forceDelete();
 
         $this->seed(\Database\Seeders\ProductionCatalogSeeder::class);
-        $this->assertSame(34, ProductLine::count());
+        $this->assertSame(38, ProductLine::count());
 
         // Una línea eliminada a propósito no vuelve en el siguiente arranque
         ProductLine::where('slug', 'variador-cfw300')->first()->variants()->forceDelete();
         ProductLine::where('slug', 'variador-cfw300')->delete();
         $this->seed(\Database\Seeders\ProductionCatalogSeeder::class);
 
-        $this->assertSame(33, ProductLine::count());
+        $this->assertSame(37, ProductLine::count());
     }
 
     public function test_los_rangos_iguales_se_muestran_como_un_solo_valor(): void

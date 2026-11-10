@@ -17,7 +17,7 @@ import FamilyTree from '../components/catalog/FamilyTree'
 import FamilyChips from '../components/catalog/FamilyChips'
 import CatalogBanner from '../components/catalog/CatalogBanner'
 import { FAMILY_BLURB, familyPhoto } from '../lib/families'
-import Bgfx from '../components/ui/Bgfx'
+import Squares from '../components/ui/Squares'
 import '../styles/catalog.css'
 
 const QUICK = [
@@ -98,8 +98,13 @@ export default function Products() {
     }
   }, [])
 
+  // «?buscar=1» (icono de lupa del encabezado): enfoca el buscador de la barra de filtros; en celular, donde esa barra
+  // vive dentro de la hoja de filtros, abre la hoja
   useEffect(() => {
-    if (params.get('buscar')) finderRef.current?.focus()
+    if (!params.get('buscar')) return
+    const input = finderRef.current
+    if (input && input.offsetParent) input.focus({ preventScroll: true })
+    else setSheet(true)
   }, [params])
 
   // Hoja inferior (celular): Escape cierra y el fondo no se desplaza
@@ -144,9 +149,12 @@ export default function Products() {
   const activeCount = chips.length
 
   const scrollToResults = () => resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  // Una búsqueda frecuente llena el buscador de la barra de filtros y baja a los resultados
   const search = (q) => {
     set({ q })
     scrollToResults()
+    const input = finderRef.current
+    if (input && input.offsetParent) input.focus({ preventScroll: true })
   }
 
   const filterProps = { st, set, toggleBrand, brands: meta.brands, finderRef }
@@ -185,10 +193,10 @@ export default function Products() {
 
   return (
     <>
-      <CatalogBanner finderRef={finderRef} initial={st.q} onSearch={search} quick={QUICK} />
+      <CatalogBanner onQuick={search} quick={QUICK} />
 
-      <div className="cat-body bg-lila-soft">
-      <Bgfx d c="r" arcTop="30%" />
+      <div className="cat-body bgt bgt-a">
+      <Squares items={[{ w: 200, h: 240, tone: 'lila', rate: 0.08, top: '6%', right: '-60px' }, { w: 140, tone: 'orange', rate: -0.1, top: '48%', left: '-50px' }]} />
       <div className="wrap cat-wrap" ref={resultsRef}>
         {/* Barra de herramientas: hijos directos del bloque alto para que se queden fijos mientras se recorre el catálogo */}
         <div className="cat-mbar">
