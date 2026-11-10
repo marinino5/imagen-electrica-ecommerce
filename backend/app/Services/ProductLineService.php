@@ -10,10 +10,10 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductLineService
 {
-    /** Hay unas 33 líneas: el catálogo las entrega todas de una vez (máximo 50 por página). */
-    public const CATALOG_PER_PAGE = 50;
+    /** El catálogo entrega todas las líneas de una vez (la tienda las filtra en el navegador): hay unas 60 y puede haber más, por eso 200 por página. */
+    public const CATALOG_PER_PAGE = 200;
 
-    public const MAX_PER_PAGE = 50;
+    public const MAX_PER_PAGE = 200;
 
     public function __construct(private readonly ProductLineRepository $repository) {}
 

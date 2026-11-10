@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { catalogApi } from '../api'
 
-// Las ~33 líneas se piden una sola vez (caben en una página) y los filtros se aplican en el navegador.
+// Las ~60 líneas se piden una sola vez (caben en una página de 200) y los filtros se aplican en el navegador.
 let cache = null
 let pending = null
 

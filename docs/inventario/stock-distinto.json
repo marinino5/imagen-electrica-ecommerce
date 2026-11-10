@@ -1,0 +1,86 @@
+[
+ {
+  "sku": "12220436",
+  "descripcion": "CONTACTOR CWB18 18 AMP",
+  "linea": "Contactores",
+  "stock_tienda": 13,
+  "stock_excel": 11
+ },
+ {
+  "sku": "12429371",
+  "descripcion": "GUARDAMOTOR MPW18 4-6.3 AMP",
+  "linea": "Guardamotores",
+  "stock_tienda": 7,
+  "stock_excel": 6
+ },
+ {
+  "sku": "12930985",
+  "descripcion": "SELECTOR 3 POSICIONES LUMINOSO 220V VERDE",
+  "linea": "Pulsadores, pilotos y selectores",
+  "stock_tienda": 6,
+  "stock_excel": 1
+ },
+ {
+  "sku": "10076389",
+  "descripcion": "MINI BREAKER 1 POLO 4 AMP",
+  "linea": "Minibreakers",
+  "stock_tienda": 7,
+  "stock_excel": 5
+ },
+ {
+  "sku": "10076409",
+  "descripcion": "MINI BREAKER 3 POLO 10 AMP",
+  "linea": "Minibreakers",
+  "stock_tienda": 5,
+  "stock_excel": 0
+ },
+ {
+  "sku": "10076433",
+  "descripcion": "MINI BREAKER 3 POLO 25 AMP",
+  "linea": "Minibreakers",
+  "stock_tienda": 13,
+  "stock_excel": 12
+ },
+ {
+  "sku": "11631355",
+  "descripcion": "TOTALIZADOR DWB160 32-40 AMP REGULABLE",
+  "linea": "Totalizadores",
+  "stock_tienda": 1,
+  "stock_excel": 0
+ },
+ {
+  "sku": "11631358",
+  "descripcion": "TOTALIZADOR DWB160 40-50 AMP REGULABLE",
+  "linea": "Totalizadores",
+  "stock_tienda": 2,
+  "stock_excel": 1
+ },
+ {
+  "sku": "10261745",
+  "descripcion": "BORNE TIERRA TIPO TORNILLO BTWP 6/10T",
+  "linea": "Borneras y accesorios",
+  "stock_tienda": 51,
+  "stock_excel": 50
+ },
+ {
+  "sku": "14870191",
+  "descripcion": "VARIADOR CFW100 2 HP 6 AMP IN:220V OUT:220V",
+  "linea": "Variador CFW100",
+  "stock_tienda": 1,
+  "stock_excel": 0
+ },
+ {
+  "sku": "17245357",
+  "descripcion": "MOTOR MONOFASICO 1.0 HP 1800 RPM IP21",
+  "linea": "W01 monofásico semiabierto",
+  "stock_tienda": 1,
+  "stock_excel": 0
+ },
+ {
+  "sku": "18108471",
+  "descripcion": "MOTOR TRIFASICO 1.0 HP 1800 RPM W21 IE3  BRIDA B14",
+  "linea": "W21 IEC · carcasa aluminio",
+  "stock_tienda": 2,
+  "stock_excel": 0
+ }
+]

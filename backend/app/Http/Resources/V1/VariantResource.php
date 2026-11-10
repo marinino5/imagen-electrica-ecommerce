@@ -32,6 +32,8 @@ class VariantResource extends JsonResource
             'amp' => $specs['corriente_a'] ?? null,
             'volt' => $specs['voltaje_v'] ?? null,
             'ip' => $specs['proteccion_ip'] ?? null,
+            // Los demás datos de la referencia (pines, potencia_w, longitud_m…): la tienda los muestra con su unidad y oculta los vacíos
+            'specs' => (object) array_diff_key($specs, array_flip(['potencia_hp', 'velocidad_rpm', 'corriente_a', 'voltaje_v', 'proteccion_ip'])),
             'unit' => $this->unit->value,
             'unit_label' => $this->unit->label(),
             // Sin precio (null) la referencia solo se vende por cotización
@@ -40,7 +42,8 @@ class VariantResource extends JsonResource
             'stock' => $this->stock,
             'in_stock' => $this->stock > 0,
             'sale_mode' => $this->sale_mode->value,
-            'brand' => $this->whenLoaded('brand', fn () => $this->brand?->only(['id', 'name', 'slug'])),
+            // «Sin marca» (referencias del inventario sin fabricante conocido) no se muestra como marca
+            'brand' => $this->whenLoaded('brand', fn () => $this->brand && $this->brand->slug !== 'sin-marca' ? $this->brand->only(['id', 'name', 'slug']) : null),
         ];
     }
 }

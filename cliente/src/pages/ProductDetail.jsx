@@ -6,7 +6,7 @@ import { site } from '../config/site'
 import { useCart } from '../context/CartContext'
 import { useApi } from '../hooks/useApi'
 import { isDirectPurchase } from '../lib/catalog'
-import { formatCOP } from '../lib/format'
+import { formatCOP, formatSpec } from '../lib/format'
 import { cartItem, hpText, imageMatchesBrand, lineBrands, lineImage, lineQuoteItem, twinTag } from '../lib/lines'
 import { WHERE_USED } from '../lib/datasheets'
 import BrandMark from '../components/ui/BrandMark'
@@ -108,7 +108,8 @@ export default function ProductDetail() {
   }
   if (error) return <div className="wrap"><ErrorState error={error} onRetry={reload} /></div>
 
-  const image = lineImage(line)
+  // La foto sigue a la referencia elegida cuando tiene la propia (reflectores por potencia, finales de carrera por palanca…)
+  const image = current?.image_url ?? lineImage(line)
   const choose = (variant) => variant && setParams({ ref: variant.sku }, { replace: true })
 
   // Potencias y velocidades, de menor a mayor; las combinaciones que no existen se apagan
@@ -128,7 +129,8 @@ export default function ProductDetail() {
   const waText = `Hola, quiero información sobre ${line.name}${current ? ` (${current.label}, SKU ${current.sku})` : ''}.`
   // El logo y la foto siguen a la referencia elegida: nunca un logo de ABB junto a un motor WEG
   const brand = current?.brand?.name ?? lineBrands(line)[0] ?? ''
-  const galleryLine = imageMatchesBrand(line.image_url, brand) ? line : { ...line, image_url: null, image_alt_url: null }
+  const refLine = current?.image_url ? { ...line, image_url: current.image_url, image_alt_url: current.image_url === line.image_url ? line.image_alt_url : null } : line
+  const galleryLine = imageMatchesBrand(refLine.image_url, brand) ? refLine : { ...refLine, image_url: null, image_alt_url: null }
 
   // Datos técnicos de la referencia elegida. Los que no tienen valor no se muestran (nada de «—»).
   const specs = current
@@ -138,6 +140,8 @@ export default function ProductDetail() {
         [Activity, 'Corriente', current.amp ? `${String(current.amp).replace('.', ',')} A` : null],
         [Plug, 'Tensión', current.volt ? `${current.volt} V` : null],
         [ShieldCheck, 'Protección', current.ip || null],
+        // Datos propios de la referencia (pines, potencia, longitud…) con su unidad; los vacíos no se muestran
+        ...Object.entries(current.specs ?? {}).map(([key, value]) => { const f = formatSpec(key, value); return [Layers, f.label, f.value] }),
         [BadgeCheck, 'Marca', current.brand?.name ?? line.brand_label ?? null],
         [Layers, 'Categoría', line.category?.name ?? null],
       ].filter(([, , value]) => value)
@@ -167,7 +171,7 @@ export default function ProductDetail() {
 
       <article className="wrap pd">
         <Reveal className="pd__gal">
-          <Gallery line={galleryLine} />
+          <Gallery key={galleryLine.image_url ?? 'sin-foto'} line={galleryLine} />
         </Reveal>
 
         <Reveal className="pd__info" delay={0.05}>

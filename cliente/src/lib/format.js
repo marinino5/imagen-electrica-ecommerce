@@ -18,6 +18,7 @@ export const formatDate = (iso) =>
 const UNITS = {
   v: 'V', a: 'A', hp: 'HP', kw: 'kW', w: 'W', hz: 'Hz', rpm: 'rpm', m: 'm', mm: 'mm',
   c: '°C', awg: 'AWG', lm: 'lm', k: 'K', cfm: 'CFM', psi: 'psi', bar: 'bar', l: 'L', kg: 'kg',
+  va: 'VA', ah: 'Ah', kv: 'kV', kohm: 'kΩ',
 }
 
 export function formatSpec(key, value) {

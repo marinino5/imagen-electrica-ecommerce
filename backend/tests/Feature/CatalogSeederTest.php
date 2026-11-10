@@ -8,6 +8,7 @@ use App\Models\ProductLine;
 use Database\Seeders\BrandSeeder;
 use Database\Seeders\CatalogSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\Support\CatalogData;
 use Tests\TestCase;
 
 class CatalogSeederTest extends TestCase
@@ -20,19 +21,19 @@ class CatalogSeederTest extends TestCase
         $this->seed([BrandSeeder::class, CatalogSeeder::class]);
     }
 
-    public function test_carga_38_lineas_y_351_referencias_del_inventario(): void
+    public function test_carga_las_lineas_y_las_referencias_del_inventario(): void
     {
-        $this->assertSame(38, ProductLine::count());
-        $this->assertSame(351, Product::whereNotNull('line_id')->count());
+        $this->assertSame(CatalogData::lines(), ProductLine::count());
+        $this->assertSame(CatalogData::references(), Product::whereNotNull('line_id')->count());
     }
 
-    public function test_las_ocho_lineas_sin_inventario_son_bajo_pedido(): void
+    public function test_las_lineas_sin_inventario_son_bajo_pedido(): void
     {
         $sinReferencias = ProductLine::doesntHave('variants')->get();
 
-        $this->assertCount(8, $sinReferencias);
+        // WCG01 y WCG20 recibieron referencias en la Fase 1B: ya no están sin inventario
+        $this->assertCount(CatalogData::linesWithoutReferences(), $sinReferencias);
         $this->assertTrue($sinReferencias->every(fn (ProductLine $l) => $l->sale_mode === SaleMode::OnRequest));
-        $this->assertTrue($sinReferencias->contains('name', 'Motorreductor sinfín WCG01'));
         $this->assertTrue($sinReferencias->contains('name', 'PLC WEG PLC200 y PLC500'));
         $this->assertTrue($sinReferencias->contains('name', 'Instrumentos de medición Fluke'));
     }
@@ -62,8 +63,8 @@ class CatalogSeederTest extends TestCase
 
         $this->seed(CatalogSeeder::class);
 
-        $this->assertSame(38, ProductLine::count());
-        $this->assertSame(351, Product::whereNotNull('line_id')->count());
+        $this->assertSame(CatalogData::lines(), ProductLine::count());
+        $this->assertSame(CatalogData::references(), Product::whereNotNull('line_id')->count());
         $this->assertEquals(999000, Product::where('sku', '15331270')->value('price'));
     }
 
@@ -81,14 +82,14 @@ class CatalogSeederTest extends TestCase
         Product::query()->forceDelete();
 
         $this->seed(\Database\Seeders\ProductionCatalogSeeder::class);
-        $this->assertSame(38, ProductLine::count());
+        $this->assertSame(CatalogData::lines(), ProductLine::count());
 
         // Una línea eliminada a propósito no vuelve en el siguiente arranque
         ProductLine::where('slug', 'variador-cfw300')->first()->variants()->forceDelete();
         ProductLine::where('slug', 'variador-cfw300')->delete();
         $this->seed(\Database\Seeders\ProductionCatalogSeeder::class);
 
-        $this->assertSame(37, ProductLine::count());
+        $this->assertSame(CatalogData::lines() - 1, ProductLine::count());
     }
 
     public function test_los_rangos_iguales_se_muestran_como_un_solo_valor(): void

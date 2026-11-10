@@ -142,3 +142,12 @@ body .site-header:not(.is-solid) { background: transparent; box-shadow: none; }
   .ct-hero__veil { background: linear-gradient(90deg, var(--ie-violet-950) 0%, rgb(30 22 49 / 0.55) 34%, rgb(30 22 49 / 0) 60%); }
 }
 @media (max-width: 767px) { .ct-hero__bg { object-position: 50% 22%; } }
+
+/* ---------- Familias 09 y 10 ---------- */
+/* Con 9 o 10 familias la cuadrícula del Inicio pasa a 5 columnas en escritorio (dos filas parejas de cinco) */
+@media (min-width: 1100px) { .fam-grid.fam-grid--wide { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; } }
+/* «Otros productos» va al final y con diseño sobrio: lila liso, icono en tinta suave y sin naranja */
+.fam--sober .fam__card { background: var(--ie-lila-100); border-color: var(--ie-lila-200); }
+.fam--sober .fam__media { background: var(--ie-lila-100); }
+.fam--sober .fam__art { border-color: var(--ie-violet-500) transparent transparent var(--ie-violet-500); color: var(--muted); }
+.fam--sober .fam__num { color: var(--muted); }

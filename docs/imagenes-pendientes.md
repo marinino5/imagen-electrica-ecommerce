@@ -1,5 +1,7 @@
 # Imágenes y fotos pendientes
 
+> **Fase 1B**: de las 225 referencias nuevas «Listo» del inventario se publicaron las 94 que tienen foto; las demás esperan foto o datos (`docs/inventario/pendientes-empresa.md`).
+
 Lo que **no** se pudo conseguir con licencia y calidad suficientes. La tienda nunca deja un renglón vacío ni usa la foto de otra marca como si fuera la del producto.
 
 ## Resumen (nivel 2)

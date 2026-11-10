@@ -1,4 +1,4 @@
-import { Activity, Cable, CircuitBoard, Cog, Fan, Gauge, Lightbulb, Settings2 } from 'lucide-react'
+import { Activity, Cable, CircuitBoard, Cog, Fan, Gauge, Lightbulb, Package, Plug, Settings2 } from 'lucide-react'
 
 // Icono grande de cada familia: se usa en el diseño de marca cuando una ficha aún no tiene foto.
 const ICONS = {
@@ -10,6 +10,8 @@ const ICONS = {
   iluminacion: Lightbulb,
   compresores: Gauge,
   'medicion-y-testeo': Activity,
+  'material-electrico': Plug,
+  'otros-productos': Package,
 }
 
 export const familyIcon = (slug) => ICONS[slug] ?? Cog
@@ -27,6 +29,8 @@ export const FAMILY_PHOTO = {
   iluminacion: cut('sylvania-start-highbay', 'Campana industrial LED Sylvania START Highbay'),
   compresores: cut('abac-compresor-vertical', 'Compresor de pistón vertical ABAC de 270 litros'),
   'medicion-y-testeo': cut('fluke-multimetro-117', 'Multímetro Fluke 117'),
+  'material-electrico': cut('leviton-wid0002', 'Toma doble blanca Leviton NEMA 5-15R'),
+  // «Otros productos» no lleva foto de producto: su portada es un diseño sobrio (icono sobre lila), ver .fam--sober
 }
 export const familyPhoto = (slug) => FAMILY_PHOTO[slug] ?? null
 
@@ -40,6 +44,8 @@ export const FAMILY_APP_PHOTO = {
   iluminacion: { src: '/img/fotos/almacen-oscuro.webp', alt: 'Almacén con estanterías' },
   compresores: { src: '/img/aplicaciones/bombeo.webp', alt: 'Tubería y equipos de una planta' },
   'medicion-y-testeo': { src: '/img/aplicaciones/fluke-en-tablero.webp', alt: 'Multímetro Fluke midiendo en un tablero' },
+  'material-electrico': { src: '/img/fotos/tablero-cerca.webp', alt: 'Cableado de un tablero eléctrico' },
+  'otros-productos': { src: '/img/fotos/almacen-cajas.webp', alt: 'Cajas en una estantería del almacén' },
 }
 
 // Qué familias muestran cada filtro técnico (el resto no los ofrece)
@@ -58,5 +64,7 @@ export const FAMILY_BLURB = {
   'cables-y-conductores': 'Conductores THHN / THWN-2 para instalaciones eléctricas.',
   iluminacion: 'Iluminación industrial LED para naves, almacenes y talleres.',
   compresores: 'Compresores de pistón para taller e industria.',
-  'medicion-y-testeo': 'Multímetros y equipos de medición Fluke para electricistas y técnicos.',
+  'medicion-y-testeo': 'Multímetros, instrumentos de panel y equipos de medición para electricistas y técnicos.',
+  'material-electrico': 'Tomas, clavijas, cintas aislantes y puesta a tierra para instalaciones eléctricas.',
+  'otros-productos': 'Insumos, herramientas y repuestos que no son material eléctrico.',
 }

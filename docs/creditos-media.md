@@ -147,3 +147,8 @@ Todas de [Pexels](https://www.pexels.com) ([Pexels License](https://www.pexels.c
 | `fotos/nosotros-despacho.webp` | 4480982 | Recorte 16:9 |
 
 Las capturas de `public/img/como-comprar/` son de la propia tienda (`cliente/scripts/capturar-mockups.mjs`, con los envíos simulados: no crean pedidos). Las maquetas anteriores de `public/img/mockups/` se retiraron.
+
+
+## Fase 1B (productos nuevos)
+
+Fotos de producto de los fabricantes y de distribuidores colombianos, una por modelo, recortadas con `normalizar-producto.py`. Cada archivo con su página de origen: `docs/inventario/fuentes-imagenes-fase1.md`. Las imágenes son de uso comercial para identificar el producto que la tienda vende; las marcas pertenecen a sus dueños.

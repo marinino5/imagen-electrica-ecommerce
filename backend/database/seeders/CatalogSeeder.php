@@ -17,7 +17,8 @@ use Illuminate\Support\Str;
  *
  * Los datos salen de database/data/catalogo.json, que se genera con
  * docs/datos/generar_catalogo.py desde el Excel de inventario y el portafolio.
- * Los precios del Excel son de prueba: cada referencia queda con price_is_simulated.
+ * Los precios del Excel son de prueba: cada referencia queda con price_is_simulated. Las referencias de la Fase 1B no traen
+ * precio (todas se cotizan) y cada una lleva su foto en `image`.
  *
  * Idempotente: busca por slug (familias, categorías, líneas) y por sku (referencias);
  * lo que ya existe no se modifica, así no se pisan precios ni stock cambiados después.
@@ -90,7 +91,8 @@ class CatalogSeeder extends Seeder
             collect($variants)->contains('mode', 'direct') => SaleMode::Direct,
             default => SaleMode::Quote,
         };
-        $mainBrand = $row['brand_label'] ? Brand::where('slug', Str::slug(explode(' · ', $row['brand_label'])[0]))->first() : null;
+        $mainName = $row['brand_label'] ? explode(' · ', $row['brand_label'])[0] : null;
+        $mainBrand = $mainName ? Brand::firstOrCreate(['slug' => Str::slug($mainName)], ['name' => $mainName]) : null;
 
         $line = ProductLine::firstOrCreate(['slug' => Str::slug($row['name'])], [
             'category_id' => $category->id,
@@ -106,6 +108,12 @@ class CatalogSeeder extends Seeder
 
         foreach ($variants as $variant) {
             $this->seedVariant($line, $category, $variant);
+        }
+
+        // Una línea que estaba «bajo pedido» (sin referencias) y ahora recibe referencias pasa a venderse según ellas:
+        // directa si alguna lo es, por cotización si no. Una línea que ya tenía modo propio no se toca.
+        if ($variants !== [] && $line->sale_mode === SaleMode::OnRequest) {
+            $line->update(['sale_mode' => $mode]);
         }
     }
 
@@ -123,13 +131,17 @@ class CatalogSeeder extends Seeder
             'variant_label' => $v['label'],
             'slug' => Str::slug($v['name'].' '.$v['sku']),
             'short_description' => Str::limit($line->name.' · '.$v['label'], 480),
+            // Las cinco claves de la placa más las que traiga la referencia en `specs` (pines, potencia_w, longitud_m…).
+            // Solo las que salen de la descripción o de la ficha oficial; los campos vacíos no se guardan.
             'specs' => array_filter([
                 'potencia_hp' => $v['hp'],
                 'velocidad_rpm' => $v['rpm'],
                 'corriente_a' => $v['amp'],
                 'voltaje_v' => $v['volt'],
                 'proteccion_ip' => $v['ip'],
+                ...($v['specs'] ?? []),
             ], fn ($value) => $value !== null && $value !== ''),
+            'image_url' => $v['image'] ?? null,
             'unit' => ProductUnit::Unidad,
             // Los precios del Excel son simulados; sin venta directa no se publica precio
             'price' => $direct ? $v['price'] : null,

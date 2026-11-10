@@ -39,6 +39,16 @@
    "name": "Medición y testeo",
    "image": null,
    "description": null
+  },
+  {
+   "name": "Material eléctrico",
+   "image": "material-electrico",
+   "description": "Tomas, clavijas, cintas aislantes y puesta a tierra para instalaciones eléctricas."
+  },
+  {
+   "name": "Otros productos",
+   "image": "otros",
+   "description": "Insumos, herramientas y repuestos que no son material eléctrico."
   }
  ],
  "lines": [
@@ -416,7 +426,7 @@
      "label": "18 A",
      "name": "Contactor Cwb18 18 Amp",
      "brand": "WEG",
-     "stock": 13,
+     "stock": 11,
      "hp": null,
      "rpm": null,
      "amp": "18",
@@ -1400,7 +1410,7 @@
      "label": "4-6.3 A",
      "name": "Guardamotor Mpw18 4-6.3 Amp",
      "brand": "WEG",
-     "stock": 7,
+     "stock": 6,
      "hp": null,
      "rpm": null,
      "amp": "4-6.3",
@@ -2028,7 +2038,7 @@
      "label": "Selector 3 Posiciones Luminoso 220V Verde",
      "name": "Selector 3 Posiciones Luminoso 220V Verde",
      "brand": "WEG",
-     "stock": 6,
+     "stock": 1,
      "hp": null,
      "rpm": null,
      "amp": null,
@@ -2429,7 +2439,7 @@
      "label": "Borne Tierra Tipo Tornillo Btwp 6/10T",
      "name": "Borne Tierra Tipo Tornillo Btwp 6/10T",
      "brand": "WEG",
-     "stock": 51,
+     "stock": 50,
      "hp": null,
      "rpm": null,
      "amp": null,
@@ -2800,7 +2810,7 @@
      "label": "4 A",
      "name": "Mini Breaker 1 Polo 4 Amp",
      "brand": "WEG",
-     "stock": 7,
+     "stock": 5,
      "hp": null,
      "rpm": null,
      "amp": "4",
@@ -3130,7 +3140,7 @@
      "label": "10 A",
      "name": "Mini Breaker 3 Polo 10 Amp",
      "brand": "WEG",
-     "stock": 5,
+     "stock": 0,
      "hp": null,
      "rpm": null,
      "amp": "10",
@@ -3175,7 +3185,7 @@
      "label": "25 A",
      "name": "Mini Breaker 3 Polo 25 Amp",
      "brand": "WEG",
-     "stock": 13,
+     "stock": 12,
      "hp": null,
      "rpm": null,
      "amp": "25",
@@ -3293,7 +3303,7 @@
      "label": "32-40 A",
      "name": "Totalizador Dwb160 32-40 Amp Regulable",
      "brand": "WEG",
-     "stock": 1,
+     "stock": 0,
      "hp": null,
      "rpm": null,
      "amp": "32-40",
@@ -3308,7 +3318,7 @@
      "label": "40-50 A",
      "name": "Totalizador Dwb160 40-50 Amp Regulable",
      "brand": "WEG",
-     "stock": 2,
+     "stock": 1,
      "hp": null,
      "rpm": null,
      "amp": "40-50",
@@ -3546,7 +3556,7 @@
      "label": "2 HP · 220 V",
      "name": "Variador Cfw100 2 Hp 6 Amp In:220V Out:220V",
      "brand": "WEG",
-     "stock": 1,
+     "stock": 0,
      "hp": 2,
      "rpm": null,
      "amp": "6",
@@ -4057,7 +4067,7 @@
      "label": "1 HP · 1800 RPM",
      "name": "Motor Monofasico 1.0 Hp 1800 Rpm Ip21",
      "brand": "WEG",
-     "stock": 1,
+     "stock": 0,
      "hp": 1,
      "rpm": 1800,
      "amp": null,
@@ -4625,7 +4635,7 @@
      "label": "1 HP · 1800 RPM",
      "name": "Motor Trifasico 1.0 Hp 1800 Rpm W21 Ie3 Brida B14",
      "brand": "WEG",
-     "stock": 2,
+     "stock": 0,
      "hp": 1,
      "rpm": 1800,
      "amp": null,
@@ -5720,7 +5730,40 @@
     "0,25–15 HP"
    ],
    "mode": "quote",
-   "variants": []
+   "variants": [
+    {
+     "sku": "12361705",
+     "label": "M06 · 1,5 HP · R 31 · 60 rpm",
+     "name": "Motorreductor M06 1,5 HP relación 31",
+     "brand": "Sin marca",
+     "stock": 1,
+     "hp": 1.5,
+     "rpm": 60,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/weg-cestari-wcg01.webp"
+    },
+    {
+     "sku": "15553051",
+     "label": "M06 · 2 HP · R 30 · 60 rpm",
+     "name": "Motorreductor M06 2 HP relación 30",
+     "brand": "Sin marca",
+     "stock": 1,
+     "hp": 2,
+     "rpm": 60,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/weg-cestari-wcg01.webp"
+    }
+   ]
   },
   {
    "family": "Reductores y motorreductores",
@@ -5733,7 +5776,104 @@
     "Relación 5–100"
    ],
    "mode": "quote",
-   "variants": []
+   "variants": [
+    {
+     "sku": "4360438",
+     "label": "0,75 HP · R 13 · 130 rpm",
+     "name": "Motorreductor 0,75 HP relación 13",
+     "brand": "Sin marca",
+     "stock": 1,
+     "hp": 0.75,
+     "rpm": 130,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/weg-cestari-wcg20.webp"
+    },
+    {
+     "sku": "15889637",
+     "label": "C05 · 2 HP · R 30 · 60 rpm",
+     "name": "Motorreductor C05 T90 2 HP relación 30",
+     "brand": "Sin marca",
+     "stock": 6,
+     "hp": 2,
+     "rpm": 60,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/weg-cestari-wcg20.webp"
+    },
+    {
+     "sku": "15336424",
+     "label": "C08 · 3 HP · R 61 · 30 rpm",
+     "name": "Motorreductor C08 3 HP relación 61",
+     "brand": "WEG",
+     "stock": 1,
+     "hp": 3,
+     "rpm": 30,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/weg-cestari-wcg20.webp"
+    },
+    {
+     "sku": "15884397",
+     "label": "C06 · 3 HP · R 20 · 90 rpm",
+     "name": "Motorreductor C06 T100 3 HP relación 20",
+     "brand": "Sin marca",
+     "stock": 1,
+     "hp": 3,
+     "rpm": 90,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/weg-cestari-wcg20.webp"
+    },
+    {
+     "sku": "16696025",
+     "label": "C08 · 5 HP · R 37 · 45 rpm",
+     "name": "Motorreductor C08 T100 5 HP relación 37",
+     "brand": "Sin marca",
+     "stock": 1,
+     "hp": 5,
+     "rpm": 45,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/weg-cestari-wcg20.webp"
+    },
+    {
+     "sku": "853063",
+     "label": "7,5 HP · R 5 · 350 rpm",
+     "name": "Motorreductor 7,5 HP relación 5",
+     "brand": "Sin marca",
+     "stock": 1,
+     "hp": 7.5,
+     "rpm": 350,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/weg-cestari-wcg20.webp"
+    }
+   ]
   },
   {
    "family": "Control y automatización",
@@ -5796,6 +5936,1701 @@
    "specs": [],
    "mode": "quote",
    "variants": []
+  },
+  {
+   "family": "Control y automatización",
+   "category": "Mando y maniobra",
+   "name": "Inversores de giro, estaciones de mando e interruptores",
+   "brand_label": "EBCHQ · Magom · Margirius · Merz · Xurui",
+   "image": "nuevo",
+   "specs": [],
+   "mode": "quote",
+   "variants": [
+    {
+     "sku": "25776",
+     "label": "3 NA + 1 NC · IP54",
+     "name": "Estación de mando 3 pulsadores y emergencia",
+     "brand": "Sin marca",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": "IP54",
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "contactos": "3 NA + 1 NC"
+     },
+     "image": "/img/catalogo/generico-25776.webp"
+    },
+    {
+     "sku": "XF-3",
+     "label": "10 A",
+     "name": "Interruptor de pedal",
+     "brand": "Xurui",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": 10,
+     "volt": 250,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/xurui-xf-3.webp"
+    },
+    {
+     "sku": "XF-402",
+     "label": "15 A · XF-402",
+     "name": "Interruptor de pedal",
+     "brand": "Xurui",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": 15,
+     "volt": 250,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/xurui-xf-402.webp"
+    },
+    {
+     "sku": "XF-302",
+     "label": "15 A · XF-302",
+     "name": "Interruptor de pedal",
+     "brand": "Xurui",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": 15,
+     "volt": 250,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/xurui-xf-302.webp"
+    },
+    {
+     "sku": "30305",
+     "label": "10 A · 4 terminales",
+     "name": "Interruptor on/off 2 posiciones",
+     "brand": "Margirius",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": 10,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "posiciones": 2,
+      "terminales": 4
+     },
+     "image": "/img/catalogo/margirius-30305.webp"
+    },
+    {
+     "sku": "30310",
+     "label": "20 A · 4 terminales",
+     "name": "Interruptor on/off 2 posiciones",
+     "brand": "Margirius",
+     "stock": 3,
+     "hp": null,
+     "rpm": null,
+     "amp": 20,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "posiciones": 2,
+      "terminales": 4
+     },
+     "image": "/img/catalogo/margirius-30305.webp"
+    },
+    {
+     "sku": "MZ12283",
+     "label": "25 A · 3 polos · Merz · MZ12283",
+     "name": "Inversor de giro 3 posiciones (0, 1 y 3)",
+     "brand": "Merz",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": 25,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "polos": 3,
+      "posiciones": 3
+     },
+     "image": "/img/catalogo/merz-mz12283.webp"
+    },
+    {
+     "sku": "264181",
+     "label": "25 A · 3 polos · EBCHQ",
+     "name": "Inversor de giro 3 posiciones",
+     "brand": "EBCHQ",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": 25,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "polos": 3,
+      "posiciones": 3
+     },
+     "image": "/img/catalogo/ebchq-264181.webp"
+    },
+    {
+     "sku": "MZ12212",
+     "label": "25 A · 3 polos · MZ12212",
+     "name": "Inversor de giro 3 posiciones",
+     "brand": "Merz",
+     "stock": 3,
+     "hp": null,
+     "rpm": null,
+     "amp": 25,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "polos": 3,
+      "posiciones": 3
+     },
+     "image": "/img/catalogo/merz-mz12212.webp"
+    },
+    {
+     "sku": "MZ17191",
+     "label": "32 A · 3 polos",
+     "name": "Inversor de giro 3 posiciones",
+     "brand": "Merz",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": 32,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "polos": 3,
+      "posiciones": 3
+     },
+     "image": "/img/catalogo/merz-mz17191.webp"
+    },
+    {
+     "sku": "MZ12301",
+     "label": "25 A · 3 polos · Merz · MZ12301",
+     "name": "Inversor de giro 7 posiciones",
+     "brand": "Merz",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": 25,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "polos": 3,
+      "posiciones": 7
+     },
+     "image": "/img/catalogo/merz-mz12301.webp"
+    },
+    {
+     "sku": "26231",
+     "label": "Sin amperaje indicado",
+     "name": "Motor starter on/off con pulsador",
+     "brand": "EBCHQ",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/ebchq-26231.webp"
+    },
+    {
+     "sku": "2732682",
+     "label": "220 V",
+     "name": "Protector electrónico de voltaje trifásico",
+     "brand": "Magom",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": 220,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/magom-2732682.webp"
+    },
+    {
+     "sku": "20377",
+     "label": "LAY4-ED53",
+     "name": "Selector de muletilla 3 posiciones",
+     "brand": "EBCHQ",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "posiciones": 3
+     },
+     "image": "/img/catalogo/ebchq-20377.webp"
+    }
+   ]
+  },
+  {
+   "family": "Control y automatización",
+   "category": "Relés de control",
+   "name": "Relés enchufables y bases",
+   "brand_label": "EBCHQ · Relpol · Telemecanique",
+   "image": "nuevo",
+   "specs": [],
+   "mode": "quote",
+   "variants": [
+    {
+     "sku": "47040",
+     "label": "8 pines",
+     "name": "Base para mini relé 8 pines",
+     "brand": "Sin marca",
+     "stock": 16,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "pines": 8
+     },
+     "image": "/img/catalogo/generico-47040.webp"
+    },
+    {
+     "sku": "9023",
+     "label": "11 pines · 9023",
+     "name": "Base para relé 11 pines",
+     "brand": "Sin marca",
+     "stock": 16,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "pines": 11
+     },
+     "image": "/img/catalogo/generico-9023.webp"
+    },
+    {
+     "sku": "RUZ1A",
+     "label": "11 pines · Telemecanique",
+     "name": "Base para relé 11 pines",
+     "brand": "Telemecanique",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "pines": 11
+     },
+     "image": "/img/catalogo/telemecanique-ruz1a.webp"
+    },
+    {
+     "sku": "REV0023",
+     "label": "110 VAC · REV0023",
+     "name": "Mini relé 14 pines",
+     "brand": "Sin marca",
+     "stock": 15,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": 110,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "pines": 14
+     },
+     "image": "/img/catalogo/generico-51165.webp"
+    },
+    {
+     "sku": "51165",
+     "label": "110 VAC · 51165",
+     "name": "Mini relé 14 pines",
+     "brand": "Sin marca",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": 110,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "pines": 14
+     },
+     "image": "/img/catalogo/generico-51165.webp"
+    },
+    {
+     "sku": "51160",
+     "label": "24 VAC",
+     "name": "Mini relé 14 pines",
+     "brand": "Relpol",
+     "stock": 29,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": 24,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "pines": 14
+     },
+     "image": "/img/catalogo/relpol-51160.webp"
+    },
+    {
+     "sku": "46983",
+     "label": "12 VDC",
+     "name": "Mini relé slim 5 pines",
+     "brand": "Sin marca",
+     "stock": 7,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": 12,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "pines": 5
+     },
+     "image": "/img/catalogo/generico-46983.webp"
+    },
+    {
+     "sku": "46984",
+     "label": "24 VDC · 46984",
+     "name": "Mini relé slim 5 pines",
+     "brand": "Sin marca",
+     "stock": 6,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": 24,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "pines": 5
+     },
+     "image": "/img/catalogo/generico-46983.webp"
+    },
+    {
+     "sku": "HQ0040",
+     "label": "110 VAC",
+     "name": "Relé 8 pines",
+     "brand": "EBCHQ",
+     "stock": 5,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": 110,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "pines": 8
+     },
+     "image": "/img/catalogo/ebchq-hq0040.webp"
+    },
+    {
+     "sku": "47400",
+     "label": "24 VDC · EBCHQ",
+     "name": "Relé 8 pines",
+     "brand": "EBCHQ",
+     "stock": 10,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": 24,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "pines": 8
+     },
+     "image": "/img/catalogo/ebchq-47400.webp"
+    }
+   ]
+  },
+  {
+   "family": "Control y automatización",
+   "category": "Sensores de posición",
+   "name": "Finales de carrera y micro switches",
+   "brand_label": "KAP · Xurui",
+   "image": "nuevo",
+   "specs": [],
+   "mode": "quote",
+   "variants": [
+    {
+     "sku": "XZ-8/108",
+     "label": "Palanca larga · bidireccional",
+     "name": "Final de carrera de palanca larga con roldana bidireccional",
+     "brand": "Xurui",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/xurui-xz-8-108.webp"
+    },
+    {
+     "sku": "AP3T72Z11",
+     "label": "Varilla ajustable",
+     "name": "Final de carrera de varilla ajustable bidireccional",
+     "brand": "Sin marca",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/generico-ap3t72z11.webp"
+    },
+    {
+     "sku": "XZ-15GW22-B",
+     "label": "15 A · palanca corta",
+     "name": "Micro switch de palanca corta con roldana metálica",
+     "brand": "Xurui",
+     "stock": 3,
+     "hp": null,
+     "rpm": null,
+     "amp": 15,
+     "volt": 250,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/xurui-xz-15gw22-b.webp"
+    },
+    {
+     "sku": "XZ-15GD-B",
+     "label": "15 A · pivote corto",
+     "name": "Micro switch de pivote corto",
+     "brand": "Sin marca",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": 15,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/generico-xz-15gd-b.webp"
+    },
+    {
+     "sku": "M3B",
+     "label": "15 A · pivote largo · Kap",
+     "name": "Micro switch de pivote largo",
+     "brand": "KAP",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": 15,
+     "volt": 125,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/kap-m3b.webp"
+    },
+    {
+     "sku": "XV-156-1C25",
+     "label": "16 A · palanca larga",
+     "name": "Micro switch de palanca larga con roldana",
+     "brand": "Sin marca",
+     "stock": 7,
+     "hp": null,
+     "rpm": null,
+     "amp": 16,
+     "volt": 250,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/generico-xv-156-1c25.webp"
+    }
+   ]
+  },
+  {
+   "family": "Control y automatización",
+   "category": "Señalización",
+   "name": "Balizas",
+   "brand_label": "SPK",
+   "image": "nuevo",
+   "specs": [],
+   "mode": "quote",
+   "variants": [
+    {
+     "sku": "51965",
+     "label": "Tricolor",
+     "name": "Baliza multivoltaje tricolor",
+     "brand": "SPK",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/spk-51965.webp"
+    }
+   ]
+  },
+  {
+   "family": "Control y automatización",
+   "category": "Tableros eléctricos",
+   "name": "Aisladores de barraje y distribución",
+   "brand_label": "Onka",
+   "image": "nuevo",
+   "specs": [],
+   "mode": "quote",
+   "variants": [
+    {
+     "sku": "34035",
+     "label": "35 mm · 10 kV",
+     "name": "Aislador de barraje SM-35",
+     "brand": "Sin marca",
+     "stock": 9,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "diametro_mm": 35,
+      "tension_kv": 10
+     },
+     "image": "/img/catalogo/generico-34035.webp"
+    },
+    {
+     "sku": "34051",
+     "label": "51 mm · 15 kV",
+     "name": "Aislador de barraje SM-51",
+     "brand": "Sin marca",
+     "stock": 6,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "diametro_mm": 51,
+      "tension_kv": 15
+     },
+     "image": "/img/catalogo/generico-34035.webp"
+    },
+    {
+     "sku": "34087",
+     "label": "H130 · L132 · 30 mm × 2 und",
+     "name": "Aislador escalonado H130 × L132",
+     "brand": "Sin marca",
+     "stock": 5,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/generico-34087.webp"
+    },
+    {
+     "sku": "1080052",
+     "label": "160 A · 750 V",
+     "name": "Bloque de distribución 4 polos 10 derivaciones",
+     "brand": "Onka",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": 160,
+     "volt": 750,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "polos": 4
+     },
+     "image": "/img/catalogo/onka-1080052.webp"
+    }
+   ]
+  },
+  {
+   "family": "Control y automatización",
+   "category": "Tableros eléctricos",
+   "name": "Transformadores de control",
+   "brand_label": "Wattio",
+   "image": "nuevo",
+   "specs": [],
+   "mode": "quote",
+   "variants": [
+    {
+     "sku": "963",
+     "label": "440/48 V · 30 VA",
+     "name": "Transformador de control 30 VA",
+     "brand": "Wattio",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "potencia_va": 30
+     },
+     "image": "/img/catalogo/wattio-963.webp"
+    }
+   ]
+  },
+  {
+   "family": "Control y automatización",
+   "category": "Temporizadores y controladores",
+   "name": "Temporizadores, controladores de temperatura y horómetros",
+   "brand_label": "Autonics · EBCHQ · Plastim",
+   "image": "nuevo",
+   "specs": [],
+   "mode": "quote",
+   "variants": [
+    {
+     "sku": "TC4Y-N4N",
+     "label": "100-240 VAC · TC4Y-N4N",
+     "name": "Controlador de temperatura multirango",
+     "brand": "Autonics",
+     "stock": 3,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/autonics-tc4y-n4n.webp"
+    },
+    {
+     "sku": "TZN4S-14R",
+     "label": "100-240 V · TZN4S-14R",
+     "name": "Controlador de temperatura multirango",
+     "brand": "Autonics",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/autonics-tzn4s-14r.webp"
+    },
+    {
+     "sku": "LE8N-BN",
+     "label": "LE8N-BN",
+     "name": "Horómetro con batería interna",
+     "brand": "Autonics",
+     "stock": 4,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/autonics-le8n-bn.webp"
+    },
+    {
+     "sku": "78192/TM-848-2",
+     "label": "TM-848-2",
+     "name": "Programador semanal para riel DIN",
+     "brand": "EBCHQ",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/ebchq-78192-tm-848-2.webp"
+    },
+    {
+     "sku": "AT8PMN",
+     "label": "0,5–10 min · 220 V",
+     "name": "Temporizador análogo al reposo",
+     "brand": "Autonics",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": 220,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/autonics-at8pmn.webp"
+    },
+    {
+     "sku": "ATE8-41",
+     "label": "ATE8-41",
+     "name": "Temporizador",
+     "brand": "Autonics",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/autonics-ate8-41.webp"
+    },
+    {
+     "sku": "AT8SDN",
+     "label": "AT8SDN",
+     "name": "Temporizador estrella-triángulo",
+     "brand": "Autonics",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/autonics-at8sdn.webp"
+    },
+    {
+     "sku": "ATE-60S",
+     "label": "ATE-60S",
+     "name": "Temporizador estrella-triángulo",
+     "brand": "Autonics",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/autonics-ate-60s.webp"
+    },
+    {
+     "sku": "PTHVT",
+     "label": "10 A · 250 V",
+     "name": "Termostato",
+     "brand": "Plastim",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": 10,
+     "volt": 250,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/plastim-pthvt.webp"
+    }
+   ]
+  },
+  {
+   "family": "Iluminación",
+   "category": "Bombillos",
+   "name": "Bombillos LED y ahorradores",
+   "brand_label": "American · Excelite · Lexmana · Mercury · Sylvania",
+   "image": "nuevo",
+   "specs": [
+    "5–100 W"
+   ],
+   "mode": "quote",
+   "variants": [
+    {
+     "sku": "AMR-H3",
+     "label": "100 W · 12 V",
+     "name": "Bombillo halógeno H3",
+     "brand": "American",
+     "stock": 10,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": 12,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "potencia_w": 100,
+      "base": "H3"
+     },
+     "image": "/img/catalogo/american-amr-h3.webp"
+    },
+    {
+     "sku": "P27632",
+     "label": "12 W",
+     "name": "Bombillo LED E27",
+     "brand": "Sylvania",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "potencia_w": 12,
+      "base": "E27"
+     },
+     "image": "/img/catalogo/sylvania-p27632.webp"
+    },
+    {
+     "sku": "P27634",
+     "label": "15 W",
+     "name": "Bombillo LED E27",
+     "brand": "Sylvania",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "potencia_w": 15,
+      "base": "E27"
+     },
+     "image": "/img/catalogo/sylvania-p27632.webp"
+    },
+    {
+     "sku": "LB658-24",
+     "label": "24 W",
+     "name": "Bombillo LED E27",
+     "brand": "Lexmana",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "potencia_w": 24,
+      "base": "E27"
+     },
+     "image": "/img/catalogo/lexmana-lb658-24.webp"
+    },
+    {
+     "sku": "TIC01",
+     "label": "5 W · RGB",
+     "name": "Bombillo LED RGB GU10",
+     "brand": "Mercury",
+     "stock": 4,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "potencia_w": 5,
+      "base": "GU10"
+     },
+     "image": "/img/catalogo/mercury-tic01.webp"
+    },
+    {
+     "sku": "G505W",
+     "label": "5 W · Excelite",
+     "name": "Bombillo LED E27",
+     "brand": "Excelite",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "potencia_w": 5,
+      "base": "E27"
+     },
+     "image": "/img/catalogo/excelite-g505w.webp"
+    }
+   ]
+  },
+  {
+   "family": "Iluminación",
+   "category": "Paneles LED",
+   "name": "Paneles LED",
+   "brand_label": "Mercury · Sylvania",
+   "image": "nuevo",
+   "specs": [
+    "3–24 W"
+   ],
+   "mode": "quote",
+   "variants": [
+    {
+     "sku": "IPL05",
+     "label": "12 W",
+     "name": "Panel circular LED de incrustar",
+     "brand": "Mercury",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "potencia_w": 12
+     },
+     "image": "/img/catalogo/mercury-ipl05.webp"
+    },
+    {
+     "sku": "P27180",
+     "label": "18 W",
+     "name": "Panel circular LED de sobreponer",
+     "brand": "Sylvania",
+     "stock": 3,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "potencia_w": 18
+     },
+     "image": "/img/catalogo/sylvania-p27180.webp"
+    },
+    {
+     "sku": "IPL20",
+     "label": "24 W · luz blanca",
+     "name": "Panel LED cuadrado de incrustar",
+     "brand": "Sin marca",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "potencia_w": 24
+     },
+     "image": "/img/catalogo/generico-ipl20.webp"
+    },
+    {
+     "sku": "KL-2183",
+     "label": "3 W",
+     "name": "Panel LED redondo de incrustar",
+     "brand": "Sin marca",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "potencia_w": 3
+     },
+     "image": "/img/catalogo/generico-kl-2183.webp"
+    }
+   ]
+  },
+  {
+   "family": "Iluminación",
+   "category": "Reflectores y alumbrado",
+   "name": "Reflectores LED",
+   "brand_label": "Titanium · VCP · Élite",
+   "image": "nuevo",
+   "specs": [
+    "60–100 W"
+   ],
+   "mode": "quote",
+   "variants": [
+    {
+     "sku": "VELNST60W",
+     "label": "60 W",
+     "name": "Lámpara de alumbrado público",
+     "brand": "VCP",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "potencia_w": 60
+     },
+     "image": "/img/catalogo/vcp-velnst60w.webp"
+    },
+    {
+     "sku": "TTA63",
+     "label": "100 W · Titanium",
+     "name": "Reflector LED luz blanca",
+     "brand": "Titanium",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "potencia_w": 100
+     },
+     "image": "/img/catalogo/titanium-tta63.webp"
+    },
+    {
+     "sku": "ELT33",
+     "label": "100 W · Élite",
+     "name": "Reflector LED luz blanca",
+     "brand": "Élite",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "potencia_w": 100
+     },
+     "image": "/img/catalogo/elite-elt33.webp"
+    }
+   ]
+  },
+  {
+   "family": "Iluminación",
+   "category": "Spots y accesorios",
+   "name": "Spots, bases y emergencia",
+   "brand_label": "Karluz",
+   "image": "nuevo",
+   "specs": [
+    "30 W"
+   ],
+   "mode": "quote",
+   "variants": [
+    {
+     "sku": "HL-502",
+     "label": "30 W · 6500 K",
+     "name": "Spot LED",
+     "brand": "Karluz",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "potencia_w": 30,
+      "temperatura_k": 6500
+     },
+     "image": "/img/catalogo/karluz-hl-502.webp"
+    }
+   ]
+  },
+  {
+   "family": "Material eléctrico",
+   "category": "Cintas",
+   "name": "Cintas aislantes",
+   "brand_label": "3M",
+   "image": "material-electrico",
+   "specs": [],
+   "mode": "quote",
+   "variants": [
+    {
+     "sku": "C10MTR-AZ",
+     "label": "Azul · 10 m",
+     "name": "Cinta aislante PVC azul",
+     "brand": "3M",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "longitud_m": 10
+     },
+     "image": "/img/catalogo/3m-c10mtr-az.webp"
+    },
+    {
+     "sku": "C18MTR-BL",
+     "label": "Blanca · 18 m",
+     "name": "Cinta aislante PVC blanca",
+     "brand": "3M",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "longitud_m": 18
+     },
+     "image": "/img/catalogo/3m-c18mtr-bl.webp"
+    },
+    {
+     "sku": "C18MTR-MR",
+     "label": "Marrón · 18 m",
+     "name": "Cinta aislante PVC marrón",
+     "brand": "3M",
+     "stock": 4,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "longitud_m": 18
+     },
+     "image": "/img/catalogo/3m-c18mtr-mr.webp"
+    },
+    {
+     "sku": "C10MTR-NJ",
+     "label": "Naranja · 10 m",
+     "name": "Cinta aislante PVC naranja",
+     "brand": "3M",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "longitud_m": 10
+     },
+     "image": "/img/catalogo/3m-c10mtr-nj.webp"
+    }
+   ]
+  },
+  {
+   "family": "Otros productos",
+   "category": "Insumos y repuestos",
+   "name": "Insumos, herramientas y repuestos",
+   "brand_label": "Cellux · Magna · Swagelok",
+   "image": "otros",
+   "specs": [],
+   "mode": "quote",
+   "variants": [
+    {
+     "sku": "12100",
+     "label": "18 mm",
+     "name": "Cinta de enmascarar 18 mm × 40 yardas",
+     "brand": "Cellux",
+     "stock": 5,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "ancho_mm": 18
+     },
+     "image": "/img/catalogo/cellux-12100.webp"
+    },
+    {
+     "sku": "MA5-12",
+     "label": "12 V · 5 Ah",
+     "name": "Batería 12 V 5 Ah",
+     "brand": "Magna",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": 12,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {
+      "capacidad_ah": 5
+     },
+     "image": "/img/catalogo/magna-ma5-12.webp"
+    },
+    {
+     "sku": "SS-12-P",
+     "label": "3/4 NPT",
+     "name": "Tapón macho acero inoxidable 3/4 NPT",
+     "brand": "Swagelok",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/swagelok-ss-12-p.webp"
+    }
+   ]
+  },
+  {
+   "family": "Material eléctrico",
+   "category": "Tomas e interruptores",
+   "name": "Interruptores y tomas inteligentes",
+   "brand_label": "Ilumax",
+   "image": "material-electrico",
+   "specs": [],
+   "mode": "quote",
+   "variants": [
+    {
+     "sku": "2084",
+     "label": "Doble",
+     "name": "Interruptor doble inteligente",
+     "brand": "Ilumax",
+     "stock": 3,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/ilumax-2084.webp"
+    },
+    {
+     "sku": "2083",
+     "label": "Sencillo",
+     "name": "Interruptor sencillo inteligente",
+     "brand": "Ilumax",
+     "stock": 3,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/ilumax-2083.webp"
+    }
+   ]
+  },
+  {
+   "family": "Material eléctrico",
+   "category": "Tomas e interruptores",
+   "name": "Tomas, clavijas y tapas Leviton",
+   "brand_label": "Leviton",
+   "image": "material-electrico",
+   "specs": [],
+   "mode": "quote",
+   "variants": [
+    {
+     "sku": "WID0815",
+     "label": "30/50 A · 1430/50P",
+     "name": "Clavija 30/50 A 3P/4H",
+     "brand": "Leviton",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": 250,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/leviton-wid0815.webp"
+    },
+    {
+     "sku": "WID0169",
+     "label": "15 A · 125 V · 515-PV",
+     "name": "Clavija amarilla 5-15P",
+     "brand": "Leviton",
+     "stock": 6,
+     "hp": null,
+     "rpm": null,
+     "amp": 15,
+     "volt": 125,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/leviton-wid0169.webp"
+    },
+    {
+     "sku": "WID0346",
+     "label": "20 A · 250 V · 620-PV",
+     "name": "Clavija amarilla 6-20P",
+     "brand": "Leviton",
+     "stock": 10,
+     "hp": null,
+     "rpm": null,
+     "amp": 20,
+     "volt": 250,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/leviton-wid0346.webp"
+    },
+    {
+     "sku": "WID0111",
+     "label": "Crema · 80703-I",
+     "name": "Tapa 2 huecos",
+     "brand": "Leviton",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/leviton-wid0111.webp"
+    },
+    {
+     "sku": "WID0109",
+     "label": "Gris · 80703-GY",
+     "name": "Tapa 2 huecos",
+     "brand": "Leviton",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/leviton-wid0109.webp"
+    },
+    {
+     "sku": "WID0104",
+     "label": "Naranja · 80703-IG",
+     "name": "Tapa 2 huecos",
+     "brand": "Leviton",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/leviton-wid0104.webp"
+    },
+    {
+     "sku": "WID0089",
+     "label": "Gris",
+     "name": "Tapa para toma doble termoplástica",
+     "brand": "Leviton",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/leviton-wid0109.webp"
+    },
+    {
+     "sku": "WID0170",
+     "label": "15 A · 125 V · 515-CV",
+     "name": "Toma aérea amarilla 1-15R",
+     "brand": "Leviton",
+     "stock": 9,
+     "hp": null,
+     "rpm": null,
+     "amp": 15,
+     "volt": 125,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/leviton-wid0170.webp"
+    },
+    {
+     "sku": "WID0814",
+     "label": "50 A · 125/250 V",
+     "name": "Toma de incrustar 3P/4H con tierra",
+     "brand": "Leviton",
+     "stock": 2,
+     "hp": null,
+     "rpm": null,
+     "amp": 50,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/leviton-wid0814.webp"
+    },
+    {
+     "sku": "WID0002",
+     "label": "15 A · 125 V",
+     "name": "Toma doble blanca NEMA 5-15R",
+     "brand": "Leviton",
+     "stock": 9,
+     "hp": null,
+     "rpm": null,
+     "amp": 15,
+     "volt": 125,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/leviton-wid0002.webp"
+    },
+    {
+     "sku": "WID0440",
+     "label": "20 A · 125 V",
+     "name": "Toma doble blanca NEMA 5-20R",
+     "brand": "Leviton",
+     "stock": 5,
+     "hp": null,
+     "rpm": null,
+     "amp": 20,
+     "volt": 125,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/leviton-wid0440.webp"
+    }
+   ]
+  },
+  {
+   "family": "Medición y testeo",
+   "category": "Instrumentos de panel",
+   "name": "Medidores e instrumentos de panel",
+   "brand_label": "Chint · Nippen",
+   "image": "nuevo",
+   "specs": [],
+   "mode": "quote",
+   "variants": [
+    {
+     "sku": "761331",
+     "label": "0-600 A",
+     "name": "Amperímetro análogo",
+     "brand": "Chint",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/chint-761331.webp"
+    },
+    {
+     "sku": "70920",
+     "label": "220 V",
+     "name": "Analizador de red digital multifunción 96 × 96",
+     "brand": "Nippen",
+     "stock": 1,
+     "hp": null,
+     "rpm": null,
+     "amp": null,
+     "volt": 220,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/nippen-70920.webp"
+    }
+   ]
+  },
+  {
+   "family": "Motores eléctricos",
+   "category": "Bombas",
+   "name": "Motobombas",
+   "brand_label": "IHM",
+   "image": "nuevo",
+   "specs": [],
+   "mode": "quote",
+   "variants": [
+    {
+     "sku": "63893E00A2",
+     "label": "2 HP",
+     "name": "Motobomba 2 HP descarga 1 1/2\"",
+     "brand": "IHM",
+     "stock": 1,
+     "hp": 2,
+     "rpm": null,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/ihm-63893e00a2.webp"
+    }
+   ]
+  },
+  {
+   "family": "Reductores y motorreductores",
+   "category": "Helicoidales",
+   "name": "Cajas reductoras WEG-Cestari",
+   "brand_label": "WEG",
+   "image": "nuevo",
+   "specs": [],
+   "mode": "quote",
+   "variants": [
+    {
+     "sku": "801846",
+     "label": "30 HP · R 4,1 · 424 rpm",
+     "name": "Caja reductora C5 30 HP relación 4,1",
+     "brand": "WEG",
+     "stock": 1,
+     "hp": 30,
+     "rpm": 424,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/weg-801846.webp"
+    },
+    {
+     "sku": "15891264",
+     "label": "6 HP · R 19,5 · 90 rpm",
+     "name": "Caja reductora C07 6 HP relación 19,5",
+     "brand": "WEG",
+     "stock": 3,
+     "hp": 6,
+     "rpm": 90,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/weg-15891264.webp"
+    },
+    {
+     "sku": "15891341",
+     "label": "6 HP · R 28 · 62 rpm",
+     "name": "Caja reductora C08 6 HP relación 28",
+     "brand": "WEG",
+     "stock": 1,
+     "hp": 6,
+     "rpm": 62,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/weg-15891341.webp"
+    }
+   ]
+  },
+  {
+   "family": "Reductores y motorreductores",
+   "category": "Helicoidales",
+   "name": "Reductores de otras marcas",
+   "brand_label": "Siti",
+   "image": "nuevo",
+   "specs": [],
+   "mode": "quote",
+   "variants": [
+    {
+     "sku": "50102889",
+     "label": "3 HP · R 32 · 37,5 rpm",
+     "name": "Reductor Siti 3 HP relación 32",
+     "brand": "Siti",
+     "stock": 1,
+     "hp": 3,
+     "rpm": 37.5,
+     "amp": null,
+     "volt": null,
+     "ip": null,
+     "mode": "quote",
+     "price": null,
+     "specs": {},
+     "image": "/img/catalogo/siti-50102889.webp"
+    }
+   ]
   }
  ]
 }

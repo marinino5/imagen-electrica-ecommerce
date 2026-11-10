@@ -89,3 +89,8 @@ Ya no se repiten: el trabajador del hero en la franja editorial del Catálogo (a
 1. ~~Foto oficial de un motor ABB~~ **Resuelto en la Fase 1A**: «Motores de otras marcas» se dividió en una línea por marca; ABB, Nidec y Nord llevan su foto oficial. Solo **Match Drive** queda con panel de marca (ver `docs/imagenes-pendientes.md`).
 2. **Estantería con marcas reales de la tienda** (la actual es de cajas rotuladas, sin marcas visibles), **equipo** y **almacén por dentro** (Nosotros y Contacto).
 3. **Video de cables** propio: el primero del hero es el de manos cableando un tablero (Pixabay), no un video de un rollo o un cable THHN.
+
+
+## Fase 1B · productos nuevos
+
+Las 94 referencias nuevas usan fotos recortadas de `catalogo/<marca>-<sku>.webp` (una por modelo; cada referencia puede llevar la suya y la ficha la muestra al elegirla). Origen de cada una: `docs/inventario/fuentes-imagenes-fase1.md`. Familias nuevas: **09 Material eléctrico** (portada `catalogo/leviton-wid0002`, toma doble Leviton) y **10 Otros productos** (sin foto: icono sobre lila, diseño sobrio, al final del menú, del catálogo y del bento).
