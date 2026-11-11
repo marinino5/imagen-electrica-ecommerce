@@ -62,71 +62,38 @@
 .slot__title { margin: 0; color: var(--ie-violet-950); font-family: var(--font-display); font-size: clamp(1.9rem, 1.4rem + 1.6vw, 2.6rem); font-weight: 700; line-height: 1; }
 .slot__soon { padding: 5px 14px; border-radius: 999px; background: #fff; color: var(--ie-violet-700); font-size: 12.5px; font-weight: 700; }
 
-/* ---------- Órbita de producto: 12 productos flotan alrededor del bloque central «+1.000» (sin baldosas) ---------- */
+/* ---------- Vitrina «+1.000 productos»: arco con la cifra y 12 productos en cuadrícula pareja ---------- */
 .ab-wall { padding-block: clamp(48px, 6vw, 88px); }
-.orbit { --sc: 1; position: relative; min-height: clamp(640px, 60vw, 800px); margin: 0; padding: 0; list-style: none; }
-.orbit--sm { --sc: 0.62; min-height: 700px; }
-.orbit__item {
-  --q: min(1, calc(var(--p, 0) * var(--v, 1))); /* 0 = lejos del centro, 1 = en su órbita */
-  position: absolute;
-  z-index: 1;
-  left: calc(var(--x) * 1%);
-  top: calc(var(--y) * 1%);
-  width: calc(var(--sz) * var(--sc) * 1px);
-  aspect-ratio: 1;
-  margin: calc(var(--sz) * var(--sc) * -0.5px) 0 0 calc(var(--sz) * var(--sc) * -0.5px);
-  opacity: calc(0.35 + var(--q) * 0.65);
-  transform: translate3d(calc(var(--ox) * (1 - var(--q)) * 1px), calc(var(--oy) * (1 - var(--q)) * 1px), 0);
-  will-change: transform;
+.vit { display: grid; gap: 28px; }
+@media (min-width: 960px) { .vit { grid-template-columns: minmax(300px, 4fr) 8fr; gap: 36px; align-items: stretch; } }
+/* El arco: un semicírculo arriba (radio = medio ancho) y esquinas suaves abajo, con un hilo naranja fino que lo abraza */
+.vit__arch {
+  position: relative; display: grid; align-content: center; justify-items: center; gap: 12px; min-height: 420px; padding: 120px 28px 40px; overflow: visible;
+  border-radius: 999px 999px 28px 28px; background: linear-gradient(160deg, var(--primary) 0%, var(--primary-dark) 100%); color: #fff; text-align: center;
+  box-shadow: 0 34px 70px -34px rgb(28 22 48 / 0.7);
 }
-.orbit__link { position: relative; display: block; width: 100%; height: 100%; border-radius: 50%; }
-.orbit__link:focus-visible { outline: 2px solid var(--ie-orange-500); outline-offset: 4px; }
-/* Flotado de ±6 px, de 4 a 6 s, cada producto desfasado */
-.orbit__f { display: block; width: 100%; height: 100%; animation: orbit-float var(--fd, 5s) ease-in-out var(--fl, 0s) infinite alternate; }
-.orbit__f img { display: block; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 14px 14px rgb(28 22 48 / 0.22)); transition: transform 0.3s var(--ie-ease); }
-@keyframes orbit-float { from { transform: translateY(-6px); } to { transform: translateY(6px); } }
-.orbit__cap { position: absolute; top: calc(100% + 4px); left: 50%; z-index: 3; display: grid; gap: 1px; padding: 6px 12px; border-radius: 8px; background: var(--ie-violet-950); color: rgb(255 255 255 / 0.8); font-size: 12px; line-height: 1.3; text-align: center; white-space: nowrap; opacity: 0; transform: translate(-50%, 6px); pointer-events: none; transition: opacity 0.24s ease-out, transform 0.24s ease-out; }
-.orbit__cap strong { color: #fff; font-size: 13px; }
-.orbit__link:focus-visible .orbit__cap { opacity: 1; transform: translate(-50%, 0); }
-@media (hover: hover) and (pointer: fine) {
-  .orbit__link:hover .orbit__cap { opacity: 1; transform: translate(-50%, 0); }
-  .orbit__link:hover .orbit__f img { transform: scale(1.06); }
-}
-@media (hover: none) { .orbit__cap { display: none; } }
-/* Bloque central en fondo C (degradado violeta) con texto blanco */
-.orbit__core {
-  position: absolute;
-  z-index: 2;
-  left: 50%;
-  top: 50%;
-  display: grid;
-  justify-items: start;
-  gap: 10px;
-  width: min(440px, 78%);
-  padding: clamp(22px, 3vw, 38px);
-  border-radius: 32px;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-  color: #fff;
-  box-shadow: 0 34px 70px -28px rgb(28 22 48 / 0.7);
-  transform: translate(-50%, -50%);
-}
-/* Arco fino que abraza el bloque por arriba y por la derecha */
-.orbit__core::before {
-  content: '';
-  position: absolute;
-  inset: -16px;
-  border: 1.5px solid transparent;
-  border-top-color: var(--ie-orange-500);
-  border-right-color: var(--ie-orange-500);
-  border-radius: 48px;
-  pointer-events: none;
-}
-.orbit__big { margin: 0; color: #fff; font-family: var(--font-display); font-size: clamp(3.6rem, 2.4rem + 4.4vw, 6.4rem); font-weight: 800; line-height: 0.88; font-variant-numeric: tabular-nums; }
-.orbit__txt { max-width: 18ch; margin: 0; font-family: var(--font-display); font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem); font-weight: 300; line-height: 1.02; }
-@media (prefers-reduced-motion: reduce) {
-  .orbit__item { transform: none; opacity: 1; will-change: auto; }
-  .orbit__f { animation: none; }
-}
+.vit__ring { position: absolute; inset: -14px; border: 1.5px solid transparent; border-top-color: var(--ie-orange-500); border-left-color: rgb(238 124 54 / 0.35); border-right-color: rgb(238 124 54 / 0.35); border-radius: 999px 999px 40px 40px; pointer-events: none; }
+.vit__big { margin: 0; color: #fff; font-family: var(--font-display); font-size: clamp(4.2rem, 3rem + 4vw, 7rem); font-weight: 800; line-height: 0.88; font-variant-numeric: tabular-nums; }
+.vit__txt { max-width: 16ch; margin: 0 0 10px; font-family: var(--font-display); font-size: clamp(1.5rem, 1.2rem + 1vw, 2.1rem); font-weight: 300; line-height: 1.04; }
+@media (min-width: 960px) { .vit__arch { min-height: 0; padding: 18% 28px 14%; } }
+/* Un segundo hilo, esta vez blanco y por dentro, que repite la curva del arco */
+.vit__arch::after { content: ''; position: absolute; inset: 22px; border: 1px solid rgb(255 255 255 / 0.14); border-radius: 999px 999px 18px 18px; pointer-events: none; }
+/* La cuadrícula: todas las celdas iguales; cada fila apoya en un estante fino */
+.vit__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 14px; margin: 0; padding: 0; list-style: none; }
+@media (min-width: 640px) { .vit__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 960px) { .vit__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; } }
+.vit__link { position: relative; display: grid; grid-template-rows: auto 1fr; align-content: start; gap: 8px; height: 100%; text-decoration: none; padding: 12px 12px 14px; border: 1px solid var(--lavender-2); border-radius: 16px; background: #fff; transition: transform 0.3s var(--ie-ease), border-color 0.3s, box-shadow 0.3s; }
+.vit__link:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.vit__img { position: relative; display: block; aspect-ratio: 1; border-radius: 10px; background: linear-gradient(180deg, var(--ie-lila-50) 0%, var(--ie-lila-100) 100%); }
+.vit__img img { position: relative; display: block; width: 100%; height: 100%; object-fit: contain; }
+/* Estante: una línea fina bajo cada producto, donde apoya (la imagen ya trae su sombra de contacto) */
+.vit__img::after { content: ''; position: absolute; left: 12%; right: 12%; bottom: 11%; height: 2px; border-radius: 2px; background: var(--ie-lila-200); }
+.vit__name { display: grid; gap: 2px; min-height: 2.9em; }
+.vit__name { align-content: start; }
+.vit__name strong { color: var(--ink); font-size: 14px; line-height: 1.2; }
+.vit__name small { color: var(--muted); font-size: 12px; line-height: 1.25; }
+@media (hover: hover) and (pointer: fine) { .vit__link:hover { transform: translateY(-4px); border-color: var(--primary); box-shadow: 0 18px 32px -22px rgb(63 45 117 / 0.55); } }
+@media (prefers-reduced-motion: reduce) { .vit__link { transition: none; } .vit__link:hover { transform: none; } }
 
 /* ---------- 6.4 Cómo trabajamos: tarjetas apiladas ---------- */
 .ab-how { padding-block: clamp(56px, 7vw, 104px); }

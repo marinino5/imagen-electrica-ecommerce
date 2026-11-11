@@ -181,7 +181,7 @@ Inventario de **todos** los archivos de imagen y video del sitio (`cliente/publi
 | `fotos/entrega-almacen.webp` | https://pixabay.com/photos/hand-product-finished-goods-5983142/ (autor: KaweewatT) | Libre · uso comercial | Permitida |
 | `fotos/hero-banda.webp` | https://pixabay.com/photos/factory-plant-industrial-hall-1137993/ (autor: falco) | Libre · uso comercial | Permitida |
 | `fotos/hero-extractores.webp` | https://pixabay.com/photos/industry-ventilation-metal-2182767/ (autor: Ganossi) | Libre · uso comercial | Permitida |
-| `fotos/hero-motores.webp` | https://www.pexels.com/photo/19233057/ | Libre · uso comercial | Permitida |
+| `fotos/hero-motores.webp` | https://pixabay.com/photos/machine-tubes-blue-pipes-factory-495376/ (autor: Martinelle) | Libre · uso comercial | Permitida |
 | `fotos/hero-motorreductores.webp` | https://www.pexels.com/photo/13974251/ | Libre · uso comercial | Permitida |
 | `fotos/nosotros-asesoria.webp` | https://www.pexels.com/photo/34054501/ | Libre · uso comercial | Permitida |
 | `fotos/nosotros-despacho.webp` | https://www.pexels.com/photo/6169177/ | Libre · uso comercial | Permitida |

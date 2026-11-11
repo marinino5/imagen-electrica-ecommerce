@@ -38,7 +38,7 @@ const slides = [
     text: 'Para bandas, mezcladoras y elevadores: sinfín y corona o helicoidales, listos para tu máquina.',
     cta: { to: '/productos?familia=reductores-y-motorreductores', label: 'Ver motorreductores' },
     bg: { src: '/img/fotos/hero-motorreductores.webp', alt: 'Banda transportadora en una nave industrial luminosa, en tono violeta', pos: '50% 50%' },
-    product: { src: '/img/catalogo/weg-cestari-wcg01.webp', alt: 'Motorreductor de sinfín y corona WEG Cestari azul', caption: 'WEG Cestari', big: true },
+    product: { src: '/img/catalogo/weg-cestari-wcg01.webp', alt: 'Motorreductor de sinfín y corona WEG Cestari azul', caption: 'WEG Cestari', big: true, mid: true },
   },
   {
     id: 'motores',
@@ -48,7 +48,7 @@ const slides = [
     highlight: 'industriales WEG',
     text: 'Del monofásico de taller al trifásico de planta, con la referencia exacta que tu equipo necesita.',
     cta: { to: '/productos?familia=motores-electricos', label: 'Ver motores' },
-    bg: { src: '/img/fotos/hero-motores.webp', alt: 'Línea de ensamble robotizada en una planta luminosa', pos: '50% 50%' },
+    bg: { src: '/img/fotos/hero-motores.webp', alt: 'Sala de bombas de una planta, con motores eléctricos y tuberías de acero inoxidable', pos: '50% 50%' },
     product: { src: '/img/catalogo/weg-w22-iec.webp', alt: 'Motor trifásico WEG W22 IEC de carcasa de hierro', caption: 'WEG W22 IEC', big: true },
   },
   {
@@ -96,7 +96,7 @@ function Slide({ slide, index, active, still, mobile, paused }) {
         ))}
       {bg && <img className="hero__bg" src={bg.src} alt={bg.alt} width="1600" height="900" style={{ objectPosition: bg.pos, '--zoom': bg.zoom, '--zoom-origin': bg.origin }} fetchPriority={index === 0 ? 'high' : undefined} loading={index === 0 ? 'eager' : 'lazy'} />}
       {product && (
-        <figure className={`hero__stage ${product.big ? 'hero__stage--big' : ''}`}>
+        <figure className={`hero__stage ${product.big ? 'hero__stage--big' : ''} ${product.mid ? 'hero__stage--mid' : ''}`}>
           <span className="hero__glow" aria-hidden="true" />
           <svg className="hero__arc" viewBox="0 0 1000 500" aria-hidden="true" focusable="false">
             <path pathLength="1" d="M0 500 A500 500 0 0 1 1000 500" />

@@ -91,6 +91,9 @@ body .site-header:not(.is-solid) { background: transparent; box-shadow: none; }
 @media (min-width: 768px) {
   .hero__stage.hero__stage--big { width: clamp(380px, 44vw, 700px); bottom: 64px; right: max(1vw, calc((100vw - 1280px) / 2 - 40px)); }
   .hero__stage--big img { filter: drop-shadow(0 30px 40px rgb(10 6 24 / 0.55)); }
+  /* El motorreductor es casi cuadrado (728 × 767) y el motor W22 es bajo y ancho (769 × 440): para que los dos pesen igual en la
+     diapositiva, el lienzo del motorreductor se reduce a ≈66 % (≈ 45 % del alto del hero, como el motor W22) y queda centrado en su arco naranja */
+  .hero__stage.hero__stage--big.hero__stage--mid { width: clamp(270px, 29vw, 460px); }
 }
 
 /* ---------- Catálogo: pedestales lila bajo los productos del hero (sin tarjetas) ---------- */
