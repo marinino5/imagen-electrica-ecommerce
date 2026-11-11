@@ -168,7 +168,7 @@ Inventario de **todos** los archivos de imagen y video del sitio (`cliente/publi
 | `fotos/comprar-despacho.webp` | https://www.pexels.com/photo/4487383/ | Libre · uso comercial | Permitida |
 | `fotos/comprar-tecnico.webp` | https://www.pexels.com/photo/33694016/ | Libre · uso comercial | Permitida |
 | `fotos/contacto-asesor.webp` | https://www.pexels.com/photo/17842832/ | Libre · uso comercial | Permitida |
-| `fotos/contacto-asesoria.webp` | https://www.pexels.com/photo/34054474/ | Libre · uso comercial | Permitida |
+| `fotos/contacto-asesoria.webp` | https://pixabay.com/photos/engineer-engineering-4941347/ (autor: This_is_Engineering) | Libre · uso comercial | Permitida |
 | `fotos/contacto-cotizar.webp` | https://www.pexels.com/photo/3862135/ | Libre · uso comercial | Permitida |
 | `fotos/contacto-garantia.webp` | https://www.pexels.com/photo/9242911/ | Libre · uso comercial | Permitida |
 | `fotos/contacto-pedido.webp` | https://www.pexels.com/photo/6868621/ | Libre · uso comercial | Permitida |
