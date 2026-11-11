@@ -54,6 +54,17 @@ Se ponen en el servicio, en **Environment**. Los valores marcados como *secreto*
 | `CACHE_STORE` | `database` |
 | `QUEUE_CONNECTION` | `database` |
 
+### Arranque, stock y correo (nuevas)
+
+| Variable | Valor |
+|---|---|
+| `SHOP_TRACK_STOCK` | `false` (por defecto; no hace falta ponerla). Mientras no haya Siigo el stock es 0 y no decide nada: todo producto con precio se compra. Poner `true` al conectar Siigo |
+| `RUN_MIGRATIONS_ON_START` | `true` (por defecto). `false` solo si las migraciones corren en el *Pre-Deploy Command* |
+| `MIGRATION_TIMEOUT` | `600` (segundos máximos de las migraciones al arrancar) |
+| `DB_LOCK_WAIT_TIMEOUT` | `60` (segundos máximos esperando un bloqueo de MySQL) |
+| `MAIL_MAILER` + `MAIL_*` | SMTP real (Brevo, Gmail…). Con `log` el correo de la compra de invitado solo queda en el log y la persona no recibe el enlace de su pedido |
+| `FRONTEND_URL` | https://imagen-electrica.pages.dev (o el dominio de la tienda): es la base del enlace del correo del pedido de invitado |
+
 ### Datos iniciales (seeders)
 
 | Variable | Valor |
