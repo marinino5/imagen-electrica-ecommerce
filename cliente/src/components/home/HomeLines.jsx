@@ -20,7 +20,7 @@ function FamilyTile({ family, index }) {
   const cats = family.categories ?? []
 
   return (
-    <Reveal as="li" i={index} className={`fam fam--rise ${family.slug === 'otros-productos' ? 'fam--sober' : ''}`}>
+    <Reveal as="li" i={index} className={`fam fam--rise`}>
       <article className="fam__card lift">
         <div className="fam__media" aria-hidden="true">
           {photo ? (

@@ -9390,7 +9390,7 @@
   },
   {
    "family": "Otros productos",
-   "category": "Insumos y repuestos",
+   "category": "Cintas de enmascarar",
    "name": "Cinta de enmascarar Cellux",
    "brand_label": "Cellux",
    "image": "otros",
@@ -9421,7 +9421,7 @@
   },
   {
    "family": "Otros productos",
-   "category": "Insumos y repuestos",
+   "category": "Baterías",
    "name": "Batería sellada Magna",
    "brand_label": "Magna",
    "image": "otros",
@@ -9444,15 +9444,14 @@
      "specs": {
       "capacidad_ah": 5,
       "tipo": "Batería sellada de plomo-ácido"
-     },
-     "image": "/img/catalogo/magna-ma5-12.webp"
+     }
     }
    ],
    "slug": "bateria-sellada-magna"
   },
   {
    "family": "Otros productos",
-   "category": "Insumos y repuestos",
+   "category": "Tapones y conexiones",
    "name": "Tapón macho Swagelok",
    "brand_label": "Swagelok",
    "image": "otros",

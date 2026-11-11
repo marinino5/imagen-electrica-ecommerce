@@ -1,5 +1,5 @@
 import { ChevronDown } from 'lucide-react'
-import { familyIcon, familyPhoto } from '../../lib/families'
+import { categoryIcon, familyIcon, familyPhoto } from '../../lib/families'
 
 // Columna izquierda: SOLO las familias, como acordeón. Cada una con su miniatura de foto y su contador; al abrirse (con
 // animación) muestra sus categorías. La activa queda resaltada con una barra naranja.
@@ -38,7 +38,7 @@ export default function FamilyTree({ families, st, set, grouped = false, spy = '
                   {(f.categories ?? []).map((c) => (
                     <li key={c.id}>
                       <button type="button" tabIndex={open ? 0 : -1} className={st.category === c.slug ? 'on' : ''} aria-current={st.category === c.slug ? 'true' : undefined} onClick={() => set({ family: f.slug, category: c.slug })}>
-                        {c.name} <span>{c.lines_count}</span>
+                        {(() => { const CIcon = categoryIcon(c.slug); return CIcon ? <CIcon size={15} strokeWidth={1.7} aria-hidden="true" className="fam-tree__cic" /> : null })()}{c.name} <span>{c.lines_count}</span>
                       </button>
                     </li>
                   ))}

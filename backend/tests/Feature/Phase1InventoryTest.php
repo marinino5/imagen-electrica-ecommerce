@@ -51,8 +51,12 @@ class Phase1InventoryTest extends TestCase
                 $this->assertNull($product->price, $v['sku']);
             }
 
-            $this->assertNotEmpty($product->image_url, $v['sku']);
-            $this->assertFileExists(base_path('../cliente/public'.$product->image_url), $v['sku']);
+            if (in_array($v['sku'], CatalogData::PHOTO_PENDING, true)) {
+                $this->assertNull($product->image_url, $v['sku']); // sin foto correcta hasta fotografiarla
+            } else {
+                $this->assertNotEmpty($product->image_url, $v['sku']);
+                $this->assertFileExists(base_path('../cliente/public'.$product->image_url), $v['sku']);
+            }
             $this->assertDoesNotMatchRegularExpression('/^(PEND|PROV|TEMP|SIN)/i', $v['sku'], 'nada de SKU provisionales');
             $this->assertGreaterThan(0, $product->stock);
         }

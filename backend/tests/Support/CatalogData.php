@@ -56,12 +56,18 @@ class CatalogData
         return count(array_filter(self::json()['lines'], fn ($l) => $l['variants'] === []));
     }
 
-    /** Referencias de la Fase 1B: las que traen su foto propia en `image`. @return list<array<string, mixed>> */
+    /** Referencias que se retiraron de la foto por no corresponder al producto (esperan la foto correcta). */
+    public const PHOTO_PENDING = ['MA5-12'];
+
+    /** Referencias de la Fase 1B: las que no estaban en catalogo.base.json. @return list<array<string, mixed>> */
     public static function phase1Variants(): array
     {
+        $base = json_decode((string) file_get_contents(database_path('data/catalogo.base.json')), true, 512, JSON_THROW_ON_ERROR)['lines'];
+        $baseSkus = array_flip(array_merge(...array_map(fn ($l) => array_column($l['variants'], 'sku'), $base)));
+
         return array_values(array_filter(
             array_merge(...array_map(fn ($l) => $l['variants'], self::json()['lines'])),
-            fn ($v) => isset($v['image']),
+            fn ($v) => ! isset($baseSkus[$v['sku']]),
         ));
     }
 }

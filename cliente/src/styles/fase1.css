@@ -151,3 +151,6 @@ body .site-header:not(.is-solid) { background: transparent; box-shadow: none; }
 .fam--sober .fam__media { background: var(--ie-lila-100); }
 .fam--sober .fam__art { border-color: var(--ie-violet-500) transparent transparent var(--ie-violet-500); color: var(--muted); }
 .fam--sober .fam__num { color: var(--muted); }
+
+/* Icono propio de cada categoría de «Otros productos» en el acordeón y el mega-menú */
+.fam-tree__cic, .mega__cic { display: inline-block; vertical-align: -2px; margin-right: 6px; color: var(--primary); flex: none; }

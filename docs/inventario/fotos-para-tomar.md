@@ -195,3 +195,9 @@ Total: **131** referencias sin foto, en 10 estantes. (Además hay 67 filas con e
 | Referencia | Descripción | Marca | Unidades en inventario |
 |---|---|---|---|
 | 15941752 | CAJA REDUCTORA 2 HP R:43 SAL:39 RPM WEG CESTARI | WEG | 4 |
+
+## Retirada por no corresponder al producto
+
+| Referencia | Descripción | Motivo |
+|---|---|---|
+| MA5-12 | Batería sellada Magna 12 V 5 Ah | La foto que tenía la tienda es de otra batería (etiqueta «MA 4-6», 6 V). Se quitó hasta tener la foto de la 12 V 5 Ah. |

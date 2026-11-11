@@ -255,9 +255,9 @@ RULES = {
     'Motobombas': [L('Motobomba IHM', 'IHM', anyv, keep, tipo='Motobomba')],
     'Cintas aislantes': [L('Cinta aislante PVC 3M Temflex', '3M', anyv, keep, tipo='Cinta aislante de PVC', serie='Temflex')],
     'Insumos, herramientas y repuestos': [
-        L('Cinta de enmascarar Cellux', 'Cellux', name_has('enmascarar'), keep, tipo='Cinta de enmascarar'),
-        L('Batería sellada Magna', 'Magna', name_has('batería', 'bateria'), keep, tipo='Batería sellada de plomo-ácido'),
-        L('Tapón macho Swagelok', 'Swagelok', anyv, keep, tipo='Tapón macho de acero inoxidable', serie='SS-12-P'),
+        L('Cinta de enmascarar Cellux', 'Cellux', name_has('enmascarar'), keep, tipo='Cinta de enmascarar', category='Cintas de enmascarar'),
+        L('Batería sellada Magna', 'Magna', name_has('batería', 'bateria'), keep, tipo='Batería sellada de plomo-ácido', category='Baterías'),
+        L('Tapón macho Swagelok', 'Swagelok', anyv, keep, tipo='Tapón macho de acero inoxidable', serie='SS-12-P', category='Tapones y conexiones'),
     ],
     'Interruptores y tomas inteligentes': [L('Interruptor inteligente Ilumax', 'Ilumax', anyv, keep, tipo='Interruptor inteligente')],
     'Tomas, clavijas y tapas Leviton': [
@@ -271,6 +271,9 @@ RULES = {
         L('Analizador de red multifunción Nippen', 'Nippen', anyv, keep, tipo='Analizador de red multifunción'),
     ],
 }
+
+# Referencias cuya foto actual NO es de ese producto (se quitan; quedan en docs/inventario/fotos-para-tomar.md)
+FOTO_INCORRECTA = {'MA5-12'}
 
 # Series que salen del código de la referencia (SKU) cuando el fabricante lo usa como código de serie
 SERIE_POR_SKU = [
@@ -339,6 +342,9 @@ def main():
                 # WCG01 y WCG20 son reductores WEG Cestari (catálogo general de WEG Cestari); el inventario los trae sin marca o como WEG
                 if rule['serie'] in ('WCG01', 'WCG20'):
                     nv['brand'] = 'WEG Cestari'
+                # La foto de MA5-12 es de otra batería (la etiqueta dice «MA 4-6», de 6 V): se quita hasta tener la foto de la 12 V 5 Ah
+                if v['sku'] in FOTO_INCORRECTA:
+                    nv.pop('image', None)
                 new['variants'].append(nv)
             if not picked and rule['name'] not in [n for n in merged if merged[n]['variants']]:
                 pass
