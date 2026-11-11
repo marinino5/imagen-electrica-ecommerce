@@ -37,7 +37,6 @@ MANUAL = {
     'abb-motor': ('ABB, sitio oficial (www07.abb.com)', OFICIAL),
     'nidec-motor': ('Nidec US Motors, sitio oficial (acim.nidec.com)', OFICIAL),
     'nord-motor': ('Nord, sitio oficial (nord.com)', OFICIAL),
-    'abac-compresor-vertical': ('Catálogo oficial ABAC serie PRO (abacaircompressors.com), PRO B7000 270 VT10', OFICIAL),
     'centelsa-cable-thhn': ('Nexans Colombia, ficha oficial Cable THHN/THWN-2 (nexans.co/.rest/eservice/dam/v1/image/259435)', OFICIAL),
     'fluke-multimetro-117-kit': ('Fluke, https://www.fluke.com/es-co/producto/comprobacion-electrica/multimetros-digitales/fluke-117 (media.fluke.com)', OFICIAL),
     'soler-palau-extractor-axial': ('Soler & Palau, https://www.solerpalau.com/media/catalog/product/T/H/THGT_product4.jpg (THGT)', OFICIAL),
@@ -89,8 +88,11 @@ FOTOS = {
     'almacen': ('Pixabay (almacén de estanterías altas; registrado en docs/creditos-media.md, sin página de origen guardada)', LIBRE),
     'contacto': ('Pixabay (módulos en un tablero; docs/creditos-media.md, sin página de origen guardada)', LIBRE),
     'comprar-caja': PEX(11781094), 'comprar-despacho': PEX(4487383), 'comprar-tecnico': PEX(33694016),
-    'contacto-asesor': PEX(17842832), 'contacto-asesoria': PEX(34054474), 'contacto-cotizar': PEX(3862135), 'sector-agua': PEX(12726229),
-    'contacto-garantia': PEX(9242911), 'contacto-pedido': PEX(6868621), 'hero-motores': PEX(34207364),
+    'contacto-asesor': PEX(17842832), 'sector-agua': PEX(12726229),
+    'contacto-garantia': PEX(9242911), 'contacto-pedido': PEX(6868621), 'hero-motores': PEX(31352672),
+    'contacto-asesoria': ('Foto propia de Imagen Eléctrica: pendón WEG y mostrador de la tienda (IMG_2406)', PROPIA), 'contacto-cotizar': ('Foto propia de Imagen Eléctrica: vitrina de motorreductores de la tienda (IMG_2407)', PROPIA),
+    'contacto-asesoria': ('Foto propia de Imagen Eléctrica: pendón WEG y mostrador de la tienda (IMG_2406)', PROPIA),
+    'contacto-cotizar': ('Foto propia de Imagen Eléctrica: vitrina de motorreductores de la tienda (IMG_2407)', PROPIA),
     'nosotros-asesoria': PEX(34054501), 'nosotros-despacho': PEX(4480982), 'nosotros-estanteria': PEX(38195854),
 }
 rows_fotos = []
@@ -102,6 +104,15 @@ REG = 'Pixabay (la página de origen no quedó registrada en docs/creditos-media
 APLIC = {'bandas': (REG, LIBRE), 'bombeo': (REG, LIBRE), 'ventilacion': (REG, LIBRE),
          'fluke-en-tablero': ('Pixabay o imagen de Fluke (docs/creditos-media.md solo dice «Pixabay / Fluke»; falta registrar cuál)', 'Libre o imagen oficial de marca · fuente exacta por registrar')}
 rows_misc = []
+# Fotos y videos propios de la tienda (tomados por Imagen Eléctrica en su local; originales en cliente/media-fuente/propio/, fuera de git)
+PROPIAS = {
+    'pendon-weg-mostrador': 'Foto propia de Imagen Eléctrica: pendón WEG y mostrador (IMG_2406)',
+    'vitrina-motorreductores': 'Foto propia de Imagen Eléctrica: vitrina de motorreductores (IMG_2407)',
+    'compresor-ferrara-tienda': 'Foto propia de Imagen Eléctrica: compresor Ferrara en la tienda (IMG_2409)',
+    'compresor-ferrara': 'Foto propia de Imagen Eléctrica: tanque del compresor Ferrara (recorte de IMG_2409, sin el letrero)',
+}
+for p in sorted((PUB / 'img/tienda').glob('*.webp')):
+    rows_misc.append((f'tienda/{p.name}', PROPIAS.get(p.stem.replace('-sm', ''), '—'), PROPIA, 'Permitida'))
 for p in sorted((PUB / 'img/aplicaciones').glob('*.webp')):
     src, kind = APLIC.get(p.stem, ('—', SIN))
     rows_misc.append((f'aplicaciones/{p.name}', src, kind, 'Permitida' if kind != SIN else 'Falta fuente'))
@@ -118,6 +129,10 @@ rows_misc.append(('mapa-tienda.webp', 'Teselas de OpenStreetMap (© colaboradore
 VIDEO = ('Pixabay, https://pixabay.com/videos/id-86252/ (autor: lumosajans), segundos 1 a 10', LIBRE)
 for n in ['hero-v3.mp4', 'hero-v3.webm', 'hero-v3-m.mp4', 'hero-v3-m.webm']:
     rows_misc.append((f'media/{n}', *VIDEO, 'Permitida'))
+VID_PROPIOS = {'propio-reductores': 'IMG_2417, motorreductores en cámara lenta', 'propio-control': 'IMG_2415, tablero de control', 'propio-compresor': 'IMG_2412, compresor Ferrara'}
+for p in sorted((PUB / 'media').glob('propio-*')):
+    base = re.sub(r'(-m|-poster)?\.(mp4|webm|jpg)$', '', p.name)
+    rows_misc.append((f'media/{p.name}', f'Video propio de Imagen Eléctrica ({VID_PROPIOS.get(base, "—")}); sin audio ni rótulos de precio', PROPIA, 'Permitida'))
 rows_misc.append(('media/hero-v3-poster.webp', 'Fotograma del video anterior (Pixabay, lumosajans)', LIBRE, 'Permitida'))
 
 allrows = rows_prod + rows_fotos + rows_misc
@@ -136,7 +151,8 @@ out = ['# Licencias de imágenes y videos', '',
        '## Reglas', '',
        '- **Libre · uso comercial**: Pexels, Pixabay, Unsplash, Coverr o Mixkit (licencias que permiten uso comercial sin atribución obligatoria).',
        '- **Imagen oficial de marca · material de distribuidor**: foto del sitio del fabricante (de cualquier país), de su catálogo PDF, o publicada por un distribuidor que reproduce la imagen del fabricante. Imagen Eléctrica es distribuidora y las usa para identificar el producto que vende.',
-       '- **NO permitida**: foto tomada por el propio distribuidor (su mostrador, su bodega, su marca de agua) o de un mercado en línea. **No hay ninguna en el sitio** (ver resumen).',
+       '- **Propia de Imagen Eléctrica**: fotos y videos que la empresa tomó en su local (mostrador, vitrinas, compresor, tablero). Son suyos; los originales están en `cliente/media-fuente/propio/` (fuera de git).',
+       '- **NO permitida**: foto tomada por *otro* distribuidor (su mostrador, su bodega, su marca de agua) o de un mercado en línea. **No hay ninguna en el sitio** (ver resumen).',
        '- Cada imagen de producto de la Fase 1B se revisó una por una: ninguna trae marca de agua, mostrador, bodega ni fondo de tienda.', '',
        '## Resumen', '',
        f'- Archivos listados: **{len(allrows)}** (las miniaturas `-sm.webp` van con su imagen).',

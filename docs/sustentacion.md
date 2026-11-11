@@ -24,10 +24,10 @@ URLs públicas
 - **Dos reglas propias** (mínimo exigido): clasificación compra/cotización y estados con historial (más stock y límite de peticiones).
 
 ### 2. Frontend en la URL pública (5 min)
-1. Entrar como **comercial**: ve pedidos, cotizaciones, dashboard; **no** ve Categorías/Marcas/Productos (403 al forzar la URL, p. ej. `/admin/categories`).
-2. Salir y entrar como **admin**: dashboard con el gráfico de solicitudes por estado.
-3. **CRUD con búsqueda y paginación**: Categorías → buscar, crear «Demostración», editar, intentar borrar una con productos (mensaje de regla de negocio) y borrar la vacía.
-4. **Regla de negocio en vivo**: abrir una cotización `new` → «Iniciar revisión» → intentar «Enviar al cliente» sin precios → error «faltan precios»; poner precios y enviar; ver el historial de estados.
+1. Entrar como **comercial**: ve Inicio, Ventas (Pedidos, Cotizaciones, Fichas) y Clientes; **no** ve Catálogo ni Análisis (403 al forzar la URL, p. ej. `/admin/categories`).
+2. Salir y entrar como **admin**: Inicio con «Requiere tu atención», cuatro indicadores y la gráfica de ventas y cotizaciones de 30 días. Recorrer las secciones: Ventas · Catálogo · Clientes (con Suscriptores) · Análisis.
+3. **CRUD con búsqueda y paginación**: Catálogo → Familias y categorías → buscar, crear «Demostración», editar, intentar borrar una con productos (mensaje de regla de negocio) y borrar la vacía.
+4. **Regla de negocio en vivo**: Ventas → Cotizaciones (están juntas las de clientes con cuenta y las enviadas sin cuenta, con su origen); abrir una cotización `new` → «Iniciar revisión» → intentar «Enviar al cliente» sin precios → error «faltan precios»; poner precios y enviar; ver el historial de estados.
 5. Mostrar la página 404 propia (`/admin/no-existe`).
 
 ### 3. API en Postman (3 min)
@@ -41,7 +41,7 @@ URLs públicas
 1. Tienda → iniciar sesión (o crear cuenta) con el cliente de ejemplo.
 2. Agregar al carrito un producto de venta directa con stock y uno «solo cotización» (carrito mixto).
 3. Enviar la solicitud: la tienda muestra **dos** códigos (PED-xxxx y COT-xxxx).
-4. Refrescar el panel: aparecen ambas, con los datos del cliente copiados, y el gráfico cambia.
+4. Refrescar el panel: aparecen ambas (el pedido en Pedidos y la cotización en Cotizaciones), con los datos del cliente copiados, y el Inicio las lista en «Requiere tu atención».
 5. Opcional: en el panel, confirmar el pago del pedido y mostrar que el stock bajó.
 
 ### 5. Preguntas y cambio de código (5 min)
@@ -57,8 +57,11 @@ Usa la tabla siguiente; cada fila dice dónde está la regla y qué cambiar.
 | **Cotización sin precios no se envía** (regla 3) | `OrderService.php` · `changeStatus()` (l. 168-176) y `missingPrices()` (l. 138) | Al pasar a `sent` cuenta las líneas con `unit_price` nulo; si hay alguna, 422. |
 | **Cotización aceptada genera pedido** | `OrderService.php` · `createPurchaseFromQuote()` (l. 337), llamado desde `changeStatus()` (l. 186) | El pedido nuevo lleva `quote_id`; la cotización se conserva. |
 | **Envío gratis sobre la compra mínima** | `OrderService.php` · `shippingCost()` (l. 249); valor en `backend/config/shop.php` (`free_shipping_from`, env `SHOP_FREE_SHIPPING_FROM`) | Recoger en tienda o superar el mínimo → 0. |
-| **Límite de peticiones** | `backend/app/Providers/AppServiceProvider.php` · `RateLimiter::for(...)` (l. 43-68) y `backend/routes/api.php` (middleware `throttle:*`); panel: `routes/web.php` l. 31 | General API: 60/min por IP (`api`). Login API: 5/min por correo+IP (`api-login`). Registro: 5/min. Cotizaciones públicas: 5/min y 20/h. Login del panel: `throttle:5,1`. El 429 se traduce en `bootstrap/app.php` (`HttpExceptionInterface`). *Cambio típico*: `Limit::perMinute(5)` → otro número. |
+| **Límite de peticiones** | `backend/app/Providers/AppServiceProvider.php` · `RateLimiter::for(...)` (l. 43-68) y `backend/routes/api.php` (middleware `throttle:*`); panel: `routes/web.php` l. 34 | General API: 60/min por IP (`api`). Login API: 5/min por correo+IP (`api-login`). Registro: 5/min. Cotizaciones públicas: 5/min y 20/h. Login del panel: `throttle:5,1`. El 429 se traduce en `bootstrap/app.php` (`HttpExceptionInterface`). *Cambio típico*: `Limit::perMinute(5)` → otro número. |
 | **Ficha y cotización en PDF** | `backend/app/Services/DatasheetService.php` · `generate()`; ruta `GET /api/v1/datasheet` (`routes/api.php`), límite `api-datasheet` en `AppServiceProvider.php` | Calcula el total con el MISMO precio de la tienda (`prices()`: el total es precio × cantidad y se desglosa la base y el IVA con el `tax_rate`), decide si es precio de venta, de referencia o solo cotización (`priceKind()`), registra la descarga (`datasheet_downloads`, número IE-FT-2026-00123) y renderiza `resources/views/pdf/datasheet.blade.php`. En el panel: *Fichas descargadas*. |
+| **Cotizaciones con y sin cuenta juntas** | `backend/app/Services/QuoteInboxService.php` · `paginate()`, `pending()`, `countPending()`; consulta `QuoteInboxRepository.php` (UNION de `orders` tipo cotización y `quote_requests`) | Une las dos fuentes en una sola bandeja (`/admin/cotizaciones`), con código `SOL-NNNN` para las de sin cuenta y la marca de atrasada pasadas `OrderService::QUOTE_RESPONSE_HOURS` horas. El Inicio usa el mismo servicio. |
+| **Inicio del panel** | `backend/app/Services/DashboardService.php` · `overview()` | Cuatro indicadores (ventas del mes con comparación, pedidos nuevos, cotizaciones pendientes, tiempo medio de respuesta), la lista de atención (atrasadas primero) y la serie de 30 días. Las consultas están en `DashboardRepository`. |
+| **Baja del boletín** | `backend/app/Services/NewsletterService.php` · `unsubscribe()` y `csv()` | La baja guarda `unsubscribed_at` y **no borra** el consentimiento (prueba legal); volver a suscribirse la reactiva. El CSV incluye versión del texto y fecha. |
 | **Cancelar es cambio de estado** | `OrderService.php` · `cancelForCustomer()` (l. 201); ruta `PATCH /api/v1/orders/{code}/cancel` | No borra: usa `changeStatus()` y por eso hereda las transiciones. |
 | **Borrar categoría con productos** | `backend/app/Services/CategoryService.php` · `delete()` | Lanza `BusinessRuleException` → 422 en la API / aviso rojo en el panel. |
 | **Roles** | `routes/api.php` (`role:admin`, `role:cliente`) y `routes/web.php` (`role:admin,comercial`) | Comercial entra al panel, pero solo admin gestiona catálogo. |

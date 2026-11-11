@@ -6,21 +6,22 @@ Inventario de **todos** los archivos de imagen y video del sitio (`cliente/publi
 
 - **Libre · uso comercial**: Pexels, Pixabay, Unsplash, Coverr o Mixkit (licencias que permiten uso comercial sin atribución obligatoria).
 - **Imagen oficial de marca · material de distribuidor**: foto del sitio del fabricante (de cualquier país), de su catálogo PDF, o publicada por un distribuidor que reproduce la imagen del fabricante. Imagen Eléctrica es distribuidora y las usa para identificar el producto que vende.
-- **NO permitida**: foto tomada por el propio distribuidor (su mostrador, su bodega, su marca de agua) o de un mercado en línea. **No hay ninguna en el sitio** (ver resumen).
+- **Propia de Imagen Eléctrica**: fotos y videos que la empresa tomó en su local (mostrador, vitrinas, compresor, tablero). Son suyos; los originales están en `cliente/media-fuente/propio/` (fuera de git).
+- **NO permitida**: foto tomada por *otro* distribuidor (su mostrador, su bodega, su marca de agua) o de un mercado en línea. **No hay ninguna en el sitio** (ver resumen).
 - Cada imagen de producto de la Fase 1B se revisó una por una: ninguna trae marca de agua, mostrador, bodega ni fondo de tienda.
 
 ## Resumen
 
-- Archivos listados: **199** (las miniaturas `-sm.webp` van con su imagen).
+- Archivos listados: **221** (las miniaturas `-sm.webp` van con su imagen).
 - Filas «NO permitida»: **0**.
 - Sin fuente registrada: **0**.
 - Por verificar (foto de distribuidor sin marca visible, no se puede probar que sea la imagen del fabricante): **12** ← la empresa debe confirmarlas o fotografiar el producto (`docs/inventario/fotos-para-tomar.md`).
 
-- Imagen oficial de marca · material de distribuidor: 86
-- Libre · uso comercial: 44
+- Imagen oficial de marca · material de distribuidor: 85
+- Libre · uso comercial: 42
+- Propia de Imagen Eléctrica: 38
 - Imagen de marca publicada por un distribuidor · material de distribuidor: 26
 - Logo de marca (uso nominativo para identificar el producto): 16
-- Propia de Imagen Eléctrica: 13
 - POR VERIFICAR · foto de distribuidor sin marca visible: 12
 - Libre o imagen oficial de marca · fuente exacta por registrar: 1
 - Datos de OpenStreetMap · ODbL: 1
@@ -33,7 +34,6 @@ Inventario de **todos** los archivos de imagen y video del sitio (`cliente/publi
 | `catalogo/3m-c10mtr-nj.webp` | https://www.rappi.com.co/p/cinta-aislante-1700-temflex-x-18m-n-5190840 | Imagen de marca publicada por un distribuidor · material de distribuidor | Permitida |
 | `catalogo/3m-c18mtr-bl.webp` | https://nalelectricos.com.co/producto/cinta-temflex-165-18m-blanco-3m-uu009472661/ | Imagen de marca publicada por un distribuidor · material de distribuidor | Permitida |
 | `catalogo/3m-c18mtr-mr.webp` | https://www.hicsas.co/products/cinta-aislante-cafe-temflex | Imagen de marca publicada por un distribuidor · material de distribuidor | Permitida |
-| `catalogo/abac-compresor-vertical.webp` | Catálogo oficial ABAC serie PRO (abacaircompressors.com), PRO B7000 270 VT10 | Imagen oficial de marca · material de distribuidor | Permitida |
 | `catalogo/abb-motor.webp` | ABB, sitio oficial (www07.abb.com) | Imagen oficial de marca · material de distribuidor | Permitida |
 | `catalogo/airmax-gl-persianas.webp` | AIRAL, https://www.airal.com.co/airmaxgl | Imagen oficial de marca · material de distribuidor | Permitida |
 | `catalogo/airmax-gl.webp` | AIRAL, https://www.airal.com.co/airmaxgl | Imagen oficial de marca · material de distribuidor | Permitida |
@@ -168,8 +168,8 @@ Inventario de **todos** los archivos de imagen y video del sitio (`cliente/publi
 | `fotos/comprar-despacho.webp` | https://www.pexels.com/photo/4487383/ | Libre · uso comercial | Permitida |
 | `fotos/comprar-tecnico.webp` | https://www.pexels.com/photo/33694016/ | Libre · uso comercial | Permitida |
 | `fotos/contacto-asesor.webp` | https://www.pexels.com/photo/17842832/ | Libre · uso comercial | Permitida |
-| `fotos/contacto-asesoria.webp` | https://www.pexels.com/photo/34054474/ | Libre · uso comercial | Permitida |
-| `fotos/contacto-cotizar.webp` | https://www.pexels.com/photo/3862135/ | Libre · uso comercial | Permitida |
+| `fotos/contacto-asesoria.webp` | Foto propia de Imagen Eléctrica: pendón WEG y mostrador de la tienda (IMG_2406) | Propia de Imagen Eléctrica | Falta fuente |
+| `fotos/contacto-cotizar.webp` | Foto propia de Imagen Eléctrica: vitrina de motorreductores de la tienda (IMG_2407) | Propia de Imagen Eléctrica | Falta fuente |
 | `fotos/contacto-garantia.webp` | https://www.pexels.com/photo/9242911/ | Libre · uso comercial | Permitida |
 | `fotos/contacto-pedido.webp` | https://www.pexels.com/photo/6868621/ | Libre · uso comercial | Permitida |
 | `fotos/contacto.webp` | Pixabay (módulos en un tablero; docs/creditos-media.md, sin página de origen guardada) | Libre · uso comercial | Permitida |
@@ -178,7 +178,7 @@ Inventario de **todos** los archivos de imagen y video del sitio (`cliente/publi
 | `fotos/entrega-almacen.webp` | https://pixabay.com/photos/hand-product-finished-goods-5983142/ (autor: KaweewatT) | Libre · uso comercial | Permitida |
 | `fotos/hero-banda.webp` | https://pixabay.com/photos/factory-plant-industrial-hall-1137993/ (autor: falco) | Libre · uso comercial | Permitida |
 | `fotos/hero-extractores.webp` | https://pixabay.com/photos/industry-ventilation-metal-2182767/ (autor: Ganossi) | Libre · uso comercial | Permitida |
-| `fotos/hero-motores.webp` | https://www.pexels.com/photo/34207364/ | Libre · uso comercial | Permitida |
+| `fotos/hero-motores.webp` | https://www.pexels.com/photo/31352672/ | Libre · uso comercial | Permitida |
 | `fotos/nosotros-asesoria.webp` | https://www.pexels.com/photo/34054501/ | Libre · uso comercial | Permitida |
 | `fotos/nosotros-despacho.webp` | https://www.pexels.com/photo/4480982/ | Libre · uso comercial | Permitida |
 | `fotos/nosotros-estanteria.webp` | https://www.pexels.com/photo/38195854/ | Libre · uso comercial | Permitida |
@@ -199,6 +199,14 @@ Inventario de **todos** los archivos de imagen y video del sitio (`cliente/publi
 
 | Archivo (`cliente/public/img/…`) | Fuente | Tipo | Estado |
 |---|---|---|---|
+| `tienda/compresor-ferrara-sm.webp` | Foto propia de Imagen Eléctrica: tanque del compresor Ferrara (recorte de IMG_2409, sin el letrero) | Propia de Imagen Eléctrica | Permitida |
+| `tienda/compresor-ferrara-tienda-sm.webp` | Foto propia de Imagen Eléctrica: compresor Ferrara en la tienda (IMG_2409) | Propia de Imagen Eléctrica | Permitida |
+| `tienda/compresor-ferrara-tienda.webp` | Foto propia de Imagen Eléctrica: compresor Ferrara en la tienda (IMG_2409) | Propia de Imagen Eléctrica | Permitida |
+| `tienda/compresor-ferrara.webp` | Foto propia de Imagen Eléctrica: tanque del compresor Ferrara (recorte de IMG_2409, sin el letrero) | Propia de Imagen Eléctrica | Permitida |
+| `tienda/pendon-weg-mostrador-sm.webp` | Foto propia de Imagen Eléctrica: pendón WEG y mostrador (IMG_2406) | Propia de Imagen Eléctrica | Permitida |
+| `tienda/pendon-weg-mostrador.webp` | Foto propia de Imagen Eléctrica: pendón WEG y mostrador (IMG_2406) | Propia de Imagen Eléctrica | Permitida |
+| `tienda/vitrina-motorreductores-sm.webp` | Foto propia de Imagen Eléctrica: vitrina de motorreductores (IMG_2407) | Propia de Imagen Eléctrica | Permitida |
+| `tienda/vitrina-motorreductores.webp` | Foto propia de Imagen Eléctrica: vitrina de motorreductores (IMG_2407) | Propia de Imagen Eléctrica | Permitida |
 | `aplicaciones/bandas.webp` | Pixabay (la página de origen no quedó registrada en docs/creditos-media.md) | Libre · uso comercial | Permitida |
 | `aplicaciones/bombeo.webp` | Pixabay (la página de origen no quedó registrada en docs/creditos-media.md) | Libre · uso comercial | Permitida |
 | `aplicaciones/fluke-en-tablero.webp` | Pixabay o imagen de Fluke (docs/creditos-media.md solo dice «Pixabay / Fluke»; falta registrar cuál) | Libre o imagen oficial de marca · fuente exacta por registrar | Permitida |
@@ -237,4 +245,19 @@ Inventario de **todos** los archivos de imagen y video del sitio (`cliente/publi
 | `media/hero-v3.webm` | Pixabay, https://pixabay.com/videos/id-86252/ (autor: lumosajans), segundos 1 a 10 | Libre · uso comercial | Permitida |
 | `media/hero-v3-m.mp4` | Pixabay, https://pixabay.com/videos/id-86252/ (autor: lumosajans), segundos 1 a 10 | Libre · uso comercial | Permitida |
 | `media/hero-v3-m.webm` | Pixabay, https://pixabay.com/videos/id-86252/ (autor: lumosajans), segundos 1 a 10 | Libre · uso comercial | Permitida |
+| `media/propio-compresor-m.mp4` | Video propio de Imagen Eléctrica (IMG_2412, compresor Ferrara); sin audio ni rótulos de precio | Propia de Imagen Eléctrica | Permitida |
+| `media/propio-compresor-m.webm` | Video propio de Imagen Eléctrica (IMG_2412, compresor Ferrara); sin audio ni rótulos de precio | Propia de Imagen Eléctrica | Permitida |
+| `media/propio-compresor-poster.jpg` | Video propio de Imagen Eléctrica (IMG_2412, compresor Ferrara); sin audio ni rótulos de precio | Propia de Imagen Eléctrica | Permitida |
+| `media/propio-compresor.mp4` | Video propio de Imagen Eléctrica (IMG_2412, compresor Ferrara); sin audio ni rótulos de precio | Propia de Imagen Eléctrica | Permitida |
+| `media/propio-compresor.webm` | Video propio de Imagen Eléctrica (IMG_2412, compresor Ferrara); sin audio ni rótulos de precio | Propia de Imagen Eléctrica | Permitida |
+| `media/propio-control-m.mp4` | Video propio de Imagen Eléctrica (IMG_2415, tablero de control); sin audio ni rótulos de precio | Propia de Imagen Eléctrica | Permitida |
+| `media/propio-control-m.webm` | Video propio de Imagen Eléctrica (IMG_2415, tablero de control); sin audio ni rótulos de precio | Propia de Imagen Eléctrica | Permitida |
+| `media/propio-control-poster.jpg` | Video propio de Imagen Eléctrica (IMG_2415, tablero de control); sin audio ni rótulos de precio | Propia de Imagen Eléctrica | Permitida |
+| `media/propio-control.mp4` | Video propio de Imagen Eléctrica (IMG_2415, tablero de control); sin audio ni rótulos de precio | Propia de Imagen Eléctrica | Permitida |
+| `media/propio-control.webm` | Video propio de Imagen Eléctrica (IMG_2415, tablero de control); sin audio ni rótulos de precio | Propia de Imagen Eléctrica | Permitida |
+| `media/propio-reductores-m.mp4` | Video propio de Imagen Eléctrica (IMG_2417, motorreductores en cámara lenta); sin audio ni rótulos de precio | Propia de Imagen Eléctrica | Permitida |
+| `media/propio-reductores-m.webm` | Video propio de Imagen Eléctrica (IMG_2417, motorreductores en cámara lenta); sin audio ni rótulos de precio | Propia de Imagen Eléctrica | Permitida |
+| `media/propio-reductores-poster.jpg` | Video propio de Imagen Eléctrica (IMG_2417, motorreductores en cámara lenta); sin audio ni rótulos de precio | Propia de Imagen Eléctrica | Permitida |
+| `media/propio-reductores.mp4` | Video propio de Imagen Eléctrica (IMG_2417, motorreductores en cámara lenta); sin audio ni rótulos de precio | Propia de Imagen Eléctrica | Permitida |
+| `media/propio-reductores.webm` | Video propio de Imagen Eléctrica (IMG_2417, motorreductores en cámara lenta); sin audio ni rótulos de precio | Propia de Imagen Eléctrica | Permitida |
 | `media/hero-v3-poster.webp` | Fotograma del video anterior (Pixabay, lumosajans) | Libre · uso comercial | Permitida |
