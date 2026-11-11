@@ -10,6 +10,8 @@ export const catalogApi = {
   lines: (params, signal) => get('/lines', { params: { per_page: 200, ...params }, signal }),
   line: (slug) => get(`/lines/${encodeURIComponent(slug)}`),
   families: () => get('/families'),
+  /** Ficha técnica y cotización en PDF (el backend la genera y la registra): devuelve { blob, filename } */
+  datasheet: (sku, quantity) => get('/datasheet', { params: { sku, quantity }, blob: true }),
   /** Promociones vigentes hoy: si no hay ninguna, data viene vacío y la sección se oculta */
   promotions: (signal) => get('/promotions', { signal }),
   categories: () => get('/categories', { params: { per_page: 50 } }),

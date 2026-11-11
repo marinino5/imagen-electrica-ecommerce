@@ -55,6 +55,12 @@ class AppServiceProvider extends ServiceProvider
         ]);
         RateLimiter::for('api-password-reset', fn (Request $request) => Limit::perMinute(10)->by($request->ip()));
 
+        // Ficha en PDF: generar un PDF cuesta más que una consulta; 10 por minuto y 60 por hora por IP
+        RateLimiter::for('api-datasheet', fn (Request $request) => [
+            Limit::perMinute(10)->by('m:'.$request->ip()),
+            Limit::perHour(60)->by('h:'.$request->ip()),
+        ]);
+
         // Boletín: por IP, 5 por minuto y 20 por hora
         RateLimiter::for('api-newsletter', fn (Request $request) => [
             Limit::perMinute(5)->by('m:'.$request->ip()),

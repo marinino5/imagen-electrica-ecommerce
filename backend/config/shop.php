@@ -4,6 +4,14 @@
 return [
 
     /*
+    | Dirección pública de la tienda (Cloudflare Pages): de ahí salen las imágenes de producto y el enlace de cotización del PDF.
+    */
+    'frontend_url' => rtrim((string) env('FRONTEND_URL', 'https://imagen-electrica.pages.dev'), '/'),
+
+    // Días que vale la ficha con cotización
+    'datasheet_valid_days' => 15,
+
+    /*
     | Envío (COP, IVA incluido). Recoger en tienda siempre vale 0.
     | Si el valor de los productos llega a "free_shipping_from", el envío es gratis.
     */

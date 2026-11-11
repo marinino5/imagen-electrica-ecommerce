@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\Admin\ProductController as AdminProductControlle
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\BrandController;
 use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\DatasheetController;
 use App\Http\Controllers\Api\V1\LineController;
 use App\Http\Controllers\Api\V1\NewsletterController;
 use App\Http\Controllers\Api\V1\OrderController;
@@ -34,6 +35,9 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:api')->group(function
     // Cotización sin cuenta: pública, con límite por IP
     Route::post('quote-requests', [QuoteRequestController::class, 'store'])->middleware('throttle:api-quote')->name('quote-requests.store');
     Route::post('quote-requests/free', [QuoteRequestController::class, 'storeFree'])->middleware('throttle:api-quote')->name('quote-requests.store-free');
+
+    // Ficha técnica con cotización en PDF: pública (el catálogo no pide token), con límite por IP
+    Route::get('datasheet', [DatasheetController::class, 'show'])->middleware('throttle:api-datasheet')->name('datasheet.show');
 
     // Boletín desde el pie de la tienda: público, con límite por IP
     Route::post('newsletter', [NewsletterController::class, 'store'])->middleware('throttle:api-newsletter')->name('newsletter.store');
