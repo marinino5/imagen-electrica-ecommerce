@@ -1,0 +1,97 @@
+/* ============================================================
+   Ingresar / Crear cuenta / Recuperar (Fase 6): tarjeta grande sobre lila con grabado industrial.
+   Izquierda (55 %): formulario. Derecha (45 %): «vitrina» de marca con rueda dentada que gira muy lenta, un arco naranja que
+   abraza tres productos y los tres beneficios en tarjetas de vidrio. Celular: formulario primero, vitrina como franja.
+   Se apoya en la clase .ax que ya llevan los campos (auth.css y auth2.css).
+   ============================================================ */
+.ax.ax4 {
+  position: relative; isolation: isolate; display: block; overflow: clip; min-height: calc(100svh - var(--header-h));
+  padding: clamp(16px, 3.4vw, 52px) 16px 64px;
+  background: linear-gradient(180deg, var(--ie-lila-100) 0%, var(--ie-lila-50) 55%, #fff 100%);
+}
+/* Grabado industrial en los márgenes (rueda dentada y plano eléctrico al 6 %) */
+.ax4::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0.06;
+  background-repeat: no-repeat; background-image: var(--grab-gear), var(--grab-plan);
+  background-size: min(560px, 70vw), min(440px, 56vw); background-position: left -170px top 30px, right -120px bottom 40px;
+}
+.ax4__card {
+  display: grid; grid-template-columns: minmax(0, 1fr); max-width: 1120px; margin-inline: auto; overflow: hidden;
+  border: 1px solid var(--lavender-2); border-radius: 28px; background: #fff;
+  box-shadow: 0 34px 70px -36px rgb(47 33 96 / 0.5), 0 8px 22px -12px rgb(47 33 96 / 0.2);
+  animation: ax4-up 0.6s var(--ie-ease) both;
+}
+@keyframes ax4-up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@media (min-width: 960px) { .ax4__card { grid-template-columns: minmax(0, 11fr) minmax(0, 9fr); } }
+
+/* ---------- Formulario ---------- */
+.ax4__form { display: grid; align-content: start; min-width: 0; padding: clamp(24px, 5vw, 56px); }
+.ax4 .ax__logo { margin-bottom: 12px; }
+.ax4 .ax__title { font-size: clamp(2.2rem, 1.4rem + 3vw, 3.4rem); }
+.ax4 .input { height: 54px; min-height: 54px; padding-inline: 16px; border: 1.5px solid var(--lavender-2); border-radius: 12px; background: #fff; font-size: 16px; transition: border-color 0.2s, box-shadow 0.2s; }
+.ax4 textarea.input, .ax4 select.input { height: auto; }
+.ax4 .input:hover { border-color: var(--lav-3); }
+.ax4 .input:focus, .ax4 .input:focus-visible { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgb(63 45 117 / 0.14); }
+.ax4 .input[aria-invalid='true'] { border-color: var(--accent-text); box-shadow: 0 0 0 3px rgb(242 106 0 / 0.14); }
+.ax4 .btn, .ax4 .auth-form button[type='submit'] { min-height: 56px; font-size: 16px; }
+.ax4 .co-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 560px) { .ax4 .co-grid { grid-template-columns: minmax(0, 1fr); } .ax4 .co-span2 { grid-column: auto; } }
+.ax4 .ax__help { margin: 8px 0 0; }
+/* «Compra sin cuenta»: un enlace discreto bajo el botón, no un bloque */
+.ax4__guest { margin: 14px 0 0; color: var(--muted); font-size: 14px; text-align: center; }
+.ax4__guest a { color: var(--primary); font-weight: 800; text-underline-offset: 3px; }
+
+/* Paso a paso: 1 Tus datos · 2 Facturación */
+.ax4__steps { display: flex; align-items: center; gap: 10px; margin: 0 0 18px; padding: 0; list-style: none; }
+.ax4__steps li { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 0.88rem; }
+.ax4__steps li + li::before { content: ''; width: clamp(20px, 6vw, 48px); height: 2px; margin-right: 2px; border-radius: 2px; background: var(--lavender-2); }
+.ax4__steps span { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--lavender-2); color: var(--ink); font-size: 0.8rem; font-weight: 800; transition: background 0.25s, color 0.25s; }
+.ax4__steps .is-on { color: var(--ink); font-weight: 800; }
+.ax4__steps .is-on span { background: var(--primary); color: #fff; box-shadow: 0 0 0 4px rgb(63 45 117 / 0.14); }
+.ax4__steps .is-done span { background: var(--primary); color: #fff; }
+.ax4__steps .is-done + li::before, .ax4__steps .is-on + li::before { background: var(--lavender-2); }
+.ax4__steps li.is-done + li::before, .ax4__steps li.is-on::before { background: var(--primary); }
+.ax4 .auth-card__title { margin: 0 0 4px; font-size: 1.3rem; font-weight: 700; color: var(--primary); }
+/* La barra de progreso de la tarjeta ya no hace falta: el paso a paso la reemplaza */
+.ax4 .auth-card__bar, .ax4 .auth-card__step { display: none; }
+
+/* ---------- Vitrina de marca ---------- */
+.ax4__vit {
+  position: relative; isolation: isolate; display: grid; align-content: center; gap: 24px; min-width: 0; overflow: hidden; padding: 22px 20px 26px;
+  background: linear-gradient(160deg, var(--primary) 0%, var(--primary-dark) 100%); color: #fff;
+}
+.ax4__gear { position: absolute; z-index: -1; right: -120px; top: -80px; width: 440px; color: rgb(255 255 255 / 0.08); animation: ax4-spin 140s linear infinite; }
+@keyframes ax4-spin { to { transform: rotate(360deg); } }
+.ax4__stat { margin: 0; text-align: center; font-family: var(--font-display); font-size: 1.15rem; letter-spacing: 0.05em; text-transform: uppercase; color: rgb(255 255 255 / 0.9); }
+.ax4__stat strong { color: var(--accent); font-size: 1.55em; font-weight: 800; }
+.ax4__stat i { margin-inline: 4px; font-style: normal; opacity: 0.6; }
+/* Tres productos estrella escalonados bajo un arco naranja fino, con sombra de contacto */
+.ax4__stage { position: relative; width: min(100%, 440px); aspect-ratio: 400 / 250; margin-inline: auto; }
+.ax4__arc { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.ax4__arc path { fill: none; stroke: var(--ie-orange-500); stroke-width: 2; stroke-linecap: round; }
+.ax4__p { position: absolute; display: block; aspect-ratio: 1; }
+.ax4__p img { position: relative; display: block; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 14px 12px rgb(10 6 24 / 0.45)); }
+.ax4__p::after { content: ''; position: absolute; z-index: 0; left: 14%; right: 14%; bottom: 7%; height: 7%; border-radius: 50%; background: radial-gradient(ellipse at center, rgb(10 6 24 / 0.6) 0%, transparent 70%); filter: blur(2px); }
+.ax4__p--a { left: -1%; bottom: -4%; width: 50%; z-index: 3; }
+.ax4__p--b { left: 36%; bottom: 17%; width: 31%; z-index: 2; }
+.ax4__p--c { right: -3%; bottom: -3%; width: 42%; z-index: 4; }
+/* Beneficios en tarjetas de vidrio */
+.ax4__perks { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.ax4__perks li {
+  display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 10px 14px; border: 1px solid rgb(255 255 255 / 0.2); border-radius: 14px;
+  background: rgb(255 255 255 / 0.1); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); font-size: 14.5px; font-weight: 600; line-height: 1.25;
+}
+.ax4__perks svg { flex: none; color: var(--accent); }
+
+/* Celular: la vitrina es una franja; los beneficios, un carrusel horizontal */
+@media (max-width: 959px) {
+  .ax4__vit { gap: 12px; padding-block: 18px 20px; }
+  .ax4__gear { width: 300px; right: -90px; top: -70px; }
+  .ax4__stat { font-size: 1rem; }
+  .ax4__stage { width: min(78%, 280px); }
+  .ax4__perks { display: flex; gap: 10px; margin-inline: -20px; padding-inline: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .ax4__perks::-webkit-scrollbar { display: none; }
+  .ax4__perks li { flex: 0 0 74%; scroll-snap-align: start; }
+}
+@media (min-width: 960px) { .ax4__vit { padding: 30px clamp(24px, 3vw, 44px) 34px; } .ax4__stat { font-size: 1.35rem; } }
+@media (prefers-reduced-motion: reduce) { .ax4__gear { animation: none; } .ax4__card { animation: none; } }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Link, Navigate, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowLeft, ArrowRight, CircleAlert } from 'lucide-react'
@@ -7,7 +7,7 @@ import { useAuthRedirect } from '../hooks/useAuthRedirect'
 import { useFields } from '../hooks/useFields'
 import { initialForm, splitName, toInvoicePayload, validateContact, validateInvoice } from '../lib/checkout'
 import Field from '../components/ui/Field'
-import AuthLayout from '../components/auth/AuthLayout'
+import AuthLayout, { Stepper } from '../components/auth/AuthLayout'
 import AuthCard from '../components/auth/AuthCard'
 import PasswordField from '../components/auth/PasswordField'
 import InvoiceFields, { InvoiceSwitch } from '../components/forms/InvoiceFields'
@@ -15,6 +15,16 @@ import '../styles/pages.css'
 
 // Campos del paso 1 (cuenta y contacto): sirven para llevar a la persona al paso donde el servidor marcó un error (422)
 const STEP_ONE = ['name', 'email', 'phone', 'password']
+
+// Validación en vivo del paso 1: aparece al salir del campo y se actualiza mientras se escribe (mismas reglas que al continuar)
+const liveError = (name, value) => {
+  const v = String(value ?? '')
+  if (name === 'name') return v.trim().length < 3 ? 'Escribe tu nombre completo.' : undefined
+  if (name === 'email') return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v.trim()) ? undefined : 'Escribe un correo válido.'
+  if (name === 'phone') return /^(\+57)?3\d{9}$/.test(v.replace(/[^\d+]/g, '')) ? undefined : 'Escribe un celular colombiano de 10 dígitos (empieza por 3).'
+  if (name === 'password') return v.length >= 8 ? undefined : v ? 'Debe tener mínimo 8 caracteres.' : 'Crea una contraseña.'
+  return undefined
+}
 
 const emptyForm = () => ({ ...initialForm(null), password: '', privacy_accepted: false, marketing_opt_in: false, billing_same_as_delivery: false })
 
@@ -31,6 +41,7 @@ export default function Register() {
   const [dir, setDir] = useState(1)
   const [serverError, setServerError] = useState(null)
   const [busy, setBusy] = useState(false)
+  const touched = useRef({})
 
   // Si ya hay sesión (por ejemplo, justo después de registrarse) se va al destino, no a Mi cuenta
   if (isAuthenticated) return <Navigate to={target} replace />
@@ -40,6 +51,17 @@ export default function Register() {
     setStep(to)
   }
   const e = (k) => errors[k] ?? serverError?.fieldError?.(k)
+  // Campo del paso 1 con validación en vivo: al salir se valida y, una vez salido, se revalida con cada letra
+  const live = (name) => ({
+    onChange: (ev) => {
+      set(name)(ev)
+      if (touched.current[name]) setErrors((er) => ({ ...er, [name]: liveError(name, ev.target.value) }))
+    },
+    onBlur: () => {
+      touched.current[name] = true
+      setErrors((er) => ({ ...er, [name]: liveError(name, form[name]) }))
+    },
+  })
 
   const checkStepOne = () => {
     const found = validateContact(form)
@@ -93,10 +115,9 @@ export default function Register() {
   }
 
   return (
-    <AuthLayout wide title={<>Crea tu <em>cuenta</em></>}>
-      <AuthCard progress={step / 2} caption={`Paso ${step} de 2`}>
-        <p className="auth-card__step">Paso {step} de 2</p>
-        <h2 className="auth-card__title">{step === 1 ? 'Tus datos' : 'Facturación electrónica'}</h2>
+    <AuthLayout title={<>Crea tu <em>cuenta</em></>} stepper={<Stepper steps={['Tus datos', 'Facturación']} current={step} />}>
+      <AuthCard>
+        <h2 className="auth-card__title">{step === 1 ? 'Cuéntanos quién eres' : 'Facturación electrónica (opcional)'}</h2>
 
         <form className="form auth-form" onSubmit={submit} noValidate>
           {serverError && <p className="alert alert--error" role="alert"><CircleAlert size={18} aria-hidden="true" /> <span>{serverError.message}</span></p>}
@@ -114,12 +135,12 @@ export default function Register() {
             >
               {step === 1 ? (
                 <>
-                  <Field label="Nombre completo" value={form.name} onChange={set('name')} error={e('name')} autoComplete="name" required />
+                  <Field label="Nombre completo" value={form.name} {...live('name')} error={e('name')} autoComplete="name" required />
                   <div className="form-grid">
-                    <Field label="Correo electrónico" type="email" value={form.email} onChange={set('email')} error={e('email')} autoComplete="email" required />
-                    <Field label="Celular" type="tel" inputMode="tel" value={form.phone} onChange={set('phone')} error={e('phone')} autoComplete="tel" required hint="Por aquí te llamamos o escribimos por WhatsApp." />
+                    <Field label="Correo electrónico" type="email" value={form.email} {...live('email')} error={e('email')} autoComplete="email" required />
+                    <Field label="Celular" type="tel" inputMode="tel" value={form.phone} {...live('phone')} error={e('phone')} autoComplete="tel" required hint="Por aquí te llamamos o escribimos por WhatsApp." />
                   </div>
-                  <PasswordField value={form.password} onChange={set('password')} error={e('password')} hint="Mínimo 8 caracteres." autoComplete="new-password" meter />
+                  <PasswordField value={form.password} {...live('password')} error={e('password')} hint="Mínimo 8 caracteres." autoComplete="new-password" meter />
                   <button type="submit" className="btn btn--accent btn--lg btn--block">
                     Continuar <ArrowRight size={18} aria-hidden="true" />
                   </button>

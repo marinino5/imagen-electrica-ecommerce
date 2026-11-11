@@ -1,18 +1,18 @@
 import { Link } from 'react-router-dom'
-import { ClipboardList, MessageCircle, ReceiptText, RotateCcw, ShoppingCart } from 'lucide-react'
+import { ClipboardList, MessageCircle, ReceiptText, RotateCcw } from 'lucide-react'
 import { site } from '../../config/site'
 import '../../styles/auth.css'
 import '../../styles/auth2.css'
-import '../../styles/ax3.css'
+import '../../styles/ax4.css'
 
-const BENEFITS = [
-  { icon: ClipboardList, title: 'Pedidos y cotizaciones en un lugar', text: 'Sigue cada solicitud, de la recepción a la entrega.' },
-  { icon: ReceiptText, title: 'Datos de facturación guardados', text: 'Tu NIT o cédula listos para la próxima compra.' },
-  { icon: RotateCcw, title: 'Recompra en un clic', text: 'Vuelve a pedir lo de siempre sin buscarlo otra vez.' },
+const PERKS = [
+  { icon: ClipboardList, text: 'Pedidos y cotizaciones en un lugar' },
+  { icon: ReceiptText, text: 'Facturación guardada' },
+  { icon: RotateCcw, text: 'Recompra en un clic' },
 ]
 
-// Rueda mecánica en línea (dientes calculados): decorado de la composición de marca
-function Gear({ teeth = 16, outer = 150, inner = 124, hole = 52 }) {
+// Rueda dentada en línea (dientes calculados): gira muy lento detrás de la vitrina
+function Gear({ teeth = 20, outer = 190, inner = 160 }) {
   const pts = []
   const step = (Math.PI * 2) / teeth
   for (let i = 0; i < teeth; i += 1) {
@@ -21,87 +21,72 @@ function Gear({ teeth = 16, outer = 150, inner = 124, hole = 52 }) {
   }
   const d = `M${pts.map(([x, y]) => `${x.toFixed(1)} ${y.toFixed(1)}`).join('L')}Z`
   return (
-    <svg className="ax3__gear" viewBox="-160 -160 320 320" aria-hidden="true" focusable="false">
-      <g fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round">
+    <svg className="ax4__gear" viewBox="-200 -200 400 400" aria-hidden="true" focusable="false">
+      <g fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round">
         <path d={d} />
-        <circle r={hole} />
-        <circle r={hole * 0.4} />
+        <circle r="128" />
+        <circle r="62" />
+        <circle r="22" />
+        {Array.from({ length: 6 }, (_, i) => <circle key={i} cx={Math.cos((i * Math.PI) / 3) * 95} cy={Math.sin((i * Math.PI) / 3) * 95} r="14" />)}
       </g>
     </svg>
   )
 }
 
-// La «e» del logo (anillo abierto, barra y rayo) en contorno
-function BigE() {
+/** Paso a paso visual de Crear cuenta: «1 Tus datos · 2 Facturación». `current` es 1 o 2. */
+export function Stepper({ steps, current }) {
   return (
-    <svg className="ax3__e" viewBox="0 0 330 300" aria-hidden="true" focusable="false">
-      <g fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round">
-        <path d="M251.1 234.8A132 132 0 1 1 282.0 150.0L238.0 150.0A88 88 0 1 0 217.4 206.6Z" />
-        <path d="M64.0 150H278.0V184H64.0Z" />
-        <path d="M172 76L136 126H160L148 146L188 98H164Z" />
-      </g>
-    </svg>
+    <ol className="ax4__steps" aria-label="Pasos para crear tu cuenta">
+      {steps.map((label, i) => (
+        <li key={label} className={i + 1 === current ? 'is-on' : i + 1 < current ? 'is-done' : ''} aria-current={i + 1 === current ? 'step' : undefined}>
+          <span aria-hidden="true">{i + 1 < current ? '✓' : i + 1}</span>
+          <b>{label}</b>
+        </li>
+      ))}
+    </ol>
   )
 }
 
 /**
- * Ingresar, Crear cuenta y Recuperar: dos columnas. A la izquierda un panel violeta de marca sin fotos (arcos concéntricos naranja,
- * rueda mecánica y la «e» del logo en contorno, más tres beneficios de tener cuenta); a la derecha el formulario y, debajo, el aviso
- * de que también se puede comprar sin cuenta. En celular el formulario va primero y el panel baja a una franja compacta.
- * `title` es el h1 y `children` el formulario.
+ * Ingresar, Crear cuenta y Recuperar: una tarjeta grande centrada sobre un fondo lila con grabado industrial. A la izquierda (55 %) el
+ * formulario; a la derecha (45 %) la «vitrina» de marca: degradado violeta, una rueda dentada que gira muy lenta, un arco naranja que
+ * abraza tres productos estrella y los tres beneficios de tener cuenta en tarjetas de vidrio. En celular el formulario va primero y la
+ * vitrina baja a una franja con los productos y los beneficios en carrusel. `title` es el h1, `stepper` el paso a paso y `children` el formulario.
  */
-export default function AuthLayout({ title, children, wide = false }) {
+export default function AuthLayout({ title, children, stepper }) {
   return (
-    <section className={`ax ax3${wide ? ' ax3--wide' : ''}`}>
-      <div className="ax3__main">
-        <div className="ax3__col">
-          <div className="ax__card">
-            <Link to="/" className="ax__logo" aria-label="Imagen Eléctrica, ir al inicio">
-              <img src="/img/logo-ajustado.png" alt="" width="40" height="48" />
-            </Link>
-            <h1 className="ax__title">{title}</h1>
-            {children}
-          </div>
-
-          <aside className="ax3__guest" aria-label="Compra sin cuenta">
-            <ShoppingCart size={20} aria-hidden="true" />
-            <p><strong>También puedes comprar sin cuenta.</strong> Arma tu carrito y en el pago solo te pedimos los datos de entrega.</p>
-            <Link to="/carrito">Ir al carrito</Link>
-          </aside>
-
+    <section className="ax ax4">
+      <div className="ax4__card">
+        <div className="ax4__form">
+          <Link to="/" className="ax__logo" aria-label="Imagen Eléctrica, ir al inicio">
+            <img src="/img/logo-ajustado.png" alt="" width="40" height="48" />
+          </Link>
+          {stepper}
+          <h1 className="ax__title">{title}</h1>
+          {children}
+          <p className="ax4__guest">¿Solo quieres comprar? <Link to="/carrito">Compra sin cuenta</Link></p>
           <p className="ax__help">
             <a href={site.whatsappLink('Hola, necesito ayuda para crear mi cuenta o ingresar en la tienda.')} target="_blank" rel="noreferrer">
               <MessageCircle size={14} aria-hidden="true" /> <span>Ayuda por WhatsApp</span>
             </a>
           </p>
         </div>
-      </div>
 
-      <div className="ax3__brand">
-        <div className="ax3__art" aria-hidden="true">
-          <svg className="ax3__arcs" viewBox="0 0 600 600" focusable="false">
-            <g fill="none" stroke="var(--ie-orange-500)" strokeWidth="1.5">
-              <circle cx="560" cy="40" r="150" />
-              <circle cx="560" cy="40" r="230" opacity=".7" />
-              <circle cx="560" cy="40" r="310" opacity=".45" />
-              <circle cx="560" cy="40" r="390" opacity=".25" />
-            </g>
-          </svg>
+        <aside className="ax4__vit" aria-label="Lo que tienes con tu cuenta">
           <Gear />
-          <BigE />
-        </div>
-        <div className="ax3__copy">
-          <p className="ax3__kicker">Tu cuenta Imagen Eléctrica</p>
-          <p className="ax3__lead">Compra más rápido, <em>con todo a la mano</em></p>
-          <ul className="ax3__list">
-            {BENEFITS.map(({ icon: Icon, title: t, text }) => (
-              <li key={t}>
-                <span className="ax3__icon"><Icon size={20} aria-hidden="true" /></span>
-                <span><strong>{t}</strong><small>{text}</small></span>
-              </li>
+          <p className="ax4__stat"><strong>25+</strong> años <i aria-hidden="true">·</i> <strong>+1.000</strong> referencias</p>
+          <div className="ax4__stage" aria-hidden="true">
+            <svg className="ax4__arc" viewBox="0 0 400 220" focusable="false"><path d="M12 214 A188 188 0 0 1 388 214" /></svg>
+            <span className="ax4__p ax4__p--a"><img src="/img/catalogo/weg-w22-iec-sm.webp" alt="" width="480" height="480" loading="lazy" /></span>
+            <span className="ax4__p ax4__p--b"><img src="/img/catalogo/weg-contactores-sm.webp" alt="" width="480" height="480" loading="lazy" /></span>
+            <span className="ax4__p ax4__p--c"><img src="/img/catalogo/weg-cfw500-sm.webp" alt="" width="480" height="480" loading="lazy" /></span>
+          </div>
+          <ul className="ax4__perks">
+            {PERKS.map(({ icon: Icon, text }) => (
+              <li key={text}><Icon size={20} aria-hidden="true" /><span>{text}</span></li>
             ))}
           </ul>
-        </div>
+        </aside>
       </div>
     </section>
   )
