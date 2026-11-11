@@ -62,9 +62,9 @@ class AdminCategoryApiTest extends TestCase
     {
         $this->actAsAdmin();
 
-        $this->postJson('/api/v1/admin/categories', ['name' => 'Motores eléctricos', 'description' => 'Trifásicos'])
+        $this->postJson('/api/v1/admin/categories', ['name' => 'Motores Eléctricos', 'description' => 'Trifásicos'])
             ->assertCreated()
-            ->assertJsonPath('data.name', 'Motores eléctricos')
+            ->assertJsonPath('data.name', 'Motores Eléctricos')
             ->assertJsonPath('data.slug', 'motores-electricos')
             ->assertJsonPath('data.is_active', true)
             ->assertJsonPath('data.sort_order', 0);

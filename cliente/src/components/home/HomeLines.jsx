@@ -11,7 +11,7 @@ import Squares from '../ui/Squares'
 import '../../styles/home.css'
 import '../../styles/home2.css'
 
-// Las familias (8 en el portafolio original, 10 con Material eléctrico y Otros productos) en una cuadrícula pareja: todas con la imagen recortada en el mismo formato (mismo tamaño visual y mismo
+// Las familias (8 en el portafolio original, 10 con Material Eléctrico y Herramientas y Repuestos) en una cuadrícula pareja: todas con la imagen recortada en el mismo formato (mismo tamaño visual y mismo
 // margen). Al pasar el mouse (o enfocar) aparece la lista de categorías con su contador. Compresores usa la ilustración
 // de marca en el mismo formato (ver docs/imagenes-pendientes.md).
 function FamilyTile({ family, index }) {
@@ -26,7 +26,7 @@ function FamilyTile({ family, index }) {
           {photo ? (
             <img className="zoom" src={photo.sm} alt="" width="480" height="480" loading="lazy" />
           ) : (
-            <span className="fam__art"><Icon strokeWidth={1.1} /></span>
+            <span className="fam__art fam__art--icon"><Icon strokeWidth={1.5} /></span>
           )}
           {cats.length > 0 && (
             <ul className="fam__cats" aria-hidden="true">

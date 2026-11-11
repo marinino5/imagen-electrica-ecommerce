@@ -73,7 +73,7 @@ class Phase1InventoryTest extends TestCase
     {
         $slugs = collect($this->getJson('/api/v1/families')->assertOk()->json('data'))->pluck('slug');
 
-        $this->assertSame('otros-productos', $slugs->last());
+        $this->assertSame('herramientas-y-repuestos', $slugs->last());
         $this->assertSame('material-electrico', $slugs->slice(-2, 1)->first());
         $this->assertContains('medicion-y-testeo', $slugs);
     }

@@ -179,3 +179,13 @@
 .cat-fbar .fb__search:focus-within input { text-decoration: none; }
 .cat-fbar .fb__item { display: flex; flex: none; align-items: center; gap: 8px; }
 .cat-fbar .fb .cat-seg { background: #fff; }
+
+/* ---------- Cabecera de familia: solo una a la vez. Únicamente la familia activa (la que se está viendo) queda fija; las demás
+   quedan en su sitio, así la anterior no asoma detrás de la barra de filtros. Violeta de marca, no casi negro. ---------- */
+.fgroup:not(.is-spy) .fgh { position: static; }
+.fgh { background: var(--primary); box-shadow: 0 12px 24px -16px rgb(81 62 132 / 0.6); }
+
+/* ---------- Cabecera de familia: solo una a la vez. Únicamente la familia activa (la que se está viendo) queda fija; las demás
+   quedan en su sitio, así la anterior no asoma detrás de la barra de filtros. Violeta de marca, no casi negro. ---------- */
+.fgroup:not(.is-spy) .fgh { position: static; }
+.fgh { background: var(--primary); box-shadow: 0 12px 24px -16px rgb(81 62 132 / 0.6); }

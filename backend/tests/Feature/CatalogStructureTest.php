@@ -49,7 +49,7 @@ class CatalogStructureTest extends TestCase
     public function test_el_nombre_de_la_linea_dice_que_es_y_la_marca_en_las_lineas_de_control(): void
     {
         foreach ($this->lines() as $line) {
-            if (! in_array($line['family'], ['Control y automatización'], true) || $line['variants'] === []) {
+            if (! in_array($line['family'], ['Control y Automatización'], true) || $line['variants'] === []) {
                 continue;
             }
 

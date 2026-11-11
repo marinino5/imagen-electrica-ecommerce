@@ -1,4 +1,4 @@
-import { Activity, BatteryCharging, Cable, CircuitBoard, Cog, Fan, Gauge, Lightbulb, Package, Plug, Scroll, Settings2, Wrench } from 'lucide-react'
+import { Activity, BatteryCharging, Cable, CircuitBoard, Cog, Fan, Gauge, Lightbulb, PlugZap, Scroll, Settings2, Toolbox, Wrench } from 'lucide-react'
 
 // Icono grande de cada familia: se usa en el diseño de marca cuando una ficha aún no tiene foto.
 const ICONS = {
@@ -10,13 +10,13 @@ const ICONS = {
   iluminacion: Lightbulb,
   compresores: Gauge,
   'medicion-y-testeo': Activity,
-  'material-electrico': Plug,
-  'otros-productos': Package,
+  'material-electrico': PlugZap, // enchufe con rayo
+  'herramientas-y-repuestos': Toolbox, // caja de herramientas
 }
 
 export const familyIcon = (slug) => ICONS[slug] ?? Cog
 
-// Icono propio de cada línea de «Otros productos» en el menú y en el acordeón del catálogo (una categoría por producto)
+// Icono propio de cada línea de «Herramientas y Repuestos» en el menú y en el acordeón del catálogo (una categoría por producto)
 const CATEGORY_ICONS = {
   'cintas-de-enmascarar': Scroll,
   baterias: BatteryCharging,
@@ -37,9 +37,7 @@ export const FAMILY_PHOTO = {
   iluminacion: cut('sylvania-start-highbay', 'Campana industrial LED Sylvania START Highbay'),
   compresores: cut('abac-compresor-vertical', 'Compresor de pistón vertical ABAC de 270 litros'),
   'medicion-y-testeo': cut('fluke-multimetro-117', 'Multímetro Fluke 117'),
-  // Portadas compuestas con varios productos de la familia (scripts/componer-portada.py), en el mismo formato que las demás
-  'material-electrico': cut('portada-material-electrico', 'Toma doble Leviton, interruptor inteligente Ilumax y rollo de cinta aislante 3M'),
-  'otros-productos': cut('portada-otros-productos', 'Batería sellada, tapón de acero inoxidable y cinta de enmascarar'),
+  // 09 «Material Eléctrico» y 10 «Herramientas y Repuestos» no llevan foto: su portada es un icono grande en violeta de marca
 }
 export const familyPhoto = (slug) => FAMILY_PHOTO[slug] ?? null
 
@@ -54,7 +52,7 @@ export const FAMILY_APP_PHOTO = {
   compresores: { src: '/img/aplicaciones/bombeo.webp', alt: 'Tubería y equipos de una planta' },
   'medicion-y-testeo': { src: '/img/aplicaciones/fluke-en-tablero.webp', alt: 'Multímetro Fluke midiendo en un tablero' },
   'material-electrico': { src: '/img/fotos/tablero-cerca.webp', alt: 'Cableado de un tablero eléctrico' },
-  'otros-productos': { src: '/img/fotos/almacen-cajas.webp', alt: 'Cajas en una estantería del almacén' },
+  'herramientas-y-repuestos': { src: '/img/fotos/almacen-cajas.webp', alt: 'Cajas en una estantería del almacén' },
 }
 
 // Qué familias muestran cada filtro técnico (el resto no los ofrece)
@@ -75,5 +73,5 @@ export const FAMILY_BLURB = {
   compresores: 'Compresores de pistón para taller e industria.',
   'medicion-y-testeo': 'Multímetros, instrumentos de panel y equipos de medición para electricistas y técnicos.',
   'material-electrico': 'Tomas, clavijas, cintas aislantes y puesta a tierra para instalaciones eléctricas.',
-  'otros-productos': 'Insumos, herramientas y repuestos que no son material eléctrico.',
+  'herramientas-y-repuestos': 'Cintas de enmascarar, baterías, tapones y otros insumos, herramientas y repuestos.',
 }

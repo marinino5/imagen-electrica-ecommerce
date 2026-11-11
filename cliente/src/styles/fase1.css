@@ -151,11 +151,12 @@ body .site-header:not(.is-solid) { background: transparent; box-shadow: none; }
 /* ---------- Familias 09 y 10 ---------- */
 /* Con 9 o 10 familias la cuadrícula del Inicio pasa a 5 columnas en escritorio (dos filas parejas de cinco) */
 @media (min-width: 1100px) { .fam-grid.fam-grid--wide { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; } }
-/* «Otros productos» va al final y con diseño sobrio: lila liso, icono en tinta suave y sin naranja */
-.fam--sober .fam__card { background: var(--ie-lila-100); border-color: var(--ie-lila-200); }
-.fam--sober .fam__media { background: var(--ie-lila-100); }
-.fam--sober .fam__art { border-color: var(--ie-violet-500) transparent transparent var(--ie-violet-500); color: var(--muted); }
-.fam--sober .fam__num { color: var(--muted); }
+/* Portadas por icono (09 y 10): icono de 1,5 px en violeta de marca, ~45 % de la tarjeta, sobre lila con el arco decorativo */
+.fam__art--icon { width: 70%; background: var(--ie-lila-100); border: 2px solid var(--ie-lila-200); border-top-color: var(--accent); border-left-color: var(--accent); }
+.fam__art--icon svg { width: 64%; height: 64%; color: var(--primary); }
 
-/* Icono propio de cada categoría de «Otros productos» en el acordeón y el mega-menú */
+/* Icono propio de cada categoría de «Herramientas y Repuestos» en el acordeón y el mega-menú */
 .fam-tree__cic, .mega__cic { display: inline-block; vertical-align: -2px; margin-right: 6px; color: var(--primary); flex: none; }
+
+.mega__thumb { display: grid; place-items: center; }
+.mega__ficon { color: var(--primary); }

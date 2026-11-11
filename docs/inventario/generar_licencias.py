@@ -48,8 +48,6 @@ MANUAL = {
     'airmax-gl-persianas': ('AIRAL, https://www.airal.com.co/airmaxgl', OFICIAL),
     'weg-mini-contactor-cwc': ('Catálogo oficial WEG «CWC Series – Miniature Contactors» (static.weg.net/medias/downloadcenter/ha3/h37/…)', OFICIAL),
     'weg-rtw17': ('Catálogo oficial WEG «Electronic Relays Modular Line» (static.weg.net/medias/downloadcenter/h63/h7f/…)', OFICIAL),
-    'portada-material-electrico': ('Composición propia con los recortes leviton-wid0002, ilumax-2083 y 3m-c18mtr-bl (cliente/scripts/componer-portada.py)', PROPIA),
-    'portada-otros-productos': ('Composición propia con los recortes magna-ma5-12, swagelok-ss-12-p y cellux-12100 (cliente/scripts/componer-portada.py)', PROPIA),
 }
 for f in sorted({p.name.replace('-sm.webp', '.webp') for p in (PUB / 'img/catalogo').iterdir() if p.suffix in ('.webp', '.svg')}):
     stem = Path(f).stem
