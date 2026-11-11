@@ -91,7 +91,7 @@ FOTOS = {
     'almacen': ('Pixabay (almacén de estanterías altas; registrado en docs/creditos-media.md, sin página de origen guardada)', LIBRE),
     'contacto': ('Pixabay (módulos en un tablero; docs/creditos-media.md, sin página de origen guardada)', LIBRE),
     'comprar-caja': PEX(11781094), 'comprar-despacho': PEX(4487383), 'comprar-tecnico': PEX(33694016),
-    'contacto-asesor': PEX(17842832), 'contacto-asesoria': PEX(32845692), 'contacto-cotizar': PEX(32845690), 'sector-agua': PEX(12726229),
+    'contacto-asesor': PEX(17842832), 'contacto-asesoria': PEX(7682200), 'contacto-cotizar': PEX(32845690), 'sector-agua': PEX(12726229),
     'contacto-garantia': PEX(9242911), 'contacto-pedido': PEX(6868621), 'hero-motores': PIX('machine-tubes-blue-pipes-factory-495376', 'Martinelle'), 'hero-motorreductores': PEX(13974251),
     'nosotros-asesoria': PEX(34054501), 'nosotros-despacho': PEX(6169177), 'nosotros-estanteria': PEX(28950842),
 }

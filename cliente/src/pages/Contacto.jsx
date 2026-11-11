@@ -16,7 +16,7 @@ import '../styles/ie-contacto.css'
 
 // Contacto como «centro de atención». Recurso firma: el bento de fotos.
 //  1. Hero oscuro (fondo E) bajo la barra transparente, con la foto del asesor a la derecha y tres acciones.
-//  2. «¿Qué necesitas?»: bento asimétrico (una tarjeta 2 × 2 y tres medianas), cada una con su foto.
+//  2. «¿Qué necesitas?»: bento con «Cotizar un proyecto» a todo el ancho arriba y tres tarjetas iguales debajo, cada una con su foto.
 //  3. Formulario con altura animada (solo para «Estado de mi pedido» sin sesión y «Garantías y devoluciones»).
 //  4. Canales: tres columnas con separadores lila.
 //  5. Visítanos: mapa estático y dirección.
@@ -44,8 +44,8 @@ export default function Contacto() {
   }
 
   const tiles = [
-    { id: 'quote', cls: 'bento__big', icon: FileText, title: 'Cotizar un proyecto', text: 'Envía tu lista y te respondemos con precio.', to: '/cotizar', photo: '/img/fotos/contacto-cotizar.webp', alt: 'Dos personas revisan planos sobre una mesa para cotizar un proyecto' },
-    { id: 'advice', cls: 'bento__a', icon: Headset, title: 'Asesoría técnica', text: 'Habla con un asesor por WhatsApp.', href: site.whatsappLink('Hola, necesito asesoría técnica sobre…'), photo: '/img/fotos/contacto-asesoria.webp', alt: 'Ingeniera trabajando con una laptop junto a una estación de cableado industrial' },
+    { id: 'quote', cls: 'bento__big', icon: FileText, title: 'Cotizar un proyecto', text: 'Envía tu lista de productos o los planos de tu proyecto y te respondemos con precio, disponibilidad y tiempo de entrega.', cta: 'Cotizar ahora', to: '/cotizar', photo: '/img/fotos/contacto-cotizar.webp', alt: 'Dos personas revisan planos sobre una mesa para cotizar un proyecto' },
+    { id: 'advice', cls: 'bento__a', icon: Headset, title: 'Asesoría técnica', text: 'Habla con un asesor por WhatsApp.', href: site.whatsappLink('Hola, necesito asesoría técnica sobre…'), photo: '/img/fotos/contacto-asesoria.webp', alt: 'Asesor con audífonos atendiendo una llamada con una sonrisa' },
     isAuthenticated
       ? { id: 'order', cls: 'bento__b', icon: PackageSearch, title: 'Estado de mi pedido', text: 'Míralo en Mi cuenta, con sus estados.', to: '/mi-cuenta', photo: '/img/fotos/contacto-pedido.webp', alt: 'Entrega de un paquete de mano en mano' }
       : { id: 'order', cls: 'bento__b', icon: PackageSearch, title: 'Estado de mi pedido', text: 'Escribe tu número de pedido.', photo: '/img/fotos/contacto-pedido.webp', alt: 'Entrega de un paquete de mano en mano' },
@@ -80,7 +80,7 @@ export default function Contacto() {
         <div className="wrap">
           <Pop><h2 id="h-need" className="rd-h2">¿Qué <Hl>necesitas?</Hl></h2></Pop>
           <ul className="bento">
-            {tiles.map(({ id, cls, icon: Icon, title, text, to, href, photo, alt }, n) => {
+            {tiles.map(({ id, cls, icon: Icon, title, text, to, href, photo, alt, cta }, n) => {
               const inner = (
                 <>
                   <img className="bento__img" src={photo} alt={alt} width="1600" height="1067" loading="lazy" decoding="async" />
@@ -90,6 +90,7 @@ export default function Contacto() {
                     <Icon className="bento__ic" size={32} strokeWidth={1.6} aria-hidden="true" />
                     <strong>{title}</strong>
                     <span>{text}</span>
+                    {cta && <span className="bento__cta">{cta} <ArrowUpRight size={18} aria-hidden="true" /></span>}
                   </span>
                 </>
               )
