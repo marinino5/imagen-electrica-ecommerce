@@ -1,23 +1,21 @@
-name: 'Categorías (administrador)'
-description: |-
-
-  Requiere el token de un usuario con rol admin; con otro rol responde 403.
+name: 'Pedidos y cotizaciones (cliente)'
+description: ''
 endpoints:
   -
     custom: []
     httpMethods:
       - GET
-    uri: api/v1/admin/categories
+    uri: api/v1/orders
     metadata:
       custom: []
-      groupName: 'Categorías (administrador)'
-      groupDescription: |-
-
-        Requiere el token de un usuario con rol admin; con otro rol responde 403.
+      groupName: 'Pedidos y cotizaciones (cliente)'
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Listar categorías'
-      description: 'A diferencia del catálogo público, incluye las categorías inactivas.'
+      title: 'Mis solicitudes'
+      description: |-
+        Pedidos y cotizaciones del cliente autenticado, los más recientes primero. Nunca
+        muestra las de otros clientes.
       authenticated: true
       deprecated: false
     headers:
@@ -27,12 +25,23 @@ endpoints:
     urlParameters: []
     cleanUrlParameters: []
     queryParameters:
-      q:
+      type:
         custom: []
-        name: q
-        description: 'Busca por nombre o slug.'
+        name: type
+        description: 'Filtrar por tipo: purchase o quote.'
         required: false
-        example: motores
+        example: quote
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: 'Filtrar por estado (pending_payment, paid, shipped, delivered, new, in_review, sent, accepted, rejected, cancelled).'
+        required: false
+        example: new
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -41,7 +50,7 @@ endpoints:
       per_page:
         custom: []
         name: per_page
-        description: 'Categorías por página (1 a 50).'
+        description: 'Solicitudes por página (1 a 50).'
         required: false
         example: 10
         type: integer
@@ -50,17 +59,41 @@ endpoints:
         nullable: false
         deprecated: false
     cleanQueryParameters:
-      q: motores
+      type: quote
+      status: new
       per_page: 10
     bodyParameters:
-      q:
+      type:
         custom: []
-        name: q
-        description: 'El campo value no puede tener más de 100 caracteres.'
+        name: type
+        description: ''
         required: false
-        example: b
+        example: quote
         type: string
-        enumValues: []
+        enumValues:
+          - purchase
+          - quote
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: pending_payment
+        type: string
+        enumValues:
+          - pending_payment
+          - paid
+          - shipped
+          - delivered
+          - new
+          - in_review
+          - sent
+          - accepted
+          - rejected
+          - cancelled
         exampleWasSpecified: false
         nullable: true
         deprecated: false
@@ -69,21 +102,22 @@ endpoints:
         name: per_page
         description: 'El campo value debe ser al menos 1. El campo value no puede ser mayor que 50.'
         required: false
-        example: 22
+        example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      q: b
-      per_page: 22
+      type: quote
+      status: pending_payment
+      per_page: 1
     fileParameters: []
     responses:
       -
         custom: []
         status: 200
-        content: '{"data":[{"id":131,"parent_id":null,"name":"Quos velit","slug":"quos-velit","description":"Sunt nihil accusantium harum mollitia.","image_url":null,"sort_order":19,"is_active":true,"created_at":"2026-11-11T02:04:29.000000Z","updated_at":"2026-11-11T02:04:29.000000Z"},{"id":132,"parent_id":null,"name":"Deserunt aut","slug":"deserunt-aut","description":null,"image_url":null,"sort_order":15,"is_active":true,"created_at":"2026-11-11T02:04:29.000000Z","updated_at":"2026-11-11T02:04:29.000000Z"}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"pagination.previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"pagination.next","page":null,"active":false}],"path":"\/","per_page":10,"to":2,"total":2}}'
+        content: '{"data":[{"code":"PED-6806","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","customer_type":"company","company_name":"Sierra, Baeza y Murillo S. de H. S.A.S.","nit":"969654852-9","contact_name":"Rosa Guajardo","email":"luna44@example.org","phone":"385 263 1582","city":"Piedecuesta","address":"R\u00faa Adri\u00e1n, 732, 9\u00ba C","is_guest":false,"billing":null,"delivery":null,"privacy_accepted_at":null,"privacy_version":null,"delivery_method":"national","delivery_method_label":"Env\u00edo nacional","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-11-11T09:55:00.000000Z","items":[{"id":1,"product_id":1,"sku":"REF-5058-cq","product_name":"Motor trif\u00e1sico 6877 HP","unit":"unidad","quantity":3,"unit_price":3030000,"tax_rate":19,"line_total":9090000,"notes":null}]},{"code":"PED-3733","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","customer_type":"company","company_name":"Santill\u00e1n de Rosa S.A.S.","nit":"940939506-2","contact_name":"Ona Lozano","email":"alarcon.jaime@example.com","phone":"329 242 1642","city":"Piedecuesta","address":"Carrer Nayara, 342, 1\u00ba E","is_guest":false,"billing":null,"delivery":null,"privacy_accepted_at":null,"privacy_version":null,"delivery_method":"pickup","delivery_method_label":"Recoger en tienda","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-11-11T09:55:00.000000Z","items":[{"id":2,"product_id":2,"sku":"REF-9849-tp","product_name":"Motor trif\u00e1sico 1703 HP","unit":"unidad","quantity":2,"unit_price":4569000,"tax_rate":19,"line_total":9138000,"notes":null}]}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"pagination.previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"pagination.next","page":null,"active":false}],"path":"\/","per_page":10,"to":2,"total":2}}'
         headers: []
         description: ''
     responseFields: []
@@ -98,17 +132,21 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/v1/admin/categories
+    uri: api/v1/orders
     metadata:
       custom: []
-      groupName: 'Categorías (administrador)'
-      groupDescription: |-
-
-        Requiere el token de un usuario con rol admin; con otro rol responde 403.
+      groupName: 'Pedidos y cotizaciones (cliente)'
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Crear una categoría'
-      description: 'El slug se genera a partir del nombre. Solo hay dos niveles: `parent_id` debe ser una categoría de primer nivel.'
+      title: 'Enviar el carrito'
+      description: |-
+        El servidor clasifica cada producto: los de venta directa con precio y stock suficiente forman
+        un **pedido** (`purchase`, pendiente de pago); los de cotización, bajo pedido o sin stock
+        suficiente forman una **cotización** (`quote`, nueva y sin precios). Un carrito mixto
+        genera las dos, por eso la respuesta es una lista (pedido primero). Las cantidades
+        de cable pueden ser decimales (metros); las demás unidades, enteras. El envío es gratis
+        al recoger o al superar la compra mínima configurada.
       authenticated: true
       deprecated: false
     headers:
@@ -120,75 +158,107 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      parent_id:
+      items:
         custom: []
-        name: parent_id
-        description: 'Categoría padre (de primer nivel).'
+        name: items
+        description: 'Líneas del carrito (1 a 100, sin repetir producto).'
+        required: true
+        example:
+          - []
+        type: 'object[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      delivery_method:
+        custom: []
+        name: delivery_method
+        description: 'pickup, local o national.'
+        required: true
+        example: local
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      address:
+        custom: []
+        name: address
+        description: 'Dirección de entrega. Obligatoria si no es pickup y el cliente no tiene dirección guardada.'
         required: false
+        example: 'Zona Industrial Chimitá, bodega 12'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      notes:
+        custom: []
+        name: notes
+        description: Observaciones.
+        required: false
+        example: 'Entregar en portería'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      'items[].product_id':
+        custom: []
+        name: 'items[].product_id'
+        description: 'Id del producto.'
+        required: true
         example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: true
-        nullable: true
+        nullable: false
         deprecated: false
-      name:
+      'items[].quantity':
         custom: []
-        name: name
-        description: ''
+        name: 'items[].quantity'
+        description: 'Cantidad (hasta 2 decimales).'
         required: true
-        example: 'Motores eléctricos'
-        type: string
+        example: 2.0
+        type: number
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         deprecated: false
-      description:
+      'items[].notes':
         custom: []
-        name: description
-        description: ''
+        name: 'items[].notes'
+        description: 'Nota de la línea.'
         required: false
-        example: 'Motores trifásicos y monofásicos.'
+        example: 'Con certificado de calidad'
         type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: true
-        deprecated: false
-      sort_order:
-        custom: []
-        name: sort_order
-        description: 'Orden en el menú (0 por defecto).'
-        required: false
-        example: 2
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
-        deprecated: false
-      is_active:
-        custom: []
-        name: is_active
-        description: 'Activa en la tienda (por defecto sí).'
-        required: false
-        example: true
-        type: boolean
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
         deprecated: false
     cleanBodyParameters:
-      parent_id: 1
-      name: 'Motores eléctricos'
-      description: 'Motores trifásicos y monofásicos.'
-      sort_order: 2
-      is_active: true
+      items:
+        -
+          product_id: 1
+          quantity: 2.0
+          notes: 'Con certificado de calidad'
+      delivery_method: local
+      address: 'Zona Industrial Chimitá, bodega 12'
+      notes: 'Entregar en portería'
     fileParameters: []
     responses:
       -
         custom: []
         status: 201
-        content: '{"data":{"id":133,"parent_id":null,"name":"Nihil accusantium","slug":"nihil-accusantium","description":"Modi deserunt aut ab provident perspiciatis.","image_url":null,"sort_order":12,"is_active":true,"created_at":"2026-11-11T02:04:29.000000Z","updated_at":"2026-11-11T02:04:29.000000Z"}}'
+        content: '{"data":[{"code":"PED-9365","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","customer_type":"company","company_name":"Baeza y Murillo S. de H. S.A.S.","nit":"917077634-3","contact_name":"Jos\u00e9 Antonio Rivas","email":"yeray52@example.com","phone":"344 401 4763","city":"Gir\u00f3n","address":"Passeig Nicol\u00e1s, 480, 2\u00ba C","is_guest":false,"billing":null,"delivery":null,"privacy_accepted_at":null,"privacy_version":null,"delivery_method":"national","delivery_method_label":"Env\u00edo nacional","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-11-11T09:55:00.000000Z","items":[{"id":1,"product_id":1,"sku":"REF-5066-ld","product_name":"Motor trif\u00e1sico 4486 HP","unit":"unidad","quantity":4,"unit_price":1444000,"tax_rate":19,"line_total":5776000,"notes":null}]},{"code":"PED-0481","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","customer_type":"company","company_name":"Tirado-Gal\u00e1n S.A.S.","nit":"916022608-5","contact_name":"Diana Alanis","email":"lucia.roca@example.net","phone":"360 787 7092","city":"Barrancabermeja","address":"Cami\u00f1o Jon, 967, 4\u00ba 2\u00ba","is_guest":false,"billing":null,"delivery":null,"privacy_accepted_at":null,"privacy_version":null,"delivery_method":"local","delivery_method_label":"Env\u00edo local (Bucaramanga y \u00e1rea metropolitana)","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-11-11T09:55:00.000000Z","items":[{"id":2,"product_id":2,"sku":"REF-1102-zc","product_name":"Motor trif\u00e1sico 2602 HP","unit":"unidad","quantity":3,"unit_price":2032000,"tax_rate":19,"line_total":6096000,"notes":null}]}]}'
         headers: []
         description: ''
+      -
+        custom: []
+        status: 422
+        content: '{"message":"El carrito está vacío.","errors":{"items":["El carrito está vacío."]}}'
+        headers: []
+        description: 'Carrito vacío'
     responseFields: []
     auth:
       - headers
@@ -201,17 +271,15 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: 'api/v1/admin/categories/{id}'
+    uri: 'api/v1/orders/{code}'
     metadata:
       custom: []
-      groupName: 'Categorías (administrador)'
-      groupDescription: |-
-
-        Requiere el token de un usuario con rol admin; con otro rol responde 403.
+      groupName: 'Pedidos y cotizaciones (cliente)'
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Ver una categoría'
-      description: ''
+      title: 'Ver una solicitud'
+      description: 'Detalle con líneas e historial de estados. Si el código no existe o es de otro cliente responde 404.'
       authenticated: true
       deprecated: false
     headers:
@@ -219,31 +287,19 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      id:
+      code:
         custom: []
-        name: id
-        description: 'The ID of the category.'
+        name: code
+        description: 'Código de la solicitud.'
         required: true
-        example: 1
-        type: integer
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      category:
-        custom: []
-        name: category
-        description: 'Id de la categoría.'
-        required: true
-        example: 1
-        type: integer
+        example: PED-0001
+        type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 1
-      category: 1
+      code: PED-0001
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -253,7 +309,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":134,"parent_id":null,"name":"Aut adipisci","slug":"aut-adipisci","description":"Qui commodi incidunt iure odit.","image_url":null,"sort_order":8,"is_active":true,"created_at":"2026-11-11T02:04:29.000000Z","updated_at":"2026-11-11T02:04:29.000000Z"}}'
+        content: '{"data":{"code":"PED-7680","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","customer_type":"company","company_name":"Baeza de Arredondo S.A.S.","nit":"944731071-9","contact_name":"Olivia Centeno","email":"jalmonte@example.com","phone":"324 049 0034","city":"Barrancabermeja","address":"Traves\u00eda Cristian, 47, 2\u00ba F","is_guest":false,"billing":null,"delivery":null,"privacy_accepted_at":null,"privacy_version":null,"delivery_method":"pickup","delivery_method_label":"Recoger en tienda","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-11-11T09:55:00.000000Z","items":[{"id":1,"product_id":1,"sku":"REF-2083-jk","product_name":"Motor trif\u00e1sico 4189 HP","unit":"unidad","quantity":5,"unit_price":3759000,"tax_rate":19,"line_total":18795000,"notes":null}],"status_history":[{"from_status":null,"to_status":"pending_payment","to_status_label":"Pendiente de pago","note":null,"created_at":"2026-11-11T09:55:00.000000Z"}]}}'
         headers: []
         description: ''
     responseFields: []
@@ -267,19 +323,18 @@ endpoints:
   -
     custom: []
     httpMethods:
-      - PUT
       - PATCH
-    uri: 'api/v1/admin/categories/{id}'
+    uri: 'api/v1/orders/{code}/cancel'
     metadata:
       custom: []
-      groupName: 'Categorías (administrador)'
-      groupDescription: |-
-
-        Requiere el token de un usuario con rol admin; con otro rol responde 403.
+      groupName: 'Pedidos y cotizaciones (cliente)'
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Actualizar una categoría'
-      description: 'Reemplaza la categoría: se envían los mismos campos obligatorios que al crear. El slug no cambia.'
+      title: 'Cancelar una solicitud'
+      description: |-
+        Cambia el estado a `cancelled` (no borra nada y queda en el historial). Solo se puede cancelar un
+        pedido pendiente de pago o una cotización nueva; en cualquier otro estado responde 422.
       authenticated: true
       deprecated: false
     headers:
@@ -287,158 +342,19 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      id:
+      code:
         custom: []
-        name: id
-        description: 'The ID of the category.'
+        name: code
+        description: 'Código de la solicitud.'
         required: true
-        example: 1
-        type: integer
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      category:
-        custom: []
-        name: category
-        description: 'Id de la categoría.'
-        required: true
-        example: 1
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-    cleanUrlParameters:
-      id: 1
-      category: 1
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      parent_id:
-        custom: []
-        name: parent_id
-        description: ''
-        required: false
-        example: 1
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
-        deprecated: false
-      name:
-        custom: []
-        name: name
-        description: ''
-        required: true
-        example: 'Motores eléctricos industriales'
+        example: COT-0001
         type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         deprecated: false
-      description:
-        custom: []
-        name: description
-        description: ''
-        required: false
-        example: 'Motores trifásicos y monofásicos.'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
-        deprecated: false
-      sort_order:
-        custom: []
-        name: sort_order
-        description: ''
-        required: false
-        example: 3
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
-        deprecated: false
-      is_active:
-        custom: []
-        name: is_active
-        description: 'Si no se envía, se conserva.'
-        required: false
-        example: true
-        type: boolean
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-    cleanBodyParameters:
-      parent_id: 1
-      name: 'Motores eléctricos industriales'
-      description: 'Motores trifásicos y monofásicos.'
-      sort_order: 3
-      is_active: true
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 200
-        content: '{"data":{"id":135,"parent_id":null,"name":"Harum mollitia","slug":"harum-mollitia","description":null,"image_url":null,"sort_order":0,"is_active":true,"created_at":"2026-11-11T02:04:29.000000Z","updated_at":"2026-11-11T02:04:29.000000Z"}}'
-        headers: []
-        description: ''
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - DELETE
-    uri: 'api/v1/admin/categories/{id}'
-    metadata:
-      custom: []
-      groupName: 'Categorías (administrador)'
-      groupDescription: |-
-
-        Requiere el token de un usuario con rol admin; con otro rol responde 403.
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Eliminar una categoría'
-      description: 'Si la categoría tiene productos o subcategorías responde 422: primero hay que moverlos.'
-      authenticated: true
-      deprecated: false
-    headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        custom: []
-        name: id
-        description: 'The ID of the category.'
-        required: true
-        example: 1
-        type: integer
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      category:
-        custom: []
-        name: category
-        description: 'Id de la categoría.'
-        required: true
-        example: 1
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
     cleanUrlParameters:
-      id: 1
-      category: 1
+      code: COT-0001
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -447,16 +363,16 @@ endpoints:
     responses:
       -
         custom: []
-        status: 204
-        content: '{}'
+        status: 200
+        content: '{"data":{"code":"PED-3724","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","customer_type":"company","company_name":"Gestora Fonseca-Rosales S.A.S.","nit":"942198886-2","contact_name":"D\u00f1a Victoria Espinal","email":"lucio.noelia@example.org","phone":"305 913 5052","city":"Bucaramanga","address":"Passeig Olivia, 232, 4\u00ba","is_guest":false,"billing":null,"delivery":null,"privacy_accepted_at":null,"privacy_version":null,"delivery_method":"national","delivery_method_label":"Env\u00edo nacional","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-11-11T09:55:00.000000Z","items":[{"id":1,"product_id":1,"sku":"REF-0782-pp","product_name":"Motor trif\u00e1sico 5685 HP","unit":"unidad","quantity":1,"unit_price":276000,"tax_rate":19,"line_total":276000,"notes":null}],"status_history":[{"from_status":null,"to_status":"pending_payment","to_status_label":"Pendiente de pago","note":null,"created_at":"2026-11-11T09:55:00.000000Z"}]}}'
         headers: []
-        description: Eliminada
+        description: ''
       -
         custom: []
         status: 422
-        content: '{"message": "No se puede eliminar «Motores» porque tiene 3 productos. Muévelos a otra categoría primero."}'
+        content: '{"message":"No se puede pasar pedido PED-0001 de «Enviado» a «Cancelado»."}'
         headers: []
-        description: 'Tiene productos'
+        description: 'Estado que no permite cancelar'
     responseFields: []
     auth:
       - headers

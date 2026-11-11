@@ -39,7 +39,7 @@ const POPOVER_W = 320
  * El botón lleva ícono de carrito y texto («Agregar» / «Cotizar»), no solo el ícono. Nunca dice «agotado».
  * Al agregar: toast (lo da el carrito), pulso del contador y un check en el botón durante 1,2 s.
  */
-export default function QuickAdd({ line, image, preselect = null }) {
+export default function QuickAdd({ line, image, preselect = null, compact = false }) {
   const { add } = useCart()
   const navigate = useNavigate()
   const sheet = useMediaQuery('(max-width: 767px)')
@@ -210,7 +210,7 @@ export default function QuickAdd({ line, image, preselect = null }) {
       <button
         ref={btn}
         type="button"
-        className={`qa__pill ${done ? 'is-done' : ''} ${quoteOnly ? 'is-quote' : ''}`}
+        className={`qa__pill ${compact ? 'qa__pill--sm' : ''} ${done ? 'is-done' : ''} ${quoteOnly ? 'is-quote' : ''}`}
         aria-label={done ? 'Agregado' : label}
         aria-haspopup={!quoteOnly && !quick ? 'dialog' : undefined}
         aria-expanded={!quoteOnly && !quick ? open : undefined}

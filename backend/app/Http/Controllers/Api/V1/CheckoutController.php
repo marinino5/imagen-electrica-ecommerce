@@ -72,7 +72,7 @@ class CheckoutController extends Controller
     {
         // Un bot que llena el campo trampa recibe la misma respuesta, pero no se guarda nada
         if ($request->isBot()) {
-            return response()->json(['data' => [], 'meta' => ['guest' => true, 'account_exists' => false]], Response::HTTP_CREATED);
+            return response()->json(['data' => [], 'meta' => ['guest' => true, 'account_exists' => false, 'status_urls' => []]], Response::HTTP_CREATED);
         }
 
         // Token opcional: solo un cliente con cuenta compra «como cliente»; cualquier otra persona (o rol) es invitado
@@ -82,7 +82,7 @@ class CheckoutController extends Controller
         $result = $this->checkout->place($user, $request->validated());
 
         return OrderResource::collection($result['orders'])
-            ->additional(['meta' => ['guest' => $result['guest'], 'account_exists' => $result['account_exists']]])
+            ->additional(['meta' => ['guest' => $result['guest'], 'account_exists' => $result['account_exists'], 'status_urls' => $result['status_urls']]])
             ->response()
             ->setStatusCode(Response::HTTP_CREATED);
     }

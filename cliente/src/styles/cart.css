@@ -86,7 +86,7 @@
 }
 @media (min-width: 961px) {
   .cart-layout {
-    grid-template-columns: minmax(0, 1fr) 380px;
+    grid-template-columns: minmax(0, 1fr) 300px;
     gap: 28px;
   }
   .cart-side {
@@ -96,6 +96,7 @@
 }
 .cart-main {
   display: grid;
+  grid-template-columns: minmax(0, 1fr); /* sin esto la columna crece hasta el contenido más ancho y se sale del celular */
   gap: 24px;
   min-width: 0;
 }

@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-/** Tipo de documento del comprador para la factura electrónica (códigos de la DIAN, los mismos que usa Siigo). */
+/** Tipo de documento del comprador para la factura electrónica (códigos de la DIAN). */
 enum DocumentType: string
 {
     case CC = 'CC';
@@ -20,7 +20,7 @@ enum DocumentType: string
         };
     }
 
-    /** Código del tipo de documento en la facturación electrónica de la DIAN (también el que espera Siigo). */
+    /** Código del tipo de documento en la facturación electrónica de la DIAN (13 cédula, 22 extranjería, 41 pasaporte, 31 NIT). */
     public function dianCode(): string
     {
         return match ($this) {

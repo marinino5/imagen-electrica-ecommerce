@@ -6,8 +6,8 @@ import { site } from '../../config/site'
 export const ONLINE = [
   { title: 'Busca tu referencia', text: 'Escribe el nombre, la referencia o el SKU, o recorre las familias. Filtra por marca y por forma de compra.', tip: 'Precios en COP con IVA incluido', screen: 'catalogo', alt: 'El catálogo de la tienda en el celular, con el buscador y las líneas de producto' },
   { title: 'Elige y agrega', text: 'Escoge potencia, velocidad y referencia. El precio se actualiza al instante y la agregas al carrito.', tip: 'Fichas con datos del fabricante', screen: 'ficha', alt: 'Ficha de un producto en el celular, con el selector de referencia y el botón Agregar al carrito' },
-  { title: 'Revisa tu carrito', text: 'Elige si lo recoges o te lo enviamos y envía el pedido con tu cuenta gratis.', tip: 'Recoger en tienda no cuesta', screen: 'carrito', alt: 'El carrito en el celular con el producto elegido y el total a pagar' },
-  { title: 'Recibe tu confirmación', text: 'Te damos tu número de pedido y un asesor confirma el pago y la entrega por WhatsApp.', tip: 'Sigue el estado en Mi cuenta', screen: 'confirmacion', alt: 'Pantalla de pedido enviado en el celular, con el número de pedido' },
+  { title: 'Revisa tu carrito', text: 'Elige si lo recoges o te lo enviamos, escribe tus datos de facturación y confirma. No necesitas crear una cuenta.', tip: 'Recoger en tienda no cuesta', screen: 'carrito', alt: 'El carrito en el celular con el producto elegido y el total a pagar' },
+  { title: 'Recibe tu confirmación', text: 'Te damos tu número de pedido y te enviamos un correo con un enlace para ver su estado. Un asesor confirma el pago y la entrega.', tip: 'El enlace del correo vale 60 días', screen: 'confirmacion', alt: 'Pantalla de pedido enviado en el celular, con el número de pedido' },
 ]
 
 export const QUOTE = [
@@ -34,7 +34,7 @@ export const SHIPPING = [
 // Preguntas por pestaña: respuestas de máximo tres líneas
 // Preguntas frecuentes: máximo cinco, con respuestas de máximo tres líneas
 export const FAQ = [
-  { q: '¿Necesito una cuenta?', a: 'Para comprar en línea sí; es gratis y guarda tus datos. Para cotizar no: dejas nombre, WhatsApp y ciudad y un asesor te responde.' },
+  { q: '¿Necesito una cuenta?', a: 'No. Puedes comprar como invitado con tus datos de facturación y de entrega, y cotizar con nombre, WhatsApp y ciudad. Crear una cuenta es opcional: guarda tus datos y tus pedidos.' },
   { q: '¿Los precios incluyen IVA?', a: 'Sí. Todo está en COP con IVA incluido y el carrito muestra la base y el IVA.' },
   { q: '¿Cuánto tardan en responder una cotización?', a: `Un asesor responde ${site.quoteResponse} por WhatsApp o correo, con precio y entrega.` },
   { q: '¿Cómo pago?', a: 'Un asesor confirma el pago contigo. El pago en línea llegará más adelante.' },

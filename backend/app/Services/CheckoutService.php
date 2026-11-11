@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Repositories\CustomerRepository;
 use App\Repositories\UserRepository;
 use App\Support\Divipola;
+use App\Support\GuestOrderLink;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -34,7 +35,7 @@ class CheckoutService
 
     /**
      * @param  array<string, mixed>  $data  datos validados de StoreCheckoutRequest
-     * @return array{orders: Collection<int, Order>, guest: bool, account_exists: bool}
+     * @return array{orders: Collection<int, Order>, guest: bool, account_exists: bool, status_urls: array<string, string>}
      */
     public function place(?User $user, array $data): array
     {
@@ -61,6 +62,8 @@ class CheckoutService
             'guest' => $guest,
             // Si el correo ya tiene cuenta, la tienda ofrece iniciar sesión (sin bloquear la compra)
             'account_exists' => $guest && $this->users->findByEmail($identity['email']) !== null,
+            // Mismo enlace seguro que va en el correo, para el botón «Ver el estado» de la pantalla de confirmación
+            'status_urls' => $guest ? $orders->mapWithKeys(fn (Order $o) => [$o->code => GuestOrderLink::storefrontUrl($o->code)])->all() : [],
         ];
     }
 
@@ -72,6 +75,7 @@ class CheckoutService
      */
     public function identity(array $d, bool $guest): array
     {
+        $d = $this->withOptionals($d);
         $company = $d['person_type'] === CustomerType::Company->value;
         $department = Divipola::department($d['department_code']);
         $city = Divipola::city($d['department_code'], $d['city_code']);
@@ -117,6 +121,7 @@ class CheckoutService
      */
     private function delivery(array $d, DeliveryMethod $method, array $billingDepartment, array $billingCity): array
     {
+        $d = $this->withOptionals($d);
         $empty = [
             'address' => null, 'delivery_same_as_billing' => false,
             'delivery_department_code' => null, 'delivery_department' => null, 'delivery_city_code' => null, 'delivery_city' => null,
@@ -165,6 +170,7 @@ class CheckoutService
      */
     private function saveProfile(Customer $customer, array $d): void
     {
+        $d = $this->withOptionals($d);
         $company = $d['person_type'] === CustomerType::Company->value;
         $department = Divipola::department($d['department_code']);
         $city = Divipola::city($d['department_code'], $d['city_code']);
@@ -193,6 +199,21 @@ class CheckoutService
         }
 
         $this->customers->update($customer, $changes);
+    }
+
+    /**
+     * Los campos que solo aplican a un tipo de persona pueden no llegar (la tienda no los envía): se completan con nulo.
+     *
+     * @param  array<string, mixed>  $d
+     * @return array<string, mixed>
+     */
+    private function withOptionals(array $d): array
+    {
+        return $d + array_fill_keys([
+            'first_name', 'last_name', 'company_name', 'nit_dv', 'fiscal_responsibility', 'contact_name', 'doc_type',
+            'delivery_department_code', 'delivery_city_code', 'delivery_neighborhood', 'delivery_road', 'delivery_number',
+            'delivery_complement', 'delivery_postal_code', 'delivery_notes', 'delivery_same_as_billing',
+        ], null);
     }
 
     /** @param  Collection<int, Order>  $orders */

@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-/** Responsabilidad fiscal del comprador (RUT, casilla 53). El código es el de la DIAN. */
+/** Responsabilidad fiscal del comprador (RUT, casilla 53). */
 enum FiscalResponsibility: string
 {
     case VatResponsible = 'vat_responsible';
@@ -22,12 +22,12 @@ enum FiscalResponsibility: string
         };
     }
 
-    /** Código de la responsabilidad en el RUT. */
+    /** Código de la responsabilidad en el RUT (casilla 53). Siigo usa su propio formato de código: confirmarlo al integrar (docs/siigo-mapeo.md). */
     public function dianCode(): string
     {
         return match ($this) {
             self::VatResponsible => '48',
-            self::NotVatResponsible => 'R-99-PN',
+            self::NotVatResponsible => '49',
             self::LargeTaxpayer => '13',
             self::SelfWithholder => '15',
             self::SimpleRegime => '47',

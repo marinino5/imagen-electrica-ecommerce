@@ -72,6 +72,7 @@ class CheckoutTest extends TestCase
         $response->assertJsonPath('data.0.type', 'purchase')
             ->assertJsonPath('data.0.is_guest', true)
             ->assertJsonPath('meta.guest', true)
+            ->assertJsonStructure(['meta' => ['status_urls']])
             ->assertJsonPath('data.0.billing.doc_type', 'CC')
             ->assertJsonPath('data.0.billing.fiscal_responsibility', 'not_vat_responsible')
             ->assertJsonPath('data.0.billing.city_code', '68001')
@@ -310,5 +311,17 @@ class CheckoutTest extends TestCase
             ->assertSee('Dirección de entrega')
             ->assertSee('Floridablanca (68276)')
             ->assertSee('Zona Industrial');
+    }
+
+    public function test_fields_that_do_not_apply_may_be_absent_like_the_storefront_sends_them(): void
+    {
+        // La tienda no envía first_name / last_name en una empresa, ni los campos de entrega al recoger
+        $payload = $this->company();
+        unset($payload['first_name'], $payload['last_name'], $payload['doc_type']);
+        $this->postJson('/api/v1/checkout', $payload)->assertCreated()->assertJsonPath('data.0.billing.doc_type', 'NIT');
+
+        $natural = $this->natural(['delivery_method' => 'local', 'delivery_same_as_billing' => true]);
+        $this->postJson('/api/v1/checkout', $natural)->assertCreated();
+        $this->assertSame(2, Order::count());
     }
 }

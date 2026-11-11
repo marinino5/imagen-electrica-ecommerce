@@ -117,4 +117,6 @@
 .qa__pill.is-done { background: var(--primary); color: #fff; }
 .qa__pill.is-quote { background: var(--primary); color: #fff; }
 .qa__pill.is-quote:hover { background: var(--primary-dark); }
+/* Compacto (sugerencias del carrito) */
+.qa__pill--sm { width: auto; min-height: 36px; padding: 0 14px; font-size: 13px; }
 @media (prefers-reduced-motion: reduce) { .qa__pill { transition: none; } }
