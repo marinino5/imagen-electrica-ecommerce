@@ -17,7 +17,7 @@
 
     @include('admin.partials.tabs', ['group' => 'clientes'])
 
-    <div class="card">
+    <div class="card" data-skeleton-target>
         <div class="card-body border-bottom">
             <x-search-bar :action="route('admin.customers.index')" :value="$search" placeholder="Buscar por empresa, contacto, NIT, correo o ciudad…" />
         </div>
@@ -43,7 +43,7 @@
                             <tr>
                                 <td>
                                     <a href="{{ route('admin.customers.show', $c) }}" class="fw-semibold text-decoration-none">{{ $c->company_name ?: $c->contact_name }}</a>
-                                    <div class="text-body-secondary small">{{ $c->nit ? 'NIT '.$c->nit.' · ' : '' }}{{ $c->city }}</div>
+                                    <div class="text-body-secondary small d-flex flex-wrap align-items-center gap-1"><x-document :document="$c->document" />@if ($c->city)<span>· {{ $c->city }}</span>@endif</div>
                                 </td>
                                 <td class="d-none d-lg-table-cell">
                                     <div>{{ $c->contact_name }}</div>
@@ -51,7 +51,7 @@
                                 </td>
                                 <td class="text-end">{{ $c->purchases_count }}</td>
                                 <td class="text-end">{{ $c->quotes_count }}</td>
-                                <td class="text-end d-none d-md-table-cell">{{ Money::cop($c->spent ?: null, '—') }}</td>
+                                <td class="text-end text-nowrap d-none d-md-table-cell">{{ Money::cop($c->spent ?: null, '—') }}</td>
                                 <td class="d-none d-xl-table-cell text-nowrap">{{ $c->created_at->timezone(config('app.timezone'))->format('d/m/Y') }}</td>
                             </tr>
                         @endforeach

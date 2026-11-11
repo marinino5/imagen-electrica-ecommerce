@@ -247,9 +247,9 @@ class ReportService
 
         $rows[] = [];
         $rows[] = ['Mejores clientes'];
-        $rows[] = ['NIT / cédula', 'Cliente', 'Pedidos', 'Comprado (COP)'];
+        $rows[] = ['Tipo de documento', 'Documento', 'Cliente', 'Pedidos', 'Comprado (COP)'];
         foreach ($report['tables']['top_customers'] as $row) {
-            $rows[] = [$this->text($row->nit), $this->text($row->company), $row->orders, (int) round($row->total)];
+            $rows[] = [$this->text($row->document['short'] ?? ''), $this->text($row->document['number'] ?? ''), $this->text($row->company), $row->orders, (int) round($row->total)];
         }
 
         $rows[] = [];
@@ -267,6 +267,53 @@ class ReportService
         }
 
         return $rows;
+    }
+
+    /**
+     * Filas del CSV del análisis comercial: cotizaciones recibidas, conversión, rankings de líneas y familias, fichas y suscriptores.
+     *
+     * @return list<list<string|int>>
+     */
+    public function commercialCsvRows(ReportPeriod $period): array
+    {
+        $r = $this->commercial($period, self::TOP_SIZE);
+        $q = $r['quotes'];
+        $rows = [
+            ['Análisis comercial de Imagen Eléctrica'],
+            ['Periodo', $period->label(), $period->start->format('d/m/Y').' al '.$period->lastDay()->format('d/m/Y')],
+            [],
+            ['Indicador', 'Valor'],
+            ['Cotizaciones recibidas', $q['received']],
+            ['Con cuenta', $q['account']],
+            ['Sin cuenta', $q['free']],
+            ['Aceptadas (con cuenta)', $q['accepted']],
+            ['Conversión cotización → pedido (%)', $q['conversion'] === null ? '' : $this->decimal($q['conversion'])],
+            ['Fichas descargadas', $r['datasheets']['total']],
+            ['Suscriptores nuevos', $r['subscribers']->new],
+            ['Suscriptores activos', $r['subscribers']->active],
+            ['Bajas del boletín', $r['subscribers']->unsubscribed],
+        ];
+
+        foreach ([['Líneas más cotizadas', 'quoted_lines', 'Cotizaciones'], ['Familias más cotizadas', 'quoted_families', 'Cotizaciones'], ['Líneas más vendidas', 'sold_lines', 'Pedidos'], ['Familias más vendidas', 'sold_families', 'Pedidos']] as [$title, $key, $count]) {
+            $rows[] = [];
+            $rows[] = [$title];
+            $rows[] = ['Nombre', $count, 'Unidades'];
+            foreach ($r[$key] as $row) {
+                $rows[] = [$this->text($row->name), $row->requests, $this->decimal($row->units)];
+            }
+        }
+
+        return $rows;
+    }
+
+    public function commercialCsvFilename(ReportPeriod $period): string
+    {
+        return 'analisis-comercial-'.$period->start->format('Y-m-d').'_'.$period->lastDay()->format('Y-m-d').'.csv';
+    }
+
+    public function pdfFilename(string $kind, ReportPeriod $period): string
+    {
+        return ($kind === 'commercial' ? 'analisis-comercial-' : 'analisis-financiero-').$period->start->format('Y-m-d').'_'.$period->lastDay()->format('Y-m-d').'.pdf';
     }
 
     public function csvFilename(ReportPeriod $period): string

@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\QuoteRequestController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\SearchController;
+use App\Http\Middleware\RememberPanelPeriod;
 use Illuminate\Support\Facades\Route;
 
 // La tienda del cliente es la app React (/cliente); el backend solo sirve el panel.
@@ -38,7 +39,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     // Personal: admin y comercial
     Route::middleware(['auth', 'role:admin,comercial'])->group(function () {
-        Route::get('/', DashboardController::class)->name('dashboard');
+        // Inicio y Análisis comparten el filtro de período de la barra superior (se recuerda en la sesión)
+        Route::get('/', DashboardController::class)->middleware(RememberPanelPeriod::class)->name('dashboard');
         // Ruta alternativa: /admin/dashboard lleva al mismo dashboard
         Route::redirect('dashboard', '/admin');
 
@@ -78,9 +80,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
                 ->withTrashed()->name('products.restore');
 
             // Análisis: reportes con costos y ganancia, solo admin
-            Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
-            Route::get('reports/comercial', [ReportController::class, 'commercial'])->name('reports.commercial');
-            Route::get('reports/export', [ReportController::class, 'export'])->name('reports.export');
+            Route::middleware(RememberPanelPeriod::class)->group(function () {
+                Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
+                Route::get('reports/comercial', [ReportController::class, 'commercial'])->name('reports.commercial');
+                Route::get('reports/export', [ReportController::class, 'export'])->name('reports.export');
+                Route::get('reports/pdf', [ReportController::class, 'pdf'])->name('reports.pdf');
+                Route::get('reports/comercial/export', [ReportController::class, 'commercialExport'])->name('reports.commercial.export');
+                Route::get('reports/comercial/pdf', [ReportController::class, 'commercialPdf'])->name('reports.commercial.pdf');
+            });
         });
     });
 });

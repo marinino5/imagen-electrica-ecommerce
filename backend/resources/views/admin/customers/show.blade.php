@@ -23,7 +23,7 @@
                     <dt class="col-sm-4">Contacto</dt><dd class="col-sm-8">{{ $customer->contact_name }}</dd>
                     <dt class="col-sm-4">Correo</dt><dd class="col-sm-8">{{ $customer->user?->email }}</dd>
                     <dt class="col-sm-4">Teléfono</dt><dd class="col-sm-8">{{ $customer->phone }}</dd>
-                    @if ($customer->nit)<dt class="col-sm-4">NIT</dt><dd class="col-sm-8">{{ $customer->nit }}</dd>@endif
+                    @if ($customer->document)<dt class="col-sm-4">Documento</dt><dd class="col-sm-8"><x-document :document="$customer->document" /></dd>@endif
                     <dt class="col-sm-4">Ciudad</dt><dd class="col-sm-8">{{ $customer->city }}@if ($customer->address) · {{ $customer->address }}@endif</dd>
                     <dt class="col-sm-4">Boletín</dt><dd class="col-sm-8">{{ $customer->marketing_opt_in ? 'Aceptó recibir novedades' : 'No aceptó' }}</dd>
                 </dl>

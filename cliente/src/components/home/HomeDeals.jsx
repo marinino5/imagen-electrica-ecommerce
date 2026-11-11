@@ -94,7 +94,9 @@ function TrendCard({ line }) {
 export default function HomeDeals() {
   const { data: lines, loading } = useLines()
   const { data: promos } = usePromotions()
+  // La franja fijada necesita ~800 px de alto para verse completa: en pantallas más bajas se usa el carrusel
   const wide = useMediaQuery('(min-width: 900px)')
+  const tall = useMediaQuery('(min-height: 800px)')
   const reduced = useReducedMotion()
   const [ref, embla] = useEmblaCarousel({ align: 'start', containScroll: 'trimSnaps' })
   const [can, setCan] = useState({ prev: false, next: false })
@@ -114,7 +116,7 @@ export default function HomeDeals() {
   const dx = Math.max(0, Math.round(pad * 2 + n * cardW + Math.max(0, n - 1) * 24 - vw))
 
   // Con pocas tarjetas que caben en pantalla no hay nada que recorrer: se muestran quietas
-  const mode = !wide ? 'carousel' : reduced || (!loading && dx <= 24) ? 'grid' : 'pin'
+  const mode = !wide || !tall ? 'carousel' : reduced || (!loading && dx <= 24) ? 'grid' : 'pin'
 
   const update = useCallback(() => embla && setCan({ prev: embla.canScrollPrev(), next: embla.canScrollNext() }), [embla])
   useEffect(() => {

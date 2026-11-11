@@ -252,3 +252,20 @@
 .acc-card .profile > div {
   padding: 0;
 }
+
+/* Fase 5: tablero con datos de facturación y direcciones guardadas */
+.acc-tag { display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 999px; background: var(--lavender-2); color: var(--primary); font-size: 12px; font-weight: 700; vertical-align: 1px; }
+.acc-card .block-title { display: flex; align-items: center; gap: 8px; }
+.acc-card .block-title svg { color: var(--primary); flex: none; }
+.acc-form { gap: 14px; }
+.acc-form .co-grid { grid-template-columns: minmax(0, 1fr); }
+.acc-form .input, .acc-card .co .input { border: 1.5px solid var(--lavender-2); border-radius: 12px; background: #fff; }
+.acc-form__title { margin: 4px 0 0; font-size: 15px; font-weight: 800; color: var(--ink); }
+.acc-addr { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.acc-addr li { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px; border: 1px solid var(--lavender-2); border-radius: 12px; background: var(--lavender); }
+.acc-addr strong { display: block; overflow-wrap: anywhere; }
+.acc-addr small { color: var(--muted); }
+.acc-addr__act { display: flex; flex: none; gap: 2px; }
+.acc-addr__act button { display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 10px; background: none; color: var(--primary); cursor: pointer; }
+.acc-addr__act button:hover { background: #fff; }
+.acc-addr__act button:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px; }

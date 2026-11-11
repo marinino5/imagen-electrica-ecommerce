@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Enums\OrderStatus;
 use App\Enums\OrderType;
+use App\Support\Document;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\OrderStatusHistory;
@@ -116,6 +117,15 @@ class ReportRepository
             'free' => $db::table('quote_requests')->where('created_at', '>=', $from)->where('created_at', '<', $to)->count(),
             'accepted' => (clone $account)->where('status', 'accepted')->count(),
         ];
+    }
+
+    /** Pedidos nacidos de una cotización aceptada (quote_id) que ya se pagaron, creados en el rango. */
+    public function paidOrdersFromQuotes(CarbonInterface $from, CarbonInterface $to): int
+    {
+        return \Illuminate\Support\Facades\DB::table('orders')
+            ->where('type', OrderType::Purchase->value)->whereNotNull('quote_id')
+            ->whereIn('status', array_map(fn (OrderStatus $s) => $s->value, self::SOLD_STATUSES))
+            ->where('created_at', '>=', $from)->where('created_at', '<', $to)->count();
     }
 
     /** @return object{new: int, unsubscribed: int, active: int} */
@@ -308,13 +318,17 @@ class ReportRepository
     public function topCustomers(CarbonInterface $from, CarbonInterface $to, int $limit): Collection
     {
         return $this->sales($from, $to)
-            ->selectRaw('max(orders.nit) as nit, max(coalesce(orders.company_name, orders.contact_name)) as company, count(*) as orders, coalesce(sum(orders.total), 0) as total')
+            ->selectRaw('max(orders.nit) as nit, max(orders.billing_id_type) as id_type, max(orders.billing_identification) as billing_identification, max(orders.billing_check_digit) as check_digit, max(orders.customer_type) as customer_type, max(coalesce(orders.company_name, orders.contact_name)) as company, count(*) as orders, coalesce(sum(orders.total), 0) as total')
             ->groupByRaw('coalesce(orders.nit, orders.email)')
             ->orderByDesc('total')
             ->limit($limit)
             ->get()
             ->map(fn (object $row) => (object) [
                 'nit' => $row->nit, 'company' => $row->company,
+                // «CC 1097490864» o «NIT 900123456-7» (el de la factura si pidió, y si no el de la ficha del cliente)
+                'document' => $row->billing_identification
+                    ? Document::describe($row->id_type, $row->billing_identification, $row->check_digit, $row->customer_type)
+                    : Document::describe(null, $row->nit, null, $row->customer_type),
                 'orders' => (int) $row->orders, 'total' => (float) $row->total,
             ]);
     }

@@ -88,7 +88,7 @@ export default function GuestOrder() {
                 <div><dt>Entrega</dt><dd>{order.delivery_method_label}</dd></div>
                 {order.address && <div><dt>Dirección</dt><dd>{order.address}</dd></div>}
                 {order.shipping !== null && <div><dt>Envío</dt><dd>{Number(order.shipping) === 0 ? 'Gratis' : formatCOP(order.shipping)}</dd></div>}
-                {order.billing && <div><dt>Facturado a</dt><dd>{order.company_name ?? order.contact_name} · {order.billing.doc_type} {order.billing.doc_number}{order.billing.doc_dv ? `-${order.billing.doc_dv}` : ''}</dd></div>}
+                {order.billing && <div><dt>Facturado a</dt><dd>{order.billing.name.filter(Boolean).join(' ')} · {order.billing.id_type_label} {order.billing.identification}{order.billing.check_digit ? `-${order.billing.check_digit}` : ''}</dd></div>}
                 {order.billing?.email && <div><dt>Correo de facturación</dt><dd>{order.billing.email}</dd></div>}
               </dl>
               <p className="co-muted">¿Dudas con tu pedido? <a href={site.whatsappUrl} target="_blank" rel="noreferrer">Escríbenos por WhatsApp</a> o <Link to="/contacto">contáctanos</Link>.</p>

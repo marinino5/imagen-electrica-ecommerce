@@ -3,10 +3,12 @@
 namespace App\Services;
 
 use App\Enums\OrderStatus;
+use App\Enums\ReportPreset;
 use App\Enums\OrderType;
 use App\Models\Order;
 use App\Repositories\DashboardRepository;
 use App\Repositories\ReportRepository;
+use App\Support\ReportPeriod;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Collection;
 
@@ -80,35 +82,104 @@ class DashboardService
         ];
     }
 
-    /** Días del gráfico de ventas y cotizaciones. */
+    /** Días del gráfico de ventas y cotizaciones (periodo por defecto). */
     public const CHART_DAYS = 30;
 
+    /** Desde este número de días la gráfica agrupa por mes en vez de por día. */
+    private const MONTHLY_FROM_DAYS = 93;
+
     /**
-     * Inicio rediseñado: lo que requiere atención primero, cuatro indicadores y una gráfica de 30 días. Sin catálogo ni listas largas.
+     * Inicio: lo que requiere atención, cuatro indicadores del período (cada uno con su variación frente al período anterior y la serie
+     * para su minigráfica), una gráfica de ventas y cotizaciones y el embudo cotización → pedido. El período es el del filtro global.
      *
-     * @return array{kpis: array<string, array>, attention: Collection, chart: array}
+     * @return array{period: ReportPeriod, kpis: array<string, array>, attention: Collection, chart: array, funnel: array}
      */
-    public function overview(?CarbonImmutable $now = null): array
+    public function overview(?ReportPeriod $period = null, ?CarbonImmutable $now = null): array
     {
         $now ??= CarbonImmutable::now();
-        $monthStart = $now->startOfMonth();
+        $period ??= ReportPeriod::resolve(ReportPreset::Last30, now: $now);
         $reports = app(ReportRepository::class);
-        $sales = $reports->salesTotals($monthStart, $now->addDay()->startOfDay());
-        // Mismo tramo del mes anterior, para comparar
-        $previous = $reports->salesTotals($monthStart->subMonthNoOverflow(), $monthStart->subMonthNoOverflow()->addDays($now->day));
         $quotes = app(QuoteInboxService::class);
-        $funnel = $reports->quoteFunnel($now->subDays(self::CHART_DAYS)->startOfDay(), $now->addDay()->startOfDay());
-        $pendingOrders = $this->repository->countOrders(OrderType::Purchase, OrderStatus::PendingPayment);
+
+        $sales = $reports->salesTotals($period->start, $period->end);
+        $salesBefore = $reports->salesTotals($period->previousStart, $period->previousEnd);
+        $funnel = $reports->quoteFunnel($period->start, $period->end);
+        $funnelBefore = $reports->quoteFunnel($period->previousStart, $period->previousEnd);
+        $received = $reports->quotesReceived($period->start, $period->end);
+        $receivedBefore = $reports->quotesReceived($period->previousStart, $period->previousEnd);
+        $receivedTotal = $received->account + $received->free;
+        $purchasesBefore = array_sum($this->repository->purchasesPerDay($period->previousStart, $period->previousEnd)->all());
+
+        [$labels, $salesSeries, $purchaseSeries, $quoteSeries] = $this->series($period);
+        $purchasesNow = array_sum($purchaseSeries);
 
         return [
+            'period' => $period,
             'kpis' => [
-                'sales' => ['label' => 'Ventas del mes', 'value' => $sales->sales, 'format' => 'money', 'previous' => $previous->sales, 'note' => $sales->orders.' pedidos pagados'],
-                'orders' => ['label' => 'Pedidos nuevos', 'value' => $pendingOrders, 'format' => 'number', 'note' => 'Pendientes de pago'],
-                'quotes' => ['label' => 'Cotizaciones pendientes', 'value' => $quotes->countPending(), 'format' => 'number', 'note' => 'Con y sin cuenta, sin responder'],
-                'response' => ['label' => 'Tiempo medio de respuesta', 'value' => $funnel->avg_response_hours, 'format' => 'hours', 'note' => 'Cotizaciones de los últimos 30 días'],
+                'sales' => ['label' => 'Ventas', 'value' => $sales->sales, 'format' => 'money', 'previous' => $salesBefore->sales, 'change' => $this->change($sales->sales, $salesBefore->sales), 'series' => $salesSeries, 'note' => $sales->orders.' pedidos pagados', 'lower_is_better' => false],
+                'orders' => ['label' => 'Pedidos nuevos', 'value' => $purchasesNow, 'format' => 'number', 'previous' => $purchasesBefore, 'change' => $this->change($purchasesNow, $purchasesBefore), 'series' => $purchaseSeries, 'note' => $this->repository->countOrders(OrderType::Purchase, OrderStatus::PendingPayment).' pendientes de pago', 'lower_is_better' => false],
+                'quotes' => ['label' => 'Cotizaciones recibidas', 'value' => $receivedTotal, 'format' => 'number', 'previous' => $receivedBefore->account + $receivedBefore->free, 'change' => $this->change($receivedTotal, $receivedBefore->account + $receivedBefore->free), 'series' => $quoteSeries, 'note' => $quotes->countPending().' sin responder (con y sin cuenta)', 'lower_is_better' => false],
+                'response' => ['label' => 'Tiempo medio de respuesta', 'value' => $funnel->avg_response_hours, 'format' => 'hours', 'previous' => $funnelBefore->avg_response_hours, 'change' => $this->change($funnel->avg_response_hours, $funnelBefore->avg_response_hours), 'series' => [], 'note' => 'Cotizaciones respondidas en el período', 'lower_is_better' => true],
             ],
             'attention' => $this->attention($now, $quotes),
-            'chart' => $this->salesAndQuotesChart($now),
+            'chart' => ['labels' => $labels, 'sales' => $salesSeries, 'quotes' => $quoteSeries, 'monthly' => $period->days() >= self::MONTHLY_FROM_DAYS],
+            'funnel' => $this->funnel($receivedTotal, $funnel->sent, $funnel->accepted, $reports->paidOrdersFromQuotes($period->start, $period->end)),
+        ];
+    }
+
+    /** Cambio porcentual frente al período anterior; nulo si no hay base para comparar. */
+    private function change(float|int|null $value, float|int|null $previous): ?float
+    {
+        return $value === null || $previous === null || (float) $previous === 0.0 ? null : round(($value - $previous) / abs($previous) * 100, 1);
+    }
+
+    /**
+     * Embudo cotización → pedido: cuántas llegaron, cuántas se respondieron con precio, cuántas se aceptaron y cuántos pedidos se pagaron.
+     * Cada etapa dice qué porcentaje es de la anterior.
+     *
+     * @return list<array{label: string, value: int, of_previous: ?float, of_first: ?float}>
+     */
+    private function funnel(int $received, int $answered, int $accepted, int $paid): array
+    {
+        $stages = [['Cotizaciones recibidas', $received], ['Respondidas con precio', $answered], ['Aceptadas por el cliente', $accepted], ['Pedidos pagados', $paid]];
+
+        return array_map(fn (array $s, int $i) => [
+            'label' => $s[0], 'value' => $s[1],
+            'of_previous' => $i === 0 || $stages[$i - 1][1] === 0 ? null : round($s[1] / $stages[$i - 1][1] * 100, 1),
+            'of_first' => $i === 0 || $received === 0 ? null : round($s[1] / $received * 100, 1),
+        ], $stages, array_keys($stages));
+    }
+
+    /**
+     * Ventas, pedidos y cotizaciones por día del período (o por mes si el período es largo).
+     *
+     * @return array{0: list<string>, 1: list<float>, 2: list<int>, 3: list<int>} etiquetas, ventas, pedidos, cotizaciones
+     */
+    private function series(ReportPeriod $period): array
+    {
+        $sales = $this->repository->salesPerDaySince($period->start, $period->end);
+        $purchases = $this->repository->purchasesPerDay($period->start, $period->end);
+        $quotes = $this->repository->quotesPerDaySince($period->start, $period->end);
+
+        $days = collect(range(0, $period->days() - 1))->map(fn (int $i) => $period->start->addDays($i));
+
+        if ($period->days() < self::MONTHLY_FROM_DAYS) {
+            return [
+                $days->map(fn (CarbonImmutable $d) => $d->locale('es')->isoFormat('D MMM'))->all(),
+                $days->map(fn (CarbonImmutable $d) => round($sales->get($d->toDateString(), 0.0), 2))->all(),
+                $days->map(fn (CarbonImmutable $d) => $purchases->get($d->toDateString(), 0))->all(),
+                $days->map(fn (CarbonImmutable $d) => $quotes->get($d->toDateString(), 0))->all(),
+            ];
+        }
+
+        $months = $days->groupBy(fn (CarbonImmutable $d) => $d->format('Y-m'));
+        $sum = fn ($source, $default) => $months->map(fn ($ds) => $ds->sum(fn (CarbonImmutable $d) => $source->get($d->toDateString(), $default)))->values();
+
+        return [
+            $months->keys()->map(fn (string $m) => ucfirst(CarbonImmutable::parse($m.'-01')->locale('es')->isoFormat('MMM YYYY')))->all(),
+            $sum($sales, 0.0)->map(fn ($v) => round($v, 2))->all(),
+            $sum($purchases, 0)->all(),
+            $sum($quotes, 0)->all(),
         ];
     }
 
@@ -135,21 +206,6 @@ class DashboardService
         }
 
         return $items->sortBy([['overdue', 'desc'], ['hours', 'desc']])->take(8)->values();
-    }
-
-    /** @return array{labels: list<string>, sales: list<float>, quotes: list<int>} */
-    private function salesAndQuotesChart(CarbonImmutable $now): array
-    {
-        $first = $now->startOfDay()->subDays(self::CHART_DAYS - 1);
-        $days = collect(range(0, self::CHART_DAYS - 1))->map(fn (int $i) => $first->addDays($i));
-        $sales = $this->repository->salesPerDaySince($first);
-        $quotes = $this->repository->quotesPerDaySince($first);
-
-        return [
-            'labels' => $days->map(fn (CarbonImmutable $d) => $d->locale('es')->isoFormat('D MMM'))->all(),
-            'sales' => $days->map(fn (CarbonImmutable $d) => round($sales->get($d->toDateString(), 0.0), 2))->all(),
-            'quotes' => $days->map(fn (CarbonImmutable $d) => $quotes->get($d->toDateString(), 0))->all(),
-        ];
     }
 
     /** Número de la campana de la barra superior. */

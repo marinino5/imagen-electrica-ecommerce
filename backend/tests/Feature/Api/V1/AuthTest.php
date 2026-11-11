@@ -357,7 +357,53 @@ class AuthTest extends TestCase
         $this->withToken($customer->user->createToken('api')->plainTextToken)
             ->putJson('/api/v1/me', ['name' => ''])
             ->assertUnprocessable()
-            ->assertJsonValidationErrors(['name', 'company_name', 'phone', 'city']);
+            ->assertJsonValidationErrors(['name', 'phone']);
+    }
+
+    public function test_me_billing_saves_and_clears_siigo_fields(): void
+    {
+        $customer = Customer::factory()->create();
+        $token = $customer->user->createToken('api')->plainTextToken;
+
+        $this->withToken($token)->putJson('/api/v1/me/billing', [
+            'needs_invoice' => true, 'person_type' => 'Company', 'id_type' => '31', 'identification' => '860005224', 'check_digit' => '6',
+            'company_name' => 'Bavaria S.A.', 'fiscal_responsibilities' => ['O-13'], 'billing_address' => 'Calle 1 # 2-3',
+            'billing_state_code' => '68', 'billing_city_code' => '68001',
+        ])->assertOk();
+        $this->assertSame('31', $customer->refresh()->id_type->value);
+
+        $this->withToken($token)->putJson('/api/v1/me/billing', ['needs_invoice' => false])->assertOk();
+        $this->assertNull($customer->refresh()->id_type);
+    }
+
+    public function test_me_billing_rejects_a_wrong_check_digit(): void
+    {
+        $customer = Customer::factory()->create();
+
+        $this->withToken($customer->user->createToken('api')->plainTextToken)->putJson('/api/v1/me/billing', [
+            'needs_invoice' => true, 'person_type' => 'Company', 'id_type' => '31', 'identification' => '860005224', 'check_digit' => '1',
+            'company_name' => 'Bavaria S.A.', 'fiscal_responsibilities' => ['O-13'], 'billing_address' => 'Calle 1 # 2-3',
+            'billing_state_code' => '68', 'billing_city_code' => '68001',
+        ])->assertUnprocessable()->assertJsonValidationErrors(['check_digit']);
+    }
+
+    public function test_me_addresses_replaces_the_list_with_a_limit_of_five(): void
+    {
+        $customer = Customer::factory()->create();
+        $token = $customer->user->createToken('api')->plainTextToken;
+        $address = ['state_code' => '68', 'city_code' => '68276', 'neighborhood' => 'Zona Industrial', 'road' => 'Carrera 9', 'number' => '# 12-30'];
+
+        $this->withToken($token)->putJson('/api/v1/me/addresses', ['addresses' => [$address]])->assertOk();
+        $this->assertCount(1, $customer->refresh()->delivery_addresses);
+
+        $this->withToken($token)->putJson('/api/v1/me/addresses', ['addresses' => array_fill(0, 6, $address)])
+            ->assertUnprocessable()->assertJsonValidationErrors(['addresses']);
+
+        $this->withToken($token)->putJson('/api/v1/me/addresses', ['addresses' => [['city_code' => '05001'] + $address]])
+            ->assertUnprocessable();
+
+        $this->withToken($token)->putJson('/api/v1/me/addresses', ['addresses' => []])->assertOk();
+        $this->assertEmpty($customer->refresh()->delivery_addresses);
     }
 
     public function test_staff_cannot_update_a_client_profile(): void

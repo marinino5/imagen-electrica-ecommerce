@@ -5,9 +5,11 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\UserRole;
 use App\Notifications\ResetPasswordNotification;
+use App\Support\TextCase;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -38,6 +40,12 @@ class User extends Authenticatable
             'role' => UserRole::class,
             'is_active' => 'boolean',
         ];
+    }
+
+    /** Nombre con mayúscula inicial (si llega todo en minúscula o todo en mayúscula). */
+    protected function name(): Attribute
+    {
+        return Attribute::set(fn (?string $v) => TextCase::person($v));
     }
 
     /** El correo de recuperación lleva la marca de la tienda y el enlace va a la tienda, no al panel. */

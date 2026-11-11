@@ -39,9 +39,9 @@ URLs públicas
 
 ### 4. Cliente externo en vivo (4 min)
 1. Tienda **sin iniciar sesión** (compra de invitado): agregar al carrito un producto con precio (el botón «Agregar» de la tarjeta).
-2. En el carrito, el **Resumen de compra** va debajo de los productos, con tres pasos: **Facturación** (persona natural o empresa; el NIT calcula y valida su dígito de verificación; departamento y municipio con código DANE), **Entrega** (recoger, o domicilio con barrio, vía, número…) y **Confirmar** (autorización de datos con versión y fecha).
+2. En el carrito, el **Resumen de compra** va debajo de los productos, con cuatro pasos: **Entrega** (recoger o domicilio; departamento → municipio con código DANE; el envío sale «local» o «nacional» según el municipio y su costo se ve al instante), **Tus datos** (nombre, celular y correo), **Facturación** (interruptor «Necesito factura…»: persona natural o empresa con los campos de la API de clientes de Siigo; el NIT calcula y valida su dígito de verificación) y **Confirmar** (autorización de datos con versión y fecha).
 3. Confirmar: la tienda muestra el código PED-xxxx, el correo con el resumen y el enlace seguro (`/pedido/PED-xxxx?…`) y «Crea tu cuenta con un clic» (solo falta la contraseña). Probar el enlace: vuelve a mostrar el estado; uno alterado responde 403.
-4. Refrescar el panel: el pedido aparece en Pedidos con la etiqueta **Invitado** y, al abrirlo, los datos de facturación electrónica y la dirección de entrega en columnas separadas (ver `docs/siigo-mapeo.md`).
+4. Refrescar el panel: el pedido aparece en Pedidos con la etiqueta **Invitado** y, al abrirlo, los datos de facturación (con los nombres de campo de Siigo, o «no pidió factura») y la dirección de entrega en columnas separadas (ver `docs/siigo-mapeo.md`).
 5. Opcional: con cuenta, el mismo formulario llega autocompletado desde el perfil; un carrito mixto envía lo que no tiene precio como cotización (bloque «Pide tu cotización»).
 5. Opcional: en el panel, confirmar el pago del pedido y mostrar que el stock bajó.
 

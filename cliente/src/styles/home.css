@@ -95,17 +95,6 @@
   font-weight: 800;
   color: var(--accent-title);
 }
-.hm-brands__pause {
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid var(--lav-3);
-  border-radius: 50%;
-  background: #fff;
-  color: var(--primary);
-  cursor: pointer;
-}
 .hm-brands__loop {
   mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
 }

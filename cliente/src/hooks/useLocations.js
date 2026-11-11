@@ -1,24 +1,20 @@
 import { useEffect, useState } from 'react'
-import { locationsApi } from '../api'
 
-// Las listas de departamentos y municipios no cambian: se piden una vez y se recuerdan mientras la pestaña esté abierta
-let departmentsPromise = null
-const municipalities = new Map()
-
-const departmentsOnce = () => (departmentsPromise ??= locationsApi.departments().then((r) => r.data, (e) => { departmentsPromise = null; throw e }))
-const municipalitiesOnce = (code) => {
-  if (!municipalities.has(code)) {
-    municipalities.set(code, locationsApi.municipalities(code).then((r) => r.data, (e) => { municipalities.delete(code); throw e }))
-  }
-  return municipalities.get(code)
-}
+// Departamentos y municipios de Colombia con su código DANE (DIVIPOLA, datos.gov.co). La lista vive en el proyecto (src/data/divipola.json, una
+// copia idéntica de backend/database/data/divipola.json: lo verifica una prueba del backend) y se descarga solo al llegar al pago: así el
+// formulario no depende de la red ni de que la API publicada tenga la lista. Se pide una vez y se recuerda mientras la pestaña esté abierta.
+let all = null
+const load = () => (all ??= import('../data/divipola.json').then((m) => m.default))
 
 /** Departamentos: { list, loading, error }. */
 export function useDepartments() {
   const [state, setState] = useState({ list: [], loading: true, error: null })
   useEffect(() => {
     let alive = true
-    departmentsOnce().then((list) => alive && setState({ list, loading: false, error: null }), (error) => alive && setState({ list: [], loading: false, error }))
+    load().then(
+      (data) => alive && setState({ list: data.map((d) => ({ code: d.code, name: d.name })), loading: false, error: null }),
+      (error) => alive && setState({ list: [], loading: false, error }),
+    )
     return () => { alive = false }
   }, [])
   return state
@@ -31,7 +27,10 @@ export function useMunicipalities(departmentCode) {
     if (!departmentCode) { setState({ list: [], loading: false, error: null }); return undefined }
     let alive = true
     setState((s) => ({ ...s, loading: true, error: null }))
-    municipalitiesOnce(departmentCode).then((list) => alive && setState({ list, loading: false, error: null }), (error) => alive && setState({ list: [], loading: false, error }))
+    load().then(
+      (data) => alive && setState({ list: data.find((d) => d.code === departmentCode)?.cities ?? [], loading: false, error: null }),
+      (error) => alive && setState({ list: [], loading: false, error }),
+    )
     return () => { alive = false }
   }, [departmentCode])
   return state

@@ -66,6 +66,7 @@ class OrderService
         private readonly ProductRepository $products,
         private readonly UserRepository $users,
         private readonly InventoryService $inventory,
+        private readonly ShippingService $shipping,
     ) {}
 
     /**
@@ -261,10 +262,15 @@ class OrderService
      * Costo de envío: gratis al recoger o al llegar a la compra mínima; si no,
      * el valor configurado para la modalidad.
      */
-    public function shippingCost(DeliveryMethod $method, float $linesTotal): float
+    public function shippingCost(DeliveryMethod $method, float $linesTotal, ?string $cityCode = null): float
     {
         if ($method === DeliveryMethod::Pickup || $linesTotal >= (float) config('shop.shipping.free_shipping_from')) {
             return 0.0;
+        }
+
+        // Con el municipio de entrega manda la tabla de zonas; sin él (pedidos de la API anterior) la tarifa del tipo de envío
+        if ($cityCode !== null && $cityCode !== '') {
+            return $this->shipping->zoneFor($cityCode)['cost'];
         }
 
         return round((float) config("shop.shipping.cost.{$method->value}", 0), 2);
@@ -465,7 +471,7 @@ class OrderService
             ...array_merge($buyer, $identity),
             'delivery_method' => $method,
             // Una cotización no tiene envío hasta que el comercial la valore
-            'shipping' => $isPurchase ? $this->shippingCost($method, $linesTotal) : null,
+            'shipping' => $isPurchase ? $this->shippingCost($method, $linesTotal, $identity['delivery_city_code'] ?? null) : null,
             'notes' => $data['notes'] ?? null,
         ]);
 

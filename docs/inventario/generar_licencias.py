@@ -43,6 +43,10 @@ MANUAL = {
     'soler-palau-extractor-centrifugo': ('Soler & Palau, https://www.solerpalau.com (CRMT)', OFICIAL),
     'soler-palau-extractor-tejado': ('Soler & Palau, https://www.solerpalau.com (CRVB)', OFICIAL),
     'compresor-ilustracion': ('Ilustración propia (sin foto oficial)', PROPIA),
+    'bateria-12v': ('Pixabay, https://pixabay.com/photos/battery-motorcycle-battery-2870614/ (autor: Ralphs_Fotos). Imagen ILUSTRATIVA: no es la Magna (ver docs/medios-pendientes.md)', LIBRE),
+    'ferrara-compresor': ('Foto propia de Imagen Eléctrica: compresor Ferrara en la tienda (IMG_2409), recortado', PROPIA),
+    'familia-material-electrico': ('Composición de las imágenes oficiales ya listadas de 3M Temflex y Leviton (cinta, toma doble y clavija)', OFICIAL),
+    'familia-herramientas': ('Composición de la foto de Cellux, el tapón Swagelok y la batería ilustrativa (Pixabay)', OFICIAL),
     'airmax-gl': ('AIRAL, https://www.airal.com.co/airmaxgl', OFICIAL),
     'airmax-gl-persianas': ('AIRAL, https://www.airal.com.co/airmaxgl', OFICIAL),
     'weg-mini-contactor-cwc': ('Catálogo oficial WEG «CWC Series – Miniature Contactors» (static.weg.net/medias/downloadcenter/ha3/h37/…)', OFICIAL),
@@ -88,9 +92,9 @@ FOTOS = {
     'almacen': ('Pixabay (almacén de estanterías altas; registrado en docs/creditos-media.md, sin página de origen guardada)', LIBRE),
     'contacto': ('Pixabay (módulos en un tablero; docs/creditos-media.md, sin página de origen guardada)', LIBRE),
     'comprar-caja': PEX(11781094), 'comprar-despacho': PEX(4487383), 'comprar-tecnico': PEX(33694016),
-    'contacto-asesor': PEX(17842832), 'contacto-asesoria': PIX('engineer-engineering-4941347', 'This_is_Engineering'), 'contacto-cotizar': PEX(3862135), 'sector-agua': PEX(12726229),
-    'contacto-garantia': PEX(9242911), 'contacto-pedido': PEX(6868621), 'hero-motores': PEX(34207364),
-    'nosotros-asesoria': PEX(34054501), 'nosotros-despacho': PEX(4480982), 'nosotros-estanteria': PEX(38195854),
+    'contacto-asesor': PEX(17842832), 'contacto-asesoria': PEX(32845692), 'contacto-cotizar': PEX(32845690), 'sector-agua': PEX(12726229),
+    'contacto-garantia': PEX(9242911), 'contacto-pedido': PEX(6868621), 'hero-motores': PEX(19233057), 'hero-motorreductores': PEX(13974251),
+    'nosotros-asesoria': PEX(34054501), 'nosotros-despacho': PEX(6169177), 'nosotros-estanteria': PEX(28950842),
 }
 rows_fotos = []
 for p in sorted((PUB / 'img/fotos').glob('*.webp')):

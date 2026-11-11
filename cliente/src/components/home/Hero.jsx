@@ -37,9 +37,8 @@ const slides = [
     highlight: 'WEG Cestari',
     text: 'Para bandas, mezcladoras y elevadores: sinfín y corona o helicoidales, listos para tu máquina.',
     cta: { to: '/productos?familia=reductores-y-motorreductores', label: 'Ver motorreductores' },
-    // Sin foto ni video de calidad suficiente (pendiente en docs/medios-pendientes.md): producto oficial recortado sobre fondo de marca
-    brand: true,
-    product: { src: '/img/catalogo/weg-cestari-wcg20.webp', alt: 'Motorreductor helicoidal WEG Cestari azul', caption: 'WEG Cestari', big: true },
+    bg: { src: '/img/fotos/hero-motorreductores.webp', alt: 'Banda transportadora en una nave industrial luminosa, en tono violeta', pos: '50% 50%' },
+    product: { src: '/img/catalogo/weg-cestari-wcg01.webp', alt: 'Motorreductor de sinfín y corona WEG Cestari azul', caption: 'WEG Cestari', big: true },
   },
   {
     id: 'motores',
@@ -49,7 +48,7 @@ const slides = [
     highlight: 'industriales WEG',
     text: 'Del monofásico de taller al trifásico de planta, con la referencia exacta que tu equipo necesita.',
     cta: { to: '/productos?familia=motores-electricos', label: 'Ver motores' },
-    bg: { src: '/img/fotos/hero-motores.webp', alt: 'Línea de prensas en una nave industrial moderna, amplia y luminosa', pos: '50% 50%' },
+    bg: { src: '/img/fotos/hero-motores.webp', alt: 'Línea de ensamble robotizada en una planta luminosa', pos: '50% 50%' },
     product: { src: '/img/catalogo/weg-w22-iec.webp', alt: 'Motor trifásico WEG W22 IEC de carcasa de hierro', caption: 'WEG W22 IEC', big: true },
   },
   {

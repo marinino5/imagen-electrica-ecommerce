@@ -32,6 +32,8 @@ final class ReportPeriod
         $tomorrow = $now->startOfDay()->addDay();
 
         return match ($preset) {
+            ReportPreset::Last7 => self::rolling($preset, 7, $tomorrow),
+            ReportPreset::Last30 => self::rolling($preset, 30, $tomorrow),
             ReportPreset::ThisMonth => self::calendar($preset, $now->startOfMonth(), $tomorrow, 'month', complete: false),
             ReportPreset::LastMonth => self::calendar($preset, $now->startOfMonth()->subMonthNoOverflow(), $now->startOfMonth(), 'month', complete: true),
             ReportPreset::ThisYear => self::calendar($preset, $now->startOfYear(), $tomorrow, 'year', complete: false),
@@ -48,6 +50,7 @@ final class ReportPeriod
         return match ($this->preset) {
             ReportPreset::ThisMonth, ReportPreset::LastMonth => ucfirst($this->start->locale('es')->isoFormat('MMMM YYYY')),
             ReportPreset::ThisYear, ReportPreset::LastYear => (string) $this->start->year,
+            ReportPreset::Last7, ReportPreset::Last30 => $this->preset->label(),
             ReportPreset::Custom => $this->start->format('d/m/Y').' – '.$last->format('d/m/Y'),
         };
     }
@@ -60,7 +63,7 @@ final class ReportPeriod
         return match ($this->preset) {
             ReportPreset::ThisMonth, ReportPreset::LastMonth => $this->previousStart->locale('es')->isoFormat('MMMM YYYY'),
             ReportPreset::ThisYear, ReportPreset::LastYear => (string) $this->previousStart->year,
-            ReportPreset::Custom => $this->previousStart->format('d/m/Y').' – '.$last->format('d/m/Y'),
+            ReportPreset::Last7, ReportPreset::Last30, ReportPreset::Custom => $this->previousStart->format('d/m/Y').' – '.$last->format('d/m/Y'),
         };
     }
 
@@ -81,6 +84,20 @@ final class ReportPeriod
         $previousEnd = $complete ? $start : $previousStart->addDays((int) $start->diffInDays($end))->min($start);
 
         return new self($preset, $start, $end, $previousStart, $previousEnd);
+    }
+
+    /** Los últimos N días contando hoy; el periodo anterior son los N días justo antes. */
+    private static function rolling(ReportPreset $preset, int $days, CarbonImmutable $tomorrow): self
+    {
+        $start = $tomorrow->subDays($days);
+
+        return new self($preset, $start, $tomorrow, $start->subDays($days), $start);
+    }
+
+    /** Días que abarca el periodo. */
+    public function days(): int
+    {
+        return (int) $this->start->diffInDays($this->end);
     }
 
     private static function custom(CarbonImmutable $from, CarbonImmutable $to): self

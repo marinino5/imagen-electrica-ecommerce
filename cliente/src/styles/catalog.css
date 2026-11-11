@@ -75,8 +75,13 @@
   display: grid; grid-template-columns: 1fr; align-items: center; gap: 16px; margin-bottom: 22px; padding: 18px 20px; overflow: hidden;
   border: 1px solid var(--lavender-2); border-radius: var(--rd-radius); background: linear-gradient(110deg, #fff 0%, var(--lavender) 100%);
 }
-@media (min-width: 640px) { .fam-banner { grid-template-columns: 150px 1fr; } }
-.fam-banner img { width: 150px; height: 150px; object-fit: contain; border-radius: 8px; }
+/* Título y descripción a todo el ancho disponible (la descripción con ancho de lectura normal) y la foto de la familia a la derecha */
+.fam-banner__txt { min-width: 0; }
+.fam-banner__h { text-wrap: balance; }
+.fam-banner__d { max-width: 62ch; }
+@media (min-width: 640px) { .fam-banner:not(.fam-banner--plain) { grid-template-columns: minmax(0, 1fr) 200px; gap: 28px; } }
+.fam-banner img { width: 200px; height: 200px; max-width: 100%; justify-self: end; object-fit: contain; border-radius: 8px; }
+@media (max-width: 639px) { .fam-banner img { width: 120px; height: 120px; justify-self: start; } }
 .fam-banner img.is-photo { object-fit: cover; }
 .fam-banner__h { margin: 0; font-family: var(--font-display); font-size: clamp(2rem, 3.4vw, 3rem); font-weight: 700; line-height: 1; text-transform: uppercase; }
 .fam-banner p { margin: 6px 0 0; color: var(--muted); }

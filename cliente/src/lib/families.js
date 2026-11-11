@@ -36,7 +36,10 @@ export const FAMILY_PHOTO = {
   'cables-y-conductores': cut('centelsa-cable-thhn', 'Rollo de cable THHN/THWN-2 Nexans Línea Plus (Centelsa)'),
   iluminacion: cut('sylvania-start-highbay', 'Campana industrial LED Sylvania START Highbay'),
   'medicion-y-testeo': cut('fluke-multimetro-117', 'Multímetro Fluke 117'),
-  // 09 «Material Eléctrico» y 10 «Herramientas y Repuestos» no llevan foto: su portada es un icono grande en violeta de marca
+  // Compresores, Material Eléctrico y Herramientas y Repuestos: portada con producto recortado igual que las demás
+  compresores: cut('ferrara-compresor', 'Compresor de pistón Ferrara'),
+  'material-electrico': cut('familia-material-electrico', 'Cinta aislante 3M, toma doble y clavija industrial Leviton'),
+  'herramientas-y-repuestos': cut('familia-herramientas', 'Cinta de enmascarar Cellux, batería y tapón de acero inoxidable'),
 }
 export const familyPhoto = (slug) => FAMILY_PHOTO[slug] ?? null
 
@@ -72,5 +75,5 @@ export const FAMILY_BLURB = {
   compresores: 'Compresores de pistón para taller e industria.',
   'medicion-y-testeo': 'Multímetros, instrumentos de panel y equipos de medición para electricistas y técnicos.',
   'material-electrico': 'Tomas, clavijas, cintas aislantes y puesta a tierra para instalaciones eléctricas.',
-  'herramientas-y-repuestos': 'Cintas de enmascarar, baterías, tapones y otros insumos, herramientas y repuestos.',
+  'herramientas-y-repuestos': 'Cintas, baterías, conexiones y repuestos para el día a día de tu taller o planta.',
 }

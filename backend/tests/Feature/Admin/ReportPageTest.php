@@ -31,14 +31,16 @@ class ReportPageTest extends TestCase
         $this->actingAs($comercial)->get(route('admin.reports.export'))->assertForbidden();
     }
 
-    public function test_admin_sees_the_page_with_this_month_by_default(): void
+    public function test_admin_sees_the_page_with_the_last_30_days_by_default(): void
     {
         $this->actingAs($this->admin())->get(route('admin.reports.index'))
             ->assertOk()
             ->assertSee('Análisis')
             ->assertSee('Ventas totales')
-            ->assertSee('Exportar CSV')
-            ->assertViewHas('report', fn (array $report) => $report['period']->preset->value === 'this_month');
+            ->assertSee('Análisis financiero')
+            ->assertSee('CSV')
+            ->assertSee('PDF')
+            ->assertViewHas('report', fn (array $report) => $report['period']->preset->value === 'last_30');
     }
 
     public function test_sidebar_shows_the_analysis_section_only_to_admin(): void

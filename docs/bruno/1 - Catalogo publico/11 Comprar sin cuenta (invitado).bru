@@ -13,18 +13,23 @@ post {
 body:json {
   {
     "items": [{ "product_id": 1, "quantity": 1 }],
-    "person_type": "company",
-    "doc_number": "890903938",
-    "nit_dv": "8",
-    "company_name": "Empresa de Prueba S.A.S.",
-    "fiscal_responsibility": "vat_responsible",
-    "contact_name": "Laura Gómez",
-    "billing_email": "facturacion@empresa-prueba.test",
+    "delivery_method": "delivery",
+    "delivery_state_code": "68",
+    "delivery_city_code": "68276",
+    "delivery_neighborhood": "Zona Industrial",
+    "delivery_road": "Carrera 9",
+    "delivery_number": "# 12-30",
+    "name": "Laura Gómez Pérez",
     "phone": "3155550202",
-    "billing_address": "Carrera 27 # 45-10",
-    "department_code": "68",
-    "city_code": "68001",
-    "delivery_method": "pickup",
+    "email": "laura@empresa-prueba.test",
+    "needs_invoice": true,
+    "person_type": "Company",
+    "identification": "890903938",
+    "check_digit": "8",
+    "company_name": "Empresa de Prueba S.A.S.",
+    "vat_responsible": true,
+    "fiscal_responsibilities": ["O-13"],
+    "billing_same_as_delivery": true,
     "privacy_accepted": true,
     "website": ""
   }
@@ -34,9 +39,10 @@ assert {
   res.status: eq 201
   res.body.meta.guest: eq true
   res.body.data[0].is_guest: eq true
-  res.body.data[0].billing.doc_type: eq NIT
+  res.body.data[0].billing.id_type: eq 31
+  res.body.data[0].delivery_method: eq local
 }
 
 docs {
-  Compra sin cuenta con datos de facturación electrónica. Cambia `product_id` por uno que exista (GET /products). Con un NIT cuyo dígito de verificación no coincide responde 422 en `nit_dv`. Con `delivery_method: local` o `national` hay que mandar departamento, municipio, barrio, vía y número de entrega (o `delivery_same_as_billing: true`). Límite: 10 por minuto y 40 por hora por IP. `website` es el campo trampa contra bots: debe ir vacío.
+  Compra sin cuenta en cuatro pasos: entrega, datos de contacto y factura electrónica opcional (campos de la API de clientes de Siigo). Con `delivery_method: pickup` y `needs_invoice: false` basta con `name`, `phone` y `email`. Cambia `product_id` por uno que exista (GET /products). Con un NIT cuyo dígito de verificación no coincide responde 422 en `nit_dv`. `delivery_method: delivery` pide departamento, municipio (DANE), barrio, vía y número; el servidor decide local o nacional por el municipio. Límite: 10 por minuto y 40 por hora por IP. `website` es el campo trampa contra bots: debe ir vacío.
 }

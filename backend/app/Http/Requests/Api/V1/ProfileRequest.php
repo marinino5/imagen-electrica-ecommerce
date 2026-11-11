@@ -16,16 +16,14 @@ class ProfileRequest extends FormRequest
     /** @return array<string, mixed> */
     public function rules(): array
     {
-        $isCompany = $this->user()?->customer?->type === CustomerType::Company;
-
         return [
             'name' => ['required', 'string', 'max:255'],
-            // La persona natural no tiene razón social
-            'company_name' => [$isCompany ? 'required' : 'nullable', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:30'],
-            'city' => ['required', 'string', 'max:100'],
-            'address' => ['nullable', 'string', 'max:255'],
             'marketing_opt_in' => ['nullable', 'boolean'],
+            // Heredados de la tienda anterior (la nueva los edita en «Datos de facturación»)
+            'company_name' => ['nullable', 'string', 'max:255'],
+            'city' => ['nullable', 'string', 'max:100'],
+            'address' => ['nullable', 'string', 'max:255'],
         ];
     }
 }

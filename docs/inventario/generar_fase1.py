@@ -35,7 +35,7 @@ LINE_NAME = {
 FAMILY_IMAGE = {'Material Eléctrico': 'material-electrico', 'Herramientas y Repuestos': 'otros'}
 NEW_FAMILIES = [
     {'name': 'Material Eléctrico', 'image': 'material-electrico', 'description': 'Tomas, clavijas, cintas aislantes y puesta a tierra para instalaciones eléctricas.'},
-    {'name': 'Herramientas y Repuestos', 'image': 'otros', 'description': 'Insumos, herramientas y repuestos que no son material eléctrico.'},
+    {'name': 'Herramientas y Repuestos', 'image': 'otros', 'description': 'Cintas, baterías, conexiones y repuestos para el día a día de tu taller o planta.'},
 ]
 
 def sku_of(x): return str(x['Código (SKU)']).strip()

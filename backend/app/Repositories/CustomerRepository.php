@@ -37,6 +37,22 @@ class CustomerRepository
             ->withQueryString();
     }
 
+    /**
+     * Búsqueda rápida del buscador global: clientes por razón social, contacto, documento, teléfono, ciudad o correo.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection<int, Customer>
+     */
+    public function searchQuick(string $term, int $limit): \Illuminate\Database\Eloquent\Collection
+    {
+        $like = $this->likePattern($term);
+
+        return Customer::query()->with('user:id,email')
+            ->where(fn ($q) => $q->where('company_name', 'like', $like)->orWhere('contact_name', 'like', $like)->orWhere('nit', 'like', $like)
+                ->orWhere('phone', 'like', $like)->orWhere('city', 'like', $like)
+                ->orWhereHas('user', fn ($u) => $u->where('email', 'like', $like)))
+            ->latest()->limit($limit)->get();
+    }
+
     /** Cliente con su historial: pedidos y cotizaciones con cuenta, y las cotizaciones sin cuenta enviadas con el mismo correo. */
     public function withHistory(Customer $customer): Customer
     {

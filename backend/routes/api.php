@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\PromotionController;
 use App\Http\Controllers\Api\V1\ProfileController;
+use App\Http\Controllers\Api\V1\ShippingController;
 use App\Http\Controllers\Api\V1\CheckoutController;
 use App\Http\Controllers\Api\V1\GuestOrderController;
 use App\Http\Controllers\Api\V1\LocationController;
@@ -38,6 +39,8 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:api')->group(function
     // Departamentos y municipios (DANE) para los formularios de facturación y entrega
     Route::get('locations/departments', [LocationController::class, 'departments'])->name('locations.departments');
     Route::get('locations/departments/{code}/municipalities', [LocationController::class, 'municipalities'])->name('locations.municipalities');
+
+    Route::get('shipping/quote', [ShippingController::class, 'quote'])->name('shipping.quote');
 
     // Comprar sin cuenta (o con ella, si llega el token): datos de facturación electrónica y entrega. Pública, con límite por IP
     Route::post('checkout', [CheckoutController::class, 'store'])->middleware('throttle:api-checkout')->name('checkout.store');
@@ -72,6 +75,8 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:api')->group(function
     // Cliente
     Route::middleware(['auth:sanctum', 'role:cliente'])->group(function () {
         Route::put('me', [ProfileController::class, 'update'])->name('me.update');
+        Route::put('me/billing', [ProfileController::class, 'updateBilling'])->name('me.billing');
+        Route::put('me/addresses', [ProfileController::class, 'updateAddresses'])->name('me.addresses');
 
         Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
         Route::post('orders', [OrderController::class, 'store'])->name('orders.store');

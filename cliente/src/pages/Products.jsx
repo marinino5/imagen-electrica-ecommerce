@@ -242,13 +242,13 @@ export default function Products() {
 
           <div className="cat-main">
             {family && !st.q && (
-              <header className="fam-banner">
-                {photo && <img src={photo.sm} alt="" width="220" height="220" />}
-                <div>
+              <header className={`fam-banner ${photo ? '' : 'fam-banner--plain'}`}>
+                <div className="fam-banner__txt">
                   <h2 className="fam-banner__h">{family.name}</h2>
-                  <p>{family.description ?? FAMILY_BLURB[family.slug]}</p>
+                  <p className="fam-banner__d">{family.description ?? FAMILY_BLURB[family.slug]}</p>
                   <p className="fam-banner__n">{family.lines_count} {family.lines_count === 1 ? 'ficha' : 'fichas'}</p>
                 </div>
+                {photo && <img src={photo.sm} alt="" width="220" height="220" />}
               </header>
             )}
 

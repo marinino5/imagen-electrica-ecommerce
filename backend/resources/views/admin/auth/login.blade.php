@@ -6,16 +6,39 @@
 </head>
 <body>
     <div class="login-page">
-        {{-- Izquierda (escritorio): la marca con un collage de fotos propias de la tienda --}}
+        {{-- Izquierda (escritorio): la marca (violeta, arco naranja fino) y una vista previa abstracta del panel, sin fotos --}}
         <aside class="login-brand" aria-label="Imagen Eléctrica">
             <span class="login-brand-arc" aria-hidden="true"></span>
             <img src="{{ asset('images/logo-blanco.png') }}" alt="Imagen Eléctrica" class="login-brand-logo">
 
-            <div class="login-collage" aria-hidden="true">
-                <figure class="lc-a"><img src="{{ asset('images/login/mostrador.webp') }}" alt="" loading="eager"></figure>
-                <figure class="lc-b"><img src="{{ asset('images/login/fachada.webp') }}" alt="" loading="eager"></figure>
-                <figure class="lc-c"><img src="{{ asset('images/login/vitrina.webp') }}" alt="" loading="lazy"></figure>
-                <figure class="lc-d"><img src="{{ asset('images/login/compresor.webp') }}" alt="" loading="lazy"></figure>
+            {{-- Vista previa abstracta del panel: formas, sin fotos ni cifras reales --}}
+            <div class="login-preview" aria-hidden="true">
+                <div class="lp-window">
+                    <div class="lp-dots"><i></i><i></i><i></i></div>
+                    <div class="lp-kpis">
+                        @foreach ([[6, '0,26 20,18 40,22 60,10 80,14 100,4'], [4, '0,20 20,22 40,12 60,16 80,8 100,10'], [5, '0,14 20,20 40,10 60,18 80,6 100,12'], [3, '0,10 20,12 40,16 60,12 80,18 100,14']] as [$w, $pts])
+                            <div class="lp-kpi">
+                                <span class="lp-line is-short"></span>
+                                <span class="lp-num"></span>
+                                <svg viewBox="0 0 100 28" preserveAspectRatio="none"><polyline points="{{ $pts }}" fill="none" stroke="#005BAC" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="lp-row">
+                        <div class="lp-card">
+                            <svg viewBox="0 0 220 90" focusable="false">
+                                <g fill="#005BAC">
+                                    @foreach ([30, 46, 28, 58, 40, 66, 52, 74, 44, 62, 80, 56] as $i => $h)
+                                        <rect x="{{ 8 + $i * 17.5 }}" y="{{ 84 - $h }}" width="10" height="{{ $h }}" rx="2.5"/>
+                                    @endforeach
+                                </g>
+                                <polyline points="12,60 30,52 47,64 65,40 82,50 100,34 117,42 135,24 152,38 170,28 187,16 205,26" fill="none" stroke="#1E9E4A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <line x1="4" y1="86" x2="216" y2="86" stroke="#E6E2F3" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+                        <div class="lp-card lp-funnel"><span></span><span></span><span></span><span></span></div>
+                    </div>
+                </div>
             </div>
 
             <div class="login-brand-foot">
