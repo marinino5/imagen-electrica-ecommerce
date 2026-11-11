@@ -14,11 +14,13 @@ import PlaceFields from '../forms/PlaceFields'
 import Pill from '../ui/Pill'
 import '../../styles/checkout.css'
 
-const STEPS = ['Entrega', 'Tus datos', 'Facturación', 'Confirmar']
+const STEPS = ['Tus datos', 'Facturación', 'Confirmar']
 
 /**
- * Compra por pasos: 1 entrega · 2 tus datos · 3 facturación electrónica (opcional) · 4 confirmar. Sirve para invitados y para quien tiene
- * cuenta (el formulario llega autocompletado desde su perfil). El servidor vuelve a validar todo (422 por campo).
+ * Cierre de la compra, en el mismo bloque que los productos del carrito: arriba la entrega (recoger o domicilio, con departamento y
+ * municipio) y el total con el envío aproximado; debajo, tres pasos: 1 tus datos (y la dirección si es domicilio) · 2 facturación
+ * electrónica (opcional) · 3 confirmar. Sirve para invitados y para quien tiene cuenta (llega autocompletado desde su perfil).
+ * El servidor vuelve a validar todo (422 por campo) y es quien fija el valor real del envío.
  */
 export default function CheckoutForm({ purchaseLines, subtotal, onShipping, onCreated }) {
   const { user, isAuthenticated } = useAuth()
@@ -64,20 +66,24 @@ export default function CheckoutForm({ purchaseLines, subtotal, onShipping, onCr
 
   const scrollTop = () => root.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 
-  const validate = { 1: validateDelivery, 2: validateContact, 3: validateInvoice }
+  const validate = { 1: (f) => ({ ...validateDelivery(f), ...validateContact(f) }), 2: validateInvoice }
   const next = () => {
     const found = validate[step](form)
     setErrors(found)
     if (Object.keys(found).length === 0) {
       setStep(step + 1)
       scrollTop()
+    } else if (found.delivery_state_code || found.delivery_city_code) {
+      goDelivery()
     }
   }
   const back = () => { setStep(step - 1); scrollTop() }
+  // «Editar» la entrega: vuelve al bloque de entrega, que está arriba del todo
+  const goDelivery = () => document.getElementById('co-delivery')?.scrollIntoView({ behavior: 'smooth', block: 'center' })
 
   const submit = async (e) => {
     e.preventDefault()
-    if (step < 4) return next()
+    if (step < 3) return next()
     setBusy(true)
     setServerError(null)
     try {
@@ -103,8 +109,61 @@ export default function CheckoutForm({ purchaseLines, subtotal, onShipping, onCr
   const total = subtotal + shipping
   const idLabel = ID_TYPES.find((t) => t.value === (company ? '31' : form.id_type))?.label ?? ''
 
+  const methodWord = quote?.method === 'local' ? 'local' : 'nacional'
+
   return (
-    <form className="co" onSubmit={submit} noValidate ref={root} id="cart-form" aria-label="Datos de compra">
+    <form className="co" onSubmit={submit} noValidate ref={root} id="cart-form" aria-label="Entrega, total y datos de compra">
+      {/* Entrega y total: siempre a la vista, sin pasos aparte */}
+      <section className="co-delivery" id="co-delivery" aria-labelledby="co-del-h">
+        <h3 id="co-del-h" className="co-sub">¿Cómo lo recibes?</h3>
+        <div className="co-opts co-opts--2" role="radiogroup" aria-label="Forma de entrega">
+          <label className={pickup ? 'is-on' : ''}>
+            <input type="radio" name="delivery" value="pickup" checked={pickup} onChange={set('delivery_method')} />
+            <Store size={20} aria-hidden="true" />
+            <span><strong>Recoger en tienda</strong><small>Sin costo</small></span>
+          </label>
+          <label className={!pickup ? 'is-on' : ''}>
+            <input type="radio" name="delivery" value="delivery" checked={!pickup} onChange={set('delivery_method')} />
+            <Truck size={20} aria-hidden="true" />
+            <span><strong>Envío a domicilio</strong><small>Elige tu municipio y ves el valor</small></span>
+          </label>
+        </div>
+
+        {pickup ? (
+          <div className="co-store">
+            <MapPin size={20} aria-hidden="true" />
+            <div>
+              <strong>{site.name}</strong>
+              <p>{site.address}, {site.city}</p>
+              <p className="co-muted">{site.hours ?? 'El horario de recogida lo confirma tu asesor cuando el pedido esté listo.'}</p>
+            </div>
+          </div>
+        ) : (
+          <>
+            {savedAddresses.length > 0 && (
+              <Field as="select" label="Usar una dirección guardada" defaultValue="" onChange={(ev) => useSaved(ev.target.value)}>
+                <option value="">Escribir otra dirección</option>
+                {savedAddresses.map((a, i) => <option key={i} value={i}>{[a.road, a.number, a.complement].filter(Boolean).join(' ')} · {a.neighborhood}</option>)}
+              </Field>
+            )}
+            <div className="co-grid">
+              <PlaceFields stateField="delivery_state_code" cityField="delivery_city_code" form={form} set={set} errors={errors} serverError={serverError} />
+            </div>
+          </>
+        )}
+
+        {/* Un solo bloque con el total: productos, envío aproximado y total con IVA incluido */}
+        <dl className="co-sum" aria-live="polite">
+          <div><dt>Productos</dt><dd>{formatCOP(subtotal)}</dd></div>
+          <div>
+            <dt>{pickup ? 'Entrega' : quote ? <>Envío {methodWord} <small>aprox.</small></> : 'Envío'}</dt>
+            <dd>{pickup ? 'Gratis' : quote ? (quote.free ? 'Gratis' : formatCOP(quote.cost)) : 'Elige el municipio'}</dd>
+          </div>
+          <div className="is-total"><dt>Total <small>IVA incluido</small></dt><dd>{formatCOP(total)}</dd></div>
+        </dl>
+        {!pickup && quote && <p className="co-muted co-sum__note">Valor aproximado del envío: lo confirma tu asesor{quote.free ? '' : ` (gratis desde ${formatCOP(quote.free_from)})`}.</p>}
+      </section>
+
       <ol className="co-steps" aria-label="Pasos de la compra">
         {STEPS.map((label, i) => (
           <li key={label} className={step === i + 1 ? 'is-on' : step > i + 1 ? 'is-done' : ''}>
@@ -122,42 +181,19 @@ export default function CheckoutForm({ purchaseLines, subtotal, onShipping, onCr
         </div>
       )}
 
-      {/* 1 · Entrega */}
+      {/* 1 · Tus datos (y la dirección, si es domicilio) */}
       {step === 1 && (
         <fieldset className="co-pane">
-          <legend>¿Cómo lo recibes?</legend>
-          <div className="co-opts co-opts--2" role="radiogroup" aria-label="Forma de entrega">
-            <label className={pickup ? 'is-on' : ''}>
-              <input type="radio" name="delivery" value="pickup" checked={pickup} onChange={set('delivery_method')} />
-              <Store size={20} aria-hidden="true" />
-              <span><strong>Recoger en tienda</strong><small>Sin costo · lo recoges cuando esté listo</small></span>
-            </label>
-            <label className={!pickup ? 'is-on' : ''}>
-              <input type="radio" name="delivery" value="delivery" checked={!pickup} onChange={set('delivery_method')} />
-              <Truck size={20} aria-hidden="true" />
-              <span><strong>Envío a domicilio</strong><small>Local en el área metropolitana; nacional al resto del país</small></span>
-            </label>
+          <legend>Tus datos</legend>
+          <div className="co-grid">
+            <Field label="Nombre completo" value={form.name} onChange={set('name')} error={e('name')} autoComplete="name" required wrap="co-span2" />
+            <Field label="Celular" type="tel" inputMode="tel" value={form.phone} onChange={set('phone')} error={e('phone')} autoComplete="tel" required hint="Por aquí te llamamos o escribimos por WhatsApp." />
+            <Field label="Correo" type="email" value={form.email} onChange={set('email')} error={e('email')} autoComplete="email" required hint="Aquí llega el resumen y el enlace de tu pedido." />
           </div>
-
-          {pickup ? (
-            <div className="co-store">
-              <MapPin size={20} aria-hidden="true" />
-              <div>
-                <strong>{site.name}</strong>
-                <p>{site.address}, {site.city}</p>
-                <p className="co-muted">{site.hours ?? 'El horario de recogida lo confirma tu asesor cuando el pedido esté listo.'}</p>
-              </div>
-            </div>
-          ) : (
+          {!pickup && (
             <>
-              {savedAddresses.length > 0 && (
-                <Field as="select" label="Usar una dirección guardada" defaultValue="" onChange={(ev) => useSaved(ev.target.value)}>
-                  <option value="">Escribir otra dirección</option>
-                  {savedAddresses.map((a, i) => <option key={i} value={i}>{[a.road, a.number, a.complement].filter(Boolean).join(' ')} · {a.neighborhood}</option>)}
-                </Field>
-              )}
+              <h3 className="co-sub">Dirección de entrega</h3>
               <div className="co-grid">
-                <PlaceFields stateField="delivery_state_code" cityField="delivery_city_code" form={form} set={set} errors={errors} serverError={serverError} />
                 <Field label="Barrio" value={form.delivery_neighborhood} onChange={set('delivery_neighborhood')} error={e('delivery_neighborhood')} autoComplete="address-level3" required />
                 <Field label="Código postal (opcional)" value={form.delivery_postal_code} onChange={set('delivery_postal_code')} error={e('delivery_postal_code')} maxLength={10} autoComplete="postal-code" />
                 <Field label="Vía (tipo y nombre)" value={form.delivery_road} onChange={set('delivery_road')} error={e('delivery_road')} placeholder="Carrera 27" required />
@@ -165,35 +201,14 @@ export default function CheckoutForm({ purchaseLines, subtotal, onShipping, onCr
                 <Field label="Complemento (opcional)" value={form.delivery_complement} onChange={set('delivery_complement')} placeholder="Bodega 3, piso 2" wrap="co-span2" />
               </div>
               <Field as="textarea" rows={2} label="Indicaciones de entrega (opcional)" value={form.delivery_notes} onChange={set('delivery_notes')} maxLength={500} hint="Portería, horario, persona que recibe…" />
-              {quote ? (
-                <p className="co-ship" role="status">
-                  <Truck size={18} aria-hidden="true" />
-                  <span><strong>Envío {quote.method === 'local' ? 'local' : 'nacional'}</strong> · {quote.zone_label}: {quote.free ? <b>gratis</b> : <b>{formatCOP(quote.cost)}</b>}{quote.free ? ` (compras desde ${formatCOP(quote.free_from)})` : ` · gratis desde ${formatCOP(quote.free_from)}`}</span>
-                </p>
-              ) : (
-                <p className="co-muted">Elige el municipio para ver el costo y el tipo de envío.</p>
-              )}
             </>
           )}
           <Field as="textarea" rows={2} label="Notas del pedido (opcional)" value={form.notes} onChange={set('notes')} maxLength={1000} />
         </fieldset>
       )}
 
-      {/* 2 · Tus datos */}
+      {/* 2 · Facturación electrónica */}
       {step === 2 && (
-        <fieldset className="co-pane">
-          <legend>Tus datos de contacto</legend>
-          <p className="co-lead">Solo lo necesario para avisarte del pedido. {isAuthenticated ? 'Vienen de tu perfil.' : 'No necesitas cuenta.'}</p>
-          <div className="co-grid">
-            <Field label="Nombre completo" value={form.name} onChange={set('name')} error={e('name')} autoComplete="name" required wrap="co-span2" />
-            <Field label="Celular" type="tel" inputMode="tel" value={form.phone} onChange={set('phone')} error={e('phone')} autoComplete="tel" required hint="Por aquí te llamamos o escribimos por WhatsApp." />
-            <Field label="Correo" type="email" value={form.email} onChange={set('email')} error={e('email')} autoComplete="email" required hint="Aquí llega el resumen y el enlace de tu pedido." />
-          </div>
-        </fieldset>
-      )}
-
-      {/* 3 · Facturación electrónica */}
-      {step === 3 && (
         <fieldset className="co-pane">
           <legend>Facturación electrónica</legend>
           <InvoiceSwitch checked={form.needs_invoice} onChange={set('needs_invoice')} title="Necesito factura a nombre de una persona o empresa" hint="Si no la necesitas, sigue al paso siguiente: no te pedimos documento." />
@@ -201,27 +216,27 @@ export default function CheckoutForm({ purchaseLines, subtotal, onShipping, onCr
         </fieldset>
       )}
 
-      {/* 4 · Confirmar */}
-      {step === 4 && (
+      {/* 3 · Confirmar */}
+      {step === 3 && (
         <fieldset className="co-pane">
           <legend>Revisa y confirma</legend>
           <div className="co-recap">
             <section>
-              <h3>Entrega <button type="button" onClick={() => setStep(1)}>Editar</button></h3>
+              <h3>Entrega <button type="button" onClick={goDelivery}>Editar</button></h3>
               {pickup ? <p><strong>Recoger en tienda</strong> · {site.address}, {site.city}</p> : (
                 <>
-                  <p><strong>Envío {quote?.method === 'local' ? 'local' : 'nacional'}</strong> · {cityName(deliveryCities.list, form.delivery_city_code)}, {stateName(form.delivery_state_code)}</p>
+                  <p><strong>Envío {methodWord}</strong> · {cityName(deliveryCities.list, form.delivery_city_code)}, {stateName(form.delivery_state_code)}</p>
                   <p>{[form.delivery_road, form.delivery_number, form.delivery_complement].filter(Boolean).join(' ')} · Barrio {form.delivery_neighborhood}</p>
                 </>
               )}
             </section>
             <section>
-              <h3>Contacto <button type="button" onClick={() => setStep(2)}>Editar</button></h3>
+              <h3>Contacto <button type="button" onClick={() => setStep(1)}>Editar</button></h3>
               <p><strong>{form.name}</strong></p>
               <p>{form.phone} · {form.email}</p>
             </section>
             <section className="co-recap__wide">
-              <h3>Facturación <button type="button" onClick={() => setStep(3)}>Editar</button></h3>
+              <h3>Facturación <button type="button" onClick={() => setStep(2)}>Editar</button></h3>
               {form.needs_invoice ? (
                 <>
                   <p><strong>{company ? form.company_name : `${form.first_name} ${form.last_name}`}</strong> · {company ? `NIT ${digits(form.identification)}-${form.check_digit}` : `${idLabel} ${form.identification}`}</p>
@@ -231,12 +246,6 @@ export default function CheckoutForm({ purchaseLines, subtotal, onShipping, onCr
               ) : <p className="co-muted">Sin factura a nombre de persona o empresa.</p>}
             </section>
           </div>
-
-          <dl className="co-totals">
-            <div><dt>Productos (IVA incluido)</dt><dd>{formatCOP(subtotal)}</dd></div>
-            <div><dt>Envío</dt><dd>{pickup ? 'Gratis (recoges en tienda)' : quote ? (quote.free ? 'Gratis' : formatCOP(quote.cost)) : 'Se confirma'}</dd></div>
-            <div className="is-total"><dt>Total a pagar</dt><dd>{formatCOP(total)}</dd></div>
-          </dl>
 
           {/* Campo trampa contra bots: las personas no lo ven */}
           <div className="cart-form__trap" aria-hidden="true">
@@ -261,7 +270,7 @@ export default function CheckoutForm({ purchaseLines, subtotal, onShipping, onCr
 
       <div className="co-actions">
         {step > 1 && <Pill tone="l" type="button" icon={ArrowLeft} onClick={back} disabled={busy}>Atrás</Pill>}
-        {step < 4 ? (
+        {step < 3 ? (
           <Pill tone="o" type="submit" icon={ArrowRight}>Continuar</Pill>
         ) : (
           <Pill tone="o" type="submit" icon={Lock} disabled={busy || !form.privacy_accepted}>{busy ? 'Enviando…' : 'Confirmar pedido'}</Pill>

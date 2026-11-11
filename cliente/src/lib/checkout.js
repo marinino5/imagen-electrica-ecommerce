@@ -1,4 +1,5 @@
-// Lógica del formulario de compra, sin React. Cuatro pasos: 1 entrega · 2 tus datos · 3 facturación electrónica (opcional) · 4 confirmar.
+// Lógica del formulario de compra, sin React. Tres pasos: 1 tus datos (y la dirección) · 2 facturación electrónica (opcional) · 3 confirmar;
+// la forma de entrega y el municipio se eligen antes, en el bloque del carrito.
 // Los campos de la factura llevan los nombres y códigos de la API de clientes de Siigo Nube (developers.siigo.com).
 
 /** Versión de la política de tratamiento de datos que se muestra al comprar. Va igual que `shop.privacy_policy_version` del backend. */
@@ -106,7 +107,7 @@ export function withPersonType(f, type) {
   }
 }
 
-/** Paso 1 · Entrega. Recoger en tienda no pide dirección. */
+/** Entrega (departamento y municipio, y dirección en el paso 1). Recoger en tienda no pide dirección. */
 export function validateDelivery(f) {
   const e = {}
   if (f.delivery_method === 'pickup') return e
@@ -119,7 +120,7 @@ export function validateDelivery(f) {
   return e
 }
 
-/** Paso 2 · Tus datos: nombre, celular y correo. */
+/** Tus datos: nombre, celular y correo. */
 export function validateContact(f) {
   const e = {}
   if (String(f.name).trim().length < 3) e.name = 'Escribe tu nombre completo.'
@@ -128,7 +129,7 @@ export function validateContact(f) {
   return e
 }
 
-/** Paso 3 · Facturación electrónica. Sin el interruptor no se pide nada. */
+/** Paso 2 · Facturación electrónica. Sin el interruptor no se pide nada. */
 export function validateInvoice(f) {
   const e = {}
   if (!f.needs_invoice) return e
@@ -158,15 +159,16 @@ export function validateInvoice(f) {
 }
 
 const STEP_FIELDS = {
-  1: ['delivery_method', 'delivery_state_code', 'delivery_city_code', 'delivery_neighborhood', 'delivery_road', 'delivery_number', 'delivery_complement', 'delivery_postal_code', 'delivery_notes', 'notes'],
-  2: ['name', 'phone', 'email'],
-  3: ['needs_invoice', 'person_type', 'id_type', 'identification', 'check_digit', 'first_name', 'last_name', 'company_name', 'commercial_name', 'vat_responsible', 'fiscal_responsibilities', 'billing_email', 'billing_same_as_delivery', 'billing_address', 'billing_state_code', 'billing_city_code', 'billing_postal_code', 'contact_first_name', 'contact_last_name'],
+  // 1 · Tus datos (con la entrega, que va en el bloque de arriba y en este paso)
+  1: ['delivery_method', 'delivery_state_code', 'delivery_city_code', 'delivery_neighborhood', 'delivery_road', 'delivery_number', 'delivery_complement', 'delivery_postal_code', 'delivery_notes', 'notes', 'name', 'phone', 'email'],
+  // 2 · Facturación electrónica
+  2: ['needs_invoice', 'person_type', 'id_type', 'identification', 'check_digit', 'first_name', 'last_name', 'company_name', 'commercial_name', 'vat_responsible', 'fiscal_responsibilities', 'billing_email', 'billing_same_as_delivery', 'billing_address', 'billing_state_code', 'billing_city_code', 'billing_postal_code', 'contact_first_name', 'contact_last_name'],
 }
 
 /** Paso al que pertenece el primer campo con error del servidor (para llevar a la persona a corregirlo). */
 export function stepOfError(fields) {
-  for (const step of [1, 2, 3]) if (fields.some((k) => STEP_FIELDS[step].some((s) => k === s || k.startsWith(`${s}.`)))) return step
-  return 4
+  for (const step of [1, 2]) if (fields.some((k) => STEP_FIELDS[step].some((s) => k === s || k.startsWith(`${s}.`)))) return step
+  return 3
 }
 
 const clean = (v) => (typeof v === 'string' ? v.trim() : v)

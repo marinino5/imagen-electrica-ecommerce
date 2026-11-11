@@ -151,3 +151,21 @@
 .co-totals .is-total dd { font-family: var(--font-display); font-size: clamp(1.9rem, 1.4rem + 2vw, 2.6rem); line-height: 1; }
 .co-steps button b { font-weight: 700; }
 @media (max-width: 520px) { .co-steps button b { display: none; } .co-steps .is-on button b { display: inline; } .co-steps li { flex: none; } .co-steps li.is-on { flex: 1; } }
+
+/* ---------- Fase 6: entrega y total dentro del bloque de la compra ---------- */
+.cart-guest { display: inline-flex; align-items: center; gap: 6px; margin: -4px 0 12px; color: var(--muted); font-size: 0.85rem; }
+.cart-guest svg { color: var(--primary); flex: none; }
+.co-delivery { display: grid; gap: 14px; padding: 18px; border: 1px solid var(--lavender-2); border-radius: 16px; background: var(--ie-lila-50); }
+.co-sub { margin: 0; color: var(--ink); font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; text-transform: uppercase; }
+.co-delivery .co-opts label { background: #fff; }
+/* Total: tres líneas, la última destacada; el desglose de base e IVA ya no se muestra */
+.co-sum { display: grid; gap: 0; margin: 4px 0 0; padding: 0; border-radius: 14px; background: #fff; border: 1px solid var(--lavender-2); overflow: hidden; }
+.co-sum > div { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--lavender-2); }
+.co-sum dt { color: var(--muted); font-size: 0.92rem; font-weight: 600; }
+.co-sum dd { margin: 0; color: var(--ink); font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; }
+.co-sum small { font-weight: 500; font-size: 0.78rem; color: var(--muted); }
+.co-sum .is-total { border-bottom: 0; background: var(--primary); }
+.co-sum .is-total dt { color: rgb(255 255 255 / 0.86); }
+.co-sum .is-total dt small { color: rgb(255 255 255 / 0.7); }
+.co-sum .is-total dd { color: #fff; font-family: var(--font-display); font-size: clamp(1.8rem, 1.4rem + 1.6vw, 2.5rem); line-height: 1; }
+.co-sum__note { margin: -4px 0 0; }
