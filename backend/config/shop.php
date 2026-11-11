@@ -8,6 +8,9 @@ return [
     */
     'frontend_url' => rtrim((string) env('FRONTEND_URL', 'https://imagen-electrica.pages.dev'), '/'),
 
+    // Versión del texto de consentimiento del boletín (el del pie de la tienda). Si el texto cambia, sube la versión.
+    'newsletter_consent_version' => '2026-11-v1',
+
     // Días que vale la ficha con cotización
     'datasheet_valid_days' => 15,
 

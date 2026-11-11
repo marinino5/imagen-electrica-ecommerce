@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DatasheetDownloadController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\OrderAssignmentController;
+use App\Http\Controllers\Admin\QuoteInboxController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\OrderPricingController;
 use App\Http\Controllers\Admin\OrderStatusController;
@@ -57,6 +59,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Suscriptores del boletín (pie de la tienda): admin y comercial
         Route::get('newsletter', [NewsletterController::class, 'index'])->name('newsletter.index');
+        Route::get('newsletter/export', [NewsletterController::class, 'export'])->name('newsletter.export');
+        Route::patch('newsletter/{subscription}/unsubscribe', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
+
+        // Cotizaciones de las dos fuentes (con y sin cuenta) en una sola bandeja, y clientes con su historial
+        Route::get('cotizaciones', QuoteInboxController::class.'@index')->name('quotes.index');
+        Route::resource('customers', CustomerController::class)->only(['index', 'show']);
         Route::get('datasheets', [DatasheetDownloadController::class, 'index'])->name('datasheets.index');
 
         // Catálogo y análisis: solo admin
@@ -71,6 +79,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
             // Análisis: reportes con costos y ganancia, solo admin
             Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
+            Route::get('reports/comercial', [ReportController::class, 'commercial'])->name('reports.commercial');
             Route::get('reports/export', [ReportController::class, 'export'])->name('reports.export');
         });
     });

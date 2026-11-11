@@ -35,7 +35,7 @@ class ReportPageTest extends TestCase
     {
         $this->actingAs($this->admin())->get(route('admin.reports.index'))
             ->assertOk()
-            ->assertSee('Reportes')
+            ->assertSee('Análisis')
             ->assertSee('Ventas totales')
             ->assertSee('Exportar CSV')
             ->assertViewHas('report', fn (array $report) => $report['period']->preset->value === 'this_month');
@@ -43,7 +43,7 @@ class ReportPageTest extends TestCase
 
     public function test_sidebar_shows_the_analysis_section_only_to_admin(): void
     {
-        $this->actingAs($this->admin())->get(route('admin.dashboard'))->assertSee('Análisis')->assertSee('Reportes');
+        $this->actingAs($this->admin())->get(route('admin.dashboard'))->assertSee('Análisis');
         $this->actingAs(User::factory()->comercial()->create())->get(route('admin.dashboard'))->assertDontSee('Análisis');
     }
 

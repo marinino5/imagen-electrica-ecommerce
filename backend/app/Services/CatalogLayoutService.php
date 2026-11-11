@@ -45,6 +45,7 @@ class CatalogLayoutService
 
         // Crea las líneas y referencias que falten (en una base vieja no hace falta; en una nueva ya está todo)
         (new CatalogSeeder)->run();
+        $this->migrateLegacyCategories();
 
         DB::transaction(function () use ($data, $images, &$result) {
             $keep = [];
@@ -126,6 +127,54 @@ class CatalogLayoutService
         });
 
         return $result;
+    }
+
+    /**
+     * Categorías de la primera versión (Motorreductores › Sinfín corona, Ventilación › Extractores…) → las de la tienda. Los productos
+     * y líneas que tenían se pasan a su categoría nueva y las viejas se eliminan cuando quedan vacías. Idempotente.
+     *
+     * @return int categorías eliminadas
+     */
+    public function migrateLegacyCategories(): int
+    {
+        // slug viejo => slug nuevo (las de arriba son familias antiguas, sin equivalente directo: sus hijas se mueven una a una)
+        $map = [
+            'sinfin-corona' => 'sinfin-y-corona', 'coaxiales' => 'helicoidales',
+            'guardamotores' => 'controles-de-maniobra-y-proteccion',
+            'extractores' => 'ventilacion-industrial', 'ventiladores-axiales' => 'ventilacion-industrial', 'ventiladores-de-techo' => 'ventilacion-industrial',
+            'reflectores-led' => 'reflectores-y-alumbrado', 'tubos-led' => 'iluminacion-industrial',
+            'cables-thhn' => 'conductores-para-instalaciones', 'cables-encauchetados' => 'conductores-para-instalaciones',
+            'compresores-verticales' => 'compresores-de-piston',
+            'plc-compactos' => 'plc', 'reles-programables' => 'plc',
+        ];
+        $legacyRoots = ['motorreductores', 'variadores-y-arrancadores', 'ventilacion', 'cables', 'plc', 'energia-solar'];
+        $removed = 0;
+
+        foreach ($map as $old => $new) {
+            $from = Category::where('slug', $old)->first();
+            $to = Category::where('slug', $new)->first();
+            if (! $from || ! $to || $from->is($to)) {
+                continue;
+            }
+            Product::withTrashed()->where('category_id', $from->id)->update(['category_id' => $to->id]);
+            ProductLine::where('category_id', $from->id)->update(['category_id' => $to->id]);
+        }
+
+        // Las hijas vacías primero y luego las raíces antiguas que ya no tienen nada
+        foreach ([...array_keys($map), 'paneles-solares', 'inversores-solares', ...$legacyRoots] as $slug) {
+            $category = Category::where('slug', $slug)->first();
+            // «PLC» y «Compresores de pistón» son categorías de la tienda: solo se borran las que quedan vacías y no son de la tienda
+            if (! $category || in_array($slug, ['plc', 'compresores-de-piston'], true)) {
+                continue;
+            }
+            if (! $category->products()->exists() && ! Product::withTrashed()->where('category_id', $category->id)->exists()
+                && ! $category->productLines()->exists() && ! $category->children()->exists()) {
+                $category->delete();
+                $removed++;
+            }
+        }
+
+        return $removed;
     }
 
     /** @return array<string, mixed> las cinco claves de la placa más las propias de la referencia */

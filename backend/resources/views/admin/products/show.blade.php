@@ -30,7 +30,7 @@
                         <dt class="col-sm-4">Categoría</dt>
                         <dd class="col-sm-8">{{ $product->category->name }}</dd>
                         <dt class="col-sm-4">Precio (IVA incluido)</dt>
-                        <dd class="col-sm-8">{{ Money::cop($product->price, 'Solo cotización') }} @if ($product->price_is_simulated)<span class="badge text-bg-warning">Precio simulado</span> @endif @if ($product->price_source)<span class="badge text-bg-info">{{ $product->price_source->label() }}</span> @endif<small class="text-body-secondary">· IVA {{ rtrim(rtrim((string) $product->tax_rate, '0'), '.') }}%</small></dd>
+                        <dd class="col-sm-8">{{ Money::cop($product->price, 'Solo cotización') }} @if ($product->price_is_simulated || $product->price_source)<span class="badge text-bg-info">Precio de referencia — confirmar con la empresa</span> @endif<small class="text-body-secondary">· IVA {{ rtrim(rtrim((string) $product->tax_rate, '0'), '.') }}%</small></dd>
                         <dt class="col-sm-4">Costo (sin IVA)</dt>
                         <dd class="col-sm-8">{{ Money::cop($product->cost_price, 'Sin definir') }} <small class="text-body-secondary">· interno</small></dd>
                         <dt class="col-sm-4">Stock</dt>
@@ -75,7 +75,7 @@
             <div class="card">
                 <div class="card-body text-center">
                     @if ($product->image_url)
-                        <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="img-fluid" referrerpolicy="no-referrer">
+                        <img src="{{ $product->image_src }}" alt="{{ $product->name }}" class="img-fluid" referrerpolicy="no-referrer">
                     @else
                         <x-empty-state icon="image" title="Sin imagen" />
                     @endif

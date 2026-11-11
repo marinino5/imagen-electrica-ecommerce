@@ -30,14 +30,104 @@ class ReportRepository
     /** Base sin IVA de una línea. */
     private const LINE_BASE = 'order_items.line_total / (1 + order_items.tax_rate / 100.0)';
 
-    /** @return object{orders: int, sales: float} */
+    /** @return object{orders: int, sales: float, tax: float} */
     public function salesTotals(CarbonInterface $from, CarbonInterface $to): object
     {
         $row = $this->sales($from, $to)
-            ->selectRaw('count(*) as orders, coalesce(sum(orders.total), 0) as sales')
+            ->selectRaw('count(*) as orders, coalesce(sum(orders.total), 0) as sales, coalesce(sum(orders.tax), 0) as tax')
             ->first();
 
-        return (object) ['orders' => (int) $row->orders, 'sales' => (float) $row->sales];
+        return (object) ['orders' => (int) $row->orders, 'sales' => (float) $row->sales, 'tax' => (float) $row->tax];
+    }
+
+    // ---------------------------------------------------------------- Análisis comercial
+
+    /**
+     * Productos agrupados por línea (la ficha de la tienda) en pedidos o cotizaciones del rango.
+     *
+     * @param  'purchase'|'quote'  $type
+     * @return Collection<int, object{name: string, family: ?string, units: float, requests: int}>
+     */
+    public function topLines(string $type, CarbonInterface $from, CarbonInterface $to, int $limit): Collection
+    {
+        return $this->itemsByLine($type, $from, $to)
+            ->selectRaw('product_lines.name as name, fam.name as family, sum(order_items.quantity) as units, count(distinct orders.id) as requests')
+            ->groupBy('product_lines.id', 'product_lines.name', 'fam.name')
+            ->orderByDesc('requests')->orderByDesc('units')->limit($limit)->get()
+            ->map(fn ($r) => (object) ['name' => $r->name, 'family' => $r->family, 'units' => (float) $r->units, 'requests' => (int) $r->requests]);
+    }
+
+    /** @return Collection<int, object{name: string, units: float, requests: int}> */
+    public function topFamilies(string $type, CarbonInterface $from, CarbonInterface $to, int $limit): Collection
+    {
+        return $this->itemsByLine($type, $from, $to)
+            ->selectRaw('fam.name as name, sum(order_items.quantity) as units, count(distinct orders.id) as requests')
+            ->groupBy('fam.id', 'fam.name')
+            ->orderByDesc('requests')->orderByDesc('units')->limit($limit)->get()
+            ->map(fn ($r) => (object) ['name' => $r->name, 'units' => (float) $r->units, 'requests' => (int) $r->requests]);
+    }
+
+    private function itemsByLine(string $type, CarbonInterface $from, CarbonInterface $to): QueryBuilder
+    {
+        $q = \Illuminate\Support\Facades\DB::table('order_items')
+            ->join('orders', 'orders.id', '=', 'order_items.order_id')
+            ->join('products', 'products.id', '=', 'order_items.product_id')
+            ->join('product_lines', 'product_lines.id', '=', 'products.line_id')
+            ->join('categories as cat', 'cat.id', '=', 'product_lines.category_id')
+            ->join('categories as fam', 'fam.id', '=', \Illuminate\Support\Facades\DB::raw('coalesce(cat.parent_id, cat.id)'))
+            ->where('orders.type', $type);
+
+        if ($type === 'purchase') {
+            $q->whereIn('orders.status', array_map(fn (OrderStatus $s) => $s->value, self::SOLD_STATUSES))
+                ->whereRaw(self::SALE_DATE.' >= ?', [$from])->whereRaw(self::SALE_DATE.' < ?', [$to]);
+        } else {
+            $q->where('orders.created_at', '>=', $from)->where('orders.created_at', '<', $to);
+        }
+
+        return $q;
+    }
+
+    /** Fichas con cotización descargadas, por línea. @return Collection<int, object{name: string, downloads: int}> */
+    public function topDatasheets(CarbonInterface $from, CarbonInterface $to, int $limit): Collection
+    {
+        return \Illuminate\Support\Facades\DB::table('datasheet_downloads')
+            ->leftJoin('products', 'products.id', '=', 'datasheet_downloads.product_id')
+            ->leftJoin('product_lines', 'product_lines.id', '=', 'products.line_id')
+            ->where('datasheet_downloads.created_at', '>=', $from)->where('datasheet_downloads.created_at', '<', $to)
+            ->selectRaw('coalesce(product_lines.name, datasheet_downloads.product_name) as name, count(*) as downloads')
+            ->groupBy(\Illuminate\Support\Facades\DB::raw('coalesce(product_lines.name, datasheet_downloads.product_name)'))
+            ->orderByDesc('downloads')->limit($limit)->get()
+            ->map(fn ($r) => (object) ['name' => $r->name, 'downloads' => (int) $r->downloads]);
+    }
+
+    public function datasheetCount(CarbonInterface $from, CarbonInterface $to): int
+    {
+        return \Illuminate\Support\Facades\DB::table('datasheet_downloads')->where('created_at', '>=', $from)->where('created_at', '<', $to)->count();
+    }
+
+    /** Cotizaciones recibidas en el rango (con cuenta y sin cuenta) y cuántas con cuenta se aceptaron. @return object{account: int, free: int, accepted: int} */
+    public function quotesReceived(CarbonInterface $from, CarbonInterface $to): object
+    {
+        $db = \Illuminate\Support\Facades\DB::class;
+        $account = $db::table('orders')->where('type', 'quote')->where('created_at', '>=', $from)->where('created_at', '<', $to);
+
+        return (object) [
+            'account' => (clone $account)->count(),
+            'free' => $db::table('quote_requests')->where('created_at', '>=', $from)->where('created_at', '<', $to)->count(),
+            'accepted' => (clone $account)->where('status', 'accepted')->count(),
+        ];
+    }
+
+    /** @return object{new: int, unsubscribed: int, active: int} */
+    public function subscribers(CarbonInterface $from, CarbonInterface $to): object
+    {
+        $db = \Illuminate\Support\Facades\DB::class;
+
+        return (object) [
+            'new' => $db::table('newsletter_subscriptions')->where('consented_at', '>=', $from)->where('consented_at', '<', $to)->count(),
+            'unsubscribed' => $db::table('newsletter_subscriptions')->where('unsubscribed_at', '>=', $from)->where('unsubscribed_at', '<', $to)->count(),
+            'active' => $db::table('newsletter_subscriptions')->whereNull('unsubscribed_at')->count(),
+        ];
     }
 
     /**

@@ -15,6 +15,15 @@ enum OrderType: string
         };
     }
 
+    /** Plural para filtros y títulos: Pedidos, Cotizaciones (no se arma con «s» al final). */
+    public function pluralLabel(): string
+    {
+        return match ($this) {
+            self::Purchase => 'Pedidos',
+            self::Quote => 'Cotizaciones',
+        };
+    }
+
     /**
      * Prefijo del código: PED-0001 para pedidos, COT-0001 para cotizaciones.
      */

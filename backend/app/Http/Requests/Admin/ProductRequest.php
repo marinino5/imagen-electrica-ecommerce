@@ -23,6 +23,11 @@ class ProductRequest extends FormRequest
             ->values()
             ->all();
 
+        // El stock ya no se edita en el panel (se sincronizará con Siigo): se conserva el actual y un producto nuevo empieza en 0
+        if (! $this->has('stock')) {
+            $this->merge(['stock' => $this->route('product')?->stock ?? 0]);
+        }
+
         $this->merge([
             'specs' => $specs,
             'is_active' => $this->boolean('is_active'),

@@ -62,7 +62,7 @@ class ReferencePriceTest extends TestCase
         Product::factory()->create(['name' => 'Confirmado', 'price' => 2000]);
 
         $this->get(route('admin.products.index'))->assertOk()->assertSee('Con referencia')->assertSee('Confirmado')->assertSee('Por confirmar');
-        $this->get(route('admin.products.index', ['price' => 'reference']))->assertOk()->assertSee('Con referencia')->assertDontSee('Confirmado')->assertSee('Referencia');
+        $this->get(route('admin.products.index', ['price' => 'reference']))->assertOk()->assertSee('Con referencia')->assertDontSee('Confirmado')->assertSee('Precio de referencia');
     }
 
     public function test_editar_el_precio_desde_el_panel_lo_da_por_confirmado(): void

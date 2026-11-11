@@ -70,6 +70,7 @@ class ReportService
 
         return $indicator('sales', 'Ventas totales', 'money')
             + $indicator('gross_profit', 'Ganancia bruta', 'money')
+            + $indicator('tax', 'IVA de las ventas', 'money')
             + $indicator('margin', 'Margen', 'percent', points: true)
             + $indicator('orders', 'Pedidos', 'number')
             + $indicator('average_ticket', 'Ticket promedio', 'money')
@@ -81,8 +82,36 @@ class ReportService
      * Cifras de un rango. La ganancia y el margen solo usan productos con costo:
      * margen = (base sin IVA - costo) / base sin IVA, sobre esas mismas líneas.
      *
-     * @return array{sales: float, gross_profit: float, margin: ?float, orders: int, average_ticket: ?float, conversion: ?float, response_hours: ?float, without_cost: int, sent: int, accepted: int}
+     * @return array{sales: float, tax: float, gross_profit: float, margin: ?float, orders: int, average_ticket: ?float, conversion: ?float, response_hours: ?float, without_cost: int, sent: int, accepted: int}
      */
+    /**
+     * Análisis comercial del periodo: qué se cotiza y qué se vende (por línea y por familia), cuántas cotizaciones llegan y se
+     * aceptan, qué fichas se descargan (lo más consultado en la tienda) y cómo van los suscriptores.
+     *
+     * @return array<string, mixed>
+     */
+    public function commercial(ReportPeriod $period, int $limit = 8): array
+    {
+        [$from, $to] = [$period->start, $period->end];
+        $received = $this->repository->quotesReceived($from, $to);
+        $total = $received->account + $received->free;
+
+        return [
+            'period' => $period,
+            'quoted_lines' => $this->repository->topLines('quote', $from, $to, $limit),
+            'quoted_families' => $this->repository->topFamilies('quote', $from, $to, $limit),
+            'sold_lines' => $this->repository->topLines('purchase', $from, $to, $limit),
+            'sold_families' => $this->repository->topFamilies('purchase', $from, $to, $limit),
+            'datasheets' => ['total' => $this->repository->datasheetCount($from, $to), 'top' => $this->repository->topDatasheets($from, $to, $limit)],
+            'quotes' => [
+                'received' => $total, 'account' => $received->account, 'free' => $received->free, 'accepted' => $received->accepted,
+                // Cotizaciones con cuenta aceptadas sobre las con cuenta recibidas (las de sin cuenta se cierran fuera de la tienda)
+                'conversion' => $received->account > 0 ? round($received->accepted / $received->account * 100, 1) : null,
+            ],
+            'subscribers' => $this->repository->subscribers($from, $to),
+        ];
+    }
+
     public function snapshot(CarbonImmutable $from, CarbonImmutable $to): array
     {
         $sales = $this->repository->salesTotals($from, $to);
@@ -94,6 +123,7 @@ class ReportService
         return [
             'sales' => round($sales->sales, 2),
             'gross_profit' => round($grossProfit, 2),
+            'tax' => round($sales->tax, 2),
             'margin' => $profit->revenue > 0 ? round($grossProfit / $profit->revenue * 100, 1) : null,
             'orders' => $sales->orders,
             'average_ticket' => $sales->orders > 0 ? round($sales->sales / $sales->orders, 2) : null,

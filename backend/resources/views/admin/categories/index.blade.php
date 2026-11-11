@@ -1,20 +1,22 @@
 @extends('layouts.admin')
 
-@section('title', 'Categorías')
+@section('title', 'Familias y categorías')
 
 @section('breadcrumb')
     <li class="breadcrumb-item">Catálogo</li>
-    <li class="breadcrumb-item active" aria-current="page">Categorías</li>
+    <li class="breadcrumb-item active" aria-current="page">Familias y categorías</li>
 @endsection
 
 @section('content')
     <div class="page-header d-flex flex-wrap justify-content-between align-items-start gap-3">
         <div>
-            <h1>Categorías</h1>
-            <p>Líneas de producto y subcategorías del catálogo.</p>
+            <h1>Familias y categorías</h1>
+            <p>Las 10 familias de la tienda y sus categorías: son las mismas que ve el cliente en el menú y el catálogo.</p>
         </div>
         <a href="{{ route('admin.categories.create') }}" class="btn btn-primary"><i class="bi bi-plus-lg me-1" aria-hidden="true"></i>Nueva categoría</a>
     </div>
+
+    @include('admin.partials.tabs', ['group' => 'catalogo'])
 
     <div class="card">
         <div class="card-body border-bottom">

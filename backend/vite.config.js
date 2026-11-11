@@ -12,8 +12,8 @@ export default defineConfig({
                 bunny('Barlow Condensed', {
                     weights: [600, 700],
                 }),
-                bunny('Barlow', {
-                    weights: [400, 500, 600],
+                bunny('Inter', {
+                    weights: [400, 500, 600, 700],
                 }),
             ],
         }),

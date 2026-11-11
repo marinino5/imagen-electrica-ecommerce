@@ -47,6 +47,49 @@ class DashboardRepository
             ->get();
     }
 
+    /**
+     * Ventas (pedidos pagados, enviados o entregados) por día desde la fecha dada: suma del total con IVA, fechada en el pago.
+     *
+     * @return Collection<string, float> día (Y-m-d) => total
+     */
+    public function salesPerDaySince(CarbonInterface $since): Collection
+    {
+        return Order::query()
+            ->selectRaw('date(coalesce(paid_at, created_at)) as day, sum(total) as total')
+            ->where('type', OrderType::Purchase->value)
+            ->whereIn('status', [OrderStatus::Paid->value, OrderStatus::Shipped->value, OrderStatus::Delivered->value])
+            ->whereRaw('coalesce(paid_at, created_at) >= ?', [$since])
+            ->groupByRaw('date(coalesce(paid_at, created_at))')
+            ->toBase()
+            ->get()
+            ->mapWithKeys(fn (object $row) => [(string) $row->day => (float) $row->total]);
+    }
+
+    /**
+     * Cotizaciones recibidas por día (con cuenta y sin cuenta) desde la fecha dada.
+     *
+     * @return Collection<string, int> día => cantidad
+     */
+    public function quotesPerDaySince(CarbonInterface $since): Collection
+    {
+        $orders = \Illuminate\Support\Facades\DB::table('orders')->where('type', OrderType::Quote->value)->where('created_at', '>=', $since)->selectRaw('date(created_at) as day');
+        $free = \Illuminate\Support\Facades\DB::table('quote_requests')->where('created_at', '>=', $since)->selectRaw('date(created_at) as day');
+
+        return \Illuminate\Support\Facades\DB::query()->fromSub($orders->unionAll($free), 'q')->selectRaw('day, count(*) as total')->groupBy('day')->get()
+            ->mapWithKeys(fn (object $row) => [(string) $row->day => (int) $row->total]);
+    }
+
+    /** Pedidos de la tienda por atender: pendientes de pago y pagados que aún no se envían, el más antiguo primero. */
+    public function purchasesToHandle(int $limit): EloquentCollection
+    {
+        return Order::query()
+            ->where('type', OrderType::Purchase->value)
+            ->whereIn('status', [OrderStatus::PendingPayment->value, OrderStatus::Paid->value])
+            ->oldest()
+            ->limit($limit)
+            ->get();
+    }
+
     public function countOrders(OrderType $type, OrderStatus $status): int
     {
         return Order::query()->where('type', $type)->where('status', $status)->count();

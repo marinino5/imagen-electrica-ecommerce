@@ -10,6 +10,6 @@ class DashboardController extends Controller
 {
     public function __invoke(DashboardService $dashboard): View
     {
-        return view('admin.dashboard', ['summary' => $dashboard->getSummary()]);
+        return view('admin.dashboard', ['overview' => $dashboard->overview()]);
     }
 }

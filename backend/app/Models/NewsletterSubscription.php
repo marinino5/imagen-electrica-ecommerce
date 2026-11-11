@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 
-/** Persona suscrita al boletín: correo, autorización de datos, fecha e IP desde donde se autorizó. */
-#[Fillable(['email', 'consent', 'consented_at', 'ip'])]
+/** Persona suscrita al boletín: correo, autorización de datos (con la versión del texto y la fecha), IP y fecha de baja. */
+#[Fillable(['email', 'consent', 'consent_version', 'consented_at', 'unsubscribed_at', 'ip'])]
 class NewsletterSubscription extends Model
 {
     protected function casts(): array
@@ -14,6 +14,7 @@ class NewsletterSubscription extends Model
         return [
             'consent' => 'boolean',
             'consented_at' => 'datetime',
+            'unsubscribed_at' => 'datetime',
         ];
     }
 }
