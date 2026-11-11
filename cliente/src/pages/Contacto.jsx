@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowUpRight, Camera, Copy, FileText, Headset, Mail, MapPin, MessageCircle, Navigation, PackageSearch, Phone, ShieldCheck } from 'lucide-react'
+import { ArrowUpRight, Copy, FileText, Headset, Mail, MapPin, MessageCircle, Navigation, PackageSearch, Phone, ShieldCheck } from 'lucide-react'
 import CallPill from '../components/contacto/CallPill'
 import SmartForm from '../components/contacto/SmartForm'
 import Squares from '../components/ui/Squares'
@@ -19,7 +19,7 @@ import '../styles/ie-contacto.css'
 //  2. «¿Qué necesitas?»: bento asimétrico (una tarjeta 2 × 2 y tres medianas), cada una con su foto.
 //  3. Formulario con altura animada (solo para «Estado de mi pedido» sin sesión y «Garantías y devoluciones»).
 //  4. Canales: tres columnas con separadores lila.
-//  5. Visítanos: mapa estático, dirección y la foto del almacén (aún no hay: panel «Foto próximamente»).
+//  5. Visítanos: mapa estático y dirección.
 export default function Contacto() {
   const { isAuthenticated } = useAuth()
   const { notify } = useToast()
@@ -56,7 +56,7 @@ export default function Contacto() {
     <>
       {/* 5.1 Hero oscuro de 60vh */}
       <section className="ct-hero bgt bgt-e" aria-labelledby="h-contacto">
-        <img className="ct-hero__bg" src="/img/fotos/contacto-asesor.webp" alt="Asesor sonriente con ropa de trabajo frente a las estanterías de un almacén de material" width="1600" height="1200" fetchPriority="high" loading="eager" />
+        <img className="ct-hero__bg" src="/img/fotos/contacto-asesor.webp" alt="Técnico con casco y ropa reflectiva revisando un tablero eléctrico abierto" width="1600" height="1200" fetchPriority="high" loading="eager" />
         <span className="ct-hero__veil" aria-hidden="true" />
         <div className="wrap ct-hero__in">
           <Pop className="ct-hero__text">
@@ -157,10 +157,6 @@ export default function Contacto() {
                 <p className="visit2__addr"><MapPin size={18} aria-hidden="true" /><span><strong>{site.address}</strong><br />{site.city}</span></p>
                 {site.hours && <p className="visit2__hours">{site.hours}</p>}
                 <Pill as="a" href={site.directionsUrl} target="_blank" rel="noreferrer" tone="o" icon={Navigation}>Cómo llegar</Pill>
-                <figure className="visit2__photo" aria-label="Interior del almacén: foto próximamente">
-                  <Camera size={26} aria-hidden="true" />
-                  <figcaption>Foto próximamente<small>El almacén por dentro</small></figcaption>
-                </figure>
               </div>
             </div>
           </Pop>

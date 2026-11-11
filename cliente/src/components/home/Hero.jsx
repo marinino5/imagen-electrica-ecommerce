@@ -21,7 +21,7 @@ const slides = [
     highlight: 'industriales WEG',
     text: 'Del monofásico de taller al trifásico de planta, con la referencia exacta que tu equipo necesita.',
     cta: { to: '/productos?familia=motores-electricos', label: 'Ver motores' },
-    bg: { src: '/img/fotos/hero-motores.webp', alt: 'Nave industrial con motores, reductores y tuberías en una línea de planta', pos: '50% 50%' },
+    bg: { src: '/img/fotos/hero-motores.webp', alt: 'Nave industrial limpia y luminosa con pasillo central y estanterías', pos: '50% 50%' },
     product: { src: '/img/catalogo/weg-w22-iec.webp', alt: 'Motor trifásico WEG W22 IEC de carcasa de hierro', caption: 'WEG W22 IEC', big: true },
   },
   {

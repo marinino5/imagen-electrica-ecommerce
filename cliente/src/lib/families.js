@@ -1,4 +1,4 @@
-import { Activity, Cable, CircuitBoard, Cog, Fan, Gauge, Lightbulb, Package, Plug, Settings2 } from 'lucide-react'
+import { Activity, BatteryCharging, Cable, CircuitBoard, Cog, Fan, Gauge, Lightbulb, Package, Plug, Scroll, Settings2, Wrench } from 'lucide-react'
 
 // Icono grande de cada familia: se usa en el diseño de marca cuando una ficha aún no tiene foto.
 const ICONS = {
@@ -16,6 +16,14 @@ const ICONS = {
 
 export const familyIcon = (slug) => ICONS[slug] ?? Cog
 
+// Icono propio de cada línea de «Otros productos» en el menú y en el acordeón del catálogo (una categoría por producto)
+const CATEGORY_ICONS = {
+  'cintas-de-enmascarar': Scroll,
+  baterias: BatteryCharging,
+  'tapones-y-conexiones': Wrench,
+}
+export const categoryIcon = (slug) => CATEGORY_ICONS[slug] ?? null
+
 // Foto de cada familia (bento del Inicio, mega-menú, miniaturas del catálogo y banner). Siempre es la imagen del
 // producto recortada sin fondo, en el formato único de la tienda (1000 × 1000, producto al 78 %, misma línea base y
 // misma sombra: ver cliente/scripts/normalizar-producto.py). `sm` es la versión de 480 px para miniaturas.
@@ -29,8 +37,9 @@ export const FAMILY_PHOTO = {
   iluminacion: cut('sylvania-start-highbay', 'Campana industrial LED Sylvania START Highbay'),
   compresores: cut('abac-compresor-vertical', 'Compresor de pistón vertical ABAC de 270 litros'),
   'medicion-y-testeo': cut('fluke-multimetro-117', 'Multímetro Fluke 117'),
-  'material-electrico': cut('leviton-wid0002', 'Toma doble blanca Leviton NEMA 5-15R'),
-  // «Otros productos» no lleva foto de producto: su portada es un diseño sobrio (icono sobre lila), ver .fam--sober
+  // Portadas compuestas con varios productos de la familia (scripts/componer-portada.py), en el mismo formato que las demás
+  'material-electrico': cut('portada-material-electrico', 'Toma doble Leviton, interruptor inteligente Ilumax y rollo de cinta aislante 3M'),
+  'otros-productos': cut('portada-otros-productos', 'Batería sellada, tapón de acero inoxidable y cinta de enmascarar'),
 }
 export const familyPhoto = (slug) => FAMILY_PHOTO[slug] ?? null
 

@@ -301,12 +301,12 @@ export default function Products() {
   )
 }
 
-// Tarjeta editorial de ancho completo entre las fichas (foto: técnica con un motor y su tablero, Pexels)
+// Tarjeta editorial de ancho completo entre las fichas (foto: electricista conectando un tablero, Pixabay)
 const EDITORIAL = {
   title: '¿No sabes qué motor necesitas? Un asesor te ayuda',
   text: 'Cuéntanos la carga, la tensión y el tipo de arranque y te recomendamos la referencia exacta.',
-  photo: '/img/fotos/tecnico-motor.webp',
-  alt: 'Técnica conectando un tablero eléctrico con un motor trifásico en primer plano',
+  photo: '/img/fotos/electricista-tablero.webp',
+  alt: 'Electricista conectando un tablero eléctrico',
 }
 // Franja editorial: foto a la izquierda (40 %), texto y botón a la derecha, sobre violeta-950 con un arco naranja fino
 function EditorialStrip({ e }) {

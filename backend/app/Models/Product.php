@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PriceSource;
 use App\Enums\ProductUnit;
 use App\Enums\SaleMode;
 use Database\Factories\ProductFactory;
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[Fillable([
-    'category_id', 'brand_id', 'line_id', 'sku', 'name', 'variant_label', 'price_is_simulated', 'slug', 'short_description',
+    'category_id', 'brand_id', 'line_id', 'sku', 'name', 'variant_label', 'price_is_simulated', 'price_source', 'slug', 'short_description',
     'description', 'image_url', 'specs', 'unit', 'price', 'cost_price', 'tax_rate', 'stock',
     'sale_mode', 'is_active', 'is_featured',
 ])]
@@ -44,6 +45,7 @@ class Product extends Model
             'is_active' => 'boolean',
             'is_featured' => 'boolean',
             'price_is_simulated' => 'boolean',
+            'price_source' => PriceSource::class,
         ];
     }
 

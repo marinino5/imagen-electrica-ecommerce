@@ -8,6 +8,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductLine;
+use App\Services\CatalogPriceService;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -18,7 +19,8 @@ use Illuminate\Support\Str;
  * Los datos salen de database/data/catalogo.json, que se genera con
  * docs/datos/generar_catalogo.py desde el Excel de inventario y el portafolio.
  * Los precios del Excel son de prueba: cada referencia queda con price_is_simulated. Las referencias de la Fase 1B no traen
- * precio (todas se cotizan) y cada una lleva su foto en `image`.
+ * precio en el JSON: reciben un precio de referencia (price_source) al final del seeder, salvo reductores y motorreductores,
+ * que se cotizan. Cada una lleva su foto en `image`.
  *
  * Idempotente: busca por slug (familias, categorías, líneas) y por sku (referencias);
  * lo que ya existe no se modifica, así no se pisan precios ni stock cambiados después.
@@ -30,6 +32,13 @@ class CatalogSeeder extends Seeder
         'W22 IEC · carcasa hierro', 'W21 IEC · carcasa aluminio', 'Variador CFW300',
         'Contactores', 'Guardamotores', 'W01 monofásico cerrado',
     ];
+
+    /**
+     * Líneas ocultas hasta tener su foto oficial (regla de fotos de producto: nunca se publica sin foto de la marca).
+     * Match Drive y los dos productos Siemens no tienen foto oficial disponible; PLC200 tampoco. Al conseguirla, quitar la línea de aquí
+     * y activarla en el panel.
+     */
+    public const HIDDEN_UNTIL_PHOTO = ['Motor monofásico Match Drive', 'Contactor Siemens 3RT2', 'Contacto auxiliar Siemens 3RH2', 'PLC WEG PLC200'];
 
     public function run(): void
     {
@@ -45,6 +54,9 @@ class CatalogSeeder extends Seeder
                 $categories[$row['family'].'|'.$row['category']] ??= $this->category($family, $row['category']);
                 $this->seedLine($row, $categories[$row['family'].'|'.$row['category']], ++$order);
             }
+
+            // Precios de referencia (price_source = referencia) de las referencias nuevas: la empresa los confirma después
+            app(CatalogPriceService::class)->loadReferencePrices();
         });
     }
 
@@ -94,7 +106,7 @@ class CatalogSeeder extends Seeder
         $mainName = $row['brand_label'] ? explode(' · ', $row['brand_label'])[0] : null;
         $mainBrand = $mainName ? Brand::firstOrCreate(['slug' => Str::slug($mainName)], ['name' => $mainName]) : null;
 
-        $line = ProductLine::firstOrCreate(['slug' => Str::slug($row['name'])], [
+        $line = ProductLine::firstOrCreate(['slug' => $row['slug'] ?? Str::slug($row['name'])], [
             'category_id' => $category->id,
             'brand_id' => $mainBrand?->id,
             'brand_label' => $row['brand_label'],
@@ -103,6 +115,7 @@ class CatalogSeeder extends Seeder
             'spec_chips' => $row['specs'],
             'sale_mode' => $mode,
             'is_featured' => in_array($row['name'], self::FEATURED, true),
+            'is_active' => ! in_array($row['name'], self::HIDDEN_UNTIL_PHOTO, true),
             'sort_order' => $order,
         ]);
 
@@ -149,7 +162,7 @@ class CatalogSeeder extends Seeder
             'tax_rate' => 19.00,
             'stock' => $v['stock'],
             'sale_mode' => $direct ? SaleMode::Direct : SaleMode::Quote,
-            'is_active' => true,
+            'is_active' => ! in_array($line->name, self::HIDDEN_UNTIL_PHOTO, true),
         ]);
     }
 }

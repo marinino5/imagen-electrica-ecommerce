@@ -103,7 +103,7 @@
             </div>
             <div class="row">
                 <x-form-group name="price" label="Precio (COP, IVA incluido)" class="col-md-6"
-                    help="Déjalo vacío si el producto solo se vende por cotización.">
+                    help="{{ $product->price_source ? $product->price_source->label().'. Al cambiar el valor se da por confirmado.' : 'Déjalo vacío si el producto solo se vende por cotización.' }}">
                     <input type="number" id="price" name="price" value="{{ old('price', $product->price) }}" min="0" step="0.01"
                         @class(['form-control', 'is-invalid' => $errors->has('price')])>
                 </x-form-group>

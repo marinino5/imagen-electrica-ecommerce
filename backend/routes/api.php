@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Api\V1\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\BrandController;
@@ -65,5 +66,6 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:api')->group(function
     // Administrador
     Route::middleware(['auth:sanctum', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
         Route::apiResource('products', AdminProductController::class);
+        Route::apiResource('categories', AdminCategoryController::class);
     });
 });

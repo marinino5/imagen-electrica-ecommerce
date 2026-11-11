@@ -25,7 +25,7 @@ class ProductService
     public function __construct(private readonly ProductRepository $repository) {}
 
     /**
-     * @param  array{q?: ?string, category_id?: ?int, brand_id?: ?int, sale_mode?: ?string, stock?: ?string, status?: ?string}  $filters
+     * @param  array{q?: ?string, category_id?: ?int, brand_id?: ?int, sale_mode?: ?string, stock?: ?string, status?: ?string, price?: ?string}  $filters
      * @return LengthAwarePaginator<int, Product>
      */
     public function paginate(array $filters, int $perPage = self::PER_PAGE): LengthAwarePaginator
@@ -61,7 +61,14 @@ class ProductService
 
     public function update(Product $product, array $data): Product
     {
-        return $this->repository->update($product, $this->prepare($data));
+        $data = $this->prepare($data);
+
+        // Cambiar el precio a mano lo confirma: deja de ser «de referencia»
+        if ($product->price_source !== null && array_key_exists('price', $data) && (float) $data['price'] !== (float) $product->price) {
+            $data['price_source'] = null;
+        }
+
+        return $this->repository->update($product, $data);
     }
 
     public function delete(Product $product): void

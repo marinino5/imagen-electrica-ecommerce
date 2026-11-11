@@ -4,15 +4,15 @@
 .bgfx { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
 
 /* a · dibujo técnico */
-.bgfx__art { position: absolute; top: 50%; width: min(60vw, 820px); height: auto; color: var(--ie-violet-500); opacity: 0.075; transform: translateY(-50%); }
+.bgfx__art { position: absolute; top: 50%; width: min(60vw, 820px); height: auto; color: var(--ie-violet-500); opacity: 0.05; transform: translateY(-50%); }
 .bgfx__art--r { right: -14%; }
 .bgfx__art--l { left: -14%; }
-@media (max-width: 767px) { .bgfx__art { width: 118vw; opacity: 0.06; } .bgfx__art--r { right: -48%; } .bgfx__art--l { left: -48%; } }
+@media (max-width: 767px) { .bgfx__art { width: 118vw; opacity: 0.045; } .bgfx__art--r { right: -48%; } .bgfx__art--l { left: -48%; } }
 
 /* b · malla de color */
 .bgfx__blob { position: absolute; width: min(52vw, 720px); aspect-ratio: 1; border-radius: 50%; filter: blur(48px); }
 .bgfx__blob--lila { top: -22%; left: -12%; background: radial-gradient(circle, var(--ie-lila-200) 0%, transparent 68%); }
-.bgfx__blob--orange { right: -14%; bottom: -26%; background: radial-gradient(circle, rgb(242 106 0 / 0.1) 0%, transparent 68%); }
+.bgfx__blob--orange { display: none; right: -14%; bottom: -26%; background: radial-gradient(circle, rgb(242 106 0 / 0.1) 0%, transparent 68%); }
 .bgfx__blob--lila.is-flip { top: auto; left: auto; right: -12%; bottom: -22%; }
 .bgfx__blob--orange.is-flip { right: auto; bottom: auto; left: -14%; top: -26%; }
 
@@ -36,10 +36,10 @@
 }
 
 /* e · banda diagonal */
-.bgfx__band { position: absolute; left: -10%; top: 30%; width: 120%; height: 38%; background: var(--ie-lila-100); transform: rotate(-6deg); }
+.bgfx__band { display: none; position: absolute; left: -10%; top: 30%; width: 120%; height: 38%; background: var(--ie-lila-100); transform: rotate(-6deg); }
 
 /* f · esquineros técnicos: corchetes en L de 24 px en dos esquinas de un bloque clave */
 .tc { position: relative; }
-.tc::before, .tc::after { content: ''; position: absolute; width: 24px; height: 24px; border: 0 solid var(--ie-orange-500); pointer-events: none; }
+.tc::before, .tc::after { display: none; content: ''; position: absolute; width: 24px; height: 24px; border: 0 solid var(--ie-orange-500); pointer-events: none; }
 .tc::before { top: -9px; left: -9px; border-top-width: 3px; border-left-width: 3px; }
 .tc::after { right: -9px; bottom: -9px; border-right-width: 3px; border-bottom-width: 3px; }

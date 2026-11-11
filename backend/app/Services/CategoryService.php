@@ -20,9 +20,9 @@ class CategoryService
     public function __construct(private readonly CategoryRepository $repository) {}
 
     /** @return LengthAwarePaginator<int, Category> */
-    public function paginate(?string $search): LengthAwarePaginator
+    public function paginate(?string $search, int $perPage = self::PER_PAGE): LengthAwarePaginator
     {
-        return $this->repository->paginate($search ? trim($search) : null, self::PER_PAGE);
+        return $this->repository->paginate($search ? trim($search) : null, $perPage);
     }
 
     /** @return LengthAwarePaginator<int, Category> */

@@ -34,16 +34,29 @@ class Phase1InventoryTest extends TestCase
         $this->assertSame(CatalogData::BASE_REFERENCES + count(CatalogData::phase1Variants()), Product::whereNotNull('line_id')->count());
     }
 
-    public function test_toda_referencia_nueva_se_cotiza_sin_precio_y_con_su_foto(): void
+    public function test_toda_referencia_nueva_tiene_precio_de_referencia_o_se_cotiza_y_trae_su_foto(): void
     {
         foreach (CatalogData::phase1Variants() as $v) {
             $product = Product::where('sku', $v['sku'])->first();
             $this->assertNotNull($product, "falta {$v['sku']}");
-            $this->assertSame(SaleMode::Quote, $product->sale_mode, $v['sku']);
-            $this->assertNull($product->price, $v['sku']);
             $this->assertFalse($product->price_is_simulated, $v['sku']);
-            $this->assertNotEmpty($product->image_url, $v['sku']);
-            $this->assertFileExists(base_path('../cliente/public'.$product->image_url), $v['sku']);
+
+            if ($product->price_source !== null) {
+                // Precio de referencia: venta directa, por confirmar con la empresa
+                $this->assertSame(SaleMode::Direct, $product->sale_mode, $v['sku']);
+                $this->assertGreaterThan(0, (float) $product->price, $v['sku']);
+            } else {
+                // Industrial o bajo pedido (reductores, motorreductores): solo cotización
+                $this->assertSame(SaleMode::Quote, $product->sale_mode, $v['sku']);
+                $this->assertNull($product->price, $v['sku']);
+            }
+
+            if (in_array($v['sku'], CatalogData::PHOTO_PENDING, true)) {
+                $this->assertNull($product->image_url, $v['sku']); // sin foto correcta hasta fotografiarla
+            } else {
+                $this->assertNotEmpty($product->image_url, $v['sku']);
+                $this->assertFileExists(base_path('../cliente/public'.$product->image_url), $v['sku']);
+            }
             $this->assertDoesNotMatchRegularExpression('/^(PEND|PROV|TEMP|SIN)/i', $v['sku'], 'nada de SKU provisionales');
             $this->assertGreaterThan(0, $product->stock);
         }
@@ -67,7 +80,7 @@ class Phase1InventoryTest extends TestCase
 
     public function test_medicion_incluye_los_instrumentos_de_panel_y_las_lineas_de_wcg_ya_tienen_referencias(): void
     {
-        $this->assertTrue(ProductLine::where('slug', 'medidores-e-instrumentos-de-panel')->exists());
+        $this->assertTrue(ProductLine::where('slug', 'amperimetro-analogo-chint')->exists());
         $this->assertGreaterThan(0, ProductLine::where('slug', 'motorreductor-sinfin-wcg01')->firstOrFail()->variants()->count());
         $this->assertSame(SaleMode::Quote, ProductLine::where('slug', 'motorreductor-sinfin-wcg01')->firstOrFail()->sale_mode);
     }
@@ -115,7 +128,7 @@ class Phase1InventoryTest extends TestCase
         (require database_path('migrations/2026_11_11_100000_add_phase1_inventory.php'))->up();
         (require database_path('migrations/2026_11_11_100000_add_phase1_inventory.php'))->up();
 
-        $this->assertSame(CatalogData::lines(), ProductLine::count());
-        $this->assertSame(CatalogData::references(), Product::whereNotNull('line_id')->count());
+        $this->assertSame(CatalogData::allLines(), ProductLine::count());
+        $this->assertSame(CatalogData::allReferences(), Product::whereNotNull('line_id')->count());
     }
 }

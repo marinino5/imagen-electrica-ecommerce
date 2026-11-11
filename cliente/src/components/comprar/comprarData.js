@@ -32,41 +32,11 @@ export const SHIPPING = [
 ]
 
 // Preguntas por pestaña: respuestas de máximo tres líneas
-export const FAQ_TABS = [
-  {
-    id: 'compra',
-    label: 'Compra',
-    items: [
-      { q: '¿Necesito una cuenta?', a: 'Para comprar en línea sí. Es gratis, de persona natural o empresa, y guarda tus datos.' },
-      { q: '¿Los precios incluyen IVA?', a: 'Sí. Todo está en COP con IVA incluido y el carrito muestra la base y el IVA.' },
-      { q: '¿Cómo sigo mi pedido?', a: 'En Mi cuenta ves cada pedido con su estado: pago pendiente, pagado, enviado o entregado.' },
-      { q: '¿Puedo cancelar mi pedido?', a: 'Sí, mientras esté pendiente de pago. Pídeselo a tu asesor por WhatsApp.' },
-      { q: '¿Qué pasa si mezclo productos?', a: 'Lo que tiene precio va como pedido y lo demás como cotización, cada uno con su número.' },
-      { q: '¿Cómo pago?', a: 'Un asesor confirma el pago contigo. El pago en línea llegará más adelante.' },
-    ],
-  },
-  {
-    id: 'cotizacion',
-    label: 'Cotización',
-    items: [
-      { q: '¿Necesito una cuenta para cotizar?', a: 'No. Dejas nombre, WhatsApp y ciudad y un asesor te responde.' },
-      { q: '¿Cuánto tardan en responder?', a: `Un asesor responde ${site.quoteResponse} por WhatsApp o correo, con precio y entrega.` },
-      { q: '¿Puedo cotizar algo que no está en el catálogo?', a: 'Sí. Descríbelo y adjunta una foto o la placa; el asesor te responde con precio.', link: { to: '/cotizar', label: 'Cotizar lo que necesito' } },
-      { q: '¿Cotizan por volumen o para proyectos?', a: 'Sí. Envía tu lista completa y el asesor te responde con precio por cantidad.' },
-      { q: '¿Qué pasa cuando apruebo?', a: 'El asesor confirma el pago, coordina la entrega y arma tu pedido con esas referencias.' },
-      { q: '¿Puedo cotizar una referencia sin precio?', a: 'Sí. Va a tu cotización y te respondemos con el precio y el tiempo de entrega.' },
-    ],
-  },
-  {
-    id: 'envios',
-    label: 'Envíos',
-    items: [
-      { q: '¿Cuánto cuesta el envío?', a: 'Recoger en la tienda es gratis. El domicilio y el envío nacional los confirma tu asesor.' },
-      { q: '¿Dónde recojo mi pedido?', a: `En ${site.address}, Bucaramanga. Te avisamos cuando esté listo.` },
-      { q: '¿Envían a todo el país?', a: 'Sí, coordinamos el envío a donde esté tu obra o planta.' },
-      { q: '¿Cuánto tarda en llegar?', a: 'Depende de la ciudad y del producto. El asesor te lo confirma antes de que apruebes.' },
-      { q: '¿Puedo cambiar la dirección de entrega?', a: 'Sí, escríbele a tu asesor antes del despacho y la actualiza.' },
-      { q: '¿Qué reviso al recibir?', a: 'Que la caja venga cerrada y las referencias coincidan con tu pedido. Si algo falla, escríbenos.' },
-    ],
-  },
+// Preguntas frecuentes: máximo cinco, con respuestas de máximo tres líneas
+export const FAQ = [
+  { q: '¿Necesito una cuenta?', a: 'Para comprar en línea sí; es gratis y guarda tus datos. Para cotizar no: dejas nombre, WhatsApp y ciudad y un asesor te responde.' },
+  { q: '¿Los precios incluyen IVA?', a: 'Sí. Todo está en COP con IVA incluido y el carrito muestra la base y el IVA.' },
+  { q: '¿Cuánto tardan en responder una cotización?', a: `Un asesor responde ${site.quoteResponse} por WhatsApp o correo, con precio y entrega.` },
+  { q: '¿Cómo pago?', a: 'Un asesor confirma el pago contigo. El pago en línea llegará más adelante.' },
+  { q: '¿Cuánto cuesta el envío?', a: 'Recoger en la tienda es gratis. El domicilio y el envío nacional los confirma tu asesor.' },
 ]

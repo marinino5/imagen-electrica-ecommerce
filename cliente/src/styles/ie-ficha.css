@@ -121,5 +121,4 @@
 
 /* ---------- Dónde se usa y tabla de referencias: fila elegida en naranja suave ---------- */
 .fx .pd-table tr.on td { background: var(--ie-orange-100); }
-.fx .pd-used li img { background: var(--ie-lila-200); }
 @media (prefers-reduced-motion: reduce) { .fx .pd-tabs__bar { transition: none; } }

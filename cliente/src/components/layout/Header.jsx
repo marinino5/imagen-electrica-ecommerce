@@ -5,7 +5,7 @@ import { ChevronDown, Menu, MessageCircle, Phone, Search, User, X } from 'lucide
 import { useAuth } from '../../context/AuthContext'
 import { useCart } from '../../context/CartContext'
 import { useFamilies } from '../../hooks/useFamilies'
-import { familyPhoto } from '../../lib/families'
+import { categoryIcon, familyPhoto } from '../../lib/families'
 import { mainMenu, site } from '../../config/site'
 import '../../styles/header.css'
 
@@ -46,7 +46,11 @@ function Mega({ families, onClose }) {
                 <Link className="mega__name" to={`/productos?familia=${f.slug}`} onClick={onClose}>{f.name}</Link>
                 <ul className="mega__cats">
                   {(f.categories ?? []).map((c) => (
-                    <li key={c.id}><Link to={`/productos?familia=${f.slug}&categoria=${c.slug}`} onClick={onClose}>{c.name}</Link></li>
+                    <li key={c.id}>
+                      <Link to={`/productos?familia=${f.slug}&categoria=${c.slug}`} onClick={onClose}>
+                        {(() => { const CIcon = categoryIcon(c.slug); return CIcon ? <CIcon size={14} strokeWidth={1.7} aria-hidden="true" className="mega__cic" /> : null })()}{c.name}
+                      </Link>
+                    </li>
                   ))}
                 </ul>
               </div>

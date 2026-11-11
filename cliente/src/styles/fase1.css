@@ -39,10 +39,10 @@ body .site-header:not(.is-solid) { background: transparent; box-shadow: none; }
 }
 /* B · lila-100 */
 .bgt.bgt-b { background: var(--ie-lila-100); }
-/* C · degradado diagonal violeta-700 → violeta-500, con tarjetas blancas encima */
-.bgt.bgt-c { background: linear-gradient(135deg, var(--ie-violet-700) 0%, var(--ie-violet-500) 100%); color: #fff; }
-/* D · naranja cálido con arco naranja */
-.bgt.bgt-d { background: linear-gradient(180deg, var(--ie-orange-50) 0%, var(--ie-orange-100) 100%); }
+/* C · violeta de marca (#513e84 → #463671, el mismo degradado de DESIGN.md), con tarjetas blancas encima */
+.bgt.bgt-c { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: #fff; }
+/* D · lila suave (ya no hay fondos naranja ni durazno) con el arco fino de marca */
+.bgt.bgt-d { background: linear-gradient(180deg, var(--ie-lila-50) 0%, var(--ie-lila-100) 100%); }
 .bgt.bgt-d::after {
   content: '';
   position: absolute;
@@ -57,8 +57,8 @@ body .site-header:not(.is-solid) { background: transparent; box-shadow: none; }
   pointer-events: none;
 }
 .bgt.bgt-d.bgt--arc-l::after { right: auto; left: calc(min(56vw, 780px) * -0.46); }
-/* E · violeta-950 (uno por página, nunca junto al pie) */
-.bgt.bgt-e { background: var(--ie-violet-950); color: #fff; }
+/* E · violeta de marca (uno por página, nunca junto al pie) */
+.bgt.bgt-e { background: var(--primary); color: #fff; }
 
 /* Texto sobre C y E: blanco / naranja claro (el contraste lo pide) */
 .bgt-c .rd-h2, .bgt-e .rd-h2, .bgt-c .rd-lead, .bgt-e .rd-lead, .bgt-c .rd-label, .bgt-e .rd-label { color: #fff; }
@@ -66,18 +66,24 @@ body .site-header:not(.is-solid) { background: transparent; box-shadow: none; }
 .bgt-c .hl::after, .bgt-e .hl::after { background: var(--accent-light); }
 .bgt-c .rd-lead, .bgt-e .rd-lead { color: rgb(255 255 255 / 0.86); }
 
-/* ---------- Cuadros de color ---------- */
+/* ---------- Decoración: solo círculos, semicírculos y arcos de línea fina (ya no hay «cuadros de color») ---------- */
 .sqs { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
 .sq {
   position: absolute;
-  border-radius: 28px;
+  height: auto !important;
+  aspect-ratio: 1;
+  border: 1.5px solid var(--ie-lila-200);
+  border-radius: 50%;
+  background: transparent;
   transform: translate3d(0, calc(var(--sq-c, 0) * var(--rate, 0.1) * 1px), 0);
   will-change: transform;
 }
-.sq--lila { background: var(--ie-lila-200); }
-.sq--orange { background: var(--ie-orange-100); }
-.sq--violet { background: rgb(110 91 176 / 0.15); }
-.bgt-c .sq--lila { background: rgb(255 255 255 / 0.1); }
+/* el segundo elemento de cada sección es un semicírculo */
+.sq:nth-child(2) { clip-path: inset(0 0 50% 0); }
+.sq--lila { border-color: #d6ccea; }
+.sq--orange { border-color: rgb(242 106 0 / 0.55); }
+.sq--violet { border-color: rgb(81 62 132 / 0.3); }
+.bgt-c .sq--lila, .bgt-c .sq--violet, .bgt-e .sq--lila, .bgt-e .sq--violet { border-color: rgb(255 255 255 / 0.28); }
 @media (max-width: 767px) { .sq { transform: scale(0.7) translate3d(0, calc(var(--sq-c, 0) * var(--rate, 0.1) * 1px), 0); } }
 @media (prefers-reduced-motion: reduce) { .sq { transform: none; will-change: auto; } }
 
@@ -130,7 +136,6 @@ body .site-header:not(.is-solid) { background: transparent; box-shadow: none; }
 }
 @media (prefers-reduced-motion: reduce) { .cb-recv .cb-card__img, .cb-recv .cb-card__veil { transition: none; } }
 /* Envíos sobre fondo cálido: la tarjeta del mapa sigue blanca */
-.cb-ship.bgt-d .cb-map { border-color: var(--ie-orange-100); }
 
 /* ---------- Contacto ---------- */
 /* El hero oscuro pasa por debajo de la barra transparente */
@@ -139,7 +144,7 @@ body .site-header:not(.is-solid) { background: transparent; box-shadow: none; }
 /* La foto del asesor ocupa la derecha y se funde con el violeta a la izquierda, donde va el texto */
 @media (min-width: 768px) {
   .ct-hero__bg { left: auto; right: 0; width: 64%; object-position: 50% 30%; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 34%); mask-image: linear-gradient(90deg, transparent 0, #000 34%); }
-  .ct-hero__veil { background: linear-gradient(90deg, var(--ie-violet-950) 0%, rgb(30 22 49 / 0.55) 34%, rgb(30 22 49 / 0) 60%); }
+  .ct-hero__veil { background: linear-gradient(90deg, var(--primary) 0%, rgb(81 62 132 / 0.55) 34%, rgb(81 62 132 / 0) 60%); }
 }
 @media (max-width: 767px) { .ct-hero__bg { object-position: 50% 22%; } }
 
@@ -151,3 +156,6 @@ body .site-header:not(.is-solid) { background: transparent; box-shadow: none; }
 .fam--sober .fam__media { background: var(--ie-lila-100); }
 .fam--sober .fam__art { border-color: var(--ie-violet-500) transparent transparent var(--ie-violet-500); color: var(--muted); }
 .fam--sober .fam__num { color: var(--muted); }
+
+/* Icono propio de cada categoría de «Otros productos» en el acordeón y el mega-menú */
+.fam-tree__cic, .mega__cic { display: inline-block; vertical-align: -2px; margin-right: 6px; color: var(--primary); flex: none; }

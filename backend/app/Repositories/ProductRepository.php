@@ -59,6 +59,7 @@ class ProductRepository
                 'out' => $query->where('stock', '<=', 0),
                 default => $query,
             })
+            ->when(($filters['price'] ?? null) === 'reference', fn (Builder $query) => $query->whereNotNull('price_source'))
             ->when($filters['status'] ?? null, fn (Builder $query, string $status) => match ($status) {
                 'active' => $query->where('is_active', true),
                 'inactive' => $query->where('is_active', false),
