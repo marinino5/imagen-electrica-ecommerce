@@ -65,6 +65,9 @@ return [
                 Mysql::ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA')
                     ? (str_starts_with(env('MYSQL_ATTR_SSL_CA'), '/') ? env('MYSQL_ATTR_SSL_CA') : base_path(env('MYSQL_ATTR_SSL_CA')))
                     : null,
+                // Una consulta o un cambio de tabla que espera un bloqueo falla a los 60 s en vez de esperar casi un año (el valor por
+                // defecto de MySQL en lock_wait_timeout): así un proceso colgado no deja un despliegue "Running migrations." para siempre.
+                Mysql::ATTR_INIT_COMMAND => sprintf('SET SESSION lock_wait_timeout=%1$d, innodb_lock_wait_timeout=%1$d', (int) env('DB_LOCK_WAIT_TIMEOUT', 60)),
             ]) : [],
         ],
 

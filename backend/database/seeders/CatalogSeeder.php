@@ -40,9 +40,31 @@ class CatalogSeeder extends Seeder
      */
     public const HIDDEN_UNTIL_PHOTO = ['Motor monofásico Match Drive', 'Contactor Siemens 3RT2', 'Contacto auxiliar Siemens 3RH2', 'PLC WEG PLC200'];
 
+    /**
+     * Lo que ya existe, leído una sola vez. Contra una base remota cada consulta cuesta ~100 ms: preguntar por cada marca, categoría,
+     * línea y SKU eran más de 2.000 consultas (minutos) en un despliegue; así son seis.
+     *
+     * @var array<string, Category>
+     */
+    private array $categoryBySlug = [];
+
+    /** @var array<string, int> id de cada marca por slug */
+    private array $brandBySlug = [];
+
+    /** @var array<string, ProductLine> */
+    private array $lineBySlug = [];
+
+    /** @var array<string, true> SKU de todos los productos (también los eliminados: no se vuelven a crear) */
+    private array $knownSkus = [];
+
     public function run(): void
     {
         $data = json_decode((string) file_get_contents(database_path('data/catalogo.json')), true, 512, JSON_THROW_ON_ERROR);
+
+        $this->categoryBySlug = Category::all()->keyBy('slug')->all();
+        $this->brandBySlug = Brand::pluck('id', 'slug')->all();
+        $this->lineBySlug = ProductLine::all()->keyBy('slug')->all();
+        $this->knownSkus = array_fill_keys(Product::withTrashed()->pluck('sku')->map(fn ($sku) => (string) $sku)->all(), true);
 
         DB::transaction(function () use ($data) {
             $families = $this->seedFamilies($data['families']);
@@ -66,9 +88,8 @@ class CatalogSeeder extends Seeder
         $result = [];
 
         foreach ($families as $i => $family) {
-            $result[$family['name']] = $category = Category::firstOrCreate(
-                ['slug' => Str::slug($family['name'])],
-                ['name' => $family['name'], 'description' => $family['description'], 'sort_order' => 100 + $i, 'is_active' => true],
+            $result[$family['name']] = $category = $this->categoryBySlug[Str::slug($family['name'])] ??= Category::create(
+                ['slug' => Str::slug($family['name']), 'name' => $family['name'], 'description' => $family['description'], 'sort_order' => 100 + $i, 'is_active' => true],
             );
 
             // Una familia que ya existía como categoría raíz antigua toma el nombre (con mayúsculas) y el orden del portafolio
@@ -88,9 +109,8 @@ class CatalogSeeder extends Seeder
     /** La categoría puede existir de antes bajo otra familia: se mueve a la nueva. */
     private function category(Category $family, string $name): Category
     {
-        $category = Category::firstOrCreate(
-            ['slug' => Str::slug($name)],
-            ['parent_id' => $family->id, 'name' => $name, 'sort_order' => 100, 'is_active' => true],
+        $category = $this->categoryBySlug[Str::slug($name)] ??= Category::create(
+            ['slug' => Str::slug($name), 'parent_id' => $family->id, 'name' => $name, 'sort_order' => 100, 'is_active' => true],
         );
 
         if ($category->parent_id !== $family->id) {
@@ -98,6 +118,14 @@ class CatalogSeeder extends Seeder
         }
 
         return $category;
+    }
+
+    /** Id de la marca por nombre; la crea si falta. */
+    private function brandId(string $name): int
+    {
+        $slug = Str::slug($name);
+
+        return $this->brandBySlug[$slug] ??= Brand::create(['slug' => $slug, 'name' => $name])->id;
     }
 
     private function seedLine(array $row, Category $category, int $order): void
@@ -109,11 +137,13 @@ class CatalogSeeder extends Seeder
             default => SaleMode::Quote,
         };
         $mainName = $row['brand_label'] ? explode(' · ', $row['brand_label'])[0] : null;
-        $mainBrand = $mainName ? Brand::firstOrCreate(['slug' => Str::slug($mainName)], ['name' => $mainName]) : null;
+        $mainBrandId = $mainName ? $this->brandId($mainName) : null;
 
-        $line = ProductLine::firstOrCreate(['slug' => $row['slug'] ?? Str::slug($row['name'])], [
+        $lineSlug = $row['slug'] ?? Str::slug($row['name']);
+        $line = $this->lineBySlug[$lineSlug] ??= ProductLine::create([
+            'slug' => $lineSlug,
             'category_id' => $category->id,
-            'brand_id' => $mainBrand?->id,
+            'brand_id' => $mainBrandId,
             'brand_label' => $row['brand_label'],
             'name' => $row['name'],
             'image_key' => $row['image'],
@@ -137,11 +167,17 @@ class CatalogSeeder extends Seeder
 
     private function seedVariant(ProductLine $line, Category $category, array $v): void
     {
-        $brand = Brand::firstOrCreate(['slug' => Str::slug($v['brand'])], ['name' => $v['brand']]);
+        // Una referencia que ya existe (o que se eliminó a propósito) no se vuelve a crear
+        if (isset($this->knownSkus[(string) $v['sku']])) {
+            return;
+        }
+        $this->knownSkus[(string) $v['sku']] = true;
+
+        $brand = (object) ['id' => $this->brandId($v['brand'])];
         $direct = $v['mode'] === 'direct';
 
-        // withTrashed: una referencia eliminada a propósito no se vuelve a crear
-        Product::withTrashed()->firstOrCreate(['sku' => $v['sku']], [
+        Product::create([
+            'sku' => $v['sku'],
             'category_id' => $category->id,
             'brand_id' => $brand->id,
             'line_id' => $line->id,

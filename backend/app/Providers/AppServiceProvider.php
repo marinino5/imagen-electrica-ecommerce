@@ -4,8 +4,11 @@ namespace App\Providers;
 
 use App\View\Composers\AdminLayoutComposer;
 use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Database\Events\MigrationEnded;
+use Illuminate\Database\Events\MigrationStarted;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -29,9 +32,31 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
 
         $this->configureApiRateLimits();
+        $this->logMigrations();
 
         // Saludo, fecha y campana de la barra superior del panel
         View::composer('layouts.admin', AdminLayoutComposer::class);
+    }
+
+    /**
+     * Una línea con hora al empezar y otra al terminar cada migración. Laravel imprime el nombre solo cuando la migración termina,
+     * y el registro de Render muestra líneas completas: sin esto una migración lenta o colgada solo se ve como "Running migrations.".
+     */
+    private function logMigrations(): void
+    {
+        if (! $this->app->runningInConsole() || $this->app->environment('testing')) {
+            return;
+        }
+
+        $started = [];
+        Event::listen(MigrationStarted::class, function (MigrationStarted $event) use (&$started) {
+            $started[$event->name] = microtime(true);
+            fwrite(STDOUT, '['.now()->utc()->format('H:i:s')."] migrando: {$event->name}".PHP_EOL);
+        });
+        Event::listen(MigrationEnded::class, function (MigrationEnded $event) use (&$started) {
+            $seconds = round(microtime(true) - ($started[$event->name] ?? microtime(true)), 1);
+            fwrite(STDOUT, '['.now()->utc()->format('H:i:s')."] migrada: {$event->name} ({$seconds} s)".PHP_EOL);
+        });
     }
 
     /**

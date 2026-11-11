@@ -5,11 +5,13 @@ El backend se despliega como una imagen Docker (`backend/Dockerfile`) en Render,
 ## Cómo funciona
 
 - **Dockerfile** (dos etapas): una con Node compila los assets con `npm run build`; la final usa PHP 8.4 con `pdo_mysql`, `mbstring`, `bcmath`, `zip` y `opcache`, e instala Composer con `--no-dev --optimize-autoloader`.
-- **`backend/docker/entrypoint.sh`** corre al iniciar el contenedor:
-  1. `php artisan migrate --force`
-  2. `php artisan db:seed --force`, solo si `SEED_ON_DEPLOY=true`
-  3. `config:cache`, `route:cache` y `view:cache`
-  4. Inicia el servidor en el puerto de `PORT` (10000 por defecto)
+- **`backend/docker/entrypoint.sh`** corre al iniciar el contenedor, en este orden pensado para que **el puerto abra siempre**:
+  1. `config:cache`, `route:cache` y `view:cache` (no usan la base de datos)
+  2. Inicia el servidor en segundo plano en el puerto de `PORT` (10000 por defecto): Render ve el puerto y da el despliegue por vivo
+  3. `php artisan migrate --force -v` con tiempo máximo (`MIGRATION_TIMEOUT`, 600 s). Cada migración deja en el log una línea `[hh:mm:ss UTC] migrando: …` y otra `migrada: … (n s)`; si una falla o se corta, el servidor sigue arriba y el log dice cuál fue
+  4. `db:seed` solo si `SEED_ON_DEPLOY=true`, y `ProductionCatalogSeeder` (solo actúa si no hay líneas)
+- **Bloqueos**: la conexión MySQL fija `lock_wait_timeout` e `innodb_lock_wait_timeout` en 60 s (`DB_LOCK_WAIT_TIMEOUT`). Sin eso, un cambio de tabla que espera un bloqueo de otra sesión puede quedarse horas en «Running migrations.».
+- **Pre-Deploy Command (opcional)**: si el plan de Render lo permite, pon `php artisan migrate --force` en *Pre-Deploy Command* y agrega la variable `RUN_MIGRATIONS_ON_START=false`: así las migraciones corren **antes** de cambiar de versión y, si fallan, Render no reemplaza la versión que funciona.
 - **SSL a Aiven**: `config/database.php` usa el certificado `backend/docker/aiven-ca.pem` cuando `MYSQL_ATTR_SSL_CA` está definida. Es el certificado público de la CA de Aiven, no es un secreto.
 - **HTTPS**: Render recibe el HTTPS y llama a la app por HTTP. `bootstrap/app.php` confía en el proxy (`trustProxies`) para que `route()`, `url()` y los assets salgan con `https://`.
 
@@ -158,3 +160,39 @@ Después de desplegar: `bash docs/verificar-api.sh` (comprueba `families`, `line
 La migración de datos `2026_11_09_100000_assign_cutout_product_images` apunta las líneas y **cada una de sus referencias** a las imágenes recortadas de `cliente/public/img/catalogo/`. Reemplaza solo las rutas antiguas del proyecto (`/img/productos/…`, `/img/familias/…`) y llena vacíos; una URL cambiada a mano no se pisa. Se probó contra MySQL 8 estricto (instalación nueva, actualización con rutas antiguas, URL propia respetada y segunda corrida idempotente).
 
 **Orden de despliegue:** las rutas antiguas desaparecen del sitio estático, así que conviene desplegar la tienda (Cloudflare Pages) y el backend (Render, que corre la migración) casi a la vez; entre una y otra algunas miniaturas pueden tardar en verse. Después: `bash docs/verificar-api.sh`.
+
+
+## Si el despliegue se queda en «Running migrations.» (o «No open ports detected»)
+
+Desde esta versión el puerto abre antes de migrar, así que «No open ports detected» ya no debería aparecer. Si las migraciones tardan o fallan:
+
+1. En el log de Render busca la **última línea `migrando:`** sin su `migrada:`: esa es la que se colgó.
+2. En Aiven (consola SQL o `mysql` con SSL) mira qué hay corriendo y bloqueando:
+
+```sql
+SHOW FULL PROCESSLIST;                                   -- sesiones; fíjate en Time grande, State «Waiting for table metadata lock» o Command «Sleep» con transacción abierta
+SELECT trx_id, trx_mysql_thread_id, trx_started, trx_state, LEFT(trx_query, 80) AS consulta
+FROM information_schema.innodb_trx;                      -- transacciones abiertas (una migración a medias que sigue viva aparece aquí)
+SELECT * FROM sys.schema_table_lock_waits LIMIT 10;      -- quién espera a quién (si el usuario tiene acceso a sys)
+SELECT id, migration, batch FROM migrations ORDER BY id DESC LIMIT 8;   -- hasta dónde llegó Laravel
+```
+
+3. Para liberar una sesión colgada (solo de los procesos del propio despliegue; **no** borra datos, MySQL deshace la transacción abierta):
+
+```sql
+KILL <Id de SHOW PROCESSLIST>;
+```
+
+4. Estado de cada migración reciente. Una migración queda **registrada** (fila en `migrations`) solo cuando termina; si se cortó, no está registrada y se vuelve a correr completa. Todas son idempotentes:
+
+| Migración | Cómo saber si quedó aplicada | Si se cortó |
+|---|---|---|
+| `2026_11_12_100000_add_price_source_and_reference_prices` | `SHOW COLUMNS FROM products LIKE 'price_source'` | Se repite sin riesgo: no pisa precios reales ni de referencia ya cargados |
+| `2026_11_12_120000_restructure_catalog_lines` | Fila en `migrations`; la tienda muestra 114 líneas y «Herramientas y Repuestos» | Puede dejar líneas nuevas ya creadas (131 en total mientras tanto); al repetirse deja 114 y borra las sobrantes |
+| `2026_11_13_100000_create_datasheet_downloads_table` | `SHOW TABLES LIKE 'datasheet_downloads'` | Si la tabla existe se omite |
+| `2026_11_14_100000_add_consent_version_and_unsubscribe_to_newsletter_subscriptions_table` | `SHOW COLUMNS FROM newsletter_subscriptions LIKE 'unsubscribed_at'` | Agrega solo la columna que falte |
+| `2026_11_14_110000_migrate_legacy_categories` | Fila en `migrations` | Se repite sin riesgo |
+
+5. Con la sesión liberada, **Manual Deploy → Deploy latest commit**. Se retoman solas las migraciones que falten.
+
+**Por qué se colgaba:** `2026_11_12_120000` hacía unas 3.400 consultas una por una; contra Aiven (con ~100 ms de red por consulta) son varios minutos, y además corrían antes de abrir el puerto. Ahora hace unas 220 (lecturas en bloque y `UPDATE … CASE` por lotes) y el puerto abre primero.
