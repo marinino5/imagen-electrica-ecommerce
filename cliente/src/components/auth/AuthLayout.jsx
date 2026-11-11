@@ -6,14 +6,6 @@ import '../../styles/auth2.css'
 import '../../styles/ie-pages.css'
 import '../../styles/ie-auth.css'
 
-// Productos que asoman detrás de la tarjeta (solo escritorio): el motor a la izquierda, el variador a la derecha y el
-// multímetro abajo, inclinados entre −6° y 6°. Son fotos recortadas del catálogo; la tarjeta los tapa en parte.
-const PEEK = [
-  { id: 'motor', src: 'weg-w22-iec', alt: '' },
-  { id: 'variador', src: 'weg-cfw500', alt: '' },
-  { id: 'multimetro', src: 'fluke-multimetro-117', alt: '' },
-]
-
 // La «e» del logo (anillo abierto, barra y rayo) en contorno: se dibuja con trazos finos, sin relleno
 function BigE() {
   return (
@@ -27,9 +19,9 @@ function BigE() {
   )
 }
 
-// «Panel en dos bandas» de Ingresar, Crear cuenta y Recuperar: arriba violeta-950 con la «e» del logo enorme en contorno al 6 %
-// y un arco naranja; abajo lila-100. La tarjeta de 520 px queda a caballo entre las dos, con sombra profunda, y tres productos
-// recortados asoman por detrás. En celular: banda oscura de 160 px y la tarjeta debajo, sin productos.
+// «Panel en dos bandas» de Ingresar, Crear cuenta y Recuperar: arriba violeta de marca con la «e» del logo enorme en contorno al 6 %
+// y un arco naranja fino; abajo lila suave con grabado industrial. La tarjeta de 520 px (radio 28 px) queda a caballo entre las dos con
+// sombra suave y nada asomando detrás. En celular: banda de 160 px y la tarjeta debajo.
 // Entrada: la tarjeta sube 16 px con fundido. `title` es el h1 y `children` el formulario.
 export default function AuthLayout({ title, children }) {
   return (
@@ -41,9 +33,6 @@ export default function AuthLayout({ title, children }) {
       <div className="ax2__stage">
         <p className="ax2__kicker">Tu cuenta Imagen Eléctrica</p>
         <div className="ax2__wrap">
-          {PEEK.map((p) => (
-            <img key={p.id} className={`ax2__peek ax2__peek--${p.id}`} src={`/img/catalogo/${p.src}-sm.webp`} alt={p.alt} width="480" height="480" aria-hidden="true" loading="lazy" />
-          ))}
           <div className="ax__card">
             <Link to="/" className="ax__logo" aria-label="Imagen Eléctrica, ir al inicio">
               <img src="/img/logo-ajustado.png" alt="" width="40" height="48" />

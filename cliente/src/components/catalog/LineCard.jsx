@@ -42,10 +42,14 @@ export default function LineCard({ line, className = '' }) {
       <span className={`pc__tag ${tagClass}`}>{modeTag(line)}</span>
 
       <div className="pc__body">
-        <p className="pc__brand">
-          {brands.length > 0 && <span className="pc__logos">{brands.slice(0, 4).map((b) => <BrandMark key={b} name={b} />)}</span>}
-          <span>{line.category?.name}</span>
-        </p>
+        {/* Fila 1: logos (máximo 2; si hay más, «+N»). Fila 2: la categoría en texto pequeño. Nunca superpuestos. */}
+        <div className="pc__brand">
+          <span className="pc__logos">
+            {brands.slice(0, 2).map((b) => <BrandMark key={b} name={b} />)}
+            {brands.length > 2 && <span className="pc__logos-more" aria-label={`${brands.length - 2} marcas más`}>+{brands.length - 2}</span>}
+          </span>
+          <span className="pc__cat">{line.category?.name}</span>
+        </div>
         <h3 className="pc__name">
           <Link to={`/productos/${line.slug}`}>{line.name}</Link>
         </h3>

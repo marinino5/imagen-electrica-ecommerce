@@ -68,23 +68,26 @@ export default function ColombiaMap({ className = '', routes = false }) {
   const dots = useMemo(() => DOTS, [])
   return (
     <svg className={`colombia-map ${className}`} viewBox={`0 0 ${WIDTH} ${HEIGHT}`} role="img" aria-label="Mapa de Colombia con Bucaramanga marcada" preserveAspectRatio="xMidYMid meet">
+      {/* Contorno del país definido y relleno suave en violeta de marca; los puntos van en violeta al 30 % para que el país se lea */}
+      <path className="colombia-map__shape" d={`M${OUTLINE.map(([lon, lat]) => project(lon, lat).map((v) => v.toFixed(1)).join(' ')).join('L')}Z`} />
       {dots.map(([x, y], i) => (
-        <circle key={i} cx={x.toFixed(1)} cy={y.toFixed(1)} r="1.35" fill="var(--lavender-2)" opacity="0.7" />
+        <circle key={i} cx={x.toFixed(1)} cy={y.toFixed(1)} r="1.8" fill="var(--primary)" opacity="0.3" />
       ))}
       {routes && CITIES.map(([name, lon, lat], i) => {
         const [x, y] = project(lon, lat)
         return (
           <g key={name} className="colombia-map__route" style={{ '--i': i }}>
             <path d={route([lon, lat])} pathLength="1" />
-            <circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="3" />
-            <text x={(x + 6).toFixed(1)} y={(y + 3).toFixed(1)}>{name}</text>
+            <circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="4" />
+            <text x={(x + 7).toFixed(1)} y={(y + 4).toFixed(1)}>{name}</text>
           </g>
         )
       })}
       <g transform={`translate(${BGA_X.toFixed(1)} ${BGA_Y.toFixed(1)})`}>
         <circle className="colombia-map__pulse" r="7" fill="var(--accent)" />
         <circle className="colombia-map__pulse colombia-map__pulse--b" r="7" fill="var(--accent)" />
-        <circle r="4.2" fill="var(--accent)" stroke="var(--white)" strokeWidth="1.5" />
+        <circle r="5.6" fill="var(--accent)" stroke="var(--white)" strokeWidth="2" />
+        <text className="colombia-map__bga" x="10" y="-8">Bucaramanga</text>
       </g>
     </svg>
   )
