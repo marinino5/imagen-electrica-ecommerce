@@ -6,15 +6,15 @@ Documenta lo que **ya está construido** en `cliente/src/styles/` (no es una pro
 
 | Token | Valor | Uso |
 |---|---|---|
-| `--primary` | `#500078` | Encabezados de acento, enlaces, estados activos, botón «Solicitar cotización» (contorno/sólido) |
-| `--primary-dark` | `#3d005c` | Hover del violeta |
-| `--ink` | `#230a36` | Texto, títulos y secciones oscuras; es el texto de todo botón naranja |
+| `--primary` | `#4A3580` | Encabezados de acento, enlaces, estados activos, botón «Solicitar cotización» (contorno/sólido) |
+| `--primary-dark` | `#3A2A68` | Hover del violeta |
+| `--ink` | `#1C1630` | Texto, títulos y secciones oscuras; es el texto de todo botón naranja |
 | `--night` | `#170f29` | Violeta casi negro: capas sobre fotos, pie, fondo oscuro del reverso de las tarjetas de sector |
 | `--accent` | `#f26a00` | Llamado principal («Agregar al carrito», etiquetas «-X %»); siempre con texto `--ink`, nunca blanco |
 | `--accent-title` / `--accent-text` | `#dc5a00` / `#b84800` | Naranja para títulos grandes y para texto pequeño sobre claro (contraste AA) |
 | `--accent-light` | `#ffb27a` | Naranja claro sobre fondos oscuros |
-| `--lavender` / `--lavender-2` / `--lav-3` | `#f8f3fb` / `#ebe1f2` / `#dccbe8` | Fondos suaves, bordes, chips, contornos |
-| `--lav-soft` | `#f6f0fa` | **Lavanda muy suave** de las secciones alternas y del fondo de las imágenes de producto |
+| `--lavender` / `--lavender-2` / `--lav-3` | `#f6f4fb` / `#e6e2f3` / `#d6d0ea` | Fondos suaves, bordes, chips, contornos |
+| `--lav-soft` | `#f3f1fa` | **Lavanda muy suave** de las secciones alternas y del fondo de las imágenes de producto |
 | `--muted` | `#5d5672` | Texto secundario (AA sobre blanco y lavanda) |
 | `--success` / `--success-tint` | `#1e7a3a` / `#e3f4e8` | «En bodega» |
 
@@ -58,16 +58,16 @@ Curva única `--ease-out: cubic-bezier(.22, 1, .36, 1)`. Interfaz entre 160 y 30
 
 ### Tokens y roles
 
-Comprobados contra el logo (píxeles del PNG: naranja ≈ `#F86800` tras cuantizar, violeta ≈ `#500078`) y contra `CLAUDE.md`. Donde el valor pedido no coincidía con el de marca, manda la marca.
+Comprobados contra el logo (píxeles del PNG: naranja ≈ `#F86800` tras cuantizar, violeta ≈ `#4A3580`) y contra `CLAUDE.md`. Donde el valor pedido no coincidía con el de marca, manda la marca.
 
 | Token | Valor | Rol | Nota |
 |---|---|---|---|
-| `--ie-violet-950` | `#230a36` | Footer y texto de máximo contraste | = `--ink`; coincide con el ≈`#1C1630` pedido |
-| `--ie-violet-700` | `#500078` | Bloques extendidos y titulares oscuros | = `--primary` de marca; el ≈`#4B3A82` pedido no coincide, se usa el de marca |
-| `--ie-violet-500` | `#500078` | Iconos, bordes activos, enlaces | nuevo |
-| `--ie-lila-200` | `#ebe1f2` | Pedestales, bordes de tarjeta, filas alternas | = `--lavender-2` |
-| `--ie-lila-100` | `#f6f0fa` | Fondos de sección | = `--lav-soft` |
-| `--ie-lila-50` | `#fbf8fd` | Fondos de tarjeta suaves y de campos | nuevo |
+| `--ie-violet-950` | `#1C1630` | Footer y texto de máximo contraste | = `--ink`; coincide con el ≈`#1C1630` pedido |
+| `--ie-violet-700` | `#4A3580` | Bloques extendidos y titulares oscuros | = `--primary` (violeta neutro, afín al pie `#1C1630`) |
+| `--ie-violet-500` | `#4A3580` | Iconos, bordes activos, enlaces | nuevo |
+| `--ie-lila-200` | `#e6e2f3` | Pedestales, bordes de tarjeta, filas alternas | = `--lavender-2` |
+| `--ie-lila-100` | `#f3f1fa` | Fondos de sección | = `--lav-soft` |
+| `--ie-lila-50` | `#faf9fd` | Fondos de tarjeta suaves y de campos | nuevo |
 | `--ie-orange-500` | `#f26a00` | CTAs, arcos, etiquetas, subrayados | naranja del logo |
 | `--ie-orange-100` | `#ffe6d3` | Etiquetas de descuento y filas seleccionadas | = `--orange-tint` |
 

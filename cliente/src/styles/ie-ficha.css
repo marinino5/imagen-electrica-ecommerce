@@ -34,7 +34,7 @@
   border-radius: 50%;
   background: var(--ie-lila-200);
   border-top: 1px solid rgb(255 255 255 / 0.6);
-  box-shadow: 0 12px 16px -6px rgb(35 10 54 / 0.3);
+  box-shadow: 0 12px 16px -6px rgb(28 22 48 / 0.3);
   transform: translateX(-50%);
 }
 .fx .gal__main .lv-art { z-index: 2; }
@@ -50,7 +50,7 @@
   gap: 14px;
   border-radius: 24px;
   background: #fff;
-  box-shadow: 0 16px 40px rgb(80 0 120 / 0.1);
+  box-shadow: 0 16px 40px rgb(74 53 128 / 0.1);
 }
 .fx .pd__name { font-size: clamp(2.25rem, 1.6rem + 1.8vw, 3rem); font-weight: 700; line-height: 0.95; letter-spacing: -0.3px; color: var(--ie-violet-950); }
 .fx .pd__desc { margin: 0; max-width: 52ch; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
