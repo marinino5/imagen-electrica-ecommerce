@@ -1,5 +1,4 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
-import { createPortal } from 'react-dom'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { Activity, ArrowLeft, ArrowRight, BadgeCheck, Download, FileText, Gauge, Headset, Layers, MessageCircle, Minus, Plug, Plus, Search, ShieldCheck, ShoppingCart, Truck, Zap } from 'lucide-react'
 import { catalogApi } from '../api'
@@ -78,6 +77,7 @@ export default function ProductDetail() {
   const { add } = useCart()
   const [qty, setQty] = useState(1)
   const [refTerm, setRefTerm] = useState('')
+  const [sheetState, setSheetState] = useState({ busy: false, error: '' })
   const tabs = useTabs()
   const line = data?.data
   const related = data?.related ?? []
@@ -158,14 +158,24 @@ export default function ProductDetail() {
   const shownRefs = needle ? variants.filter((v) => `${v.label} ${v.sku} ${v.name}`.toLowerCase().includes(needle)) : variants
   const addRow = (v) => (e) => add(cartItem(line, v), 1, { rect: e.currentTarget.getBoundingClientRect(), image })
   const quoteRow = (v) => (e) => add(cartItem(line, v), 1, { rect: e.currentTarget.getBoundingClientRect(), image }, { asQuote: true })
-  // La ficha se imprime desde un nodo propio colgado de <body> (fuera de #root): el CSS de impresión oculta #root y deja solo la ficha.
-  // El título del documento pasa a ser el nombre del archivo que propone el navegador al «Guardar como PDF».
-  const printSheet = () => {
-    const previous = document.title
-    document.title = `Ficha técnica ${line.name}${current ? ` ${current.sku}` : ''} · ${site.name}`
-    const restore = () => { document.title = previous; window.removeEventListener('afterprint', restore) }
-    window.addEventListener('afterprint', restore)
-    window.print()
+  // «Descargar ficha y cotización»: el backend genera el PDF (con la cantidad elegida y el mismo precio de la tienda) y lo registra
+  const downloadSheet = async () => {
+    if (!current || sheetState.busy) return
+    setSheetState({ busy: true, error: '' })
+    try {
+      const { blob, filename } = await catalogApi.datasheet(current.sku, qty)
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = filename
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+      setTimeout(() => URL.revokeObjectURL(url), 4000)
+      setSheetState({ busy: false, error: '' })
+    } catch (e) {
+      setSheetState({ busy: false, error: e?.message ?? 'No pudimos generar la ficha. Inténtalo de nuevo.' })
+    }
   }
 
   return (
@@ -356,10 +366,11 @@ export default function ProductDetail() {
                   {sheetRows.map(([label, value]) => <tr key={label}><th scope="row">{label}</th><td>{value}</td></tr>)}
                 </tbody>
               </table>
-              <button type="button" className="pd-dl" onClick={printSheet}>
+              <button type="button" className="pd-dl" onClick={downloadSheet} disabled={sheetState.busy}>
                 <Download size={20} aria-hidden="true" />
-                <span><b>Descargar ficha técnica (PDF)</b><small>Ficha de Imagen Eléctrica con las especificaciones de esta línea</small></span>
+                <span><b>{sheetState.busy ? 'Generando el PDF…' : 'Descargar ficha y cotización'}</b><small>PDF de Imagen Eléctrica con las especificaciones y el valor de esta referencia ({qty} {qty === 1 ? 'unidad' : 'unidades'})</small></span>
               </button>
+              {sheetState.error && <p className="pd-note" role="alert">{sheetState.error}</p>}
             </>
           ) : (
             <>
@@ -457,36 +468,6 @@ export default function ProductDetail() {
         <button type="button" className={purchasable ? 'pd-mbuy__quote' : 'pd-mbuy__buy'} onClick={addQuote}>Cotizar</button>
       </div>
 
-      {/* Ficha técnica para imprimir o guardar en PDF (Chrome y Safari): marca de Imagen Eléctrica, la referencia elegida y su tabla */}
-      {createPortal(
-        <section className="pd-print" aria-hidden="true">
-          <header className="pd-print__head">
-            <img src="/img/logo.png" alt="" width="54" height="60" />
-            <div>
-              <strong>{site.name}</strong>
-              <span>{site.tagline}</span>
-            </div>
-            <span className="pd-print__tag">Ficha técnica</span>
-          </header>
-          <h1 className="pd-print__title">{line.name}</h1>
-          <p className="pd-print__ref">{current ? `${current.label} · SKU ${current.sku}` : 'Producto bajo pedido'}</p>
-          {image && <img className="pd-print__img" src={image} alt="" />}
-          <table>
-            <caption>Especificaciones</caption>
-            <tbody>
-              {current
-                ? sheetRows.map(([label, value]) => <tr key={label}><th scope="row">{label}</th><td>{value}</td></tr>)
-                : line.spec_chips.map((chip, i) => <tr key={chip}><th scope="row">{`Dato ${i + 1}`}</th><td>{chip}</td></tr>)}
-            </tbody>
-          </table>
-          <footer>
-            <b>{site.name}</b> · {site.address}, {site.city}<br />
-            WhatsApp y teléfono {site.mainContact.label} · {site.email}<br />
-            Referencia sujeta a disponibilidad. Precio y tiempo de entrega: confirmar con un asesor.
-          </footer>
-        </section>,
-        document.body,
-      )}
     </div>
   )
 }

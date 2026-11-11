@@ -32,10 +32,10 @@ LINE_NAME = {
     'Reductor helicoidal WCG20 (variantes en stock)': 'Reductor helicoidal WCG20',
     'Motorreductor sinfín WCG01 (variantes en stock)': 'Motorreductor sinfín WCG01',
 }
-FAMILY_IMAGE = {'Material eléctrico': 'material-electrico', 'Otros productos': 'otros'}
+FAMILY_IMAGE = {'Material Eléctrico': 'material-electrico', 'Herramientas y Repuestos': 'otros'}
 NEW_FAMILIES = [
-    {'name': 'Material eléctrico', 'image': 'material-electrico', 'description': 'Tomas, clavijas, cintas aislantes y puesta a tierra para instalaciones eléctricas.'},
-    {'name': 'Otros productos', 'image': 'otros', 'description': 'Insumos, herramientas y repuestos que no son material eléctrico.'},
+    {'name': 'Material Eléctrico', 'image': 'material-electrico', 'description': 'Tomas, clavijas, cintas aislantes y puesta a tierra para instalaciones eléctricas.'},
+    {'name': 'Herramientas y Repuestos', 'image': 'otros', 'description': 'Insumos, herramientas y repuestos que no son material eléctrico.'},
 ]
 
 def sku_of(x): return str(x['Código (SKU)']).strip()

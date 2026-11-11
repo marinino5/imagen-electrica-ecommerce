@@ -225,6 +225,16 @@
                             </li>
                                                                         </ul>
                             </ul>
+                    <ul id="tocify-header-ficha-tecnica-publico" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="ficha-tecnica-publico">
+                    <a href="#ficha-tecnica-publico">Ficha técnica (público)</a>
+                </li>
+                                    <ul id="tocify-subheader-ficha-tecnica-publico" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="ficha-tecnica-publico-GETapi-v1-datasheet">
+                                <a href="#ficha-tecnica-publico-GETapi-v1-datasheet">Descargar ficha y cotización (PDF)</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
             </div>
 
     <ul class="toc-footer" id="toc-footer">
@@ -1306,7 +1316,7 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 94,
+            &quot;id&quot;: 115,
             &quot;parent_id&quot;: null,
             &quot;name&quot;: &quot;Et animi&quot;,
             &quot;slug&quot;: &quot;et-animi&quot;,
@@ -1314,7 +1324,7 @@ fetch(url, {
             &quot;image_url&quot;: null
         },
         {
-            &quot;id&quot;: 95,
+            &quot;id&quot;: 116,
             &quot;parent_id&quot;: null,
             &quot;name&quot;: &quot;Mollitia modi&quot;,
             &quot;slug&quot;: &quot;mollitia-modi&quot;,
@@ -1513,13 +1523,13 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 72,
+            &quot;id&quot;: 88,
             &quot;name&quot;: &quot;Llorente, Aguirre y Sierra e Hijo&quot;,
             &quot;slug&quot;: &quot;llorente-aguirre-y-sierra-e-hijo&quot;,
             &quot;logo_url&quot;: null
         },
         {
-            &quot;id&quot;: 73,
+            &quot;id&quot;: 89,
             &quot;name&quot;: &quot;Lim&oacute;n de Uribe S. de H.&quot;,
             &quot;slug&quot;: &quot;limon-de-uribe-s-de-h&quot;,
             &quot;logo_url&quot;: null
@@ -1685,8 +1695,8 @@ solo se vende por cotización. No requiere token.</p>
     \"brand\": \"g\",
     \"sale_mode\": \"on_request\",
     \"featured\": false,
-    \"in_stock\": true,
-    \"sort\": \"name\",
+    \"in_stock\": false,
+    \"sort\": \"price_asc\",
     \"per_page\": 16
 }"
 </code></pre></div>
@@ -1716,8 +1726,8 @@ let body = {
     "brand": "g",
     "sale_mode": "on_request",
     "featured": false,
-    "in_stock": true,
-    "sort": "name",
+    "in_stock": false,
+    "sort": "price_asc",
     "per_page": 16
 };
 
@@ -1738,7 +1748,7 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 77,
+            &quot;id&quot;: 91,
             &quot;sku&quot;: &quot;REF-0564-yv&quot;,
             &quot;name&quot;: &quot;Motor trif&aacute;sico 4338 HP&quot;,
             &quot;slug&quot;: &quot;motor-trifasico-4338-hp&quot;,
@@ -1759,19 +1769,19 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 96,
+                &quot;id&quot;: 117,
                 &quot;name&quot;: &quot;Quis adipisci&quot;,
                 &quot;slug&quot;: &quot;quis-adipisci&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 74,
+                &quot;id&quot;: 90,
                 &quot;name&quot;: &quot;Global Guardado y Asoc.&quot;,
                 &quot;slug&quot;: &quot;global-guardado-y-asoc&quot;,
                 &quot;logo_url&quot;: null
             }
         },
         {
-            &quot;id&quot;: 78,
+            &quot;id&quot;: 92,
             &quot;sku&quot;: &quot;REF-7788-qb&quot;,
             &quot;name&quot;: &quot;Motor trif&aacute;sico 9148 HP&quot;,
             &quot;slug&quot;: &quot;motor-trifasico-9148-hp&quot;,
@@ -1792,12 +1802,12 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 97,
+                &quot;id&quot;: 118,
                 &quot;name&quot;: &quot;Perspiciatis deserunt&quot;,
                 &quot;slug&quot;: &quot;perspiciatis-deserunt&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 75,
+                &quot;id&quot;: 91,
                 &quot;name&quot;: &quot;Grupo Arias-Chac&oacute;n&quot;,
                 &quot;slug&quot;: &quot;grupo-arias-chacon&quot;,
                 &quot;logo_url&quot;: null
@@ -2043,7 +2053,7 @@ Must be one of:
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>true</code></p>
+<p>Example: <code>false</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>sort</code></b>&nbsp;&nbsp;
@@ -2052,10 +2062,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="sort"                data-endpoint="GETapi-v1-products"
-               value="name"
+               value="price_asc"
                data-component="body">
     <br>
-<p>Example: <code>name</code></p>
+<p>Example: <code>price_asc</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>name</code></li> <li><code>newest</code></li> <li><code>price_asc</code></li> <li><code>price_desc</code></li></ul>
         </div>
@@ -2117,7 +2127,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 79,
+        &quot;id&quot;: 93,
         &quot;sku&quot;: &quot;REF-0057-nb&quot;,
         &quot;name&quot;: &quot;Motor trif&aacute;sico 7075 HP&quot;,
         &quot;slug&quot;: &quot;motor-trifasico-7075-hp&quot;,
@@ -2138,12 +2148,12 @@ fetch(url, {
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 98,
+            &quot;id&quot;: 119,
             &quot;name&quot;: &quot;Aut deserunt&quot;,
             &quot;slug&quot;: &quot;aut-deserunt&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 76,
+            &quot;id&quot;: 92,
             &quot;name&quot;: &quot;Nieto y Rico&quot;,
             &quot;slug&quot;: &quot;nieto-y-rico&quot;,
             &quot;logo_url&quot;: null
@@ -2289,7 +2299,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 36,
+        &quot;id&quot;: 44,
         &quot;name&quot;: &quot;Omar Dom&iacute;nguez&quot;,
         &quot;email&quot;: &quot;arredondo.juana@example.com&quot;,
         &quot;role&quot;: &quot;cliente&quot;,
@@ -2304,7 +2314,7 @@ fetch(url, {
             &quot;address&quot;: &quot;Calle Elizondo, 54, 27&ordm; C&quot;,
             &quot;marketing_opt_in&quot;: false,
             &quot;marketing_opt_in_at&quot;: null,
-            &quot;privacy_accepted_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;
+            &quot;privacy_accepted_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;
         }
     }
 }</code>
@@ -2461,7 +2471,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 37,
+        &quot;id&quot;: 45,
         &quot;name&quot;: &quot;Emilia Murillo&quot;,
         &quot;email&quot;: &quot;juribe@example.org&quot;,
         &quot;role&quot;: &quot;cliente&quot;,
@@ -2476,7 +2486,7 @@ fetch(url, {
             &quot;address&quot;: &quot;Pla&ccedil;a Juana, 979, 27&ordm; A&quot;,
             &quot;marketing_opt_in&quot;: false,
             &quot;marketing_opt_in_at&quot;: null,
-            &quot;privacy_accepted_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;
+            &quot;privacy_accepted_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;
         }
     }
 }</code>
@@ -2675,7 +2685,7 @@ muestra las de otros clientes.</p>
     --header "Accept: application/json" \
     --data "{
     \"type\": \"purchase\",
-    \"status\": \"pending_payment\",
+    \"status\": \"in_review\",
     \"per_page\": 1
 }"
 </code></pre></div>
@@ -2702,7 +2712,7 @@ const headers = {
 
 let body = {
     "type": "purchase",
-    "status": "pending_payment",
+    "status": "in_review",
     "per_page": 1
 };
 
@@ -2746,11 +2756,11 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 32,
-                    &quot;product_id&quot;: 80,
+                    &quot;id&quot;: 38,
+                    &quot;product_id&quot;: 94,
                     &quot;sku&quot;: &quot;REF-5058-cq&quot;,
                     &quot;product_name&quot;: &quot;Motor trif&aacute;sico 6877 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
@@ -2786,11 +2796,11 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 33,
-                    &quot;product_id&quot;: 81,
+                    &quot;id&quot;: 39,
+                    &quot;product_id&quot;: 95,
                     &quot;sku&quot;: &quot;REF-9849-tp&quot;,
                     &quot;product_name&quot;: &quot;Motor trif&aacute;sico 1703 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
@@ -2983,10 +2993,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="status"                data-endpoint="GETapi-v1-orders"
-               value="pending_payment"
+               value="in_review"
                data-component="body">
     <br>
-<p>Example: <code>pending_payment</code></p>
+<p>Example: <code>in_review</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>pending_payment</code></li> <li><code>paid</code></li> <li><code>shipped</code></li> <li><code>delivered</code></li> <li><code>new</code></li> <li><code>in_review</code></li> <li><code>sent</code></li> <li><code>accepted</code></li> <li><code>rejected</code></li> <li><code>cancelled</code></li></ul>
         </div>
@@ -3106,11 +3116,11 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 34,
-                    &quot;product_id&quot;: 82,
+                    &quot;id&quot;: 40,
+                    &quot;product_id&quot;: 96,
                     &quot;sku&quot;: &quot;REF-7365-sc&quot;,
                     &quot;product_name&quot;: &quot;Motor trif&aacute;sico 967 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
@@ -3146,11 +3156,11 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 35,
-                    &quot;product_id&quot;: 83,
+                    &quot;id&quot;: 41,
+                    &quot;product_id&quot;: 97,
                     &quot;sku&quot;: &quot;REF-3531-ob&quot;,
                     &quot;product_name&quot;: &quot;Motor trif&aacute;sico 6696 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
@@ -3420,11 +3430,11 @@ fetch(url, {
         &quot;notes&quot;: null,
         &quot;expires_at&quot;: null,
         &quot;paid_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;,
         &quot;items&quot;: [
             {
-                &quot;id&quot;: 36,
-                &quot;product_id&quot;: 84,
+                &quot;id&quot;: 42,
+                &quot;product_id&quot;: 98,
                 &quot;sku&quot;: &quot;REF-2083-jk&quot;,
                 &quot;product_name&quot;: &quot;Motor trif&aacute;sico 4189 HP&quot;,
                 &quot;unit&quot;: &quot;unidad&quot;,
@@ -3441,7 +3451,7 @@ fetch(url, {
                 &quot;to_status&quot;: &quot;pending_payment&quot;,
                 &quot;to_status_label&quot;: &quot;Pendiente de pago&quot;,
                 &quot;note&quot;: null,
-                &quot;created_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;
             }
         ]
     }
@@ -3617,11 +3627,11 @@ fetch(url, {
         &quot;notes&quot;: null,
         &quot;expires_at&quot;: null,
         &quot;paid_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;,
         &quot;items&quot;: [
             {
-                &quot;id&quot;: 37,
-                &quot;product_id&quot;: 85,
+                &quot;id&quot;: 43,
+                &quot;product_id&quot;: 99,
                 &quot;sku&quot;: &quot;REF-0782-pp&quot;,
                 &quot;product_name&quot;: &quot;Motor trif&aacute;sico 5685 HP&quot;,
                 &quot;unit&quot;: &quot;unidad&quot;,
@@ -3638,7 +3648,7 @@ fetch(url, {
                 &quot;to_status&quot;: &quot;pending_payment&quot;,
                 &quot;to_status_label&quot;: &quot;Pendiente de pago&quot;,
                 &quot;note&quot;: null,
-                &quot;created_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;
             }
         ]
     }
@@ -3826,7 +3836,7 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 86,
+            &quot;id&quot;: 100,
             &quot;sku&quot;: &quot;REF-9365-mi&quot;,
             &quot;name&quot;: &quot;Motor trif&aacute;sico 4027 HP&quot;,
             &quot;slug&quot;: &quot;motor-trifasico-4027-hp&quot;,
@@ -3847,23 +3857,24 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 105,
+                &quot;id&quot;: 126,
                 &quot;name&quot;: &quot;Perspiciatis quo&quot;,
                 &quot;slug&quot;: &quot;perspiciatis-quo&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 83,
+                &quot;id&quot;: 99,
                 &quot;name&quot;: &quot;Empresa Dom&iacute;nguez e Hijo&quot;,
                 &quot;slug&quot;: &quot;empresa-dominguez-e-hijo&quot;,
                 &quot;logo_url&quot;: null
             },
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;,
+            &quot;price_source&quot;: null,
+            &quot;created_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;,
             &quot;deleted_at&quot;: null
         },
         {
-            &quot;id&quot;: 87,
+            &quot;id&quot;: 101,
             &quot;sku&quot;: &quot;REF-0719-qw&quot;,
             &quot;name&quot;: &quot;Motor trif&aacute;sico 8015 HP&quot;,
             &quot;slug&quot;: &quot;motor-trifasico-8015-hp&quot;,
@@ -3884,19 +3895,20 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 106,
+                &quot;id&quot;: 127,
                 &quot;name&quot;: &quot;Dolores enim&quot;,
                 &quot;slug&quot;: &quot;dolores-enim&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 84,
+                &quot;id&quot;: 100,
                 &quot;name&quot;: &quot;Casanova y Almonte y Asoc.&quot;,
                 &quot;slug&quot;: &quot;casanova-y-almonte-y-asoc&quot;,
                 &quot;logo_url&quot;: null
             },
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;,
+            &quot;price_source&quot;: null,
+            &quot;created_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;,
             &quot;deleted_at&quot;: null
         }
     ],
@@ -4233,7 +4245,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 88,
+        &quot;id&quot;: 102,
         &quot;sku&quot;: &quot;REF-7432-uw&quot;,
         &quot;name&quot;: &quot;Motor trif&aacute;sico 7195 HP&quot;,
         &quot;slug&quot;: &quot;motor-trifasico-7195-hp&quot;,
@@ -4254,19 +4266,20 @@ fetch(url, {
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 107,
+            &quot;id&quot;: 128,
             &quot;name&quot;: &quot;Nostrum omnis&quot;,
             &quot;slug&quot;: &quot;nostrum-omnis&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 85,
+            &quot;id&quot;: 101,
             &quot;name&quot;: &quot;Asociaci&oacute;n Jaramillo e Hija&quot;,
             &quot;slug&quot;: &quot;asociacion-jaramillo-e-hija&quot;,
             &quot;logo_url&quot;: null
         },
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;,
+        &quot;price_source&quot;: null,
+        &quot;created_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -4641,7 +4654,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 89,
+        &quot;id&quot;: 103,
         &quot;sku&quot;: &quot;REF-3724-pw&quot;,
         &quot;name&quot;: &quot;Motor trif&aacute;sico 2878 HP&quot;,
         &quot;slug&quot;: &quot;motor-trifasico-2878-hp&quot;,
@@ -4662,19 +4675,20 @@ fetch(url, {
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 108,
+            &quot;id&quot;: 129,
             &quot;name&quot;: &quot;Aliquam veniam&quot;,
             &quot;slug&quot;: &quot;aliquam-veniam&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 86,
+            &quot;id&quot;: 102,
             &quot;name&quot;: &quot;Cab&aacute;n de Llorente S. de H.&quot;,
             &quot;slug&quot;: &quot;caban-de-llorente-s-de-h&quot;,
             &quot;logo_url&quot;: null
         },
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;,
+        &quot;price_source&quot;: null,
+        &quot;created_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -4824,7 +4838,7 @@ se envían <code>is_active</code>, <code>is_featured</code> o <code>specs</code>
     \"tax_rate\": 19,
     \"stock\": 6,
     \"is_active\": false,
-    \"is_featured\": true,
+    \"is_featured\": false,
     \"specs\": [
         {
             \"key\": \"k\",
@@ -4861,7 +4875,7 @@ let body = {
     "tax_rate": 19,
     "stock": 6,
     "is_active": false,
-    "is_featured": true,
+    "is_featured": false,
     "specs": [
         {
             "key": "k",
@@ -4886,7 +4900,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 90,
+        &quot;id&quot;: 104,
         &quot;sku&quot;: &quot;REF-7680-wp&quot;,
         &quot;name&quot;: &quot;Motor trif&aacute;sico 2977 HP&quot;,
         &quot;slug&quot;: &quot;motor-trifasico-2977-hp&quot;,
@@ -4907,19 +4921,20 @@ fetch(url, {
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 109,
+            &quot;id&quot;: 130,
             &quot;name&quot;: &quot;Corporis dolorem&quot;,
             &quot;slug&quot;: &quot;corporis-dolorem&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 87,
+            &quot;id&quot;: 103,
             &quot;name&quot;: &quot;Marroqu&iacute;n, Ram&iacute;rez y Chapa SRL&quot;,
             &quot;slug&quot;: &quot;marroquin-ramirez-y-chapa-srl&quot;,
             &quot;logo_url&quot;: null
         },
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;,
+        &quot;price_source&quot;: null,
+        &quot;created_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -5236,7 +5251,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>true</code></p>
+<p>Example: <code>false</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
         <details>
@@ -5689,7 +5704,7 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 110,
+            &quot;id&quot;: 131,
             &quot;parent_id&quot;: null,
             &quot;name&quot;: &quot;Quos velit&quot;,
             &quot;slug&quot;: &quot;quos-velit&quot;,
@@ -5697,11 +5712,11 @@ fetch(url, {
             &quot;image_url&quot;: null,
             &quot;sort_order&quot;: 19,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;
         },
         {
-            &quot;id&quot;: 111,
+            &quot;id&quot;: 132,
             &quot;parent_id&quot;: null,
             &quot;name&quot;: &quot;Deserunt aut&quot;,
             &quot;slug&quot;: &quot;deserunt-aut&quot;,
@@ -5709,8 +5724,8 @@ fetch(url, {
             &quot;image_url&quot;: null,
             &quot;sort_order&quot;: 15,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;
         }
     ],
     &quot;links&quot;: {
@@ -5949,7 +5964,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 112,
+        &quot;id&quot;: 133,
         &quot;parent_id&quot;: null,
         &quot;name&quot;: &quot;Nihil accusantium&quot;,
         &quot;slug&quot;: &quot;nihil-accusantium&quot;,
@@ -5957,8 +5972,8 @@ fetch(url, {
         &quot;image_url&quot;: null,
         &quot;sort_order&quot;: 12,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;
     }
 }</code>
  </pre>
@@ -6166,7 +6181,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 113,
+        &quot;id&quot;: 134,
         &quot;parent_id&quot;: null,
         &quot;name&quot;: &quot;Aut adipisci&quot;,
         &quot;slug&quot;: &quot;aut-adipisci&quot;,
@@ -6174,8 +6189,8 @@ fetch(url, {
         &quot;image_url&quot;: null,
         &quot;sort_order&quot;: 8,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;
     }
 }</code>
  </pre>
@@ -6353,7 +6368,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 114,
+        &quot;id&quot;: 135,
         &quot;parent_id&quot;: null,
         &quot;name&quot;: &quot;Harum mollitia&quot;,
         &quot;slug&quot;: &quot;harum-mollitia&quot;,
@@ -6361,8 +6376,8 @@ fetch(url, {
         &quot;image_url&quot;: null,
         &quot;sort_order&quot;: 0,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-11T00:21:37.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-11T02:04:29.000000Z&quot;
     }
 }</code>
  </pre>
@@ -6968,8 +6983,8 @@ sola referencia comprable, esa referencia lista para agregar al carrito.</p>
     \"family\": \"n\",
     \"category\": \"g\",
     \"brand\": \"z\",
-    \"mode\": \"direct\",
-    \"in_stock\": false,
+    \"mode\": \"quote\",
+    \"in_stock\": true,
     \"hp_min\": 17,
     \"hp_max\": 15,
     \"per_page\": 8
@@ -7006,8 +7021,8 @@ let body = {
     "family": "n",
     "category": "g",
     "brand": "z",
-    "mode": "direct",
-    "in_stock": false,
+    "mode": "quote",
+    "in_stock": true,
     "hp_min": 17,
     "hp_max": 15,
     "per_page": 8
@@ -7269,10 +7284,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="mode"                data-endpoint="GETapi-v1-lines"
-               value="direct"
+               value="quote"
                data-component="body">
     <br>
-<p>Example: <code>direct</code></p>
+<p>Example: <code>quote</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>direct</code></li> <li><code>quote</code></li></ul>
         </div>
@@ -7296,7 +7311,7 @@ Must be one of:
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>hp_min</code></b>&nbsp;&nbsp;
@@ -7822,7 +7837,7 @@ solicitud y el tiempo estimado de respuesta.</p>
     --form "application=Bomba de agua"\
     --form "privacy_accepted=1"\
     --form "website=k"\
-    --form "attachment=@/private/var/folders/cr/7_9z3_7d765bhxff2r4jr80r0000gn/T/php6duh7sndtu4q7LMv1FK" </code></pre></div>
+    --form "attachment=@/private/var/folders/cr/7_9z3_7d765bhxff2r4jr80r0000gn/T/phprbe9h01cpjmj9hUDEnl" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -8062,7 +8077,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Foto, placa del equipo o lista de materiales (PDF, JPG o PNG, máx. 5 MB). Example: <code>/private/var/folders/cr/7_9z3_7d765bhxff2r4jr80r0000gn/T/php6duh7sndtu4q7LMv1FK</code></p>
+<p>Foto, placa del equipo o lista de materiales (PDF, JPG o PNG, máx. 5 MB). Example: <code>/private/var/folders/cr/7_9z3_7d765bhxff2r4jr80r0000gn/T/phprbe9h01cpjmj9hUDEnl</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>privacy_accepted</code></b>&nbsp;&nbsp;
@@ -8097,6 +8112,214 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="body">
     <br>
 <p>El campo value no puede tener más de 255 caracteres. Example: <code>k</code></p>
+        </div>
+        </form>
+
+                <h1 id="ficha-tecnica-publico">Ficha técnica (público)</h1>
+
+    
+
+                                <h2 id="ficha-tecnica-publico-GETapi-v1-datasheet">Descargar ficha y cotización (PDF)</h2>
+
+<p>
+</p>
+
+<p>Genera el PDF con la marca de Imagen Eléctrica: producto, referencia, especificaciones, valor (el mismo precio de la tienda,
+o «sujeto a cotización») y datos de contacto. Cada descarga queda registrada con su número de documento. No requiere token.</p>
+
+<span id="example-requests-GETapi-v1-datasheet">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://imagen-electrica-ecommerce.onrender.com/api/v1/datasheet?sku=12220434&amp;quantity=2" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"sku\": \"b\",
+    \"quantity\": 22
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/datasheet"
+);
+
+const params = {
+    "sku": "12220434",
+    "quantity": "2",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "sku": "b",
+    "quantity": 22
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-v1-datasheet">
+            <blockquote>
+            <p>Example response (200, PDF):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">binary</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, Referencia inexistente o inactiva):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;No se encontr&oacute; lo que buscas.&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (422, Cantidad inválida):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;El campo cantidad debe ser al menos 0.01.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-v1-datasheet" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-v1-datasheet"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-v1-datasheet"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-v1-datasheet" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-v1-datasheet">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-v1-datasheet" data-method="GET"
+      data-path="api/v1/datasheet"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-datasheet', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-v1-datasheet"
+                    onclick="tryItOut('GETapi-v1-datasheet');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-v1-datasheet"
+                    onclick="cancelTryOut('GETapi-v1-datasheet');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-v1-datasheet"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/v1/datasheet</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-v1-datasheet"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-v1-datasheet"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>sku</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="sku"                data-endpoint="GETapi-v1-datasheet"
+               value="12220434"
+               data-component="query">
+    <br>
+<p>Referencia (SKU) elegida. Example: <code>12220434</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>quantity</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="quantity"                data-endpoint="GETapi-v1-datasheet"
+               value="2"
+               data-component="query">
+    <br>
+<p>Cantidad (1 por defecto; decimales solo en productos por metro). Example: <code>2</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>sku</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="sku"                data-endpoint="GETapi-v1-datasheet"
+               value="b"
+               data-component="body">
+    <br>
+<p>El campo value no puede tener más de 60 caracteres. Example: <code>b</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>quantity</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="quantity"                data-endpoint="GETapi-v1-datasheet"
+               value="22"
+               data-component="body">
+    <br>
+<p>El campo value debe ser al menos 0.01. El campo value no puede ser mayor que 100000. Example: <code>22</code></p>
         </div>
         </form>
 

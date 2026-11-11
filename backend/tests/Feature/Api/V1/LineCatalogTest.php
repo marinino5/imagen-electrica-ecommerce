@@ -40,14 +40,14 @@ class LineCatalogTest extends TestCase
         $this->assertSame([1200, 1800, 3600], $linea['rpm_values']);
         $this->assertEquals(1150000, $linea['price_from']);
         $this->assertGreaterThan(0, $linea['stock_total']);
-        $this->assertSame('Motores eléctricos', $linea['family']['name']);
+        $this->assertSame('Motores Eléctricos', $linea['family']['name']);
         $this->assertSame('direct', $linea['sale_mode']);
     }
 
     public function test_filtra_por_familia_y_categoria(): void
     {
         $familia = $this->getJson('/api/v1/lines?family=motores-electricos')->assertOk()->json('data');
-        $this->assertCount(CatalogData::linesInFamily('Motores eléctricos'), $familia);
+        $this->assertCount(CatalogData::linesInFamily('Motores Eléctricos'), $familia);
 
         $categoria = $this->getJson('/api/v1/lines?category=motores-monofasicos')->assertOk()->json('data');
         $this->assertCount(4, $categoria); // Match Drive está oculta hasta tener foto oficial
@@ -150,7 +150,7 @@ class LineCatalogTest extends TestCase
         $response = $this->getJson('/api/v1/families')->assertOk();
 
         $motores = collect($response->json('data'))->firstWhere('slug', 'motores-electricos');
-        $this->assertSame(CatalogData::linesInFamily('Motores eléctricos'), $motores['lines_count']);
+        $this->assertSame(CatalogData::linesInFamily('Motores Eléctricos'), $motores['lines_count']);
         $this->assertSame(CatalogData::lines(), $response->json('meta.lines'));
         $this->assertSame(CatalogData::references(), $response->json('meta.references'));
         $this->assertSame('WEG', $response->json('meta.brands.0.name'));
@@ -164,6 +164,6 @@ class LineCatalogTest extends TestCase
         $this->assertSame(count($response->json('data')), $response->json('meta.families'));
 
         $medicion = collect($response->json('data'))->firstWhere('slug', 'medicion-y-testeo');
-        $this->assertSame(CatalogData::linesInFamily('Medición y testeo'), $medicion['lines_count']);
+        $this->assertSame(CatalogData::linesInFamily('Medición y Testeo'), $medicion['lines_count']);
     }
 }

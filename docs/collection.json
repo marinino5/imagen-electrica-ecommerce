@@ -31,7 +31,7 @@
     ],
     "info": {
         "name": "API de Imagen Eléctrica",
-        "_postman_id": "297389af-90ee-42ea-90b2-64fc7ff2cfdd",
+        "_postman_id": "33430ce8-8949-4869-956d-a45f93ad971c",
         "description": "API REST del e-commerce B2B de Imagen Eléctrica: catálogo público, cuenta del cliente, pedidos y cotizaciones, y gestión de productos para administradores.",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
@@ -358,7 +358,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":[{\"id\":94,\"parent_id\":null,\"name\":\"Et animi\",\"slug\":\"et-animi\",\"description\":\"Et fugiat sunt nihil accusantium.\",\"image_url\":null},{\"id\":95,\"parent_id\":null,\"name\":\"Mollitia modi\",\"slug\":\"mollitia-modi\",\"description\":null,\"image_url\":null}],\"links\":{\"first\":\"\\/?page=1\",\"last\":\"\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"pagination.previous\",\"page\":null,\"active\":false},{\"url\":\"\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"pagination.next\",\"page\":null,\"active\":false}],\"path\":\"\\/\",\"per_page\":50,\"to\":2,\"total\":2}}",
+                            "body": "{\"data\":[{\"id\":115,\"parent_id\":null,\"name\":\"Et animi\",\"slug\":\"et-animi\",\"description\":\"Et fugiat sunt nihil accusantium.\",\"image_url\":null},{\"id\":116,\"parent_id\":null,\"name\":\"Mollitia modi\",\"slug\":\"mollitia-modi\",\"description\":null,\"image_url\":null}],\"links\":{\"first\":\"\\/?page=1\",\"last\":\"\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"pagination.previous\",\"page\":null,\"active\":false},{\"url\":\"\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"pagination.next\",\"page\":null,\"active\":false}],\"path\":\"\\/\",\"per_page\":50,\"to\":2,\"total\":2}}",
                             "name": ""
                         }
                     ]
@@ -396,7 +396,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":[{\"id\":72,\"name\":\"Llorente, Aguirre y Sierra e Hijo\",\"slug\":\"llorente-aguirre-y-sierra-e-hijo\",\"logo_url\":null},{\"id\":73,\"name\":\"Lim\\u00f3n de Uribe S. de H.\",\"slug\":\"limon-de-uribe-s-de-h\",\"logo_url\":null}],\"links\":{\"first\":\"\\/?page=1\",\"last\":\"\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"pagination.previous\",\"page\":null,\"active\":false},{\"url\":\"\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"pagination.next\",\"page\":null,\"active\":false}],\"path\":\"\\/\",\"per_page\":50,\"to\":2,\"total\":2}}",
+                            "body": "{\"data\":[{\"id\":88,\"name\":\"Llorente, Aguirre y Sierra e Hijo\",\"slug\":\"llorente-aguirre-y-sierra-e-hijo\",\"logo_url\":null},{\"id\":89,\"name\":\"Lim\\u00f3n de Uribe S. de H.\",\"slug\":\"limon-de-uribe-s-de-h\",\"logo_url\":null}],\"links\":{\"first\":\"\\/?page=1\",\"last\":\"\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"pagination.previous\",\"page\":null,\"active\":false},{\"url\":\"\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"pagination.next\",\"page\":null,\"active\":false}],\"path\":\"\\/\",\"per_page\":50,\"to\":2,\"total\":2}}",
                             "name": ""
                         }
                     ]
@@ -442,7 +442,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"q\":\"b\",\"category\":\"n\",\"brand\":\"g\",\"sale_mode\":\"on_request\",\"featured\":false,\"in_stock\":true,\"sort\":\"name\",\"per_page\":16}"
+                            "raw": "{\"q\":\"b\",\"category\":\"n\",\"brand\":\"g\",\"sale_mode\":\"on_request\",\"featured\":false,\"in_stock\":false,\"sort\":\"price_asc\",\"per_page\":16}"
                         },
                         "description": "Productos activos con búsqueda por nombre o referencia, filtros, orden y\npaginación. Los precios incluyen IVA; `price` en `null` significa que el producto\nsolo se vende por cotización. No requiere token.",
                         "auth": {
@@ -453,7 +453,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":[{\"id\":77,\"sku\":\"REF-0564-yv\",\"name\":\"Motor trif\\u00e1sico 4338 HP\",\"slug\":\"motor-trifasico-4338-hp\",\"short_description\":\"Nihil accusantium harum mollitia modi deserunt.\",\"description\":\"Perspiciatis quo omnis nostrum aut adipisci quidem nostrum qui. Incidunt iure odit et et modi ipsum. Omnis autem et consequatur. Dolores enim non facere tempora.\",\"image_url\":null,\"specs\":{\"voltaje_v\":220,\"potencia_hp\":10},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":3775000,\"tax_rate\":19,\"stock\":7,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":96,\"name\":\"Quis adipisci\",\"slug\":\"quis-adipisci\"},\"brand\":{\"id\":74,\"name\":\"Global Guardado y Asoc.\",\"slug\":\"global-guardado-y-asoc\",\"logo_url\":null}},{\"id\":78,\"sku\":\"REF-7788-qb\",\"name\":\"Motor trif\\u00e1sico 9148 HP\",\"slug\":\"motor-trifasico-9148-hp\",\"short_description\":\"Corporis dolorem mollitia deleniti nemo odit quia officia.\",\"description\":\"Blanditiis odio veritatis excepturi doloribus delectus fugit. Repudiandae laboriosam est alias tenetur ratione. Voluptate accusamus ut et recusandae. Rerum ex repellendus assumenda et.\",\"image_url\":null,\"specs\":{\"voltaje_v\":440,\"potencia_hp\":5},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":1181000,\"tax_rate\":19,\"stock\":10,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":97,\"name\":\"Perspiciatis deserunt\",\"slug\":\"perspiciatis-deserunt\"},\"brand\":{\"id\":75,\"name\":\"Grupo Arias-Chac\\u00f3n\",\"slug\":\"grupo-arias-chacon\",\"logo_url\":null}}],\"links\":{\"first\":\"\\/?page=1\",\"last\":\"\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"pagination.previous\",\"page\":null,\"active\":false},{\"url\":\"\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"pagination.next\",\"page\":null,\"active\":false}],\"path\":\"\\/\",\"per_page\":12,\"to\":2,\"total\":2}}",
+                            "body": "{\"data\":[{\"id\":91,\"sku\":\"REF-0564-yv\",\"name\":\"Motor trif\\u00e1sico 4338 HP\",\"slug\":\"motor-trifasico-4338-hp\",\"short_description\":\"Nihil accusantium harum mollitia modi deserunt.\",\"description\":\"Perspiciatis quo omnis nostrum aut adipisci quidem nostrum qui. Incidunt iure odit et et modi ipsum. Omnis autem et consequatur. Dolores enim non facere tempora.\",\"image_url\":null,\"specs\":{\"voltaje_v\":220,\"potencia_hp\":10},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":3775000,\"tax_rate\":19,\"stock\":7,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":117,\"name\":\"Quis adipisci\",\"slug\":\"quis-adipisci\"},\"brand\":{\"id\":90,\"name\":\"Global Guardado y Asoc.\",\"slug\":\"global-guardado-y-asoc\",\"logo_url\":null}},{\"id\":92,\"sku\":\"REF-7788-qb\",\"name\":\"Motor trif\\u00e1sico 9148 HP\",\"slug\":\"motor-trifasico-9148-hp\",\"short_description\":\"Corporis dolorem mollitia deleniti nemo odit quia officia.\",\"description\":\"Blanditiis odio veritatis excepturi doloribus delectus fugit. Repudiandae laboriosam est alias tenetur ratione. Voluptate accusamus ut et recusandae. Rerum ex repellendus assumenda et.\",\"image_url\":null,\"specs\":{\"voltaje_v\":440,\"potencia_hp\":5},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":1181000,\"tax_rate\":19,\"stock\":10,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":118,\"name\":\"Perspiciatis deserunt\",\"slug\":\"perspiciatis-deserunt\"},\"brand\":{\"id\":91,\"name\":\"Grupo Arias-Chac\\u00f3n\",\"slug\":\"grupo-arias-chacon\",\"logo_url\":null}}],\"links\":{\"first\":\"\\/?page=1\",\"last\":\"\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"pagination.previous\",\"page\":null,\"active\":false},{\"url\":\"\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"pagination.next\",\"page\":null,\"active\":false}],\"path\":\"\\/\",\"per_page\":12,\"to\":2,\"total\":2}}",
                             "name": ""
                         }
                     ]
@@ -496,7 +496,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":{\"id\":79,\"sku\":\"REF-0057-nb\",\"name\":\"Motor trif\\u00e1sico 7075 HP\",\"slug\":\"motor-trifasico-7075-hp\",\"short_description\":\"Impedit molestiae ut rem est esse.\",\"description\":\"Sunt suscipit doloribus fugiat ut aut deserunt et. Neque recusandae et ipsam dolorem et ut dicta. Assumenda consequatur ut et sunt quisquam. Repellendus ut eaque alias ratione dolores.\",\"image_url\":null,\"specs\":{\"voltaje_v\":220,\"potencia_hp\":1},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":1957000,\"tax_rate\":19,\"stock\":7,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":98,\"name\":\"Aut deserunt\",\"slug\":\"aut-deserunt\"},\"brand\":{\"id\":76,\"name\":\"Nieto y Rico\",\"slug\":\"nieto-y-rico\",\"logo_url\":null}}}",
+                            "body": "{\"data\":{\"id\":93,\"sku\":\"REF-0057-nb\",\"name\":\"Motor trif\\u00e1sico 7075 HP\",\"slug\":\"motor-trifasico-7075-hp\",\"short_description\":\"Impedit molestiae ut rem est esse.\",\"description\":\"Sunt suscipit doloribus fugiat ut aut deserunt et. Neque recusandae et ipsam dolorem et ut dicta. Assumenda consequatur ut et sunt quisquam. Repellendus ut eaque alias ratione dolores.\",\"image_url\":null,\"specs\":{\"voltaje_v\":220,\"potencia_hp\":1},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":1957000,\"tax_rate\":19,\"stock\":7,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":119,\"name\":\"Aut deserunt\",\"slug\":\"aut-deserunt\"},\"brand\":{\"id\":92,\"name\":\"Nieto y Rico\",\"slug\":\"nieto-y-rico\",\"logo_url\":null}}}",
                             "name": ""
                         },
                         {
@@ -540,7 +540,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":{\"id\":36,\"name\":\"Omar Dom\\u00ednguez\",\"email\":\"arredondo.juana@example.com\",\"role\":\"cliente\",\"customer\":{\"type\":\"company\",\"type_label\":\"Empresa\",\"company_name\":\"Calero de Zamora S.A.S.\",\"nit\":\"990122162-7\",\"contact_name\":\"Sr. H\\u00e9ctor Zelaya\",\"phone\":\"379 091 5066\",\"city\":\"Gir\\u00f3n\",\"address\":\"Calle Elizondo, 54, 27\\u00ba C\",\"marketing_opt_in\":false,\"marketing_opt_in_at\":null,\"privacy_accepted_at\":\"2026-11-11T00:21:37.000000Z\"}}}",
+                            "body": "{\"data\":{\"id\":44,\"name\":\"Omar Dom\\u00ednguez\",\"email\":\"arredondo.juana@example.com\",\"role\":\"cliente\",\"customer\":{\"type\":\"company\",\"type_label\":\"Empresa\",\"company_name\":\"Calero de Zamora S.A.S.\",\"nit\":\"990122162-7\",\"contact_name\":\"Sr. H\\u00e9ctor Zelaya\",\"phone\":\"379 091 5066\",\"city\":\"Gir\\u00f3n\",\"address\":\"Calle Elizondo, 54, 27\\u00ba C\",\"marketing_opt_in\":false,\"marketing_opt_in_at\":null,\"privacy_accepted_at\":\"2026-11-11T02:04:29.000000Z\"}}}",
                             "name": ""
                         },
                         {
@@ -581,7 +581,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":{\"id\":37,\"name\":\"Emilia Murillo\",\"email\":\"juribe@example.org\",\"role\":\"cliente\",\"customer\":{\"type\":\"company\",\"type_label\":\"Empresa\",\"company_name\":\"Rivas y Sevilla SA S.A.S.\",\"nit\":\"968210674-8\",\"contact_name\":\"Adri\\u00e1n Cavazos Hijo\",\"phone\":\"315 175 7680\",\"city\":\"Barrancabermeja\",\"address\":\"Pla\\u00e7a Juana, 979, 27\\u00ba A\",\"marketing_opt_in\":false,\"marketing_opt_in_at\":null,\"privacy_accepted_at\":\"2026-11-11T00:21:37.000000Z\"}}}",
+                            "body": "{\"data\":{\"id\":45,\"name\":\"Emilia Murillo\",\"email\":\"juribe@example.org\",\"role\":\"cliente\",\"customer\":{\"type\":\"company\",\"type_label\":\"Empresa\",\"company_name\":\"Rivas y Sevilla SA S.A.S.\",\"nit\":\"968210674-8\",\"contact_name\":\"Adri\\u00e1n Cavazos Hijo\",\"phone\":\"315 175 7680\",\"city\":\"Barrancabermeja\",\"address\":\"Pla\\u00e7a Juana, 979, 27\\u00ba A\",\"marketing_opt_in\":false,\"marketing_opt_in_at\":null,\"privacy_accepted_at\":\"2026-11-11T02:04:29.000000Z\"}}}",
                             "name": ""
                         },
                         {
@@ -639,7 +639,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"type\":\"purchase\",\"status\":\"pending_payment\",\"per_page\":1}"
+                            "raw": "{\"type\":\"purchase\",\"status\":\"in_review\",\"per_page\":1}"
                         },
                         "description": "Pedidos y cotizaciones del cliente autenticado, los más recientes primero. Nunca\nmuestra las de otros clientes."
                     },
@@ -647,7 +647,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":[{\"code\":\"PED-9171\",\"type\":\"purchase\",\"type_label\":\"Pedido\",\"status\":\"pending_payment\",\"status_label\":\"Pendiente de pago\",\"customer_type\":\"company\",\"company_name\":\"Aguirre de Sierra e Hijo S.A.S.\",\"nit\":\"931296562-5\",\"contact_name\":\"Alexandra Salvador\",\"email\":\"icalero@example.org\",\"phone\":\"364 698 0841\",\"city\":\"Barrancabermeja\",\"address\":\"Ruela Santiago, 442, 43\\u00ba 2\\u00ba\",\"delivery_method\":\"pickup\",\"delivery_method_label\":\"Recoger en tienda\",\"payment_method\":null,\"subtotal\":840336.13,\"tax\":159663.87,\"shipping\":0,\"total\":1000000,\"notes\":null,\"expires_at\":null,\"paid_at\":null,\"created_at\":\"2026-11-11T00:21:37.000000Z\",\"items\":[{\"id\":32,\"product_id\":80,\"sku\":\"REF-5058-cq\",\"product_name\":\"Motor trif\\u00e1sico 6877 HP\",\"unit\":\"unidad\",\"quantity\":3,\"unit_price\":3030000,\"tax_rate\":19,\"line_total\":9090000,\"notes\":null}]},{\"code\":\"PED-3733\",\"type\":\"purchase\",\"type_label\":\"Pedido\",\"status\":\"pending_payment\",\"status_label\":\"Pendiente de pago\",\"customer_type\":\"company\",\"company_name\":\"Santill\\u00e1n de Rosa S.A.S.\",\"nit\":\"940939506-2\",\"contact_name\":\"Ona Lozano\",\"email\":\"alarcon.jaime@example.com\",\"phone\":\"329 242 1642\",\"city\":\"Piedecuesta\",\"address\":\"Carrer Nayara, 342, 1\\u00ba E\",\"delivery_method\":\"pickup\",\"delivery_method_label\":\"Recoger en tienda\",\"payment_method\":null,\"subtotal\":840336.13,\"tax\":159663.87,\"shipping\":0,\"total\":1000000,\"notes\":null,\"expires_at\":null,\"paid_at\":null,\"created_at\":\"2026-11-11T00:21:37.000000Z\",\"items\":[{\"id\":33,\"product_id\":81,\"sku\":\"REF-9849-tp\",\"product_name\":\"Motor trif\\u00e1sico 1703 HP\",\"unit\":\"unidad\",\"quantity\":2,\"unit_price\":4569000,\"tax_rate\":19,\"line_total\":9138000,\"notes\":null}]}],\"links\":{\"first\":\"\\/?page=1\",\"last\":\"\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"pagination.previous\",\"page\":null,\"active\":false},{\"url\":\"\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"pagination.next\",\"page\":null,\"active\":false}],\"path\":\"\\/\",\"per_page\":10,\"to\":2,\"total\":2}}",
+                            "body": "{\"data\":[{\"code\":\"PED-9171\",\"type\":\"purchase\",\"type_label\":\"Pedido\",\"status\":\"pending_payment\",\"status_label\":\"Pendiente de pago\",\"customer_type\":\"company\",\"company_name\":\"Aguirre de Sierra e Hijo S.A.S.\",\"nit\":\"931296562-5\",\"contact_name\":\"Alexandra Salvador\",\"email\":\"icalero@example.org\",\"phone\":\"364 698 0841\",\"city\":\"Barrancabermeja\",\"address\":\"Ruela Santiago, 442, 43\\u00ba 2\\u00ba\",\"delivery_method\":\"pickup\",\"delivery_method_label\":\"Recoger en tienda\",\"payment_method\":null,\"subtotal\":840336.13,\"tax\":159663.87,\"shipping\":0,\"total\":1000000,\"notes\":null,\"expires_at\":null,\"paid_at\":null,\"created_at\":\"2026-11-11T02:04:29.000000Z\",\"items\":[{\"id\":38,\"product_id\":94,\"sku\":\"REF-5058-cq\",\"product_name\":\"Motor trif\\u00e1sico 6877 HP\",\"unit\":\"unidad\",\"quantity\":3,\"unit_price\":3030000,\"tax_rate\":19,\"line_total\":9090000,\"notes\":null}]},{\"code\":\"PED-3733\",\"type\":\"purchase\",\"type_label\":\"Pedido\",\"status\":\"pending_payment\",\"status_label\":\"Pendiente de pago\",\"customer_type\":\"company\",\"company_name\":\"Santill\\u00e1n de Rosa S.A.S.\",\"nit\":\"940939506-2\",\"contact_name\":\"Ona Lozano\",\"email\":\"alarcon.jaime@example.com\",\"phone\":\"329 242 1642\",\"city\":\"Piedecuesta\",\"address\":\"Carrer Nayara, 342, 1\\u00ba E\",\"delivery_method\":\"pickup\",\"delivery_method_label\":\"Recoger en tienda\",\"payment_method\":null,\"subtotal\":840336.13,\"tax\":159663.87,\"shipping\":0,\"total\":1000000,\"notes\":null,\"expires_at\":null,\"paid_at\":null,\"created_at\":\"2026-11-11T02:04:29.000000Z\",\"items\":[{\"id\":39,\"product_id\":95,\"sku\":\"REF-9849-tp\",\"product_name\":\"Motor trif\\u00e1sico 1703 HP\",\"unit\":\"unidad\",\"quantity\":2,\"unit_price\":4569000,\"tax_rate\":19,\"line_total\":9138000,\"notes\":null}]}],\"links\":{\"first\":\"\\/?page=1\",\"last\":\"\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"pagination.previous\",\"page\":null,\"active\":false},{\"url\":\"\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"pagination.next\",\"page\":null,\"active\":false}],\"path\":\"\\/\",\"per_page\":10,\"to\":2,\"total\":2}}",
                             "name": ""
                         },
                         {
@@ -688,7 +688,7 @@
                         {
                             "header": [],
                             "code": 201,
-                            "body": "{\"data\":[{\"code\":\"PED-9775\",\"type\":\"purchase\",\"type_label\":\"Pedido\",\"status\":\"pending_payment\",\"status_label\":\"Pendiente de pago\",\"customer_type\":\"company\",\"company_name\":\"Llorente, Aguirre y Sierra e Hijo S.A.S.\",\"nit\":\"934997057-5\",\"contact_name\":\"Rosario Cano\",\"email\":\"isaac34@example.net\",\"phone\":\"318 740 4954\",\"city\":\"Gir\\u00f3n\",\"address\":\"R\\u00faa Arnau, 798, 4\\u00ba\",\"delivery_method\":\"pickup\",\"delivery_method_label\":\"Recoger en tienda\",\"payment_method\":null,\"subtotal\":840336.13,\"tax\":159663.87,\"shipping\":0,\"total\":1000000,\"notes\":null,\"expires_at\":null,\"paid_at\":null,\"created_at\":\"2026-11-11T00:21:37.000000Z\",\"items\":[{\"id\":34,\"product_id\":82,\"sku\":\"REF-7365-sc\",\"product_name\":\"Motor trif\\u00e1sico 967 HP\",\"unit\":\"unidad\",\"quantity\":3,\"unit_price\":2955000,\"tax_rate\":19,\"line_total\":8865000,\"notes\":null}]},{\"code\":\"PED-0568\",\"type\":\"purchase\",\"type_label\":\"Pedido\",\"status\":\"pending_payment\",\"status_label\":\"Pendiente de pago\",\"customer_type\":\"company\",\"company_name\":\"Arevalo y Gaona S. de H. S.A.S.\",\"nit\":\"912797048-1\",\"contact_name\":\"Dr. Ismael Gal\\u00e1n\",\"email\":\"jon26@example.com\",\"phone\":\"316 022 6085\",\"city\":\"Gir\\u00f3n\",\"address\":\"Ronda Rold\\u00e1n, 754, \\u00c1tico 6\\u00ba\",\"delivery_method\":\"local\",\"delivery_method_label\":\"Env\\u00edo local (Bucaramanga y \\u00e1rea metropolitana)\",\"payment_method\":null,\"subtotal\":840336.13,\"tax\":159663.87,\"shipping\":0,\"total\":1000000,\"notes\":null,\"expires_at\":null,\"paid_at\":null,\"created_at\":\"2026-11-11T00:21:37.000000Z\",\"items\":[{\"id\":35,\"product_id\":83,\"sku\":\"REF-3531-ob\",\"product_name\":\"Motor trif\\u00e1sico 6696 HP\",\"unit\":\"unidad\",\"quantity\":3,\"unit_price\":4362000,\"tax_rate\":19,\"line_total\":13086000,\"notes\":null}]}]}",
+                            "body": "{\"data\":[{\"code\":\"PED-9775\",\"type\":\"purchase\",\"type_label\":\"Pedido\",\"status\":\"pending_payment\",\"status_label\":\"Pendiente de pago\",\"customer_type\":\"company\",\"company_name\":\"Llorente, Aguirre y Sierra e Hijo S.A.S.\",\"nit\":\"934997057-5\",\"contact_name\":\"Rosario Cano\",\"email\":\"isaac34@example.net\",\"phone\":\"318 740 4954\",\"city\":\"Gir\\u00f3n\",\"address\":\"R\\u00faa Arnau, 798, 4\\u00ba\",\"delivery_method\":\"pickup\",\"delivery_method_label\":\"Recoger en tienda\",\"payment_method\":null,\"subtotal\":840336.13,\"tax\":159663.87,\"shipping\":0,\"total\":1000000,\"notes\":null,\"expires_at\":null,\"paid_at\":null,\"created_at\":\"2026-11-11T02:04:29.000000Z\",\"items\":[{\"id\":40,\"product_id\":96,\"sku\":\"REF-7365-sc\",\"product_name\":\"Motor trif\\u00e1sico 967 HP\",\"unit\":\"unidad\",\"quantity\":3,\"unit_price\":2955000,\"tax_rate\":19,\"line_total\":8865000,\"notes\":null}]},{\"code\":\"PED-0568\",\"type\":\"purchase\",\"type_label\":\"Pedido\",\"status\":\"pending_payment\",\"status_label\":\"Pendiente de pago\",\"customer_type\":\"company\",\"company_name\":\"Arevalo y Gaona S. de H. S.A.S.\",\"nit\":\"912797048-1\",\"contact_name\":\"Dr. Ismael Gal\\u00e1n\",\"email\":\"jon26@example.com\",\"phone\":\"316 022 6085\",\"city\":\"Gir\\u00f3n\",\"address\":\"Ronda Rold\\u00e1n, 754, \\u00c1tico 6\\u00ba\",\"delivery_method\":\"local\",\"delivery_method_label\":\"Env\\u00edo local (Bucaramanga y \\u00e1rea metropolitana)\",\"payment_method\":null,\"subtotal\":840336.13,\"tax\":159663.87,\"shipping\":0,\"total\":1000000,\"notes\":null,\"expires_at\":null,\"paid_at\":null,\"created_at\":\"2026-11-11T02:04:29.000000Z\",\"items\":[{\"id\":41,\"product_id\":97,\"sku\":\"REF-3531-ob\",\"product_name\":\"Motor trif\\u00e1sico 6696 HP\",\"unit\":\"unidad\",\"quantity\":3,\"unit_price\":4362000,\"tax_rate\":19,\"line_total\":13086000,\"notes\":null}]}]}",
                             "name": ""
                         },
                         {
@@ -740,7 +740,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":{\"code\":\"PED-7680\",\"type\":\"purchase\",\"type_label\":\"Pedido\",\"status\":\"pending_payment\",\"status_label\":\"Pendiente de pago\",\"customer_type\":\"company\",\"company_name\":\"Baeza de Arredondo S.A.S.\",\"nit\":\"944731071-9\",\"contact_name\":\"Olivia Centeno\",\"email\":\"jalmonte@example.com\",\"phone\":\"324 049 0034\",\"city\":\"Barrancabermeja\",\"address\":\"Traves\\u00eda Cristian, 47, 2\\u00ba F\",\"delivery_method\":\"pickup\",\"delivery_method_label\":\"Recoger en tienda\",\"payment_method\":null,\"subtotal\":840336.13,\"tax\":159663.87,\"shipping\":0,\"total\":1000000,\"notes\":null,\"expires_at\":null,\"paid_at\":null,\"created_at\":\"2026-11-11T00:21:37.000000Z\",\"items\":[{\"id\":36,\"product_id\":84,\"sku\":\"REF-2083-jk\",\"product_name\":\"Motor trif\\u00e1sico 4189 HP\",\"unit\":\"unidad\",\"quantity\":5,\"unit_price\":3759000,\"tax_rate\":19,\"line_total\":18795000,\"notes\":null}],\"status_history\":[{\"from_status\":null,\"to_status\":\"pending_payment\",\"to_status_label\":\"Pendiente de pago\",\"note\":null,\"created_at\":\"2026-11-11T00:21:37.000000Z\"}]}}",
+                            "body": "{\"data\":{\"code\":\"PED-7680\",\"type\":\"purchase\",\"type_label\":\"Pedido\",\"status\":\"pending_payment\",\"status_label\":\"Pendiente de pago\",\"customer_type\":\"company\",\"company_name\":\"Baeza de Arredondo S.A.S.\",\"nit\":\"944731071-9\",\"contact_name\":\"Olivia Centeno\",\"email\":\"jalmonte@example.com\",\"phone\":\"324 049 0034\",\"city\":\"Barrancabermeja\",\"address\":\"Traves\\u00eda Cristian, 47, 2\\u00ba F\",\"delivery_method\":\"pickup\",\"delivery_method_label\":\"Recoger en tienda\",\"payment_method\":null,\"subtotal\":840336.13,\"tax\":159663.87,\"shipping\":0,\"total\":1000000,\"notes\":null,\"expires_at\":null,\"paid_at\":null,\"created_at\":\"2026-11-11T02:04:29.000000Z\",\"items\":[{\"id\":42,\"product_id\":98,\"sku\":\"REF-2083-jk\",\"product_name\":\"Motor trif\\u00e1sico 4189 HP\",\"unit\":\"unidad\",\"quantity\":5,\"unit_price\":3759000,\"tax_rate\":19,\"line_total\":18795000,\"notes\":null}],\"status_history\":[{\"from_status\":null,\"to_status\":\"pending_payment\",\"to_status_label\":\"Pendiente de pago\",\"note\":null,\"created_at\":\"2026-11-11T02:04:29.000000Z\"}]}}",
                             "name": ""
                         },
                         {
@@ -792,7 +792,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":{\"code\":\"PED-3724\",\"type\":\"purchase\",\"type_label\":\"Pedido\",\"status\":\"pending_payment\",\"status_label\":\"Pendiente de pago\",\"customer_type\":\"company\",\"company_name\":\"Gestora Fonseca-Rosales S.A.S.\",\"nit\":\"942198886-2\",\"contact_name\":\"D\\u00f1a Victoria Espinal\",\"email\":\"lucio.noelia@example.org\",\"phone\":\"305 913 5052\",\"city\":\"Bucaramanga\",\"address\":\"Passeig Olivia, 232, 4\\u00ba\",\"delivery_method\":\"national\",\"delivery_method_label\":\"Env\\u00edo nacional\",\"payment_method\":null,\"subtotal\":840336.13,\"tax\":159663.87,\"shipping\":0,\"total\":1000000,\"notes\":null,\"expires_at\":null,\"paid_at\":null,\"created_at\":\"2026-11-11T00:21:37.000000Z\",\"items\":[{\"id\":37,\"product_id\":85,\"sku\":\"REF-0782-pp\",\"product_name\":\"Motor trif\\u00e1sico 5685 HP\",\"unit\":\"unidad\",\"quantity\":1,\"unit_price\":276000,\"tax_rate\":19,\"line_total\":276000,\"notes\":null}],\"status_history\":[{\"from_status\":null,\"to_status\":\"pending_payment\",\"to_status_label\":\"Pendiente de pago\",\"note\":null,\"created_at\":\"2026-11-11T00:21:37.000000Z\"}]}}",
+                            "body": "{\"data\":{\"code\":\"PED-3724\",\"type\":\"purchase\",\"type_label\":\"Pedido\",\"status\":\"pending_payment\",\"status_label\":\"Pendiente de pago\",\"customer_type\":\"company\",\"company_name\":\"Gestora Fonseca-Rosales S.A.S.\",\"nit\":\"942198886-2\",\"contact_name\":\"D\\u00f1a Victoria Espinal\",\"email\":\"lucio.noelia@example.org\",\"phone\":\"305 913 5052\",\"city\":\"Bucaramanga\",\"address\":\"Passeig Olivia, 232, 4\\u00ba\",\"delivery_method\":\"national\",\"delivery_method_label\":\"Env\\u00edo nacional\",\"payment_method\":null,\"subtotal\":840336.13,\"tax\":159663.87,\"shipping\":0,\"total\":1000000,\"notes\":null,\"expires_at\":null,\"paid_at\":null,\"created_at\":\"2026-11-11T02:04:29.000000Z\",\"items\":[{\"id\":43,\"product_id\":99,\"sku\":\"REF-0782-pp\",\"product_name\":\"Motor trif\\u00e1sico 5685 HP\",\"unit\":\"unidad\",\"quantity\":1,\"unit_price\":276000,\"tax_rate\":19,\"line_total\":276000,\"notes\":null}],\"status_history\":[{\"from_status\":null,\"to_status\":\"pending_payment\",\"to_status_label\":\"Pendiente de pago\",\"note\":null,\"created_at\":\"2026-11-11T02:04:29.000000Z\"}]}}",
                             "name": ""
                         },
                         {
@@ -894,7 +894,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":[{\"id\":86,\"sku\":\"REF-9365-mi\",\"name\":\"Motor trif\\u00e1sico 4027 HP\",\"slug\":\"motor-trifasico-4027-hp\",\"short_description\":\"Fugiat sunt nihil accusantium harum mollitia.\",\"description\":null,\"image_url\":null,\"specs\":{\"voltaje_v\":220,\"potencia_hp\":10},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":3636000,\"tax_rate\":19,\"stock\":19,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":105,\"name\":\"Perspiciatis quo\",\"slug\":\"perspiciatis-quo\"},\"brand\":{\"id\":83,\"name\":\"Empresa Dom\\u00ednguez e Hijo\",\"slug\":\"empresa-dominguez-e-hijo\",\"logo_url\":null},\"is_active\":true,\"created_at\":\"2026-11-11T00:21:37.000000Z\",\"updated_at\":\"2026-11-11T00:21:37.000000Z\",\"deleted_at\":null},{\"id\":87,\"sku\":\"REF-0719-qw\",\"name\":\"Motor trif\\u00e1sico 8015 HP\",\"slug\":\"motor-trifasico-8015-hp\",\"short_description\":\"Et et modi ipsum nostrum.\",\"description\":null,\"image_url\":null,\"specs\":{\"voltaje_v\":220,\"potencia_hp\":5},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":2841000,\"tax_rate\":19,\"stock\":22,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":106,\"name\":\"Dolores enim\",\"slug\":\"dolores-enim\"},\"brand\":{\"id\":84,\"name\":\"Casanova y Almonte y Asoc.\",\"slug\":\"casanova-y-almonte-y-asoc\",\"logo_url\":null},\"is_active\":true,\"created_at\":\"2026-11-11T00:21:37.000000Z\",\"updated_at\":\"2026-11-11T00:21:37.000000Z\",\"deleted_at\":null}],\"links\":{\"first\":\"\\/?page=1\",\"last\":\"\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"pagination.previous\",\"page\":null,\"active\":false},{\"url\":\"\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"pagination.next\",\"page\":null,\"active\":false}],\"path\":\"\\/\",\"per_page\":10,\"to\":2,\"total\":2}}",
+                            "body": "{\"data\":[{\"id\":100,\"sku\":\"REF-9365-mi\",\"name\":\"Motor trif\\u00e1sico 4027 HP\",\"slug\":\"motor-trifasico-4027-hp\",\"short_description\":\"Fugiat sunt nihil accusantium harum mollitia.\",\"description\":null,\"image_url\":null,\"specs\":{\"voltaje_v\":220,\"potencia_hp\":10},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":3636000,\"tax_rate\":19,\"stock\":19,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":126,\"name\":\"Perspiciatis quo\",\"slug\":\"perspiciatis-quo\"},\"brand\":{\"id\":99,\"name\":\"Empresa Dom\\u00ednguez e Hijo\",\"slug\":\"empresa-dominguez-e-hijo\",\"logo_url\":null},\"is_active\":true,\"price_source\":null,\"created_at\":\"2026-11-11T02:04:29.000000Z\",\"updated_at\":\"2026-11-11T02:04:29.000000Z\",\"deleted_at\":null},{\"id\":101,\"sku\":\"REF-0719-qw\",\"name\":\"Motor trif\\u00e1sico 8015 HP\",\"slug\":\"motor-trifasico-8015-hp\",\"short_description\":\"Et et modi ipsum nostrum.\",\"description\":null,\"image_url\":null,\"specs\":{\"voltaje_v\":220,\"potencia_hp\":5},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":2841000,\"tax_rate\":19,\"stock\":22,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":127,\"name\":\"Dolores enim\",\"slug\":\"dolores-enim\"},\"brand\":{\"id\":100,\"name\":\"Casanova y Almonte y Asoc.\",\"slug\":\"casanova-y-almonte-y-asoc\",\"logo_url\":null},\"is_active\":true,\"price_source\":null,\"created_at\":\"2026-11-11T02:04:29.000000Z\",\"updated_at\":\"2026-11-11T02:04:29.000000Z\",\"deleted_at\":null}],\"links\":{\"first\":\"\\/?page=1\",\"last\":\"\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"pagination.previous\",\"page\":null,\"active\":false},{\"url\":\"\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"pagination.next\",\"page\":null,\"active\":false}],\"path\":\"\\/\",\"per_page\":10,\"to\":2,\"total\":2}}",
                             "name": ""
                         },
                         {
@@ -935,7 +935,7 @@
                         {
                             "header": [],
                             "code": 201,
-                            "body": "{\"data\":{\"id\":88,\"sku\":\"REF-7432-uw\",\"name\":\"Motor trif\\u00e1sico 7195 HP\",\"slug\":\"motor-trifasico-7195-hp\",\"short_description\":\"Nostrum qui commodi incidunt iure.\",\"description\":null,\"image_url\":null,\"specs\":{\"voltaje_v\":220,\"potencia_hp\":5},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":1302000,\"tax_rate\":19,\"stock\":13,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":107,\"name\":\"Nostrum omnis\",\"slug\":\"nostrum-omnis\"},\"brand\":{\"id\":85,\"name\":\"Asociaci\\u00f3n Jaramillo e Hija\",\"slug\":\"asociacion-jaramillo-e-hija\",\"logo_url\":null},\"is_active\":true,\"created_at\":\"2026-11-11T00:21:37.000000Z\",\"updated_at\":\"2026-11-11T00:21:37.000000Z\",\"deleted_at\":null}}",
+                            "body": "{\"data\":{\"id\":102,\"sku\":\"REF-7432-uw\",\"name\":\"Motor trif\\u00e1sico 7195 HP\",\"slug\":\"motor-trifasico-7195-hp\",\"short_description\":\"Nostrum qui commodi incidunt iure.\",\"description\":null,\"image_url\":null,\"specs\":{\"voltaje_v\":220,\"potencia_hp\":5},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":1302000,\"tax_rate\":19,\"stock\":13,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":128,\"name\":\"Nostrum omnis\",\"slug\":\"nostrum-omnis\"},\"brand\":{\"id\":101,\"name\":\"Asociaci\\u00f3n Jaramillo e Hija\",\"slug\":\"asociacion-jaramillo-e-hija\",\"logo_url\":null},\"is_active\":true,\"price_source\":null,\"created_at\":\"2026-11-11T02:04:29.000000Z\",\"updated_at\":\"2026-11-11T02:04:29.000000Z\",\"deleted_at\":null}}",
                             "name": ""
                         },
                         {
@@ -987,7 +987,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":{\"id\":89,\"sku\":\"REF-3724-pw\",\"name\":\"Motor trif\\u00e1sico 2878 HP\",\"slug\":\"motor-trifasico-2878-hp\",\"short_description\":\"Commodi incidunt iure odit.\",\"description\":\"Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.\",\"image_url\":null,\"specs\":{\"voltaje_v\":440,\"potencia_hp\":10},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":1487000,\"tax_rate\":19,\"stock\":17,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":108,\"name\":\"Aliquam veniam\",\"slug\":\"aliquam-veniam\"},\"brand\":{\"id\":86,\"name\":\"Cab\\u00e1n de Llorente S. de H.\",\"slug\":\"caban-de-llorente-s-de-h\",\"logo_url\":null},\"is_active\":true,\"created_at\":\"2026-11-11T00:21:37.000000Z\",\"updated_at\":\"2026-11-11T00:21:37.000000Z\",\"deleted_at\":null}}",
+                            "body": "{\"data\":{\"id\":103,\"sku\":\"REF-3724-pw\",\"name\":\"Motor trif\\u00e1sico 2878 HP\",\"slug\":\"motor-trifasico-2878-hp\",\"short_description\":\"Commodi incidunt iure odit.\",\"description\":\"Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.\",\"image_url\":null,\"specs\":{\"voltaje_v\":440,\"potencia_hp\":10},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":1487000,\"tax_rate\":19,\"stock\":17,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":129,\"name\":\"Aliquam veniam\",\"slug\":\"aliquam-veniam\"},\"brand\":{\"id\":102,\"name\":\"Cab\\u00e1n de Llorente S. de H.\",\"slug\":\"caban-de-llorente-s-de-h\",\"logo_url\":null},\"is_active\":true,\"price_source\":null,\"created_at\":\"2026-11-11T02:04:29.000000Z\",\"updated_at\":\"2026-11-11T02:04:29.000000Z\",\"deleted_at\":null}}",
                             "name": ""
                         },
                         {
@@ -1034,7 +1034,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"category_id\":1,\"brand_id\":1,\"sku\":\"MOT-5HP-220\",\"name\":\"Motor trifásico 5 HP\",\"short_description\":\"Motor para uso industrial\",\"description\":\"Velit et fugiat sunt nihil accusantium.\",\"image_url\":\"http:\\/\\/tillman.com\\/\",\"unit\":\"unidad\",\"sale_mode\":\"direct\",\"price\":1600000,\"cost_price\":18,\"tax_rate\":19,\"stock\":6,\"is_active\":false,\"is_featured\":true,\"specs\":[{\"key\":\"k\",\"value\":\"c\"}]}"
+                            "raw": "{\"category_id\":1,\"brand_id\":1,\"sku\":\"MOT-5HP-220\",\"name\":\"Motor trifásico 5 HP\",\"short_description\":\"Motor para uso industrial\",\"description\":\"Velit et fugiat sunt nihil accusantium.\",\"image_url\":\"http:\\/\\/tillman.com\\/\",\"unit\":\"unidad\",\"sale_mode\":\"direct\",\"price\":1600000,\"cost_price\":18,\"tax_rate\":19,\"stock\":6,\"is_active\":false,\"is_featured\":false,\"specs\":[{\"key\":\"k\",\"value\":\"c\"}]}"
                         },
                         "description": "Reemplaza el producto: se envían los mismos campos obligatorios que al crear. El slug no cambia. Si no\nse envían `is_active`, `is_featured` o `specs`, esos datos se conservan."
                     },
@@ -1042,7 +1042,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":{\"id\":90,\"sku\":\"REF-7680-wp\",\"name\":\"Motor trif\\u00e1sico 2977 HP\",\"slug\":\"motor-trifasico-2977-hp\",\"short_description\":\"Qui commodi incidunt iure odit.\",\"description\":\"Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.\",\"image_url\":null,\"specs\":{\"voltaje_v\":440,\"potencia_hp\":10},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":1487000,\"tax_rate\":19,\"stock\":17,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":109,\"name\":\"Corporis dolorem\",\"slug\":\"corporis-dolorem\"},\"brand\":{\"id\":87,\"name\":\"Marroqu\\u00edn, Ram\\u00edrez y Chapa SRL\",\"slug\":\"marroquin-ramirez-y-chapa-srl\",\"logo_url\":null},\"is_active\":true,\"created_at\":\"2026-11-11T00:21:37.000000Z\",\"updated_at\":\"2026-11-11T00:21:37.000000Z\",\"deleted_at\":null}}",
+                            "body": "{\"data\":{\"id\":104,\"sku\":\"REF-7680-wp\",\"name\":\"Motor trif\\u00e1sico 2977 HP\",\"slug\":\"motor-trifasico-2977-hp\",\"short_description\":\"Qui commodi incidunt iure odit.\",\"description\":\"Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.\",\"image_url\":null,\"specs\":{\"voltaje_v\":440,\"potencia_hp\":10},\"unit\":\"unidad\",\"unit_label\":\"Unidad\",\"price\":1487000,\"tax_rate\":19,\"stock\":17,\"in_stock\":true,\"sale_mode\":\"direct\",\"sale_mode_label\":\"Venta directa\",\"is_featured\":false,\"category\":{\"id\":130,\"name\":\"Corporis dolorem\",\"slug\":\"corporis-dolorem\"},\"brand\":{\"id\":103,\"name\":\"Marroqu\\u00edn, Ram\\u00edrez y Chapa SRL\",\"slug\":\"marroquin-ramirez-y-chapa-srl\",\"logo_url\":null},\"is_active\":true,\"price_source\":null,\"created_at\":\"2026-11-11T02:04:29.000000Z\",\"updated_at\":\"2026-11-11T02:04:29.000000Z\",\"deleted_at\":null}}",
                             "name": ""
                         },
                         {
@@ -1210,7 +1210,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":[{\"id\":110,\"parent_id\":null,\"name\":\"Quos velit\",\"slug\":\"quos-velit\",\"description\":\"Sunt nihil accusantium harum mollitia.\",\"image_url\":null,\"sort_order\":19,\"is_active\":true,\"created_at\":\"2026-11-11T00:21:37.000000Z\",\"updated_at\":\"2026-11-11T00:21:37.000000Z\"},{\"id\":111,\"parent_id\":null,\"name\":\"Deserunt aut\",\"slug\":\"deserunt-aut\",\"description\":null,\"image_url\":null,\"sort_order\":15,\"is_active\":true,\"created_at\":\"2026-11-11T00:21:37.000000Z\",\"updated_at\":\"2026-11-11T00:21:37.000000Z\"}],\"links\":{\"first\":\"\\/?page=1\",\"last\":\"\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"pagination.previous\",\"page\":null,\"active\":false},{\"url\":\"\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"pagination.next\",\"page\":null,\"active\":false}],\"path\":\"\\/\",\"per_page\":10,\"to\":2,\"total\":2}}",
+                            "body": "{\"data\":[{\"id\":131,\"parent_id\":null,\"name\":\"Quos velit\",\"slug\":\"quos-velit\",\"description\":\"Sunt nihil accusantium harum mollitia.\",\"image_url\":null,\"sort_order\":19,\"is_active\":true,\"created_at\":\"2026-11-11T02:04:29.000000Z\",\"updated_at\":\"2026-11-11T02:04:29.000000Z\"},{\"id\":132,\"parent_id\":null,\"name\":\"Deserunt aut\",\"slug\":\"deserunt-aut\",\"description\":null,\"image_url\":null,\"sort_order\":15,\"is_active\":true,\"created_at\":\"2026-11-11T02:04:29.000000Z\",\"updated_at\":\"2026-11-11T02:04:29.000000Z\"}],\"links\":{\"first\":\"\\/?page=1\",\"last\":\"\\/?page=1\",\"prev\":null,\"next\":null},\"meta\":{\"current_page\":1,\"from\":1,\"last_page\":1,\"links\":[{\"url\":null,\"label\":\"pagination.previous\",\"page\":null,\"active\":false},{\"url\":\"\\/?page=1\",\"label\":\"1\",\"page\":1,\"active\":true},{\"url\":null,\"label\":\"pagination.next\",\"page\":null,\"active\":false}],\"path\":\"\\/\",\"per_page\":10,\"to\":2,\"total\":2}}",
                             "name": ""
                         },
                         {
@@ -1251,7 +1251,7 @@
                         {
                             "header": [],
                             "code": 201,
-                            "body": "{\"data\":{\"id\":112,\"parent_id\":null,\"name\":\"Nihil accusantium\",\"slug\":\"nihil-accusantium\",\"description\":\"Modi deserunt aut ab provident perspiciatis.\",\"image_url\":null,\"sort_order\":12,\"is_active\":true,\"created_at\":\"2026-11-11T00:21:37.000000Z\",\"updated_at\":\"2026-11-11T00:21:37.000000Z\"}}",
+                            "body": "{\"data\":{\"id\":133,\"parent_id\":null,\"name\":\"Nihil accusantium\",\"slug\":\"nihil-accusantium\",\"description\":\"Modi deserunt aut ab provident perspiciatis.\",\"image_url\":null,\"sort_order\":12,\"is_active\":true,\"created_at\":\"2026-11-11T02:04:29.000000Z\",\"updated_at\":\"2026-11-11T02:04:29.000000Z\"}}",
                             "name": ""
                         },
                         {
@@ -1303,7 +1303,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":{\"id\":113,\"parent_id\":null,\"name\":\"Aut adipisci\",\"slug\":\"aut-adipisci\",\"description\":\"Qui commodi incidunt iure odit.\",\"image_url\":null,\"sort_order\":8,\"is_active\":true,\"created_at\":\"2026-11-11T00:21:37.000000Z\",\"updated_at\":\"2026-11-11T00:21:37.000000Z\"}}",
+                            "body": "{\"data\":{\"id\":134,\"parent_id\":null,\"name\":\"Aut adipisci\",\"slug\":\"aut-adipisci\",\"description\":\"Qui commodi incidunt iure odit.\",\"image_url\":null,\"sort_order\":8,\"is_active\":true,\"created_at\":\"2026-11-11T02:04:29.000000Z\",\"updated_at\":\"2026-11-11T02:04:29.000000Z\"}}",
                             "name": ""
                         },
                         {
@@ -1358,7 +1358,7 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\"data\":{\"id\":114,\"parent_id\":null,\"name\":\"Harum mollitia\",\"slug\":\"harum-mollitia\",\"description\":null,\"image_url\":null,\"sort_order\":0,\"is_active\":true,\"created_at\":\"2026-11-11T00:21:37.000000Z\",\"updated_at\":\"2026-11-11T00:21:37.000000Z\"}}",
+                            "body": "{\"data\":{\"id\":135,\"parent_id\":null,\"name\":\"Harum mollitia\",\"slug\":\"harum-mollitia\",\"description\":null,\"image_url\":null,\"sort_order\":0,\"is_active\":true,\"created_at\":\"2026-11-11T02:04:29.000000Z\",\"updated_at\":\"2026-11-11T02:04:29.000000Z\"}}",
                             "name": ""
                         },
                         {
@@ -1578,7 +1578,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"q\":\"b\",\"family\":\"n\",\"category\":\"g\",\"brand\":\"z\",\"mode\":\"direct\",\"in_stock\":false,\"hp_min\":17,\"hp_max\":15,\"per_page\":8}"
+                            "raw": "{\"q\":\"b\",\"family\":\"n\",\"category\":\"g\",\"brand\":\"z\",\"mode\":\"quote\",\"in_stock\":true,\"hp_min\":17,\"hp_max\":15,\"per_page\":8}"
                         },
                         "description": "Resumen de cada línea: rango de potencia, \"desde\" el precio más bajo con IVA, stock total y, si tiene una\nsola referencia comprable, esa referencia lista para agregar al carrito.",
                         "auth": {
@@ -1781,6 +1781,75 @@
                             "code": 201,
                             "body": "{\"data\":{\"message\":\"Recibimos tu solicitud. Un asesor te responderá pronto.\",\"reference\":\"LIB-0001\",\"response_time\":\"el mismo día hábil\"}}",
                             "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Ficha técnica (público)",
+            "description": "",
+            "item": [
+                {
+                    "name": "Descargar ficha y cotización (PDF)",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api/v1/datasheet",
+                            "query": [
+                                {
+                                    "key": "sku",
+                                    "value": "12220434",
+                                    "description": "Referencia (SKU) elegida.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "quantity",
+                                    "value": "2",
+                                    "description": "Cantidad (1 por defecto; decimales solo en productos por metro).",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}/api/v1/datasheet?sku=12220434&quantity=2"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"sku\":\"b\",\"quantity\":22}"
+                        },
+                        "description": "Genera el PDF con la marca de Imagen Eléctrica: producto, referencia, especificaciones, valor (el mismo precio de la tienda,\no «sujeto a cotización») y datos de contacto. Cada descarga queda registrada con su número de documento. No requiere token.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "binary",
+                            "name": "PDF"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\"message\": \"No se encontró lo que buscas.\"}",
+                            "name": "Referencia inexistente o inactiva"
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\"message\": \"El campo cantidad debe ser al menos 0.01.\"}",
+                            "name": "Cantidad inválida"
                         }
                     ]
                 }

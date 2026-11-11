@@ -8,6 +8,7 @@
             ['admin.orders.index', 'admin.orders.*', 'inboxes', 'Solicitudes'],
             ['admin.quote-requests.index', 'admin.quote-requests.*', 'chat-left-text', 'Cotizaciones sin cuenta'],
             ['admin.newsletter.index', 'admin.newsletter.*', 'envelope-paper', 'Suscriptores'],
+            ['admin.datasheets.index', 'admin.datasheets.*', 'file-earmark-pdf', 'Fichas descargadas'],
         ],
     ];
 

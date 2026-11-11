@@ -111,6 +111,16 @@ class ProductRepository
         return $query->paginate($perPage)->withQueryString();
     }
 
+    /** Referencia activa por SKU (ficha técnica con cotización). Inactiva, eliminada o inexistente responde 404. */
+    public function findActiveBySkuOrFail(string $sku): Product
+    {
+        return Product::query()
+            ->with(['brand:id,name,slug', 'category:id,name,slug', 'line:id,name,slug'])
+            ->where('is_active', true)
+            ->where('sku', $sku)
+            ->firstOrFail();
+    }
+
     /** Detalle público por slug. Un producto inactivo o eliminado responde 404. */
     public function findActiveBySlugOrFail(string $slug): Product
     {

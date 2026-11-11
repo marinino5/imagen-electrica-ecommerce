@@ -10,7 +10,7 @@
   display: block;
   min-height: calc(100svh - var(--header-h));
   overflow: clip;
-  background: var(--ie-lila-100);
+  background: linear-gradient(180deg, var(--ie-lila-100) 0%, var(--ie-lila-50) 100%);
 }
 .ax2__band { position: absolute; inset: 0 0 auto 0; z-index: -1; height: var(--kick-h); overflow: hidden; background: var(--primary); }
 .ax2__e { position: absolute; top: 50%; right: 4%; width: min(620px, 80vw); height: auto; color: rgb(255 255 255 / 0.06); transform: translateY(-50%); }
@@ -20,8 +20,7 @@
 /* «Tu cuenta Imagen Eléctrica»: blanco, pequeño, justo encima de la tarjeta; en celular, centrado en la banda de 160 px */
 .ax2__kicker { display: flex; align-items: center; justify-content: center; height: var(--kick-h); margin: 0; color: #fff; font-size: 12.5px; font-weight: 700; letter-spacing: 0.18em; text-align: center; text-transform: uppercase; }
 .ax2__wrap { position: relative; width: 100%; max-width: 520px; margin-inline: auto; }
-.ax2__wrap .ax__card { position: relative; z-index: 1; max-width: none; box-shadow: 0 40px 90px -22px rgb(20 16 36 / 0.55), 0 10px 24px -8px rgb(20 16 36 / 0.25); }
-.ax2__peek { display: none; }
+.ax2__wrap .ax__card { position: relative; z-index: 1; max-width: none; box-shadow: 0 28px 60px -26px rgb(81 62 132 / 0.45), 0 8px 20px -10px rgb(81 62 132 / 0.2); }
 
 @media (min-width: 768px) {
   .ax.ax2 { --kick-h: 150px; }
@@ -30,13 +29,11 @@
   .ax2__arc { left: -10%; bottom: -150px; }
   .ax2__stage { padding-bottom: 130px; }
   .ax2__kicker { align-items: flex-end; padding-bottom: 20px; }
-  /* Tres productos recortados parcialmente tapados por la tarjeta */
-  .ax2__peek { position: absolute; z-index: 0; display: block; height: auto; filter: drop-shadow(0 18px 20px rgb(20 16 36 / 0.35)); pointer-events: none; }
-  .ax2__peek--motor { left: -150px; top: 20px; width: 250px; transform: rotate(-6deg); }
-  .ax2__peek--variador { right: -130px; top: 230px; width: 230px; transform: rotate(6deg); }
-  .ax2__peek--multimetro { left: 34%; bottom: -112px; width: 220px; transform: rotate(2deg); }
 }
 @media (max-width: 767px) { .ax2__stage { padding-inline: 12px; } }
 
 /* Tarjeta de Ingresar, Crear cuenta y Recuperar: esquinas de 28 px */
 .ax__card { border-radius: 28px; }
+
+/* Grabado industrial bajo la banda: engranaje y plano en línea fina al 5 % */
+.ax.ax2::before { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0.055; background-repeat: no-repeat; background-image: var(--grab-gear), var(--grab-plan); background-size: min(520px, 62vw), min(420px, 52vw); background-position: right -90px bottom 6%, left -60px bottom 3%; }

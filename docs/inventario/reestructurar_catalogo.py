@@ -255,9 +255,9 @@ RULES = {
     'Motobombas': [L('Motobomba IHM', 'IHM', anyv, keep, tipo='Motobomba')],
     'Cintas aislantes': [L('Cinta aislante PVC 3M Temflex', '3M', anyv, keep, tipo='Cinta aislante de PVC', serie='Temflex')],
     'Insumos, herramientas y repuestos': [
-        L('Cinta de enmascarar Cellux', 'Cellux', name_has('enmascarar'), keep, tipo='Cinta de enmascarar', category='Cintas de enmascarar'),
-        L('Batería sellada Magna', 'Magna', name_has('batería', 'bateria'), keep, tipo='Batería sellada de plomo-ácido', category='Baterías'),
-        L('Tapón macho Swagelok', 'Swagelok', anyv, keep, tipo='Tapón macho de acero inoxidable', serie='SS-12-P', category='Tapones y conexiones'),
+        L('Cinta de enmascarar Cellux 18 mm', 'Cellux', name_has('enmascarar'), keep, tipo='Cinta de enmascarar', category='Cintas de enmascarar', extra={'longitud': '40 yardas'}),
+        L('Batería Magna 12 V 5 Ah', 'Magna', name_has('batería', 'bateria'), keep, tipo='Batería', category='Baterías'),
+        L('Tapón macho Swagelok 3/4 NPT acero inoxidable', 'Swagelok', anyv, keep, tipo='Tapón macho', serie='SS-12-P', category='Tapones y conexiones', extra={'rosca': '3/4 NPT', 'material': 'Acero inoxidable'}),
     ],
     'Interruptores y tomas inteligentes': [L('Interruptor inteligente Ilumax', 'Ilumax', anyv, keep, tipo='Interruptor inteligente')],
     'Tomas, clavijas y tapas Leviton': [
@@ -270,6 +270,13 @@ RULES = {
         L('Amperímetro análogo Chint', 'Chint', brand_is('Chint'), keep, tipo='Amperímetro análogo de panel'),
         L('Analizador de red multifunción Nippen', 'Nippen', anyv, keep, tipo='Analizador de red multifunción'),
     ],
+}
+
+FAMILY_RENAMES = {
+    'Motores eléctricos': 'Motores Eléctricos', 'Reductores y motorreductores': 'Reductores y Motorreductores',
+    'Control y automatización': 'Control y Automatización', 'Ventilación y climatización': 'Ventilación y Climatización',
+    'Cables y conductores': 'Cables y Conductores', 'Medición y testeo': 'Medición y Testeo', 'Material eléctrico': 'Material Eléctrico',
+    'Otros productos': 'Herramientas y Repuestos',
 }
 
 # Referencias cuya foto actual NO es de ese producto (se quitan; quedan en docs/inventario/fotos-para-tomar.md)
@@ -286,6 +293,17 @@ SERIE_POR_SKU = [
 def main():
     cat = json.loads((DATA / 'catalogo.json').read_text())
     images = json.loads((DATA / 'line-images.json').read_text())
+    # Familias con mayúscula inicial en cada palabra importante; la 10 pasa a «Herramientas y Repuestos»
+    for old, new in FAMILY_RENAMES.items():
+        for fam in cat['families']:
+            if fam['name'] == old:
+                fam['name'] = new
+        for line in cat['lines']:
+            if line['family'] == old:
+                line['family'] = new
+    for fam in cat['families']:
+        if fam['name'] == 'Herramientas y Repuestos':
+            fam['description'] = 'Cintas de enmascarar, baterías, tapones y otros insumos, herramientas y repuestos que no son material eléctrico.'
     lines_out, merged = [], {}  # merged: (nombre nuevo) -> línea ya creada (para fundir varias líneas viejas)
     removed_slugs = set()
     changed = 0

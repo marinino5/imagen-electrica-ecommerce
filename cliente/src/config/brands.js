@@ -26,9 +26,20 @@ export function withLogos(apiBrands = []) {
   }))
 }
 
+// Logos que solo se usan en las tarjetas del catálogo y en el filtro de marca (no forman parte de la vitrina del Inicio).
+// Fuente de cada uno: Wikimedia Commons (docs/licencias-imagenes.md). Las marcas sin archivo muestran su nombre en una sola línea.
+const cardLogos = {
+  leviton: '/img/marcas/leviton.png',
+  '3m': '/img/marcas/3m.png',
+  telemecanique: '/img/marcas/telemecanique.png',
+  autonics: '/img/marcas/autonics.png',
+  chint: '/img/marcas/chint.png',
+}
+
 // Marca → logo (para los filtros y las tarjetas del catálogo). La clave es el nombre en minúsculas.
 export const brandLogo = (name) => {
   const n = String(name ?? '').toLowerCase()
   const hit = showcaseBrands.find((b) => b.logo && (b.name.toLowerCase() === n || b.slugs.some((s) => n.replace(/[^a-z]/g, '').includes(s.replace(/[^a-z]/g, '')))))
-  return hit?.logo ?? null
+  if (hit?.logo) return hit.logo
+  return cardLogos[n.replace(/[^a-z0-9]/g, '')] ?? null
 }

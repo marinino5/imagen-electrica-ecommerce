@@ -1,194 +1,22 @@
-name: Autenticación
+name: Boletín
 description: ''
 endpoints:
   -
     custom: []
     httpMethods:
       - POST
-    uri: api/v1/register
+    uri: api/v1/newsletter
     metadata:
       custom: []
-      groupName: Autenticación
+      groupName: Boletín
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Registrar cliente'
+      title: 'Suscribirse al boletín'
       description: |-
-        Crea la cuenta (rol cliente) como empresa o persona natural y devuelve un token listo
-        para usar. Aceptar la política de datos es obligatorio; el marketing es opcional.
-        Máximo 5 intentos por minuto.
-      authenticated: false
-      deprecated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      name:
-        custom: []
-        name: name
-        description: 'Nombre de la persona de contacto.'
-        required: true
-        example: 'Laura Gómez'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      email:
-        custom: []
-        name: email
-        description: 'Correo (único).'
-        required: true
-        example: laura@constructoraaltos.test
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      password:
-        custom: []
-        name: password
-        description: 'Mínimo 8 caracteres.'
-        required: true
-        example: ClaveSegura2026
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      type:
-        custom: []
-        name: type
-        description: 'Tipo de cliente: `company` (empresa, por defecto) o `natural` (persona natural).'
-        required: false
-        example: company
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      company_name:
-        custom: []
-        name: company_name
-        description: 'Razón social. Obligatoria si type es company; se ignora si es natural.'
-        required: false
-        example: 'Constructora Altos S.A.S.'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
-        deprecated: false
-      nit:
-        custom: []
-        name: nit
-        description: 'NIT (único). Obligatorio si type es company; en persona natural es la cédula y es opcional.'
-        required: false
-        example: 900765432-8
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
-        deprecated: false
-      phone:
-        custom: []
-        name: phone
-        description: Teléfono.
-        required: true
-        example: '315 555 0202'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      city:
-        custom: []
-        name: city
-        description: Ciudad.
-        required: true
-        example: Bucaramanga
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      address:
-        custom: []
-        name: address
-        description: 'Dirección de entrega habitual.'
-        required: false
-        example: 'Carrera 27 # 45-10'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
-        deprecated: false
-      privacy_accepted:
-        custom: []
-        name: privacy_accepted
-        description: 'Debe ser true (política de tratamiento de datos).'
-        required: true
-        example: true
-        type: boolean
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      marketing_opt_in:
-        custom: []
-        name: marketing_opt_in
-        description: 'Acepta recibir promociones.'
-        required: false
-        example: false
-        type: boolean
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
-        deprecated: false
-    cleanBodyParameters:
-      name: 'Laura Gómez'
-      email: laura@constructoraaltos.test
-      password: ClaveSegura2026
-      type: company
-      company_name: 'Constructora Altos S.A.S.'
-      nit: 900765432-8
-      phone: '315 555 0202'
-      city: Bucaramanga
-      address: 'Carrera 27 # 45-10'
-      privacy_accepted: true
-      marketing_opt_in: false
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 201
-        content: '{"data":{"id":5,"name":"Laura Gómez","email":"laura@constructoraaltos.test","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Constructora Altos S.A.S.","nit":"900765432-8","contact_name":"Laura Gómez","phone":"315 555 0202","city":"Bucaramanga","address":null,"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T15:00:00.000000Z"}},"token":"1|abc123...","token_type":"Bearer"}'
-        headers: []
-        description: 'Cuenta creada'
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - POST
-    uri: api/v1/login
-    metadata:
-      custom: []
-      groupName: Autenticación
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Iniciar sesión'
-      description: |-
-        Devuelve un token Bearer. Sirve para clientes y para el administrador. Máximo 5 intentos
-        por minuto por correo y dirección IP. Credenciales incorrectas responden 401; un usuario
-        inactivo, 403.
+        Público: no necesita token. Límite de 5 intentos por minuto y 20 por hora desde la misma IP. Se guarda el correo,
+        la fecha y la IP de la autorización de tratamiento de datos (Ley 1581 de 2012). Un correo repetido responde igual.
+        `website` es un campo trampa contra bots: debe enviarse vacío o no enviarse.
       authenticated: false
       deprecated: false
     headers:
@@ -204,229 +32,48 @@ endpoints:
         name: email
         description: Correo.
         required: true
-        example: laura@constructoraaltos.test
+        example: laura@empresa.co
         type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         deprecated: false
-      password:
+      privacy_accepted:
         custom: []
-        name: password
-        description: Contraseña.
+        name: privacy_accepted
+        description: 'Autoriza el tratamiento de datos.'
         required: true
-        example: ClaveSegura2026
-        type: string
+        example: true
+        type: boolean
         enumValues: []
         exampleWasSpecified: true
         nullable: false
+        deprecated: false
+      website:
+        custom: []
+        name: website
+        description: 'El campo value no puede tener más de 255 caracteres.'
+        required: false
+        example: m
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
         deprecated: false
     cleanBodyParameters:
-      email: laura@constructoraaltos.test
-      password: ClaveSegura2026
+      email: laura@empresa.co
+      privacy_accepted: true
+      website: m
     fileParameters: []
     responses:
       -
         custom: []
-        status: 200
-        content: '{"data":{"id":5,"name":"Laura Gómez","email":"laura@constructoraaltos.test","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Constructora Altos S.A.S.","nit":"900765432-8","contact_name":"Laura Gómez","phone":"315 555 0202","city":"Bucaramanga","address":null,"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-10-25T15:00:00.000000Z"}},"token":"2|xyz789...","token_type":"Bearer"}'
+        status: 201
+        content: '{"data":{"message":"Listo, te suscribimos al boletín."}}'
         headers: []
-        description: 'Sesión iniciada'
-      -
-        custom: []
-        status: 401
-        content: '{"message":"El correo o la contraseña no son correctos."}'
-        headers: []
-        description: 'Credenciales incorrectas'
+        description: ''
     responseFields: []
     auth: []
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - POST
-    uri: api/v1/password/forgot
-    metadata:
-      custom: []
-      groupName: Autenticación
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Pedir enlace para recuperar la contraseña'
-      description: |-
-        Siempre responde igual, exista o no el correo, para no revelar qué cuentas existen. Si el correo es de un usuario
-        activo, le llega un enlace de un solo uso que vence en 60 minutos. Máximo 5 intentos por minuto y 20 por hora
-        desde la misma IP.
-      authenticated: false
-      deprecated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      email:
-        custom: []
-        name: email
-        description: 'Correo de la cuenta.'
-        required: true
-        example: laura@constructoraaltos.test
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-    cleanBodyParameters:
-      email: laura@constructoraaltos.test
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 200
-        content: '{"message":"Si el correo existe, te enviamos un enlace para restablecer tu contraseña."}'
-        headers: []
-        description: Siempre
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - POST
-    uri: api/v1/password/reset
-    metadata:
-      custom: []
-      groupName: Autenticación
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Restablecer la contraseña'
-      description: |-
-        Usa el token y el correo del enlace que llegó por correo. El enlace funciona una sola vez y vence a los 60 minutos.
-        Revoca los tokens de sesión anteriores; después de esto, la persona inicia sesión con la contraseña nueva.
-        Máximo 10 intentos por minuto desde la misma IP.
-      authenticated: false
-      deprecated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      token:
-        custom: []
-        name: token
-        description: 'Token del enlace.'
-        required: true
-        example: 3f1c0d...
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      email:
-        custom: []
-        name: email
-        description: 'Correo de la cuenta.'
-        required: true
-        example: laura@constructoraaltos.test
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      password:
-        custom: []
-        name: password
-        description: 'Contraseña nueva (8 a 100 caracteres).'
-        required: true
-        example: ClaveNueva2026
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      password_confirmation:
-        custom: []
-        name: password_confirmation
-        description: 'Igual a la contraseña nueva.'
-        required: true
-        example: ClaveNueva2026
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-    cleanBodyParameters:
-      token: 3f1c0d...
-      email: laura@constructoraaltos.test
-      password: ClaveNueva2026
-      password_confirmation: ClaveNueva2026
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 200
-        content: '{"message":"Cambiaste tu contraseña. Ya puedes ingresar."}'
-        headers: []
-        description: 'Contraseña cambiada'
-      -
-        custom: []
-        status: 422
-        content: '{"message":"El enlace no es válido o ya venció. Pide uno nuevo.","errors":{"token":["El enlace no es válido o ya venció. Pide uno nuevo."]}}'
-        headers: []
-        description: 'Enlace inválido o vencido'
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - POST
-    uri: api/v1/logout
-    metadata:
-      custom: []
-      groupName: Autenticación
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Cerrar sesión'
-      description: 'Revoca el token con el que se hizo la petición. Los tokens de otros dispositivos siguen activos.'
-      authenticated: true
-      deprecated: false
-    headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 204
-        content: '{}'
-        headers: []
-        description: 'Sesión cerrada'
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
     controller: null
     method: null
     route: null

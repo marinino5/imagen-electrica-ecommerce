@@ -1,27 +1,27 @@
 {
  "families": [
   {
-   "name": "Motores eléctricos",
+   "name": "Motores Eléctricos",
    "image": "motores",
    "description": "Motores WEG para bombas, ventiladores, compresores y máquinas en general. Elige la potencia y la velocidad; el resto lo verás en la placa de datos."
   },
   {
-   "name": "Reductores y motorreductores",
+   "name": "Reductores y Motorreductores",
    "image": "motorreductores",
    "description": null
   },
   {
-   "name": "Control y automatización",
+   "name": "Control y Automatización",
    "image": "variadores-arrancadores",
    "description": "Equipos WEG para arrancar, proteger y controlar tus motores."
   },
   {
-   "name": "Ventilación y climatización",
+   "name": "Ventilación y Climatización",
    "image": "ventilacion",
    "description": null
   },
   {
-   "name": "Cables y conductores",
+   "name": "Cables y Conductores",
    "image": "cables",
    "description": null
   },
@@ -36,24 +36,24 @@
    "description": null
   },
   {
-   "name": "Medición y testeo",
+   "name": "Medición y Testeo",
    "image": null,
    "description": null
   },
   {
-   "name": "Material eléctrico",
+   "name": "Material Eléctrico",
    "image": "material-electrico",
    "description": "Tomas, clavijas, cintas aislantes y puesta a tierra para instalaciones eléctricas."
   },
   {
-   "name": "Otros productos",
+   "name": "Herramientas y Repuestos",
    "image": "otros",
-   "description": "Insumos, herramientas y repuestos que no son material eléctrico."
+   "description": "Cintas de enmascarar, baterías, tapones y otros insumos, herramientas y repuestos que no son material eléctrico."
   }
  ],
  "lines": [
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Controles de maniobra y protección",
    "name": "Arrancador directo WEG DLW",
    "brand_label": "WEG",
@@ -276,7 +276,7 @@
    "slug": "arrancadores-directos"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Controles de maniobra y protección",
    "name": "Contactor Siemens 3RT2",
    "brand_label": "Siemens",
@@ -309,7 +309,7 @@
    "slug": "contactor-siemens-3rt2"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Controles de maniobra y protección",
    "name": "Contactor WEG CWB con bobina DC",
    "brand_label": "WEG",
@@ -380,7 +380,7 @@
    "slug": "contactor-weg-cwb-con-bobina-dc"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Controles de maniobra y protección",
    "name": "Contactor WEG CWBC para banco de capacitores",
    "brand_label": "WEG",
@@ -508,7 +508,7 @@
    "slug": "contactor-weg-cwbc-para-banco-de-capacitores"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Controles de maniobra y protección",
    "name": "Contactor WEG CWB",
    "brand_label": "WEG",
@@ -731,7 +731,7 @@
    "slug": "contactores"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Controles de maniobra y protección",
    "name": "Mini contactor auxiliar WEG CWCA0",
    "brand_label": "WEG",
@@ -762,7 +762,7 @@
    "slug": "mini-contactor-auxiliar-weg-cwca0"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Controles de maniobra y protección",
    "name": "Mini contactor WEG CWC",
    "brand_label": "WEG",
@@ -947,7 +947,7 @@
    "slug": "mini-contactor-weg-cwc"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Controles de maniobra y protección",
    "name": "Accesorios para contactores WEG CWB",
    "brand_label": "WEG",
@@ -1016,7 +1016,7 @@
    "slug": "accesorios-para-contactores-weg-cwb"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Controles de maniobra y protección",
    "name": "Relé térmico WEG RW17",
    "brand_label": "WEG",
@@ -1201,7 +1201,7 @@
    "slug": "rele-termico-weg-rw17"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Controles de maniobra y protección",
    "name": "Relé térmico WEG RW27",
    "brand_label": "WEG",
@@ -1462,7 +1462,7 @@
    "slug": "reles-termicos"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Controles de maniobra y protección",
    "name": "Relé térmico WEG RW67",
    "brand_label": "WEG",
@@ -1590,7 +1590,7 @@
    "slug": "rele-termico-weg-rw67"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Controles de maniobra y protección",
    "name": "Relé electrónico de protección WEG RWB40",
    "brand_label": "WEG",
@@ -1623,7 +1623,7 @@
    "slug": "rele-electronico-de-proteccion-weg-rwb40"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Controles de maniobra y protección",
    "name": "Relé temporizador WEG RTW17",
    "brand_label": "WEG",
@@ -1692,7 +1692,7 @@
    "slug": "rele-temporizador-weg-rtw17"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Controles de maniobra y protección",
    "name": "Relé vigilante de tensión WEG RMW17",
    "brand_label": "WEG",
@@ -1761,7 +1761,7 @@
    "slug": "reles-de-control-y-proteccion"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Controles de maniobra y protección",
    "name": "Relé vigilante WEG RNW",
    "brand_label": "WEG",
@@ -1811,7 +1811,7 @@
    "slug": "rele-vigilante-weg-rnw"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Controles de maniobra y protección",
    "name": "Guardamotor WEG MPW18",
    "brand_label": "WEG",
@@ -1996,7 +1996,7 @@
    "slug": "guardamotores"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Controles de maniobra y protección",
    "name": "Guardamotor WEG MPW40",
    "brand_label": "WEG",
@@ -2219,7 +2219,7 @@
    "slug": "guardamotor-weg-mpw40"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Controles de maniobra y protección",
    "name": "Accesorios para guardamotores WEG MPW",
    "brand_label": "WEG",
@@ -2383,7 +2383,7 @@
    "slug": "accesorios-para-guardamotores-weg-mpw"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Accesorios de maniobra",
    "name": "Paradas de emergencia WEG CSW",
    "brand_label": "WEG",
@@ -2471,7 +2471,7 @@
    "slug": "paradas-de-emergencia-weg-csw"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Accesorios de maniobra",
    "name": "Selectores WEG CSW",
    "brand_label": "WEG",
@@ -2597,7 +2597,7 @@
    "slug": "selectores-weg-csw"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Accesorios de maniobra",
    "name": "Pilotos luminosos WEG CSW",
    "brand_label": "WEG",
@@ -2818,7 +2818,7 @@
    "slug": "pilotos-luminosos-weg-csw"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Accesorios de maniobra",
    "name": "Bloques de contacto WEG CSW",
    "brand_label": "WEG",
@@ -2868,7 +2868,7 @@
    "slug": "bloques-de-contacto-weg-csw"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Accesorios de maniobra",
    "name": "Pulsadores WEG CSW",
    "brand_label": "WEG",
@@ -3127,7 +3127,7 @@
    "slug": "pulsadores-pilotos-y-selectores"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Accesorios de maniobra",
    "name": "Bornes y accesorios WEG BTW",
    "brand_label": "WEG",
@@ -3633,7 +3633,7 @@
    "slug": "borneras-y-accesorios"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Accesorios de maniobra",
    "name": "Contacto auxiliar Siemens 3RH2",
    "brand_label": "Siemens",
@@ -3664,7 +3664,7 @@
    "slug": "contacto-auxiliar-siemens-3rh2"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Accesorios de maniobra",
    "name": "Seccionador WEG MSW",
    "brand_label": "WEG",
@@ -3716,7 +3716,7 @@
    "slug": "accesorios-de-maniobra"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Controles de maniobra y protección",
    "name": "Minibreaker WEG",
    "brand_label": "WEG",
@@ -4288,7 +4288,7 @@
    "slug": "minibreakers"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Controles de maniobra y protección",
    "name": "Totalizador WEG DWB",
    "brand_label": "WEG",
@@ -4587,7 +4587,7 @@
    "slug": "totalizadores"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Variadores de frecuencia",
    "name": "Variador de frecuencia WEG CFW100",
    "brand_label": "WEG",
@@ -4734,7 +4734,7 @@
    "slug": "variador-cfw100"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Variadores de frecuencia",
    "name": "Variador de frecuencia WEG CFW300",
    "brand_label": "WEG",
@@ -4900,7 +4900,7 @@
    "slug": "variador-cfw300"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Variadores de frecuencia",
    "name": "Variador de frecuencia WEG CFW500",
    "brand_label": "WEG",
@@ -5009,7 +5009,7 @@
    "slug": "variador-cfw500"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Variadores de frecuencia",
    "name": "Módulo de expansión de entradas y salidas WEG",
    "brand_label": "WEG",
@@ -5039,7 +5039,7 @@
    "slug": "accesorios-para-variadores"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Variadores de frecuencia",
    "name": "Variador de frecuencia WEG CFW900",
    "brand_label": "WEG",
@@ -5091,7 +5091,7 @@
    "slug": "variador-cfw900"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Arrancadores suaves",
    "name": "Arrancador suave WEG SSW05",
    "brand_label": "WEG",
@@ -5162,7 +5162,7 @@
    "slug": "arrancador-suave-ssw05"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Arrancadores suaves",
    "name": "Arrancador suave WEG SSW07",
    "brand_label": "WEG",
@@ -5214,7 +5214,7 @@
    "slug": "arrancador-suave-ssw07"
   },
   {
-   "family": "Motores eléctricos",
+   "family": "Motores Eléctricos",
    "category": "Motores monofásicos",
    "name": "Motor monofásico WEG W01 semiabierto",
    "brand_label": "WEG",
@@ -5439,7 +5439,7 @@
    "slug": "w01-monofasico-semiabierto"
   },
   {
-   "family": "Motores eléctricos",
+   "family": "Motores Eléctricos",
    "category": "Motores monofásicos",
    "name": "Motor monofásico WEG W01 cerrado",
    "brand_label": "WEG",
@@ -5664,7 +5664,7 @@
    "slug": "w01-monofasico-cerrado"
   },
   {
-   "family": "Motores eléctricos",
+   "family": "Motores Eléctricos",
    "category": "Motores monofásicos",
    "name": "Motor monofásico WEG W12",
    "brand_label": "WEG",
@@ -5755,7 +5755,7 @@
    "slug": "w12-monofasico"
   },
   {
-   "family": "Motores eléctricos",
+   "family": "Motores Eléctricos",
    "category": "Motores monofásicos",
    "name": "Motor monofásico WEG W22",
    "brand_label": "WEG",
@@ -5923,7 +5923,7 @@
    "slug": "w22-monofasico"
   },
   {
-   "family": "Motores eléctricos",
+   "family": "Motores Eléctricos",
    "category": "Motores trifásicos",
    "name": "Motor trifásico WEG W21 IEC · carcasa aluminio",
    "brand_label": "WEG",
@@ -6489,7 +6489,7 @@
    "slug": "w21-iec-carcasa-aluminio"
   },
   {
-   "family": "Motores eléctricos",
+   "family": "Motores Eléctricos",
    "category": "Motores trifásicos",
    "name": "Motor trifásico WEG W22 IEC · carcasa hierro",
    "brand_label": "WEG",
@@ -6941,7 +6941,7 @@
    "slug": "w22-iec-carcasa-hierro"
   },
   {
-   "family": "Motores eléctricos",
+   "family": "Motores Eléctricos",
    "category": "Motores trifásicos",
    "name": "Motor trifásico WEG W22 NEMA Premium",
    "brand_label": "WEG",
@@ -6994,7 +6994,7 @@
    "slug": "w22-nema-premium-efficiency"
   },
   {
-   "family": "Motores eléctricos",
+   "family": "Motores Eléctricos",
    "category": "Atmósferas explosivas",
    "name": "Motor WEG W22 a prueba de explosión",
    "brand_label": "WEG",
@@ -7123,7 +7123,7 @@
    "slug": "w22-a-prueba-de-explosion"
   },
   {
-   "family": "Motores eléctricos",
+   "family": "Motores Eléctricos",
    "category": "Motores trifásicos",
    "name": "Motor trifásico WEG de bobinado",
    "brand_label": "WEG",
@@ -7156,7 +7156,7 @@
    "slug": "motor-trifasico-weg-de-bobinado"
   },
   {
-   "family": "Motores eléctricos",
+   "family": "Motores Eléctricos",
    "category": "Atmósferas explosivas",
    "name": "Motor trifásico ABB",
    "brand_label": "ABB",
@@ -7189,7 +7189,7 @@
    "slug": "motores-abb"
   },
   {
-   "family": "Motores eléctricos",
+   "family": "Motores Eléctricos",
    "category": "Motores trifásicos",
    "name": "Motor trifásico Nidec US Motors",
    "brand_label": "Nidec",
@@ -7222,7 +7222,7 @@
    "slug": "motores-nidec-us-motors"
   },
   {
-   "family": "Motores eléctricos",
+   "family": "Motores Eléctricos",
    "category": "Motores trifásicos",
    "name": "Motor trifásico Nord",
    "brand_label": "Nord",
@@ -7291,7 +7291,7 @@
    "slug": "motores-nord"
   },
   {
-   "family": "Motores eléctricos",
+   "family": "Motores Eléctricos",
    "category": "Motores monofásicos",
    "name": "Motor monofásico Match Drive",
    "brand_label": "Match Drive",
@@ -7342,7 +7342,7 @@
    "slug": "motores-match-drive"
   },
   {
-   "family": "Reductores y motorreductores",
+   "family": "Reductores y Motorreductores",
    "category": "Sinfín y corona",
    "name": "Motorreductor WEG Cestari WCG01 · sinfín y corona",
    "brand_label": "WEG Cestari",
@@ -7395,7 +7395,7 @@
    "slug": "motorreductor-sinfin-wcg01"
   },
   {
-   "family": "Reductores y motorreductores",
+   "family": "Reductores y Motorreductores",
    "category": "Helicoidales",
    "name": "Reductor helicoidal WEG Cestari WCG20",
    "brand_label": "WEG Cestari",
@@ -7524,7 +7524,7 @@
    "slug": "reductor-helicoidal-wcg20"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "PLC",
    "name": "PLC WEG PLC500",
    "brand_label": "WEG",
@@ -7535,7 +7535,7 @@
    "slug": "plc-weg-plc200-y-plc500"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "PLC",
    "name": "PLC WEG PLC200",
    "brand_label": "WEG",
@@ -7546,7 +7546,7 @@
    "slug": "plc-weg-plc200"
   },
   {
-   "family": "Ventilación y climatización",
+   "family": "Ventilación y Climatización",
    "category": "Ventilación industrial",
    "name": "Extractores AirMax GL y TTT500",
    "brand_label": "EMI · AIRAL",
@@ -7557,7 +7557,7 @@
    "slug": "extractores-airmax-gl-y-ttt500"
   },
   {
-   "family": "Cables y conductores",
+   "family": "Cables y Conductores",
    "category": "Conductores para instalaciones",
    "name": "Cable THHN/THWN-2 Centelsa",
    "brand_label": "Centelsa",
@@ -7592,7 +7592,7 @@
    "slug": "compresor-vertical"
   },
   {
-   "family": "Medición y testeo",
+   "family": "Medición y Testeo",
    "category": "Instrumentos de medición",
    "name": "Instrumentos de medición Fluke",
    "brand_label": "Fluke",
@@ -7603,7 +7603,7 @@
    "slug": "instrumentos-de-medicion-fluke"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Mando y maniobra",
    "name": "Interruptor de pedal Xurui XF",
    "brand_label": "Xurui",
@@ -7674,7 +7674,7 @@
    "slug": "interruptor-de-pedal-xurui-xf"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Mando y maniobra",
    "name": "Interruptor on/off Margirius",
    "brand_label": "Margirius",
@@ -7728,7 +7728,7 @@
    "slug": "interruptor-on-off-margirius"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Mando y maniobra",
    "name": "Inversor de giro Merz",
    "brand_label": "Merz",
@@ -7822,7 +7822,7 @@
    "slug": "inversor-de-giro-merz"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Mando y maniobra",
    "name": "Inversor de giro EBCHQ",
    "brand_label": "EBCHQ",
@@ -7856,7 +7856,7 @@
    "slug": "inversor-de-giro-ebchq"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Mando y maniobra",
    "name": "Estación de mando de pulsadores y emergencia",
    "brand_label": null,
@@ -7887,7 +7887,7 @@
    "slug": "estacion-de-mando-de-pulsadores-y-emergencia"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Mando y maniobra",
    "name": "Selector de muletilla EBCHQ de 3 posiciones",
    "brand_label": "EBCHQ",
@@ -7919,7 +7919,7 @@
    "slug": "selector-de-muletilla-ebchq-de-3-posiciones"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Mando y maniobra",
    "name": "Arrancador on/off con pulsador EBCHQ",
    "brand_label": "EBCHQ",
@@ -7949,7 +7949,7 @@
    "slug": "arrancador-on-off-con-pulsador-ebchq"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Mando y maniobra",
    "name": "Protector electrónico de voltaje trifásico Magom",
    "brand_label": "Magom",
@@ -7979,7 +7979,7 @@
    "slug": "protector-electronico-de-voltaje-trifasico-magom"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Relés de control",
    "name": "Base para relé de 8 pines",
    "brand_label": null,
@@ -8010,7 +8010,7 @@
    "slug": "base-para-rele-de-8-pines"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Relés de control",
    "name": "Base para relé de 11 pines Telemecanique",
    "brand_label": "Telemecanique",
@@ -8042,7 +8042,7 @@
    "slug": "base-para-rele-de-11-pines-telemecanique"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Relés de control",
    "name": "Base para relé de 11 pines",
    "brand_label": null,
@@ -8073,7 +8073,7 @@
    "slug": "base-para-rele-de-11-pines"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Relés de control",
    "name": "Mini relé de 14 pines Relpol",
    "brand_label": "Relpol",
@@ -8104,7 +8104,7 @@
    "slug": "mini-rele-de-14-pines-relpol"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Relés de control",
    "name": "Mini relé de 14 pines",
    "brand_label": null,
@@ -8154,7 +8154,7 @@
    "slug": "mini-rele-de-14-pines"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Relés de control",
    "name": "Mini relé slim de 5 pines",
    "brand_label": null,
@@ -8204,7 +8204,7 @@
    "slug": "mini-rele-slim-de-5-pines"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Relés de control",
    "name": "Relé de 8 pines EBCHQ",
    "brand_label": "EBCHQ",
@@ -8254,7 +8254,7 @@
    "slug": "rele-de-8-pines-ebchq"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Sensores de posición",
    "name": "Final de carrera Xurui XZ-8",
    "brand_label": "Xurui",
@@ -8285,7 +8285,7 @@
    "slug": "final-de-carrera-xurui-xz-8"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Sensores de posición",
    "name": "Final de carrera de varilla ajustable",
    "brand_label": null,
@@ -8315,7 +8315,7 @@
    "slug": "final-de-carrera-de-varilla-ajustable"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Sensores de posición",
    "name": "Micro switch KAP",
    "brand_label": "KAP",
@@ -8348,7 +8348,7 @@
    "slug": "micro-switch-kap"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Sensores de posición",
    "name": "Micro switch Xurui",
    "brand_label": "Xurui",
@@ -8419,7 +8419,7 @@
    "slug": "micro-switch-xurui"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Señalización",
    "name": "Baliza multivoltaje tricolor SPK",
    "brand_label": "SPK",
@@ -8449,7 +8449,7 @@
    "slug": "baliza-multivoltaje-tricolor-spk"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Tableros eléctricos",
    "name": "Aislador de barraje SM",
    "brand_label": null,
@@ -8503,7 +8503,7 @@
    "slug": "aislador-de-barraje-sm"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Tableros eléctricos",
    "name": "Aislador de barraje escalonado",
    "brand_label": null,
@@ -8533,7 +8533,7 @@
    "slug": "aislador-de-barraje-escalonado"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Tableros eléctricos",
    "name": "Bloque de distribución Onka",
    "brand_label": "Onka",
@@ -8566,7 +8566,7 @@
    "slug": "bloque-de-distribucion-onka"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Tableros eléctricos",
    "name": "Transformador de control Wattio",
    "brand_label": "Wattio",
@@ -8597,7 +8597,7 @@
    "slug": "transformador-de-control-wattio"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Temporizadores y controladores",
    "name": "Controlador de temperatura Autonics",
    "brand_label": "Autonics",
@@ -8647,7 +8647,7 @@
    "slug": "controlador-de-temperatura-autonics"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Temporizadores y controladores",
    "name": "Temporizador estrella-triángulo Autonics",
    "brand_label": "Autonics",
@@ -8697,7 +8697,7 @@
    "slug": "temporizador-estrella-triangulo-autonics"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Temporizadores y controladores",
    "name": "Temporizador Autonics",
    "brand_label": "Autonics",
@@ -8747,7 +8747,7 @@
    "slug": "temporizador-autonics"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Temporizadores y controladores",
    "name": "Horómetro Autonics LE8N",
    "brand_label": "Autonics",
@@ -8778,7 +8778,7 @@
    "slug": "horometro-autonics-le8n"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Temporizadores y controladores",
    "name": "Programador semanal EBCHQ para riel DIN",
    "brand_label": "EBCHQ",
@@ -8808,7 +8808,7 @@
    "slug": "programador-semanal-ebchq-para-riel-din"
   },
   {
-   "family": "Control y automatización",
+   "family": "Control y Automatización",
    "category": "Temporizadores y controladores",
    "name": "Termostato Plastim",
    "brand_label": "Plastim",
@@ -9297,7 +9297,7 @@
    "slug": "spot-led-karluz"
   },
   {
-   "family": "Material eléctrico",
+   "family": "Material Eléctrico",
    "category": "Cintas",
    "name": "Cinta aislante PVC 3M Temflex",
    "brand_label": "3M",
@@ -9389,9 +9389,9 @@
    "slug": "cinta-aislante-pvc-3m-temflex"
   },
   {
-   "family": "Otros productos",
+   "family": "Herramientas y Repuestos",
    "category": "Cintas de enmascarar",
-   "name": "Cinta de enmascarar Cellux",
+   "name": "Cinta de enmascarar Cellux 18 mm",
    "brand_label": "Cellux",
    "image": "otros",
    "specs": [],
@@ -9412,17 +9412,18 @@
      "price": null,
      "specs": {
       "ancho_mm": 18,
-      "tipo": "Cinta de enmascarar"
+      "tipo": "Cinta de enmascarar",
+      "longitud": "40 yardas"
      },
      "image": "/img/catalogo/cellux-12100.webp"
     }
    ],
-   "slug": "cinta-de-enmascarar-cellux"
+   "slug": "cinta-de-enmascarar-cellux-18-mm"
   },
   {
-   "family": "Otros productos",
+   "family": "Herramientas y Repuestos",
    "category": "Baterías",
-   "name": "Batería sellada Magna",
+   "name": "Batería Magna 12 V 5 Ah",
    "brand_label": "Magna",
    "image": "otros",
    "specs": [],
@@ -9443,16 +9444,16 @@
      "price": null,
      "specs": {
       "capacidad_ah": 5,
-      "tipo": "Batería sellada de plomo-ácido"
+      "tipo": "Batería"
      }
     }
    ],
-   "slug": "bateria-sellada-magna"
+   "slug": "bateria-magna-12-v-5-ah"
   },
   {
-   "family": "Otros productos",
+   "family": "Herramientas y Repuestos",
    "category": "Tapones y conexiones",
-   "name": "Tapón macho Swagelok",
+   "name": "Tapón macho Swagelok 3/4 NPT acero inoxidable",
    "brand_label": "Swagelok",
    "image": "otros",
    "specs": [],
@@ -9472,16 +9473,18 @@
      "mode": "quote",
      "price": null,
      "specs": {
-      "tipo": "Tapón macho de acero inoxidable",
-      "serie": "SS-12-P"
+      "tipo": "Tapón macho",
+      "serie": "SS-12-P",
+      "rosca": "3/4 NPT",
+      "material": "Acero inoxidable"
      },
      "image": "/img/catalogo/swagelok-ss-12-p.webp"
     }
    ],
-   "slug": "tapon-macho-swagelok"
+   "slug": "tapon-macho-swagelok-3-4-npt-acero-inoxidable"
   },
   {
-   "family": "Material eléctrico",
+   "family": "Material Eléctrico",
    "category": "Tomas e interruptores",
    "name": "Interruptor inteligente Ilumax",
    "brand_label": "Ilumax",
@@ -9529,7 +9532,7 @@
    "slug": "interruptor-inteligente-ilumax"
   },
   {
-   "family": "Material eléctrico",
+   "family": "Material Eléctrico",
    "category": "Tomas e interruptores",
    "name": "Tapa para toma Leviton",
    "brand_label": "Leviton",
@@ -9613,7 +9616,7 @@
    "slug": "tapa-para-toma-leviton"
   },
   {
-   "family": "Material eléctrico",
+   "family": "Material Eléctrico",
    "category": "Tomas e interruptores",
    "name": "Toma doble Leviton",
    "brand_label": "Leviton",
@@ -9663,7 +9666,7 @@
    "slug": "toma-doble-leviton"
   },
   {
-   "family": "Material eléctrico",
+   "family": "Material Eléctrico",
    "category": "Tomas e interruptores",
    "name": "Clavija Leviton",
    "brand_label": "Leviton",
@@ -9731,7 +9734,7 @@
    "slug": "clavija-leviton"
   },
   {
-   "family": "Material eléctrico",
+   "family": "Material Eléctrico",
    "category": "Tomas e interruptores",
    "name": "Toma industrial Leviton",
    "brand_label": "Leviton",
@@ -9781,7 +9784,7 @@
    "slug": "toma-industrial-leviton"
   },
   {
-   "family": "Medición y testeo",
+   "family": "Medición y Testeo",
    "category": "Instrumentos de panel",
    "name": "Amperímetro análogo Chint",
    "brand_label": "Chint",
@@ -9811,7 +9814,7 @@
    "slug": "amperimetro-analogo-chint"
   },
   {
-   "family": "Medición y testeo",
+   "family": "Medición y Testeo",
    "category": "Instrumentos de panel",
    "name": "Analizador de red multifunción Nippen",
    "brand_label": "Nippen",
@@ -9841,7 +9844,7 @@
    "slug": "analizador-de-red-multifuncion-nippen"
   },
   {
-   "family": "Motores eléctricos",
+   "family": "Motores Eléctricos",
    "category": "Bombas",
    "name": "Motobomba IHM",
    "brand_label": "IHM",
@@ -9871,7 +9874,7 @@
    "slug": "motobomba-ihm"
   },
   {
-   "family": "Reductores y motorreductores",
+   "family": "Reductores y Motorreductores",
    "category": "Helicoidales",
    "name": "Caja reductora WEG Cestari",
    "brand_label": "WEG",
@@ -9937,7 +9940,7 @@
    "slug": "cajas-reductoras-weg-cestari"
   },
   {
-   "family": "Reductores y motorreductores",
+   "family": "Reductores y Motorreductores",
    "category": "Helicoidales",
    "name": "Reductor Siti",
    "brand_label": "Siti",

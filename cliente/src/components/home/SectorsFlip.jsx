@@ -68,7 +68,7 @@ function SectorCard({ sector, lines }) {
   )
 }
 
-// Sectores y aplicaciones: una sola sección con 7 tarjetas 4:5 (4 + 3 centradas en escritorio, carrusel con imán en el celular).
+// Sectores y aplicaciones: una sola sección con 8 tarjetas 4:5 (4 + 4 en escritorio, carrusel con imán en el celular).
 export default function SectorsFlip() {
   const { data: lines } = useLines()
 

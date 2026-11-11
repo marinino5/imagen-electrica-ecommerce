@@ -74,13 +74,14 @@ function buildUrl(path, params) {
  * @param {string} path  ruta relativa a VITE_API_URL, ej. '/products'
  * @param {{ params?: object, body?: object, auth?: boolean, signal?: AbortSignal }} options
  *        auth: true envía el token (rutas protegidas)
+ *        blob: true devuelve { blob, filename } en vez de JSON (descarga de un PDF)
  */
-export async function request(method, path, { params, body, auth = false, signal } = {}) {
+export async function request(method, path, { params, body, auth = false, signal, blob = false } = {}) {
   if (!BASE_URL) {
     throw new ApiError('server', 'Falta configurar VITE_API_URL (revisa el archivo .env).')
   }
 
-  const headers = { Accept: 'application/json' }
+  const headers = { Accept: blob ? 'application/pdf, application/json' : 'application/json' }
   // FormData (adjuntos): el navegador pone el Content-Type con su boundary; JSON para todo lo demás
   const isForm = typeof FormData !== 'undefined' && body instanceof FormData
   if (body !== undefined && !isForm) headers['Content-Type'] = 'application/json'
@@ -116,6 +117,11 @@ export async function request(method, path, { params, body, auth = false, signal
   }
 
   if (response.status === 204) return null
+
+  if (blob && response.ok) {
+    const name = /filename="?([^";]+)"?/.exec(response.headers.get('Content-Disposition') ?? '')?.[1]
+    return { blob: await response.blob(), filename: name ?? 'ficha.pdf' }
+  }
 
   let data = null
   try {

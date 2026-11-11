@@ -529,30 +529,8 @@
 @media (min-width: 961px) { .pd-mbuy { display: none; } }
 @media (max-width: 960px) { .pd { padding-bottom: 20px; } .pd-rel { padding-bottom: 120px; } }
 
-/* ---------- Ficha técnica para imprimir o guardar en PDF ---------- */
-/* El nodo cuelga de <body> (portal): en pantalla no se ve; al imprimir se oculta #root y queda solo la ficha. */
-.pd-print { display: none; }
-@media print {
-  @page { size: A4; margin: 16mm; }
-  html, body { background: #fff !important; }
-  #root { display: none !important; }
-  .pd-print {
-    display: block !important; color: #1e1631; font-family: var(--font-body, system-ui, sans-serif);
-    -webkit-print-color-adjust: exact; print-color-adjust: exact;
-  }
-  .pd-print__head { display: flex; align-items: center; gap: 14px; padding-bottom: 12px; border-bottom: 3px solid #513e84; }
-  .pd-print__head div { display: grid; gap: 2px; font-size: 12px; }
-  .pd-print__head strong { font-family: var(--font-display, inherit); font-size: 22px; text-transform: uppercase; color: #513e84; }
-  .pd-print__tag { margin-left: auto; padding: 4px 10px; border: 1px solid #513e84; border-radius: 6px; color: #513e84; font-size: 11px; font-weight: 700; text-transform: uppercase; }
-  .pd-print__title { margin: 20px 0 4px; font-family: var(--font-display, inherit); font-size: 28px; line-height: 1.1; color: #261c3e; }
-  .pd-print__ref { margin: 0 0 8px; font-size: 14px; color: #6e6178; }
-  .pd-print__img { display: block; margin: 10px auto 16px; max-height: 240px; max-width: 70%; width: auto; height: auto; object-fit: contain; }
-  .pd-print table { width: 100%; border-collapse: collapse; font-size: 12px; break-inside: avoid; }
-  .pd-print caption { margin-bottom: 6px; text-align: left; font-weight: 700; font-size: 13px; color: #513e84; }
-  .pd-print th, .pd-print td { padding: 7px 10px; border: 1px solid #cfc7e0; text-align: left; }
-  .pd-print th { width: 35%; background: #f6f4f9; font-weight: 600; }
-  .pd-print footer { margin-top: 20px; padding-top: 10px; border-top: 1px solid #cfc7e0; color: #6e6178; font-size: 11px; line-height: 1.6; }
-}
+/* ---------- Descarga de la ficha: el PDF lo genera el backend ---------- */
+.pd-dl:disabled { opacity: 0.7; cursor: progress; }
 
 /* Marca de cada referencia en la tabla */
 .pd-table__brand .brandmark { height: 20px; max-width: 72px; }

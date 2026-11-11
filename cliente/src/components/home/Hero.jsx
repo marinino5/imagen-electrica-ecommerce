@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Pause, Play, Search } from 'lucide-react'
+import { Search } from 'lucide-react'
 import { useReducedMotion } from 'framer-motion'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
 import { clamp01, useScrollFrame } from '../../hooks/useScrollFrame'
@@ -14,20 +14,9 @@ const SLIDE_MS = 9000
 // salen de Pexels y de los fabricantes; fuentes y licencias en docs/creditos-media.md.
 const slides = [
   {
-    id: 'motores',
-    short: 'Motores',
-    tag: 'Motores eléctricos',
-    title: 'Motores',
-    highlight: 'industriales WEG',
-    text: 'Del monofásico de taller al trifásico de planta, con la referencia exacta que tu equipo necesita.',
-    cta: { to: '/productos?familia=motores-electricos', label: 'Ver motores' },
-    bg: { src: '/img/fotos/hero-motores.webp', alt: 'Nave industrial limpia y luminosa con pasillo central y estanterías', pos: '50% 50%' },
-    product: { src: '/img/catalogo/weg-w22-iec.webp', alt: 'Motor trifásico WEG W22 IEC de carcasa de hierro', caption: 'WEG W22 IEC', big: true },
-  },
-  {
     id: 'automatizacion',
     short: 'Automatización',
-    tag: 'Control y automatización',
+    tag: 'Control y Automatización',
     title: 'Automatización',
     highlight: 'y control WEG',
     text: 'Variadores, arrancadores, contactores y guardamotores para arrancar, proteger y controlar tus motores.',
@@ -43,13 +32,24 @@ const slides = [
   {
     id: 'motorreductores',
     short: 'Motorreductores',
-    tag: 'Reductores y motorreductores',
+    tag: 'Reductores y Motorreductores',
     title: 'Motorreductores',
     highlight: 'WEG Cestari',
     text: 'Para bandas, mezcladoras y elevadores: sinfín y corona o helicoidales, listos para tu máquina.',
     cta: { to: '/productos?familia=reductores-y-motorreductores', label: 'Ver motorreductores' },
     bg: { src: '/img/fotos/hero-banda.webp', alt: 'Banda transportadora de rodillos con su motorreductor', pos: '40% 50%' },
     product: { src: '/img/catalogo/weg-cestari-wcg01.webp', alt: 'Motorreductor de sinfín y corona WEG Cestari WCG01', caption: 'WEG Cestari WCG01' },
+  },
+  {
+    id: 'motores',
+    short: 'Motores',
+    tag: 'Motores Eléctricos',
+    title: 'Motores',
+    highlight: 'industriales WEG',
+    text: 'Del monofásico de taller al trifásico de planta, con la referencia exacta que tu equipo necesita.',
+    cta: { to: '/productos?familia=motores-electricos', label: 'Ver motores' },
+    bg: { src: '/img/fotos/hero-motores.webp', alt: 'Nave industrial limpia y luminosa con pasillo central y estanterías', pos: '50% 50%' },
+    product: { src: '/img/catalogo/weg-w22-iec.webp', alt: 'Motor trifásico WEG W22 IEC de carcasa de hierro', caption: 'WEG W22 IEC', big: true },
   },
   {
     id: 'ventilacion',
@@ -115,7 +115,10 @@ export default function Hero() {
   const navigate = useNavigate()
   const isMobile = useMediaQuery('(max-width: 767px)')
   const [index, setIndex] = useState(0)
-  const [paused, setPaused] = useState(false)
+  // El carrusel se pausa solo mientras el mouse está encima o el foco del teclado está dentro; continúa al salir
+  const [hover, setHover] = useState(false)
+  const [focused, setFocused] = useState(false)
+  const paused = hover || focused
   const [term, setTerm] = useState('')
   const root = useRef(null)
   const [covered, setCovered] = useState(false)
@@ -143,7 +146,16 @@ export default function Hero() {
   }
 
   return (
-    <section ref={root} className={`hero ${reduced ? 'hero--flow' : ''}`} aria-roledescription="carrusel" aria-label="Destacados de Imagen Eléctrica">
+    <section
+      ref={root}
+      className={`hero ${reduced ? 'hero--flow' : ''}`}
+      aria-roledescription="carrusel"
+      aria-label="Destacados de Imagen Eléctrica"
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      onFocus={() => setFocused(true)}
+      onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setFocused(false) }}
+    >
       <div className="hero__media">
         {slides.map((s, n) => (
           <Slide key={s.id} slide={s} index={n} active={n === index} still={still} mobile={isMobile} paused={paused || covered} />
@@ -197,9 +209,6 @@ export default function Hero() {
         </div>
         <button type="button" className="hero__next" onClick={next} aria-label={`Ir a la siguiente diapositiva: ${nextSlide.short}`}>
           <span>Siguiente:</span> {nextSlide.short}
-        </button>
-        <button type="button" className="hero__pause" onClick={() => setPaused((p) => !p)} aria-label={paused ? 'Reanudar carrusel' : 'Pausar carrusel'}>
-          {paused ? <Play size={16} /> : <Pause size={16} />}
         </button>
       </div>
     </section>

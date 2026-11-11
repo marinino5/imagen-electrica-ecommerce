@@ -151,11 +151,32 @@ body .site-header:not(.is-solid) { background: transparent; box-shadow: none; }
 /* ---------- Familias 09 y 10 ---------- */
 /* Con 9 o 10 familias la cuadrícula del Inicio pasa a 5 columnas en escritorio (dos filas parejas de cinco) */
 @media (min-width: 1100px) { .fam-grid.fam-grid--wide { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; } }
-/* «Otros productos» va al final y con diseño sobrio: lila liso, icono en tinta suave y sin naranja */
-.fam--sober .fam__card { background: var(--ie-lila-100); border-color: var(--ie-lila-200); }
-.fam--sober .fam__media { background: var(--ie-lila-100); }
-.fam--sober .fam__art { border-color: var(--ie-violet-500) transparent transparent var(--ie-violet-500); color: var(--muted); }
-.fam--sober .fam__num { color: var(--muted); }
+/* Portadas por icono (09 y 10): icono de 1,5 px en violeta de marca, ~45 % de la tarjeta, sobre lila con el arco decorativo */
+.fam__art--icon { width: 70%; background: var(--ie-lila-100); border: 2px solid var(--ie-lila-200); border-top-color: var(--accent); border-left-color: var(--accent); }
+.fam__art--icon svg { width: 64%; height: 64%; color: var(--primary); }
 
-/* Icono propio de cada categoría de «Otros productos» en el acordeón y el mega-menú */
+/* Icono propio de cada categoría de «Herramientas y Repuestos» en el acordeón y el mega-menú */
 .fam-tree__cic, .mega__cic { display: inline-block; vertical-align: -2px; margin-right: 6px; color: var(--primary); flex: none; }
+
+.mega__thumb { display: grid; place-items: center; }
+.mega__ficon { color: var(--primary); }
+
+/* ---------- Grabado industrial: engranaje y plano eléctrico en línea fina (violeta de marca, 5 por ciento) detrás de las secciones
+   claras. Ninguna sección queda en blanco plano. Alterna de lado para no repetirse. ---------- */
+.bgt-a::before, .bgt-b::before, .bgt-d::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.055;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22 fill=%22none%22 stroke=%22%23513e84%22 stroke-width=%222%22%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22150%22 stroke-width=%2230%22 stroke-dasharray=%2219.6 19.6%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22132%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22104%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%2258%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%2222%22/%3E%3Cpath d=%22M200 96V142M200 258V304M96 200H142M258 200H304M126 126l32 32M242 242l32 32M274 126l-32 32M158 242l-32 32%22/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 260%22 fill=%22none%22 stroke=%22%23513e84%22 stroke-width=%222%22%3E%3Cpath d=%22M10 130H70l10-26 20 52 20-52 20 52 10-26H190%22/%3E%3Ccircle cx=%22205%22 cy=%22130%22 r=%2215%22/%3E%3Cpath d=%22M220 130H260M260 100V160M274 108V152M274 130H390%22/%3E%3Cpath d=%22M60 30H340V60M60 30V90M340 230H60V200%22/%3E%3Ccircle cx=%2260%22 cy=%2230%22 r=%225%22/%3E%3Ccircle cx=%22340%22 cy=%2260%22 r=%225%22/%3E%3Ccircle cx=%2260%22 cy=%22230%22 r=%225%22/%3E%3C/svg%3E");
+  background-size: min(520px, 62vw), min(420px, 52vw);
+  background-position: right -90px top 8%, left -60px bottom 6%;
+}
+.bgt-a:nth-of-type(even)::before, .bgt-b:nth-of-type(even)::before, .bgt-d:nth-of-type(even)::before { background-position: left -90px top 10%, right -50px bottom 4%; }
+/* A · blanco → lila 50 con puntos tenues: nunca blanco liso */
+.bgt.bgt-a { background-color: var(--ie-lila-50); background-image: radial-gradient(circle, rgb(81 62 132 / 0.08) 0.8px, transparent 1px), linear-gradient(180deg, #fff 0%, var(--ie-lila-50) 100%); background-size: 22px 22px, 100% 100%; }
+
+:root { --grab-gear: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22 fill=%22none%22 stroke=%22%23513e84%22 stroke-width=%222%22%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22150%22 stroke-width=%2230%22 stroke-dasharray=%2219.6 19.6%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22132%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22104%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%2258%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%2222%22/%3E%3Cpath d=%22M200 96V142M200 258V304M96 200H142M258 200H304M126 126l32 32M242 242l32 32M274 126l-32 32M158 242l-32 32%22/%3E%3C/svg%3E"); --grab-plan: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 260%22 fill=%22none%22 stroke=%22%23513e84%22 stroke-width=%222%22%3E%3Cpath d=%22M10 130H70l10-26 20 52 20-52 20 52 10-26H190%22/%3E%3Ccircle cx=%22205%22 cy=%22130%22 r=%2215%22/%3E%3Cpath d=%22M220 130H260M260 100V160M274 108V152M274 130H390%22/%3E%3Cpath d=%22M60 30H340V60M60 30V90M340 230H60V200%22/%3E%3Ccircle cx=%2260%22 cy=%2230%22 r=%225%22/%3E%3Ccircle cx=%22340%22 cy=%2260%22 r=%225%22/%3E%3Ccircle cx=%2260%22 cy=%22230%22 r=%225%22/%3E%3C/svg%3E"); }

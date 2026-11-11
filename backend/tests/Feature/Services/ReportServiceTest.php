@@ -198,7 +198,7 @@ class ReportServiceTest extends TestCase
 
     public function test_sales_by_category_add_subcategories_to_their_parent_and_follow_the_period(): void
     {
-        $parent = Category::factory()->create(['name' => 'Motores eléctricos']);
+        $parent = Category::factory()->create(['name' => 'Motores Eléctricos']);
         $child = Category::factory()->childOf($parent)->create();
         $other = Category::factory()->create(['name' => 'Cables']);
 
@@ -209,7 +209,7 @@ class ReportServiceTest extends TestCase
 
         $categories = $this->service()->charts($this->period(), $this->now)['categories'];
 
-        $this->assertSame(['Motores eléctricos', 'Cables'], $categories['labels']);
+        $this->assertSame(['Motores Eléctricos', 'Cables'], $categories['labels']);
         $this->assertSame([300000.0, 50000.0], $categories['data']);
     }
 

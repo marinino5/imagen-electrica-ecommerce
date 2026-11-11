@@ -56,6 +56,15 @@ export const sectors = [
     to: '/productos?familia=motores-electricos',
   },
   {
+    id: 'agua',
+    name: 'Tratamiento de Agua y Bombeo',
+    photo: '/img/fotos/sector-agua.webp',
+    alt: 'Filtros de una planta de tratamiento de agua con tuberías azules',
+    use: 'Motores, variadores y arranque suave para estaciones de bombeo, plantas de tratamiento y sistemas de presión constante.',
+    lines: ['w22-iec-carcasa-hierro', 'variador-cfw500', 'arrancador-suave-ssw05'],
+    to: '/productos?familia=motores-electricos',
+  },
+  {
     id: 'solar',
     name: 'Energía solar · SolarWEG',
     photo: '/img/fotos/sector-solar.webp',

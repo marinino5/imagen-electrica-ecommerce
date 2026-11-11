@@ -173,14 +173,42 @@ export default function Products() {
     return [...map.values()]
   }, [grouped, shown])
   const phone = useMediaQuery('(max-width: 960px)')
-  // Línea (px desde arriba) donde quedan las cabeceras fijas: la familia cuyo grupo ya la cruzó es la que se está viendo
-  const spy = useScrollSpy(groups.map((g) => g.slug), phone ? 240 : 150)
-  // Salta a una familia; las imágenes perezosas de las fichas de arriba cambian la altura mientras se desplaza, así que se
-  // reajusta una vez al terminar para que la cabecera quede justo bajo la barra fija
+  // Línea (px desde arriba) donde se fija la cabecera de familia: justo debajo de la barra fija REAL (filtros en escritorio; botón y
+  // chips en celular) más 16 px. Se mide en cada paso porque la barra puede cambiar de alto.
+  const stackLine = () => {
+    const wrap = resultsRef.current
+    const bar = wrap?.querySelector('.cat-fbar')
+    const el = bar && getComputedStyle(bar).display !== 'none' ? bar : wrap?.querySelector('.cat-mfam')
+    return el ? (parseFloat(getComputedStyle(el).top) || 0) + el.offsetHeight + 16 : 150
+  }
+  // La familia activa es la última cuyo grupo ya llegó a (línea + alto de la cabecera): así la cabecera anterior se retira antes de
+  // que la nueva suba a su lugar y nunca se ven dos
+  const spy = useScrollSpy(groups.map((g) => g.slug), () => stackLine() + (phone ? 56 + 24 : 72 + 8))
+  // Salta a una familia con scrollIntoView (el destino lo da scroll-margin-top en CSS). Mientras dura el desplazamiento no se toca
+  // nada más; cuando la posición deja de cambiar se reajusta (sin animación) por si las imágenes cargadas movieron la página.
+  const jumping = useRef(0)
   const jump = (slug) => {
     const el = document.getElementById(`fgroup-${slug}`)
-    el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    window.setTimeout(() => el?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 700)
+    if (!el) return
+    const token = ++jumping.current
+    const cancel = () => { jumping.current += 1 }
+    window.addEventListener('wheel', cancel, { once: true, passive: true })
+    window.addEventListener('touchstart', cancel, { once: true, passive: true })
+    window.addEventListener('keydown', cancel, { once: true })
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    let last = -1
+    let still = 0
+    let rounds = 0
+    const settle = () => {
+      if (jumping.current !== token) return
+      const y = window.scrollY
+      still = Math.abs(y - last) < 1 ? still + 1 : 0
+      last = y
+      if (still < 8) { requestAnimationFrame(settle); return }
+      el.scrollIntoView({ behavior: 'auto', block: 'start' })
+      if (Math.abs(window.scrollY - y) > 2 && rounds < 3) { rounds += 1; still = 0; last = -1; requestAnimationFrame(settle) }
+    }
+    window.setTimeout(() => requestAnimationFrame(settle), 150)
   }
 
   // Una sola franja editorial por página (así su foto nunca se repite): va en el primer grupo con más de seis fichas, después de la sexta
@@ -261,7 +289,7 @@ export default function Products() {
                   const fam = families.find((f) => f.slug === g.slug)
                   const img = familyPhoto(g.slug)
                   return (
-                    <section key={g.slug} id={`fgroup-${g.slug}`} className="fgroup" aria-labelledby={`fgh-${g.slug}`}>
+                    <section key={g.slug} id={`fgroup-${g.slug}`} className={`fgroup ${spy === g.slug ? 'is-spy' : ''}`} aria-labelledby={`fgh-${g.slug}`}>
                       <header className="fgh">
                         {img && <img src={img.sm} alt="" width="64" height="64" loading="lazy" />}
                         <h2 id={`fgh-${g.slug}`}>{fam?.name ?? g.name}</h2>

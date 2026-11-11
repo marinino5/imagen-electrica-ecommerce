@@ -25,18 +25,18 @@ const SLOTS = [
 // Al llegar la sección a la pantalla se acercan a su órbita, cada uno a su propia velocidad (`v`), y flotan ±6 px.
 // Al pasar el mouse (o enfocar) aparece el nombre; cada uno enlaza con su familia del catálogo.
 const WALL = [
-  { src: 'weg-w22-iec', name: 'Motor trifásico W22', fam: 'Motores eléctricos', slug: 'motores-electricos', size: 200 },
-  { src: 'weg-cfw500', name: 'Variador CFW500', fam: 'Control y automatización', slug: 'control-y-automatizacion', size: 130 },
-  { src: 'soler-palau-extractor-axial', name: 'Extractor axial tubular', fam: 'Ventilación y climatización', slug: 'ventilacion-y-climatizacion', size: 170 },
-  { src: 'weg-cestari-wcg20', name: 'Motorreductor helicoidal', fam: 'Reductores y motorreductores', slug: 'reductores-y-motorreductores', size: 110 },
-  { src: 'fluke-multimetro-117', name: 'Multímetro Fluke 117', fam: 'Medición y testeo', slug: 'medicion-y-testeo', size: 160 },
-  { src: 'weg-contactores', name: 'Contactores CWB', fam: 'Control y automatización', slug: 'control-y-automatizacion', size: 96 },
-  { src: 'centelsa-cable-thhn', name: 'Cable THHN/THWN-2', fam: 'Cables y conductores', slug: 'cables-y-conductores', size: 190 },
-  { src: 'weg-guardamotores', name: 'Guardamotor MPW', fam: 'Control y automatización', slug: 'control-y-automatizacion', size: 120 },
+  { src: 'weg-w22-iec', name: 'Motor trifásico W22', fam: 'Motores Eléctricos', slug: 'motores-electricos', size: 200 },
+  { src: 'weg-cfw500', name: 'Variador CFW500', fam: 'Control y Automatización', slug: 'control-y-automatizacion', size: 130 },
+  { src: 'soler-palau-extractor-axial', name: 'Extractor axial tubular', fam: 'Ventilación y Climatización', slug: 'ventilacion-y-climatizacion', size: 170 },
+  { src: 'weg-cestari-wcg20', name: 'Motorreductor helicoidal', fam: 'Reductores y Motorreductores', slug: 'reductores-y-motorreductores', size: 110 },
+  { src: 'fluke-multimetro-117', name: 'Multímetro Fluke 117', fam: 'Medición y Testeo', slug: 'medicion-y-testeo', size: 160 },
+  { src: 'weg-contactores', name: 'Contactores CWB', fam: 'Control y Automatización', slug: 'control-y-automatizacion', size: 96 },
+  { src: 'centelsa-cable-thhn', name: 'Cable THHN/THWN-2', fam: 'Cables y Conductores', slug: 'cables-y-conductores', size: 190 },
+  { src: 'weg-guardamotores', name: 'Guardamotor MPW', fam: 'Control y Automatización', slug: 'control-y-automatizacion', size: 120 },
   { src: 'sylvania-start-highbay', name: 'Campana LED START', fam: 'Iluminación', slug: 'iluminacion', size: 150 },
   { src: 'abac-compresor-vertical', name: 'Compresor vertical', fam: 'Compresores', slug: 'compresores', size: 180 },
-  { src: 'weg-plc500', name: 'PLC WEG PLC500', fam: 'Control y automatización', slug: 'control-y-automatizacion', size: 100 },
-  { src: 'weg-ssw05', name: 'Arrancador suave SSW05', fam: 'Control y automatización', slug: 'control-y-automatizacion', size: 130 },
+  { src: 'weg-plc500', name: 'PLC WEG PLC500', fam: 'Control y Automatización', slug: 'control-y-automatizacion', size: 100 },
+  { src: 'weg-ssw05', name: 'Arrancador suave SSW05', fam: 'Control y Automatización', slug: 'control-y-automatizacion', size: 130 },
 ]
 
 // Posición de cada producto en la elipse (grados desde −90°, de 30° en 30°), velocidad de acercamiento y fase del flotado

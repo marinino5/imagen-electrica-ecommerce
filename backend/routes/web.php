@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DatasheetDownloadController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\OrderAssignmentController;
@@ -56,6 +57,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Suscriptores del boletín (pie de la tienda): admin y comercial
         Route::get('newsletter', [NewsletterController::class, 'index'])->name('newsletter.index');
+        Route::get('datasheets', [DatasheetDownloadController::class, 'index'])->name('datasheets.index');
 
         // Catálogo y análisis: solo admin
         Route::middleware('role:admin')->group(function () {

@@ -33,6 +33,16 @@ class CatalogLayoutService
         $images = is_file($imagesPath) ? json_decode((string) file_get_contents($imagesPath), true, 512, JSON_THROW_ON_ERROR) : [];
         $result = ['lines' => 0, 'moved' => 0, 'removed' => 0, 'hidden' => 0];
 
+        // Familias: nombre con mayúscula inicial en cada palabra importante y «Otros productos» pasa a «Herramientas y Repuestos»
+        // (su slug cambia con él; el enlace antiguo /productos?familia=otros-productos ya no existe)
+        $old = Category::where('slug', 'otros-productos')->first();
+        if ($old && ! Category::where('slug', 'herramientas-y-repuestos')->exists()) {
+            $old->update(['slug' => 'herramientas-y-repuestos']);
+        }
+        foreach ($data['families'] as $family) {
+            Category::where('slug', Str::slug($family['name']))->update(['name' => $family['name']]);
+        }
+
         // Crea las líneas y referencias que falten (en una base vieja no hace falta; en una nueva ya está todo)
         (new CatalogSeeder)->run();
 
@@ -96,6 +106,9 @@ class CatalogLayoutService
                     $result['removed']++;
                 }
             });
+
+            // La categoría «Insumos y repuestos» (una sola para tres productos) queda vacía: cada producto tiene la suya
+            Category::where('slug', 'insumos-y-repuestos')->whereDoesntHave('products')->whereDoesntHave('productLines')->whereDoesntHave('children')->delete();
 
             // Sin foto oficial: línea y referencias ocultas
             foreach (CatalogSeeder::HIDDEN_UNTIL_PHOTO as $name) {
