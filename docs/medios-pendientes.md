@@ -9,3 +9,7 @@ Lo que la tienda necesita y todavía no tiene con la calidad suficiente. Mientra
 | Videos propios (Nosotros → «Nuestra tienda») | Versiones de mejor calidad | Los tres clips actuales (`propio-reductores`, `propio-control`, `propio-compresor`) siguen en Nosotros, no en el hero | Regrabar con estabilizador |
 | Logos de marca | EBCHQ, Relpol, Match Drive, Cellux, Lexmana, Ilumax, VCP, Hanyoung, Ventum, Ferrara | Nombre de la marca en texto | Pedir el logo oficial a cada fabricante o proveedor |
 | Catálogo | 131 referencias sin foto | Diseño de marca | `docs/inventario/fotos-para-tomar.md` |
+
+## Capturas de «Cómo comprar»
+
+Las pantallas del celular en `Cómo comprar` (`public/img/como-comprar/*.webp`, paso «Revisa tu carrito» y «Recibe tu confirmación») se tomaron antes del pago por pasos para invitados y muestran el carrito anterior. Regenerarlas con `cliente/scripts/capturar-mockups.mjs`, cambiando el envío simulado de `POST /orders` a `POST /checkout` y llenando los tres pasos del formulario.

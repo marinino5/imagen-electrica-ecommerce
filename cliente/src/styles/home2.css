@@ -429,4 +429,4 @@
 @media (max-height: 820px) { .hm-pin .deal__media { aspect-ratio: 4 / 3; } .hm-pin .deal__price strong { font-size: 1.8rem; } }
 @media (max-height: 700px) { .hm-pin .deal__media { aspect-ratio: 16 / 9; } .hm-pin .deal__until { display: none; } }
 /* Movimiento reducido (o pocas tarjetas): grilla estática */
-.hm-dealgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; margin: 0; padding: 0; list-style: none; }
+.hm-dealgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 320px)); justify-content: center; gap: 24px; margin: 0; padding: 0; list-style: none; }

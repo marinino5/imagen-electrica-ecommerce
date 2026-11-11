@@ -45,7 +45,7 @@ export default function Contacto() {
 
   const tiles = [
     { id: 'quote', cls: 'bento__big', icon: FileText, title: 'Cotizar un proyecto', text: 'Envía tu lista y te respondemos con precio.', to: '/cotizar', photo: '/img/fotos/contacto-cotizar.webp', alt: 'Dos personas revisan planos sobre una mesa para cotizar un proyecto' },
-    { id: 'advice', cls: 'bento__a', icon: Headset, title: 'Asesoría técnica', text: 'Habla con un asesor por WhatsApp.', href: site.whatsappLink('Hola, necesito asesoría técnica sobre…'), photo: '/img/fotos/contacto-asesoria.webp', alt: 'Técnico revisando un tablero de control industrial abierto' },
+    { id: 'advice', cls: 'bento__a', icon: Headset, title: 'Asesoría técnica', text: 'Habla con un asesor por WhatsApp.', href: site.whatsappLink('Hola, necesito asesoría técnica sobre…'), photo: '/img/fotos/contacto-asesoria.webp', alt: 'Ingeniera trabajando con una laptop junto a una estación de cableado industrial' },
     isAuthenticated
       ? { id: 'order', cls: 'bento__b', icon: PackageSearch, title: 'Estado de mi pedido', text: 'Míralo en Mi cuenta, con sus estados.', to: '/mi-cuenta', photo: '/img/fotos/contacto-pedido.webp', alt: 'Entrega de un paquete de mano en mano' }
       : { id: 'order', cls: 'bento__b', icon: PackageSearch, title: 'Estado de mi pedido', text: 'Escribe tu número de pedido.', photo: '/img/fotos/contacto-pedido.webp', alt: 'Entrega de un paquete de mano en mano' },

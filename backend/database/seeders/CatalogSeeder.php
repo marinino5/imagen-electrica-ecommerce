@@ -29,8 +29,8 @@ class CatalogSeeder extends Seeder
 {
     /** Líneas que se muestran en el carril de destacados del inicio. */
     private const FEATURED = [
-        'W22 IEC · carcasa hierro', 'W21 IEC · carcasa aluminio', 'Variador CFW300',
-        'Contactores', 'Guardamotores', 'W01 monofásico cerrado',
+        'Motor trifásico WEG W22 IEC · carcasa hierro', 'Motor trifásico WEG W21 IEC · carcasa aluminio', 'Variador de frecuencia WEG CFW300',
+        'Contactor WEG CWB', 'Guardamotor WEG MPW18', 'Motor monofásico WEG W01 cerrado',
     ];
 
     /**

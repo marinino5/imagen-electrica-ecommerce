@@ -22,7 +22,7 @@ const STORE = [
   { kind: 'video', src: 'propio-reductores', cap: 'Motorreductores WEG', alt: 'Motorreductores WEG azules en un estante' },
   { kind: 'video', src: 'propio-control', cap: 'Automatización y medición', alt: 'Vitrina de instrumentos de medición y automatización' },
   { kind: 'img', src: '/img/tienda/compresor-ferrara-tienda', cap: 'Compresor Ferrara y ventilador', alt: 'Compresor amarillo Ferrara y ventilador industrial en la tienda', pos: '50% 55%' },
-  { kind: 'video', src: 'propio-compresor', cap: 'Compresores de pistón', alt: 'Compresor amarillo Ferrara en la tienda' },
+  { kind: 'video', src: 'propio-compresor', cap: 'Compresores de pistón', alt: 'Compresor amarillo Ferrara en la tienda', wide: true },
 ]
 
 // Órbita de producto: 12 productos recortados de distintas familias (96–200 px) flotan alrededor del bloque «+1.000 productos».
@@ -267,7 +267,7 @@ export default function Nosotros() {
                     {t.kind === 'img' ? (
                       <img src={`${t.src}-sm.webp`} srcSet={`${t.src}-sm.webp 800w, ${t.src}.webp 1800w`} sizes="(min-width: 900px) 640px, 92vw" alt={t.alt} loading="lazy" decoding="async" style={{ objectPosition: t.pos }} />
                     ) : (
-                      <OwnVideo name={t.src} label={t.alt} />
+                      <OwnVideo name={t.src} label={t.alt} wide={t.wide} />
                     )}
                     <figcaption>{t.cap}</figcaption>
                   </figure>
