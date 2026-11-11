@@ -8,6 +8,13 @@ return [
     */
     'frontend_url' => rtrim((string) env('FRONTEND_URL', 'https://imagen-electrica.pages.dev'), '/'),
 
+    // Versión de la política de tratamiento de datos que acepta quien compra (se guarda con cada pedido, junto con la fecha).
+    // Si el texto de /politica-datos cambia, sube la versión.
+    'privacy_policy_version' => '2026-11-v1',
+
+    // Días que vale el enlace del correo para ver el estado de un pedido hecho sin cuenta
+    'guest_link_days' => 60,
+
     // Versión del texto de consentimiento del boletín (el del pie de la tienda). Si el texto cambia, sube la versión.
     'newsletter_consent_version' => '2026-11-v1',
 

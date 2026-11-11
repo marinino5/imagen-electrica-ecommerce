@@ -92,6 +92,15 @@ class AppServiceProvider extends ServiceProvider
             Limit::perHour(20)->by('h:'.$request->ip()),
         ]);
 
+        // Compra (con o sin cuenta): por IP, 10 por minuto y 40 por hora
+        RateLimiter::for('api-checkout', fn (Request $request) => [
+            Limit::perMinute(10)->by('m:'.$request->ip()),
+            Limit::perHour(40)->by('h:'.$request->ip()),
+        ]);
+
+        // Ver el estado de un pedido de invitado con el enlace del correo: 30 por minuto por IP
+        RateLimiter::for('api-guest', fn (Request $request) => Limit::perMinute(30)->by($request->ip()));
+
         // Cotización sin cuenta: por IP, 5 por minuto y 20 por hora
         RateLimiter::for('api-quote', fn (Request $request) => [
             Limit::perMinute(5)->by('m:'.$request->ip()),
