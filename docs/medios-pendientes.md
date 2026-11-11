@@ -13,3 +13,10 @@ Lo que la tienda necesita y todavía no tiene con la calidad suficiente. Mientra
 ## Capturas de «Cómo comprar»
 
 Las pantallas del celular en `Cómo comprar` (`public/img/como-comprar/*.webp`, paso «Revisa tu carrito» y «Recibe tu confirmación») se tomaron antes del pago por pasos para invitados y muestran el carrito anterior. Regenerarlas con `cliente/scripts/capturar-mockups.mjs`, cambiando el envío simulado de `POST /orders` a `POST /checkout` y llenando los tres pasos del formulario.
+
+## Imágenes ilustrativas (reemplazar por la foto real)
+
+| Dónde | Qué es | Pendiente |
+|---|---|---|
+| Línea «Batería Magna 12 V 5 Ah» y portada de «Herramientas y Repuestos» | Batería de 12 V de stock (Pixabay 2870614): no es la Magna y su etiqueta dice otra marca | Fotografiar la Magna 12 V 5 Ah |
+| Portada de «Compresores» | Recorte de la foto propia del compresor Ferrara (el tanque sale cortado en la foto original; el borde izquierdo está desvanecido) | Foto de producto completo (oficial o propia, sin envoltura) |

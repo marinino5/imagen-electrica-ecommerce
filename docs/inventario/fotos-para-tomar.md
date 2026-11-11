@@ -200,4 +200,4 @@ Total: **131** referencias sin foto, en 10 estantes. (Además hay 67 filas con e
 
 | Referencia | Descripción | Motivo |
 |---|---|---|
-| MA5-12 | Batería sellada Magna 12 V 5 Ah | La foto que tenía la tienda es de otra batería (etiqueta «MA 4-6», 6 V). Se quitó hasta tener la foto de la 12 V 5 Ah. |
+| MA5-12 | Batería sellada Magna 12 V 5 Ah | La foto que tenía la tienda era de otra batería (6 V) y se quitó. Hoy lleva una imagen **ilustrativa** de stock (batería de 12 V, no es la Magna) para que la línea no quede sin foto: fotografiar la Magna 12 V 5 Ah y reemplazarla. |

@@ -56,8 +56,8 @@ class CatalogData
         return count(array_filter(self::json()['lines'], fn ($l) => $l['variants'] === []));
     }
 
-    /** Referencias que se retiraron de la foto por no corresponder al producto (esperan la foto correcta). */
-    public const PHOTO_PENDING = ['MA5-12'];
+    /** Referencias sin foto (ninguna: MA5-12 lleva una imagen ILUSTRATIVA de una batería de 12 V hasta tener la suya, ver docs/medios-pendientes.md). */
+    public const PHOTO_PENDING = [];
 
     /** Referencias de la Fase 1B: las que no estaban en catalogo.base.json. @return list<array<string, mixed>> */
     public static function phase1Variants(): array

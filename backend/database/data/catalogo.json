@@ -48,7 +48,7 @@
   {
    "name": "Herramientas y Repuestos",
    "image": "otros",
-   "description": "Cintas de enmascarar, baterías, tapones y otros insumos, herramientas y repuestos que no son material eléctrico."
+   "description": "Cintas, baterías, conexiones y repuestos para el día a día de tu taller o planta."
   }
  ],
  "lines": [
@@ -7604,7 +7604,7 @@
   },
   {
    "family": "Control y Automatización",
-   "category": "Mando y maniobra",
+   "category": "Interruptores y mandos manuales",
    "name": "Interruptor de pedal Xurui XF",
    "brand_label": "Xurui",
    "image": "nuevo",
@@ -7675,7 +7675,7 @@
   },
   {
    "family": "Control y Automatización",
-   "category": "Mando y maniobra",
+   "category": "Interruptores y mandos manuales",
    "name": "Interruptor on/off Margirius",
    "brand_label": "Margirius",
    "image": "nuevo",
@@ -7729,7 +7729,7 @@
   },
   {
    "family": "Control y Automatización",
-   "category": "Mando y maniobra",
+   "category": "Interruptores y mandos manuales",
    "name": "Inversor de giro Merz",
    "brand_label": "Merz",
    "image": "nuevo",
@@ -7823,7 +7823,7 @@
   },
   {
    "family": "Control y Automatización",
-   "category": "Mando y maniobra",
+   "category": "Interruptores y mandos manuales",
    "name": "Inversor de giro EBCHQ",
    "brand_label": "EBCHQ",
    "image": "nuevo",
@@ -7857,7 +7857,7 @@
   },
   {
    "family": "Control y Automatización",
-   "category": "Mando y maniobra",
+   "category": "Interruptores y mandos manuales",
    "name": "Estación de mando EBCHQ de pulsadores y emergencia",
    "brand_label": "EBCHQ",
    "image": "nuevo",
@@ -7888,7 +7888,7 @@
   },
   {
    "family": "Control y Automatización",
-   "category": "Mando y maniobra",
+   "category": "Interruptores y mandos manuales",
    "name": "Selector de muletilla EBCHQ de 3 posiciones",
    "brand_label": "EBCHQ",
    "image": "nuevo",
@@ -7920,7 +7920,7 @@
   },
   {
    "family": "Control y Automatización",
-   "category": "Mando y maniobra",
+   "category": "Interruptores y mandos manuales",
    "name": "Arrancador on/off con pulsador EBCHQ",
    "brand_label": "EBCHQ",
    "image": "nuevo",
@@ -7950,7 +7950,7 @@
   },
   {
    "family": "Control y Automatización",
-   "category": "Mando y maniobra",
+   "category": "Interruptores y mandos manuales",
    "name": "Protector electrónico de voltaje trifásico Magom",
    "brand_label": "Magom",
    "image": "nuevo",
@@ -9298,7 +9298,7 @@
   },
   {
    "family": "Material Eléctrico",
-   "category": "Cintas",
+   "category": "Cintas aislantes",
    "name": "Cinta aislante PVC 3M Temflex",
    "brand_label": "3M",
    "image": "material-electrico",

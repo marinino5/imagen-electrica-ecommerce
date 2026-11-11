@@ -257,7 +257,7 @@ RULES = {
     'Cintas aislantes': [L('Cinta aislante PVC 3M Temflex', '3M', anyv, keep, tipo='Cinta aislante de PVC', serie='Temflex')],
     'Insumos, herramientas y repuestos': [
         L('Cinta de enmascarar Cellux 18 mm', 'Cellux', name_has('enmascarar'), keep, tipo='Cinta de enmascarar', category='Cintas de enmascarar', extra={'longitud': '40 yardas'}),
-        L('Batería Magna 12 V 5 Ah', 'Magna', name_has('batería', 'bateria'), keep, tipo='Batería', category='Baterías'),
+        L('Batería Magna 12 V 5 Ah', 'Magna', name_has('batería', 'bateria'), keep, tipo='Batería', category='Baterías', image='/img/catalogo/bateria-12v.webp'),
         L('Tapón macho Swagelok 3/4 NPT acero inoxidable', 'Swagelok', anyv, keep, tipo='Tapón macho', serie='SS-12-P', category='Tapones y conexiones', extra={'rosca': '3/4 NPT', 'material': 'Acero inoxidable'}),
     ],
     'Interruptores y tomas inteligentes': [L('Interruptor inteligente Ilumax', 'Ilumax', anyv, keep, tipo='Interruptor inteligente')],
@@ -312,7 +312,7 @@ def main():
                 line['family'] = new
     for fam in cat['families']:
         if fam['name'] == 'Herramientas y Repuestos':
-            fam['description'] = 'Cintas de enmascarar, baterías, tapones y otros insumos, herramientas y repuestos que no son material eléctrico.'
+            fam['description'] = 'Cintas, baterías, conexiones y repuestos para el día a día de tu taller o planta.'
     lines_out, merged = [], {}  # merged: (nombre nuevo) -> línea ya creada (para fundir varias líneas viejas)
     removed_slugs = set()
     changed = 0

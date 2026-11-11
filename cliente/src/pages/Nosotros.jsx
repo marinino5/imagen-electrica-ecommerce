@@ -6,7 +6,6 @@ import { withLogos } from '../config/brands'
 import Squares from '../components/ui/Squares'
 import Counter from '../components/ui/Counter'
 import Hl from '../components/ui/Hl'
-import OwnVideo from '../components/ui/OwnVideo'
 import Reveal from '../components/ui/Reveal'
 import Pill from '../components/ui/Pill'
 import { site } from '../config/site'
@@ -17,12 +16,10 @@ import '../styles/ie-nosotros.css'
 
 // «Nuestra tienda»: material propio de Imagen Eléctrica (fotos y videos hechos en la tienda, corregidos y recortados).
 const STORE = [
-  { kind: 'img', src: '/img/tienda/pendon-weg-mostrador', cap: 'Pendón WEG W22 y mostrador', alt: 'Pendón de motores WEG W22 junto al mostrador con vitrina de la tienda', pos: '50% 38%' },
-  { kind: 'img', src: '/img/tienda/vitrina-motorreductores', cap: 'Motorreductores en vitrina', alt: 'Vitrina naranja con motorreductores y motores en estantes', pos: '50% 30%' },
-  { kind: 'video', src: 'propio-reductores', cap: 'Motorreductores WEG', alt: 'Motorreductores WEG azules en un estante' },
-  { kind: 'video', src: 'propio-control', cap: 'Automatización y medición', alt: 'Vitrina de instrumentos de medición y automatización' },
-  { kind: 'img', src: '/img/tienda/compresor-ferrara-tienda', cap: 'Compresor Ferrara y ventilador', alt: 'Compresor amarillo Ferrara y ventilador industrial en la tienda', pos: '50% 55%' },
-  { kind: 'video', src: 'propio-compresor', cap: 'Compresores de pistón', alt: 'Compresor amarillo Ferrara en la tienda', wide: true },
+  { src: '/img/tienda/pendon-weg-mostrador', cap: 'Pendón WEG W22 y mostrador', alt: 'Pendón de motores WEG W22 junto al mostrador con vitrina de la tienda', pos: '50% 38%' },
+  { src: '/img/tienda/vitrina-motorreductores', cap: 'Motorreductores en vitrina', alt: 'Vitrina naranja con motorreductores y motores en estantes', pos: '50% 30%' },
+  { src: '/img/tienda/compresor-ferrara-tienda', cap: 'Compresor Ferrara y ventilador', alt: 'Compresor amarillo Ferrara y ventilador industrial en la tienda', pos: '50% 55%' },
+  { src: '/img/tienda/compresor-ferrara', cap: 'Compresores de pistón', alt: 'Tanque del compresor de pistón Ferrara', pos: '50% 40%' },
 ]
 
 // Órbita de producto: 12 productos recortados de distintas familias (96–200 px) flotan alrededor del bloque «+1.000 productos».
@@ -264,11 +261,7 @@ export default function Nosotros() {
               <li key={t.src} className={`ab-store__t${i + 1}`}>
                 <Reveal mask delay={(i % 3) * 0.08}>
                   <figure className="ab-store__tile">
-                    {t.kind === 'img' ? (
-                      <img src={`${t.src}-sm.webp`} srcSet={`${t.src}-sm.webp 800w, ${t.src}.webp 1800w`} sizes="(min-width: 900px) 640px, 92vw" alt={t.alt} loading="lazy" decoding="async" style={{ objectPosition: t.pos }} />
-                    ) : (
-                      <OwnVideo name={t.src} label={t.alt} wide={t.wide} />
-                    )}
+                    <img src={`${t.src}-sm.webp`} srcSet={`${t.src}-sm.webp 800w, ${t.src}.webp 1800w`} sizes="(min-width: 900px) 640px, 92vw" alt={t.alt} loading="lazy" decoding="async" style={{ objectPosition: t.pos }} />
                     <figcaption>{t.cap}</figcaption>
                   </figure>
                 </Reveal>
