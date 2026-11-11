@@ -108,7 +108,11 @@ class CatalogLayoutService
             });
 
             // La categoría «Insumos y repuestos» (una sola para tres productos) queda vacía: cada producto tiene la suya
-            Category::where('slug', 'insumos-y-repuestos')->whereDoesntHave('products')->whereDoesntHave('productLines')->whereDoesntHave('children')->delete();
+            // (comprobaciones por separado: MySQL no deja borrar de `categories` con una subconsulta sobre la misma tabla, error 1093)
+            $empty = Category::where('slug', 'insumos-y-repuestos')->first();
+            if ($empty && ! $empty->products()->exists() && ! $empty->productLines()->exists() && ! $empty->children()->exists()) {
+                $empty->delete();
+            }
 
             // Sin foto oficial: línea y referencias ocultas
             foreach (CatalogSeeder::HIDDEN_UNTIL_PHOTO as $name) {
