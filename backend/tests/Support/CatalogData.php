@@ -13,19 +13,37 @@ class CatalogData
         return json_decode((string) file_get_contents(database_path('data/catalogo.json')), true, 512, JSON_THROW_ON_ERROR);
     }
 
-    public static function lines(): int
+    /** Líneas publicadas: las ocultas hasta tener foto oficial (CatalogSeeder::HIDDEN_UNTIL_PHOTO) no cuentan en la API pública. */
+    private static function visible(): array
+    {
+        return array_values(array_filter(self::json()['lines'], fn ($l) => ! in_array($l['name'], \Database\Seeders\CatalogSeeder::HIDDEN_UNTIL_PHOTO, true)));
+    }
+
+    /** Líneas que siembra el catálogo (con las ocultas). */
+    public static function allLines(): int
     {
         return count(self::json()['lines']);
     }
 
-    public static function references(): int
+    /** Referencias que siembra el catálogo (con las de líneas ocultas). */
+    public static function allReferences(): int
     {
         return array_sum(array_map(fn ($l) => count($l['variants']), self::json()['lines']));
     }
 
+    public static function lines(): int
+    {
+        return count(self::visible());
+    }
+
+    public static function references(): int
+    {
+        return array_sum(array_map(fn ($l) => count($l['variants']), self::visible()));
+    }
+
     public static function linesInFamily(string $family): int
     {
-        return count(array_filter(self::json()['lines'], fn ($l) => $l['family'] === $family));
+        return count(array_filter(self::visible(), fn ($l) => $l['family'] === $family));
     }
 
     public static function families(): int

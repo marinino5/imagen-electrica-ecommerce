@@ -50,7 +50,7 @@ class LineCatalogTest extends TestCase
         $this->assertCount(CatalogData::linesInFamily('Motores eléctricos'), $familia);
 
         $categoria = $this->getJson('/api/v1/lines?category=motores-monofasicos')->assertOk()->json('data');
-        $this->assertCount(5, $categoria);
+        $this->assertCount(4, $categoria); // Match Drive está oculta hasta tener foto oficial
     }
 
     public function test_filtra_por_forma_de_compra_marca_y_bodega(): void

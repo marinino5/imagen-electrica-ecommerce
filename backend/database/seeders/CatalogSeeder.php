@@ -33,6 +33,12 @@ class CatalogSeeder extends Seeder
         'Contactores', 'Guardamotores', 'W01 monofásico cerrado',
     ];
 
+    /**
+     * Líneas ocultas hasta tener su foto oficial (regla de fotos de producto: nunca se publica sin foto de la marca).
+     * Match Drive: no se encontró foto oficial del motor; al conseguirla, quitar la línea de aquí y activarla en el panel.
+     */
+    public const HIDDEN_UNTIL_PHOTO = ['Motores Match Drive'];
+
     public function run(): void
     {
         $data = json_decode((string) file_get_contents(database_path('data/catalogo.json')), true, 512, JSON_THROW_ON_ERROR);
@@ -108,6 +114,7 @@ class CatalogSeeder extends Seeder
             'spec_chips' => $row['specs'],
             'sale_mode' => $mode,
             'is_featured' => in_array($row['name'], self::FEATURED, true),
+            'is_active' => ! in_array($row['name'], self::HIDDEN_UNTIL_PHOTO, true),
             'sort_order' => $order,
         ]);
 
@@ -154,7 +161,7 @@ class CatalogSeeder extends Seeder
             'tax_rate' => 19.00,
             'stock' => $v['stock'],
             'sale_mode' => $direct ? SaleMode::Direct : SaleMode::Quote,
-            'is_active' => true,
+            'is_active' => ! in_array($line->name, self::HIDDEN_UNTIL_PHOTO, true),
         ]);
     }
 }

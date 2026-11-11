@@ -124,7 +124,7 @@ class Phase1InventoryTest extends TestCase
         (require database_path('migrations/2026_11_11_100000_add_phase1_inventory.php'))->up();
         (require database_path('migrations/2026_11_11_100000_add_phase1_inventory.php'))->up();
 
-        $this->assertSame(CatalogData::lines(), ProductLine::count());
-        $this->assertSame(CatalogData::references(), Product::whereNotNull('line_id')->count());
+        $this->assertSame(CatalogData::allLines(), ProductLine::count());
+        $this->assertSame(CatalogData::allReferences(), Product::whereNotNull('line_id')->count());
     }
 }
