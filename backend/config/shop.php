@@ -29,6 +29,15 @@ return [
     'datasheet_valid_days' => 15,
 
     /*
+    | Familias que cambiaron de slug al fusionarse («Material Eléctrico» + «Herramientas y Repuestos» → «Material Eléctrico y Repuestos»).
+    | La API y la tienda siguen aceptando el slug viejo y lo llevan al nuevo, para que los enlaces guardados no se rompan.
+    */
+    'legacy_family_slugs' => [
+        'material-electrico' => 'material-electrico-y-repuestos',
+        'herramientas-y-repuestos' => 'material-electrico-y-repuestos',
+    ],
+
+    /*
     | Envío (COP, IVA incluido). Recoger en tienda siempre vale 0.
     | Si el valor de los productos llega a "free_shipping_from", el envío es gratis.
     */

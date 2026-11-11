@@ -12,7 +12,7 @@ Inventario de **todos** los archivos de imagen y video del sitio (`cliente/publi
 
 ## Resumen
 
-- Archivos listados: **211** (las miniaturas `-sm.webp` van con su imagen).
+- Archivos listados: **210** (las miniaturas `-sm.webp` van con su imagen).
 - Filas «NO permitida»: **0**.
 - Sin fuente registrada: **0**.
 - Por verificar (foto de distribuidor sin marca visible, no se puede probar que sea la imagen del fabricante): **12** ← la empresa debe confirmarlas o fotografiar el producto (`docs/inventario/fotos-para-tomar.md`).
@@ -20,7 +20,7 @@ Inventario de **todos** los archivos de imagen y video del sitio (`cliente/publi
 - Imagen oficial de marca · material de distribuidor: 87
 - Libre · uso comercial: 46
 - Imagen de marca publicada por un distribuidor · material de distribuidor: 26
-- Propia de Imagen Eléctrica: 22
+- Propia de Imagen Eléctrica: 21
 - Logo de marca (uso nominativo para identificar el producto): 16
 - POR VERIFICAR · foto de distribuidor sin marca visible: 12
 - Libre o imagen oficial de marca · fuente exacta por registrar: 1
@@ -57,9 +57,8 @@ Inventario de **todos** los archivos de imagen y video del sitio (`cliente/publi
 | `catalogo/ebchq-hq0040.webp` | https://acdcelectric.com.co/producto/relevo-8-pines-110v-ebchq/ | Imagen de marca publicada por un distribuidor · material de distribuidor | Permitida |
 | `catalogo/elite-elt33.webp` | https://www.sinteticosdelnorte.com.co/producto/reflector-led-elite-100w-6500k-tableta-elt33-58 | Imagen de marca publicada por un distribuidor · material de distribuidor | Permitida |
 | `catalogo/excelite-g505w.webp` | https://excelite.net/ | Imagen oficial de marca · material de distribuidor | Permitida |
-| `catalogo/familia-herramientas.webp` | Composición de la foto de Cellux, el tapón Swagelok y la batería ilustrativa (Pixabay) | Imagen oficial de marca · material de distribuidor | Permitida |
-| `catalogo/familia-material-electrico.webp` | Composición de las imágenes oficiales ya listadas de 3M Temflex y Leviton (cinta, toma doble y clavija) | Imagen oficial de marca · material de distribuidor | Permitida |
-| `catalogo/ferrara-compresor.webp` | Foto propia de Imagen Eléctrica: compresor Ferrara en la tienda (IMG_2409), recortado | Propia de Imagen Eléctrica | Permitida |
+| `catalogo/familia-material-electrico-y-repuestos.webp` | Composición de las imágenes oficiales ya listadas de 3M Temflex, Leviton, Cellux y el tapón Swagelok, más la batería ilustrativa (Pixabay) | Imagen oficial de marca · material de distribuidor | Permitida |
+| `catalogo/ferrara-compresor.webp` | Foto del distribuidor en Colombia (Homecenter, producto 3061388): compresor de pistón Ferrara FR2-22300L, recortado en el formato único. No se encontró el sitio oficial del fabricante | Imagen oficial de marca · material de distribuidor | Permitida |
 | `catalogo/fluke-multimetro-117-kit.webp` | Fluke, https://www.fluke.com/es-co/producto/comprobacion-electrica/multimetros-digitales/fluke-117 (media.fluke.com) | Imagen oficial de marca · material de distribuidor | Permitida |
 | `catalogo/fluke-multimetro-117.webp` | https://www.fluke.com/es-co/producto/comprobacion-electrica/multimetros-digitales/fluke-117 | Imagen oficial de marca · material de distribuidor | Permitida |
 | `catalogo/generico-25776.webp` | https://www.emin.com.co/producto/estacion-de-mando-3-pulsadores-1-emergencia-ebchq/ | POR VERIFICAR · foto de distribuidor sin marca visible | Por verificar |

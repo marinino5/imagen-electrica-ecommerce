@@ -31,7 +31,7 @@ De 8 a **14 tablas de negocio** (más las de Laravel: tokens, caché, colas, ses
 | **datasheet_downloads** (cada PDF de ficha con cotización) | `2026_11_13_100000_create_datasheet_downloads_table` | `product_id` (nulo si se elimina), copia de `sku`, `product_name`, `variant_label`, `quantity`, `price_kind`, `unit_price`, `total`, `document_number` (único), `ip`. |
 | `customers.type` (empresa o persona natural); `company_name` y `nit` ahora admiten nulo | `2026_10_25_120000_add_type_to_customers_table` | Corregir dos columnas y agregar `type`. |
 | `orders.customer_type` | misma migración | Copia del tipo de cliente, como el resto de datos del cliente. |
-| `categories.sort_order`, `categories.description` | migraciones de 2026-11 | Las categorías raíz son ahora las **10 familias** de la tienda; las hijas son las categorías de cada familia. |
+| `categories.sort_order`, `categories.description` | migraciones de 2026-11 | Las categorías raíz son ahora las **9 familias** de la tienda (Material Eléctrico y Herramientas y Repuestos se fusionaron en «Material Eléctrico y Repuestos»); las hijas son las categorías de cada familia. |
 
 **Decisión que cambia respecto al PDF:** una «familia» no es una tabla nueva, es una categoría raíz (`parent_id` nulo). Las categorías de la primera versión (Sinfín corona, Extractores, Cables THHN…) se fusionaron en las de la tienda con `CatalogLayoutService::migrateLegacyCategories()` (migración `2026_11_14_110000_migrate_legacy_categories`), que además es idempotente.
 

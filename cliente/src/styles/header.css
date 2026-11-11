@@ -153,7 +153,7 @@
   .nav__item.is-open .nav__chev { transform: rotate(180deg); }
 }
 
-/* Mega-menú de Productos: 8 familias, 4 por fila. Miniatura cuadrada a la izquierda y, a la derecha, el nombre y una lista
+/* Mega-menú de Productos: 9 familias, 3 por fila (tres filas parejas). Miniatura cuadrada a la izquierda y, a la derecha, el nombre y una lista
    vertical de categorías (un renglón cada una, sin saltos). */
 .mega {
   position: absolute;
@@ -176,7 +176,7 @@
 }
 .mega__grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 6px 14px;
   margin: 0;
   padding: 0;

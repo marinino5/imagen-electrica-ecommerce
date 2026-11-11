@@ -19,4 +19,4 @@ Las pantallas del celular en `Cómo comprar` (`public/img/como-comprar/*.webp`, 
 | Dónde | Qué es | Pendiente |
 |---|---|---|
 | Línea «Batería Magna 12 V 5 Ah» y portada de «Herramientas y Repuestos» | Batería de 12 V de stock (Pixabay 2870614): no es la Magna y su etiqueta dice otra marca | Fotografiar la Magna 12 V 5 Ah |
-| Portada de «Compresores» | Recorte de la foto propia del compresor Ferrara (el tanque sale cortado en la foto original; el borde izquierdo está desvanecido) | Foto de producto completo (oficial o propia, sin envoltura) |
+| Portada de «Compresores» | Foto del distribuidor (Homecenter Colombia) del Ferrara FR2-22300L, de 270 L: es de la misma familia que el de la tienda (100 L) pero no el mismo modelo | Foto oficial del fabricante del modelo exacto que se vende |

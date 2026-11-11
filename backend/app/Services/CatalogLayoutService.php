@@ -41,6 +41,9 @@ class CatalogLayoutService
         $images = is_file($imagesPath) ? json_decode((string) file_get_contents($imagesPath), true, 512, JSON_THROW_ON_ERROR) : [];
         $result = ['lines' => 0, 'moved' => 0, 'removed' => 0, 'hidden' => 0];
 
+        // Una sola familia «Material Eléctrico y Repuestos» (antes eran dos); en una base nueva no hay nada que fusionar
+        $this->mergeRepuestosFamilies();
+
         // Familias: nombre con mayúscula inicial en cada palabra importante y «Otros productos» pasa a «Herramientas y Repuestos»
         // (su slug cambia con él; el enlace antiguo /productos?familia=otros-productos ya no existe)
         $old = Category::where('slug', 'otros-productos')->first();
@@ -152,6 +155,52 @@ class CatalogLayoutService
         });
 
         return $result;
+    }
+
+    public const REPUESTOS_FAMILY_SLUG = 'material-electrico-y-repuestos';
+
+    /**
+     * Fusiona las familias «Material Eléctrico» y «Herramientas y Repuestos» en una sola, «Material Eléctrico y Repuestos»: las categorías
+     * (Tomas e interruptores, Cintas aislantes, Baterías, Cintas de enmascarar, Tapones y conexiones…) pasan a la familia nueva con sus
+     * líneas y productos, y las familias viejas se eliminan. Los slugs viejos siguen respondiendo (ver `shop.legacy_family_slugs`).
+     * No toca precios, stock ni SKU. Idempotente.
+     *
+     * @return bool si había algo que fusionar
+     */
+    public function mergeRepuestosFamilies(): bool
+    {
+        $roots = fn (string $slug) => Category::whereNull('parent_id')->where('slug', $slug)->first();
+        $material = $roots('material-electrico');
+        $tools = $roots('herramientas-y-repuestos');
+
+        if (! $material && ! $tools) {
+            return false;
+        }
+
+        $fields = ['name' => 'Material Eléctrico y Repuestos', 'slug' => self::REPUESTOS_FAMILY_SLUG, 'description' => 'Tomas, cintas, baterías, conexiones y repuestos para instalar y mantener tu planta o taller.'];
+        $target = $roots(self::REPUESTOS_FAMILY_SLUG);
+
+        if (! $target) {
+            // La familia vieja de materiales se renombra y se queda con su lugar en el menú
+            $target = $material ?? $tools;
+            $target->update($fields);
+        } else {
+            $target->update(['name' => $fields['name'], 'description' => $target->description ?: $fields['description']]);
+        }
+
+        DB::transaction(function () use ($material, $tools, $target) {
+            foreach ([$material, $tools] as $old) {
+                if (! $old || $old->is($target)) {
+                    continue;
+                }
+                Category::where('parent_id', $old->id)->update(['parent_id' => $target->id]);
+                Product::withTrashed()->where('category_id', $old->id)->update(['category_id' => $target->id]);
+                ProductLine::where('category_id', $old->id)->update(['category_id' => $target->id]);
+                $old->delete();
+            }
+        });
+
+        return true;
     }
 
     /**

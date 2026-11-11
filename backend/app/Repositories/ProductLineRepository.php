@@ -46,7 +46,8 @@ class ProductLineRepository
                         ->orWhere('name', 'like', $like)->orWhere('variant_label', 'like', $like)));
             })
             ->when($filters['family'] ?? null, fn (Builder $query, string $slug) => $query->whereHas(
-                'category.parent', fn (Builder $f) => $f->where('slug', $slug)
+                // Un slug de una familia que se fusionó (config shop.legacy_family_slugs) sigue funcionando
+                'category.parent', fn (Builder $f) => $f->where('slug', config('shop.legacy_family_slugs.'.$slug, $slug))
             ))
             ->when($filters['category'] ?? null, fn (Builder $query, string $slug) => $query->whereHas(
                 'category', fn (Builder $c) => $c->where('slug', $slug)

@@ -16,7 +16,7 @@ import CatalogFilters from '../components/catalog/CatalogFilters'
 import FamilyTree from '../components/catalog/FamilyTree'
 import FamilyChips from '../components/catalog/FamilyChips'
 import CatalogBanner from '../components/catalog/CatalogBanner'
-import { FAMILY_BLURB, familyPhoto } from '../lib/families'
+import { FAMILY_BLURB, currentFamilySlug, familyPhoto } from '../lib/families'
 import Squares from '../components/ui/Squares'
 import '../styles/catalog.css'
 
@@ -29,12 +29,13 @@ const QUICK = [
 
 // Los filtros viven en la URL: se pueden compartir y el botón Atrás no los pierde
 function readState(params, families) {
-  let family = params.get('familia') ?? ''
+  // Un slug de una familia fusionada (herramientas-y-repuestos, material-electrico) se lleva al nuevo
+  let family = currentFamilySlug(params.get('familia') ?? '')
   let category = params.get('categoria') ?? ''
   // Enlaces anteriores: ?category=slug (familia o categoría) y ?sale_mode=quote
   const legacy = params.get('category')
   if (legacy && !family && !category) {
-    const root = families.find((f) => f.slug === legacy)
+    const root = families.find((f) => f.slug === currentFamilySlug(legacy))
     const parent = families.find((f) => f.categories.some((c) => c.slug === legacy))
     if (root) family = root.slug
     else if (parent) {
