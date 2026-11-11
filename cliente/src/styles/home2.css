@@ -415,8 +415,8 @@
   display: flex;
   gap: 24px;
   margin: 0;
-  /* el primer borde se alinea con el contenedor de 1280 px */
-  padding: 6px 40px;
+  /* el primer borde se alinea con el contenido del contenedor de 1280 px (que tiene 40 px de relleno) */
+  padding: 6px max(40px, calc((100vw - 1280px) / 2 + 40px));
   list-style: none;
   width: max-content;
   transform: translate3d(calc(var(--p, 0) * var(--dx, 0) * -1px), 0, 0);

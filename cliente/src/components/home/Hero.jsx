@@ -9,8 +9,8 @@ import '../../styles/hero.css'
 
 const SLIDE_MS = 9000
 
-// Orden fijo: Motores (foto industrial + W22 grande), Automatización (video de cables), Motorreductores y Ventilación (foto +
-// producto recortado). El video de cables es de Pixabay (manos cableando un tablero). Las fotos y el producto oficial recortado
+// Orden fijo: Automatización (video de cables), Motorreductores (producto sobre fondo de marca), Motores (foto industrial + W22 grande) y
+// Ventilación (foto + producto recortado). El video de cables es de Pixabay (manos cableando un tablero). Las fotos y el producto oficial recortado
 // salen de Pexels y de los fabricantes; fuentes y licencias en docs/creditos-media.md.
 const slides = [
   {
@@ -37,14 +37,9 @@ const slides = [
     highlight: 'WEG Cestari',
     text: 'Para bandas, mezcladoras y elevadores: sinfín y corona o helicoidales, listos para tu máquina.',
     cta: { to: '/productos?familia=reductores-y-motorreductores', label: 'Ver motorreductores' },
-    // Video propio de la tienda: motorreductores WEG en su estante (grabado en la tienda, corregido, sin audio)
-    video: {
-      poster: '/media/propio-reductores-poster.jpg',
-      desktop: { mp4: '/media/propio-reductores.mp4', webm: '/media/propio-reductores.webm' },
-      mobile: { mp4: '/media/propio-reductores-m.mp4', webm: '/media/propio-reductores-m.webm' },
-      pos: '50% 50%',
-      alt: 'Motorreductores WEG azules en un estante de la tienda de Imagen Eléctrica',
-    },
+    // Sin foto ni video de calidad suficiente (pendiente en docs/medios-pendientes.md): producto oficial recortado sobre fondo de marca
+    brand: true,
+    product: { src: '/img/catalogo/weg-cestari-wcg20.webp', alt: 'Motorreductor helicoidal WEG Cestari azul', caption: 'WEG Cestari', big: true },
   },
   {
     id: 'motores',
@@ -90,7 +85,7 @@ function Slide({ slide, index, active, still, mobile, paused }) {
   }, [active, clip, paused])
 
   return (
-    <div className={`hero__slide ${active ? 'is-active' : ''}`} aria-hidden={!active}>
+    <div className={`hero__slide ${slide.brand ? 'hero__slide--brand' : ''} ${active ? 'is-active' : ''}`} aria-hidden={!active}>
       {video &&
         (clip ? (
           <video ref={videoRef} key={clip.mp4} aria-hidden="true" tabIndex={-1} muted loop playsInline preload={index === 0 ? 'auto' : 'metadata'} poster={video.poster} style={{ objectPosition: video.pos }}>

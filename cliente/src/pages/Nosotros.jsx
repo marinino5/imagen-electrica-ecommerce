@@ -17,11 +17,11 @@ import '../styles/ie-nosotros.css'
 
 // «Nuestra tienda»: material propio de Imagen Eléctrica (fotos y videos hechos en la tienda, corregidos y recortados).
 const STORE = [
-  { kind: 'img', src: '/img/tienda/pendon-weg-mostrador', cap: 'Pendón WEG W22 y mostrador', alt: 'Pendón de motores WEG W22 junto al mostrador con vitrina de la tienda' },
-  { kind: 'img', src: '/img/tienda/vitrina-motorreductores', cap: 'Motorreductores en vitrina', alt: 'Vitrina naranja con motorreductores y motores en estantes' },
-  { kind: 'img', src: '/img/tienda/compresor-ferrara-tienda', cap: 'Compresor Ferrara y ventilador', alt: 'Compresor amarillo Ferrara y ventilador industrial en la tienda' },
-  { kind: 'video', src: 'propio-reductores', cap: 'Motorreductores WEG en estantería', alt: 'Motorreductores WEG azules en un estante' },
+  { kind: 'img', src: '/img/tienda/pendon-weg-mostrador', cap: 'Pendón WEG W22 y mostrador', alt: 'Pendón de motores WEG W22 junto al mostrador con vitrina de la tienda', pos: '50% 38%' },
+  { kind: 'img', src: '/img/tienda/vitrina-motorreductores', cap: 'Motorreductores en vitrina', alt: 'Vitrina naranja con motorreductores y motores en estantes', pos: '50% 30%' },
+  { kind: 'video', src: 'propio-reductores', cap: 'Motorreductores WEG', alt: 'Motorreductores WEG azules en un estante' },
   { kind: 'video', src: 'propio-control', cap: 'Automatización y medición', alt: 'Vitrina de instrumentos de medición y automatización' },
+  { kind: 'img', src: '/img/tienda/compresor-ferrara-tienda', cap: 'Compresor Ferrara y ventilador', alt: 'Compresor amarillo Ferrara y ventilador industrial en la tienda', pos: '50% 55%' },
   { kind: 'video', src: 'propio-compresor', cap: 'Compresores de pistón', alt: 'Compresor amarillo Ferrara en la tienda' },
 ]
 
@@ -261,11 +261,11 @@ export default function Nosotros() {
           <p className="rd-lead ab-store__lead">Así se ve por dentro: motores, motorreductores, compresores y automatización, con asesoría en el mostrador.</p>
           <ul className="ab-store__grid">
             {STORE.map((t, i) => (
-              <li key={t.src}>
+              <li key={t.src} className={`ab-store__t${i + 1}`}>
                 <Reveal mask delay={(i % 3) * 0.08}>
                   <figure className="ab-store__tile">
                     {t.kind === 'img' ? (
-                      <img src={`${t.src}-sm.webp`} srcSet={`${t.src}-sm.webp 800w, ${t.src}.webp 1800w`} sizes="(min-width: 900px) 380px, 46vw" alt={t.alt} loading="lazy" decoding="async" />
+                      <img src={`${t.src}-sm.webp`} srcSet={`${t.src}-sm.webp 800w, ${t.src}.webp 1800w`} sizes="(min-width: 900px) 640px, 92vw" alt={t.alt} loading="lazy" decoding="async" style={{ objectPosition: t.pos }} />
                     ) : (
                       <OwnVideo name={t.src} label={t.alt} />
                     )}

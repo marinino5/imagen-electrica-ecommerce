@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import useEmblaCarousel from 'embla-carousel-react'
 import { useReducedMotion } from 'framer-motion'
@@ -99,19 +99,19 @@ export default function HomeDeals() {
   const [ref, embla] = useEmblaCarousel({ align: 'start', containScroll: 'trimSnaps' })
   const [can, setCan] = useState({ prev: false, next: false })
   const section = useRef(null)
+  const pin = useRef(null)
   const vw = useViewportWidth()
   const promoted = new Set(promos.map((p) => p.line.slug))
   const trending = lines.filter((l, i) => l.is_featured && !promoted.has(l.slug) && lines.findIndex((x) => x.slug === l.slug) === i)
   const count = promos.length + trending.length
 
   // Recorrido horizontal total (px), calculado con las mismas medidas del CSS (tarjeta clamp(260, 21vw, 320), hueco de 24, relleno
-  // interno de 40 y la tarjeta violeta del ancho del contenedor, máx. 1312 con 16 de margen a cada lado): así no depende de medir
-  // el DOM mientras las tarjetas aún cargan
+  // lateral = alineado al contenido del contenedor de 1280 px) y la franja de lado a lado: así no depende de medir el DOM mientras
+  // las tarjetas aún cargan
   const cardW = Math.min(320, Math.max(260, vw * 0.21))
-  const pad = 40
-  const visible = Math.min(1312, vw - 32)
+  const pad = Math.max(40, (vw - 1280) / 2 + 40)
   const n = loading ? 3 : count
-  const dx = Math.max(0, Math.round(pad * 2 + n * cardW + Math.max(0, n - 1) * 24 - visible))
+  const dx = Math.max(0, Math.round(pad * 2 + n * cardW + Math.max(0, n - 1) * 24 - vw))
 
   // Con pocas tarjetas que caben en pantalla no hay nada que recorrer: se muestran quietas
   const mode = !wide ? 'carousel' : reduced || (!loading && dx <= 24) ? 'grid' : 'pin'
@@ -129,9 +129,21 @@ export default function HomeDeals() {
   useScrollFrame(() => {
     const el = section.current
     if (!el || mode !== 'pin') return
+    // La franja se queda fija a `top` px del borde de la pantalla: el recorrido empieza cuando la sección llega ahí
+    const stick = pin.current ? parseFloat(getComputedStyle(pin.current).top) || 0 : 0
     const top = el.getBoundingClientRect().top
-    el.style.setProperty('--p', clamp01(dx > 0 ? -top / dx : 0).toFixed(4))
+    el.style.setProperty('--p', clamp01(dx > 0 ? (stick - top) / dx : 0).toFixed(4))
   }, mode === 'pin', [dx, mode])
+
+  // La sección reserva alto = el de la franja + el recorrido horizontal: se mide la franja (cambia al cargar las tarjetas o al girar)
+  useLayoutEffect(() => {
+    if (mode !== 'pin' || !pin.current) return undefined
+    const set = () => section.current?.style.setProperty('--pinh', `${pin.current.offsetHeight}px`)
+    set()
+    const ro = new ResizeObserver(set)
+    ro.observe(pin.current)
+    return () => ro.disconnect()
+  }, [mode, loading, count])
 
   if (!loading && count === 0) return null
 
@@ -165,7 +177,7 @@ export default function HomeDeals() {
   if (mode === 'pin') {
     return (
       <section ref={section} className="hm-deals hm-deals--pin bgt bgt-c" aria-labelledby="h-ofertas" style={{ '--dx': dx, '--p': 0 }}>
-        <div className="hm-pin">
+        <div className="hm-pin" ref={pin}>
           <Squares items={[{ w: 200, h: 240, tone: 'lila', rate: 0.1, top: '10%', right: '6%' }, { w: 140, tone: 'violet', rate: -0.08, bottom: '8%', left: '3%' }]} />
           <div className="wrap">{heading}</div>
           <div className="hm-hscroll">

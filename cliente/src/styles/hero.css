@@ -22,6 +22,11 @@
   visibility: hidden;
   transition: opacity 0.8s var(--ease-out), visibility 0s 0.8s;
 }
+.hero__slide--brand {
+  background:
+    radial-gradient(55% 70% at 78% 42%, rgb(255 255 255 / 0.14) 0%, transparent 70%),
+    linear-gradient(135deg, var(--primary) 0%, var(--night) 100%);
+}
 .hero__slide.is-active {
   opacity: 1;
   visibility: visible;
