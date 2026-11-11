@@ -6,6 +6,93 @@ endpoints:
   -
     custom: []
     httpMethods:
+      - GET
+    uri: api/v1/shipping/quote
+    metadata:
+      custom: []
+      groupName: Compra
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Cotizar el envío'
+      description: |-
+        Tipo de envío (`local` o `national`), zona y valor según el municipio de entrega (tabla de zonas de `config/shop.php`). Gratis al llegar
+        a la compra mínima. Sirve para mostrar el costo en el paso de entrega antes de confirmar.
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters:
+      city_code:
+        custom: []
+        name: city_code
+        description: 'Código DANE del municipio (5 dígitos).'
+        required: true
+        example: '68276'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      subtotal:
+        custom: []
+        name: subtotal
+        description: 'Valor de los productos con IVA (para el envío gratis).'
+        required: false
+        example: 119000.0
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanQueryParameters:
+      city_code: '68276'
+      subtotal: 119000.0
+    bodyParameters:
+      city_code:
+        custom: []
+        name: city_code
+        description: 'Must match the regex /^\d{5}$/.'
+        required: true
+        example: '56425'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      subtotal:
+        custom: []
+        name: subtotal
+        description: 'El campo value debe ser al menos 0.'
+        required: false
+        example: 42
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      city_code: '56425'
+      subtotal: 42
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"data":{"zone":"local","zone_label":"Bucaramanga y área metropolitana","method":"local","cost":15000,"base_cost":15000,"free":false,"free_from":500000}}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
       - POST
     uri: api/v1/checkout
     metadata:
@@ -46,160 +133,6 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      person_type:
-        custom: []
-        name: person_type
-        description: '`natural` o `company`.'
-        required: true
-        example: company
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      doc_type:
-        custom: []
-        name: doc_type
-        description: 'Tipo de documento (obligatorio en persona natural): CC, CE, PP o NIT.'
-        required: false
-        example: CC
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      doc_number:
-        custom: []
-        name: doc_number
-        description: 'Número de documento (NIT sin dígito de verificación).'
-        required: true
-        example: '900123456'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      nit_dv:
-        custom: []
-        name: nit_dv
-        description: 'Dígito de verificación del NIT (obligatorio en empresa).'
-        required: false
-        example: '8'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
-        deprecated: false
-      first_name:
-        custom: []
-        name: first_name
-        description: 'Nombres (persona natural).'
-        required: false
-        example: Laura
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      last_name:
-        custom: []
-        name: last_name
-        description: 'Apellidos (persona natural).'
-        required: false
-        example: Gómez
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      company_name:
-        custom: []
-        name: company_name
-        description: 'Razón social (empresa).'
-        required: false
-        example: 'Constructora Altos S.A.S.'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
-        deprecated: false
-      fiscal_responsibility:
-        custom: []
-        name: fiscal_responsibility
-        description: 'Responsabilidad fiscal (empresa): vat_responsible, not_vat_responsible, large_taxpayer, self_withholder o simple_regime.'
-        required: false
-        example: vat_responsible
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
-        deprecated: false
-      contact_name:
-        custom: []
-        name: contact_name
-        description: 'Persona de contacto (empresa).'
-        required: false
-        example: 'Laura Gómez'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
-        deprecated: false
-      billing_email:
-        custom: []
-        name: billing_email
-        description: 'Correo de facturación electrónica.'
-        required: true
-        example: facturacion@constructoraaltos.test
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      phone:
-        custom: []
-        name: phone
-        description: 'Celular colombiano de 10 dígitos.'
-        required: true
-        example: '3155550202'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      billing_address:
-        custom: []
-        name: billing_address
-        description: 'Dirección de facturación.'
-        required: true
-        example: 'Carrera 27 # 45-10'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      department_code:
-        custom: []
-        name: department_code
-        description: 'Código DANE del departamento.'
-        required: true
-        example: '68'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      city_code:
-        custom: []
-        name: city_code
-        description: 'Código DANE del municipio.'
-        required: true
-        example: '68001'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
       delivery_method:
         custom: []
         name: delivery_method
@@ -211,26 +144,48 @@ endpoints:
         exampleWasSpecified: true
         nullable: false
         deprecated: false
-      delivery_same_as_billing:
+      delivery_state_code:
         custom: []
-        name: delivery_same_as_billing
-        description: 'La entrega es en la dirección de facturación.'
-        required: false
-        example: false
-        type: boolean
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      delivery_department_code:
-        custom: []
-        name: delivery_department_code
-        description: 'Departamento de entrega (si no es pickup ni igual a facturación).'
-        required: false
-        example: '68'
+        name: delivery_state_code
+        description: ''
+        required: true
+        example: 86
         type: string
-        enumValues: []
-        exampleWasSpecified: true
+        enumValues:
+          - 91
+          - 5
+          - 81
+          - 88
+          - 8
+          - 11
+          - 13
+          - 15
+          - 17
+          - 18
+          - 85
+          - 19
+          - 20
+          - 27
+          - 25
+          - 23
+          - 94
+          - 95
+          - 41
+          - 44
+          - 47
+          - 50
+          - 52
+          - 54
+          - 86
+          - 63
+          - 66
+          - 68
+          - 70
+          - 73
+          - 76
+          - 97
+          - 99
+        exampleWasSpecified: false
         nullable: false
         deprecated: false
       delivery_city_code:
@@ -310,6 +265,291 @@ endpoints:
         exampleWasSpecified: true
         nullable: true
         deprecated: false
+      name:
+        custom: []
+        name: name
+        description: 'El campo value debe tener al menos 3 caracteres. El campo value no puede tener más de 120 caracteres.'
+        required: true
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      phone:
+        custom: []
+        name: phone
+        description: 'Celular colombiano de 10 dígitos.'
+        required: true
+        example: '3155550202'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      email:
+        custom: []
+        name: email
+        description: 'El campo value debe ser un correo válido. El campo value no puede tener más de 255 caracteres.'
+        required: true
+        example: mya96@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      needs_invoice:
+        custom: []
+        name: needs_invoice
+        description: ''
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      person_type:
+        custom: []
+        name: person_type
+        description: '`natural` o `company`.'
+        required: true
+        example: company
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      id_type:
+        custom: []
+        name: id_type
+        description: ''
+        required: false
+        example: '22'
+        type: string
+        enumValues:
+          - '13'
+          - '31'
+          - '22'
+          - '41'
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      identification:
+        custom: []
+        name: identification
+        description: 'Must match the regex /^[A-Z0-9]{1,20}$/.'
+        required: false
+        example: 3IQY7HV
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      check_digit:
+        custom: []
+        name: check_digit
+        description: validation.digits.
+        required: false
+        example: '5'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      first_name:
+        custom: []
+        name: first_name
+        description: 'Nombres (persona natural).'
+        required: false
+        example: Laura
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      last_name:
+        custom: []
+        name: last_name
+        description: 'Apellidos (persona natural).'
+        required: false
+        example: Gómez
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      company_name:
+        custom: []
+        name: company_name
+        description: 'Razón social (empresa).'
+        required: false
+        example: 'Constructora Altos S.A.S.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      commercial_name:
+        custom: []
+        name: commercial_name
+        description: 'El campo value no puede tener más de 100 caracteres.'
+        required: false
+        example: m
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      vat_responsible:
+        custom: []
+        name: vat_responsible
+        description: ''
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      fiscal_responsibilities:
+        custom: []
+        name: fiscal_responsibilities
+        description: ''
+        required: false
+        example:
+          - O-13
+        type: 'string[]'
+        enumValues:
+          - R-99-PN
+          - O-13
+          - O-15
+          - O-23
+          - O-47
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      billing_email:
+        custom: []
+        name: billing_email
+        description: 'Correo de facturación electrónica.'
+        required: true
+        example: facturacion@constructoraaltos.test
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      billing_same_as_delivery:
+        custom: []
+        name: billing_same_as_delivery
+        description: ''
+        required: false
+        example: false
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      billing_address:
+        custom: []
+        name: billing_address
+        description: 'Dirección de facturación.'
+        required: true
+        example: 'Carrera 27 # 45-10'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      billing_state_code:
+        custom: []
+        name: billing_state_code
+        description: ''
+        required: false
+        example: 91
+        type: string
+        enumValues:
+          - 91
+          - 5
+          - 81
+          - 88
+          - 8
+          - 11
+          - 13
+          - 15
+          - 17
+          - 18
+          - 85
+          - 19
+          - 20
+          - 27
+          - 25
+          - 23
+          - 94
+          - 95
+          - 41
+          - 44
+          - 47
+          - 50
+          - 52
+          - 54
+          - 86
+          - 63
+          - 66
+          - 68
+          - 70
+          - 73
+          - 76
+          - 97
+          - 99
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      billing_city_code:
+        custom: []
+        name: billing_city_code
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      billing_postal_code:
+        custom: []
+        name: billing_postal_code
+        description: 'Must match the regex /^[A-Za-z0-9]{1,10}$/.'
+        required: false
+        example: LG4Qbdd
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      contact_first_name:
+        custom: []
+        name: contact_first_name
+        description: 'El campo value no puede tener más de 50 caracteres.'
+        required: false
+        example: j
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      contact_last_name:
+        custom: []
+        name: contact_last_name
+        description: 'El campo value no puede tener más de 50 caracteres.'
+        required: false
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
       notes:
         custom: []
         name: notes
@@ -348,7 +588,7 @@ endpoints:
         name: website
         description: 'El campo value no puede tener más de 255 caracteres.'
         required: false
-        example: 'n'
+        example: k
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -387,29 +627,113 @@ endpoints:
         exampleWasSpecified: false
         nullable: true
         deprecated: false
+      doc_type:
+        custom: []
+        name: doc_type
+        description: 'Tipo de documento (obligatorio en persona natural): CC, CE, PP o NIT.'
+        required: false
+        example: CC
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      doc_number:
+        custom: []
+        name: doc_number
+        description: 'Número de documento (NIT sin dígito de verificación).'
+        required: true
+        example: '900123456'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      nit_dv:
+        custom: []
+        name: nit_dv
+        description: 'Dígito de verificación del NIT (obligatorio en empresa).'
+        required: false
+        example: '8'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      fiscal_responsibility:
+        custom: []
+        name: fiscal_responsibility
+        description: 'Responsabilidad fiscal (empresa): vat_responsible, not_vat_responsible, large_taxpayer, self_withholder o simple_regime.'
+        required: false
+        example: vat_responsible
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      contact_name:
+        custom: []
+        name: contact_name
+        description: 'Persona de contacto (empresa).'
+        required: false
+        example: 'Laura Gómez'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      department_code:
+        custom: []
+        name: department_code
+        description: 'Código DANE del departamento.'
+        required: true
+        example: '68'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      city_code:
+        custom: []
+        name: city_code
+        description: 'Código DANE del municipio.'
+        required: true
+        example: '68001'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      delivery_same_as_billing:
+        custom: []
+        name: delivery_same_as_billing
+        description: 'La entrega es en la dirección de facturación.'
+        required: false
+        example: false
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      delivery_department_code:
+        custom: []
+        name: delivery_department_code
+        description: 'Departamento de entrega (si no es pickup ni igual a facturación).'
+        required: false
+        example: '68'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
     cleanBodyParameters:
       items:
         -
           product_id: 1
           quantity: 2.0
           notes: g
-      person_type: company
-      doc_type: CC
-      doc_number: '900123456'
-      nit_dv: '8'
-      first_name: Laura
-      last_name: Gómez
-      company_name: 'Constructora Altos S.A.S.'
-      fiscal_responsibility: vat_responsible
-      contact_name: 'Laura Gómez'
-      billing_email: facturacion@constructoraaltos.test
-      phone: '3155550202'
-      billing_address: 'Carrera 27 # 45-10'
-      department_code: '68'
-      city_code: '68001'
       delivery_method: local
-      delivery_same_as_billing: false
-      delivery_department_code: '68'
+      delivery_state_code: 86
       delivery_city_code: '68276'
       delivery_neighborhood: 'Zona Industrial'
       delivery_road: 'Carrera 9'
@@ -417,16 +741,48 @@ endpoints:
       delivery_complement: 'Bodega 3'
       delivery_postal_code: '681004'
       delivery_notes: 'Entregar en portería'
+      name: 'n'
+      phone: '3155550202'
+      email: mya96@example.com
+      needs_invoice: true
+      person_type: company
+      id_type: '22'
+      identification: 3IQY7HV
+      check_digit: '5'
+      first_name: Laura
+      last_name: Gómez
+      company_name: 'Constructora Altos S.A.S.'
+      commercial_name: m
+      vat_responsible: true
+      fiscal_responsibilities:
+        - O-13
+      billing_email: facturacion@constructoraaltos.test
+      billing_same_as_delivery: false
+      billing_address: 'Carrera 27 # 45-10'
+      billing_state_code: 91
+      billing_city_code: architecto
+      billing_postal_code: LG4Qbdd
+      contact_first_name: j
+      contact_last_name: 'n'
       notes: 'Con certificado de calidad'
       privacy_accepted: true
       save_to_profile: true
-      website: 'n'
+      website: k
+      doc_type: CC
+      doc_number: '900123456'
+      nit_dv: '8'
+      fiscal_responsibility: vat_responsible
+      contact_name: 'Laura Gómez'
+      department_code: '68'
+      city_code: '68001'
+      delivery_same_as_billing: false
+      delivery_department_code: '68'
     fileParameters: []
     responses:
       -
         custom: []
         status: 201
-        content: '{"data":[{"code":"PED-9775","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","customer_type":"company","company_name":"Llorente, Aguirre y Sierra e Hijo S.A.S.","nit":"931296562-5","contact_name":"Alexandra Salvador","email":"arredondo.juana@example.com","phone":"364 698 0841","city":"Barrancabermeja","address":"Ruela Santiago, 442, 43\u00ba 2\u00ba","is_guest":false,"billing":null,"delivery":null,"privacy_accepted_at":null,"privacy_version":null,"delivery_method":"pickup","delivery_method_label":"Recoger en tienda","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-11-11T09:55:00.000000Z","items":[{"id":1,"product_id":1,"sku":"REF-5744-tc","product_name":"Motor trif\u00e1sico 4086 HP","unit":"unidad","quantity":5,"unit_price":4793000,"tax_rate":19,"line_total":23965000,"notes":null}]},{"code":"PED-0170","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","customer_type":"company","company_name":"Centro Duran-Ordo\u00f1ez S.A.S.","nit":"973287370-6","contact_name":"Lic. Olivia Paredes Segundo","email":"pineiro.marc@example.com","phone":"361 747 3805","city":"Floridablanca","address":"Traves\u00eda Mar\u00eda Dolores, 87, 4\u00ba E","is_guest":false,"billing":null,"delivery":null,"privacy_accepted_at":null,"privacy_version":null,"delivery_method":"national","delivery_method_label":"Env\u00edo nacional","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-11-11T09:55:00.000000Z","items":[{"id":2,"product_id":2,"sku":"REF-3974-og","product_name":"Motor trif\u00e1sico 4936 HP","unit":"unidad","quantity":4,"unit_price":4325000,"tax_rate":19,"line_total":17300000,"notes":null}]}]}'
+        content: '{"data":[{"code":"PED-7876","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","customer_type":"company","company_name":"Benito y Duarte y Asoc. S.A.S.","nit":"949599146-1","contact_name":"Helena Montes","email":"aceja@example.net","phone":"376 381 4812","city":"Floridablanca","address":"Plaza Aranda, 19, 86\u00ba B","is_guest":false,"needs_invoice":false,"billing":null,"delivery":null,"privacy_accepted_at":null,"privacy_version":null,"delivery_method":"national","delivery_method_label":"Env\u00edo nacional","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-11-11T10:55:09.000000Z","items":[{"id":1,"product_id":1,"sku":"REF-4230-sv","product_name":"Motor trif\u00e1sico 9106 HP","unit":"unidad","quantity":5,"unit_price":3054000,"tax_rate":19,"line_total":15270000,"notes":null}]},{"code":"PED-2251","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","customer_type":"company","company_name":"Luevano y Guerra e Hijos S.A.S.","nit":"967858218-1","contact_name":"Irene Mor\u00e1n Segundo","email":"raquel.diaz@example.org","phone":"352 357 6500","city":"Piedecuesta","address":"Traves\u00eda S\u00e1nchez, 743, 4\u00ba B","is_guest":false,"needs_invoice":false,"billing":null,"delivery":null,"privacy_accepted_at":null,"privacy_version":null,"delivery_method":"national","delivery_method_label":"Env\u00edo nacional","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-11-11T10:55:09.000000Z","items":[{"id":2,"product_id":2,"sku":"REF-9295-ll","product_name":"Motor trif\u00e1sico 1143 HP","unit":"unidad","quantity":3,"unit_price":2822000,"tax_rate":19,"line_total":8466000,"notes":null}]}]}'
         headers: []
         description: ''
       -
@@ -509,7 +865,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"code":"PED-9171","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","customer_type":"company","company_name":"Aguirre de Sierra e Hijo S.A.S.","nit":"934997057-5","contact_name":"Rosario Cano","email":"isaac34@example.net","phone":"318 740 4954","city":"Gir\u00f3n","address":"R\u00faa Arnau, 798, 4\u00ba","is_guest":false,"billing":null,"delivery":null,"privacy_accepted_at":null,"privacy_version":null,"delivery_method":"pickup","delivery_method_label":"Recoger en tienda","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-11-11T09:55:00.000000Z","items":[{"id":1,"product_id":1,"sku":"REF-7365-sc","product_name":"Motor trif\u00e1sico 967 HP","unit":"unidad","quantity":3,"unit_price":2955000,"tax_rate":19,"line_total":8865000,"notes":null}],"status_history":[{"from_status":null,"to_status":"pending_payment","to_status_label":"Pendiente de pago","note":null,"created_at":"2026-11-11T09:55:00.000000Z"}]}}'
+        content: '{"data":{"code":"PED-9171","type":"purchase","type_label":"Pedido","status":"pending_payment","status_label":"Pendiente de pago","customer_type":"company","company_name":"Aguirre de Sierra e Hijo S.A.S.","nit":"931296562-5","contact_name":"Alexandra Salvador","email":"arredondo.juana@example.com","phone":"364 698 0841","city":"Barrancabermeja","address":"Ruela Santiago, 442, 43\u00ba 2\u00ba","is_guest":false,"needs_invoice":false,"billing":null,"delivery":null,"privacy_accepted_at":null,"privacy_version":null,"delivery_method":"pickup","delivery_method_label":"Recoger en tienda","payment_method":null,"subtotal":840336.13,"tax":159663.87,"shipping":0,"total":1000000,"notes":null,"expires_at":null,"paid_at":null,"created_at":"2026-11-11T10:55:09.000000Z","items":[{"id":1,"product_id":1,"sku":"REF-5744-tc","product_name":"Motor trif\u00e1sico 4086 HP","unit":"unidad","quantity":5,"unit_price":4793000,"tax_rate":19,"line_total":23965000,"notes":null}],"status_history":[{"from_status":null,"to_status":"pending_payment","to_status_label":"Pendiente de pago","note":null,"created_at":"2026-11-11T10:55:09.000000Z"}]}}'
         headers: []
         description: ''
       -

@@ -217,7 +217,10 @@
                     <a href="#compra">Compra</a>
                 </li>
                                     <ul id="tocify-subheader-compra" class="tocify-subheader">
-                                                    <li class="tocify-item level-2" data-unique="compra-POSTapi-v1-checkout">
+                                                    <li class="tocify-item level-2" data-unique="compra-GETapi-v1-shipping-quote">
+                                <a href="#compra-GETapi-v1-shipping-quote">Cotizar el envío</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="compra-POSTapi-v1-checkout">
                                 <a href="#compra-POSTapi-v1-checkout">Comprar (con o sin cuenta)</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="compra-GETapi-v1-guest-orders--code-">
@@ -1725,7 +1728,7 @@ solo se vende por cotización. No requiere token.</p>
     \"sale_mode\": \"quote\",
     \"featured\": true,
     \"in_stock\": false,
-    \"sort\": \"name\",
+    \"sort\": \"price_asc\",
     \"per_page\": 16
 }"
 </code></pre></div>
@@ -1756,7 +1759,7 @@ let body = {
     "sale_mode": "quote",
     "featured": true,
     "in_stock": false,
-    "sort": "name",
+    "sort": "price_asc",
     "per_page": 16
 };
 
@@ -2093,10 +2096,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="sort"                data-endpoint="GETapi-v1-products"
-               value="name"
+               value="price_asc"
                data-component="body">
     <br>
-<p>Example: <code>name</code></p>
+<p>Example: <code>price_asc</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>name</code></li> <li><code>newest</code></li> <li><code>price_asc</code></li> <li><code>price_desc</code></li></ul>
         </div>
@@ -2344,17 +2347,21 @@ fetch(url, {
             &quot;phone&quot;: &quot;364 310 6432&quot;,
             &quot;city&quot;: &quot;Floridablanca&quot;,
             &quot;address&quot;: &quot;Paseo Isaac, 409, 9&ordm; C&quot;,
-            &quot;doc_type&quot;: null,
-            &quot;doc_dv&quot;: null,
+            &quot;id_type&quot;: null,
+            &quot;check_digit&quot;: null,
             &quot;first_name&quot;: null,
             &quot;last_name&quot;: null,
-            &quot;fiscal_responsibility&quot;: null,
+            &quot;commercial_name&quot;: null,
+            &quot;vat_responsible&quot;: null,
+            &quot;fiscal_responsibilities&quot;: null,
             &quot;billing_email&quot;: null,
-            &quot;department_code&quot;: null,
+            &quot;state_code&quot;: null,
             &quot;city_code&quot;: null,
+            &quot;postal_code&quot;: null,
+            &quot;delivery_addresses&quot;: [],
             &quot;marketing_opt_in&quot;: false,
             &quot;marketing_opt_in_at&quot;: null,
-            &quot;privacy_accepted_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;
+            &quot;privacy_accepted_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;
         }
     }
 }</code>
@@ -2524,17 +2531,21 @@ fetch(url, {
             &quot;phone&quot;: &quot;315 175 7680&quot;,
             &quot;city&quot;: &quot;Barrancabermeja&quot;,
             &quot;address&quot;: &quot;Pla&ccedil;a Juana, 979, 27&ordm; A&quot;,
-            &quot;doc_type&quot;: null,
-            &quot;doc_dv&quot;: null,
+            &quot;id_type&quot;: null,
+            &quot;check_digit&quot;: null,
             &quot;first_name&quot;: null,
             &quot;last_name&quot;: null,
-            &quot;fiscal_responsibility&quot;: null,
+            &quot;commercial_name&quot;: null,
+            &quot;vat_responsible&quot;: null,
+            &quot;fiscal_responsibilities&quot;: null,
             &quot;billing_email&quot;: null,
-            &quot;department_code&quot;: null,
+            &quot;state_code&quot;: null,
             &quot;city_code&quot;: null,
+            &quot;postal_code&quot;: null,
+            &quot;delivery_addresses&quot;: [],
             &quot;marketing_opt_in&quot;: false,
             &quot;marketing_opt_in_at&quot;: null,
-            &quot;privacy_accepted_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;
+            &quot;privacy_accepted_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;
         }
     }
 }</code>
@@ -2795,6 +2806,7 @@ fetch(url, {
             &quot;city&quot;: &quot;Piedecuesta&quot;,
             &quot;address&quot;: &quot;R&uacute;a Adri&aacute;n, 732, 9&ordm; C&quot;,
             &quot;is_guest&quot;: false,
+            &quot;needs_invoice&quot;: false,
             &quot;billing&quot;: null,
             &quot;delivery&quot;: null,
             &quot;privacy_accepted_at&quot;: null,
@@ -2809,7 +2821,7 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
             &quot;items&quot;: [
                 {
                     &quot;id&quot;: 1,
@@ -2840,6 +2852,7 @@ fetch(url, {
             &quot;city&quot;: &quot;Piedecuesta&quot;,
             &quot;address&quot;: &quot;Carrer Nayara, 342, 1&ordm; E&quot;,
             &quot;is_guest&quot;: false,
+            &quot;needs_invoice&quot;: false,
             &quot;billing&quot;: null,
             &quot;delivery&quot;: null,
             &quot;privacy_accepted_at&quot;: null,
@@ -2854,7 +2867,7 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
             &quot;items&quot;: [
                 {
                     &quot;id&quot;: 2,
@@ -3151,26 +3164,27 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;code&quot;: &quot;PED-9365&quot;,
+            &quot;code&quot;: &quot;PED-9775&quot;,
             &quot;type&quot;: &quot;purchase&quot;,
             &quot;type_label&quot;: &quot;Pedido&quot;,
             &quot;status&quot;: &quot;pending_payment&quot;,
             &quot;status_label&quot;: &quot;Pendiente de pago&quot;,
             &quot;customer_type&quot;: &quot;company&quot;,
-            &quot;company_name&quot;: &quot;Baeza y Murillo S. de H. S.A.S.&quot;,
-            &quot;nit&quot;: &quot;917077634-3&quot;,
-            &quot;contact_name&quot;: &quot;Jos&eacute; Antonio Rivas&quot;,
-            &quot;email&quot;: &quot;yeray52@example.com&quot;,
-            &quot;phone&quot;: &quot;344 401 4763&quot;,
+            &quot;company_name&quot;: &quot;Llorente, Aguirre y Sierra e Hijo S.A.S.&quot;,
+            &quot;nit&quot;: &quot;934997057-5&quot;,
+            &quot;contact_name&quot;: &quot;Rosario Cano&quot;,
+            &quot;email&quot;: &quot;isaac34@example.net&quot;,
+            &quot;phone&quot;: &quot;318 740 4954&quot;,
             &quot;city&quot;: &quot;Gir&oacute;n&quot;,
-            &quot;address&quot;: &quot;Passeig Nicol&aacute;s, 480, 2&ordm; C&quot;,
+            &quot;address&quot;: &quot;R&uacute;a Arnau, 798, 4&ordm;&quot;,
             &quot;is_guest&quot;: false,
+            &quot;needs_invoice&quot;: false,
             &quot;billing&quot;: null,
             &quot;delivery&quot;: null,
             &quot;privacy_accepted_at&quot;: null,
             &quot;privacy_version&quot;: null,
-            &quot;delivery_method&quot;: &quot;national&quot;,
-            &quot;delivery_method_label&quot;: &quot;Env&iacute;o nacional&quot;,
+            &quot;delivery_method&quot;: &quot;pickup&quot;,
+            &quot;delivery_method_label&quot;: &quot;Recoger en tienda&quot;,
             &quot;payment_method&quot;: null,
             &quot;subtotal&quot;: 840336.13,
             &quot;tax&quot;: 159663.87,
@@ -3179,37 +3193,38 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
             &quot;items&quot;: [
                 {
                     &quot;id&quot;: 1,
                     &quot;product_id&quot;: 1,
-                    &quot;sku&quot;: &quot;REF-5066-ld&quot;,
-                    &quot;product_name&quot;: &quot;Motor trif&aacute;sico 4486 HP&quot;,
+                    &quot;sku&quot;: &quot;REF-7365-sc&quot;,
+                    &quot;product_name&quot;: &quot;Motor trif&aacute;sico 967 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
-                    &quot;quantity&quot;: 4,
-                    &quot;unit_price&quot;: 1444000,
+                    &quot;quantity&quot;: 3,
+                    &quot;unit_price&quot;: 2955000,
                     &quot;tax_rate&quot;: 19,
-                    &quot;line_total&quot;: 5776000,
+                    &quot;line_total&quot;: 8865000,
                     &quot;notes&quot;: null
                 }
             ]
         },
         {
-            &quot;code&quot;: &quot;PED-0481&quot;,
+            &quot;code&quot;: &quot;PED-0568&quot;,
             &quot;type&quot;: &quot;purchase&quot;,
             &quot;type_label&quot;: &quot;Pedido&quot;,
             &quot;status&quot;: &quot;pending_payment&quot;,
             &quot;status_label&quot;: &quot;Pendiente de pago&quot;,
             &quot;customer_type&quot;: &quot;company&quot;,
-            &quot;company_name&quot;: &quot;Tirado-Gal&aacute;n S.A.S.&quot;,
-            &quot;nit&quot;: &quot;916022608-5&quot;,
-            &quot;contact_name&quot;: &quot;Diana Alanis&quot;,
-            &quot;email&quot;: &quot;lucia.roca@example.net&quot;,
-            &quot;phone&quot;: &quot;360 787 7092&quot;,
-            &quot;city&quot;: &quot;Barrancabermeja&quot;,
-            &quot;address&quot;: &quot;Cami&ntilde;o Jon, 967, 4&ordm; 2&ordm;&quot;,
+            &quot;company_name&quot;: &quot;Arevalo y Gaona S. de H. S.A.S.&quot;,
+            &quot;nit&quot;: &quot;912797048-1&quot;,
+            &quot;contact_name&quot;: &quot;Dr. Ismael Gal&aacute;n&quot;,
+            &quot;email&quot;: &quot;jon26@example.com&quot;,
+            &quot;phone&quot;: &quot;316 022 6085&quot;,
+            &quot;city&quot;: &quot;Gir&oacute;n&quot;,
+            &quot;address&quot;: &quot;Ronda Rold&aacute;n, 754, &Aacute;tico 6&ordm;&quot;,
             &quot;is_guest&quot;: false,
+            &quot;needs_invoice&quot;: false,
             &quot;billing&quot;: null,
             &quot;delivery&quot;: null,
             &quot;privacy_accepted_at&quot;: null,
@@ -3224,18 +3239,18 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
             &quot;items&quot;: [
                 {
                     &quot;id&quot;: 2,
                     &quot;product_id&quot;: 2,
-                    &quot;sku&quot;: &quot;REF-1102-zc&quot;,
-                    &quot;product_name&quot;: &quot;Motor trif&aacute;sico 2602 HP&quot;,
+                    &quot;sku&quot;: &quot;REF-3531-ob&quot;,
+                    &quot;product_name&quot;: &quot;Motor trif&aacute;sico 6696 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
                     &quot;quantity&quot;: 3,
-                    &quot;unit_price&quot;: 2032000,
+                    &quot;unit_price&quot;: 4362000,
                     &quot;tax_rate&quot;: 19,
-                    &quot;line_total&quot;: 6096000,
+                    &quot;line_total&quot;: 13086000,
                     &quot;notes&quot;: null
                 }
             ]
@@ -3489,6 +3504,7 @@ fetch(url, {
         &quot;city&quot;: &quot;Barrancabermeja&quot;,
         &quot;address&quot;: &quot;Traves&iacute;a Cristian, 47, 2&ordm; F&quot;,
         &quot;is_guest&quot;: false,
+        &quot;needs_invoice&quot;: false,
         &quot;billing&quot;: null,
         &quot;delivery&quot;: null,
         &quot;privacy_accepted_at&quot;: null,
@@ -3503,7 +3519,7 @@ fetch(url, {
         &quot;notes&quot;: null,
         &quot;expires_at&quot;: null,
         &quot;paid_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
         &quot;items&quot;: [
             {
                 &quot;id&quot;: 1,
@@ -3524,7 +3540,7 @@ fetch(url, {
                 &quot;to_status&quot;: &quot;pending_payment&quot;,
                 &quot;to_status_label&quot;: &quot;Pendiente de pago&quot;,
                 &quot;note&quot;: null,
-                &quot;created_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;
             }
         ]
     }
@@ -3691,6 +3707,7 @@ fetch(url, {
         &quot;city&quot;: &quot;Bucaramanga&quot;,
         &quot;address&quot;: &quot;Passeig Olivia, 232, 4&ordm;&quot;,
         &quot;is_guest&quot;: false,
+        &quot;needs_invoice&quot;: false,
         &quot;billing&quot;: null,
         &quot;delivery&quot;: null,
         &quot;privacy_accepted_at&quot;: null,
@@ -3705,7 +3722,7 @@ fetch(url, {
         &quot;notes&quot;: null,
         &quot;expires_at&quot;: null,
         &quot;paid_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
         &quot;items&quot;: [
             {
                 &quot;id&quot;: 1,
@@ -3726,7 +3743,7 @@ fetch(url, {
                 &quot;to_status&quot;: &quot;pending_payment&quot;,
                 &quot;to_status_label&quot;: &quot;Pendiente de pago&quot;,
                 &quot;note&quot;: null,
-                &quot;created_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;
             }
         ]
     }
@@ -3948,8 +3965,8 @@ fetch(url, {
             },
             &quot;is_active&quot;: true,
             &quot;price_source&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
             &quot;deleted_at&quot;: null
         },
         {
@@ -3987,8 +4004,8 @@ fetch(url, {
             },
             &quot;is_active&quot;: true,
             &quot;price_source&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
             &quot;deleted_at&quot;: null
         }
     ],
@@ -4359,8 +4376,8 @@ fetch(url, {
         },
         &quot;is_active&quot;: true,
         &quot;price_source&quot;: null,
-        &quot;created_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -4769,8 +4786,8 @@ fetch(url, {
         },
         &quot;is_active&quot;: true,
         &quot;price_source&quot;: null,
-        &quot;created_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -4920,7 +4937,7 @@ se envían <code>is_active</code>, <code>is_featured</code> o <code>specs</code>
     \"tax_rate\": 19,
     \"stock\": 6,
     \"is_active\": false,
-    \"is_featured\": false,
+    \"is_featured\": true,
     \"specs\": [
         {
             \"key\": \"k\",
@@ -4957,7 +4974,7 @@ let body = {
     "tax_rate": 19,
     "stock": 6,
     "is_active": false,
-    "is_featured": false,
+    "is_featured": true,
     "specs": [
         {
             "key": "k",
@@ -5016,8 +5033,8 @@ fetch(url, {
         },
         &quot;is_active&quot;: true,
         &quot;price_source&quot;: null,
-        &quot;created_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -5334,7 +5351,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
         <details>
@@ -5795,8 +5812,8 @@ fetch(url, {
             &quot;image_url&quot;: null,
             &quot;sort_order&quot;: 19,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;
         },
         {
             &quot;id&quot;: 2,
@@ -5807,8 +5824,8 @@ fetch(url, {
             &quot;image_url&quot;: null,
             &quot;sort_order&quot;: 15,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;
         }
     ],
     &quot;links&quot;: {
@@ -6055,8 +6072,8 @@ fetch(url, {
         &quot;image_url&quot;: null,
         &quot;sort_order&quot;: 12,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;
     }
 }</code>
  </pre>
@@ -6272,8 +6289,8 @@ fetch(url, {
         &quot;image_url&quot;: null,
         &quot;sort_order&quot;: 8,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;
     }
 }</code>
  </pre>
@@ -6459,8 +6476,8 @@ fetch(url, {
         &quot;image_url&quot;: null,
         &quot;sort_order&quot;: 0,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;
     }
 }</code>
  </pre>
@@ -7563,7 +7580,203 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
     <p>Pedidos hechos sin cuenta. Se abren con el enlace firmado que llega por correo (<code>expires</code> y <code>signature</code>).</p>
 
-                                <h2 id="compra-POSTapi-v1-checkout">Comprar (con o sin cuenta)</h2>
+                                <h2 id="compra-GETapi-v1-shipping-quote">Cotizar el envío</h2>
+
+<p>
+</p>
+
+<p>Tipo de envío (<code>local</code> o <code>national</code>), zona y valor según el municipio de entrega (tabla de zonas de <code>config/shop.php</code>). Gratis al llegar
+a la compra mínima. Sirve para mostrar el costo en el paso de entrega antes de confirmar.</p>
+
+<span id="example-requests-GETapi-v1-shipping-quote">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "https://imagen-electrica-ecommerce.onrender.com/api/v1/shipping/quote?city_code=68276&amp;subtotal=119000" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"city_code\": \"56425\",
+    \"subtotal\": 42
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/shipping/quote"
+);
+
+const params = {
+    "city_code": "68276",
+    "subtotal": "119000",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "city_code": "56425",
+    "subtotal": 42
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-v1-shipping-quote">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;zone&quot;: &quot;local&quot;,
+        &quot;zone_label&quot;: &quot;Bucaramanga y &aacute;rea metropolitana&quot;,
+        &quot;method&quot;: &quot;local&quot;,
+        &quot;cost&quot;: 15000,
+        &quot;base_cost&quot;: 15000,
+        &quot;free&quot;: false,
+        &quot;free_from&quot;: 500000
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-v1-shipping-quote" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-v1-shipping-quote"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-v1-shipping-quote"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-v1-shipping-quote" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-v1-shipping-quote">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-v1-shipping-quote" data-method="GET"
+      data-path="api/v1/shipping/quote"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-shipping-quote', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-v1-shipping-quote"
+                    onclick="tryItOut('GETapi-v1-shipping-quote');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-v1-shipping-quote"
+                    onclick="cancelTryOut('GETapi-v1-shipping-quote');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-v1-shipping-quote"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/v1/shipping/quote</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-v1-shipping-quote"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-v1-shipping-quote"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>city_code</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="city_code"                data-endpoint="GETapi-v1-shipping-quote"
+               value="68276"
+               data-component="query">
+    <br>
+<p>Código DANE del municipio (5 dígitos). Example: <code>68276</code></p>
+            </div>
+                                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>subtotal</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="subtotal"                data-endpoint="GETapi-v1-shipping-quote"
+               value="119000"
+               data-component="query">
+    <br>
+<p>Valor de los productos con IVA (para el envío gratis). Example: <code>119000</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>city_code</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="city_code"                data-endpoint="GETapi-v1-shipping-quote"
+               value="56425"
+               data-component="body">
+    <br>
+<p>Must match the regex /^\d{5}$/. Example: <code>56425</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>subtotal</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="subtotal"                data-endpoint="GETapi-v1-shipping-quote"
+               value="42"
+               data-component="body">
+    <br>
+<p>El campo value debe ser al menos 0. Example: <code>42</code></p>
+        </div>
+        </form>
+
+                    <h2 id="compra-POSTapi-v1-checkout">Comprar (con o sin cuenta)</h2>
 
 <p>
 </p>
@@ -7595,23 +7808,8 @@ Límite de 10 compras por minuto y 40 por hora por IP. <code>website</code> es u
             \"notes\": \"g\"
         }
     ],
-    \"person_type\": \"company\",
-    \"doc_type\": \"CC\",
-    \"doc_number\": \"900123456\",
-    \"nit_dv\": \"8\",
-    \"first_name\": \"Laura\",
-    \"last_name\": \"Gómez\",
-    \"company_name\": \"Constructora Altos S.A.S.\",
-    \"fiscal_responsibility\": \"vat_responsible\",
-    \"contact_name\": \"Laura Gómez\",
-    \"billing_email\": \"facturacion@constructoraaltos.test\",
-    \"phone\": \"3155550202\",
-    \"billing_address\": \"Carrera 27 # 45-10\",
-    \"department_code\": \"68\",
-    \"city_code\": \"68001\",
     \"delivery_method\": \"local\",
-    \"delivery_same_as_billing\": false,
-    \"delivery_department_code\": \"68\",
+    \"delivery_state_code\": 86,
     \"delivery_city_code\": \"68276\",
     \"delivery_neighborhood\": \"Zona Industrial\",
     \"delivery_road\": \"Carrera 9\",
@@ -7619,10 +7817,43 @@ Límite de 10 compras por minuto y 40 por hora por IP. <code>website</code> es u
     \"delivery_complement\": \"Bodega 3\",
     \"delivery_postal_code\": \"681004\",
     \"delivery_notes\": \"Entregar en portería\",
+    \"name\": \"n\",
+    \"phone\": \"3155550202\",
+    \"email\": \"mya96@example.com\",
+    \"needs_invoice\": true,
+    \"person_type\": \"company\",
+    \"id_type\": \"22\",
+    \"identification\": \"3IQY7HV\",
+    \"check_digit\": \"5\",
+    \"first_name\": \"Laura\",
+    \"last_name\": \"Gómez\",
+    \"company_name\": \"Constructora Altos S.A.S.\",
+    \"commercial_name\": \"m\",
+    \"vat_responsible\": true,
+    \"fiscal_responsibilities\": [
+        \"O-13\"
+    ],
+    \"billing_email\": \"facturacion@constructoraaltos.test\",
+    \"billing_same_as_delivery\": false,
+    \"billing_address\": \"Carrera 27 # 45-10\",
+    \"billing_state_code\": 91,
+    \"billing_city_code\": \"architecto\",
+    \"billing_postal_code\": \"LG4Qbdd\",
+    \"contact_first_name\": \"j\",
+    \"contact_last_name\": \"n\",
     \"notes\": \"Con certificado de calidad\",
     \"privacy_accepted\": true,
     \"save_to_profile\": true,
-    \"website\": \"n\"
+    \"website\": \"k\",
+    \"doc_type\": \"CC\",
+    \"doc_number\": \"900123456\",
+    \"nit_dv\": \"8\",
+    \"fiscal_responsibility\": \"vat_responsible\",
+    \"contact_name\": \"Laura Gómez\",
+    \"department_code\": \"68\",
+    \"city_code\": \"68001\",
+    \"delivery_same_as_billing\": false,
+    \"delivery_department_code\": \"68\"
 }"
 </code></pre></div>
 
@@ -7645,23 +7876,8 @@ let body = {
             "notes": "g"
         }
     ],
-    "person_type": "company",
-    "doc_type": "CC",
-    "doc_number": "900123456",
-    "nit_dv": "8",
-    "first_name": "Laura",
-    "last_name": "Gómez",
-    "company_name": "Constructora Altos S.A.S.",
-    "fiscal_responsibility": "vat_responsible",
-    "contact_name": "Laura Gómez",
-    "billing_email": "facturacion@constructoraaltos.test",
-    "phone": "3155550202",
-    "billing_address": "Carrera 27 # 45-10",
-    "department_code": "68",
-    "city_code": "68001",
     "delivery_method": "local",
-    "delivery_same_as_billing": false,
-    "delivery_department_code": "68",
+    "delivery_state_code": 86,
     "delivery_city_code": "68276",
     "delivery_neighborhood": "Zona Industrial",
     "delivery_road": "Carrera 9",
@@ -7669,10 +7885,43 @@ let body = {
     "delivery_complement": "Bodega 3",
     "delivery_postal_code": "681004",
     "delivery_notes": "Entregar en portería",
+    "name": "n",
+    "phone": "3155550202",
+    "email": "mya96@example.com",
+    "needs_invoice": true,
+    "person_type": "company",
+    "id_type": "22",
+    "identification": "3IQY7HV",
+    "check_digit": "5",
+    "first_name": "Laura",
+    "last_name": "Gómez",
+    "company_name": "Constructora Altos S.A.S.",
+    "commercial_name": "m",
+    "vat_responsible": true,
+    "fiscal_responsibilities": [
+        "O-13"
+    ],
+    "billing_email": "facturacion@constructoraaltos.test",
+    "billing_same_as_delivery": false,
+    "billing_address": "Carrera 27 # 45-10",
+    "billing_state_code": 91,
+    "billing_city_code": "architecto",
+    "billing_postal_code": "LG4Qbdd",
+    "contact_first_name": "j",
+    "contact_last_name": "n",
     "notes": "Con certificado de calidad",
     "privacy_accepted": true,
     "save_to_profile": true,
-    "website": "n"
+    "website": "k",
+    "doc_type": "CC",
+    "doc_number": "900123456",
+    "nit_dv": "8",
+    "fiscal_responsibility": "vat_responsible",
+    "contact_name": "Laura Gómez",
+    "department_code": "68",
+    "city_code": "68001",
+    "delivery_same_as_billing": false,
+    "delivery_department_code": "68"
 };
 
 fetch(url, {
@@ -7692,65 +7941,21 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;code&quot;: &quot;PED-9775&quot;,
+            &quot;code&quot;: &quot;PED-7876&quot;,
             &quot;type&quot;: &quot;purchase&quot;,
             &quot;type_label&quot;: &quot;Pedido&quot;,
             &quot;status&quot;: &quot;pending_payment&quot;,
             &quot;status_label&quot;: &quot;Pendiente de pago&quot;,
             &quot;customer_type&quot;: &quot;company&quot;,
-            &quot;company_name&quot;: &quot;Llorente, Aguirre y Sierra e Hijo S.A.S.&quot;,
-            &quot;nit&quot;: &quot;931296562-5&quot;,
-            &quot;contact_name&quot;: &quot;Alexandra Salvador&quot;,
-            &quot;email&quot;: &quot;arredondo.juana@example.com&quot;,
-            &quot;phone&quot;: &quot;364 698 0841&quot;,
-            &quot;city&quot;: &quot;Barrancabermeja&quot;,
-            &quot;address&quot;: &quot;Ruela Santiago, 442, 43&ordm; 2&ordm;&quot;,
-            &quot;is_guest&quot;: false,
-            &quot;billing&quot;: null,
-            &quot;delivery&quot;: null,
-            &quot;privacy_accepted_at&quot;: null,
-            &quot;privacy_version&quot;: null,
-            &quot;delivery_method&quot;: &quot;pickup&quot;,
-            &quot;delivery_method_label&quot;: &quot;Recoger en tienda&quot;,
-            &quot;payment_method&quot;: null,
-            &quot;subtotal&quot;: 840336.13,
-            &quot;tax&quot;: 159663.87,
-            &quot;shipping&quot;: 0,
-            &quot;total&quot;: 1000000,
-            &quot;notes&quot;: null,
-            &quot;expires_at&quot;: null,
-            &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
-            &quot;items&quot;: [
-                {
-                    &quot;id&quot;: 1,
-                    &quot;product_id&quot;: 1,
-                    &quot;sku&quot;: &quot;REF-5744-tc&quot;,
-                    &quot;product_name&quot;: &quot;Motor trif&aacute;sico 4086 HP&quot;,
-                    &quot;unit&quot;: &quot;unidad&quot;,
-                    &quot;quantity&quot;: 5,
-                    &quot;unit_price&quot;: 4793000,
-                    &quot;tax_rate&quot;: 19,
-                    &quot;line_total&quot;: 23965000,
-                    &quot;notes&quot;: null
-                }
-            ]
-        },
-        {
-            &quot;code&quot;: &quot;PED-0170&quot;,
-            &quot;type&quot;: &quot;purchase&quot;,
-            &quot;type_label&quot;: &quot;Pedido&quot;,
-            &quot;status&quot;: &quot;pending_payment&quot;,
-            &quot;status_label&quot;: &quot;Pendiente de pago&quot;,
-            &quot;customer_type&quot;: &quot;company&quot;,
-            &quot;company_name&quot;: &quot;Centro Duran-Ordo&ntilde;ez S.A.S.&quot;,
-            &quot;nit&quot;: &quot;973287370-6&quot;,
-            &quot;contact_name&quot;: &quot;Lic. Olivia Paredes Segundo&quot;,
-            &quot;email&quot;: &quot;pineiro.marc@example.com&quot;,
-            &quot;phone&quot;: &quot;361 747 3805&quot;,
+            &quot;company_name&quot;: &quot;Benito y Duarte y Asoc. S.A.S.&quot;,
+            &quot;nit&quot;: &quot;949599146-1&quot;,
+            &quot;contact_name&quot;: &quot;Helena Montes&quot;,
+            &quot;email&quot;: &quot;aceja@example.net&quot;,
+            &quot;phone&quot;: &quot;376 381 4812&quot;,
             &quot;city&quot;: &quot;Floridablanca&quot;,
-            &quot;address&quot;: &quot;Traves&iacute;a Mar&iacute;a Dolores, 87, 4&ordm; E&quot;,
+            &quot;address&quot;: &quot;Plaza Aranda, 19, 86&ordm; B&quot;,
             &quot;is_guest&quot;: false,
+            &quot;needs_invoice&quot;: false,
             &quot;billing&quot;: null,
             &quot;delivery&quot;: null,
             &quot;privacy_accepted_at&quot;: null,
@@ -7765,18 +7970,64 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+            &quot;items&quot;: [
+                {
+                    &quot;id&quot;: 1,
+                    &quot;product_id&quot;: 1,
+                    &quot;sku&quot;: &quot;REF-4230-sv&quot;,
+                    &quot;product_name&quot;: &quot;Motor trif&aacute;sico 9106 HP&quot;,
+                    &quot;unit&quot;: &quot;unidad&quot;,
+                    &quot;quantity&quot;: 5,
+                    &quot;unit_price&quot;: 3054000,
+                    &quot;tax_rate&quot;: 19,
+                    &quot;line_total&quot;: 15270000,
+                    &quot;notes&quot;: null
+                }
+            ]
+        },
+        {
+            &quot;code&quot;: &quot;PED-2251&quot;,
+            &quot;type&quot;: &quot;purchase&quot;,
+            &quot;type_label&quot;: &quot;Pedido&quot;,
+            &quot;status&quot;: &quot;pending_payment&quot;,
+            &quot;status_label&quot;: &quot;Pendiente de pago&quot;,
+            &quot;customer_type&quot;: &quot;company&quot;,
+            &quot;company_name&quot;: &quot;Luevano y Guerra e Hijos S.A.S.&quot;,
+            &quot;nit&quot;: &quot;967858218-1&quot;,
+            &quot;contact_name&quot;: &quot;Irene Mor&aacute;n Segundo&quot;,
+            &quot;email&quot;: &quot;raquel.diaz@example.org&quot;,
+            &quot;phone&quot;: &quot;352 357 6500&quot;,
+            &quot;city&quot;: &quot;Piedecuesta&quot;,
+            &quot;address&quot;: &quot;Traves&iacute;a S&aacute;nchez, 743, 4&ordm; B&quot;,
+            &quot;is_guest&quot;: false,
+            &quot;needs_invoice&quot;: false,
+            &quot;billing&quot;: null,
+            &quot;delivery&quot;: null,
+            &quot;privacy_accepted_at&quot;: null,
+            &quot;privacy_version&quot;: null,
+            &quot;delivery_method&quot;: &quot;national&quot;,
+            &quot;delivery_method_label&quot;: &quot;Env&iacute;o nacional&quot;,
+            &quot;payment_method&quot;: null,
+            &quot;subtotal&quot;: 840336.13,
+            &quot;tax&quot;: 159663.87,
+            &quot;shipping&quot;: 0,
+            &quot;total&quot;: 1000000,
+            &quot;notes&quot;: null,
+            &quot;expires_at&quot;: null,
+            &quot;paid_at&quot;: null,
+            &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
             &quot;items&quot;: [
                 {
                     &quot;id&quot;: 2,
                     &quot;product_id&quot;: 2,
-                    &quot;sku&quot;: &quot;REF-3974-og&quot;,
-                    &quot;product_name&quot;: &quot;Motor trif&aacute;sico 4936 HP&quot;,
+                    &quot;sku&quot;: &quot;REF-9295-ll&quot;,
+                    &quot;product_name&quot;: &quot;Motor trif&aacute;sico 1143 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
-                    &quot;quantity&quot;: 4,
-                    &quot;unit_price&quot;: 4325000,
+                    &quot;quantity&quot;: 3,
+                    &quot;unit_price&quot;: 2822000,
                     &quot;tax_rate&quot;: 19,
-                    &quot;line_total&quot;: 17300000,
+                    &quot;line_total&quot;: 8466000,
                     &quot;notes&quot;: null
                 }
             ]
@@ -7920,174 +8171,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                     </details>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>person_type</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="person_type"                data-endpoint="POSTapi-v1-checkout"
-               value="company"
-               data-component="body">
-    <br>
-<p><code>natural</code> o <code>company</code>. Example: <code>company</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>doc_type</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="doc_type"                data-endpoint="POSTapi-v1-checkout"
-               value="CC"
-               data-component="body">
-    <br>
-<p>Tipo de documento (obligatorio en persona natural): CC, CE, PP o NIT. Example: <code>CC</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>doc_number</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="doc_number"                data-endpoint="POSTapi-v1-checkout"
-               value="900123456"
-               data-component="body">
-    <br>
-<p>Número de documento (NIT sin dígito de verificación). Example: <code>900123456</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>nit_dv</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="nit_dv"                data-endpoint="POSTapi-v1-checkout"
-               value="8"
-               data-component="body">
-    <br>
-<p>Dígito de verificación del NIT (obligatorio en empresa). Example: <code>8</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>first_name</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="first_name"                data-endpoint="POSTapi-v1-checkout"
-               value="Laura"
-               data-component="body">
-    <br>
-<p>Nombres (persona natural). Example: <code>Laura</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>last_name</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="last_name"                data-endpoint="POSTapi-v1-checkout"
-               value="Gómez"
-               data-component="body">
-    <br>
-<p>Apellidos (persona natural). Example: <code>Gómez</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>company_name</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="company_name"                data-endpoint="POSTapi-v1-checkout"
-               value="Constructora Altos S.A.S."
-               data-component="body">
-    <br>
-<p>Razón social (empresa). Example: <code>Constructora Altos S.A.S.</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>fiscal_responsibility</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="fiscal_responsibility"                data-endpoint="POSTapi-v1-checkout"
-               value="vat_responsible"
-               data-component="body">
-    <br>
-<p>Responsabilidad fiscal (empresa): vat_responsible, not_vat_responsible, large_taxpayer, self_withholder o simple_regime. Example: <code>vat_responsible</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>contact_name</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="contact_name"                data-endpoint="POSTapi-v1-checkout"
-               value="Laura Gómez"
-               data-component="body">
-    <br>
-<p>Persona de contacto (empresa). Example: <code>Laura Gómez</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>billing_email</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="billing_email"                data-endpoint="POSTapi-v1-checkout"
-               value="facturacion@constructoraaltos.test"
-               data-component="body">
-    <br>
-<p>Correo de facturación electrónica. Example: <code>facturacion@constructoraaltos.test</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>phone</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="phone"                data-endpoint="POSTapi-v1-checkout"
-               value="3155550202"
-               data-component="body">
-    <br>
-<p>Celular colombiano de 10 dígitos. Example: <code>3155550202</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>billing_address</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="billing_address"                data-endpoint="POSTapi-v1-checkout"
-               value="Carrera 27 # 45-10"
-               data-component="body">
-    <br>
-<p>Dirección de facturación. Example: <code>Carrera 27 # 45-10</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>department_code</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="department_code"                data-endpoint="POSTapi-v1-checkout"
-               value="68"
-               data-component="body">
-    <br>
-<p>Código DANE del departamento. Example: <code>68</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>city_code</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="city_code"                data-endpoint="POSTapi-v1-checkout"
-               value="68001"
-               data-component="body">
-    <br>
-<p>Código DANE del municipio. Example: <code>68001</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>delivery_method</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
  &nbsp;
@@ -8100,38 +8183,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>pickup, local o national. Example: <code>local</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>delivery_same_as_billing</code></b>&nbsp;&nbsp;
-<small>boolean</small>&nbsp;
-<i>optional</i> &nbsp;
- &nbsp;
-                <label data-endpoint="POSTapi-v1-checkout" style="display: none">
-            <input type="radio" name="delivery_same_as_billing"
-                   value="true"
-                   data-endpoint="POSTapi-v1-checkout"
-                   data-component="body"             >
-            <code>true</code>
-        </label>
-        <label data-endpoint="POSTapi-v1-checkout" style="display: none">
-            <input type="radio" name="delivery_same_as_billing"
-                   value="false"
-                   data-endpoint="POSTapi-v1-checkout"
-                   data-component="body"             >
-            <code>false</code>
-        </label>
-    <br>
-<p>La entrega es en la dirección de facturación. Example: <code>false</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>delivery_department_code</code></b>&nbsp;&nbsp;
+            <b style="line-height: 2;"><code>delivery_state_code</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
-<i>optional</i> &nbsp;
+ &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="delivery_department_code"                data-endpoint="POSTapi-v1-checkout"
-               value="68"
+                              name="delivery_state_code"                data-endpoint="POSTapi-v1-checkout"
+               value="86"
                data-component="body">
     <br>
-<p>Departamento de entrega (si no es pickup ni igual a facturación). Example: <code>68</code></p>
+<p>Example: <code>86</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>91</code></li> <li><code>5</code></li> <li><code>81</code></li> <li><code>88</code></li> <li><code>8</code></li> <li><code>11</code></li> <li><code>13</code></li> <li><code>15</code></li> <li><code>17</code></li> <li><code>18</code></li> <li><code>85</code></li> <li><code>19</code></li> <li><code>20</code></li> <li><code>27</code></li> <li><code>25</code></li> <li><code>23</code></li> <li><code>94</code></li> <li><code>95</code></li> <li><code>41</code></li> <li><code>44</code></li> <li><code>47</code></li> <li><code>50</code></li> <li><code>52</code></li> <li><code>54</code></li> <li><code>86</code></li> <li><code>63</code></li> <li><code>66</code></li> <li><code>68</code></li> <li><code>70</code></li> <li><code>73</code></li> <li><code>76</code></li> <li><code>97</code></li> <li><code>99</code></li></ul>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>delivery_city_code</code></b>&nbsp;&nbsp;
@@ -8218,6 +8281,308 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Indicaciones de entrega. Example: <code>Entregar en portería</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="POSTapi-v1-checkout"
+               value="n"
+               data-component="body">
+    <br>
+<p>El campo value debe tener al menos 3 caracteres. El campo value no puede tener más de 120 caracteres. Example: <code>n</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>phone</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="phone"                data-endpoint="POSTapi-v1-checkout"
+               value="3155550202"
+               data-component="body">
+    <br>
+<p>Celular colombiano de 10 dígitos. Example: <code>3155550202</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="email"                data-endpoint="POSTapi-v1-checkout"
+               value="mya96@example.com"
+               data-component="body">
+    <br>
+<p>El campo value debe ser un correo válido. El campo value no puede tener más de 255 caracteres. Example: <code>mya96@example.com</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>needs_invoice</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <label data-endpoint="POSTapi-v1-checkout" style="display: none">
+            <input type="radio" name="needs_invoice"
+                   value="true"
+                   data-endpoint="POSTapi-v1-checkout"
+                   data-component="body"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="POSTapi-v1-checkout" style="display: none">
+            <input type="radio" name="needs_invoice"
+                   value="false"
+                   data-endpoint="POSTapi-v1-checkout"
+                   data-component="body"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Example: <code>true</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>person_type</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="person_type"                data-endpoint="POSTapi-v1-checkout"
+               value="company"
+               data-component="body">
+    <br>
+<p><code>natural</code> o <code>company</code>. Example: <code>company</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>id_type</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="id_type"                data-endpoint="POSTapi-v1-checkout"
+               value="22"
+               data-component="body">
+    <br>
+<p>Example: <code>22</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>13</code></li> <li><code>31</code></li> <li><code>22</code></li> <li><code>41</code></li></ul>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>identification</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="identification"                data-endpoint="POSTapi-v1-checkout"
+               value="3IQY7HV"
+               data-component="body">
+    <br>
+<p>Must match the regex /^[A-Z0-9]{1,20}$/. Example: <code>3IQY7HV</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>check_digit</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="check_digit"                data-endpoint="POSTapi-v1-checkout"
+               value="5"
+               data-component="body">
+    <br>
+<p>validation.digits. Example: <code>5</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>first_name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="first_name"                data-endpoint="POSTapi-v1-checkout"
+               value="Laura"
+               data-component="body">
+    <br>
+<p>Nombres (persona natural). Example: <code>Laura</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>last_name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="last_name"                data-endpoint="POSTapi-v1-checkout"
+               value="Gómez"
+               data-component="body">
+    <br>
+<p>Apellidos (persona natural). Example: <code>Gómez</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>company_name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="company_name"                data-endpoint="POSTapi-v1-checkout"
+               value="Constructora Altos S.A.S."
+               data-component="body">
+    <br>
+<p>Razón social (empresa). Example: <code>Constructora Altos S.A.S.</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>commercial_name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="commercial_name"                data-endpoint="POSTapi-v1-checkout"
+               value="m"
+               data-component="body">
+    <br>
+<p>El campo value no puede tener más de 100 caracteres. Example: <code>m</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>vat_responsible</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <label data-endpoint="POSTapi-v1-checkout" style="display: none">
+            <input type="radio" name="vat_responsible"
+                   value="true"
+                   data-endpoint="POSTapi-v1-checkout"
+                   data-component="body"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="POSTapi-v1-checkout" style="display: none">
+            <input type="radio" name="vat_responsible"
+                   value="false"
+                   data-endpoint="POSTapi-v1-checkout"
+                   data-component="body"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Example: <code>true</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>fiscal_responsibilities</code></b>&nbsp;&nbsp;
+<small>string[]</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="fiscal_responsibilities[0]"                data-endpoint="POSTapi-v1-checkout"
+               data-component="body">
+        <input type="text" style="display: none"
+               name="fiscal_responsibilities[1]"                data-endpoint="POSTapi-v1-checkout"
+               data-component="body">
+    <br>
+
+Must be one of:
+<ul style="list-style-type: square;"><li><code>R-99-PN</code></li> <li><code>O-13</code></li> <li><code>O-15</code></li> <li><code>O-23</code></li> <li><code>O-47</code></li></ul>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>billing_email</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="billing_email"                data-endpoint="POSTapi-v1-checkout"
+               value="facturacion@constructoraaltos.test"
+               data-component="body">
+    <br>
+<p>Correo de facturación electrónica. Example: <code>facturacion@constructoraaltos.test</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>billing_same_as_delivery</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <label data-endpoint="POSTapi-v1-checkout" style="display: none">
+            <input type="radio" name="billing_same_as_delivery"
+                   value="true"
+                   data-endpoint="POSTapi-v1-checkout"
+                   data-component="body"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="POSTapi-v1-checkout" style="display: none">
+            <input type="radio" name="billing_same_as_delivery"
+                   value="false"
+                   data-endpoint="POSTapi-v1-checkout"
+                   data-component="body"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Example: <code>false</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>billing_address</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="billing_address"                data-endpoint="POSTapi-v1-checkout"
+               value="Carrera 27 # 45-10"
+               data-component="body">
+    <br>
+<p>Dirección de facturación. Example: <code>Carrera 27 # 45-10</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>billing_state_code</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="billing_state_code"                data-endpoint="POSTapi-v1-checkout"
+               value="91"
+               data-component="body">
+    <br>
+<p>Example: <code>91</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>91</code></li> <li><code>5</code></li> <li><code>81</code></li> <li><code>88</code></li> <li><code>8</code></li> <li><code>11</code></li> <li><code>13</code></li> <li><code>15</code></li> <li><code>17</code></li> <li><code>18</code></li> <li><code>85</code></li> <li><code>19</code></li> <li><code>20</code></li> <li><code>27</code></li> <li><code>25</code></li> <li><code>23</code></li> <li><code>94</code></li> <li><code>95</code></li> <li><code>41</code></li> <li><code>44</code></li> <li><code>47</code></li> <li><code>50</code></li> <li><code>52</code></li> <li><code>54</code></li> <li><code>86</code></li> <li><code>63</code></li> <li><code>66</code></li> <li><code>68</code></li> <li><code>70</code></li> <li><code>73</code></li> <li><code>76</code></li> <li><code>97</code></li> <li><code>99</code></li></ul>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>billing_city_code</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="billing_city_code"                data-endpoint="POSTapi-v1-checkout"
+               value="architecto"
+               data-component="body">
+    <br>
+<p>Example: <code>architecto</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>billing_postal_code</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="billing_postal_code"                data-endpoint="POSTapi-v1-checkout"
+               value="LG4Qbdd"
+               data-component="body">
+    <br>
+<p>Must match the regex /^[A-Za-z0-9]{1,10}$/. Example: <code>LG4Qbdd</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>contact_first_name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="contact_first_name"                data-endpoint="POSTapi-v1-checkout"
+               value="j"
+               data-component="body">
+    <br>
+<p>El campo value no puede tener más de 50 caracteres. Example: <code>j</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>contact_last_name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="contact_last_name"                data-endpoint="POSTapi-v1-checkout"
+               value="n"
+               data-component="body">
+    <br>
+<p>El campo value no puede tener más de 50 caracteres. Example: <code>n</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>notes</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
 <i>optional</i> &nbsp;
@@ -8280,10 +8645,128 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="website"                data-endpoint="POSTapi-v1-checkout"
-               value="n"
+               value="k"
                data-component="body">
     <br>
-<p>El campo value no puede tener más de 255 caracteres. Example: <code>n</code></p>
+<p>El campo value no puede tener más de 255 caracteres. Example: <code>k</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>doc_type</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="doc_type"                data-endpoint="POSTapi-v1-checkout"
+               value="CC"
+               data-component="body">
+    <br>
+<p>Tipo de documento (obligatorio en persona natural): CC, CE, PP o NIT. Example: <code>CC</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>doc_number</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="doc_number"                data-endpoint="POSTapi-v1-checkout"
+               value="900123456"
+               data-component="body">
+    <br>
+<p>Número de documento (NIT sin dígito de verificación). Example: <code>900123456</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>nit_dv</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="nit_dv"                data-endpoint="POSTapi-v1-checkout"
+               value="8"
+               data-component="body">
+    <br>
+<p>Dígito de verificación del NIT (obligatorio en empresa). Example: <code>8</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>fiscal_responsibility</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="fiscal_responsibility"                data-endpoint="POSTapi-v1-checkout"
+               value="vat_responsible"
+               data-component="body">
+    <br>
+<p>Responsabilidad fiscal (empresa): vat_responsible, not_vat_responsible, large_taxpayer, self_withholder o simple_regime. Example: <code>vat_responsible</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>contact_name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="contact_name"                data-endpoint="POSTapi-v1-checkout"
+               value="Laura Gómez"
+               data-component="body">
+    <br>
+<p>Persona de contacto (empresa). Example: <code>Laura Gómez</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>department_code</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="department_code"                data-endpoint="POSTapi-v1-checkout"
+               value="68"
+               data-component="body">
+    <br>
+<p>Código DANE del departamento. Example: <code>68</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>city_code</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="city_code"                data-endpoint="POSTapi-v1-checkout"
+               value="68001"
+               data-component="body">
+    <br>
+<p>Código DANE del municipio. Example: <code>68001</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>delivery_same_as_billing</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <label data-endpoint="POSTapi-v1-checkout" style="display: none">
+            <input type="radio" name="delivery_same_as_billing"
+                   value="true"
+                   data-endpoint="POSTapi-v1-checkout"
+                   data-component="body"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="POSTapi-v1-checkout" style="display: none">
+            <input type="radio" name="delivery_same_as_billing"
+                   value="false"
+                   data-endpoint="POSTapi-v1-checkout"
+                   data-component="body"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>La entrega es en la dirección de facturación. Example: <code>false</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>delivery_department_code</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="delivery_department_code"                data-endpoint="POSTapi-v1-checkout"
+               value="68"
+               data-component="body">
+    <br>
+<p>Departamento de entrega (si no es pickup ni igual a facturación). Example: <code>68</code></p>
         </div>
         </form>
 
@@ -8346,13 +8829,14 @@ fetch(url, {
         &quot;status_label&quot;: &quot;Pendiente de pago&quot;,
         &quot;customer_type&quot;: &quot;company&quot;,
         &quot;company_name&quot;: &quot;Aguirre de Sierra e Hijo S.A.S.&quot;,
-        &quot;nit&quot;: &quot;934997057-5&quot;,
-        &quot;contact_name&quot;: &quot;Rosario Cano&quot;,
-        &quot;email&quot;: &quot;isaac34@example.net&quot;,
-        &quot;phone&quot;: &quot;318 740 4954&quot;,
-        &quot;city&quot;: &quot;Gir&oacute;n&quot;,
-        &quot;address&quot;: &quot;R&uacute;a Arnau, 798, 4&ordm;&quot;,
+        &quot;nit&quot;: &quot;931296562-5&quot;,
+        &quot;contact_name&quot;: &quot;Alexandra Salvador&quot;,
+        &quot;email&quot;: &quot;arredondo.juana@example.com&quot;,
+        &quot;phone&quot;: &quot;364 698 0841&quot;,
+        &quot;city&quot;: &quot;Barrancabermeja&quot;,
+        &quot;address&quot;: &quot;Ruela Santiago, 442, 43&ordm; 2&ordm;&quot;,
         &quot;is_guest&quot;: false,
+        &quot;needs_invoice&quot;: false,
         &quot;billing&quot;: null,
         &quot;delivery&quot;: null,
         &quot;privacy_accepted_at&quot;: null,
@@ -8367,18 +8851,18 @@ fetch(url, {
         &quot;notes&quot;: null,
         &quot;expires_at&quot;: null,
         &quot;paid_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
         &quot;items&quot;: [
             {
                 &quot;id&quot;: 1,
                 &quot;product_id&quot;: 1,
-                &quot;sku&quot;: &quot;REF-7365-sc&quot;,
-                &quot;product_name&quot;: &quot;Motor trif&aacute;sico 967 HP&quot;,
+                &quot;sku&quot;: &quot;REF-5744-tc&quot;,
+                &quot;product_name&quot;: &quot;Motor trif&aacute;sico 4086 HP&quot;,
                 &quot;unit&quot;: &quot;unidad&quot;,
-                &quot;quantity&quot;: 3,
-                &quot;unit_price&quot;: 2955000,
+                &quot;quantity&quot;: 5,
+                &quot;unit_price&quot;: 4793000,
                 &quot;tax_rate&quot;: 19,
-                &quot;line_total&quot;: 8865000,
+                &quot;line_total&quot;: 23965000,
                 &quot;notes&quot;: null
             }
         ],
@@ -8388,7 +8872,7 @@ fetch(url, {
                 &quot;to_status&quot;: &quot;pending_payment&quot;,
                 &quot;to_status_label&quot;: &quot;Pendiente de pago&quot;,
                 &quot;note&quot;: null,
-                &quot;created_at&quot;: &quot;2026-11-11T09:55:00.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;
             }
         ]
     }
@@ -9084,7 +9568,7 @@ solicitud y el tiempo estimado de respuesta.</p>
     --form "application=Bomba de agua"\
     --form "privacy_accepted=1"\
     --form "website=k"\
-    --form "attachment=@/private/var/folders/cr/7_9z3_7d765bhxff2r4jr80r0000gn/T/phpqjreh4cnefruf3oMdmk" </code></pre></div>
+    --form "attachment=@/private/var/folders/cr/7_9z3_7d765bhxff2r4jr80r0000gn/T/phpdc3fobd8op703DOXxXp" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -9324,7 +9808,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Foto, placa del equipo o lista de materiales (PDF, JPG o PNG, máx. 5 MB). Example: <code>/private/var/folders/cr/7_9z3_7d765bhxff2r4jr80r0000gn/T/phpqjreh4cnefruf3oMdmk</code></p>
+<p>Foto, placa del equipo o lista de materiales (PDF, JPG o PNG, máx. 5 MB). Example: <code>/private/var/folders/cr/7_9z3_7d765bhxff2r4jr80r0000gn/T/phpdc3fobd8op703DOXxXp</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>privacy_accepted</code></b>&nbsp;&nbsp;

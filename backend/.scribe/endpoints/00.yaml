@@ -261,7 +261,7 @@ endpoints:
         name: sort
         description: ''
         required: false
-        example: name
+        example: price_asc
         type: string
         enumValues:
           - name
@@ -289,7 +289,7 @@ endpoints:
       sale_mode: quote
       featured: true
       in_stock: false
-      sort: name
+      sort: price_asc
       per_page: 16
     fileParameters: []
     responses:

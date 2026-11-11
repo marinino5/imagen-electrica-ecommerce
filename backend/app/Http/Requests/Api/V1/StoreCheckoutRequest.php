@@ -2,10 +2,8 @@
 
 namespace App\Http\Requests\Api\V1;
 
-use App\Enums\CustomerType;
-use App\Enums\DeliveryMethod;
-use App\Enums\DocumentType;
-use App\Enums\FiscalResponsibility;
+use App\Enums\FiscalCode;
+use App\Enums\IdType;
 use App\Support\Divipola;
 use App\Support\Nit;
 use Illuminate\Contracts\Validation\Validator;
@@ -13,13 +11,16 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 /**
- * POST /checkout: la compra con los datos de facturación electrónica (DIAN, compatibles con Siigo) y la dirección de entrega.
- * Sirve igual para un invitado que para quien tiene cuenta (con token: sus datos quedan guardados en el perfil).
+ * POST /checkout. Cuatro pasos en la tienda: 1 entrega · 2 tus datos · 3 facturación electrónica (opcional) · 4 confirmar.
  *
- * - person_type = natural: tipo y número de documento, nombres y apellidos.
- * - person_type = company: NIT (el tipo de documento es NIT) con su dígito de verificación (se valida), razón social,
- *   responsabilidad fiscal y persona de contacto.
- * `website` es el campo trampa contra bots (debe llegar vacío).
+ * - Entrega: `pickup` (recoger en tienda, sin dirección) o `delivery` (domicilio: departamento, municipio DANE, barrio, vía, número…).
+ *   El servidor decide «local» o «nacional» por el municipio (ver ShippingService).
+ * - Tus datos: `name`, `phone` (celular) y `email`: lo mínimo para contactar y enviar el resumen.
+ * - Factura (`needs_invoice`): los campos de la API de clientes de Siigo Nube (developers.siigo.com), con sus nombres y códigos:
+ *   person_type (Person | Company), id_type (13 CC, 31 NIT, 22 CE, 41 pasaporte), identification, check_digit (solo NIT, se valida),
+ *   nombres y apellidos o razón social, commercial_name, vat_responsible, fiscal_responsibilities (R-99-PN, O-13, O-15, O-23, O-47),
+ *   dirección con state_code y city_code (DANE) y postal_code.
+ * Sin factura no se pide ningún documento. `website` es el campo trampa contra bots (debe llegar vacío).
  */
 class StoreCheckoutRequest extends FormRequest
 {
@@ -30,78 +31,99 @@ class StoreCheckoutRequest extends FormRequest
 
     protected function prepareForValidation(): void
     {
-        $company = $this->input('person_type') === CustomerType::Company->value;
-        $docType = $company ? DocumentType::NIT->value : strtoupper(trim((string) $this->input('doc_type')));
-        $number = trim((string) $this->input('doc_number'));
-        $dv = trim((string) $this->input('nit_dv'));
+        $invoice = $this->boolean('needs_invoice');
+        $personType = match (strtolower((string) $this->input('person_type'))) {
+            'company', 'empresa' => 'Company',
+            'person', 'natural' => 'Person',
+            default => $this->input('person_type'),
+        };
+        $idType = $personType === 'Company' ? IdType::NIT->value : (string) $this->input('id_type');
+        $number = trim((string) $this->input('identification'));
+        $dv = trim((string) $this->input('check_digit'));
 
         // «900.123.456-8» pegado entero en el campo del NIT: se separa el dígito de verificación
-        if ($company && $dv === '' && preg_match('/^([\d.\s]+)-\s*(\d)$/', $number, $m)) {
+        if ($personType === 'Company' && $dv === '' && preg_match('/^([\d.\s]+)-\s*(\d)$/', $number, $m)) {
             $number = $m[1];
             $dv = $m[2];
         }
 
-        // Los documentos numéricos se guardan sin puntos, espacios ni guiones; el pasaporte en mayúscula
-        $number = $docType === DocumentType::PP->value ? strtoupper(preg_replace('/[^A-Za-z0-9]/', '', $number) ?? '') : Nit::digits($number);
+        $numeric = in_array($idType, [IdType::CC->value, IdType::NIT->value], true);
+        // Se quitan puntos, espacios y guiones; las letras en una cédula o un NIT NO se descartan: la validación las rechaza
+        $number = strtoupper(preg_replace($numeric ? '/[\s.\-]+/' : '/[^A-Za-z0-9]/', '', $number) ?? '');
 
         $this->merge([
-            'doc_type' => $docType ?: null,
-            'doc_number' => $number,
-            'nit_dv' => $company ? $dv : null,
-            'billing_email' => mb_strtolower(trim((string) $this->input('billing_email'))),
+            'needs_invoice' => $invoice,
+            'person_type' => $personType,
+            'id_type' => $idType !== '' ? $idType : null,
+            'identification' => $number,
+            'check_digit' => $personType === 'Company' ? $dv : null,
+            'email' => mb_strtolower(trim((string) $this->input('email'))),
+            'billing_email' => mb_strtolower(trim((string) ($this->input('billing_email') ?: $this->input('email')))),
             'phone' => preg_replace('/[^\d+]/', '', (string) $this->input('phone')),
-            'delivery_same_as_billing' => filter_var($this->input('delivery_same_as_billing'), FILTER_VALIDATE_BOOL),
+            'billing_same_as_delivery' => filter_var($this->input('billing_same_as_delivery'), FILTER_VALIDATE_BOOL),
+            'vat_responsible' => filter_var($this->input('vat_responsible'), FILTER_VALIDATE_BOOL),
+            'fiscal_responsibilities' => $this->input('fiscal_responsibilities') ?: [FiscalCode::NotApplicable->value],
         ]);
     }
 
     /** @return array<string, mixed> */
     public function rules(): array
     {
-        $company = $this->input('person_type') === CustomerType::Company->value;
-        $delivers = $this->input('delivery_method') !== DeliveryMethod::Pickup->value;
-        $ownAddress = $delivers && ! $this->boolean('delivery_same_as_billing');
+        $delivers = $this->input('delivery_method') !== 'pickup';
+        $invoice = $this->boolean('needs_invoice');
+        $company = $this->input('person_type') === 'Company';
+        $ownAddress = $invoice && ! ($delivers && $this->boolean('billing_same_as_delivery'));
+        $numeric = in_array($this->input('id_type'), [IdType::CC->value, IdType::NIT->value], true);
 
-        $department = fn (string $field) => [
-            Rule::in(array_column(Divipola::departments(), 'code')),
-        ];
+        $stateRule = [Rule::in(array_column(Divipola::departments(), 'code'))];
+        $cityRule = fn (string $stateField, string $message) => function (string $attribute, mixed $value, \Closure $fail) use ($stateField, $message) {
+            if (! Divipola::city((string) $this->input($stateField), (string) $value)) {
+                $fail($message);
+            }
+        };
 
         return [
             ...StoreOrderRequest::itemRules(),
-            'person_type' => ['required', Rule::enum(CustomerType::class)],
-            'doc_type' => [$company ? 'nullable' : 'required', Rule::enum(DocumentType::class)],
-            'doc_number' => ['required', 'string', $this->input('doc_type') === DocumentType::PP->value ? 'regex:/^[A-Z0-9]{5,16}$/' : 'regex:/^\d{5,12}$/'],
-            'nit_dv' => [$company ? 'required' : 'nullable', 'digits:1'],
-            'first_name' => [$company ? 'nullable' : 'required', 'string', 'max:80'],
-            'last_name' => [$company ? 'nullable' : 'required', 'string', 'max:80'],
-            'company_name' => [$company ? 'required' : 'nullable', 'string', 'max:160'],
-            'fiscal_responsibility' => [$company ? 'required' : 'nullable', Rule::enum(FiscalResponsibility::class)],
-            'contact_name' => [$company ? 'required' : 'nullable', 'string', 'max:120'],
-            'billing_email' => ['required', 'email:rfc', 'max:255'],
-            'phone' => ['required', 'regex:/^(\+57)?3\d{9}$/'],
-            'billing_address' => ['required', 'string', 'max:255'],
-            'department_code' => ['required', ...$department('department_code')],
-            'city_code' => ['required', 'string', function (string $attribute, mixed $value, \Closure $fail) {
-                if (! Divipola::city((string) $this->input('department_code'), (string) $value)) {
-                    $fail('El municipio no pertenece al departamento elegido.');
-                }
-            }],
 
-            'delivery_method' => ['required', Rule::enum(DeliveryMethod::class)],
-            'delivery_same_as_billing' => ['boolean'],
-            'delivery_department_code' => [Rule::requiredIf($ownAddress), 'nullable', ...$department('delivery_department_code')],
-            'delivery_city_code' => [Rule::requiredIf($ownAddress), 'nullable', 'string', function (string $attribute, mixed $value, \Closure $fail) use ($ownAddress) {
-                if ($ownAddress && ! Divipola::city((string) $this->input('delivery_department_code'), (string) $value)) {
-                    $fail('El municipio de entrega no pertenece al departamento elegido.');
-                }
-            }],
-            'delivery_neighborhood' => [Rule::requiredIf($ownAddress), 'nullable', 'string', 'max:100'],
-            'delivery_road' => [Rule::requiredIf($ownAddress), 'nullable', 'string', 'max:120'],
-            'delivery_number' => [Rule::requiredIf($ownAddress), 'nullable', 'string', 'max:40'],
+            // 1 · Entrega
+            'delivery_method' => ['required', Rule::in(['pickup', 'delivery'])],
+            'delivery_state_code' => [Rule::requiredIf($delivers), 'nullable', ...$stateRule],
+            'delivery_city_code' => [Rule::requiredIf($delivers), 'nullable', 'string', $cityRule('delivery_state_code', 'El municipio de entrega no pertenece al departamento elegido.')],
+            'delivery_neighborhood' => [Rule::requiredIf($delivers), 'nullable', 'string', 'max:100'],
+            'delivery_road' => [Rule::requiredIf($delivers), 'nullable', 'string', 'max:120'],
+            'delivery_number' => [Rule::requiredIf($delivers), 'nullable', 'string', 'max:40'],
             'delivery_complement' => ['nullable', 'string', 'max:120'],
-            'delivery_postal_code' => ['nullable', 'regex:/^\d{6}$/'],
+            'delivery_postal_code' => ['nullable', 'regex:/^[A-Za-z0-9]{1,10}$/'],
             'delivery_notes' => ['nullable', 'string', 'max:500'],
-            'notes' => ['nullable', 'string', 'max:1000'],
 
+            // 2 · Tus datos
+            'name' => ['required', 'string', 'min:3', 'max:120'],
+            'phone' => ['required', 'regex:/^(\+57)?3\d{9}$/'],
+            'email' => ['required', 'email:rfc', 'max:255'],
+
+            // 3 · Facturación electrónica (nombres de la API de clientes de Siigo)
+            'needs_invoice' => ['boolean'],
+            'person_type' => [Rule::requiredIf($invoice), 'nullable', Rule::in(['Person', 'Company'])],
+            'id_type' => [Rule::requiredIf($invoice && ! $company), 'nullable', Rule::enum(IdType::class)],
+            'identification' => [Rule::requiredIf($invoice), 'nullable', 'string', $numeric ? 'regex:/^\d{3,13}$/' : 'regex:/^[A-Z0-9]{1,20}$/'],
+            'check_digit' => [Rule::requiredIf($invoice && $company), 'nullable', 'digits:1'],
+            'first_name' => [Rule::requiredIf($invoice && ! $company), 'nullable', 'string', 'max:100'],
+            'last_name' => [Rule::requiredIf($invoice && ! $company), 'nullable', 'string', 'max:100'],
+            'company_name' => [Rule::requiredIf($invoice && $company), 'nullable', 'string', 'max:100'],
+            'commercial_name' => ['nullable', 'string', 'max:100'],
+            'vat_responsible' => ['boolean'],
+            'fiscal_responsibilities' => ['array', 'min:1'],
+            'fiscal_responsibilities.*' => [Rule::in(FiscalCode::values())],
+            'billing_email' => ['nullable', 'email:rfc', 'max:100'],
+            'billing_same_as_delivery' => ['boolean'],
+            'billing_address' => [Rule::requiredIf($ownAddress), 'nullable', 'string', 'max:256'],
+            'billing_state_code' => [Rule::requiredIf($ownAddress), 'nullable', ...$stateRule],
+            'billing_city_code' => [Rule::requiredIf($ownAddress), 'nullable', 'string', $cityRule('billing_state_code', 'El municipio de facturación no pertenece al departamento elegido.')],
+            'billing_postal_code' => ['nullable', 'regex:/^[A-Za-z0-9]{1,10}$/'],
+            'contact_first_name' => ['nullable', 'string', 'max:50'],
+            'contact_last_name' => ['nullable', 'string', 'max:50'],
+
+            'notes' => ['nullable', 'string', 'max:1000'],
             'privacy_accepted' => ['accepted'],
             'save_to_profile' => ['nullable', 'boolean'],
             'website' => ['nullable', 'string', 'max:255'],
@@ -113,12 +135,12 @@ class StoreCheckoutRequest extends FormRequest
     {
         return [
             function (Validator $validator) {
-                if ($this->input('person_type') !== CustomerType::Company->value || $validator->errors()->hasAny(['doc_number', 'nit_dv'])) {
+                if (! $this->boolean('needs_invoice') || $this->input('person_type') !== 'Company' || $validator->errors()->hasAny(['identification', 'check_digit'])) {
                     return;
                 }
 
-                if (! Nit::isValid((string) $this->input('doc_number'), $this->input('nit_dv'))) {
-                    $validator->errors()->add('nit_dv', 'El dígito de verificación no corresponde a ese NIT. Revísalo (el de '.$this->input('doc_number').' es '.Nit::checkDigit((string) $this->input('doc_number')).').');
+                if (! Nit::isValid((string) $this->input('identification'), $this->input('check_digit'))) {
+                    $validator->errors()->add('check_digit', 'El dígito de verificación no corresponde a ese NIT. Revísalo (el de '.$this->input('identification').' es '.Nit::checkDigit((string) $this->input('identification')).').');
                 }
             },
         ];
@@ -128,12 +150,13 @@ class StoreCheckoutRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'person_type' => 'tipo de persona', 'doc_type' => 'tipo de documento', 'doc_number' => 'número de documento', 'nit_dv' => 'dígito de verificación',
-            'first_name' => 'nombres', 'last_name' => 'apellidos', 'company_name' => 'razón social', 'fiscal_responsibility' => 'responsabilidad fiscal',
-            'contact_name' => 'persona de contacto', 'billing_email' => 'correo de facturación', 'phone' => 'celular', 'billing_address' => 'dirección',
-            'department_code' => 'departamento', 'city_code' => 'municipio', 'delivery_department_code' => 'departamento de entrega',
-            'delivery_city_code' => 'municipio de entrega', 'delivery_neighborhood' => 'barrio', 'delivery_road' => 'vía', 'delivery_number' => 'número',
-            'delivery_postal_code' => 'código postal',
+            'delivery_method' => 'forma de entrega', 'delivery_state_code' => 'departamento de entrega', 'delivery_city_code' => 'municipio de entrega',
+            'delivery_neighborhood' => 'barrio', 'delivery_road' => 'vía', 'delivery_number' => 'número', 'delivery_postal_code' => 'código postal',
+            'name' => 'nombre', 'phone' => 'celular', 'email' => 'correo',
+            'person_type' => 'tipo de persona', 'id_type' => 'tipo de documento', 'identification' => 'número de documento', 'check_digit' => 'dígito de verificación',
+            'first_name' => 'nombres', 'last_name' => 'apellidos', 'company_name' => 'razón social', 'fiscal_responsibilities' => 'responsabilidad fiscal',
+            'billing_email' => 'correo de facturación', 'billing_address' => 'dirección de facturación', 'billing_state_code' => 'departamento de facturación',
+            'billing_city_code' => 'municipio de facturación', 'billing_postal_code' => 'código postal de facturación',
         ];
     }
 
@@ -141,12 +164,13 @@ class StoreCheckoutRequest extends FormRequest
     public function messages(): array
     {
         return StoreOrderRequest::itemMessages() + [
-            'doc_number.regex' => 'El número de documento no es válido: usa solo números (el pasaporte puede llevar letras).',
-            'nit_dv.required' => 'Escribe el dígito de verificación del NIT.',
-            'nit_dv.digits' => 'El dígito de verificación es un solo número.',
+            'identification.regex' => 'El número de documento no es válido: usa solo números (CE y pasaporte pueden llevar letras).',
+            'check_digit.required' => 'Escribe el dígito de verificación del NIT.',
+            'check_digit.digits' => 'El dígito de verificación es un solo número.',
             'phone.regex' => 'Escribe un celular colombiano de 10 dígitos (empieza por 3).',
-            'billing_email.email' => 'Escribe un correo válido.',
-            'delivery_postal_code.regex' => 'El código postal tiene 6 números.',
+            'email.email' => 'Escribe un correo válido.',
+            'billing_email.email' => 'Escribe un correo de facturación válido.',
+            'delivery_postal_code.regex' => 'El código postal solo lleva letras y números (hasta 10).',
             'privacy_accepted.accepted' => 'Debes autorizar el tratamiento de tus datos personales (Ley 1581 de 2012).',
         ];
     }

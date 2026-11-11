@@ -38,6 +38,18 @@ return [
             'local' => (float) env('SHOP_SHIPPING_LOCAL', 15000),
             'national' => (float) env('SHOP_SHIPPING_NATIONAL', 35000),
         ],
+
+        /*
+        | Tarifas por zona (COP, IVA incluido). Se revisan en orden y gana la primera que coincide con el municipio (`cities`, código DANE de
+        | 5 dígitos) o con el departamento (`departments`, 2 dígitos); la última, sin filtros, es el resto del país. `method` es el tipo de
+        | envío que se guarda en el pedido: «local» (Bucaramanga, Floridablanca, Girón y Piedecuesta) o «national» (todo lo demás).
+        | Para cambiar una tarifa o agregar una zona, se edita esta tabla (o las variables de entorno de cada costo).
+        */
+        'zones' => [
+            ['key' => 'local', 'method' => 'local', 'label' => 'Bucaramanga y área metropolitana', 'cities' => ['68001', '68276', '68307', '68547'], 'cost' => (float) env('SHOP_SHIPPING_LOCAL', 15000)],
+            ['key' => 'santander', 'method' => 'national', 'label' => 'Resto de Santander', 'departments' => ['68'], 'cost' => (float) env('SHOP_SHIPPING_SANTANDER', 25000)],
+            ['key' => 'national', 'method' => 'national', 'label' => 'Resto del país', 'cost' => (float) env('SHOP_SHIPPING_NATIONAL', 35000)],
+        ],
     ],
 
 ];

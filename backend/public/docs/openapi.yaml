@@ -1251,7 +1251,7 @@ paths:
                 sort:
                   type: string
                   description: ''
-                  example: name
+                  example: price_asc
                   enum:
                     - name
                     - newest
@@ -1442,17 +1442,21 @@ paths:
                       phone: '364 310 6432'
                       city: Floridablanca
                       address: 'Paseo Isaac, 409, 9º C'
-                      doc_type: null
-                      doc_dv: null
+                      id_type: null
+                      check_digit: null
                       first_name: null
                       last_name: null
-                      fiscal_responsibility: null
+                      commercial_name: null
+                      vat_responsible: null
+                      fiscal_responsibilities: null
                       billing_email: null
-                      department_code: null
+                      state_code: null
                       city_code: null
+                      postal_code: null
+                      delivery_addresses: []
                       marketing_opt_in: false
                       marketing_opt_in_at: null
-                      privacy_accepted_at: '2026-11-11T09:55:00.000000Z'
+                      privacy_accepted_at: '2026-11-11T10:55:09.000000Z'
                 properties:
                   data:
                     type: object
@@ -1496,11 +1500,11 @@ paths:
                           address:
                             type: string
                             example: 'Paseo Isaac, 409, 9º C'
-                          doc_type:
+                          id_type:
                             type: string
                             example: null
                             nullable: true
-                          doc_dv:
+                          check_digit:
                             type: string
                             example: null
                             nullable: true
@@ -1512,7 +1516,15 @@ paths:
                             type: string
                             example: null
                             nullable: true
-                          fiscal_responsibility:
+                          commercial_name:
+                            type: string
+                            example: null
+                            nullable: true
+                          vat_responsible:
+                            type: string
+                            example: null
+                            nullable: true
+                          fiscal_responsibilities:
                             type: string
                             example: null
                             nullable: true
@@ -1520,7 +1532,7 @@ paths:
                             type: string
                             example: null
                             nullable: true
-                          department_code:
+                          state_code:
                             type: string
                             example: null
                             nullable: true
@@ -1528,6 +1540,13 @@ paths:
                             type: string
                             example: null
                             nullable: true
+                          postal_code:
+                            type: string
+                            example: null
+                            nullable: true
+                          delivery_addresses:
+                            type: array
+                            example: []
                           marketing_opt_in:
                             type: boolean
                             example: false
@@ -1537,7 +1556,7 @@ paths:
                             nullable: true
                           privacy_accepted_at:
                             type: string
-                            example: '2026-11-11T09:55:00.000000Z'
+                            example: '2026-11-11T10:55:09.000000Z'
       tags:
         - 'Mi cuenta'
     put:
@@ -1567,17 +1586,21 @@ paths:
                       phone: '315 175 7680'
                       city: Barrancabermeja
                       address: 'Plaça Juana, 979, 27º A'
-                      doc_type: null
-                      doc_dv: null
+                      id_type: null
+                      check_digit: null
                       first_name: null
                       last_name: null
-                      fiscal_responsibility: null
+                      commercial_name: null
+                      vat_responsible: null
+                      fiscal_responsibilities: null
                       billing_email: null
-                      department_code: null
+                      state_code: null
                       city_code: null
+                      postal_code: null
+                      delivery_addresses: []
                       marketing_opt_in: false
                       marketing_opt_in_at: null
-                      privacy_accepted_at: '2026-11-11T09:55:00.000000Z'
+                      privacy_accepted_at: '2026-11-11T10:55:09.000000Z'
                 properties:
                   data:
                     type: object
@@ -1621,11 +1644,11 @@ paths:
                           address:
                             type: string
                             example: 'Plaça Juana, 979, 27º A'
-                          doc_type:
+                          id_type:
                             type: string
                             example: null
                             nullable: true
-                          doc_dv:
+                          check_digit:
                             type: string
                             example: null
                             nullable: true
@@ -1637,7 +1660,15 @@ paths:
                             type: string
                             example: null
                             nullable: true
-                          fiscal_responsibility:
+                          commercial_name:
+                            type: string
+                            example: null
+                            nullable: true
+                          vat_responsible:
+                            type: string
+                            example: null
+                            nullable: true
+                          fiscal_responsibilities:
                             type: string
                             example: null
                             nullable: true
@@ -1645,7 +1676,7 @@ paths:
                             type: string
                             example: null
                             nullable: true
-                          department_code:
+                          state_code:
                             type: string
                             example: null
                             nullable: true
@@ -1653,6 +1684,13 @@ paths:
                             type: string
                             example: null
                             nullable: true
+                          postal_code:
+                            type: string
+                            example: null
+                            nullable: true
+                          delivery_addresses:
+                            type: array
+                            example: []
                           marketing_opt_in:
                             type: boolean
                             example: false
@@ -1662,7 +1700,7 @@ paths:
                             nullable: true
                           privacy_accepted_at:
                             type: string
-                            example: '2026-11-11T09:55:00.000000Z'
+                            example: '2026-11-11T10:55:09.000000Z'
       tags:
         - 'Mi cuenta'
       requestBody:
@@ -1763,6 +1801,7 @@ paths:
                       city: Piedecuesta
                       address: 'Rúa Adrián, 732, 9º C'
                       is_guest: false
+                      needs_invoice: false
                       billing: null
                       delivery: null
                       privacy_accepted_at: null
@@ -1777,7 +1816,7 @@ paths:
                       notes: null
                       expires_at: null
                       paid_at: null
-                      created_at: '2026-11-11T09:55:00.000000Z'
+                      created_at: '2026-11-11T10:55:09.000000Z'
                       items:
                         -
                           id: 1
@@ -1805,6 +1844,7 @@ paths:
                       city: Piedecuesta
                       address: 'Carrer Nayara, 342, 1º E'
                       is_guest: false
+                      needs_invoice: false
                       billing: null
                       delivery: null
                       privacy_accepted_at: null
@@ -1819,7 +1859,7 @@ paths:
                       notes: null
                       expires_at: null
                       paid_at: null
-                      created_at: '2026-11-11T09:55:00.000000Z'
+                      created_at: '2026-11-11T10:55:09.000000Z'
                       items:
                         -
                           id: 2
@@ -1880,6 +1920,7 @@ paths:
                         city: Piedecuesta
                         address: 'Rúa Adrián, 732, 9º C'
                         is_guest: false
+                        needs_invoice: false
                         billing: null
                         delivery: null
                         privacy_accepted_at: null
@@ -1894,7 +1935,7 @@ paths:
                         notes: null
                         expires_at: null
                         paid_at: null
-                        created_at: '2026-11-11T09:55:00.000000Z'
+                        created_at: '2026-11-11T10:55:09.000000Z'
                         items:
                           -
                             id: 1
@@ -1922,6 +1963,7 @@ paths:
                         city: Piedecuesta
                         address: 'Carrer Nayara, 342, 1º E'
                         is_guest: false
+                        needs_invoice: false
                         billing: null
                         delivery: null
                         privacy_accepted_at: null
@@ -1936,7 +1978,7 @@ paths:
                         notes: null
                         expires_at: null
                         paid_at: null
-                        created_at: '2026-11-11T09:55:00.000000Z'
+                        created_at: '2026-11-11T10:55:09.000000Z'
                         items:
                           -
                             id: 2
@@ -1994,6 +2036,9 @@ paths:
                         is_guest:
                           type: boolean
                           example: false
+                        needs_invoice:
+                          type: boolean
+                          example: false
                         billing:
                           type: string
                           example: null
@@ -2046,7 +2091,7 @@ paths:
                           nullable: true
                         created_at:
                           type: string
-                          example: '2026-11-11T09:55:00.000000Z'
+                          example: '2026-11-11T10:55:09.000000Z'
                         items:
                           type: array
                           example:
@@ -2224,26 +2269,27 @@ paths:
                 example:
                   data:
                     -
-                      code: PED-9365
+                      code: PED-9775
                       type: purchase
                       type_label: Pedido
                       status: pending_payment
                       status_label: 'Pendiente de pago'
                       customer_type: company
-                      company_name: 'Baeza y Murillo S. de H. S.A.S.'
-                      nit: 917077634-3
-                      contact_name: 'José Antonio Rivas'
-                      email: yeray52@example.com
-                      phone: '344 401 4763'
+                      company_name: 'Llorente, Aguirre y Sierra e Hijo S.A.S.'
+                      nit: 934997057-5
+                      contact_name: 'Rosario Cano'
+                      email: isaac34@example.net
+                      phone: '318 740 4954'
                       city: Girón
-                      address: 'Passeig Nicolás, 480, 2º C'
+                      address: 'Rúa Arnau, 798, 4º'
                       is_guest: false
+                      needs_invoice: false
                       billing: null
                       delivery: null
                       privacy_accepted_at: null
                       privacy_version: null
-                      delivery_method: national
-                      delivery_method_label: 'Envío nacional'
+                      delivery_method: pickup
+                      delivery_method_label: 'Recoger en tienda'
                       payment_method: null
                       subtotal: 840336.13
                       tax: 159663.87
@@ -2252,34 +2298,35 @@ paths:
                       notes: null
                       expires_at: null
                       paid_at: null
-                      created_at: '2026-11-11T09:55:00.000000Z'
+                      created_at: '2026-11-11T10:55:09.000000Z'
                       items:
                         -
                           id: 1
                           product_id: 1
-                          sku: REF-5066-ld
-                          product_name: 'Motor trifásico 4486 HP'
+                          sku: REF-7365-sc
+                          product_name: 'Motor trifásico 967 HP'
                           unit: unidad
-                          quantity: 4
-                          unit_price: 1444000
+                          quantity: 3
+                          unit_price: 2955000
                           tax_rate: 19
-                          line_total: 5776000
+                          line_total: 8865000
                           notes: null
                     -
-                      code: PED-0481
+                      code: PED-0568
                       type: purchase
                       type_label: Pedido
                       status: pending_payment
                       status_label: 'Pendiente de pago'
                       customer_type: company
-                      company_name: 'Tirado-Galán S.A.S.'
-                      nit: 916022608-5
-                      contact_name: 'Diana Alanis'
-                      email: lucia.roca@example.net
-                      phone: '360 787 7092'
-                      city: Barrancabermeja
-                      address: 'Camiño Jon, 967, 4º 2º'
+                      company_name: 'Arevalo y Gaona S. de H. S.A.S.'
+                      nit: 912797048-1
+                      contact_name: 'Dr. Ismael Galán'
+                      email: jon26@example.com
+                      phone: '316 022 6085'
+                      city: Girón
+                      address: 'Ronda Roldán, 754, Ático 6º'
                       is_guest: false
+                      needs_invoice: false
                       billing: null
                       delivery: null
                       privacy_accepted_at: null
@@ -2294,44 +2341,45 @@ paths:
                       notes: null
                       expires_at: null
                       paid_at: null
-                      created_at: '2026-11-11T09:55:00.000000Z'
+                      created_at: '2026-11-11T10:55:09.000000Z'
                       items:
                         -
                           id: 2
                           product_id: 2
-                          sku: REF-1102-zc
-                          product_name: 'Motor trifásico 2602 HP'
+                          sku: REF-3531-ob
+                          product_name: 'Motor trifásico 6696 HP'
                           unit: unidad
                           quantity: 3
-                          unit_price: 2032000
+                          unit_price: 4362000
                           tax_rate: 19
-                          line_total: 6096000
+                          line_total: 13086000
                           notes: null
                 properties:
                   data:
                     type: array
                     example:
                       -
-                        code: PED-9365
+                        code: PED-9775
                         type: purchase
                         type_label: Pedido
                         status: pending_payment
                         status_label: 'Pendiente de pago'
                         customer_type: company
-                        company_name: 'Baeza y Murillo S. de H. S.A.S.'
-                        nit: 917077634-3
-                        contact_name: 'José Antonio Rivas'
-                        email: yeray52@example.com
-                        phone: '344 401 4763'
+                        company_name: 'Llorente, Aguirre y Sierra e Hijo S.A.S.'
+                        nit: 934997057-5
+                        contact_name: 'Rosario Cano'
+                        email: isaac34@example.net
+                        phone: '318 740 4954'
                         city: Girón
-                        address: 'Passeig Nicolás, 480, 2º C'
+                        address: 'Rúa Arnau, 798, 4º'
                         is_guest: false
+                        needs_invoice: false
                         billing: null
                         delivery: null
                         privacy_accepted_at: null
                         privacy_version: null
-                        delivery_method: national
-                        delivery_method_label: 'Envío nacional'
+                        delivery_method: pickup
+                        delivery_method_label: 'Recoger en tienda'
                         payment_method: null
                         subtotal: 840336.13
                         tax: 159663.87
@@ -2340,34 +2388,35 @@ paths:
                         notes: null
                         expires_at: null
                         paid_at: null
-                        created_at: '2026-11-11T09:55:00.000000Z'
+                        created_at: '2026-11-11T10:55:09.000000Z'
                         items:
                           -
                             id: 1
                             product_id: 1
-                            sku: REF-5066-ld
-                            product_name: 'Motor trifásico 4486 HP'
+                            sku: REF-7365-sc
+                            product_name: 'Motor trifásico 967 HP'
                             unit: unidad
-                            quantity: 4
-                            unit_price: 1444000
+                            quantity: 3
+                            unit_price: 2955000
                             tax_rate: 19
-                            line_total: 5776000
+                            line_total: 8865000
                             notes: null
                       -
-                        code: PED-0481
+                        code: PED-0568
                         type: purchase
                         type_label: Pedido
                         status: pending_payment
                         status_label: 'Pendiente de pago'
                         customer_type: company
-                        company_name: 'Tirado-Galán S.A.S.'
-                        nit: 916022608-5
-                        contact_name: 'Diana Alanis'
-                        email: lucia.roca@example.net
-                        phone: '360 787 7092'
-                        city: Barrancabermeja
-                        address: 'Camiño Jon, 967, 4º 2º'
+                        company_name: 'Arevalo y Gaona S. de H. S.A.S.'
+                        nit: 912797048-1
+                        contact_name: 'Dr. Ismael Galán'
+                        email: jon26@example.com
+                        phone: '316 022 6085'
+                        city: Girón
+                        address: 'Ronda Roldán, 754, Ático 6º'
                         is_guest: false
+                        needs_invoice: false
                         billing: null
                         delivery: null
                         privacy_accepted_at: null
@@ -2382,25 +2431,25 @@ paths:
                         notes: null
                         expires_at: null
                         paid_at: null
-                        created_at: '2026-11-11T09:55:00.000000Z'
+                        created_at: '2026-11-11T10:55:09.000000Z'
                         items:
                           -
                             id: 2
                             product_id: 2
-                            sku: REF-1102-zc
-                            product_name: 'Motor trifásico 2602 HP'
+                            sku: REF-3531-ob
+                            product_name: 'Motor trifásico 6696 HP'
                             unit: unidad
                             quantity: 3
-                            unit_price: 2032000
+                            unit_price: 4362000
                             tax_rate: 19
-                            line_total: 6096000
+                            line_total: 13086000
                             notes: null
                     items:
                       type: object
                       properties:
                         code:
                           type: string
-                          example: PED-9365
+                          example: PED-9775
                         type:
                           type: string
                           example: purchase
@@ -2418,26 +2467,29 @@ paths:
                           example: company
                         company_name:
                           type: string
-                          example: 'Baeza y Murillo S. de H. S.A.S.'
+                          example: 'Llorente, Aguirre y Sierra e Hijo S.A.S.'
                         nit:
                           type: string
-                          example: 917077634-3
+                          example: 934997057-5
                         contact_name:
                           type: string
-                          example: 'José Antonio Rivas'
+                          example: 'Rosario Cano'
                         email:
                           type: string
-                          example: yeray52@example.com
+                          example: isaac34@example.net
                         phone:
                           type: string
-                          example: '344 401 4763'
+                          example: '318 740 4954'
                         city:
                           type: string
                           example: Girón
                         address:
                           type: string
-                          example: 'Passeig Nicolás, 480, 2º C'
+                          example: 'Rúa Arnau, 798, 4º'
                         is_guest:
+                          type: boolean
+                          example: false
+                        needs_invoice:
                           type: boolean
                           example: false
                         billing:
@@ -2458,10 +2510,10 @@ paths:
                           nullable: true
                         delivery_method:
                           type: string
-                          example: national
+                          example: pickup
                         delivery_method_label:
                           type: string
-                          example: 'Envío nacional'
+                          example: 'Recoger en tienda'
                         payment_method:
                           type: string
                           example: null
@@ -2492,20 +2544,20 @@ paths:
                           nullable: true
                         created_at:
                           type: string
-                          example: '2026-11-11T09:55:00.000000Z'
+                          example: '2026-11-11T10:55:09.000000Z'
                         items:
                           type: array
                           example:
                             -
                               id: 1
                               product_id: 1
-                              sku: REF-5066-ld
-                              product_name: 'Motor trifásico 4486 HP'
+                              sku: REF-7365-sc
+                              product_name: 'Motor trifásico 967 HP'
                               unit: unidad
-                              quantity: 4
-                              unit_price: 1444000
+                              quantity: 3
+                              unit_price: 2955000
                               tax_rate: 19
-                              line_total: 5776000
+                              line_total: 8865000
                               notes: null
                           items:
                             type: object
@@ -2518,25 +2570,25 @@ paths:
                                 example: 1
                               sku:
                                 type: string
-                                example: REF-5066-ld
+                                example: REF-7365-sc
                               product_name:
                                 type: string
-                                example: 'Motor trifásico 4486 HP'
+                                example: 'Motor trifásico 967 HP'
                               unit:
                                 type: string
                                 example: unidad
                               quantity:
                                 type: integer
-                                example: 4
+                                example: 3
                               unit_price:
                                 type: integer
-                                example: 1444000
+                                example: 2955000
                               tax_rate:
                                 type: integer
                                 example: 19
                               line_total:
                                 type: integer
-                                example: 5776000
+                                example: 8865000
                               notes:
                                 type: string
                                 example: null
@@ -2643,6 +2695,7 @@ paths:
                     city: Barrancabermeja
                     address: 'Travesía Cristian, 47, 2º F'
                     is_guest: false
+                    needs_invoice: false
                     billing: null
                     delivery: null
                     privacy_accepted_at: null
@@ -2657,7 +2710,7 @@ paths:
                     notes: null
                     expires_at: null
                     paid_at: null
-                    created_at: '2026-11-11T09:55:00.000000Z'
+                    created_at: '2026-11-11T10:55:09.000000Z'
                     items:
                       -
                         id: 1
@@ -2676,7 +2729,7 @@ paths:
                         to_status: pending_payment
                         to_status_label: 'Pendiente de pago'
                         note: null
-                        created_at: '2026-11-11T09:55:00.000000Z'
+                        created_at: '2026-11-11T10:55:09.000000Z'
                 properties:
                   data:
                     type: object
@@ -2721,6 +2774,9 @@ paths:
                         type: string
                         example: 'Travesía Cristian, 47, 2º F'
                       is_guest:
+                        type: boolean
+                        example: false
+                      needs_invoice:
                         type: boolean
                         example: false
                       billing:
@@ -2775,7 +2831,7 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-11T09:55:00.000000Z'
+                        example: '2026-11-11T10:55:09.000000Z'
                       items:
                         type: array
                         example:
@@ -2832,7 +2888,7 @@ paths:
                             to_status: pending_payment
                             to_status_label: 'Pendiente de pago'
                             note: null
-                            created_at: '2026-11-11T09:55:00.000000Z'
+                            created_at: '2026-11-11T10:55:09.000000Z'
                         items:
                           type: object
                           properties:
@@ -2852,7 +2908,7 @@ paths:
                               nullable: true
                             created_at:
                               type: string
-                              example: '2026-11-11T09:55:00.000000Z'
+                              example: '2026-11-11T10:55:09.000000Z'
       tags:
         - 'Pedidos y cotizaciones (cliente)'
     parameters:
@@ -2893,6 +2949,7 @@ paths:
                     city: Bucaramanga
                     address: 'Passeig Olivia, 232, 4º'
                     is_guest: false
+                    needs_invoice: false
                     billing: null
                     delivery: null
                     privacy_accepted_at: null
@@ -2907,7 +2964,7 @@ paths:
                     notes: null
                     expires_at: null
                     paid_at: null
-                    created_at: '2026-11-11T09:55:00.000000Z'
+                    created_at: '2026-11-11T10:55:09.000000Z'
                     items:
                       -
                         id: 1
@@ -2926,7 +2983,7 @@ paths:
                         to_status: pending_payment
                         to_status_label: 'Pendiente de pago'
                         note: null
-                        created_at: '2026-11-11T09:55:00.000000Z'
+                        created_at: '2026-11-11T10:55:09.000000Z'
                 properties:
                   data:
                     type: object
@@ -2971,6 +3028,9 @@ paths:
                         type: string
                         example: 'Passeig Olivia, 232, 4º'
                       is_guest:
+                        type: boolean
+                        example: false
+                      needs_invoice:
                         type: boolean
                         example: false
                       billing:
@@ -3025,7 +3085,7 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-11T09:55:00.000000Z'
+                        example: '2026-11-11T10:55:09.000000Z'
                       items:
                         type: array
                         example:
@@ -3082,7 +3142,7 @@ paths:
                             to_status: pending_payment
                             to_status_label: 'Pendiente de pago'
                             note: null
-                            created_at: '2026-11-11T09:55:00.000000Z'
+                            created_at: '2026-11-11T10:55:09.000000Z'
                         items:
                           type: object
                           properties:
@@ -3102,7 +3162,7 @@ paths:
                               nullable: true
                             created_at:
                               type: string
-                              example: '2026-11-11T09:55:00.000000Z'
+                              example: '2026-11-11T10:55:09.000000Z'
         422:
           description: 'Estado que no permite cancelar'
           content:
@@ -3243,8 +3303,8 @@ paths:
                         logo_url: null
                       is_active: true
                       price_source: null
-                      created_at: '2026-11-11T09:55:00.000000Z'
-                      updated_at: '2026-11-11T09:55:00.000000Z'
+                      created_at: '2026-11-11T10:55:09.000000Z'
+                      updated_at: '2026-11-11T10:55:09.000000Z'
                       deleted_at: null
                     -
                       id: 2
@@ -3278,8 +3338,8 @@ paths:
                         logo_url: null
                       is_active: true
                       price_source: null
-                      created_at: '2026-11-11T09:55:00.000000Z'
-                      updated_at: '2026-11-11T09:55:00.000000Z'
+                      created_at: '2026-11-11T10:55:09.000000Z'
+                      updated_at: '2026-11-11T10:55:09.000000Z'
                       deleted_at: null
                   links:
                     first: '/?page=1'
@@ -3346,8 +3406,8 @@ paths:
                           logo_url: null
                         is_active: true
                         price_source: null
-                        created_at: '2026-11-11T09:55:00.000000Z'
-                        updated_at: '2026-11-11T09:55:00.000000Z'
+                        created_at: '2026-11-11T10:55:09.000000Z'
+                        updated_at: '2026-11-11T10:55:09.000000Z'
                         deleted_at: null
                       -
                         id: 2
@@ -3381,8 +3441,8 @@ paths:
                           logo_url: null
                         is_active: true
                         price_source: null
-                        created_at: '2026-11-11T09:55:00.000000Z'
-                        updated_at: '2026-11-11T09:55:00.000000Z'
+                        created_at: '2026-11-11T10:55:09.000000Z'
+                        updated_at: '2026-11-11T10:55:09.000000Z'
                         deleted_at: null
                     items:
                       type: object
@@ -3487,10 +3547,10 @@ paths:
                           nullable: true
                         created_at:
                           type: string
-                          example: '2026-11-11T09:55:00.000000Z'
+                          example: '2026-11-11T10:55:09.000000Z'
                         updated_at:
                           type: string
-                          example: '2026-11-11T09:55:00.000000Z'
+                          example: '2026-11-11T10:55:09.000000Z'
                         deleted_at:
                           type: string
                           example: null
@@ -3635,8 +3695,8 @@ paths:
                       logo_url: null
                     is_active: true
                     price_source: null
-                    created_at: '2026-11-11T09:55:00.000000Z'
-                    updated_at: '2026-11-11T09:55:00.000000Z'
+                    created_at: '2026-11-11T10:55:09.000000Z'
+                    updated_at: '2026-11-11T10:55:09.000000Z'
                     deleted_at: null
                 properties:
                   data:
@@ -3742,10 +3802,10 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-11T09:55:00.000000Z'
+                        example: '2026-11-11T10:55:09.000000Z'
                       updated_at:
                         type: string
-                        example: '2026-11-11T09:55:00.000000Z'
+                        example: '2026-11-11T10:55:09.000000Z'
                       deleted_at:
                         type: string
                         example: null
@@ -3897,8 +3957,8 @@ paths:
                       logo_url: null
                     is_active: true
                     price_source: null
-                    created_at: '2026-11-11T09:55:00.000000Z'
-                    updated_at: '2026-11-11T09:55:00.000000Z'
+                    created_at: '2026-11-11T10:55:09.000000Z'
+                    updated_at: '2026-11-11T10:55:09.000000Z'
                     deleted_at: null
                 properties:
                   data:
@@ -4003,10 +4063,10 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-11T09:55:00.000000Z'
+                        example: '2026-11-11T10:55:09.000000Z'
                       updated_at:
                         type: string
-                        example: '2026-11-11T09:55:00.000000Z'
+                        example: '2026-11-11T10:55:09.000000Z'
                       deleted_at:
                         type: string
                         example: null
@@ -4058,8 +4118,8 @@ paths:
                       logo_url: null
                     is_active: true
                     price_source: null
-                    created_at: '2026-11-11T09:55:00.000000Z'
-                    updated_at: '2026-11-11T09:55:00.000000Z'
+                    created_at: '2026-11-11T10:55:09.000000Z'
+                    updated_at: '2026-11-11T10:55:09.000000Z'
                     deleted_at: null
                 properties:
                   data:
@@ -4164,10 +4224,10 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-11T09:55:00.000000Z'
+                        example: '2026-11-11T10:55:09.000000Z'
                       updated_at:
                         type: string
-                        example: '2026-11-11T09:55:00.000000Z'
+                        example: '2026-11-11T10:55:09.000000Z'
                       deleted_at:
                         type: string
                         example: null
@@ -4244,7 +4304,7 @@ paths:
                 is_featured:
                   type: boolean
                   description: ''
-                  example: false
+                  example: true
                 specs:
                   type: array
                   description: 'El campo value no puede tener más de 30 elementos.'
@@ -4399,8 +4459,8 @@ paths:
                       image_url: null
                       sort_order: 19
                       is_active: true
-                      created_at: '2026-11-11T09:55:00.000000Z'
-                      updated_at: '2026-11-11T09:55:00.000000Z'
+                      created_at: '2026-11-11T10:55:09.000000Z'
+                      updated_at: '2026-11-11T10:55:09.000000Z'
                     -
                       id: 2
                       parent_id: null
@@ -4410,8 +4470,8 @@ paths:
                       image_url: null
                       sort_order: 15
                       is_active: true
-                      created_at: '2026-11-11T09:55:00.000000Z'
-                      updated_at: '2026-11-11T09:55:00.000000Z'
+                      created_at: '2026-11-11T10:55:09.000000Z'
+                      updated_at: '2026-11-11T10:55:09.000000Z'
                   links:
                     first: '/?page=1'
                     last: '/?page=1'
@@ -4454,8 +4514,8 @@ paths:
                         image_url: null
                         sort_order: 19
                         is_active: true
-                        created_at: '2026-11-11T09:55:00.000000Z'
-                        updated_at: '2026-11-11T09:55:00.000000Z'
+                        created_at: '2026-11-11T10:55:09.000000Z'
+                        updated_at: '2026-11-11T10:55:09.000000Z'
                       -
                         id: 2
                         parent_id: null
@@ -4465,8 +4525,8 @@ paths:
                         image_url: null
                         sort_order: 15
                         is_active: true
-                        created_at: '2026-11-11T09:55:00.000000Z'
-                        updated_at: '2026-11-11T09:55:00.000000Z'
+                        created_at: '2026-11-11T10:55:09.000000Z'
+                        updated_at: '2026-11-11T10:55:09.000000Z'
                     items:
                       type: object
                       properties:
@@ -4498,10 +4558,10 @@ paths:
                           example: true
                         created_at:
                           type: string
-                          example: '2026-11-11T09:55:00.000000Z'
+                          example: '2026-11-11T10:55:09.000000Z'
                         updated_at:
                           type: string
-                          example: '2026-11-11T09:55:00.000000Z'
+                          example: '2026-11-11T10:55:09.000000Z'
                   links:
                     type: object
                     properties:
@@ -4619,8 +4679,8 @@ paths:
                     image_url: null
                     sort_order: 12
                     is_active: true
-                    created_at: '2026-11-11T09:55:00.000000Z'
-                    updated_at: '2026-11-11T09:55:00.000000Z'
+                    created_at: '2026-11-11T10:55:09.000000Z'
+                    updated_at: '2026-11-11T10:55:09.000000Z'
                 properties:
                   data:
                     type: object
@@ -4653,10 +4713,10 @@ paths:
                         example: true
                       created_at:
                         type: string
-                        example: '2026-11-11T09:55:00.000000Z'
+                        example: '2026-11-11T10:55:09.000000Z'
                       updated_at:
                         type: string
-                        example: '2026-11-11T09:55:00.000000Z'
+                        example: '2026-11-11T10:55:09.000000Z'
       tags:
         - 'Categorías (administrador)'
       requestBody:
@@ -4714,8 +4774,8 @@ paths:
                     image_url: null
                     sort_order: 8
                     is_active: true
-                    created_at: '2026-11-11T09:55:00.000000Z'
-                    updated_at: '2026-11-11T09:55:00.000000Z'
+                    created_at: '2026-11-11T10:55:09.000000Z'
+                    updated_at: '2026-11-11T10:55:09.000000Z'
                 properties:
                   data:
                     type: object
@@ -4748,10 +4808,10 @@ paths:
                         example: true
                       created_at:
                         type: string
-                        example: '2026-11-11T09:55:00.000000Z'
+                        example: '2026-11-11T10:55:09.000000Z'
                       updated_at:
                         type: string
-                        example: '2026-11-11T09:55:00.000000Z'
+                        example: '2026-11-11T10:55:09.000000Z'
       tags:
         - 'Categorías (administrador)'
     put:
@@ -4776,8 +4836,8 @@ paths:
                     image_url: null
                     sort_order: 0
                     is_active: true
-                    created_at: '2026-11-11T09:55:00.000000Z'
-                    updated_at: '2026-11-11T09:55:00.000000Z'
+                    created_at: '2026-11-11T10:55:09.000000Z'
+                    updated_at: '2026-11-11T10:55:09.000000Z'
                 properties:
                   data:
                     type: object
@@ -4811,10 +4871,10 @@ paths:
                         example: true
                       created_at:
                         type: string
-                        example: '2026-11-11T09:55:00.000000Z'
+                        example: '2026-11-11T10:55:09.000000Z'
                       updated_at:
                         type: string
-                        example: '2026-11-11T09:55:00.000000Z'
+                        example: '2026-11-11T10:55:09.000000Z'
       tags:
         - 'Categorías (administrador)'
       requestBody:
@@ -5088,6 +5148,94 @@ paths:
         required: true
         schema:
           type: string
+  /api/v1/shipping/quote:
+    get:
+      summary: 'Cotizar el envío'
+      operationId: cotizarElEnvo
+      description: "Tipo de envío (`local` o `national`), zona y valor según el municipio de entrega (tabla de zonas de `config/shop.php`). Gratis al llegar\na la compra mínima. Sirve para mostrar el costo en el paso de entrega antes de confirmar."
+      parameters:
+        -
+          in: query
+          name: city_code
+          description: 'Código DANE del municipio (5 dígitos).'
+          example: '68276'
+          required: true
+          schema:
+            type: string
+            description: 'Código DANE del municipio (5 dígitos).'
+            example: '68276'
+        -
+          in: query
+          name: subtotal
+          description: 'Valor de los productos con IVA (para el envío gratis).'
+          example: 119000.0
+          required: false
+          schema:
+            type: number
+            description: 'Valor de los productos con IVA (para el envío gratis).'
+            example: 119000.0
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    zone: local
+                    zone_label: 'Bucaramanga y área metropolitana'
+                    method: local
+                    cost: 15000
+                    base_cost: 15000
+                    free: false
+                    free_from: 500000
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      zone:
+                        type: string
+                        example: local
+                      zone_label:
+                        type: string
+                        example: 'Bucaramanga y área metropolitana'
+                      method:
+                        type: string
+                        example: local
+                      cost:
+                        type: integer
+                        example: 15000
+                      base_cost:
+                        type: integer
+                        example: 15000
+                      free:
+                        type: boolean
+                        example: false
+                      free_from:
+                        type: integer
+                        example: 500000
+      tags:
+        - Compra
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                city_code:
+                  type: string
+                  description: 'Must match the regex /^\d{5}$/.'
+                  example: '56425'
+                subtotal:
+                  type: number
+                  description: 'El campo value debe ser al menos 0.'
+                  example: 42
+                  nullable: true
+              required:
+                - city_code
+      security: []
   /api/v1/checkout:
     post:
       summary: 'Comprar (con o sin cuenta)'
@@ -5104,62 +5252,21 @@ paths:
                 example:
                   data:
                     -
-                      code: PED-9775
+                      code: PED-7876
                       type: purchase
                       type_label: Pedido
                       status: pending_payment
                       status_label: 'Pendiente de pago'
                       customer_type: company
-                      company_name: 'Llorente, Aguirre y Sierra e Hijo S.A.S.'
-                      nit: 931296562-5
-                      contact_name: 'Alexandra Salvador'
-                      email: arredondo.juana@example.com
-                      phone: '364 698 0841'
-                      city: Barrancabermeja
-                      address: 'Ruela Santiago, 442, 43º 2º'
-                      is_guest: false
-                      billing: null
-                      delivery: null
-                      privacy_accepted_at: null
-                      privacy_version: null
-                      delivery_method: pickup
-                      delivery_method_label: 'Recoger en tienda'
-                      payment_method: null
-                      subtotal: 840336.13
-                      tax: 159663.87
-                      shipping: 0
-                      total: 1000000
-                      notes: null
-                      expires_at: null
-                      paid_at: null
-                      created_at: '2026-11-11T09:55:00.000000Z'
-                      items:
-                        -
-                          id: 1
-                          product_id: 1
-                          sku: REF-5744-tc
-                          product_name: 'Motor trifásico 4086 HP'
-                          unit: unidad
-                          quantity: 5
-                          unit_price: 4793000
-                          tax_rate: 19
-                          line_total: 23965000
-                          notes: null
-                    -
-                      code: PED-0170
-                      type: purchase
-                      type_label: Pedido
-                      status: pending_payment
-                      status_label: 'Pendiente de pago'
-                      customer_type: company
-                      company_name: 'Centro Duran-Ordoñez S.A.S.'
-                      nit: 973287370-6
-                      contact_name: 'Lic. Olivia Paredes Segundo'
-                      email: pineiro.marc@example.com
-                      phone: '361 747 3805'
+                      company_name: 'Benito y Duarte y Asoc. S.A.S.'
+                      nit: 949599146-1
+                      contact_name: 'Helena Montes'
+                      email: aceja@example.net
+                      phone: '376 381 4812'
                       city: Floridablanca
-                      address: 'Travesía María Dolores, 87, 4º E'
+                      address: 'Plaza Aranda, 19, 86º B'
                       is_guest: false
+                      needs_invoice: false
                       billing: null
                       delivery: null
                       privacy_accepted_at: null
@@ -5174,80 +5281,82 @@ paths:
                       notes: null
                       expires_at: null
                       paid_at: null
-                      created_at: '2026-11-11T09:55:00.000000Z'
+                      created_at: '2026-11-11T10:55:09.000000Z'
+                      items:
+                        -
+                          id: 1
+                          product_id: 1
+                          sku: REF-4230-sv
+                          product_name: 'Motor trifásico 9106 HP'
+                          unit: unidad
+                          quantity: 5
+                          unit_price: 3054000
+                          tax_rate: 19
+                          line_total: 15270000
+                          notes: null
+                    -
+                      code: PED-2251
+                      type: purchase
+                      type_label: Pedido
+                      status: pending_payment
+                      status_label: 'Pendiente de pago'
+                      customer_type: company
+                      company_name: 'Luevano y Guerra e Hijos S.A.S.'
+                      nit: 967858218-1
+                      contact_name: 'Irene Morán Segundo'
+                      email: raquel.diaz@example.org
+                      phone: '352 357 6500'
+                      city: Piedecuesta
+                      address: 'Travesía Sánchez, 743, 4º B'
+                      is_guest: false
+                      needs_invoice: false
+                      billing: null
+                      delivery: null
+                      privacy_accepted_at: null
+                      privacy_version: null
+                      delivery_method: national
+                      delivery_method_label: 'Envío nacional'
+                      payment_method: null
+                      subtotal: 840336.13
+                      tax: 159663.87
+                      shipping: 0
+                      total: 1000000
+                      notes: null
+                      expires_at: null
+                      paid_at: null
+                      created_at: '2026-11-11T10:55:09.000000Z'
                       items:
                         -
                           id: 2
                           product_id: 2
-                          sku: REF-3974-og
-                          product_name: 'Motor trifásico 4936 HP'
+                          sku: REF-9295-ll
+                          product_name: 'Motor trifásico 1143 HP'
                           unit: unidad
-                          quantity: 4
-                          unit_price: 4325000
+                          quantity: 3
+                          unit_price: 2822000
                           tax_rate: 19
-                          line_total: 17300000
+                          line_total: 8466000
                           notes: null
                 properties:
                   data:
                     type: array
                     example:
                       -
-                        code: PED-9775
+                        code: PED-7876
                         type: purchase
                         type_label: Pedido
                         status: pending_payment
                         status_label: 'Pendiente de pago'
                         customer_type: company
-                        company_name: 'Llorente, Aguirre y Sierra e Hijo S.A.S.'
-                        nit: 931296562-5
-                        contact_name: 'Alexandra Salvador'
-                        email: arredondo.juana@example.com
-                        phone: '364 698 0841'
-                        city: Barrancabermeja
-                        address: 'Ruela Santiago, 442, 43º 2º'
-                        is_guest: false
-                        billing: null
-                        delivery: null
-                        privacy_accepted_at: null
-                        privacy_version: null
-                        delivery_method: pickup
-                        delivery_method_label: 'Recoger en tienda'
-                        payment_method: null
-                        subtotal: 840336.13
-                        tax: 159663.87
-                        shipping: 0
-                        total: 1000000
-                        notes: null
-                        expires_at: null
-                        paid_at: null
-                        created_at: '2026-11-11T09:55:00.000000Z'
-                        items:
-                          -
-                            id: 1
-                            product_id: 1
-                            sku: REF-5744-tc
-                            product_name: 'Motor trifásico 4086 HP'
-                            unit: unidad
-                            quantity: 5
-                            unit_price: 4793000
-                            tax_rate: 19
-                            line_total: 23965000
-                            notes: null
-                      -
-                        code: PED-0170
-                        type: purchase
-                        type_label: Pedido
-                        status: pending_payment
-                        status_label: 'Pendiente de pago'
-                        customer_type: company
-                        company_name: 'Centro Duran-Ordoñez S.A.S.'
-                        nit: 973287370-6
-                        contact_name: 'Lic. Olivia Paredes Segundo'
-                        email: pineiro.marc@example.com
-                        phone: '361 747 3805'
+                        company_name: 'Benito y Duarte y Asoc. S.A.S.'
+                        nit: 949599146-1
+                        contact_name: 'Helena Montes'
+                        email: aceja@example.net
+                        phone: '376 381 4812'
                         city: Floridablanca
-                        address: 'Travesía María Dolores, 87, 4º E'
+                        address: 'Plaza Aranda, 19, 86º B'
                         is_guest: false
+                        needs_invoice: false
                         billing: null
                         delivery: null
                         privacy_accepted_at: null
@@ -5262,25 +5371,68 @@ paths:
                         notes: null
                         expires_at: null
                         paid_at: null
-                        created_at: '2026-11-11T09:55:00.000000Z'
+                        created_at: '2026-11-11T10:55:09.000000Z'
+                        items:
+                          -
+                            id: 1
+                            product_id: 1
+                            sku: REF-4230-sv
+                            product_name: 'Motor trifásico 9106 HP'
+                            unit: unidad
+                            quantity: 5
+                            unit_price: 3054000
+                            tax_rate: 19
+                            line_total: 15270000
+                            notes: null
+                      -
+                        code: PED-2251
+                        type: purchase
+                        type_label: Pedido
+                        status: pending_payment
+                        status_label: 'Pendiente de pago'
+                        customer_type: company
+                        company_name: 'Luevano y Guerra e Hijos S.A.S.'
+                        nit: 967858218-1
+                        contact_name: 'Irene Morán Segundo'
+                        email: raquel.diaz@example.org
+                        phone: '352 357 6500'
+                        city: Piedecuesta
+                        address: 'Travesía Sánchez, 743, 4º B'
+                        is_guest: false
+                        needs_invoice: false
+                        billing: null
+                        delivery: null
+                        privacy_accepted_at: null
+                        privacy_version: null
+                        delivery_method: national
+                        delivery_method_label: 'Envío nacional'
+                        payment_method: null
+                        subtotal: 840336.13
+                        tax: 159663.87
+                        shipping: 0
+                        total: 1000000
+                        notes: null
+                        expires_at: null
+                        paid_at: null
+                        created_at: '2026-11-11T10:55:09.000000Z'
                         items:
                           -
                             id: 2
                             product_id: 2
-                            sku: REF-3974-og
-                            product_name: 'Motor trifásico 4936 HP'
+                            sku: REF-9295-ll
+                            product_name: 'Motor trifásico 1143 HP'
                             unit: unidad
-                            quantity: 4
-                            unit_price: 4325000
+                            quantity: 3
+                            unit_price: 2822000
                             tax_rate: 19
-                            line_total: 17300000
+                            line_total: 8466000
                             notes: null
                     items:
                       type: object
                       properties:
                         code:
                           type: string
-                          example: PED-9775
+                          example: PED-7876
                         type:
                           type: string
                           example: purchase
@@ -5298,26 +5450,29 @@ paths:
                           example: company
                         company_name:
                           type: string
-                          example: 'Llorente, Aguirre y Sierra e Hijo S.A.S.'
+                          example: 'Benito y Duarte y Asoc. S.A.S.'
                         nit:
                           type: string
-                          example: 931296562-5
+                          example: 949599146-1
                         contact_name:
                           type: string
-                          example: 'Alexandra Salvador'
+                          example: 'Helena Montes'
                         email:
                           type: string
-                          example: arredondo.juana@example.com
+                          example: aceja@example.net
                         phone:
                           type: string
-                          example: '364 698 0841'
+                          example: '376 381 4812'
                         city:
                           type: string
-                          example: Barrancabermeja
+                          example: Floridablanca
                         address:
                           type: string
-                          example: 'Ruela Santiago, 442, 43º 2º'
+                          example: 'Plaza Aranda, 19, 86º B'
                         is_guest:
+                          type: boolean
+                          example: false
+                        needs_invoice:
                           type: boolean
                           example: false
                         billing:
@@ -5338,10 +5493,10 @@ paths:
                           nullable: true
                         delivery_method:
                           type: string
-                          example: pickup
+                          example: national
                         delivery_method_label:
                           type: string
-                          example: 'Recoger en tienda'
+                          example: 'Envío nacional'
                         payment_method:
                           type: string
                           example: null
@@ -5372,20 +5527,20 @@ paths:
                           nullable: true
                         created_at:
                           type: string
-                          example: '2026-11-11T09:55:00.000000Z'
+                          example: '2026-11-11T10:55:09.000000Z'
                         items:
                           type: array
                           example:
                             -
                               id: 1
                               product_id: 1
-                              sku: REF-5744-tc
-                              product_name: 'Motor trifásico 4086 HP'
+                              sku: REF-4230-sv
+                              product_name: 'Motor trifásico 9106 HP'
                               unit: unidad
                               quantity: 5
-                              unit_price: 4793000
+                              unit_price: 3054000
                               tax_rate: 19
-                              line_total: 23965000
+                              line_total: 15270000
                               notes: null
                           items:
                             type: object
@@ -5398,10 +5553,10 @@ paths:
                                 example: 1
                               sku:
                                 type: string
-                                example: REF-5744-tc
+                                example: REF-4230-sv
                               product_name:
                                 type: string
-                                example: 'Motor trifásico 4086 HP'
+                                example: 'Motor trifásico 9106 HP'
                               unit:
                                 type: string
                                 example: unidad
@@ -5410,13 +5565,13 @@ paths:
                                 example: 5
                               unit_price:
                                 type: integer
-                                example: 4793000
+                                example: 3054000
                               tax_rate:
                                 type: integer
                                 example: 19
                               line_total:
                                 type: integer
-                                example: 23965000
+                                example: 15270000
                               notes:
                                 type: string
                                 example: null
@@ -5478,78 +5633,48 @@ paths:
                     required:
                       - product_id
                       - quantity
-                person_type:
-                  type: string
-                  description: '`natural` o `company`.'
-                  example: company
-                doc_type:
-                  type: string
-                  description: 'Tipo de documento (obligatorio en persona natural): CC, CE, PP o NIT.'
-                  example: CC
-                doc_number:
-                  type: string
-                  description: 'Número de documento (NIT sin dígito de verificación).'
-                  example: '900123456'
-                nit_dv:
-                  type: string
-                  description: 'Dígito de verificación del NIT (obligatorio en empresa).'
-                  example: '8'
-                  nullable: true
-                first_name:
-                  type: string
-                  description: 'Nombres (persona natural).'
-                  example: Laura
-                last_name:
-                  type: string
-                  description: 'Apellidos (persona natural).'
-                  example: Gómez
-                company_name:
-                  type: string
-                  description: 'Razón social (empresa).'
-                  example: 'Constructora Altos S.A.S.'
-                  nullable: true
-                fiscal_responsibility:
-                  type: string
-                  description: 'Responsabilidad fiscal (empresa): vat_responsible, not_vat_responsible, large_taxpayer, self_withholder o simple_regime.'
-                  example: vat_responsible
-                  nullable: true
-                contact_name:
-                  type: string
-                  description: 'Persona de contacto (empresa).'
-                  example: 'Laura Gómez'
-                  nullable: true
-                billing_email:
-                  type: string
-                  description: 'Correo de facturación electrónica.'
-                  example: facturacion@constructoraaltos.test
-                phone:
-                  type: string
-                  description: 'Celular colombiano de 10 dígitos.'
-                  example: '3155550202'
-                billing_address:
-                  type: string
-                  description: 'Dirección de facturación.'
-                  example: 'Carrera 27 # 45-10'
-                department_code:
-                  type: string
-                  description: 'Código DANE del departamento.'
-                  example: '68'
-                city_code:
-                  type: string
-                  description: 'Código DANE del municipio.'
-                  example: '68001'
                 delivery_method:
                   type: string
                   description: 'pickup, local o national.'
                   example: local
-                delivery_same_as_billing:
-                  type: boolean
-                  description: 'La entrega es en la dirección de facturación.'
-                  example: false
-                delivery_department_code:
+                delivery_state_code:
                   type: string
-                  description: 'Departamento de entrega (si no es pickup ni igual a facturación).'
-                  example: '68'
+                  description: ''
+                  example: 86
+                  enum:
+                    - 91
+                    - 5
+                    - 81
+                    - 88
+                    - 8
+                    - 11
+                    - 13
+                    - 15
+                    - 17
+                    - 18
+                    - 85
+                    - 19
+                    - 20
+                    - 27
+                    - 25
+                    - 23
+                    - 94
+                    - 95
+                    - 41
+                    - 44
+                    - 47
+                    - 50
+                    - 52
+                    - 54
+                    - 86
+                    - 63
+                    - 66
+                    - 68
+                    - 70
+                    - 73
+                    - 76
+                    - 97
+                    - 99
                 delivery_city_code:
                   type: string
                   description: 'Municipio de entrega.'
@@ -5581,6 +5706,157 @@ paths:
                   description: 'Indicaciones de entrega.'
                   example: 'Entregar en portería'
                   nullable: true
+                name:
+                  type: string
+                  description: 'El campo value debe tener al menos 3 caracteres. El campo value no puede tener más de 120 caracteres.'
+                  example: 'n'
+                phone:
+                  type: string
+                  description: 'Celular colombiano de 10 dígitos.'
+                  example: '3155550202'
+                email:
+                  type: string
+                  description: 'El campo value debe ser un correo válido. El campo value no puede tener más de 255 caracteres.'
+                  example: mya96@example.com
+                needs_invoice:
+                  type: boolean
+                  description: ''
+                  example: true
+                person_type:
+                  type: string
+                  description: '`natural` o `company`.'
+                  example: company
+                  nullable: true
+                id_type:
+                  type: string
+                  description: ''
+                  example: '22'
+                  enum:
+                    - '13'
+                    - '31'
+                    - '22'
+                    - '41'
+                  nullable: true
+                identification:
+                  type: string
+                  description: 'Must match the regex /^[A-Z0-9]{1,20}$/.'
+                  example: 3IQY7HV
+                  nullable: true
+                check_digit:
+                  type: string
+                  description: validation.digits.
+                  example: '5'
+                  nullable: true
+                first_name:
+                  type: string
+                  description: 'Nombres (persona natural).'
+                  example: Laura
+                  nullable: true
+                last_name:
+                  type: string
+                  description: 'Apellidos (persona natural).'
+                  example: Gómez
+                  nullable: true
+                company_name:
+                  type: string
+                  description: 'Razón social (empresa).'
+                  example: 'Constructora Altos S.A.S.'
+                  nullable: true
+                commercial_name:
+                  type: string
+                  description: 'El campo value no puede tener más de 100 caracteres.'
+                  example: m
+                  nullable: true
+                vat_responsible:
+                  type: boolean
+                  description: ''
+                  example: true
+                fiscal_responsibilities:
+                  type: array
+                  description: ''
+                  example:
+                    - O-13
+                  items:
+                    type: string
+                    enum:
+                      - R-99-PN
+                      - O-13
+                      - O-15
+                      - O-23
+                      - O-47
+                billing_email:
+                  type: string
+                  description: 'Correo de facturación electrónica.'
+                  example: facturacion@constructoraaltos.test
+                  nullable: true
+                billing_same_as_delivery:
+                  type: boolean
+                  description: ''
+                  example: false
+                billing_address:
+                  type: string
+                  description: 'Dirección de facturación.'
+                  example: 'Carrera 27 # 45-10'
+                  nullable: true
+                billing_state_code:
+                  type: string
+                  description: ''
+                  example: 91
+                  enum:
+                    - 91
+                    - 5
+                    - 81
+                    - 88
+                    - 8
+                    - 11
+                    - 13
+                    - 15
+                    - 17
+                    - 18
+                    - 85
+                    - 19
+                    - 20
+                    - 27
+                    - 25
+                    - 23
+                    - 94
+                    - 95
+                    - 41
+                    - 44
+                    - 47
+                    - 50
+                    - 52
+                    - 54
+                    - 86
+                    - 63
+                    - 66
+                    - 68
+                    - 70
+                    - 73
+                    - 76
+                    - 97
+                    - 99
+                  nullable: true
+                billing_city_code:
+                  type: string
+                  description: ''
+                  example: architecto
+                  nullable: true
+                billing_postal_code:
+                  type: string
+                  description: 'Must match the regex /^[A-Za-z0-9]{1,10}$/.'
+                  example: LG4Qbdd
+                  nullable: true
+                contact_first_name:
+                  type: string
+                  description: 'El campo value no puede tener más de 50 caracteres.'
+                  example: j
+                  nullable: true
+                contact_last_name:
+                  type: string
+                  description: 'El campo value no puede tener más de 50 caracteres.'
+                  example: 'n'
+                  nullable: true
                 notes:
                   type: string
                   description: Observaciones.
@@ -5598,19 +5874,58 @@ paths:
                 website:
                   type: string
                   description: 'El campo value no puede tener más de 255 caracteres.'
-                  example: 'n'
+                  example: k
                   nullable: true
+                doc_type:
+                  type: string
+                  description: 'Tipo de documento (obligatorio en persona natural): CC, CE, PP o NIT.'
+                  example: CC
+                doc_number:
+                  type: string
+                  description: 'Número de documento (NIT sin dígito de verificación).'
+                  example: '900123456'
+                nit_dv:
+                  type: string
+                  description: 'Dígito de verificación del NIT (obligatorio en empresa).'
+                  example: '8'
+                fiscal_responsibility:
+                  type: string
+                  description: 'Responsabilidad fiscal (empresa): vat_responsible, not_vat_responsible, large_taxpayer, self_withholder o simple_regime.'
+                  example: vat_responsible
+                contact_name:
+                  type: string
+                  description: 'Persona de contacto (empresa).'
+                  example: 'Laura Gómez'
+                department_code:
+                  type: string
+                  description: 'Código DANE del departamento.'
+                  example: '68'
+                city_code:
+                  type: string
+                  description: 'Código DANE del municipio.'
+                  example: '68001'
+                delivery_same_as_billing:
+                  type: boolean
+                  description: 'La entrega es en la dirección de facturación.'
+                  example: false
+                delivery_department_code:
+                  type: string
+                  description: 'Departamento de entrega (si no es pickup ni igual a facturación).'
+                  example: '68'
               required:
                 - items
-                - person_type
-                - doc_number
-                - billing_email
+                - delivery_method
+                - delivery_state_code
+                - name
                 - phone
+                - email
+                - person_type
+                - billing_email
                 - billing_address
+                - privacy_accepted
+                - doc_number
                 - department_code
                 - city_code
-                - delivery_method
-                - privacy_accepted
       security: []
   '/api/v1/guest/orders/{code}':
     get:
@@ -5654,13 +5969,14 @@ paths:
                     status_label: 'Pendiente de pago'
                     customer_type: company
                     company_name: 'Aguirre de Sierra e Hijo S.A.S.'
-                    nit: 934997057-5
-                    contact_name: 'Rosario Cano'
-                    email: isaac34@example.net
-                    phone: '318 740 4954'
-                    city: Girón
-                    address: 'Rúa Arnau, 798, 4º'
+                    nit: 931296562-5
+                    contact_name: 'Alexandra Salvador'
+                    email: arredondo.juana@example.com
+                    phone: '364 698 0841'
+                    city: Barrancabermeja
+                    address: 'Ruela Santiago, 442, 43º 2º'
                     is_guest: false
+                    needs_invoice: false
                     billing: null
                     delivery: null
                     privacy_accepted_at: null
@@ -5675,18 +5991,18 @@ paths:
                     notes: null
                     expires_at: null
                     paid_at: null
-                    created_at: '2026-11-11T09:55:00.000000Z'
+                    created_at: '2026-11-11T10:55:09.000000Z'
                     items:
                       -
                         id: 1
                         product_id: 1
-                        sku: REF-7365-sc
-                        product_name: 'Motor trifásico 967 HP'
+                        sku: REF-5744-tc
+                        product_name: 'Motor trifásico 4086 HP'
                         unit: unidad
-                        quantity: 3
-                        unit_price: 2955000
+                        quantity: 5
+                        unit_price: 4793000
                         tax_rate: 19
-                        line_total: 8865000
+                        line_total: 23965000
                         notes: null
                     status_history:
                       -
@@ -5694,7 +6010,7 @@ paths:
                         to_status: pending_payment
                         to_status_label: 'Pendiente de pago'
                         note: null
-                        created_at: '2026-11-11T09:55:00.000000Z'
+                        created_at: '2026-11-11T10:55:09.000000Z'
                 properties:
                   data:
                     type: object
@@ -5722,23 +6038,26 @@ paths:
                         example: 'Aguirre de Sierra e Hijo S.A.S.'
                       nit:
                         type: string
-                        example: 934997057-5
+                        example: 931296562-5
                       contact_name:
                         type: string
-                        example: 'Rosario Cano'
+                        example: 'Alexandra Salvador'
                       email:
                         type: string
-                        example: isaac34@example.net
+                        example: arredondo.juana@example.com
                       phone:
                         type: string
-                        example: '318 740 4954'
+                        example: '364 698 0841'
                       city:
                         type: string
-                        example: Girón
+                        example: Barrancabermeja
                       address:
                         type: string
-                        example: 'Rúa Arnau, 798, 4º'
+                        example: 'Ruela Santiago, 442, 43º 2º'
                       is_guest:
+                        type: boolean
+                        example: false
+                      needs_invoice:
                         type: boolean
                         example: false
                       billing:
@@ -5793,20 +6112,20 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-11T09:55:00.000000Z'
+                        example: '2026-11-11T10:55:09.000000Z'
                       items:
                         type: array
                         example:
                           -
                             id: 1
                             product_id: 1
-                            sku: REF-7365-sc
-                            product_name: 'Motor trifásico 967 HP'
+                            sku: REF-5744-tc
+                            product_name: 'Motor trifásico 4086 HP'
                             unit: unidad
-                            quantity: 3
-                            unit_price: 2955000
+                            quantity: 5
+                            unit_price: 4793000
                             tax_rate: 19
-                            line_total: 8865000
+                            line_total: 23965000
                             notes: null
                         items:
                           type: object
@@ -5819,25 +6138,25 @@ paths:
                               example: 1
                             sku:
                               type: string
-                              example: REF-7365-sc
+                              example: REF-5744-tc
                             product_name:
                               type: string
-                              example: 'Motor trifásico 967 HP'
+                              example: 'Motor trifásico 4086 HP'
                             unit:
                               type: string
                               example: unidad
                             quantity:
                               type: integer
-                              example: 3
+                              example: 5
                             unit_price:
                               type: integer
-                              example: 2955000
+                              example: 4793000
                             tax_rate:
                               type: integer
                               example: 19
                             line_total:
                               type: integer
-                              example: 8865000
+                              example: 23965000
                             notes:
                               type: string
                               example: null
@@ -5850,7 +6169,7 @@ paths:
                             to_status: pending_payment
                             to_status_label: 'Pendiente de pago'
                             note: null
-                            created_at: '2026-11-11T09:55:00.000000Z'
+                            created_at: '2026-11-11T10:55:09.000000Z'
                         items:
                           type: object
                           properties:
@@ -5870,7 +6189,7 @@ paths:
                               nullable: true
                             created_at:
                               type: string
-                              example: '2026-11-11T09:55:00.000000Z'
+                              example: '2026-11-11T10:55:09.000000Z'
         403:
           description: 'Enlace inválido o vencido'
           content:

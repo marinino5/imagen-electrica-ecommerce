@@ -297,6 +297,7 @@ export default function Cart() {
   const { lines, purchaseLines, quoteLines, clear, remove } = useCart()
   const { data: catalog } = useLines()
   const [created, setCreated] = useState(null)
+  const [shipping, setShipping] = useState(0)
 
   const money = useMemo(() => breakdown(purchaseLines), [purchaseLines])
   // Carrito vacío: 4 fichas destacadas para empezar
@@ -340,7 +341,7 @@ export default function Cart() {
             <dl className="cart-sum__rows">
               <div><dt>Para comprar</dt><dd>{purchaseLines.length} {purchaseLines.length === 1 ? 'producto' : 'productos'}</dd></div>
               <div><dt>Para cotizar</dt><dd>{quoteLines.length} {quoteLines.length === 1 ? 'producto' : 'productos'}</dd></div>
-              <div className="is-total"><dt>Total a pagar</dt><dd>{purchaseLines.length > 0 ? formatCOP(money.total) : '—'}</dd></div>
+              <div className="is-total"><dt>Total a pagar</dt><dd>{purchaseLines.length > 0 ? formatCOP(money.total + shipping) : '—'}</dd></div>
             </dl>
           </div>
         </Bezel>
@@ -389,10 +390,10 @@ export default function Cart() {
                       <dl className="cart-pay__totals">
                         <div><dt>Base</dt><dd>{formatCOP(money.base)}</dd></div>
                         <div><dt>IVA incluido</dt><dd>{formatCOP(money.tax)}</dd></div>
-                        <div><dt>Envío</dt><dd>Gratis al recoger</dd></div>
-                        <div className="is-total"><dt>Total a pagar</dt><dd>{formatCOP(money.total)}</dd></div>
+                        <div><dt>Envío</dt><dd>{shipping > 0 ? formatCOP(shipping) : 'Gratis al recoger'}</dd></div>
+                        <div className="is-total"><dt>Total a pagar</dt><dd>{formatCOP(money.total + shipping)}</dd></div>
                       </dl>
-                      <CheckoutForm purchaseLines={purchaseLines} total={money.total} shippingNote="El envío lo confirma tu asesor; al recoger en tienda no tiene costo." onCreated={onCreated} />
+                      <CheckoutForm purchaseLines={purchaseLines} subtotal={money.total} onShipping={setShipping} onCreated={onCreated} />
                       <p className="field-hint">El pago en línea llegará más adelante: hoy un asesor confirma el pago y la entrega contigo.</p>
                     </>
                   )}
@@ -427,7 +428,7 @@ export default function Cart() {
       {!empty && (
         <div className="cart-bar" role="region" aria-label="Resumen del carrito">
           <p>
-            <strong>{purchaseLines.length > 0 ? formatCOP(money.total) : 'Por cotizar'}</strong>
+            <strong>{purchaseLines.length > 0 ? formatCOP(money.total + shipping) : 'Por cotizar'}</strong>
             <small>{purchaseLines.length > 0 ? 'IVA incluido' : `${quoteLines.length} para cotizar`}</small>
           </p>
           <Pill as="a" href={purchaseLines.length > 0 ? '#pagar' : '#cotizacion'} tone="o" size="sm">{purchaseLines.length > 0 ? 'Comprar' : 'Cotizar'}</Pill>

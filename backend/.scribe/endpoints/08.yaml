@@ -31,7 +31,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":1,"name":"Omar Dom\u00ednguez","email":"icalero@example.org","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Asociaci\u00f3n Col\u00f3n-Zelaya S.A.S.","nit":"979091506-6","contact_name":"Santiago Valles","phone":"364 310 6432","city":"Floridablanca","address":"Paseo Isaac, 409, 9\u00ba C","doc_type":null,"doc_dv":null,"first_name":null,"last_name":null,"fiscal_responsibility":null,"billing_email":null,"department_code":null,"city_code":null,"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-11-11T09:55:00.000000Z"}}}'
+        content: '{"data":{"id":1,"name":"Omar Dom\u00ednguez","email":"icalero@example.org","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Asociaci\u00f3n Col\u00f3n-Zelaya S.A.S.","nit":"979091506-6","contact_name":"Santiago Valles","phone":"364 310 6432","city":"Floridablanca","address":"Paseo Isaac, 409, 9\u00ba C","id_type":null,"check_digit":null,"first_name":null,"last_name":null,"commercial_name":null,"vat_responsible":null,"fiscal_responsibilities":null,"billing_email":null,"state_code":null,"city_code":null,"postal_code":null,"delivery_addresses":[],"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-11-11T10:55:09.000000Z"}}}'
         headers: []
         description: ''
     responseFields: []
@@ -146,7 +146,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":1,"name":"Emilia Murillo","email":"juribe@example.org","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Rivas y Sevilla SA S.A.S.","nit":"968210674-8","contact_name":"Adri\u00e1n Cavazos Hijo","phone":"315 175 7680","city":"Barrancabermeja","address":"Pla\u00e7a Juana, 979, 27\u00ba A","doc_type":null,"doc_dv":null,"first_name":null,"last_name":null,"fiscal_responsibility":null,"billing_email":null,"department_code":null,"city_code":null,"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-11-11T09:55:00.000000Z"}}}'
+        content: '{"data":{"id":1,"name":"Emilia Murillo","email":"juribe@example.org","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Rivas y Sevilla SA S.A.S.","nit":"968210674-8","contact_name":"Adri\u00e1n Cavazos Hijo","phone":"315 175 7680","city":"Barrancabermeja","address":"Pla\u00e7a Juana, 979, 27\u00ba A","id_type":null,"check_digit":null,"first_name":null,"last_name":null,"commercial_name":null,"vat_responsible":null,"fiscal_responsibilities":null,"billing_email":null,"state_code":null,"city_code":null,"postal_code":null,"delivery_addresses":[],"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-11-11T10:55:09.000000Z"}}}'
         headers: []
         description: ''
     responseFields: []

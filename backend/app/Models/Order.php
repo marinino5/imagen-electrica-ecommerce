@@ -4,8 +4,7 @@ namespace App\Models;
 
 use App\Enums\CustomerType;
 use App\Enums\DeliveryMethod;
-use App\Enums\DocumentType;
-use App\Enums\FiscalResponsibility;
+use App\Enums\IdType;
 use App\Enums\OrderStatus;
 use App\Enums\OrderType;
 use Database\Factories\OrderFactory;
@@ -27,9 +26,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
     'delivery_method', 'payment_method', 'subtotal', 'tax', 'shipping', 'total',
     'notes', 'expires_at', 'paid_at',
     // Compra sin cuenta y facturación electrónica (ver docs/siigo-mapeo.md)
-    'is_guest', 'billing_doc_type', 'billing_doc_number', 'billing_doc_dv', 'billing_first_name', 'billing_last_name',
-    'fiscal_responsibility', 'billing_email', 'billing_address', 'billing_department_code', 'billing_department', 'billing_city_code',
-    'delivery_department_code', 'delivery_department', 'delivery_city_code', 'delivery_city', 'delivery_neighborhood',
+    'is_guest', 'needs_invoice', 'billing_person_type', 'billing_id_type', 'billing_identification', 'billing_check_digit', 'billing_first_name', 'billing_last_name',
+    'billing_commercial_name', 'billing_vat_responsible', 'billing_fiscal_responsibilities', 'billing_email', 'billing_address', 'billing_country_code',
+    'billing_state_code', 'billing_department', 'billing_city_code', 'billing_postal_code', 'billing_contact_first_name', 'billing_contact_last_name',
+    'delivery_state_code', 'delivery_department', 'delivery_city_code', 'delivery_city', 'delivery_neighborhood',
     'delivery_road', 'delivery_number', 'delivery_complement', 'delivery_postal_code', 'delivery_notes', 'delivery_same_as_billing',
     'privacy_accepted_at', 'privacy_version',
 ])]
@@ -53,8 +53,10 @@ class Order extends Model
             'total' => 'decimal:2',
             'expires_at' => 'datetime',
             'paid_at' => 'datetime',
-            'billing_doc_type' => DocumentType::class,
-            'fiscal_responsibility' => FiscalResponsibility::class,
+            'billing_id_type' => IdType::class,
+            'billing_vat_responsible' => 'boolean',
+            'billing_fiscal_responsibilities' => 'array',
+            'needs_invoice' => 'boolean',
             'is_guest' => 'boolean',
             'delivery_same_as_billing' => 'boolean',
             'privacy_accepted_at' => 'datetime',

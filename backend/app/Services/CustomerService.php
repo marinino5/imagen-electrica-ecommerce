@@ -65,7 +65,7 @@ class CustomerService
      */
     public function registerFromOrder(Order $order, string $password, bool $marketing = false): User
     {
-        if ($this->users->findByEmail($order->billing_email ?? $order->email)) {
+        if ($this->users->findByEmail($order->email)) {
             throw new BusinessRuleException('Ya existe una cuenta con ese correo. Inicia sesión para ver tus pedidos.');
         }
         if ($order->nit && $this->customers->nitTakenByAnother($order->nit)) {
@@ -73,7 +73,7 @@ class CustomerService
         }
 
         return DB::transaction(function () use ($order, $password, $marketing) {
-            $email = $order->billing_email ?? $order->email;
+            $email = $order->email;
             $user = $this->users->createClient(['name' => $order->contact_name, 'email' => $email, 'password' => $password]);
 
             $customer = $this->customers->createFor($user, [
@@ -82,24 +82,27 @@ class CustomerService
                 'nit' => $order->nit,
                 'contact_name' => $order->contact_name,
                 'phone' => $order->phone,
-                'city' => $order->city,
+                'city' => $order->city ?? '',
                 'address' => $order->billing_address,
-                'doc_type' => $order->billing_doc_type,
-                'doc_dv' => $order->billing_doc_dv,
+                'id_type' => $order->billing_id_type,
+                'check_digit' => $order->billing_check_digit,
                 'first_name' => $order->billing_first_name,
                 'last_name' => $order->billing_last_name,
-                'fiscal_responsibility' => $order->fiscal_responsibility,
-                'billing_email' => $email,
-                'department_code' => $order->billing_department_code,
+                'commercial_name' => $order->billing_commercial_name,
+                'vat_responsible' => $order->billing_vat_responsible,
+                'fiscal_responsibilities' => $order->billing_fiscal_responsibilities,
+                'billing_email' => $order->billing_email,
+                'state_code' => $order->billing_state_code,
                 'department' => $order->billing_department,
                 'city_code' => $order->billing_city_code,
+                'postal_code' => $order->billing_postal_code,
                 'marketing_opt_in' => $marketing,
                 'marketing_opt_in_at' => $marketing ? now() : null,
                 // La autorización de datos que dio al comprar es la misma que vale para la cuenta
                 'privacy_accepted_at' => $order->privacy_accepted_at ?? now(),
             ]);
 
-            Order::query()->where('is_guest', true)->whereNull('customer_id')->where('billing_email', $email)->update(['customer_id' => $customer->id]);
+            Order::query()->where('is_guest', true)->whereNull('customer_id')->where('email', $email)->update(['customer_id' => $customer->id]);
 
             return $user->load('customer');
         });

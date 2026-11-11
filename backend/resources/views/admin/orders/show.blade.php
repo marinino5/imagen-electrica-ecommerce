@@ -54,7 +54,7 @@
                             <dd class="col-sm-8">{{ $order->company_name }} <small class="text-body-secondary">· NIT {{ $order->nit }}</small></dd>
                         @elseif ($order->nit)
                             <dt class="col-sm-4">Documento</dt>
-                            <dd class="col-sm-8">{{ $order->billing_doc_type?->value }} {{ $order->nit }}</dd>
+                            <dd class="col-sm-8">{{ $order->billing_id_type?->short() }} {{ $order->nit }}</dd>
                         @endif
                         <dt class="col-sm-4">{{ $order->customer_type->requiresCompanyData() ? 'Contacto' : 'Nombre' }}</dt>
                         <dd class="col-sm-8">{{ $order->contact_name }}</dd>
@@ -76,32 +76,42 @@
                 </div>
             </div>
 
-            @if ($order->billing_doc_type)
+            @if ($order->needs_invoice)
                 <div class="card mb-3">
                     <div class="card-body">
                         <h2 class="h5 mb-1">Datos de facturación electrónica</h2>
-                        <p class="small text-body-secondary mb-3">Listos para Siigo (ver <code>docs/siigo-mapeo.md</code>).</p>
+                        <p class="small text-body-secondary mb-3">Con los nombres de la API de clientes de Siigo (<code>docs/siigo-mapeo.md</code>).</p>
                         <dl class="row mb-0">
-                            <dt class="col-sm-4">Documento</dt>
-                            <dd class="col-sm-8">{{ $order->billing_doc_type->label() }} · {{ $order->billing_doc_number }}{{ $order->billing_doc_dv !== null ? '-'.$order->billing_doc_dv : '' }}</dd>
-                            @if ($order->billing_first_name)
-                                <dt class="col-sm-4">Nombres</dt>
-                                <dd class="col-sm-8">{{ $order->billing_first_name }} {{ $order->billing_last_name }}</dd>
-                            @else
-                                <dt class="col-sm-4">Razón social</dt>
-                                <dd class="col-sm-8">{{ $order->company_name }}</dd>
+                            <dt class="col-sm-4">person_type</dt>
+                            <dd class="col-sm-8">{{ $order->billing_person_type === 'Company' ? 'Company (empresa)' : 'Person (persona natural)' }}</dd>
+                            <dt class="col-sm-4">id_type · identification</dt>
+                            <dd class="col-sm-8">{{ $order->billing_id_type->short() }} <small class="text-body-secondary">({{ $order->billing_id_type->value }})</small> · {{ $order->billing_identification }}{{ $order->billing_check_digit !== null ? '-'.$order->billing_check_digit : '' }}</dd>
+                            <dt class="col-sm-4">name</dt>
+                            <dd class="col-sm-8">{{ $order->billing_person_type === 'Company' ? $order->company_name : trim($order->billing_first_name.' '.$order->billing_last_name) }}</dd>
+                            @if ($order->billing_commercial_name)
+                                <dt class="col-sm-4">commercial_name</dt>
+                                <dd class="col-sm-8">{{ $order->billing_commercial_name }}</dd>
                             @endif
-                            <dt class="col-sm-4">Responsabilidad fiscal</dt>
-                            <dd class="col-sm-8">{{ $order->fiscal_responsibility?->label() }}</dd>
-                            <dt class="col-sm-4">Correo de facturación</dt>
-                            <dd class="col-sm-8">{{ $order->billing_email }}</dd>
-                            <dt class="col-sm-4">Dirección</dt>
-                            <dd class="col-sm-8">{{ $order->billing_address }}<br><small class="text-body-secondary">{{ $order->city }} ({{ $order->billing_city_code }}) · {{ $order->billing_department }} ({{ $order->billing_department_code }})</small></dd>
-                            @if ($order->privacy_accepted_at)
-                                <dt class="col-sm-4">Autorización de datos</dt>
-                                <dd class="col-sm-8">Versión {{ $order->privacy_version }} · {{ $order->privacy_accepted_at->format('d/m/Y H:i') }}</dd>
-                            @endif
+                            <dt class="col-sm-4">vat_responsible</dt>
+                            <dd class="col-sm-8">{{ $order->billing_vat_responsible ? 'Sí (responsable de IVA)' : 'No' }}</dd>
+                            <dt class="col-sm-4">fiscal_responsibilities</dt>
+                            <dd class="col-sm-8">
+                                @foreach ((array) $order->billing_fiscal_responsibilities as $code)
+                                    <span class="badge text-bg-light border">{{ $code }} · {{ \App\Enums\FiscalCode::tryFrom($code)?->label() }}</span>
+                                @endforeach
+                            </dd>
+                            <dt class="col-sm-4">contacts</dt>
+                            <dd class="col-sm-8">{{ trim($order->billing_contact_first_name.' '.$order->billing_contact_last_name) }} · {{ $order->billing_email }}</dd>
+                            <dt class="col-sm-4">address</dt>
+                            <dd class="col-sm-8">{{ $order->billing_address }}<br><small class="text-body-secondary">{{ $order->city }} (city_code {{ $order->billing_city_code }}) · {{ $order->billing_department }} (state_code {{ $order->billing_state_code }}) · {{ $order->billing_country_code }}{{ $order->billing_postal_code ? ' · '.$order->billing_postal_code : '' }}</small></dd>
                         </dl>
+                    </div>
+                </div>
+            @else
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h2 class="h5 mb-1">Facturación electrónica</h2>
+                        <p class="mb-0 text-body-secondary">El cliente no pidió factura a nombre de una persona o empresa.</p>
                     </div>
                 </div>
             @endif
@@ -112,7 +122,7 @@
                         <h2 class="h5 mb-3">Dirección de entrega</h2>
                         <dl class="row mb-0">
                             <dt class="col-sm-4">Departamento</dt>
-                            <dd class="col-sm-8">{{ $order->delivery_department }} ({{ $order->delivery_department_code }})</dd>
+                            <dd class="col-sm-8">{{ $order->delivery_department }} ({{ $order->delivery_state_code }})</dd>
                             <dt class="col-sm-4">Municipio</dt>
                             <dd class="col-sm-8">{{ $order->delivery_city }} ({{ $order->delivery_city_code }})</dd>
                             @if ($order->delivery_neighborhood)
@@ -120,7 +130,7 @@
                                 <dd class="col-sm-8">{{ $order->delivery_neighborhood }}</dd>
                             @endif
                             <dt class="col-sm-4">Dirección</dt>
-                            <dd class="col-sm-8">{{ trim($order->delivery_road.' '.$order->delivery_number) }}{{ $order->delivery_complement ? ', '.$order->delivery_complement : '' }}{{ $order->delivery_same_as_billing ? ' (igual a facturación)' : '' }}</dd>
+                            <dd class="col-sm-8">{{ trim($order->delivery_road.' '.$order->delivery_number) }}{{ $order->delivery_complement ? ', '.$order->delivery_complement : '' }}</dd>
                             @if ($order->delivery_postal_code)
                                 <dt class="col-sm-4">Código postal</dt>
                                 <dd class="col-sm-8">{{ $order->delivery_postal_code }}</dd>

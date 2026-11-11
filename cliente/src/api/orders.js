@@ -18,11 +18,9 @@ export const checkoutApi = {
   create: (payload, { auth = false } = {}) => post('/checkout', payload, { auth }),
 }
 
-export const locationsApi = {
-  /** Departamentos con su código DANE. */
-  departments: () => get('/locations/departments'),
-  /** Municipios de un departamento con su código DANE. */
-  municipalities: (departmentCode) => get(`/locations/departments/${encodeURIComponent(departmentCode)}/municipalities`),
+export const shippingApi = {
+  /** Tipo de envío, zona y valor según el municipio de entrega (DANE). Gratis al llegar a la compra mínima. */
+  quote: (cityCode, subtotal) => get('/shipping/quote', { params: { city_code: cityCode, subtotal } }),
 }
 
 export const guestOrdersApi = {

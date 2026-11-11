@@ -16,7 +16,7 @@
       <tr><td style="height:4px;background:#f26a00;font-size:0;line-height:0;">&nbsp;</td></tr>
       <tr><td style="padding:32px;">
         @php($first = $orders->first())
-        <h1 style="margin:0 0 12px;font-size:22px;line-height:1.2;color:#1C1630;">¡Gracias por tu solicitud, {{ $first->billing_first_name ?: $first->contact_name }}!</h1>
+        <h1 style="margin:0 0 12px;font-size:22px;line-height:1.2;color:#1C1630;">¡Gracias por tu solicitud, {{ strtok($first->contact_name, ' ') }}!</h1>
         <p style="margin:0 0 20px;font-size:15px;line-height:1.6;">Recibimos {{ $orders->count() > 1 ? 'tus solicitudes' : 'tu solicitud' }}. Un asesor te contactará para confirmar el pago y la entrega.</p>
 
         @foreach ($orders as $order)
@@ -41,7 +41,9 @@
           </table>
         @endforeach
 
-        <p style="margin:16px 0 8px;font-size:14px;line-height:1.6;"><strong>Facturación a nombre de:</strong> {{ $first->company_name ?: $first->contact_name }} · {{ $first->billing_doc_type?->value }} {{ $first->billing_doc_number }}{{ $first->billing_doc_dv !== null ? '-'.$first->billing_doc_dv : '' }}</p>
+        @if ($first->needs_invoice)
+          <p style="margin:16px 0 8px;font-size:14px;line-height:1.6;"><strong>Facturación a nombre de:</strong> {{ $first->company_name ?: trim($first->billing_first_name.' '.$first->billing_last_name) }} · {{ $first->billing_id_type?->short() }} {{ $first->billing_identification }}{{ $first->billing_check_digit !== null ? '-'.$first->billing_check_digit : '' }}</p>
+        @endif
         <p style="margin:0 0 12px;font-size:12px;line-height:1.6;color:#5d5672;">Guarda este correo: el enlace es personal y vale {{ config('shop.guest_link_days') }} días. Si no hiciste esta solicitud, responde este mensaje.</p>
       </td></tr>
       <tr><td style="background:#faf9fd;padding:16px 32px;font-size:12px;color:#5d5672;">Imagen Eléctrica · Cra 18 No 24-32, Bucaramanga, Santander</td></tr>
