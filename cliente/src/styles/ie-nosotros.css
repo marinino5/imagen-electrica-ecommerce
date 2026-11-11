@@ -56,7 +56,7 @@
 @media (min-width: 800px) { .ab-gal__grid { grid-template-columns: 1fr 1fr; } .ab-gal__grid > li.is-r { margin-top: 80px; } }
 .slot { position: relative; margin: 0; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 28px; background: var(--ie-lila-200); }
 .slot > img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.slot__grid { position: absolute; inset: 0; background-image: linear-gradient(rgb(74 53 128 / 0.16) 1px, transparent 1px), linear-gradient(90deg, rgb(74 53 128 / 0.16) 1px, transparent 1px); background-size: 32px 32px; -webkit-mask-image: radial-gradient(ellipse at center, transparent 18%, #000 95%); mask-image: radial-gradient(ellipse at center, transparent 18%, #000 95%); }
+.slot__grid { position: absolute; inset: 0; background-image: linear-gradient(rgb(63 45 117 / 0.16) 1px, transparent 1px), linear-gradient(90deg, rgb(63 45 117 / 0.16) 1px, transparent 1px); background-size: 32px 32px; -webkit-mask-image: radial-gradient(ellipse at center, transparent 18%, #000 95%); mask-image: radial-gradient(ellipse at center, transparent 18%, #000 95%); }
 .slot__mark { position: absolute; top: 50%; left: 50%; width: min(32%, 170px); height: auto; opacity: 0.08; transform: translate(-50%, -50%); }
 .slot__body { position: absolute; inset: auto 0 0 0; display: grid; justify-items: start; gap: 10px; padding: clamp(18px, 3vw, 30px); }
 .slot__title { margin: 0; color: var(--ie-violet-950); font-family: var(--font-display); font-size: clamp(1.9rem, 1.4rem + 1.6vw, 2.6rem); font-weight: 700; line-height: 1; }
@@ -144,7 +144,7 @@
 
 /* ---------- 6.7 Cierre claro: tarjeta blanca con arco naranja (sin franja violeta) ---------- */
 .ab-end2 { padding-block: clamp(56px, 8vw, 112px); }
-.ab-end2__card { position: relative; isolation: isolate; overflow: hidden; display: grid; gap: 16px; justify-items: start; padding: clamp(28px, 5vw, 72px); border: 1px solid var(--ie-lila-200); border-radius: 28px; background: #fff; box-shadow: 0 30px 70px -36px rgb(74 53 128 / 0.45); }
+.ab-end2__card { position: relative; isolation: isolate; overflow: hidden; display: grid; gap: 16px; justify-items: start; padding: clamp(28px, 5vw, 72px); border: 1px solid var(--ie-lila-200); border-radius: 28px; background: #fff; box-shadow: 0 30px 70px -36px rgb(63 45 117 / 0.45); }
 .ab-end2__arc { position: absolute; z-index: -1; top: 0; right: 0; width: min(46%, 380px); height: auto; }
 .ab-end2__arc path { fill: none; stroke: var(--ie-orange-500); stroke-width: 2; vector-effect: non-scaling-stroke; }
 .ab-end2__h { max-width: 15ch; margin: 0; font-family: var(--font-display); font-size: clamp(2.6rem, 1.2rem + 5vw, 5rem); font-weight: 700; line-height: 0.95; text-transform: uppercase; color: var(--ie-violet-950); text-wrap: balance; }
@@ -167,7 +167,7 @@
   .ab-store__t3 { grid-column: 4; grid-row: 1; }
   .ab-store__t4 { grid-column: 4; grid-row: 2; }
 }
-.ab-store__tile { position: relative; margin: 0; height: 100%; overflow: hidden; border-radius: 24px; background: var(--ie-lila-200); box-shadow: 0 18px 40px -26px rgb(74 53 128 / 0.5); }
+.ab-store__tile { position: relative; margin: 0; height: 100%; overflow: hidden; border-radius: 24px; background: var(--ie-lila-200); box-shadow: 0 18px 40px -26px rgb(63 45 117 / 0.5); }
 .ab-store__tile img, .ab-store__tile video { display: block; width: 100%; height: 100%; object-fit: cover; }
 .ab-store__tile::after { content: ''; position: absolute; inset: auto 0 0; height: 40%; background: linear-gradient(180deg, transparent, rgb(28 22 48 / 0.7)); pointer-events: none; }
 .ab-store__tile figcaption { position: absolute; z-index: 1; left: 14px; right: 14px; bottom: 12px; color: #fff; font-family: var(--font-display); font-size: clamp(1.05rem, 0.9rem + 0.6vw, 1.4rem); font-weight: 700; line-height: 1.05; }

@@ -6,8 +6,8 @@ Documenta lo que **ya está construido** en `cliente/src/styles/` (no es una pro
 
 | Token | Valor | Uso |
 |---|---|---|
-| `--primary` | `#4A3580` | Encabezados de acento, enlaces, estados activos, botón «Solicitar cotización» (contorno/sólido) |
-| `--primary-dark` | `#3A2A68` | Hover del violeta |
+| `--primary` | `#3F2D75` | Encabezados de acento, enlaces, estados activos, botón «Solicitar cotización» (contorno/sólido) |
+| `--primary-dark` | `#2F2160` | Hover del violeta |
 | `--ink` | `#1C1630` | Texto, títulos y secciones oscuras; es el texto de todo botón naranja |
 | `--night` | `#170f29` | Violeta casi negro: capas sobre fotos, pie, fondo oscuro del reverso de las tarjetas de sector |
 | `--accent` | `#f26a00` | Llamado principal («Agregar al carrito», etiquetas «-X %»); siempre con texto `--ink`, nunca blanco |
@@ -58,13 +58,13 @@ Curva única `--ease-out: cubic-bezier(.22, 1, .36, 1)`. Interfaz entre 160 y 30
 
 ### Tokens y roles
 
-Comprobados contra el logo (píxeles del PNG: naranja ≈ `#F86800` tras cuantizar, violeta ≈ `#4A3580`) y contra `CLAUDE.md`. Donde el valor pedido no coincidía con el de marca, manda la marca.
+Comprobados contra el logo (píxeles del PNG: naranja ≈ `#F86800` tras cuantizar, violeta ≈ `#3F2D75`) y contra `CLAUDE.md`. Donde el valor pedido no coincidía con el de marca, manda la marca.
 
 | Token | Valor | Rol | Nota |
 |---|---|---|---|
 | `--ie-violet-950` | `#1C1630` | Footer y texto de máximo contraste | = `--ink`; coincide con el ≈`#1C1630` pedido |
-| `--ie-violet-700` | `#4A3580` | Bloques extendidos y titulares oscuros | = `--primary` (violeta neutro, afín al pie `#1C1630`) |
-| `--ie-violet-500` | `#4A3580` | Iconos, bordes activos, enlaces | nuevo |
+| `--ie-violet-700` | `#3F2D75` | Bloques extendidos y titulares oscuros | = `--primary` (violeta neutro, afín al pie `#1C1630`) |
+| `--ie-violet-500` | `#3F2D75` | Iconos, bordes activos, enlaces | nuevo |
 | `--ie-lila-200` | `#e6e2f3` | Pedestales, bordes de tarjeta, filas alternas | = `--lavender-2` |
 | `--ie-lila-100` | `#f3f1fa` | Fondos de sección | = `--lav-soft` |
 | `--ie-lila-50` | `#faf9fd` | Fondos de tarjeta suaves y de campos | nuevo |

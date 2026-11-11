@@ -50,10 +50,10 @@
   border-radius: 32px;
   background: #fff;
   color: var(--ie-violet-500);
-  box-shadow: 0 12px 32px rgb(74 53 128 / 0.14);
+  box-shadow: 0 12px 32px rgb(63 45 117 / 0.14);
   transition: border-color 0.24s ease-out, box-shadow 0.24s ease-out;
 }
-.cban__search:focus-within { border-color: var(--ie-orange-500); box-shadow: 0 18px 44px rgb(74 53 128 / 0.22); }
+.cban__search:focus-within { border-color: var(--ie-orange-500); box-shadow: 0 18px 44px rgb(63 45 117 / 0.22); }
 .cban__search input { flex: 1; min-width: 0; height: 100%; border: 0; background: transparent; color: var(--ie-violet-950); font: inherit; font-size: 16px; }
 .cban__search input:focus, .cban__search input:focus-visible { outline: none; }
 .cban__search button {
@@ -164,7 +164,7 @@
   border: 1px solid var(--ie-lila-200);
   border-radius: 12px;
   background: var(--ie-lila-50);
-  box-shadow: 0 8px 22px -14px rgb(74 53 128 / 0.35);
+  box-shadow: 0 8px 22px -14px rgb(63 45 117 / 0.35);
 }
 .cat-fbar .fb { flex-wrap: nowrap; align-items: center; gap: 10px 24px; }
 .cat-fbar .fb__search {
@@ -183,9 +183,9 @@
 /* ---------- Cabecera de familia: solo una a la vez. Únicamente la familia activa (la que se está viendo) queda fija; las demás
    quedan en su sitio, así la anterior no asoma detrás de la barra de filtros. Violeta de marca, no casi negro. ---------- */
 .fgroup:not(.is-spy) .fgh { position: static; }
-.fgh { background: var(--primary); box-shadow: 0 12px 24px -16px rgb(74 53 128 / 0.6); }
+.fgh { background: var(--primary); box-shadow: 0 12px 24px -16px rgb(63 45 117 / 0.6); }
 
 /* ---------- Cabecera de familia: solo una a la vez. Únicamente la familia activa (la que se está viendo) queda fija; las demás
    quedan en su sitio, así la anterior no asoma detrás de la barra de filtros. Violeta de marca, no casi negro. ---------- */
 .fgroup:not(.is-spy) .fgh { position: static; }
-.fgh { background: var(--primary); box-shadow: 0 12px 24px -16px rgb(74 53 128 / 0.6); }
+.fgh { background: var(--primary); box-shadow: 0 12px 24px -16px rgb(63 45 117 / 0.6); }

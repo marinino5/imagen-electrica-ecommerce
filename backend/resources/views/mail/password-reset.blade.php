@@ -9,7 +9,7 @@
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f3f1fa;padding:32px 12px;">
   <tr><td align="center">
     <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;background:#ffffff;border-radius:12px;overflow:hidden;">
-      <tr><td style="background:#4A3580;padding:24px 32px;">
+      <tr><td style="background:#3F2D75;padding:24px 32px;">
         <span style="font-size:24px;font-weight:700;color:#ffffff;letter-spacing:.5px;">Imagen <span style="color:#ffb27a;">Eléctrica</span></span><br>
         <span style="font-size:13px;color:#d6d0ea;">Soluciones Industriales</span>
       </td></tr>
