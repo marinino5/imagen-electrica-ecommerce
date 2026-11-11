@@ -393,3 +393,34 @@
   color: var(--ink);
   font-size: 0.78rem;
 }
+
+/* ---------- Laterales del catálogo (Fase 6): detalles de marca en los márgenes, sin competir con los productos ----------
+   Los márgenes de la página ya no son blanco plano: un degradado lila suave que se aclara hacia el centro, media rueda dentada y un
+   grabado de plano al 4-6 %, y arcos finos violeta y naranja. Todo va detrás (z-index -1), sin eventos y desvanecido hacia el
+   contenido; en celular solo asoma un borde mínimo. */
+.cat-body.bgt.cat-sides {
+  background-color: #fff;
+  background-image: linear-gradient(90deg, var(--ie-lila-200) 0%, var(--ie-lila-100) 9%, #fff 24%, #fff 76%, var(--ie-lila-100) 91%, var(--ie-lila-200) 100%), radial-gradient(circle, rgb(63 45 117 / 0.07) 0.8px, transparent 1px);
+  background-size: 100% 100%, 22px 22px;
+}
+.cat-sides::before, .cat-sides::after {
+  content: ''; position: absolute; top: 0; bottom: 0; z-index: -1; width: clamp(110px, 24vw, 420px); pointer-events: none;
+  background-repeat: repeat-y; -webkit-mask-image: linear-gradient(var(--fade, 90deg), #000 0%, #000 45%, transparent 100%); mask-image: linear-gradient(var(--fade, 90deg), #000 0%, #000 45%, transparent 100%);
+}
+/* Izquierda: media rueda dentada (la mitad queda fuera de pantalla) y el plano eléctrico, cada una repetida a lo largo de la página */
+.cat-sides::before {
+  left: 0; opacity: 0.055;
+  background-image: var(--grab-gear), var(--grab-plan);
+  background-size: min(420px, 38vw), min(300px, 30vw);
+  background-position: -48% 140px, -12% 760px;
+}
+/* Derecha: arcos finos violeta y naranja que abrazan el borde */
+.cat-sides::after {
+  right: 0; --fade: 270deg; opacity: 0.9;
+  background-image: var(--cat-arcs);
+  background-size: min(380px, 40vw);
+  background-position: 120% 80px;
+}
+:root { --cat-arcs: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 600 900%22 fill=%22none%22%3E%3Cg stroke-width=%221.6%22%3E%3Ccircle cx=%22600%22 cy=%22300%22 r=%22150%22 stroke=%22%23EE7C36%22 stroke-opacity=%22.55%22/%3E%3Ccircle cx=%22600%22 cy=%22300%22 r=%22215%22 stroke=%22%233F2D75%22 stroke-opacity=%22.22%22/%3E%3Ccircle cx=%22600%22 cy=%22300%22 r=%22280%22 stroke=%22%233F2D75%22 stroke-opacity=%22.14%22/%3E%3Ccircle cx=%22600%22 cy=%22750%22 r=%22130%22 stroke=%22%233F2D75%22 stroke-opacity=%22.2%22/%3E%3Ccircle cx=%22600%22 cy=%22750%22 r=%22190%22 stroke=%22%23EE7C36%22 stroke-opacity=%22.4%22/%3E%3C/g%3E%3C/svg%3E"); }
+@media (max-width: 960px) { .cat-sides::before { opacity: 0.04; } .cat-sides::after { opacity: 0.7; } }
+@media (prefers-reduced-motion: no-preference) { .cat-sides::before { transition: opacity 0.4s; } }

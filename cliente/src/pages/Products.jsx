@@ -224,7 +224,7 @@ export default function Products() {
     <>
       <CatalogBanner onQuick={search} quick={QUICK} />
 
-      <div className="cat-body bgt bgt-a">
+      <div className="cat-body bgt bgt-a cat-sides">
       <Squares items={[{ w: 200, h: 240, tone: 'lila', rate: 0.08, top: '6%', right: '-60px' }, { w: 140, tone: 'orange', rate: -0.1, top: '48%', left: '-50px' }]} />
       <div className="wrap cat-wrap" ref={resultsRef}>
         {/* Barra de herramientas: hijos directos del bloque alto para que se queden fijos mientras se recorre el catálogo */}
