@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { Activity, ArrowLeft, ArrowRight, BadgeCheck, Download, FileText, Gauge, Headset, Layers, MessageCircle, Minus, Plug, Plus, Search, ShieldCheck, ShoppingCart, Truck, Zap } from 'lucide-react'
 import { catalogApi } from '../api'
@@ -8,7 +9,6 @@ import { useApi } from '../hooks/useApi'
 import { isDirectPurchase } from '../lib/catalog'
 import { formatCOP, formatSpec } from '../lib/format'
 import { cartItem, hpText, imageMatchesBrand, lineBrands, lineImage, lineQuoteItem, twinTag } from '../lib/lines'
-import { WHERE_USED } from '../lib/datasheets'
 import BrandMark from '../components/ui/BrandMark'
 import Eyebrow from '../components/ui/Eyebrow'
 import Gallery from '../components/catalog/Gallery'
@@ -38,7 +38,6 @@ const uniqueSorted = (list) => [...new Set(list.filter((x) => x !== null && x !=
 const TABS = [
   ['spec', 'Especificaciones'],
   ['refs', 'Todas las referencias'],
-  ['used', 'Dónde se usa'],
 ]
 
 // Pestañas accesibles (tablist): flechas, Inicio y Fin cambian de pestaña
@@ -157,10 +156,17 @@ export default function ProductDetail() {
     : []
   const needle = refTerm.trim().toLowerCase()
   const shownRefs = needle ? variants.filter((v) => `${v.label} ${v.sku} ${v.name}`.toLowerCase().includes(needle)) : variants
-  const used = WHERE_USED[line.family?.slug] ?? WHERE_USED.default
   const addRow = (v) => (e) => add(cartItem(line, v), 1, { rect: e.currentTarget.getBoundingClientRect(), image })
   const quoteRow = (v) => (e) => add(cartItem(line, v), 1, { rect: e.currentTarget.getBoundingClientRect(), image }, { asQuote: true })
-  const printSheet = () => window.print()
+  // La ficha se imprime desde un nodo propio colgado de <body> (fuera de #root): el CSS de impresión oculta #root y deja solo la ficha.
+  // El título del documento pasa a ser el nombre del archivo que propone el navegador al «Guardar como PDF».
+  const printSheet = () => {
+    const previous = document.title
+    document.title = `Ficha técnica ${line.name}${current ? ` ${current.sku}` : ''} · ${site.name}`
+    const restore = () => { document.title = previous; window.removeEventListener('afterprint', restore) }
+    window.addEventListener('afterprint', restore)
+    window.print()
+  }
 
   return (
     <div className="fx bg-lila-fade">
@@ -305,7 +311,7 @@ export default function ProductDetail() {
         </Reveal>
       </article>
 
-      {/* Pestañas: Especificaciones · Todas las referencias · Dónde se usa */}
+      {/* Pestañas: Especificaciones · Todas las referencias */}
       <section className="wrap pd-tabs" aria-label="Detalles de la ficha">
         <div className="pd-tabs__list" role="tablist" aria-label="Detalles de la ficha" onKeyDown={tabs.onKeyDown}>
           {TABS.map(([key, label]) => (
@@ -429,20 +435,6 @@ export default function ProductDetail() {
             <p className="pd-panel__lead">Esta línea no tiene referencias publicadas todavía: se cotiza bajo pedido.</p>
           )}
         </div>
-
-        <div role="tabpanel" id="panel-used" aria-labelledby="tab-used" hidden={tabs.tab !== 'used'} className="pd-panel">
-          {/* Las fotos se montan al abrir la pestaña y cargan de inmediato: un lazy dentro de un panel oculto dejaba imágenes sin cargar */}
-          {tabs.tab === 'used' && (
-            <ul className="pd-used">
-              {used.map(([name, photo]) => (
-                <li key={name}>
-                  <img src={photo} alt="" width="480" height="320" loading="eager" decoding="async" onError={(e) => { e.currentTarget.style.visibility = 'hidden' }} />
-                  <span>{name}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
       </section>
 
       {related.length > 0 && (
@@ -465,39 +457,36 @@ export default function ProductDetail() {
         <button type="button" className={purchasable ? 'pd-mbuy__quote' : 'pd-mbuy__buy'} onClick={addQuote}>Cotizar</button>
       </div>
 
-      {/* Ficha para imprimir o guardar en PDF: marca de Imagen Eléctrica y solo especificaciones (sin datos del fabricante) */}
-      <section className="pd-print" aria-hidden="true">
-        <header className="pd-print__head">
-          <img src="/img/logo.png" alt="" width="54" height="60" />
-          <div>
-            <strong>{site.name}</strong>
-            <span>{site.tagline} · {site.address}, {site.city}</span>
-            <span>{site.mainContact.label} · {site.email}</span>
-          </div>
-        </header>
-        <p className="pd-print__title">{line.name}</p>
-        <p>{[line.brand_label, line.category?.name].filter(Boolean).join(' · ')}</p>
-        {image && <img className="pd-print__img" src={image} alt="" width="320" height="320" />}
-        {variants.length > 0 ? (
+      {/* Ficha técnica para imprimir o guardar en PDF (Chrome y Safari): marca de Imagen Eléctrica, la referencia elegida y su tabla */}
+      {createPortal(
+        <section className="pd-print" aria-hidden="true">
+          <header className="pd-print__head">
+            <img src="/img/logo.png" alt="" width="54" height="60" />
+            <div>
+              <strong>{site.name}</strong>
+              <span>{site.tagline}</span>
+            </div>
+            <span className="pd-print__tag">Ficha técnica</span>
+          </header>
+          <h1 className="pd-print__title">{line.name}</h1>
+          <p className="pd-print__ref">{current ? `${current.label} · SKU ${current.sku}` : 'Producto bajo pedido'}</p>
+          {image && <img className="pd-print__img" src={image} alt="" />}
           <table>
-            <thead>
-              <tr><th>Referencia</th><th>SKU</th><th>Potencia</th><th>Velocidad</th><th>Corriente</th><th>Tensión</th><th>Protección</th></tr>
-            </thead>
+            <caption>Especificaciones</caption>
             <tbody>
-              {variants.map((v) => (
-                <tr key={v.sku}>
-                  <td>{v.label}</td><td>{v.sku}</td>
-                  <td>{v.hp != null ? hpText(v.hp) : ''}</td><td>{v.rpm ? `${v.rpm} RPM` : ''}</td>
-                  <td>{v.amp ? `${String(v.amp).replace('.', ',')} A` : ''}</td><td>{v.volt ? `${v.volt} V` : ''}</td><td>{v.ip ?? ''}</td>
-                </tr>
-              ))}
+              {current
+                ? sheetRows.map(([label, value]) => <tr key={label}><th scope="row">{label}</th><td>{value}</td></tr>)
+                : line.spec_chips.map((chip, i) => <tr key={chip}><th scope="row">{`Dato ${i + 1}`}</th><td>{chip}</td></tr>)}
             </tbody>
           </table>
-        ) : (
-          <p>{line.spec_chips.join(' · ')}</p>
-        )}
-        <footer>Ficha elaborada por {site.name}. Precios sujetos a confirmación de un asesor.</footer>
-      </section>
+          <footer>
+            <b>{site.name}</b> · {site.address}, {site.city}<br />
+            WhatsApp y teléfono {site.mainContact.label} · {site.email}<br />
+            Referencia sujeta a disponibilidad. Precio y tiempo de entrega: confirmar con un asesor.
+          </footer>
+        </section>,
+        document.body,
+      )}
     </div>
   )
 }

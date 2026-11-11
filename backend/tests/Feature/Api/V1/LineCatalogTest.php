@@ -59,9 +59,11 @@ class LineCatalogTest extends TestCase
         $this->assertTrue(collect($bajoPedido)->every(fn ($l) => in_array($l['sale_mode'], ['quote', 'on_request'], true)));
         $this->assertGreaterThanOrEqual(7, count($bajoPedido));
 
-        $siemens = $this->getJson('/api/v1/lines?brand=Siemens')->json('data');
-        $this->assertNotEmpty($siemens);
-        $this->assertTrue(collect($siemens)->every(fn ($l) => str_contains($l['brand_label'], 'Siemens')));
+        // Siemens está oculta hasta tener foto oficial: la marca se prueba con Autonics
+        $autonics = $this->getJson('/api/v1/lines?brand=Autonics')->json('data');
+        $this->assertNotEmpty($autonics);
+        $this->assertTrue(collect($autonics)->every(fn ($l) => str_contains($l['brand_label'], 'Autonics')));
+        $this->assertSame([], $this->getJson('/api/v1/lines?brand=Siemens')->json('data'));
 
         $conBodega = $this->getJson('/api/v1/lines?in_stock=1')->json('data');
         $this->assertTrue(collect($conBodega)->every(fn ($l) => $l['stock_total'] > 0));
@@ -73,18 +75,18 @@ class LineCatalogTest extends TestCase
         $lineas = $this->getJson('/api/v1/lines?hp_min=5&hp_max=10')->assertOk()->json('data');
         $nombres = collect($lineas)->pluck('name');
 
-        $this->assertTrue($nombres->contains('W22 IEC · carcasa hierro'));
-        $this->assertFalse($nombres->contains('W12 monofásico')); // llega hasta 0,75 HP
-        $this->assertFalse($nombres->contains('Contactores')); // sin potencia en HP
+        $this->assertTrue($nombres->contains('Motor trifásico WEG W22 IEC · carcasa hierro'));
+        $this->assertFalse($nombres->contains('Motor monofásico WEG W12')); // llega hasta 0,75 HP
+        $this->assertFalse($nombres->contains('Contactor WEG CWB')); // sin potencia en HP
     }
 
     public function test_busca_por_sku_nombre_o_variante(): void
     {
         $porSku = $this->getJson('/api/v1/lines?q=15331270')->json('data');
-        $this->assertSame(['W22 IEC · carcasa hierro'], collect($porSku)->pluck('name')->all());
+        $this->assertSame(['Motor trifásico WEG W22 IEC · carcasa hierro'], collect($porSku)->pluck('name')->all());
 
         $porNombre = $this->getJson('/api/v1/lines?q=CFW300')->json('data');
-        $this->assertSame('Variador CFW300', $porNombre[0]['name']);
+        $this->assertSame('Variador de frecuencia WEG CFW300', $porNombre[0]['name']);
     }
 
     public function test_rechaza_filtros_invalidos(): void

@@ -34,7 +34,7 @@ class CatalogSeederTest extends TestCase
         // WCG01 y WCG20 recibieron referencias en la Fase 1B: ya no están sin inventario
         $this->assertCount(CatalogData::linesWithoutReferences(), $sinReferencias);
         $this->assertTrue($sinReferencias->every(fn (ProductLine $l) => $l->sale_mode === SaleMode::OnRequest));
-        $this->assertTrue($sinReferencias->contains('name', 'PLC WEG PLC200 y PLC500'));
+        $this->assertTrue($sinReferencias->contains('name', 'PLC WEG PLC500'));
         $this->assertTrue($sinReferencias->contains('name', 'Instrumentos de medición Fluke'));
     }
 

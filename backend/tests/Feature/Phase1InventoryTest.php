@@ -76,7 +76,7 @@ class Phase1InventoryTest extends TestCase
 
     public function test_medicion_incluye_los_instrumentos_de_panel_y_las_lineas_de_wcg_ya_tienen_referencias(): void
     {
-        $this->assertTrue(ProductLine::where('slug', 'medidores-e-instrumentos-de-panel')->exists());
+        $this->assertTrue(ProductLine::where('slug', 'amperimetro-analogo-chint')->exists());
         $this->assertGreaterThan(0, ProductLine::where('slug', 'motorreductor-sinfin-wcg01')->firstOrFail()->variants()->count());
         $this->assertSame(SaleMode::Quote, ProductLine::where('slug', 'motorreductor-sinfin-wcg01')->firstOrFail()->sale_mode);
     }

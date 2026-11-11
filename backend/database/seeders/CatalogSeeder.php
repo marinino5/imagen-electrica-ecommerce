@@ -35,9 +35,10 @@ class CatalogSeeder extends Seeder
 
     /**
      * Líneas ocultas hasta tener su foto oficial (regla de fotos de producto: nunca se publica sin foto de la marca).
-     * Match Drive: no se encontró foto oficial del motor; al conseguirla, quitar la línea de aquí y activarla en el panel.
+     * Match Drive y los dos productos Siemens no tienen foto oficial disponible; PLC200 tampoco. Al conseguirla, quitar la línea de aquí
+     * y activarla en el panel.
      */
-    public const HIDDEN_UNTIL_PHOTO = ['Motores Match Drive'];
+    public const HIDDEN_UNTIL_PHOTO = ['Motor monofásico Match Drive', 'Contactor Siemens 3RT2', 'Contacto auxiliar Siemens 3RH2', 'PLC WEG PLC200'];
 
     public function run(): void
     {
@@ -105,7 +106,7 @@ class CatalogSeeder extends Seeder
         $mainName = $row['brand_label'] ? explode(' · ', $row['brand_label'])[0] : null;
         $mainBrand = $mainName ? Brand::firstOrCreate(['slug' => Str::slug($mainName)], ['name' => $mainName]) : null;
 
-        $line = ProductLine::firstOrCreate(['slug' => Str::slug($row['name'])], [
+        $line = ProductLine::firstOrCreate(['slug' => $row['slug'] ?? Str::slug($row['name'])], [
             'category_id' => $category->id,
             'brand_id' => $mainBrand?->id,
             'brand_label' => $row['brand_label'],
