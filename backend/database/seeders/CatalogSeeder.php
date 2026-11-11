@@ -8,6 +8,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductLine;
+use App\Services\CatalogPriceService;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -18,7 +19,8 @@ use Illuminate\Support\Str;
  * Los datos salen de database/data/catalogo.json, que se genera con
  * docs/datos/generar_catalogo.py desde el Excel de inventario y el portafolio.
  * Los precios del Excel son de prueba: cada referencia queda con price_is_simulated. Las referencias de la Fase 1B no traen
- * precio (todas se cotizan) y cada una lleva su foto en `image`.
+ * precio en el JSON: reciben un precio de referencia (price_source) al final del seeder, salvo reductores y motorreductores,
+ * que se cotizan. Cada una lleva su foto en `image`.
  *
  * Idempotente: busca por slug (familias, categorías, líneas) y por sku (referencias);
  * lo que ya existe no se modifica, así no se pisan precios ni stock cambiados después.
@@ -45,6 +47,9 @@ class CatalogSeeder extends Seeder
                 $categories[$row['family'].'|'.$row['category']] ??= $this->category($family, $row['category']);
                 $this->seedLine($row, $categories[$row['family'].'|'.$row['category']], ++$order);
             }
+
+            // Precios de referencia (price_source = referencia) de las referencias nuevas: la empresa los confirma después
+            app(CatalogPriceService::class)->loadReferencePrices();
         });
     }
 

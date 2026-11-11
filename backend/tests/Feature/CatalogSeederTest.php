@@ -43,8 +43,9 @@ class CatalogSeederTest extends TestCase
         $directas = Product::whereNotNull('line_id')->where('sale_mode', SaleMode::Direct->value)->get();
         $cotizar = Product::whereNotNull('line_id')->where('sale_mode', SaleMode::Quote->value)->get();
 
-        $this->assertTrue($directas->every(fn (Product $p) => $p->price_is_simulated && $p->price !== null));
-        $this->assertTrue($cotizar->every(fn (Product $p) => $p->price === null && ! $p->price_is_simulated));
+        // Directas: precio simulado del Excel o precio de referencia de las referencias nuevas (nunca las dos cosas)
+        $this->assertTrue($directas->every(fn (Product $p) => $p->price !== null && ($p->price_is_simulated xor $p->price_source !== null)));
+        $this->assertTrue($cotizar->every(fn (Product $p) => $p->price === null && ! $p->price_is_simulated && $p->price_source === null));
     }
 
     public function test_las_referencias_guardan_la_placa_en_specs(): void

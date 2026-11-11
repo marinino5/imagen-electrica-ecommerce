@@ -12,6 +12,7 @@ class ProductAdminResource extends ProductResource
     {
         return parent::toArray($request) + [
             'is_active' => $this->is_active,
+            'price_source' => $this->price_source?->value,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at,

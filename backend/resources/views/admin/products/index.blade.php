@@ -57,6 +57,13 @@
                     </select>
                 </div>
                 <div class="col-6 col-md-3 col-xl-2">
+                    <label for="price" class="visually-hidden">Origen del precio</label>
+                    <select id="price" name="price" class="form-select">
+                        <option value="">Todo precio</option>
+                        <option value="reference" @selected($filters['price'] === 'reference')>Por confirmar (de referencia)</option>
+                    </select>
+                </div>
+                <div class="col-6 col-md-3 col-xl-2">
                     <label for="status" class="visually-hidden">Estado</label>
                     <select id="status" name="status" class="form-select">
                         <option value="">Todos los estados</option>
@@ -109,7 +116,8 @@
                                 </td>
                                 <td class="d-none d-lg-table-cell">{{ $product->category->name }}</td>
                                 <td class="d-none d-xl-table-cell">{{ $product->sale_mode->label() }}</td>
-                                <td class="text-end d-none d-md-table-cell">{{ Money::cop($product->price, 'Cotizar') }}@if ($product->price_is_simulated) <span class="badge text-bg-warning ms-1" title="El precio viene del Excel de inventario y es de prueba">Simulado</span>@endif</td>
+                                <td class="text-end d-none d-md-table-cell">{{ Money::cop($product->price, 'Cotizar') }}@if ($product->price_is_simulated) <span class="badge text-bg-warning ms-1" title="El precio viene del Excel de inventario y es de prueba">Simulado</span>@endif
+                                    @if ($product->price_source)<div><span class="badge text-bg-info" title="{{ $product->price_source->label() }}">Referencia</span></div>@endif</td>
                                 <td class="text-end text-nowrap">
                                     @if ($product->stock <= 0)
                                         <span class="stock-badge is-out">Agotado</span>

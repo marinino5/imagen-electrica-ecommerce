@@ -1,0 +1,95 @@
+sku,nombre,etiqueta,marca,precio_con_iva_cop,tipo_fuente,fuente_o_nota
+25776,Estación de mando 3 pulsadores y emergencia,3 NA + 1 NC · IP54,Sin marca,54900,estimación,"Estaciones de mando de 3 pulsadores con paro de emergencia, rango típico en distribuidores eléctricos CO"
+XF-3,Interruptor de pedal,10 A,Xurui,59900,estimación,"Interruptor de pedal 10 A, rango típico CO"
+XF-402,Interruptor de pedal,15 A · XF-402,Xurui,69900,estimación,"Interruptor de pedal 15 A, rango típico CO"
+XF-302,Interruptor de pedal,15 A · XF-302,Xurui,64900,estimación,"Interruptor de pedal 15 A, rango típico CO"
+30305,Interruptor on/off 2 posiciones,10 A · 4 terminales,Margirius,7900,estimación,Interruptor on/off 10 A genérico
+30310,Interruptor on/off 2 posiciones,20 A · 4 terminales,Margirius,11900,estimación,Interruptor on/off 20 A genérico
+MZ12283,"Inversor de giro 3 posiciones (0, 1 y 3)",25 A · 3 polos · Merz · MZ12283,Merz,79900,estimación,Conmutador de leva 25 A 3 polos; sin listado CO encontrado
+264181,Inversor de giro 3 posiciones,25 A · 3 polos · EBCHQ,EBCHQ,74900,estimación,Conmutador de leva 25 A 3 polos
+MZ12212,Inversor de giro 3 posiciones,25 A · 3 polos · MZ12212,Merz,79900,estimación,Conmutador de leva 25 A 3 polos
+MZ17191,Inversor de giro 3 posiciones,32 A · 3 polos,Merz,94900,estimación,Conmutador de leva 32 A 3 polos
+MZ12301,Inversor de giro 7 posiciones,25 A · 3 polos · Merz · MZ12301,Merz,99900,estimación,Conmutador de leva 7 posiciones 25 A
+26231,Motor starter on/off con pulsador,Sin amperaje indicado,EBCHQ,54900,estimación,Arrancador on/off con pulsador; amperaje no indicado
+2732682,Protector electrónico de voltaje trifásico,220 V,Magom,89900,estimación,Protector electrónico de voltaje trifásico
+20377,Selector de muletilla 3 posiciones,LAY4-ED53,EBCHQ,24900,estimación,Selector de muletilla 3 posiciones tipo LAY4
+47040,Base para mini relé 8 pines,8 pines,Sin marca,5900,estimación,Base mini relé 8 pines
+9023,Base para relé 11 pines,11 pines · 9023,Sin marca,9900,estimación,Base relé 11 pines
+RUZ1A,Base para relé 11 pines,11 pines · Telemecanique,Telemecanique,24900,estimación,Base relé 11 pines Telemecanique
+REV0023,Mini relé 14 pines,110 VAC · REV0023,Sin marca,28900,estimación,Mini relé 14 pines 110 VAC
+51165,Mini relé 14 pines,110 VAC · 51165,Sin marca,28900,estimación,Mini relé 14 pines 110 VAC
+51160,Mini relé 14 pines,24 VAC,Relpol,34900,estimación,Mini relé 14 pines 24 VAC Relpol
+46983,Mini relé slim 5 pines,12 VDC,Sin marca,15900,estimación,Mini relé slim 5 pines 12 VDC
+46984,Mini relé slim 5 pines,24 VDC · 46984,Sin marca,15900,estimación,Mini relé slim 5 pines 24 VDC
+HQ0040,Relé 8 pines,110 VAC,EBCHQ,24900,estimación,Relé 8 pines 110 VAC; adjditec.com lo ofrece solo por cotización
+47400,Relé 8 pines,24 VDC · EBCHQ,EBCHQ,22900,estimación,Relé 8 pines 24 VDC
+XZ-8/108,Final de carrera de palanca larga con roldana bidireccional,Palanca larga · bidireccional,Xurui,28900,estimación,Final de carrera palanca larga con roldana (referencia de listado en mercadolibre.com.co sin precio visible)
+AP3T72Z11,Final de carrera de varilla ajustable bidireccional,Varilla ajustable,Sin marca,31900,estimación,Final de carrera varilla ajustable
+XZ-15GW22-B,Micro switch de palanca corta con roldana metálica,15 A · palanca corta,Xurui,14900,estimación,Micro switch 15 A palanca corta con roldana
+XZ-15GD-B,Micro switch de pivote corto,15 A · pivote corto,Sin marca,12900,estimación,Micro switch 15 A pivote corto
+M3B,Micro switch de pivote largo,15 A · pivote largo · Kap,KAP,13900,estimación,Micro switch KAP pivote largo 15 A
+XV-156-1C25,Micro switch de palanca larga con roldana,16 A · palanca larga,Sin marca,11900,estimación,Micro switch 16 A palanca larga con roldana
+51965,Baliza multivoltaje tricolor,Tricolor,SPK,89900,estimación,Baliza multivoltaje tricolor
+34035,Aislador de barraje SM-35,35 mm · 10 kV,Sin marca,9900,estimación,Aislador de barraje SM-35
+34051,Aislador de barraje SM-51,51 mm · 15 kV,Sin marca,14900,estimación,Aislador de barraje SM-51
+34087,Aislador escalonado H130 × L132,H130 · L132 · 30 mm × 2 und,Sin marca,24900,estimación,Aislador escalonado H130
+1080052,Bloque de distribución 4 polos 10 derivaciones,160 A · 750 V,Onka,79900,estimación,Bloque de distribución 160 A 4 polos
+963,Transformador de control 30 VA,440/48 V · 30 VA,Wattio,69900,estimación,Transformador de control 30 VA 440/48 V
+TC4Y-N4N,Controlador de temperatura multirango,100-240 VAC · TC4Y-N4N,Autonics,389900,conversión USD,TC4Y: USD 78-111 en QF Automation / HVH Industrial (EE. UU.) x ~4.000 COP + importación
+TZN4S-14R,Controlador de temperatura multirango,100-240 V · TZN4S-14R,Autonics,369900,conversión USD,"Autonics TZN4S, serie equivalente a TC4: USD 80-100 x ~4.000 COP + importación"
+LE8N-BN,Horómetro con batería interna,LE8N-BN,Autonics,159900,conversión USD,"Horómetro Autonics, rango de lista USD 30-40 x ~4.000 COP + importación"
+78192/TM-848-2,Programador semanal para riel DIN,TM-848-2,EBCHQ,129900,estimación,Programador semanal riel DIN
+AT8PMN,Temporizador análogo al reposo,"0,5–10 min · 220 V",Autonics,189900,conversión USD,AT8PMN USD 70 en wolfautomation.com; precio local ajustado a distribuidor CO
+ATE8-41,Temporizador,ATE8-41,Autonics,119900,conversión USD,"Temporizador Autonics serie ATE8, rango USD 25-35"
+AT8SDN,Temporizador estrella-triángulo,AT8SDN,Autonics,179900,conversión USD,"Temporizador estrella-triángulo Autonics AT8SDN, rango USD 40-55"
+ATE-60S,Temporizador estrella-triángulo,ATE-60S,Autonics,149900,conversión USD,Temporizador estrella-triángulo Autonics serie ATE
+PTHVT,Termostato,10 A · 250 V,Plastim,24900,estimación,Termostato 10 A 250 V Plastim
+AMR-H3,Bombillo halógeno H3,100 W · 12 V,American,6900,estimación,Bombillo halógeno H3 100 W 12 V
+P27632,Bombillo LED E27,12 W,Sylvania,6900,tienda CO,Referencia: Sylvania E27 30 W $12.900 y 40 W $15.900 en homecenter.com.co / falabella.com.co; 12 W menor
+P27634,Bombillo LED E27,15 W,Sylvania,8900,tienda CO,Referencia: Sylvania E27 30 W $12.900 y 40 W $15.900 en homecenter.com.co
+LB658-24,Bombillo LED E27,24 W,Lexmana,14900,tienda CO,Referencia: Sylvania E27 30 W $12.900 en falabella.com.co
+TIC01,Bombillo LED RGB GU10,5 W · RGB,Mercury,9900,estimación,Bombillo LED RGB GU10 5 W
+G505W,Bombillo LED E27,5 W · Excelite,Excelite,3900,estimación,Bombillo LED E27 5 W
+IPL05,Panel circular LED de incrustar,12 W,Mercury,14900,tienda CO,Panel LED incrustar 12 W: $10.900-$19.900 en homecenter.com.co y falabella.com.co (Tecnolite $14.900)
+P27180,Panel circular LED de sobreponer,18 W,Sylvania,24900,tienda CO,Panel LED sobreponer redondo 12-18 W: $15.520 (Mercury 12 W) a $19.900 en falabella.com.co
+IPL20,Panel LED cuadrado de incrustar,24 W · luz blanca,Sin marca,29900,estimación,Panel LED cuadrado incrustar 24 W
+KL-2183,Panel LED redondo de incrustar,3 W,Sin marca,8900,estimación,Panel LED redondo 3 W
+VELNST60W,Lámpara de alumbrado público,60 W,VCP,129900,estimación,Luminaria de alumbrado público 60 W
+TTA63,Reflector LED luz blanca,100 W · Titanium,Titanium,69900,estimación,Reflector LED 100 W; en falabella.com.co solo hay reflectores solares 100 W ($118.000)
+ELT33,Reflector LED luz blanca,100 W · Élite,Élite,59900,estimación,Reflector LED 100 W; en falabella.com.co solo hay reflectores solares 100 W ($118.000)
+HL-502,Spot LED,30 W · 6500 K,Karluz,39900,estimación,Spot LED 30 W 6500 K
+C10MTR-AZ,Cinta aislante PVC azul,Azul · 10 m,3M,12900,tienda CO,3M Temflex 165 19 mm x 18 m: pack x10 a $185.960 en yaxa.co (~$18.600 c/u); rollo de 10 m proporcional
+C18MTR-BL,Cinta aislante PVC blanca,Blanca · 18 m,3M,17900,tienda CO,3M Temflex 165 19 mm x 18 m: pack x10 a $185.960 en yaxa.co (~$18.600 c/u)
+C18MTR-MR,Cinta aislante PVC marrón,Marrón · 18 m,3M,17900,tienda CO,3M Temflex 165 19 mm x 18 m: pack x10 a $185.960 en yaxa.co (~$18.600 c/u)
+C10MTR-NJ,Cinta aislante PVC naranja,Naranja · 10 m,3M,12900,tienda CO,3M Temflex 165 19 mm x 18 m: pack x10 a $185.960 en yaxa.co; rollo de 10 m proporcional
+12100,Cinta de enmascarar 18 mm × 40 yardas,18 mm,Cellux,7900,estimación,Cinta de enmascarar 18 mm x 40 yardas
+MA5-12,Batería 12 V 5 Ah,12 V · 5 Ah,Magna,49900,tienda CO,"Referencia: batería sellada 12 V 7,2 Ah a $63.900 en falabella.com.co; 5 Ah menor"
+SS-12-P,Tapón macho acero inoxidable 3/4 NPT,3/4 NPT,Swagelok,129900,conversión USD,"Tapón macho Swagelok SS-12-P, lista USD 25-35 x ~4.000 COP"
+2084,Interruptor doble inteligente,Doble,Ilumax,79900,estimación,Interruptor doble inteligente
+2083,Interruptor sencillo inteligente,Sencillo,Ilumax,59900,estimación,Interruptor sencillo inteligente
+WID0815,Clavija 30/50 A 3P/4H,30/50 A · 1430/50P,Leviton,139900,estimación,Clavija industrial 30/50 A 3P/4H Leviton
+WID0169,Clavija amarilla 5-15P,15 A · 125 V · 515-PV,Leviton,22900,estimación,Clavija 5-15P Leviton
+WID0346,Clavija amarilla 6-20P,20 A · 250 V · 620-PV,Leviton,34900,estimación,Clavija 6-20P Leviton
+WID0111,Tapa 2 huecos,Crema · 80703-I,Leviton,5900,estimación,Tapa 2 huecos Leviton
+WID0109,Tapa 2 huecos,Gris · 80703-GY,Leviton,5900,estimación,Tapa 2 huecos Leviton
+WID0104,Tapa 2 huecos,Naranja · 80703-IG,Leviton,6900,estimación,Tapa 2 huecos Leviton
+WID0089,Tapa para toma doble termoplástica,Gris,Leviton,5900,estimación,Tapa toma doble termoplástica Leviton
+WID0170,Toma aérea amarilla 1-15R,15 A · 125 V · 515-CV,Leviton,24900,estimación,Toma aérea 1-15R Leviton
+WID0814,Toma de incrustar 3P/4H con tierra,50 A · 125/250 V,Leviton,189900,estimación,Toma de incrustar 3P/4H 50 A Leviton
+WID0002,Toma doble blanca NEMA 5-15R,15 A · 125 V,Leviton,24900,tienda CO,Toma doble Leviton 15 A blanca: $17.900-$26.900 en mercadolibre.com.co y falabella.com.co
+WID0440,Toma doble blanca NEMA 5-20R,20 A · 125 V,Leviton,38900,estimación,Toma doble 5-20R; referencia 15 A $17.900-$26.900 en mercadolibre.com.co
+761331,Amperímetro análogo,0-600 A,Chint,49900,estimación,Amperímetro análogo 0-600 A Chint
+70920,Analizador de red digital multifunción 96 × 96,220 V,Nippen,289900,estimación,Analizador de red 96 x 96; en CO suelen venderse por cotización
+63893E00A2,"Motobomba 2 HP descarga 1 1/2""",2 HP,IHM,949900,estimación,"Motobomba 2 HP descarga 1 1/2"""
+801846,"Caja reductora C5 30 HP relación 4,1","30 HP · R 4,1 · 424 rpm",WEG,,cotizar,Reductor / motorreductor: industrial y bajo pedido
+15891264,"Caja reductora C07 6 HP relación 19,5","6 HP · R 19,5 · 90 rpm",WEG,,cotizar,Reductor / motorreductor: industrial y bajo pedido
+15891341,Caja reductora C08 6 HP relación 28,6 HP · R 28 · 62 rpm,WEG,,cotizar,Reductor / motorreductor: industrial y bajo pedido
+4360438,"Motorreductor 0,75 HP relación 13","0,75 HP · R 13 · 130 rpm",Sin marca,,cotizar,Reductor / motorreductor: industrial y bajo pedido
+15889637,Motorreductor C05 T90 2 HP relación 30,C05 · 2 HP · R 30 · 60 rpm,Sin marca,,cotizar,Reductor / motorreductor: industrial y bajo pedido
+15336424,Motorreductor C08 3 HP relación 61,C08 · 3 HP · R 61 · 30 rpm,WEG,,cotizar,Reductor / motorreductor: industrial y bajo pedido
+15884397,Motorreductor C06 T100 3 HP relación 20,C06 · 3 HP · R 20 · 90 rpm,Sin marca,,cotizar,Reductor / motorreductor: industrial y bajo pedido
+16696025,Motorreductor C08 T100 5 HP relación 37,C08 · 5 HP · R 37 · 45 rpm,Sin marca,,cotizar,Reductor / motorreductor: industrial y bajo pedido
+853063,"Motorreductor 7,5 HP relación 5","7,5 HP · R 5 · 350 rpm",Sin marca,,cotizar,Reductor / motorreductor: industrial y bajo pedido
+50102889,Reductor Siti 3 HP relación 32,"3 HP · R 32 · 37,5 rpm",Siti,,cotizar,Reductor / motorreductor: industrial y bajo pedido
+12361705,"Motorreductor M06 1,5 HP relación 31","M06 · 1,5 HP · R 31 · 60 rpm",Sin marca,,cotizar,Reductor / motorreductor: industrial y bajo pedido
+15553051,Motorreductor M06 2 HP relación 30,M06 · 2 HP · R 30 · 60 rpm,Sin marca,,cotizar,Reductor / motorreductor: industrial y bajo pedido

@@ -23,7 +23,7 @@ class ProductIndexRequest extends FormRequest
         return ['q' => ['nullable', 'string', 'max:100']];
     }
 
-    /** @return array{q: ?string, category_id: ?int, brand_id: ?int, sale_mode: ?string, stock: ?string, status: ?string} */
+    /** @return array{q: ?string, category_id: ?int, brand_id: ?int, sale_mode: ?string, stock: ?string, status: ?string, price: ?string} */
     public function filters(): array
     {
         return [
@@ -32,6 +32,7 @@ class ProductIndexRequest extends FormRequest
             'brand_id' => $this->integer('brand_id') ?: null,
             'sale_mode' => $this->enum('sale_mode', SaleMode::class)?->value,
             'stock' => in_array($this->query('stock'), ['low', 'out'], true) ? $this->query('stock') : null,
+            'price' => $this->query('price') === 'reference' ? 'reference' : null,
             'status' => in_array($this->query('status'), ['active', 'inactive', 'trashed'], true) ? $this->query('status') : null,
         ];
     }
