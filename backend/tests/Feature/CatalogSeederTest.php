@@ -74,7 +74,7 @@ class CatalogSeederTest extends TestCase
         // Delta es marca de la vitrina, pero ninguna línea del catálogo es Delta (el PLC es WEG)
         $this->assertDatabaseHas('brands', ['slug' => 'delta']);
         $this->assertFalse(ProductLine::where('name', 'like', '%Delta%')->exists());
-        $this->assertSame('WEG', ProductLine::where('name', 'PLC WEG PLC200 y PLC500')->firstOrFail()->brand_label);
+        $this->assertSame('WEG', ProductLine::where('name', 'PLC WEG PLC500')->firstOrFail()->brand_label);
     }
 
     public function test_el_seeder_de_produccion_llena_el_catalogo_solo_una_vez(): void
