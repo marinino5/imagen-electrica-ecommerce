@@ -13,13 +13,16 @@ El documento de arquitectura se entregó en la sesión 9 (modelo v0.1, 24 oct 20
 | Entidad nueva **newsletter_subscriptions** | `2026_11_08_100200…` | Correo único con consentimiento. |
 | **customers** y **orders**: `type`/`customer_type` (empresa o persona natural); `company_name` y `nit` ahora nulos | `2026_10_25_120000_add_type_to_customers_table` | Corregir las dos columnas y agregar `type`. |
 
-Total actual: 13 tablas de negocio (más las de Laravel: tokens, caché, jobs, sesiones).
+| Entidad nueva **datasheet_downloads** (ficha técnica con cotización en PDF) | `2026_11_13_100000_create_datasheet_downloads_table` | `product_id` (N:1, nulo si se elimina), copia de `sku`, `product_name`, `variant_label`, `quantity`, `price_kind`, `unit_price`, `total`, `document_number` (único), `ip`. |
+| **products**: `price_source` (nulo = precio confirmado; `referencia` = por confirmar) | `2026_11_12_100000_add_price_source_and_reference_prices` | Una columna nueva en el diccionario. |
+
+Total actual: 14 tablas de negocio (más las de Laravel: tokens, caché, jobs, sesiones).
 
 ## C4
 
 - **Nivel 1 (contexto)**: sin cambios de fondo; opcional agregar al visitante sin cuenta (cotización libre).
 - **Nivel 2 (contenedores)**: confirmar que aparezcan: tienda React en Cloudflare Pages (cliente externo, contenedor del sistema), Laravel en Render (panel Blade + API), MySQL en Aiven. Agregar el envío de correo (`FreeQuoteReceived`) si se muestra.
-- **Nivel 3 (componentes)**: agregar `ProductLineService`/`ProductLineRepository`, `QuoteRequestService`, `PromotionService`, `NewsletterService`, `CatalogPriceService` e `InventoryService`; y los controladores `Api\V1\Admin\ProductController` y `Api\V1\Admin\CategoryController` (los dos CRUD completos de la API).
+- **Nivel 3 (componentes)**: agregar `ProductLineService`/`ProductLineRepository`, `QuoteRequestService`, `PromotionService`, `NewsletterService`, `CatalogPriceService` e `InventoryService`; y los controladores `Api\V1\Admin\ProductController` y `Api\V1\Admin\CategoryController` (los dos CRUD completos de la API), más `DatasheetService`/`DatasheetDownloadRepository` y `Api\V1\DatasheetController` (PDF de la ficha con cotización, con laravel-dompdf); en el nivel 2, la tienda en Cloudflare Pages pide el PDF a la API y la API lee de la tienda las imágenes de producto.
 
 ## Fase de esta entrega
 - Segundo CRUD de la API: `/api/v1/admin/categories` (además de `/api/v1/admin/products`).

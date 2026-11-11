@@ -11,17 +11,17 @@ Inventario de **todos** los archivos de imagen y video del sitio (`cliente/publi
 
 ## Resumen
 
-- Archivos listados: **195** (las miniaturas `-sm.webp` van con su imagen).
+- Archivos listados: **199** (las miniaturas `-sm.webp` van con su imagen).
 - Filas «NO permitida»: **0**.
 - Sin fuente registrada: **0**.
 - Por verificar (foto de distribuidor sin marca visible, no se puede probar que sea la imagen del fabricante): **12** ← la empresa debe confirmarlas o fotografiar el producto (`docs/inventario/fotos-para-tomar.md`).
 
 - Imagen oficial de marca · material de distribuidor: 86
-- Libre · uso comercial: 43
+- Libre · uso comercial: 44
 - Imagen de marca publicada por un distribuidor · material de distribuidor: 26
-- Propia de Imagen Eléctrica: 15
+- Logo de marca (uso nominativo para identificar el producto): 16
+- Propia de Imagen Eléctrica: 13
 - POR VERIFICAR · foto de distribuidor sin marca visible: 12
-- Logo de marca (uso nominativo para identificar el producto): 11
 - Libre o imagen oficial de marca · fuente exacta por registrar: 1
 - Datos de OpenStreetMap · ODbL: 1
 
@@ -100,8 +100,6 @@ Inventario de **todos** los archivos de imagen y video del sitio (`cliente/publi
 | `catalogo/nord-motor.webp` | Nord, sitio oficial (nord.com) | Imagen oficial de marca · material de distribuidor | Permitida |
 | `catalogo/onka-1080052.webp` | https://saind.com.co/productos/bloques-de-distribucion-onka/ | Imagen de marca publicada por un distribuidor · material de distribuidor | Permitida |
 | `catalogo/plastim-pthvt.webp` | https://www.plastim.com.tr/urun/pthvt-dual-thermostat/?lang=en | Imagen oficial de marca · material de distribuidor | Permitida |
-| `catalogo/portada-material-electrico.webp` | Composición propia con los recortes leviton-wid0002, ilumax-2083 y 3m-c18mtr-bl (cliente/scripts/componer-portada.py) | Propia de Imagen Eléctrica | Permitida |
-| `catalogo/portada-otros-productos.webp` | Composición propia con los recortes magna-ma5-12, swagelok-ss-12-p y cellux-12100 (cliente/scripts/componer-portada.py) | Propia de Imagen Eléctrica | Permitida |
 | `catalogo/relpol-51160.webp` | https://www.emin.com.co/producto/mini-relevo-12vdc-14-pines-planos-ul-relpol/ | Imagen de marca publicada por un distribuidor · material de distribuidor | Permitida |
 | `catalogo/siti-50102889.webp` | http://siti.nu/siti-reductor/ | Imagen oficial de marca · material de distribuidor | Permitida |
 | `catalogo/soler-palau-extractor-axial.webp` | Soler & Palau, https://www.solerpalau.com/media/catalog/product/T/H/THGT_product4.jpg (THGT) | Imagen oficial de marca · material de distribuidor | Permitida |
@@ -170,8 +168,8 @@ Inventario de **todos** los archivos de imagen y video del sitio (`cliente/publi
 | `fotos/comprar-despacho.webp` | https://www.pexels.com/photo/4487383/ | Libre · uso comercial | Permitida |
 | `fotos/comprar-tecnico.webp` | https://www.pexels.com/photo/33694016/ | Libre · uso comercial | Permitida |
 | `fotos/contacto-asesor.webp` | https://www.pexels.com/photo/17842832/ | Libre · uso comercial | Permitida |
-| `fotos/contacto-asesoria.webp` | https://www.pexels.com/photo/8867631/ | Libre · uso comercial | Permitida |
-| `fotos/contacto-cotizar.webp` | https://www.pexels.com/photo/6615107/ | Libre · uso comercial | Permitida |
+| `fotos/contacto-asesoria.webp` | https://www.pexels.com/photo/34054474/ | Libre · uso comercial | Permitida |
+| `fotos/contacto-cotizar.webp` | https://www.pexels.com/photo/3862135/ | Libre · uso comercial | Permitida |
 | `fotos/contacto-garantia.webp` | https://www.pexels.com/photo/9242911/ | Libre · uso comercial | Permitida |
 | `fotos/contacto-pedido.webp` | https://www.pexels.com/photo/6868621/ | Libre · uso comercial | Permitida |
 | `fotos/contacto.webp` | Pixabay (módulos en un tablero; docs/creditos-media.md, sin página de origen guardada) | Libre · uso comercial | Permitida |
@@ -186,6 +184,7 @@ Inventario de **todos** los archivos de imagen y video del sitio (`cliente/publi
 | `fotos/nosotros-estanteria.webp` | https://www.pexels.com/photo/38195854/ | Libre · uso comercial | Permitida |
 | `fotos/planta-operando.webp` | https://pixabay.com/photos/lab-machine-technology-8499925/ (autor: This_is_Engineering) | Libre · uso comercial | Permitida |
 | `fotos/sector-agroindustria.webp` | https://pixabay.com/photos/industry-factory-working-place-5434589/ (autor: iLights) | Libre · uso comercial | Permitida |
+| `fotos/sector-agua.webp` | https://www.pexels.com/photo/12726229/ | Libre · uso comercial | Permitida |
 | `fotos/sector-alimentos.webp` | https://pixabay.com/photos/cider-bottling-plant-production-line-4484017/ (autor: markdnalee) | Libre · uso comercial | Permitida |
 | `fotos/sector-construccion.webp` | https://pixabay.com/photos/construction-worker-safety-2578410/ (autor: bridgesward) | Libre · uso comercial | Permitida |
 | `fotos/sector-mineria.webp` | https://pixabay.com/photos/landscape-open-pit-mining-mining-4359640/ (autor: 652234) | Libre · uso comercial | Permitida |
@@ -212,15 +211,20 @@ Inventario de **todos** los archivos de imagen y video del sitio (`cliente/publi
 | `como-comprar/cotizar.webp` | Captura de la propia tienda (cliente/scripts/capturar-mockups.mjs) | Propia de Imagen Eléctrica | Permitida |
 | `como-comprar/ficha.webp` | Captura de la propia tienda (cliente/scripts/capturar-mockups.mjs) | Propia de Imagen Eléctrica | Permitida |
 | `como-comprar/portatil.webp` | Captura de la propia tienda (cliente/scripts/capturar-mockups.mjs) | Propia de Imagen Eléctrica | Permitida |
+| `marcas/3m.png` | Wikimedia Commons (File:3M wordmark.svg) | Logo de marca (uso nominativo para identificar el producto) | Permitida |
 | `marcas/abb.svg` | Wikimedia Commons | Logo de marca (uso nominativo para identificar el producto) | Permitida |
 | `marcas/airal.png` | airal.com.co | Logo de marca (uso nominativo para identificar el producto) | Permitida |
+| `marcas/autonics.png` | Wikimedia Commons (File:Autonics logo.png) | Logo de marca (uso nominativo para identificar el producto) | Permitida |
+| `marcas/chint.png` | Wikimedia Commons (File:Chint logo.png) | Logo de marca (uso nominativo para identificar el producto) | Permitida |
 | `marcas/delta.svg` | Wikimedia Commons | Logo de marca (uso nominativo para identificar el producto) | Permitida |
 | `marcas/fluke.svg` | Wikimedia Commons | Logo de marca (uso nominativo para identificar el producto) | Permitida |
+| `marcas/leviton.png` | Wikimedia Commons (File:Leviton logo.svg) | Logo de marca (uso nominativo para identificar el producto) | Permitida |
 | `marcas/nexans.svg` | Wikimedia Commons | Logo de marca (uso nominativo para identificar el producto) | Permitida |
 | `marcas/nidec.svg` | Wikimedia Commons | Logo de marca (uso nominativo para identificar el producto) | Permitida |
 | `marcas/nord.svg` | pattern-library.nord.com | Logo de marca (uso nominativo para identificar el producto) | Permitida |
 | `marcas/siemens.svg` | Wikimedia Commons | Logo de marca (uso nominativo para identificar el producto) | Permitida |
 | `marcas/soler-palau.svg` | solerpalau.com | Logo de marca (uso nominativo para identificar el producto) | Permitida |
+| `marcas/telemecanique.png` | Wikimedia Commons (File:Telemecanique Logo.svg) | Logo de marca (uso nominativo para identificar el producto) | Permitida |
 | `marcas/weg-cestari.svg` | wegcestari.com.br | Logo de marca (uso nominativo para identificar el producto) | Permitida |
 | `marcas/weg.png` | Recorte vectorial de los catálogos oficiales de WEG (static.weg.net) | Logo de marca (uso nominativo para identificar el producto) | Permitida |
 | `fachada.webp` | Material propio de Imagen Eléctrica | Propia de Imagen Eléctrica | Permitida |

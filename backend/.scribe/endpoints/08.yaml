@@ -1,4 +1,4 @@
-name: 'Categorías (administrador)'
+name: 'Productos (administrador)'
 description: |-
 
   Requiere el token de un usuario con rol admin; con otro rol responde 403.
@@ -7,17 +7,17 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: api/v1/admin/categories
+    uri: api/v1/admin/products
     metadata:
       custom: []
-      groupName: 'Categorías (administrador)'
+      groupName: 'Productos (administrador)'
       groupDescription: |-
 
         Requiere el token de un usuario con rol admin; con otro rol responde 403.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Listar categorías'
-      description: 'A diferencia del catálogo público, incluye las categorías inactivas.'
+      title: 'Listar productos'
+      description: 'A diferencia del catálogo público, incluye productos inactivos y permite ver los eliminados.'
       authenticated: true
       deprecated: false
     headers:
@@ -30,9 +30,64 @@ endpoints:
       q:
         custom: []
         name: q
-        description: 'Busca por nombre o slug.'
+        description: 'Busca por nombre o referencia.'
         required: false
-        example: motores
+        example: motor
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      category_id:
+        custom: []
+        name: category_id
+        description: 'Categoría (incluye subcategorías).'
+        required: false
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      brand_id:
+        custom: []
+        name: brand_id
+        description: Marca.
+        required: false
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      sale_mode:
+        custom: []
+        name: sale_mode
+        description: 'direct, quote u on_request.'
+        required: false
+        example: direct
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      stock:
+        custom: []
+        name: stock
+        description: 'low (stock bajo) u out (agotado).'
+        required: false
+        example: low
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: 'active, inactive o trashed (eliminados).'
+        required: false
+        example: active
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -41,7 +96,7 @@ endpoints:
       per_page:
         custom: []
         name: per_page
-        description: 'Categorías por página (1 a 50).'
+        description: 'Productos por página (1 a 50).'
         required: false
         example: 10
         type: integer
@@ -50,7 +105,12 @@ endpoints:
         nullable: false
         deprecated: false
     cleanQueryParameters:
-      q: motores
+      q: motor
+      category_id: 2
+      brand_id: 1
+      sale_mode: direct
+      stock: low
+      status: active
       per_page: 10
     bodyParameters:
       q:
@@ -83,7 +143,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":[{"id":110,"parent_id":null,"name":"Quos velit","slug":"quos-velit","description":"Sunt nihil accusantium harum mollitia.","image_url":null,"sort_order":19,"is_active":true,"created_at":"2026-11-11T00:21:37.000000Z","updated_at":"2026-11-11T00:21:37.000000Z"},{"id":111,"parent_id":null,"name":"Deserunt aut","slug":"deserunt-aut","description":null,"image_url":null,"sort_order":15,"is_active":true,"created_at":"2026-11-11T00:21:37.000000Z","updated_at":"2026-11-11T00:21:37.000000Z"}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"pagination.previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"pagination.next","page":null,"active":false}],"path":"\/","per_page":10,"to":2,"total":2}}'
+        content: '{"data":[{"id":100,"sku":"REF-9365-mi","name":"Motor trif\u00e1sico 4027 HP","slug":"motor-trifasico-4027-hp","short_description":"Fugiat sunt nihil accusantium harum mollitia.","description":null,"image_url":null,"specs":{"voltaje_v":220,"potencia_hp":10},"unit":"unidad","unit_label":"Unidad","price":3636000,"tax_rate":19,"stock":19,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":126,"name":"Perspiciatis quo","slug":"perspiciatis-quo"},"brand":{"id":99,"name":"Empresa Dom\u00ednguez e Hijo","slug":"empresa-dominguez-e-hijo","logo_url":null},"is_active":true,"price_source":null,"created_at":"2026-11-11T02:04:29.000000Z","updated_at":"2026-11-11T02:04:29.000000Z","deleted_at":null},{"id":101,"sku":"REF-0719-qw","name":"Motor trif\u00e1sico 8015 HP","slug":"motor-trifasico-8015-hp","short_description":"Et et modi ipsum nostrum.","description":null,"image_url":null,"specs":{"voltaje_v":220,"potencia_hp":5},"unit":"unidad","unit_label":"Unidad","price":2841000,"tax_rate":19,"stock":22,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":127,"name":"Dolores enim","slug":"dolores-enim"},"brand":{"id":100,"name":"Casanova y Almonte y Asoc.","slug":"casanova-y-almonte-y-asoc","logo_url":null},"is_active":true,"price_source":null,"created_at":"2026-11-11T02:04:29.000000Z","updated_at":"2026-11-11T02:04:29.000000Z","deleted_at":null}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"pagination.previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"pagination.next","page":null,"active":false}],"path":"\/","per_page":10,"to":2,"total":2}}'
         headers: []
         description: ''
     responseFields: []
@@ -98,17 +158,19 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/v1/admin/categories
+    uri: api/v1/admin/products
     metadata:
       custom: []
-      groupName: 'Categorías (administrador)'
+      groupName: 'Productos (administrador)'
       groupDescription: |-
 
         Requiere el token de un usuario con rol admin; con otro rol responde 403.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Crear una categoría'
-      description: 'El slug se genera a partir del nombre. Solo hay dos niveles: `parent_id` debe ser una categoría de primer nivel.'
+      title: 'Crear un producto'
+      description: |-
+        El slug se genera a partir del nombre. `specs` es un objeto con claves fijas en minúscula y la
+        unidad en el nombre. Un producto de venta directa necesita precio.
       authenticated: true
       deprecated: false
     headers:
@@ -120,23 +182,56 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      parent_id:
+      category_id:
         custom: []
-        name: parent_id
-        description: 'Categoría padre (de primer nivel).'
-        required: false
+        name: category_id
+        description: ''
+        required: true
         example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: true
-        nullable: true
+        nullable: false
+        deprecated: false
+      brand_id:
+        custom: []
+        name: brand_id
+        description: ''
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      sku:
+        custom: []
+        name: sku
+        description: 'Referencia, igual al código de Siigo (única).'
+        required: true
+        example: MOT-5HP-220
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
         deprecated: false
       name:
         custom: []
         name: name
         description: ''
         required: true
-        example: 'Motores eléctricos'
+        example: 'Motor trifásico 5 HP'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      short_description:
+        custom: []
+        name: short_description
+        description: ''
+        required: true
+        example: 'Motor para uso industrial'
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -147,27 +242,93 @@ endpoints:
         name: description
         description: ''
         required: false
-        example: 'Motores trifásicos y monofásicos.'
+        example: 'Motor de inducción jaula de ardilla.'
         type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: true
         deprecated: false
-      sort_order:
+      image_url:
         custom: []
-        name: sort_order
-        description: 'Orden en el menú (0 por defecto).'
+        name: image_url
+        description: 'URL pública de la imagen.'
         required: false
-        example: 2
-        type: integer
+        example: 'https://example.com/motor.jpg'
+        type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: true
         deprecated: false
+      unit:
+        custom: []
+        name: unit
+        description: 'unidad, metro, rollo o caja.'
+        required: true
+        example: unidad
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      sale_mode:
+        custom: []
+        name: sale_mode
+        description: 'direct, quote u on_request.'
+        required: true
+        example: direct
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      price:
+        custom: []
+        name: price
+        description: 'Precio con IVA. Obligatorio si es direct.'
+        required: false
+        example: 1500000.0
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      cost_price:
+        custom: []
+        name: cost_price
+        description: 'Costo de compra sin IVA (interno, nunca se muestra).'
+        required: false
+        example: 1100000.0
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      tax_rate:
+        custom: []
+        name: tax_rate
+        description: 'IVA en %.'
+        required: true
+        example: 19.0
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      stock:
+        custom: []
+        name: stock
+        description: ''
+        required: true
+        example: 4
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
       is_active:
         custom: []
         name: is_active
-        description: 'Activa en la tienda (por defecto sí).'
+        description: 'Activo en la tienda (por defecto sí).'
         required: false
         example: true
         type: boolean
@@ -175,18 +336,80 @@ endpoints:
         exampleWasSpecified: true
         nullable: false
         deprecated: false
+      is_featured:
+        custom: []
+        name: is_featured
+        description: 'Destacado (por defecto no).'
+        required: false
+        example: false
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      specs:
+        custom: []
+        name: specs
+        description: 'Especificaciones técnicas.'
+        required: false
+        example:
+          potencia_hp: 5
+          voltaje_v: 220
+        type: object
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'specs[].key':
+        custom: []
+        name: 'specs[].key'
+        description: 'Must match the regex /^[a-z][a-z0-9_]*$/. El campo value no puede tener más de 60 caracteres.'
+        required: true
+        example: k
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      'specs[].value':
+        custom: []
+        name: 'specs[].value'
+        description: 'El campo value no puede tener más de 255 caracteres.'
+        required: true
+        example: c
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
     cleanBodyParameters:
-      parent_id: 1
-      name: 'Motores eléctricos'
-      description: 'Motores trifásicos y monofásicos.'
-      sort_order: 2
+      category_id: 1
+      brand_id: 1
+      sku: MOT-5HP-220
+      name: 'Motor trifásico 5 HP'
+      short_description: 'Motor para uso industrial'
+      description: 'Motor de inducción jaula de ardilla.'
+      image_url: 'https://example.com/motor.jpg'
+      unit: unidad
+      sale_mode: direct
+      price: 1500000.0
+      cost_price: 1100000.0
+      tax_rate: 19.0
+      stock: 4
       is_active: true
+      is_featured: false
+      specs:
+        potencia_hp: 5
+        voltaje_v: 220
+        0:
+          key: k
+          value: c
     fileParameters: []
     responses:
       -
         custom: []
         status: 201
-        content: '{"data":{"id":112,"parent_id":null,"name":"Nihil accusantium","slug":"nihil-accusantium","description":"Modi deserunt aut ab provident perspiciatis.","image_url":null,"sort_order":12,"is_active":true,"created_at":"2026-11-11T00:21:37.000000Z","updated_at":"2026-11-11T00:21:37.000000Z"}}'
+        content: '{"data":{"id":102,"sku":"REF-7432-uw","name":"Motor trif\u00e1sico 7195 HP","slug":"motor-trifasico-7195-hp","short_description":"Nostrum qui commodi incidunt iure.","description":null,"image_url":null,"specs":{"voltaje_v":220,"potencia_hp":5},"unit":"unidad","unit_label":"Unidad","price":1302000,"tax_rate":19,"stock":13,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":128,"name":"Nostrum omnis","slug":"nostrum-omnis"},"brand":{"id":101,"name":"Asociaci\u00f3n Jaramillo e Hija","slug":"asociacion-jaramillo-e-hija","logo_url":null},"is_active":true,"price_source":null,"created_at":"2026-11-11T02:04:29.000000Z","updated_at":"2026-11-11T02:04:29.000000Z","deleted_at":null}}'
         headers: []
         description: ''
     responseFields: []
@@ -201,16 +424,16 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: 'api/v1/admin/categories/{id}'
+    uri: 'api/v1/admin/products/{id}'
     metadata:
       custom: []
-      groupName: 'Categorías (administrador)'
+      groupName: 'Productos (administrador)'
       groupDescription: |-
 
         Requiere el token de un usuario con rol admin; con otro rol responde 403.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Ver una categoría'
+      title: 'Ver un producto'
       description: ''
       authenticated: true
       deprecated: false
@@ -222,7 +445,7 @@ endpoints:
       id:
         custom: []
         name: id
-        description: 'The ID of the category.'
+        description: 'The ID of the product.'
         required: true
         example: 1
         type: integer
@@ -230,10 +453,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      category:
+      product:
         custom: []
-        name: category
-        description: 'Id de la categoría.'
+        name: product
+        description: 'Id del producto.'
         required: true
         example: 1
         type: integer
@@ -243,7 +466,7 @@ endpoints:
         deprecated: false
     cleanUrlParameters:
       id: 1
-      category: 1
+      product: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -253,7 +476,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":113,"parent_id":null,"name":"Aut adipisci","slug":"aut-adipisci","description":"Qui commodi incidunt iure odit.","image_url":null,"sort_order":8,"is_active":true,"created_at":"2026-11-11T00:21:37.000000Z","updated_at":"2026-11-11T00:21:37.000000Z"}}'
+        content: '{"data":{"id":103,"sku":"REF-3724-pw","name":"Motor trif\u00e1sico 2878 HP","slug":"motor-trifasico-2878-hp","short_description":"Commodi incidunt iure odit.","description":"Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.","image_url":null,"specs":{"voltaje_v":440,"potencia_hp":10},"unit":"unidad","unit_label":"Unidad","price":1487000,"tax_rate":19,"stock":17,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":129,"name":"Aliquam veniam","slug":"aliquam-veniam"},"brand":{"id":102,"name":"Cab\u00e1n de Llorente S. de H.","slug":"caban-de-llorente-s-de-h","logo_url":null},"is_active":true,"price_source":null,"created_at":"2026-11-11T02:04:29.000000Z","updated_at":"2026-11-11T02:04:29.000000Z","deleted_at":null}}'
         headers: []
         description: ''
     responseFields: []
@@ -269,17 +492,19 @@ endpoints:
     httpMethods:
       - PUT
       - PATCH
-    uri: 'api/v1/admin/categories/{id}'
+    uri: 'api/v1/admin/products/{id}'
     metadata:
       custom: []
-      groupName: 'Categorías (administrador)'
+      groupName: 'Productos (administrador)'
       groupDescription: |-
 
         Requiere el token de un usuario con rol admin; con otro rol responde 403.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Actualizar una categoría'
-      description: 'Reemplaza la categoría: se envían los mismos campos obligatorios que al crear. El slug no cambia.'
+      title: 'Actualizar un producto'
+      description: |-
+        Reemplaza el producto: se envían los mismos campos obligatorios que al crear. El slug no cambia. Si no
+        se envían `is_active`, `is_featured` o `specs`, esos datos se conservan.
       authenticated: true
       deprecated: false
     headers:
@@ -290,7 +515,7 @@ endpoints:
       id:
         custom: []
         name: id
-        description: 'The ID of the category.'
+        description: 'The ID of the product.'
         required: true
         example: 1
         type: integer
@@ -298,10 +523,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      category:
+      product:
         custom: []
-        name: category
-        description: 'Id de la categoría.'
+        name: product
+        description: 'Id del producto.'
         required: true
         example: 1
         type: integer
@@ -311,27 +536,60 @@ endpoints:
         deprecated: false
     cleanUrlParameters:
       id: 1
-      category: 1
+      product: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      parent_id:
+      category_id:
         custom: []
-        name: parent_id
+        name: category_id
         description: ''
-        required: false
+        required: true
         example: 1
         type: integer
         enumValues: []
         exampleWasSpecified: true
-        nullable: true
+        nullable: false
+        deprecated: false
+      brand_id:
+        custom: []
+        name: brand_id
+        description: ''
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      sku:
+        custom: []
+        name: sku
+        description: ''
+        required: true
+        example: MOT-5HP-220
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
         deprecated: false
       name:
         custom: []
         name: name
         description: ''
         required: true
-        example: 'Motores eléctricos industriales'
+        example: 'Motor trifásico 5 HP'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      short_description:
+        custom: []
+        name: short_description
+        description: ''
+        required: true
+        example: 'Motor para uso industrial'
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -340,48 +598,172 @@ endpoints:
       description:
         custom: []
         name: description
-        description: ''
+        description: 'El campo value no puede tener más de 5000 caracteres.'
         required: false
-        example: 'Motores trifásicos y monofásicos.'
+        example: 'Velit et fugiat sunt nihil accusantium.'
         type: string
         enumValues: []
-        exampleWasSpecified: true
+        exampleWasSpecified: false
         nullable: true
         deprecated: false
-      sort_order:
+      image_url:
         custom: []
-        name: sort_order
-        description: ''
+        name: image_url
+        description: 'Must be a valid URL. El campo value no puede tener más de 2048 caracteres.'
         required: false
-        example: 3
-        type: integer
+        example: 'http://tillman.com/'
+        type: string
         enumValues: []
-        exampleWasSpecified: true
+        exampleWasSpecified: false
         nullable: true
         deprecated: false
-      is_active:
+      unit:
         custom: []
-        name: is_active
-        description: 'Si no se envía, se conserva.'
-        required: false
-        example: true
-        type: boolean
+        name: unit
+        description: ''
+        required: true
+        example: unidad
+        type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         deprecated: false
+      sale_mode:
+        custom: []
+        name: sale_mode
+        description: ''
+        required: true
+        example: direct
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      price:
+        custom: []
+        name: price
+        description: 'Obligatorio si es direct.'
+        required: false
+        example: 1600000.0
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      cost_price:
+        custom: []
+        name: cost_price
+        description: 'El campo value debe ser al menos 0. El campo value no puede ser mayor que 9999999999.99.'
+        required: false
+        example: 18
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      tax_rate:
+        custom: []
+        name: tax_rate
+        description: ''
+        required: true
+        example: 19.0
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      stock:
+        custom: []
+        name: stock
+        description: ''
+        required: true
+        example: 6
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      is_active:
+        custom: []
+        name: is_active
+        description: ''
+        required: false
+        example: false
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      is_featured:
+        custom: []
+        name: is_featured
+        description: ''
+        required: false
+        example: false
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      specs:
+        custom: []
+        name: specs
+        description: 'El campo value no puede tener más de 30 elementos.'
+        required: false
+        example: null
+        type: 'object[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      'specs[].key':
+        custom: []
+        name: 'specs[].key'
+        description: 'Must match the regex /^[a-z][a-z0-9_]*$/. El campo value no puede tener más de 60 caracteres.'
+        required: true
+        example: k
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      'specs[].value':
+        custom: []
+        name: 'specs[].value'
+        description: 'El campo value no puede tener más de 255 caracteres.'
+        required: true
+        example: c
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
     cleanBodyParameters:
-      parent_id: 1
-      name: 'Motores eléctricos industriales'
-      description: 'Motores trifásicos y monofásicos.'
-      sort_order: 3
-      is_active: true
+      category_id: 1
+      brand_id: 1
+      sku: MOT-5HP-220
+      name: 'Motor trifásico 5 HP'
+      short_description: 'Motor para uso industrial'
+      description: 'Velit et fugiat sunt nihil accusantium.'
+      image_url: 'http://tillman.com/'
+      unit: unidad
+      sale_mode: direct
+      price: 1600000.0
+      cost_price: 18
+      tax_rate: 19.0
+      stock: 6
+      is_active: false
+      is_featured: false
+      specs:
+        -
+          key: k
+          value: c
     fileParameters: []
     responses:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":114,"parent_id":null,"name":"Harum mollitia","slug":"harum-mollitia","description":null,"image_url":null,"sort_order":0,"is_active":true,"created_at":"2026-11-11T00:21:37.000000Z","updated_at":"2026-11-11T00:21:37.000000Z"}}'
+        content: '{"data":{"id":104,"sku":"REF-7680-wp","name":"Motor trif\u00e1sico 2977 HP","slug":"motor-trifasico-2977-hp","short_description":"Qui commodi incidunt iure odit.","description":"Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.","image_url":null,"specs":{"voltaje_v":440,"potencia_hp":10},"unit":"unidad","unit_label":"Unidad","price":1487000,"tax_rate":19,"stock":17,"in_stock":true,"sale_mode":"direct","sale_mode_label":"Venta directa","is_featured":false,"category":{"id":130,"name":"Corporis dolorem","slug":"corporis-dolorem"},"brand":{"id":103,"name":"Marroqu\u00edn, Ram\u00edrez y Chapa SRL","slug":"marroquin-ramirez-y-chapa-srl","logo_url":null},"is_active":true,"price_source":null,"created_at":"2026-11-11T02:04:29.000000Z","updated_at":"2026-11-11T02:04:29.000000Z","deleted_at":null}}'
         headers: []
         description: ''
     responseFields: []
@@ -396,17 +778,17 @@ endpoints:
     custom: []
     httpMethods:
       - DELETE
-    uri: 'api/v1/admin/categories/{id}'
+    uri: 'api/v1/admin/products/{id}'
     metadata:
       custom: []
-      groupName: 'Categorías (administrador)'
+      groupName: 'Productos (administrador)'
       groupDescription: |-
 
         Requiere el token de un usuario con rol admin; con otro rol responde 403.
       subgroup: ''
       subgroupDescription: ''
-      title: 'Eliminar una categoría'
-      description: 'Si la categoría tiene productos o subcategorías responde 422: primero hay que moverlos.'
+      title: 'Eliminar un producto'
+      description: 'Borrado lógico: el producto desaparece de la tienda pero los pedidos antiguos conservan su copia.'
       authenticated: true
       deprecated: false
     headers:
@@ -417,7 +799,7 @@ endpoints:
       id:
         custom: []
         name: id
-        description: 'The ID of the category.'
+        description: 'The ID of the product.'
         required: true
         example: 1
         type: integer
@@ -425,10 +807,10 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      category:
+      product:
         custom: []
-        name: category
-        description: 'Id de la categoría.'
+        name: product
+        description: 'Id del producto.'
         required: true
         example: 1
         type: integer
@@ -438,7 +820,7 @@ endpoints:
         deprecated: false
     cleanUrlParameters:
       id: 1
-      category: 1
+      product: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -450,13 +832,7 @@ endpoints:
         status: 204
         content: '{}'
         headers: []
-        description: Eliminada
-      -
-        custom: []
-        status: 422
-        content: '{"message": "No se puede eliminar «Motores» porque tiene 3 productos. Muévelos a otra categoría primero."}'
-        headers: []
-        description: 'Tiene productos'
+        description: Eliminado
     responseFields: []
     auth:
       - headers

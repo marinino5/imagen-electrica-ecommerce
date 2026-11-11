@@ -4,9 +4,9 @@ Estado tras la revisión del catálogo (114 líneas, 445 referencias). Se gener�
 
 - **Imagen correcta**: «sí» = foto del producto y de la marca; «aprox.» = foto oficial de la misma familia y marca pero no de ese modelo (se reemplaza al conseguir la foto exacta); «no» = sin foto o con foto retirada. Las fotos de referencias nuevas de distribuidores colombianos se revisaron una por una (sin marca de agua, sin mostrador ni bodega); su origen exacto está en `docs/licencias-imagenes.md`.
 - **Especificaciones completas**: toda referencia trae tipo y marca; la serie se agrega cuando sale del nombre o del código de la referencia. Los datos técnicos son los de la descripción del inventario y, para los WEG, se contrastaron con el catálogo oficial (ver `docs/correcciones-especificaciones.md`).
-- **Ficha técnica funciona**: «Imprimir ficha» abre un PDF con logo, nombre, imagen, referencia, tabla de especificaciones, SKU y contacto. Se comprobó en Chrome generando el PDF de cada una de las líneas publicadas (todas válidas, una página, con logo, tabla y contacto). **Safari** (macOS/iOS) no se pudo probar desde este equipo: usa la misma hoja de estilos de impresión (`@media print`, `-webkit-print-color-adjust`), pero hay que abrir una ficha en Safari antes de la sustentación.
+- **Ficha técnica funciona**: el botón «Descargar ficha y cotización» pide el PDF al backend (`GET /api/v1/datasheet?sku=…&quantity=…`, laravel-dompdf) con logo, número IE-FT-AAAA-NNNNN, fecha y vigencia, imagen, especificaciones de la referencia elegida, valor (cantidad, unitario, subtotal, IVA y total; «sujeto a cotización» si no hay precio; nota si es de referencia) y contacto. Cada PDF queda registrado y se ve en el panel (Fichas descargadas). Se probó en el navegador descargando la ficha de 6 familias distintas, con precio de venta, precio de referencia y solo cotización; todos salieron bien.
 
-Resumen: imagen sí 89 · aprox. 20 · no 5 · especificaciones completas 78 · parciales 29.
+Resumen: imagen sí 89 · aprox. 20 · no 5 · especificaciones completas 79 · parciales 28.
 
 | Línea | Referencias | Imagen correcta | Especificaciones completas | Ficha técnica funciona | Cambios hechos |
 |---|---|---|---|---|---|
@@ -111,9 +111,9 @@ Resumen: imagen sí 89 · aprox. 20 · no 5 · especificaciones completas 78 · 
 | Reflector LED Élite | 1 | sí | sí (tipo, marca, serie y datos técnicos) | sí | antes «Reflectores LED»; tipo/serie en especificaciones |
 | Spot LED Karluz | 1 | sí | sí (tipo, marca y datos técnicos) | sí | antes «Spots, bases y emergencia»; tipo en especificaciones |
 | Cinta aislante PVC 3M Temflex | 4 | sí | sí (tipo, marca, serie y datos técnicos) | sí | antes «Cintas aislantes»; tipo/serie en especificaciones |
-| Cinta de enmascarar Cellux | 1 | sí | sí (tipo, marca y datos técnicos) | sí | antes «Insumos, herramientas y repuestos»; tipo en especificaciones |
-| Batería sellada Magna | 1 | no (foto retirada: era de otra batería; falta fotografiar la 12 V 5 Ah) | sí (tipo, marca y datos técnicos) | sí | antes «Insumos, herramientas y repuestos»; tipo en especificaciones |
-| Tapón macho Swagelok | 1 | sí | parcial (tipo, marca y referencia; faltan datos técnicos que la empresa no entregó) | sí | antes «Insumos, herramientas y repuestos»; tipo/serie en especificaciones |
+| Cinta de enmascarar Cellux 18 mm | 1 | sí | sí (tipo, marca y datos técnicos) | sí | antes «Insumos, herramientas y repuestos»; tipo en especificaciones |
+| Batería Magna 12 V 5 Ah | 1 | no (sin foto) | sí (tipo, marca y datos técnicos) | sí | antes «Insumos, herramientas y repuestos»; tipo en especificaciones |
+| Tapón macho Swagelok 3/4 NPT acero inoxidable | 1 | sí | sí (tipo, marca, serie y datos técnicos) | sí | antes «Insumos, herramientas y repuestos»; tipo/serie en especificaciones |
 | Interruptor inteligente Ilumax | 2 | sí | parcial (tipo, marca y referencia; faltan datos técnicos que la empresa no entregó) | sí | antes «Interruptores y tomas inteligentes»; tipo en especificaciones |
 | Tapa para toma Leviton | 4 | sí | parcial (tipo, marca y referencia; faltan datos técnicos que la empresa no entregó) | sí | antes «Tomas, clavijas y tapas Leviton»; tipo en especificaciones |
 | Toma doble Leviton | 2 | sí | sí (tipo, marca y datos técnicos) | sí | antes «Tomas, clavijas y tapas Leviton»; tipo en especificaciones |

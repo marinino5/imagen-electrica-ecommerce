@@ -71,7 +71,12 @@ class CatalogSeeder extends Seeder
                 ['name' => $family['name'], 'description' => $family['description'], 'sort_order' => 100 + $i, 'is_active' => true],
             );
 
-            // Una familia que ya existía como categoría raíz antigua toma el orden del portafolio
+            // Una familia que ya existía como categoría raíz antigua toma el nombre (con mayúsculas) y el orden del portafolio
+            if ($category->name !== $family['name']) {
+                $category->update(['name' => $family['name']]);
+            }
+
+            // (orden del portafolio)
             if ($category->sort_order !== 100 + $i) {
                 $category->update(['sort_order' => 100 + $i]);
             }

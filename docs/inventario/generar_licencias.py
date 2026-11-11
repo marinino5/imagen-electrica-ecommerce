@@ -89,7 +89,7 @@ FOTOS = {
     'almacen': ('Pixabay (almacén de estanterías altas; registrado en docs/creditos-media.md, sin página de origen guardada)', LIBRE),
     'contacto': ('Pixabay (módulos en un tablero; docs/creditos-media.md, sin página de origen guardada)', LIBRE),
     'comprar-caja': PEX(11781094), 'comprar-despacho': PEX(4487383), 'comprar-tecnico': PEX(33694016),
-    'contacto-asesor': PEX(17842832), 'contacto-asesoria': PEX(8867631), 'contacto-cotizar': PEX(6615107),
+    'contacto-asesor': PEX(17842832), 'contacto-asesoria': PEX(34054474), 'contacto-cotizar': PEX(3862135), 'sector-agua': PEX(12726229),
     'contacto-garantia': PEX(9242911), 'contacto-pedido': PEX(6868621), 'hero-motores': PEX(34207364),
     'nosotros-asesoria': PEX(34054501), 'nosotros-despacho': PEX(4480982), 'nosotros-estanteria': PEX(38195854),
 }
@@ -109,7 +109,7 @@ for p in sorted((PUB / 'img/como-comprar').glob('*.webp')):
     rows_misc.append((f'como-comprar/{p.name}', 'Captura de la propia tienda (cliente/scripts/capturar-mockups.mjs)', PROPIA, 'Permitida'))
 LOGOS = {'abb.svg': 'Wikimedia Commons', 'delta.svg': 'Wikimedia Commons', 'fluke.svg': 'Wikimedia Commons', 'nexans.svg': 'Wikimedia Commons', 'nidec.svg': 'Wikimedia Commons',
          'siemens.svg': 'Wikimedia Commons', 'nord.svg': 'pattern-library.nord.com', 'soler-palau.svg': 'solerpalau.com', 'weg-cestari.svg': 'wegcestari.com.br',
-         'airal.png': 'airal.com.co', 'weg.png': 'Recorte vectorial de los catálogos oficiales de WEG (static.weg.net)'}
+         'airal.png': 'airal.com.co', 'leviton.png': 'Wikimedia Commons (File:Leviton logo.svg)', '3m.png': 'Wikimedia Commons (File:3M wordmark.svg)', 'telemecanique.png': 'Wikimedia Commons (File:Telemecanique Logo.svg)', 'autonics.png': 'Wikimedia Commons (File:Autonics logo.png)', 'chint.png': 'Wikimedia Commons (File:Chint logo.png)', 'weg.png': 'Recorte vectorial de los catálogos oficiales de WEG (static.weg.net)'}
 for p in sorted((PUB / 'img/marcas').iterdir()):
     rows_misc.append((f'marcas/{p.name}', LOGOS.get(p.name, '—'), LOGO if p.name in LOGOS else SIN, 'Permitida' if p.name in LOGOS else 'Falta fuente'))
 for n in ['fachada.webp', 'logo.png', 'logo-ajustado.png', 'logo-blanco.png', 'logo-blanco-ajustado.png']:

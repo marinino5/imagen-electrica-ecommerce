@@ -16,7 +16,7 @@ const slides = [
   {
     id: 'automatizacion',
     short: 'Automatización',
-    tag: 'Control y automatización',
+    tag: 'Control y Automatización',
     title: 'Automatización',
     highlight: 'y control WEG',
     text: 'Variadores, arrancadores, contactores y guardamotores para arrancar, proteger y controlar tus motores.',
@@ -32,7 +32,7 @@ const slides = [
   {
     id: 'motorreductores',
     short: 'Motorreductores',
-    tag: 'Reductores y motorreductores',
+    tag: 'Reductores y Motorreductores',
     title: 'Motorreductores',
     highlight: 'WEG Cestari',
     text: 'Para bandas, mezcladoras y elevadores: sinfín y corona o helicoidales, listos para tu máquina.',
@@ -43,7 +43,7 @@ const slides = [
   {
     id: 'motores',
     short: 'Motores',
-    tag: 'Motores eléctricos',
+    tag: 'Motores Eléctricos',
     title: 'Motores',
     highlight: 'industriales WEG',
     text: 'Del monofásico de taller al trifásico de planta, con la referencia exacta que tu equipo necesita.',

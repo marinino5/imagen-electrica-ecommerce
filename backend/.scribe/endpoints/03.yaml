@@ -1,22 +1,21 @@
-name: Boletín
+name: 'Ficha técnica (público)'
 description: ''
 endpoints:
   -
     custom: []
     httpMethods:
-      - POST
-    uri: api/v1/newsletter
+      - GET
+    uri: api/v1/datasheet
     metadata:
       custom: []
-      groupName: Boletín
+      groupName: 'Ficha técnica (público)'
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Suscribirse al boletín'
+      title: 'Descargar ficha y cotización (PDF)'
       description: |-
-        Público: no necesita token. Límite de 5 intentos por minuto y 20 por hora desde la misma IP. Se guarda el correo,
-        la fecha y la IP de la autorización de tratamiento de datos (Ley 1581 de 2012). Un correo repetido responde igual.
-        `website` es un campo trampa contra bots: debe enviarse vacío o no enviarse.
+        Genera el PDF con la marca de Imagen Eléctrica: producto, referencia, especificaciones, valor (el mismo precio de la tienda,
+        o «sujeto a cotización») y datos de contacto. Cada descarga queda registrada con su número de documento. No requiere token.
       authenticated: false
       deprecated: false
     headers:
@@ -24,54 +23,78 @@ endpoints:
       Accept: application/json
     urlParameters: []
     cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      email:
+    queryParameters:
+      sku:
         custom: []
-        name: email
-        description: Correo.
+        name: sku
+        description: 'Referencia (SKU) elegida.'
         required: true
-        example: laura@empresa.co
+        example: '12220434'
         type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         deprecated: false
-      privacy_accepted:
+      quantity:
         custom: []
-        name: privacy_accepted
-        description: 'Autoriza el tratamiento de datos.'
-        required: true
-        example: true
-        type: boolean
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      website:
-        custom: []
-        name: website
-        description: 'El campo value no puede tener más de 255 caracteres.'
+        name: quantity
+        description: 'Cantidad (1 por defecto; decimales solo en productos por metro).'
         required: false
-        example: m
+        example: 2.0
+        type: number
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanQueryParameters:
+      sku: '12220434'
+      quantity: 2.0
+    bodyParameters:
+      sku:
+        custom: []
+        name: sku
+        description: 'El campo value no puede tener más de 60 caracteres.'
+        required: true
+        example: b
         type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      quantity:
+        custom: []
+        name: quantity
+        description: 'El campo value debe ser al menos 0.01. El campo value no puede ser mayor que 100000.'
+        required: false
+        example: 22
+        type: number
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      email: laura@empresa.co
-      privacy_accepted: true
-      website: m
+      sku: b
+      quantity: 22
     fileParameters: []
     responses:
       -
         custom: []
-        status: 201
-        content: '{"data":{"message":"Listo, te suscribimos al boletín."}}'
+        status: 200
+        content: binary
         headers: []
-        description: ''
+        description: PDF
+      -
+        custom: []
+        status: 404
+        content: '{"message": "No se encontró lo que buscas."}'
+        headers: []
+        description: 'Referencia inexistente o inactiva'
+      -
+        custom: []
+        status: 422
+        content: '{"message": "El campo cantidad debe ser al menos 0.01."}'
+        headers: []
+        description: 'Cantidad inválida'
     responseFields: []
     auth: []
     controller: null
