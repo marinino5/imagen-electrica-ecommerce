@@ -105,3 +105,20 @@
 .qa__go--quote { background: var(--primary); color: #fff; }
 .qa__go--quote:hover { background: var(--primary-dark); }
 @media (prefers-reduced-motion: reduce) { .qa__btn, .qa__go { transition: none; } }
+
+/* ---------- Botón con texto de la tarjeta: Agregar al carrito (naranja) · Cotizar (violeta) · Agotado · cotizar (lila) ---------- */
+.qa__pill {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 44px; padding: 0 16px;
+  border: 0; border-radius: 999px; background: var(--accent); color: var(--ink); font: inherit; font-size: 13.5px; font-weight: 700; line-height: 1; cursor: pointer;
+  transition: background 0.2s, transform 0.16s var(--ease-out);
+}
+.qa__pill:hover { background: var(--accent-hover); }
+.qa__pill:active { transform: scale(0.97); }
+.qa__pill.is-done { background: var(--primary); color: #fff; }
+.qa__pill.is-quote { background: var(--primary); color: #fff; }
+.qa__pill.is-quote:hover { background: var(--primary-dark); }
+.qa__pill.is-out { border: 1px solid var(--lav-3); background: var(--ie-lila-100); color: var(--primary); }
+.qa__pill.is-out:hover { background: var(--ie-lila-200); }
+.qa__short { display: none; }
+@media (max-width: 599px) { .qa__long { display: none; } .qa__short { display: inline; } .qa__pill { padding: 0 10px; font-size: 13px; } }
+@media (prefers-reduced-motion: reduce) { .qa__pill { transition: none; } }

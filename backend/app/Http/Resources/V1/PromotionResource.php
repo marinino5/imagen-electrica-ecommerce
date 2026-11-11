@@ -19,6 +19,9 @@ class PromotionResource extends JsonResource
     public function toArray(Request $request): array
     {
         $line = $this->line;
+        $purchasable = $line->variants->filter(fn ($v) => $v->sale_mode === SaleMode::Direct && $v->price !== null);
+        // Promoción de una referencia: se compra si esa referencia tiene stock; de toda la línea: si alguna lo tiene
+        $stocked = $this->product ? ($purchasable->contains('id', $this->product->id) && $this->product->stock > 0) : $purchasable->contains(fn ($v) => $v->stock > 0);
         $base = $this->basePrice();
         $final = $this->special_price !== null
             ? (float) $this->special_price
@@ -45,6 +48,9 @@ class PromotionResource extends JsonResource
                 'category' => $line->category?->only(['name', 'slug']),
                 'image' => $line->image_key,
                 'image_url' => $line->image_url,
+                'price_from' => $purchasable->isEmpty() ? null : (float) $purchasable->min('price'),
+                'buyable' => $stocked,
+                'price_is_reference' => $purchasable->contains(fn ($v) => $v->price_source !== null),
             ],
         ];
     }

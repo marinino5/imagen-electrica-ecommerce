@@ -180,3 +180,30 @@ body .site-header:not(.is-solid) { background: transparent; box-shadow: none; }
 .bgt.bgt-a { background-color: var(--ie-lila-50); background-image: radial-gradient(circle, rgb(80 0 120 / 0.08) 0.8px, transparent 1px), linear-gradient(180deg, #fff 0%, var(--ie-lila-50) 100%); background-size: 22px 22px, 100% 100%; }
 
 :root { --grab-gear: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22 fill=%22none%22 stroke=%22%23500078%22 stroke-width=%222%22%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22150%22 stroke-width=%2230%22 stroke-dasharray=%2219.6 19.6%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22132%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22104%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%2258%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%2222%22/%3E%3Cpath d=%22M200 96V142M200 258V304M96 200H142M258 200H304M126 126l32 32M242 242l32 32M274 126l-32 32M158 242l-32 32%22/%3E%3C/svg%3E"); --grab-plan: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 260%22 fill=%22none%22 stroke=%22%23500078%22 stroke-width=%222%22%3E%3Cpath d=%22M10 130H70l10-26 20 52 20-52 20 52 10-26H190%22/%3E%3Ccircle cx=%22205%22 cy=%22130%22 r=%2215%22/%3E%3Cpath d=%22M220 130H260M260 100V160M274 108V152M274 130H390%22/%3E%3Cpath d=%22M60 30H340V60M60 30V90M340 230H60V200%22/%3E%3Ccircle cx=%2260%22 cy=%2230%22 r=%225%22/%3E%3Ccircle cx=%22340%22 cy=%2260%22 r=%225%22/%3E%3Ccircle cx=%2260%22 cy=%22230%22 r=%225%22/%3E%3C/svg%3E"); }
+
+/* Inicio del catálogo: solo una media rueda dentada sutil a la izquierda, cortada por el borde (sin engranaje completo ni plano) */
+.cban.bgt::before {
+  background-image: var(--grab-gear);
+  background-size: min(560px, 80vw);
+  background-position: left calc(min(560px, 80vw) / -2) center;
+  opacity: 0.06;
+}
+
+/* ---------- Promociones y tendencias: una tarjeta violeta del ancho del contenedor (máx. 1312 px), con 16 px de margen a cada
+   lado y esquinas de 32 px; ya no es una banda de lado a lado ---------- */
+.hm-deals.bgt-c { background: none; padding-inline: 16px; }
+.hm-deals.bgt-c::before { display: none; }
+.hm-deals--pin .hm-pin,
+.hm-deals:not(.hm-deals--pin) > .wrap {
+  width: min(100%, 1312px);
+  margin-inline: auto;
+  border-radius: 32px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  box-shadow: 0 30px 60px -34px rgb(80 0 120 / 0.6);
+  color: #fff;
+}
+.hm-deals:not(.hm-deals--pin) > .wrap { padding: clamp(24px, 4vw, 48px); max-width: 1312px; }
+.hm-deals--pin .hm-pin { top: 12px; height: calc(100svh - 24px); padding-block: calc(var(--header-h) - 12px) 24px; }
+.hm-deals--pin .hm-pin > .wrap { width: 100%; padding-inline: 40px; }
+@media (max-width: 767px) { .hm-deals.bgt-c { padding-inline: 12px; } .hm-deals:not(.hm-deals--pin) > .wrap { border-radius: 28px; } }
+.hm-deals.bgt-c { background: var(--ie-lila-100); }

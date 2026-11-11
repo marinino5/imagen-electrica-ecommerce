@@ -35,7 +35,8 @@ class LineResource extends JsonResource
         $rpm = $variants->map(fn ($v) => $v->specs['velocidad_rpm'] ?? null)->filter(fn ($x) => $x !== null)->unique()->sort()->values();
         $amp = $variants->flatMap(fn ($v) => self::numbers($v->specs['corriente_a'] ?? null));
         $family = $this->category?->parent;
-        $single = $variants->count() === 1 && $purchasable->count() === 1 ? $purchasable->first() : null;
+        $buyable = $purchasable->filter(fn ($v) => $v->stock > 0);
+        $single = $variants->count() === 1 && $buyable->count() === 1 ? $buyable->first() : null;
 
         return [
             'id' => $this->id,
@@ -66,6 +67,10 @@ class LineResource extends JsonResource
             'amp_min' => $amp->isEmpty() ? null : $amp->min(),
             'amp_max' => $amp->isEmpty() ? null : $amp->max(),
             // Línea con una sola referencia comprable: el catálogo la agrega al carrito sin abrir la ficha
+            // Compra en línea solo si alguna referencia con precio tiene stock; con precio pero sin stock: «Agotado · cotizar»
+            'buyable' => $buyable->isNotEmpty(),
+            // Alguna referencia con precio es de referencia (por confirmar con la empresa)
+            'price_is_reference' => $purchasable->contains(fn ($v) => $v->price_source !== null),
             'quick_variant' => $single ? new VariantResource($single) : null,
             'variants' => $this->when($this->detail, fn () => VariantResource::collection($variants)),
         ];

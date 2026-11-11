@@ -40,7 +40,7 @@ class PromotionRepository
             ->with([
                 'line' => fn ($q) => $q->where('is_active', true),
                 'line.category:id,name,slug,parent_id', 'line.category.parent:id,name,slug',
-                'line.variants' => fn ($q) => $q->where('is_active', true)->select(['id', 'line_id', 'sku', 'price', 'sale_mode', 'is_active']),
+                'line.variants' => fn ($q) => $q->where('is_active', true)->select(['id', 'line_id', 'sku', 'price', 'price_source', 'stock', 'sale_mode', 'is_active']),
                 'product:id,line_id,sku,name,price,sale_mode,is_active',
             ])
             ->orderBy('ends_at')
