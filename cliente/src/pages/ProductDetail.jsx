@@ -289,6 +289,13 @@ export default function ProductDetail() {
                 )}
                 <button type="button" className={`pd-btn ${purchasable ? 'pd-btn--quote' : 'pd-btn--main'}`} onClick={addQuote}><FileText size={20} aria-hidden="true" /> Solicitar cotización</button>
               </div>
+
+              {/* Descargar la ficha: va a la vista, bajo los botones de compra, para que la gente sepa que existe */}
+              <button type="button" className="pd-dl pd-dl--hero" onClick={downloadSheet} disabled={sheetState.busy}>
+                <span className="pd-dl__ic" aria-hidden="true"><Download size={22} /></span>
+                <span className="pd-dl__tx"><b>{sheetState.busy ? 'Generando el PDF…' : 'Descargar ficha y cotización'}</b><small>PDF con las especificaciones y el valor de {qty} {qty === 1 ? 'unidad' : 'unidades'} de esta referencia</small></span>
+              </button>
+              {sheetState.error && <p className="pd-note" role="alert">{sheetState.error}</p>}
             </>
           ) : (
             <div className="pd-pricebox">
@@ -368,11 +375,6 @@ export default function ProductDetail() {
                   {sheetRows.map(([label, value]) => <tr key={label}><th scope="row">{label}</th><td>{value}</td></tr>)}
                 </tbody>
               </table>
-              <button type="button" className="pd-dl" onClick={downloadSheet} disabled={sheetState.busy}>
-                <Download size={20} aria-hidden="true" />
-                <span><b>{sheetState.busy ? 'Generando el PDF…' : 'Descargar ficha y cotización'}</b><small>PDF de Imagen Eléctrica con las especificaciones y el valor de esta referencia ({qty} {qty === 1 ? 'unidad' : 'unidades'})</small></span>
-              </button>
-              {sheetState.error && <p className="pd-note" role="alert">{sheetState.error}</p>}
             </>
           ) : (
             <>
