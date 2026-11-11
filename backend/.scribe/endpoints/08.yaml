@@ -1,0 +1,467 @@
+name: 'Categorías (administrador)'
+description: |-
+
+  Requiere el token de un usuario con rol admin; con otro rol responde 403.
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/v1/admin/categories
+    metadata:
+      custom: []
+      groupName: 'Categorías (administrador)'
+      groupDescription: |-
+
+        Requiere el token de un usuario con rol admin; con otro rol responde 403.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Listar categorías'
+      description: 'A diferencia del catálogo público, incluye las categorías inactivas.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters:
+      q:
+        custom: []
+        name: q
+        description: 'Busca por nombre o slug.'
+        required: false
+        example: motores
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      per_page:
+        custom: []
+        name: per_page
+        description: 'Categorías por página (1 a 50).'
+        required: false
+        example: 10
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanQueryParameters:
+      q: motores
+      per_page: 10
+    bodyParameters:
+      q:
+        custom: []
+        name: q
+        description: 'El campo value no puede tener más de 100 caracteres.'
+        required: false
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      per_page:
+        custom: []
+        name: per_page
+        description: 'El campo value debe ser al menos 1. El campo value no puede ser mayor que 50.'
+        required: false
+        example: 22
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      q: b
+      per_page: 22
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"data":[{"id":110,"parent_id":null,"name":"Quos velit","slug":"quos-velit","description":"Sunt nihil accusantium harum mollitia.","image_url":null,"sort_order":19,"is_active":true,"created_at":"2026-11-11T00:21:37.000000Z","updated_at":"2026-11-11T00:21:37.000000Z"},{"id":111,"parent_id":null,"name":"Deserunt aut","slug":"deserunt-aut","description":null,"image_url":null,"sort_order":15,"is_active":true,"created_at":"2026-11-11T00:21:37.000000Z","updated_at":"2026-11-11T00:21:37.000000Z"}],"links":{"first":"\/?page=1","last":"\/?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"pagination.previous","page":null,"active":false},{"url":"\/?page=1","label":"1","page":1,"active":true},{"url":null,"label":"pagination.next","page":null,"active":false}],"path":"\/","per_page":10,"to":2,"total":2}}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/v1/admin/categories
+    metadata:
+      custom: []
+      groupName: 'Categorías (administrador)'
+      groupDescription: |-
+
+        Requiere el token de un usuario con rol admin; con otro rol responde 403.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Crear una categoría'
+      description: 'El slug se genera a partir del nombre. Solo hay dos niveles: `parent_id` debe ser una categoría de primer nivel.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      parent_id:
+        custom: []
+        name: parent_id
+        description: 'Categoría padre (de primer nivel).'
+        required: false
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      name:
+        custom: []
+        name: name
+        description: ''
+        required: true
+        example: 'Motores eléctricos'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      description:
+        custom: []
+        name: description
+        description: ''
+        required: false
+        example: 'Motores trifásicos y monofásicos.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      sort_order:
+        custom: []
+        name: sort_order
+        description: 'Orden en el menú (0 por defecto).'
+        required: false
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      is_active:
+        custom: []
+        name: is_active
+        description: 'Activa en la tienda (por defecto sí).'
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      parent_id: 1
+      name: 'Motores eléctricos'
+      description: 'Motores trifásicos y monofásicos.'
+      sort_order: 2
+      is_active: true
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 201
+        content: '{"data":{"id":112,"parent_id":null,"name":"Nihil accusantium","slug":"nihil-accusantium","description":"Modi deserunt aut ab provident perspiciatis.","image_url":null,"sort_order":12,"is_active":true,"created_at":"2026-11-11T00:21:37.000000Z","updated_at":"2026-11-11T00:21:37.000000Z"}}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/v1/admin/categories/{id}'
+    metadata:
+      custom: []
+      groupName: 'Categorías (administrador)'
+      groupDescription: |-
+
+        Requiere el token de un usuario con rol admin; con otro rol responde 403.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Ver una categoría'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the category.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: 'Id de la categoría.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+      category: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"data":{"id":113,"parent_id":null,"name":"Aut adipisci","slug":"aut-adipisci","description":"Qui commodi incidunt iure odit.","image_url":null,"sort_order":8,"is_active":true,"created_at":"2026-11-11T00:21:37.000000Z","updated_at":"2026-11-11T00:21:37.000000Z"}}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/v1/admin/categories/{id}'
+    metadata:
+      custom: []
+      groupName: 'Categorías (administrador)'
+      groupDescription: |-
+
+        Requiere el token de un usuario con rol admin; con otro rol responde 403.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Actualizar una categoría'
+      description: 'Reemplaza la categoría: se envían los mismos campos obligatorios que al crear. El slug no cambia.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the category.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: 'Id de la categoría.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+      category: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      parent_id:
+        custom: []
+        name: parent_id
+        description: ''
+        required: false
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      name:
+        custom: []
+        name: name
+        description: ''
+        required: true
+        example: 'Motores eléctricos industriales'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      description:
+        custom: []
+        name: description
+        description: ''
+        required: false
+        example: 'Motores trifásicos y monofásicos.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      sort_order:
+        custom: []
+        name: sort_order
+        description: ''
+        required: false
+        example: 3
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      is_active:
+        custom: []
+        name: is_active
+        description: 'Si no se envía, se conserva.'
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      parent_id: 1
+      name: 'Motores eléctricos industriales'
+      description: 'Motores trifásicos y monofásicos.'
+      sort_order: 3
+      is_active: true
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"data":{"id":114,"parent_id":null,"name":"Harum mollitia","slug":"harum-mollitia","description":null,"image_url":null,"sort_order":0,"is_active":true,"created_at":"2026-11-11T00:21:37.000000Z","updated_at":"2026-11-11T00:21:37.000000Z"}}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/v1/admin/categories/{id}'
+    metadata:
+      custom: []
+      groupName: 'Categorías (administrador)'
+      groupDescription: |-
+
+        Requiere el token de un usuario con rol admin; con otro rol responde 403.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Eliminar una categoría'
+      description: 'Si la categoría tiene productos o subcategorías responde 422: primero hay que moverlos.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the category.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      category:
+        custom: []
+        name: category
+        description: 'Id de la categoría.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+      category: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 204
+        content: '{}'
+        headers: []
+        description: Eliminada
+      -
+        custom: []
+        status: 422
+        content: '{"message": "No se puede eliminar «Motores» porque tiene 3 productos. Muévelos a otra categoría primero."}'
+        headers: []
+        description: 'Tiene productos'
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null

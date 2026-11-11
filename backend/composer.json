@@ -52,6 +52,7 @@
         ],
         "docs:api": [
             "@php artisan scribe:generate --no-interaction",
+            "@php scripts/enriquecer-postman.php",
             "@php -r \"copy('public/docs/collection.json', '../docs/collection.json'); copy('public/docs/openapi.yaml', '../docs/openapi.yaml');\""
         ],
         "post-autoload-dump": [
