@@ -105,7 +105,7 @@
   width: min(440px, 78%);
   padding: clamp(22px, 3vw, 38px);
   border-radius: 28px;
-  background: linear-gradient(135deg, var(--ie-violet-700) 0%, var(--ie-violet-500) 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
   color: #fff;
   box-shadow: 0 34px 70px -28px rgb(30 22 49 / 0.7);
   transform: translate(-50%, -50%);

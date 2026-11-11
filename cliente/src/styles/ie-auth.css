@@ -12,7 +12,7 @@
   overflow: clip;
   background: var(--ie-lila-100);
 }
-.ax2__band { position: absolute; inset: 0 0 auto 0; z-index: -1; height: var(--kick-h); overflow: hidden; background: var(--ie-violet-950); }
+.ax2__band { position: absolute; inset: 0 0 auto 0; z-index: -1; height: var(--kick-h); overflow: hidden; background: var(--primary); }
 .ax2__e { position: absolute; top: 50%; right: 4%; width: min(620px, 80vw); height: auto; color: rgb(255 255 255 / 0.06); transform: translateY(-50%); }
 .ax2__arc { position: absolute; left: -14%; bottom: -78%; width: min(520px, 90vw); aspect-ratio: 1; border: 2px solid var(--ie-orange-500); border-radius: 50%; }
 

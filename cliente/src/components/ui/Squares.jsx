@@ -3,8 +3,8 @@ import { useScrollFrame } from '../../hooks/useScrollFrame'
 import { reducedMotion } from './useInView'
 
 /**
- * «Cuadros de color»: 2 rectángulos redondeados decorativos (120–240 px) detrás de fotos y tarjetas, con parallax leve.
- * Máximo 2 por sección. Va como hijo directo de una sección `.bgt` (que le da position y aislamiento): el cuadro queda
+ * Decoración de sección: un círculo y un semicírculo de línea fina (1,5 px, sin relleno; ya no son cuadros de color) detrás de
+ * fotos y tarjetas, con parallax leve. El segundo elemento es el semicírculo. Máximo 2 por sección. Va como hijo directo de una sección `.bgt` (que le da position y aislamiento): el cuadro queda
  * detrás del contenido y no recibe clics. Cada item: { w, h, tone: 'lila' | 'orange' | 'violet', rate, ...posición }
  * donde la posición es cualquier mezcla de top/bottom/left/right en CSS ({ top: '12%', right: '6%' }).
  * `rate` es cuánto se desplazan por cada px de scroll respecto del centro de la pantalla (negativo = sube más lento).
