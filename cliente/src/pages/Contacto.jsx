@@ -44,8 +44,8 @@ export default function Contacto() {
   }
 
   const tiles = [
-    { id: 'quote', cls: 'bento__big', icon: FileText, title: 'Cotizar un proyecto', text: 'Envía tu lista y te respondemos con precio.', to: '/cotizar', photo: '/img/fotos/contacto-cotizar.webp', alt: 'Tres personas revisando juntas los planos y la maqueta de un proyecto' },
-    { id: 'advice', cls: 'bento__a', icon: Headset, title: 'Asesoría técnica', text: 'Habla con un asesor por WhatsApp.', href: site.whatsappLink('Hola, necesito asesoría técnica sobre…'), photo: '/img/fotos/contacto-asesoria.webp', alt: 'Dos asesores sonriendo mientras revisan un documento' },
+    { id: 'quote', cls: 'bento__big', icon: FileText, title: 'Cotizar un proyecto', text: 'Envía tu lista y te respondemos con precio.', to: '/cotizar', photo: '/img/fotos/contacto-cotizar.webp', alt: 'Vitrina de la tienda con motorreductores y motores WEG en estantes' },
+    { id: 'advice', cls: 'bento__a', icon: Headset, title: 'Asesoría técnica', text: 'Habla con un asesor por WhatsApp.', href: site.whatsappLink('Hola, necesito asesoría técnica sobre…'), photo: '/img/fotos/contacto-asesoria.webp', alt: 'Pendón de motores WEG W22 y mostrador con vitrina en la tienda de Imagen Eléctrica' },
     isAuthenticated
       ? { id: 'order', cls: 'bento__b', icon: PackageSearch, title: 'Estado de mi pedido', text: 'Míralo en Mi cuenta, con sus estados.', to: '/mi-cuenta', photo: '/img/fotos/contacto-pedido.webp', alt: 'Entrega de un paquete de mano en mano' }
       : { id: 'order', cls: 'bento__b', icon: PackageSearch, title: 'Estado de mi pedido', text: 'Escribe tu número de pedido.', photo: '/img/fotos/contacto-pedido.webp', alt: 'Entrega de un paquete de mano en mano' },
