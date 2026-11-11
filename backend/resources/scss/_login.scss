@@ -1,85 +1,168 @@
-// Login: dos bandas, igual que Ingresar de la tienda. Arriba violeta con la «e» del logo al 6 % y un arco naranja;
-// abajo lila. La tarjeta de 520 px queda a caballo entre las dos.
+// Login: escritorio en dos mitades. Izquierda, la marca (violeta con un arco fino) y un collage de cuatro fotos propias de la tienda;
+// derecha, el formulario. En celular solo se ve una franja violeta con el logo y el formulario.
 
 .login-page {
-    position: relative;
-    isolation: isolate;
+    display: grid;
     min-height: 100vh;
-    overflow: clip;
-    background: linear-gradient(180deg, $brand-lavender 0%, $brand-surface 100%);
-}
+    background-color: $brand-white;
 
-.login-band {
-    position: absolute;
-    inset: 0 0 auto 0;
-    z-index: -1;
-    height: 200px;
-    overflow: hidden;
-    background-color: $brand-primary;
-
-    @include media-breakpoint-up(md) {
-        height: 340px;
+    @include media-breakpoint-up(lg) {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     }
 }
 
-.login-band-e {
-    position: absolute;
-    top: 50%;
-    right: 4%;
-    width: min(560px, 80vw);
-    height: auto;
-    color: rgba($brand-white, .06);
-    transform: translateY(-50%);
+/* ---------- Lado de la marca (solo escritorio) ---------- */
+
+.login-brand {
+    position: relative;
+    isolation: isolate;
+    display: none;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2.5rem clamp(2rem, 4vw, 4.5rem);
+    overflow: hidden;
+    color: $brand-white;
+    background: linear-gradient(150deg, $brand-primary 0%, $brand-primary-deep 100%);
+
+    @include media-breakpoint-up(lg) {
+        display: flex;
+    }
 }
 
-.login-band-arc {
+// Arco fino naranja, como el del logo: solo línea
+.login-brand-arc {
     position: absolute;
-    left: -14%;
-    bottom: -78%;
-    width: min(520px, 90vw);
+    z-index: -1;
+    right: -14rem;
+    bottom: -16rem;
+    width: 34rem;
     aspect-ratio: 1;
-    border: 2px solid $brand-accent-strong;
+    border: 2px solid rgba($brand-accent-strong, .75);
     border-radius: 50%;
 }
 
-.login-stage {
-    width: 100%;
-    max-width: 552px;
-    margin-inline: auto;
-    padding: 1.25rem .75rem 3rem;
+.login-brand-logo {
+    width: 9.5rem;
+    height: auto;
+}
 
-    @include media-breakpoint-up(md) {
-        padding: 2.5rem 1rem 4rem;
+// Cuadrícula de fotos con bordes redondeados y separación: dos columnas, tres filas; las verticales ocupan dos filas
+.login-collage {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    min-height: 22rem;
+    max-height: min(36rem, 52vh);
+
+    figure {
+        margin: 0;
+        overflow: hidden;
+        border-radius: 1.25rem;
+        background-color: rgba($brand-white, .08);
+        box-shadow: 0 18px 36px -22px rgba($brand-ink, .7);
+    }
+
+    img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 }
 
-.login-kicker {
-    margin: 0 0 1.25rem;
-    color: $brand-white;
-    font-size: .78rem;
+.lc-a { grid-column: 1; grid-row: 1 / 3; }
+.lc-b { grid-column: 2; grid-row: 1; }
+.lc-c { grid-column: 2; grid-row: 2 / 4; }
+.lc-d { grid-column: 1; grid-row: 3; }
+.lc-a img { object-position: 50% 38%; }
+.lc-c img { object-position: 50% 30%; }
+
+.login-brand-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+}
+
+.login-brand-title {
+    margin: 0;
+    max-width: 18rem;
+    font-family: $headings-font-family;
+    font-size: 2.1rem;
     font-weight: 700;
-    letter-spacing: .18em;
-    text-align: center;
+    line-height: 1.05;
     text-transform: uppercase;
+
+    span {
+        display: block;
+        color: $brand-accent-strong;
+    }
+}
+
+.login-brand-years {
+    margin: 0;
+    padding: .5rem 1rem;
+    border: 1px solid rgba($brand-white, .35);
+    border-radius: 999px;
+    font-size: .95rem;
+
+    strong {
+        font-family: $headings-font-family;
+        font-size: 1.5rem;
+        color: $brand-accent-strong;
+    }
+}
+
+/* ---------- Lado del formulario ---------- */
+
+.login-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-width: 0;
+    background-color: $brand-surface;
+
+    @include media-breakpoint-up(lg) {
+        justify-content: center;
+        padding: 3rem clamp(2rem, 4vw, 4rem);
+        background-color: $brand-white;
+    }
+}
+
+// Celular: franja violeta con el logo (arriba del formulario)
+.login-mobilebar {
+    margin: 0 0 1.5rem;
+    padding: 1.25rem 1rem;
+    background: linear-gradient(150deg, $brand-primary 0%, $brand-primary-deep 100%);
+    text-align: center;
+    border-bottom: 4px solid $brand-accent-strong;
+
+    @include media-breakpoint-up(lg) {
+        display: none;
+    }
+}
+
+.login-mobilebar-logo {
+    width: 7rem;
+    height: auto;
 }
 
 .login-card {
-    padding: 1.75rem 1.25rem;
-    border: 1px solid rgba($brand-ink, .08);
-    border-radius: 28px;
-    background-color: $brand-white;
-    box-shadow: 0 28px 60px -26px rgba($brand-primary, .45), 0 8px 20px -10px rgba($brand-primary, .2);
+    width: 100%;
+    max-width: 27rem;
+    margin: 0 auto;
+    padding: 0 1.25rem;
 
-    @include media-breakpoint-up(sm) {
-        padding: 2.5rem 2.75rem;
+    @include media-breakpoint-up(lg) {
+        padding: 0;
     }
 }
 
-.login-logo {
-    display: block;
-    width: 6rem;
-    height: auto;
-    margin-bottom: 1.5rem;
+.login-main > p {
+    padding-inline: 1.25rem;
 }
 
 .login-heading {

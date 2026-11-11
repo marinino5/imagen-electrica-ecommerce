@@ -16,7 +16,7 @@ class LoginTest extends TestCase
             ->assertOk()
             ->assertSee('Ingresa al')
             ->assertSee('panel</span>', false)
-            ->assertSee('Panel de Imagen Eléctrica');
+            ->assertSee('Soluciones eléctricas')->assertSee('25+', false)->assertDontSee('brand-marquee');
     }
 
     public function test_guest_is_redirected_to_login(): void
