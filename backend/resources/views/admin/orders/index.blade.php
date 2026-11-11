@@ -67,7 +67,9 @@
                                     <div><small class="text-body-secondary">{{ $order->type->label() }}</small></div>
                                 </td>
                                 <td>
-                                    <div class="fw-semibold">{{ $order->display_name }}</div>
+                                    <div class="fw-semibold">{{ $order->display_name }}
+                                        @if ($order->is_guest && $order->customer_id === null)<span class="badge text-bg-warning ms-1">Invitado</span>@endif
+                                    </div>
                                     <small class="text-body-secondary">{{ $order->customer_type->requiresCompanyData() ? $order->contact_name : $order->customer_type->label() }}</small>
                                 </td>
                                 <td>

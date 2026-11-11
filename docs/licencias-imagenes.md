@@ -18,8 +18,8 @@ Inventario de **todos** los archivos de imagen y video del sitio (`cliente/publi
 - Por verificar (foto de distribuidor sin marca visible, no se puede probar que sea la imagen del fabricante): **12** ← la empresa debe confirmarlas o fotografiar el producto (`docs/inventario/fotos-para-tomar.md`).
 
 - Imagen oficial de marca · material de distribuidor: 85
-- Libre · uso comercial: 42
-- Propia de Imagen Eléctrica: 38
+- Libre · uso comercial: 44
+- Propia de Imagen Eléctrica: 36
 - Imagen de marca publicada por un distribuidor · material de distribuidor: 26
 - Logo de marca (uso nominativo para identificar el producto): 16
 - POR VERIFICAR · foto de distribuidor sin marca visible: 12
@@ -168,8 +168,8 @@ Inventario de **todos** los archivos de imagen y video del sitio (`cliente/publi
 | `fotos/comprar-despacho.webp` | https://www.pexels.com/photo/4487383/ | Libre · uso comercial | Permitida |
 | `fotos/comprar-tecnico.webp` | https://www.pexels.com/photo/33694016/ | Libre · uso comercial | Permitida |
 | `fotos/contacto-asesor.webp` | https://www.pexels.com/photo/17842832/ | Libre · uso comercial | Permitida |
-| `fotos/contacto-asesoria.webp` | Foto propia de Imagen Eléctrica: pendón WEG y mostrador de la tienda (IMG_2406) | Propia de Imagen Eléctrica | Falta fuente |
-| `fotos/contacto-cotizar.webp` | Foto propia de Imagen Eléctrica: vitrina de motorreductores de la tienda (IMG_2407) | Propia de Imagen Eléctrica | Falta fuente |
+| `fotos/contacto-asesoria.webp` | https://pixabay.com/photos/engineer-engineering-4941347/ (autor: This_is_Engineering) | Libre · uso comercial | Permitida |
+| `fotos/contacto-cotizar.webp` | https://www.pexels.com/photo/3862135/ | Libre · uso comercial | Permitida |
 | `fotos/contacto-garantia.webp` | https://www.pexels.com/photo/9242911/ | Libre · uso comercial | Permitida |
 | `fotos/contacto-pedido.webp` | https://www.pexels.com/photo/6868621/ | Libre · uso comercial | Permitida |
 | `fotos/contacto.webp` | Pixabay (módulos en un tablero; docs/creditos-media.md, sin página de origen guardada) | Libre · uso comercial | Permitida |
@@ -178,7 +178,7 @@ Inventario de **todos** los archivos de imagen y video del sitio (`cliente/publi
 | `fotos/entrega-almacen.webp` | https://pixabay.com/photos/hand-product-finished-goods-5983142/ (autor: KaweewatT) | Libre · uso comercial | Permitida |
 | `fotos/hero-banda.webp` | https://pixabay.com/photos/factory-plant-industrial-hall-1137993/ (autor: falco) | Libre · uso comercial | Permitida |
 | `fotos/hero-extractores.webp` | https://pixabay.com/photos/industry-ventilation-metal-2182767/ (autor: Ganossi) | Libre · uso comercial | Permitida |
-| `fotos/hero-motores.webp` | https://www.pexels.com/photo/31352672/ | Libre · uso comercial | Permitida |
+| `fotos/hero-motores.webp` | https://www.pexels.com/photo/34207364/ | Libre · uso comercial | Permitida |
 | `fotos/nosotros-asesoria.webp` | https://www.pexels.com/photo/34054501/ | Libre · uso comercial | Permitida |
 | `fotos/nosotros-despacho.webp` | https://www.pexels.com/photo/4480982/ | Libre · uso comercial | Permitida |
 | `fotos/nosotros-estanteria.webp` | https://www.pexels.com/photo/38195854/ | Libre · uso comercial | Permitida |

@@ -39,11 +39,13 @@
     </div>
 
     <div class="row g-3 mb-3">
-        {{-- Cliente --}}
+        {{-- Cliente y facturación electrónica --}}
         <div class="col-lg-7">
-            <div class="card h-100">
+            <div class="card mb-3">
                 <div class="card-body">
-                    <h2 class="h5 mb-3">Cliente</h2>
+                    <h2 class="h5 mb-3">Cliente
+                        @if ($order->is_guest && $order->customer_id === null)<span class="badge text-bg-warning ms-2 align-middle">Invitado</span>@endif
+                    </h2>
                     <dl class="row mb-0">
                         <dt class="col-sm-4">Tipo</dt>
                         <dd class="col-sm-8"><span class="badge text-bg-light border">{{ $order->customer_type->label() }}</span></dd>
@@ -51,17 +53,15 @@
                             <dt class="col-sm-4">Empresa</dt>
                             <dd class="col-sm-8">{{ $order->company_name }} <small class="text-body-secondary">· NIT {{ $order->nit }}</small></dd>
                         @elseif ($order->nit)
-                            <dt class="col-sm-4">Cédula</dt>
-                            <dd class="col-sm-8">{{ $order->nit }}</dd>
+                            <dt class="col-sm-4">Documento</dt>
+                            <dd class="col-sm-8">{{ $order->billing_doc_type?->value }} {{ $order->nit }}</dd>
                         @endif
                         <dt class="col-sm-4">{{ $order->customer_type->requiresCompanyData() ? 'Contacto' : 'Nombre' }}</dt>
                         <dd class="col-sm-8">{{ $order->contact_name }}</dd>
                         <dt class="col-sm-4">Correo</dt>
                         <dd class="col-sm-8"><a href="mailto:{{ $order->email }}">{{ $order->email }}</a></dd>
-                        <dt class="col-sm-4">Teléfono</dt>
+                        <dt class="col-sm-4">Celular</dt>
                         <dd class="col-sm-8">{{ $order->phone }}</dd>
-                        <dt class="col-sm-4">Ciudad</dt>
-                        <dd class="col-sm-8">{{ $order->city }}{{ $order->address ? ' · '.$order->address : '' }}</dd>
                         <dt class="col-sm-4">Entrega</dt>
                         <dd class="col-sm-8">{{ $order->delivery_method->label() }}</dd>
                         @if ($order->notes)
@@ -75,6 +75,71 @@
                     </dl>
                 </div>
             </div>
+
+            @if ($order->billing_doc_type)
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h2 class="h5 mb-1">Datos de facturación electrónica</h2>
+                        <p class="small text-body-secondary mb-3">Listos para Siigo (ver <code>docs/siigo-mapeo.md</code>).</p>
+                        <dl class="row mb-0">
+                            <dt class="col-sm-4">Documento</dt>
+                            <dd class="col-sm-8">{{ $order->billing_doc_type->label() }} · {{ $order->billing_doc_number }}{{ $order->billing_doc_dv !== null ? '-'.$order->billing_doc_dv : '' }}</dd>
+                            @if ($order->billing_first_name)
+                                <dt class="col-sm-4">Nombres</dt>
+                                <dd class="col-sm-8">{{ $order->billing_first_name }} {{ $order->billing_last_name }}</dd>
+                            @else
+                                <dt class="col-sm-4">Razón social</dt>
+                                <dd class="col-sm-8">{{ $order->company_name }}</dd>
+                            @endif
+                            <dt class="col-sm-4">Responsabilidad fiscal</dt>
+                            <dd class="col-sm-8">{{ $order->fiscal_responsibility?->label() }}</dd>
+                            <dt class="col-sm-4">Correo de facturación</dt>
+                            <dd class="col-sm-8">{{ $order->billing_email }}</dd>
+                            <dt class="col-sm-4">Dirección</dt>
+                            <dd class="col-sm-8">{{ $order->billing_address }}<br><small class="text-body-secondary">{{ $order->city }} ({{ $order->billing_city_code }}) · {{ $order->billing_department }} ({{ $order->billing_department_code }})</small></dd>
+                            @if ($order->privacy_accepted_at)
+                                <dt class="col-sm-4">Autorización de datos</dt>
+                                <dd class="col-sm-8">Versión {{ $order->privacy_version }} · {{ $order->privacy_accepted_at->format('d/m/Y H:i') }}</dd>
+                            @endif
+                        </dl>
+                    </div>
+                </div>
+            @endif
+
+            @if ($order->delivery_city_code)
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="h5 mb-3">Dirección de entrega</h2>
+                        <dl class="row mb-0">
+                            <dt class="col-sm-4">Departamento</dt>
+                            <dd class="col-sm-8">{{ $order->delivery_department }} ({{ $order->delivery_department_code }})</dd>
+                            <dt class="col-sm-4">Municipio</dt>
+                            <dd class="col-sm-8">{{ $order->delivery_city }} ({{ $order->delivery_city_code }})</dd>
+                            @if ($order->delivery_neighborhood)
+                                <dt class="col-sm-4">Barrio</dt>
+                                <dd class="col-sm-8">{{ $order->delivery_neighborhood }}</dd>
+                            @endif
+                            <dt class="col-sm-4">Dirección</dt>
+                            <dd class="col-sm-8">{{ trim($order->delivery_road.' '.$order->delivery_number) }}{{ $order->delivery_complement ? ', '.$order->delivery_complement : '' }}{{ $order->delivery_same_as_billing ? ' (igual a facturación)' : '' }}</dd>
+                            @if ($order->delivery_postal_code)
+                                <dt class="col-sm-4">Código postal</dt>
+                                <dd class="col-sm-8">{{ $order->delivery_postal_code }}</dd>
+                            @endif
+                            @if ($order->delivery_notes)
+                                <dt class="col-sm-4">Indicaciones</dt>
+                                <dd class="col-sm-8">{!! nl2br(e($order->delivery_notes)) !!}</dd>
+                            @endif
+                        </dl>
+                    </div>
+                </div>
+            @elseif ($order->address)
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="h5 mb-2">Dirección de entrega</h2>
+                        <p class="mb-0">{{ $order->address }}</p>
+                    </div>
+                </div>
+            @endif
         </div>
 
         <div class="col-lg-5">

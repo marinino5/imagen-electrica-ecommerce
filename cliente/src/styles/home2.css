@@ -269,7 +269,7 @@
   gap: 10px;
   padding: 22px 20px 20px;
   transform: rotateY(180deg);
-  background: radial-gradient(70% 50% at 100% 0%, rgb(80 0 120 / 0.6), transparent 70%), var(--night);
+  background: radial-gradient(70% 50% at 100% 0%, rgb(74 53 128 / 0.6), transparent 70%), var(--night);
   color: #fff;
   overflow-y: auto;
 }
@@ -386,7 +386,7 @@
   padding-top: 56px;
   overflow: clip;
   border-radius: 40px 40px 0 0;
-  box-shadow: 0 -22px 40px -22px rgb(35 10 54 / 0.45);
+  box-shadow: 0 -22px 40px -22px rgb(28 22 48 / 0.45);
 }
 @media (max-width: 767px) { .hm-fams { border-radius: 28px 28px 0 0; } }
 
@@ -415,8 +415,8 @@
   display: flex;
   gap: 24px;
   margin: 0;
-  /* el primer borde se alinea con el contenedor de 1280 px */
-  padding: 6px 40px;
+  /* el primer borde se alinea con el contenido del contenedor de 1280 px (que tiene 40 px de relleno) */
+  padding: 6px max(40px, calc((100vw - 1280px) / 2 + 40px));
   list-style: none;
   width: max-content;
   transform: translate3d(calc(var(--p, 0) * var(--dx, 0) * -1px), 0, 0);
@@ -429,4 +429,4 @@
 @media (max-height: 820px) { .hm-pin .deal__media { aspect-ratio: 4 / 3; } .hm-pin .deal__price strong { font-size: 1.8rem; } }
 @media (max-height: 700px) { .hm-pin .deal__media { aspect-ratio: 16 / 9; } .hm-pin .deal__until { display: none; } }
 /* Movimiento reducido (o pocas tarjetas): grilla estática */
-.hm-dealgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; margin: 0; padding: 0; list-style: none; }
+.hm-dealgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 320px)); justify-content: center; gap: 24px; margin: 0; padding: 0; list-style: none; }

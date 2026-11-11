@@ -33,13 +33,13 @@ body .site-header:not(.is-solid) { background: transparent; box-shadow: none; }
 .bgt.bgt-a {
   background-color: #fff;
   background-image:
-    radial-gradient(circle, rgb(80 0 120 / 0.09) 0.8px, transparent 1px),
+    radial-gradient(circle, rgb(74 53 128 / 0.09) 0.8px, transparent 1px),
     linear-gradient(115deg, transparent 0 62%, rgb(244 241 250 / 0.7) 62% 100%);
   background-size: 22px 22px, 100% 100%;
 }
 /* B · lila-100 */
 .bgt.bgt-b { background: var(--ie-lila-100); }
-/* C · violeta de marca (#500078 → #3d005c, el mismo degradado de DESIGN.md), con tarjetas blancas encima */
+/* C · violeta de marca (#4A3580 → #3A2A68, el mismo degradado de DESIGN.md), con tarjetas blancas encima */
 .bgt.bgt-c { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: #fff; }
 /* D · lila suave (ya no hay fondos naranja ni durazno) con el arco fino de marca */
 .bgt.bgt-d { background: linear-gradient(180deg, var(--ie-lila-50) 0%, var(--ie-lila-100) 100%); }
@@ -82,7 +82,7 @@ body .site-header:not(.is-solid) { background: transparent; box-shadow: none; }
 .sq:nth-child(2) { clip-path: inset(0 0 50% 0); }
 .sq--lila { border-color: #d6ccea; }
 .sq--orange { border-color: rgb(242 106 0 / 0.55); }
-.sq--violet { border-color: rgb(80 0 120 / 0.3); }
+.sq--violet { border-color: rgb(74 53 128 / 0.3); }
 .bgt-c .sq--lila, .bgt-c .sq--violet, .bgt-e .sq--lila, .bgt-e .sq--violet { border-color: rgb(255 255 255 / 0.28); }
 @media (max-width: 767px) { .sq { transform: scale(0.7) translate3d(0, calc(var(--sq-c, 0) * var(--rate, 0.1) * 1px), 0); } }
 @media (prefers-reduced-motion: reduce) { .sq { transform: none; will-change: auto; } }
@@ -98,11 +98,11 @@ body .site-header:not(.is-solid) { background: transparent; box-shadow: none; }
   top: calc(88% - 14px);
   width: 74%;
   height: 30px;
-  background: linear-gradient(180deg, #fbf8fd 0%, var(--ie-lila-200) 100%);
+  background: linear-gradient(180deg, #faf9fd 0%, var(--ie-lila-200) 100%);
   border-top: 2px solid #fff;
-  box-shadow: 0 12px 0 -3px #d6ccea, 0 24px 26px -10px rgb(35 10 54 / 0.38);
+  box-shadow: 0 12px 0 -3px #d6ccea, 0 24px 26px -10px rgb(28 22 48 / 0.38);
 }
-.cban .sc .ped > img { filter: drop-shadow(0 12px 14px rgb(35 10 54 / 0.24)); }
+.cban .sc .ped > img { filter: drop-shadow(0 12px 14px rgb(28 22 48 / 0.24)); }
 
 /* ---------- Cómo comprar ---------- */
 /* El celular fijo (móvil) lleva un degradado del color de su sección para no cortar el fondo */
@@ -125,7 +125,7 @@ body .site-header:not(.is-solid) { background: transparent; box-shadow: none; }
   isolation: isolate;
 }
 .cb-recv .cb-card__img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ie-ease); }
-.cb-recv .cb-card__veil { position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgb(35 10 54 / 0.92) 0%, rgb(35 10 54 / 0.62) 38%, rgb(35 10 54 / 0) 72%); transition: opacity 0.4s ease-out; }
+.cb-recv .cb-card__veil { position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgb(28 22 48 / 0.92) 0%, rgb(28 22 48 / 0.62) 38%, rgb(28 22 48 / 0) 72%); transition: opacity 0.4s ease-out; }
 .cb-recv .cb-card__n { position: absolute; top: 14px; left: 20px; font-family: var(--font-display); font-size: 120px; font-weight: 700; line-height: 0.9; color: transparent; -webkit-text-stroke: 2px var(--ie-orange-500); }
 .cb-recv .cb-card__body { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 24px 26px; }
 .cb-recv .cb-card h3 { margin: 0 0 6px; color: #fff; font-size: 2rem; }
@@ -141,10 +141,18 @@ body .site-header:not(.is-solid) { background: transparent; box-shadow: none; }
 /* El hero oscuro pasa por debajo de la barra transparente */
 .ct-hero.bgt-e { min-height: max(68vh, 500px); }
 .ct-hero .ct-hero__in { padding-block: calc(var(--header-h) + 40px) 56px; }
-/* La foto del asesor ocupa la derecha y se funde con el violeta a la izquierda, donde va el texto */
+/* Escritorio: el texto va sobre el violeta liso de la izquierda y la foto, nítida, ocupa la derecha. Una sola máscara suaviza el borde
+   de la foto hacia el violeta; NO hay velo encima de la foto (antes dejaba una mancha lavada sobre el guante). */
 @media (min-width: 768px) {
-  .ct-hero__bg { left: auto; right: 0; width: 64%; object-position: 50% 30%; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 34%); mask-image: linear-gradient(90deg, transparent 0, #000 34%); }
-  .ct-hero__veil { background: linear-gradient(90deg, var(--primary) 0%, rgb(80 0 120 / 0.55) 34%, rgb(80 0 120 / 0) 60%); }
+  .ct-hero.bgt.bgt-e { background: linear-gradient(120deg, var(--primary) 0%, var(--ie-violet-950) 100%); }
+  .ct-hero .ct-hero__bg {
+    left: auto; right: 0; width: 62%; object-position: 50% 30%;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, rgb(0 0 0 / 0.55) 12%, #000 34%);
+    mask-image: linear-gradient(90deg, transparent 0, rgb(0 0 0 / 0.55) 12%, #000 34%);
+  }
+  .ct-hero .ct-hero__veil { display: none; }
+  /* Velo corto arriba: la barra transparente (menú blanco) se lee sobre la foto clara */
+  .ct-hero::after { content: ''; position: absolute; inset: 0 0 auto 0; z-index: -1; height: 150px; background: linear-gradient(180deg, rgb(28 22 48 / 0.7), transparent); pointer-events: none; }
 }
 @media (max-width: 767px) { .ct-hero__bg { object-position: 50% 22%; } }
 
@@ -171,15 +179,15 @@ body .site-header:not(.is-solid) { background: transparent; box-shadow: none; }
   pointer-events: none;
   opacity: 0.055;
   background-repeat: no-repeat;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22 fill=%22none%22 stroke=%22%23500078%22 stroke-width=%222%22%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22150%22 stroke-width=%2230%22 stroke-dasharray=%2219.6 19.6%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22132%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22104%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%2258%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%2222%22/%3E%3Cpath d=%22M200 96V142M200 258V304M96 200H142M258 200H304M126 126l32 32M242 242l32 32M274 126l-32 32M158 242l-32 32%22/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 260%22 fill=%22none%22 stroke=%22%23500078%22 stroke-width=%222%22%3E%3Cpath d=%22M10 130H70l10-26 20 52 20-52 20 52 10-26H190%22/%3E%3Ccircle cx=%22205%22 cy=%22130%22 r=%2215%22/%3E%3Cpath d=%22M220 130H260M260 100V160M274 108V152M274 130H390%22/%3E%3Cpath d=%22M60 30H340V60M60 30V90M340 230H60V200%22/%3E%3Ccircle cx=%2260%22 cy=%2230%22 r=%225%22/%3E%3Ccircle cx=%22340%22 cy=%2260%22 r=%225%22/%3E%3Ccircle cx=%2260%22 cy=%22230%22 r=%225%22/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22 fill=%22none%22 stroke=%22%234A3580%22 stroke-width=%222%22%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22150%22 stroke-width=%2230%22 stroke-dasharray=%2219.6 19.6%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22132%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22104%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%2258%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%2222%22/%3E%3Cpath d=%22M200 96V142M200 258V304M96 200H142M258 200H304M126 126l32 32M242 242l32 32M274 126l-32 32M158 242l-32 32%22/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 260%22 fill=%22none%22 stroke=%22%234A3580%22 stroke-width=%222%22%3E%3Cpath d=%22M10 130H70l10-26 20 52 20-52 20 52 10-26H190%22/%3E%3Ccircle cx=%22205%22 cy=%22130%22 r=%2215%22/%3E%3Cpath d=%22M220 130H260M260 100V160M274 108V152M274 130H390%22/%3E%3Cpath d=%22M60 30H340V60M60 30V90M340 230H60V200%22/%3E%3Ccircle cx=%2260%22 cy=%2230%22 r=%225%22/%3E%3Ccircle cx=%22340%22 cy=%2260%22 r=%225%22/%3E%3Ccircle cx=%2260%22 cy=%22230%22 r=%225%22/%3E%3C/svg%3E");
   background-size: min(520px, 62vw), min(420px, 52vw);
   background-position: right -90px top 8%, left -60px bottom 6%;
 }
 .bgt-a:nth-of-type(even)::before, .bgt-b:nth-of-type(even)::before, .bgt-d:nth-of-type(even)::before { background-position: left -90px top 10%, right -50px bottom 4%; }
 /* A · blanco → lila 50 con puntos tenues: nunca blanco liso */
-.bgt.bgt-a { background-color: var(--ie-lila-50); background-image: radial-gradient(circle, rgb(80 0 120 / 0.08) 0.8px, transparent 1px), linear-gradient(180deg, #fff 0%, var(--ie-lila-50) 100%); background-size: 22px 22px, 100% 100%; }
+.bgt.bgt-a { background-color: var(--ie-lila-50); background-image: radial-gradient(circle, rgb(74 53 128 / 0.08) 0.8px, transparent 1px), linear-gradient(180deg, #fff 0%, var(--ie-lila-50) 100%); background-size: 22px 22px, 100% 100%; }
 
-:root { --grab-gear: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22 fill=%22none%22 stroke=%22%23500078%22 stroke-width=%222%22%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22150%22 stroke-width=%2230%22 stroke-dasharray=%2219.6 19.6%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22132%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22104%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%2258%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%2222%22/%3E%3Cpath d=%22M200 96V142M200 258V304M96 200H142M258 200H304M126 126l32 32M242 242l32 32M274 126l-32 32M158 242l-32 32%22/%3E%3C/svg%3E"); --grab-plan: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 260%22 fill=%22none%22 stroke=%22%23500078%22 stroke-width=%222%22%3E%3Cpath d=%22M10 130H70l10-26 20 52 20-52 20 52 10-26H190%22/%3E%3Ccircle cx=%22205%22 cy=%22130%22 r=%2215%22/%3E%3Cpath d=%22M220 130H260M260 100V160M274 108V152M274 130H390%22/%3E%3Cpath d=%22M60 30H340V60M60 30V90M340 230H60V200%22/%3E%3Ccircle cx=%2260%22 cy=%2230%22 r=%225%22/%3E%3Ccircle cx=%22340%22 cy=%2260%22 r=%225%22/%3E%3Ccircle cx=%2260%22 cy=%22230%22 r=%225%22/%3E%3C/svg%3E"); }
+:root { --grab-gear: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22 fill=%22none%22 stroke=%22%234A3580%22 stroke-width=%222%22%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22150%22 stroke-width=%2230%22 stroke-dasharray=%2219.6 19.6%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22132%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%22104%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%2258%22/%3E%3Ccircle cx=%22200%22 cy=%22200%22 r=%2222%22/%3E%3Cpath d=%22M200 96V142M200 258V304M96 200H142M258 200H304M126 126l32 32M242 242l32 32M274 126l-32 32M158 242l-32 32%22/%3E%3C/svg%3E"); --grab-plan: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 260%22 fill=%22none%22 stroke=%22%234A3580%22 stroke-width=%222%22%3E%3Cpath d=%22M10 130H70l10-26 20 52 20-52 20 52 10-26H190%22/%3E%3Ccircle cx=%22205%22 cy=%22130%22 r=%2215%22/%3E%3Cpath d=%22M220 130H260M260 100V160M274 108V152M274 130H390%22/%3E%3Cpath d=%22M60 30H340V60M60 30V90M340 230H60V200%22/%3E%3Ccircle cx=%2260%22 cy=%2230%22 r=%225%22/%3E%3Ccircle cx=%22340%22 cy=%2260%22 r=%225%22/%3E%3Ccircle cx=%2260%22 cy=%22230%22 r=%225%22/%3E%3C/svg%3E"); }
 
 /* Inicio del catálogo: solo una media rueda dentada sutil a la izquierda, cortada por el borde (sin engranaje completo ni plano) */
 .cban.bgt::before {
@@ -189,21 +197,28 @@ body .site-header:not(.is-solid) { background: transparent; box-shadow: none; }
   opacity: 0.06;
 }
 
-/* ---------- Promociones y tendencias: una tarjeta violeta del ancho del contenedor (máx. 1312 px), con 16 px de margen a cada
-   lado y esquinas de 32 px; ya no es una banda de lado a lado ---------- */
-.hm-deals.bgt-c { background: none; padding-inline: 16px; }
+/* ---------- Promociones y tendencias: franja violeta de lado a lado (como siempre), más delgada y con esquinas redondeadas ----------
+   Escritorio: la franja es el bloque fijado (.hm-pin) y mide lo que mide su contenido; la sección solo reserva el recorrido horizontal. */
 .hm-deals.bgt-c::before { display: none; }
-.hm-deals--pin .hm-pin,
-.hm-deals:not(.hm-deals--pin) > .wrap {
-  width: min(100%, 1312px);
-  margin-inline: auto;
-  border-radius: 32px;
+.hm-deals.hm-deals--pin.bgt-c { background: none; }
+.hm-deals.hm-deals--pin {
+  height: calc(var(--pinh, 620px) + var(--dx, 0) * 1px);
+}
+.hm-deals.hm-deals--pin .hm-pin,
+.hm-deals:not(.hm-deals--pin) {
+  border-radius: 40px;
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-  box-shadow: 0 30px 60px -34px rgb(80 0 120 / 0.6);
   color: #fff;
 }
-.hm-deals:not(.hm-deals--pin) > .wrap { padding: clamp(24px, 4vw, 48px); max-width: 1312px; }
-.hm-deals--pin .hm-pin { top: 12px; height: calc(100svh - 24px); padding-block: calc(var(--header-h) - 12px) 24px; }
-.hm-deals--pin .hm-pin > .wrap { width: 100%; padding-inline: 40px; }
-@media (max-width: 767px) { .hm-deals.bgt-c { padding-inline: 12px; } .hm-deals:not(.hm-deals--pin) > .wrap { border-radius: 28px; } }
-.hm-deals.bgt-c { background: var(--ie-lila-100); }
+.hm-deals.hm-deals--pin .hm-pin {
+  top: calc(var(--header-h) + 12px);
+  height: auto;
+  justify-content: flex-start;
+  padding-block: clamp(22px, 3vh, 32px);
+}
+.hm-deals.hm-deals--pin .hm-pin > .wrap { width: 100%; padding-inline: 40px; }
+.hm-deals.hm-deals--pin .hm-pin .hm-head { margin-bottom: 16px; }
+.hm-deals.hm-deals--pin .hm-progress { margin-top: 16px; }
+/* Carrusel y grilla (pantallas chicas o poco movimiento): misma franja, con menos relleno vertical */
+.hm-deals:not(.hm-deals--pin) { padding-block: clamp(28px, 4vw, 44px); }
+@media (max-width: 767px) { .hm-deals:not(.hm-deals--pin) { border-radius: 28px; } }

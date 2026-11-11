@@ -57,16 +57,16 @@ export const AMP_RANGES = [
 const hasHp = (line, range) => line.hp_values.some((h) => h >= range.min && h <= range.max)
 const hasAmp = (line, range) => line.amp_min !== null && line.amp_min <= range.max && line.amp_max >= range.min
 
-/** Estado de compra de una línea: 'buy' (hay precio y stock), 'out' (tiene precio pero está agotada) o 'quote' (solo cotización). */
-export const cardState = (line) => (line.price_from === null ? 'quote' : line.buyable ? 'buy' : 'out')
+/** Estado de compra de una línea: 'buy' (tiene precio) o 'quote' (solo cotización). Nunca se muestra «agotado»: el stock aún no se usa. */
+export const cardState = (line) => (line.price_from !== null && line.buyable !== false ? 'buy' : 'quote')
 export const buyMode = (line) => (cardState(line) === 'buy' ? 'on' : 'q')
 
 export const modeTag = (line) =>
-  cardState(line) === 'out' ? 'Agotado · cotizar' : cardState(line) === 'buy' ? 'Compra en línea' : line.sale_mode === 'on_request' ? 'Bajo pedido' : 'Cotización'
+  cardState(line) === 'buy' ? 'Compra en línea' : line.sale_mode === 'on_request' ? 'Bajo pedido' : 'Cotización'
 
 export const priceText = (line) => (line.price_from !== null ? `Desde ${formatCOP(line.price_from)}` : 'Precio por cotización')
 export const priceNote = (line) =>
-  cardState(line) === 'out' ? 'Agotado · te cotizamos' : line.price_from !== null ? (line.price_is_reference ? 'IVA incl. · Precio de referencia' : 'IVA incluido') : line.refs_count ? 'Respuesta de un asesor' : 'Bajo pedido · cotizar'
+  line.price_from !== null ? (line.price_is_reference ? 'IVA incl. · Precio de referencia' : 'IVA incluido') : line.refs_count ? 'Respuesta de un asesor' : 'Bajo pedido · cotizar'
 
 /**
  * Filtra las líneas. st: { family, category, mode ('on'|'q'|''), brands (array), hp, amp, stock, slugs (Set|null) }
@@ -160,7 +160,8 @@ export function lineQuoteItem(line) {
     unit_label: 'Unidad',
     price: null,
     tax_rate: 19,
-    stock: 0,
+    in_stock: true,
+    stock_limit: null,
     sale_mode: 'on_request',
     brand: line.brand_label ?? null,
     category: line.category,

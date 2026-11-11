@@ -198,6 +198,17 @@ class OrderService
      *
      * @throws BusinessRuleException
      */
+    /** Pedido de un invitado por su código; el controlador ya verificó el enlace firmado. */
+    public function findGuestOrder(string $code): Order
+    {
+        $order = $this->orders->findByCodeOrFail($code);
+
+        // Un pedido de alguien con cuenta no se abre con enlace: se ve en «Mi cuenta»
+        abort_if($order->customer_id !== null && ! $order->is_guest, 404);
+
+        return $this->details($order);
+    }
+
     public function cancelForCustomer(Customer $customer, string $code): Order
     {
         $order = $this->orders->findForCustomerByCodeOrFail($customer->id, $code);
@@ -216,15 +227,19 @@ class OrderService
      * Las cotizaciones nacen sin precios (las valora el comercial); el pedido
      * se valora con los precios actuales y el envío configurado en config/shop.php.
      *
+     * Sin cuenta (`$customer` nulo) el comprador es un invitado: todos sus datos llegan en `$identity` (columnas de la orden: facturación,
+     * entrega y autorización de datos). Con cuenta, `$identity` es opcional y reemplaza a los datos guardados del cliente.
+     *
      * @param  array{items: array<int, array{product_id: int, quantity: float|int|string, notes?: ?string}>, delivery_method: string, address?: ?string, notes?: ?string}  $data
+     * @param  array<string, mixed>  $identity  columnas de `orders` con los datos del comprador (ver CheckoutService)
      * @return Collection<int, Order> pedido primero y cotización después, solo los que apliquen
      *
      * @throws BusinessRuleException
      */
-    public function createFromCart(Customer $customer, array $data): Collection
+    public function createFromCart(?Customer $customer, array $data, array $identity = []): Collection
     {
-        return DB::transaction(function () use ($customer, $data) {
-            $customer->loadMissing('user');
+        return DB::transaction(function () use ($customer, $data, $identity) {
+            $customer?->loadMissing('user');
             $lines = $this->cartLines($data['items']);
 
             $purchaseLines = array_values(array_filter($lines, fn (array $line) => $this->isDirectPurchase($line['product'], $line['quantity'])));
@@ -234,7 +249,7 @@ class OrderService
 
             foreach ([[OrderType::Purchase, $purchaseLines], [OrderType::Quote, $quoteLines]] as [$type, $typeLines]) {
                 if ($typeLines !== []) {
-                    $orders->push($this->details($this->createRequest($type, $customer, $data, $typeLines)));
+                    $orders->push($this->details($this->createRequest($type, $customer, $data, $typeLines, $identity)));
                 }
             }
 
@@ -420,7 +435,7 @@ class OrderService
      *
      * @param  array<int, array{product: Product, quantity: float, notes: ?string}>  $lines
      */
-    private function createRequest(OrderType $type, Customer $customer, array $data, array $lines): Order
+    private function createRequest(OrderType $type, ?Customer $customer, array $data, array $lines, array $identity = []): Order
     {
         $isPurchase = $type === OrderType::Purchase;
         $method = DeliveryMethod::from($data['delivery_method']);
@@ -430,12 +445,8 @@ class OrderService
             ? round(array_sum(array_map(fn (array $line) => (float) $line['product']->price * $line['quantity'], $lines)), 2)
             : 0.0;
 
-        $order = $this->orders->create([
-            'code' => $this->orders->nextCode($type),
-            'type' => $type,
-            'status' => $status,
-            'customer_id' => $customer->id,
-            // Copia de los datos del cliente
+        // Copia de los datos del comprador: los que llegan en $identity (formulario de pago) o, si no, los guardados del cliente
+        $buyer = $customer ? [
             'customer_type' => $customer->type,
             'company_name' => $customer->company_name,
             'nit' => $customer->nit,
@@ -444,6 +455,14 @@ class OrderService
             'phone' => $customer->phone,
             'city' => $customer->city,
             'address' => ($data['address'] ?? null) ?: $customer->address,
+        ] : [];
+
+        $order = $this->orders->create([
+            'code' => $this->orders->nextCode($type),
+            'type' => $type,
+            'status' => $status,
+            'customer_id' => $customer?->id,
+            ...array_merge($buyer, $identity),
             'delivery_method' => $method,
             // Una cotización no tiene envío hasta que el comercial la valore
             'shipping' => $isPurchase ? $this->shippingCost($method, $linesTotal) : null,
@@ -473,7 +492,7 @@ class OrderService
             $this->recalculateTotals($order->load('items'));
         }
 
-        $this->orders->addHistory($order, null, $status, $customer->user_id, null);
+        $this->orders->addHistory($order, null, $status, $customer?->user_id, null);
 
         return $order;
     }

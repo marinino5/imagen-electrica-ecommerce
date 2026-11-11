@@ -88,11 +88,8 @@ FOTOS = {
     'almacen': ('Pixabay (almacén de estanterías altas; registrado en docs/creditos-media.md, sin página de origen guardada)', LIBRE),
     'contacto': ('Pixabay (módulos en un tablero; docs/creditos-media.md, sin página de origen guardada)', LIBRE),
     'comprar-caja': PEX(11781094), 'comprar-despacho': PEX(4487383), 'comprar-tecnico': PEX(33694016),
-    'contacto-asesor': PEX(17842832), 'sector-agua': PEX(12726229),
-    'contacto-garantia': PEX(9242911), 'contacto-pedido': PEX(6868621), 'hero-motores': PEX(31352672),
-    'contacto-asesoria': ('Foto propia de Imagen Eléctrica: pendón WEG y mostrador de la tienda (IMG_2406)', PROPIA), 'contacto-cotizar': ('Foto propia de Imagen Eléctrica: vitrina de motorreductores de la tienda (IMG_2407)', PROPIA),
-    'contacto-asesoria': ('Foto propia de Imagen Eléctrica: pendón WEG y mostrador de la tienda (IMG_2406)', PROPIA),
-    'contacto-cotizar': ('Foto propia de Imagen Eléctrica: vitrina de motorreductores de la tienda (IMG_2407)', PROPIA),
+    'contacto-asesor': PEX(17842832), 'contacto-asesoria': PIX('engineer-engineering-4941347', 'This_is_Engineering'), 'contacto-cotizar': PEX(3862135), 'sector-agua': PEX(12726229),
+    'contacto-garantia': PEX(9242911), 'contacto-pedido': PEX(6868621), 'hero-motores': PEX(34207364),
     'nosotros-asesoria': PEX(34054501), 'nosotros-despacho': PEX(4480982), 'nosotros-estanteria': PEX(38195854),
 }
 rows_fotos = []

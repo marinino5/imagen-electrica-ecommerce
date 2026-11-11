@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Enums\CustomerType;
 use App\Enums\DeliveryMethod;
+use App\Enums\DocumentType;
+use App\Enums\FiscalResponsibility;
 use App\Enums\OrderStatus;
 use App\Enums\OrderType;
 use Database\Factories\OrderFactory;
@@ -24,6 +26,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
     'customer_type', 'company_name', 'nit', 'contact_name', 'email', 'phone', 'city', 'address',
     'delivery_method', 'payment_method', 'subtotal', 'tax', 'shipping', 'total',
     'notes', 'expires_at', 'paid_at',
+    // Compra sin cuenta y facturación electrónica (ver docs/siigo-mapeo.md)
+    'is_guest', 'billing_doc_type', 'billing_doc_number', 'billing_doc_dv', 'billing_first_name', 'billing_last_name',
+    'fiscal_responsibility', 'billing_email', 'billing_address', 'billing_department_code', 'billing_department', 'billing_city_code',
+    'delivery_department_code', 'delivery_department', 'delivery_city_code', 'delivery_city', 'delivery_neighborhood',
+    'delivery_road', 'delivery_number', 'delivery_complement', 'delivery_postal_code', 'delivery_notes', 'delivery_same_as_billing',
+    'privacy_accepted_at', 'privacy_version',
 ])]
 class Order extends Model
 {
@@ -45,6 +53,11 @@ class Order extends Model
             'total' => 'decimal:2',
             'expires_at' => 'datetime',
             'paid_at' => 'datetime',
+            'billing_doc_type' => DocumentType::class,
+            'fiscal_responsibility' => FiscalResponsibility::class,
+            'is_guest' => 'boolean',
+            'delivery_same_as_billing' => 'boolean',
+            'privacy_accepted_at' => 'datetime',
         ];
     }
 

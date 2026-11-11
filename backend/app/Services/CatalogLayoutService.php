@@ -6,6 +6,8 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductLine;
+use App\Support\BulkUpdate;
+use Illuminate\Support\Collection;
 use Database\Seeders\CatalogSeeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -25,6 +27,12 @@ use Illuminate\Support\Str;
  */
 class CatalogLayoutService
 {
+    /** Columnas de la línea que escribe sync() (el resto no se toca). */
+    private const LINE_COLUMNS = ['name', 'brand_label', 'brand_id', 'category_id', 'spec_chips', 'image_key', 'image_url'];
+
+    /** Columnas de la referencia que escribe sync(): nunca SKU, nombre, slug, precio, costo, stock ni si está activo. */
+    private const PRODUCT_COLUMNS = ['line_id', 'category_id', 'brand_id', 'variant_label', 'specs', 'image_url'];
+
     /** @return array{lines: int, moved: int, removed: int, hidden: int} */
     public function sync(): array
     {
@@ -50,23 +58,34 @@ class CatalogLayoutService
         DB::transaction(function () use ($data, $images, &$result) {
             $keep = [];
 
+            // Todo se lee una vez y se compara en memoria; solo se escribe lo que cambió, en lotes (ver App\Support\BulkUpdate)
+            $lines = ProductLine::all()->keyBy('slug');
+            $categories = Category::all()->keyBy('slug');
+            $brands = Brand::pluck('id', 'slug')->all();
+            $products = Product::withTrashed()->get()->keyBy(fn (Product $p) => (string) $p->sku);
+            $lineRows = [];
+            $productRows = [];
+
+            $brandId = function (string $name) use (&$brands): int {
+                return $brands[Str::slug($name)] ??= Brand::create(['slug' => Str::slug($name), 'name' => $name])->id;
+            };
+
             foreach ($data['lines'] as $row) {
                 $slug = $row['slug'] ?? Str::slug($row['name']);
                 $keep[] = $slug;
-                $line = ProductLine::where('slug', $slug)->first();
+                $line = $lines->get($slug);
                 if (! $line) {
                     continue;
                 }
 
-                $category = $this->category($row['family'], $row['category']);
+                $category = $this->category($row['family'], $row['category'], $categories);
                 $mainName = $row['brand_label'] ? explode(' · ', $row['brand_label'])[0] : null;
-                $brand = $mainName ? Brand::firstOrCreate(['slug' => Str::slug($mainName)], ['name' => $mainName]) : null;
                 $lineImage = $this->imagePath($images[$slug] ?? null);
 
                 $line->fill([
                     'name' => $row['name'],
                     'brand_label' => $row['brand_label'],
-                    'brand_id' => $brand?->id,
+                    'brand_id' => $mainName ? $brandId($mainName) : null,
                     'category_id' => $category->id,
                     'spec_chips' => $row['specs'],
                     'image_key' => $row['image'],
@@ -74,31 +93,37 @@ class CatalogLayoutService
                 if ($this->managedImage($line->image_url)) {
                     $line->image_url = $lineImage;
                 }
-                $line->save();
+                if ($line->isDirty()) {
+                    $attributes = $line->getAttributes();
+                    $lineRows[$line->id] = array_intersect_key($attributes, array_flip(self::LINE_COLUMNS));
+                }
                 $result['lines']++;
 
                 foreach ($row['variants'] as $variant) {
-                    $product = Product::withTrashed()->where('sku', (string) $variant['sku'])->first();
+                    $product = $products->get((string) $variant['sku']);
                     if (! $product) {
                         continue;
                     }
 
-                    $target = $variant['image'] ?? $lineImage;
-                    $brandId = Brand::firstOrCreate(['slug' => Str::slug($variant['brand'])], ['name' => $variant['brand']])->id;
                     $product->line_id = $line->id;
                     $product->category_id = $category->id;
-                    $product->brand_id = $brandId;
+                    $product->brand_id = $brandId($variant['brand']);
                     $product->variant_label = $variant['label'];
                     $product->specs = $this->specs($variant) ?: null;
                     if ($this->managedImage($product->image_url)) {
-                        $product->image_url = $target;
+                        $product->image_url = $variant['image'] ?? $lineImage;
                     }
                     if ($product->isDirty('line_id')) {
                         $result['moved']++;
                     }
-                    $product->save();
+                    if ($product->isDirty()) {
+                        $productRows[$product->sku] = array_intersect_key($product->getAttributes(), array_flip(self::PRODUCT_COLUMNS));
+                    }
                 }
             }
+
+            BulkUpdate::run('product_lines', 'id', $lineRows);
+            BulkUpdate::run('products', 'sku', $productRows);
 
             // Líneas viejas que quedaron vacías y ya no existen en el catálogo
             ProductLine::whereNotIn('slug', $keep)->get()->each(function (ProductLine $line) use (&$result) {
@@ -149,6 +174,12 @@ class CatalogLayoutService
         ];
         $legacyRoots = ['motorreductores', 'variadores-y-arrancadores', 'ventilacion', 'cables', 'plc', 'energia-solar'];
         $removed = 0;
+
+        // Una sola consulta: si ninguna categoría antigua existe (lo normal tras la primera vez) no hay nada que hacer
+        $legacy = [...array_keys($map), 'paneles-solares', 'inversores-solares', ...$legacyRoots];
+        if (! Category::whereIn('slug', $legacy)->exists()) {
+            return 0;
+        }
 
         foreach ($map as $old => $new) {
             $from = Category::where('slug', $old)->first();
@@ -201,10 +232,18 @@ class CatalogLayoutService
         return $url === null || str_starts_with($url, '/img/catalogo/');
     }
 
-    private function category(string $family, string $name): Category
+    /** @param  Collection<string, Category>  $categories  las categorías ya leídas (por slug); las que faltan se crean y se agregan */
+    private function category(string $family, string $name, Collection $categories): Category
     {
-        $parent = Category::where('slug', Str::slug($family))->firstOrFail();
+        $slug = Str::slug($name);
+        if ($existing = $categories->get($slug)) {
+            return $existing;
+        }
 
-        return Category::firstOrCreate(['slug' => Str::slug($name)], ['parent_id' => $parent->id, 'name' => $name, 'sort_order' => 100, 'is_active' => true]);
+        $parent = $categories->get(Str::slug($family)) ?? throw new \RuntimeException("Falta la familia «{$family}».");
+        $category = Category::create(['slug' => $slug, 'parent_id' => $parent->id, 'name' => $name, 'sort_order' => 100, 'is_active' => true]);
+        $categories->put($slug, $category);
+
+        return $category;
     }
 }

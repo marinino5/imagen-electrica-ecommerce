@@ -62,6 +62,12 @@ class Product extends Model
             : $this->image_url);
     }
 
+    /** Se puede comprar ahora: con el stock apagado (antes de Siigo) siempre; con el stock activo, solo si hay unidades. */
+    public function hasAvailability(): bool
+    {
+        return ! config('shop.track_stock') || $this->stock > 0;
+    }
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);

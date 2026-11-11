@@ -18,6 +18,7 @@ const Register = lazy(() => import('./pages/Register'))
 const Recover = lazy(() => import('./pages/Recover'))
 const Reset = lazy(() => import('./pages/Reset'))
 const Account = lazy(() => import('./pages/Account'))
+const GuestOrder = lazy(() => import('./pages/GuestOrder'))
 const ComoComprar = lazy(() => import('./pages/ComoComprar'))
 const Nosotros = lazy(() => import('./pages/Nosotros'))
 const Contacto = lazy(() => import('./pages/Contacto'))
@@ -42,6 +43,7 @@ export default function App() {
                 <Route path="crear-cuenta" element={<Register />} />
                 <Route path="recuperar" element={<Recover />} />
                 <Route path="restablecer" element={<Reset />} />
+                <Route path="pedido/:code" element={<GuestOrder />} />
                 <Route path="mi-cuenta" element={<RequireAuth><Account /></RequireAuth>} />
                 <Route path="como-comprar" element={<ComoComprar />} />
                 <Route path="nosotros" element={<Nosotros />} />

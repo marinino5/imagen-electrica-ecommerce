@@ -8,7 +8,7 @@
   padding-bottom: env(safe-area-inset-bottom);
   background: var(--white);
   border-top: 1px solid var(--lavender-2);
-  box-shadow: 0 -6px 20px rgb(80 0 120 / 0.08);
+  box-shadow: 0 -6px 20px rgb(74 53 128 / 0.08);
 }
 .bottom-nav a {
   display: flex;

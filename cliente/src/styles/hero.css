@@ -22,6 +22,11 @@
   visibility: hidden;
   transition: opacity 0.8s var(--ease-out), visibility 0s 0.8s;
 }
+.hero__slide--brand {
+  background:
+    radial-gradient(55% 70% at 78% 42%, rgb(255 255 255 / 0.14) 0%, transparent 70%),
+    linear-gradient(135deg, var(--primary) 0%, var(--night) 100%);
+}
 .hero__slide.is-active {
   opacity: 1;
   visibility: visible;
@@ -45,12 +50,12 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgb(35 10 54 / 0.4) 0%, transparent 130px),
-    linear-gradient(90deg, rgba(35, 10, 54, 0.9) 0%, rgba(35, 10, 54, 0.65) 38%, rgba(35, 10, 54, 0.1) 65%, transparent 80%);
+    linear-gradient(180deg, rgb(28 22 48 / 0.4) 0%, transparent 130px),
+    linear-gradient(90deg, rgba(28, 22, 48, 0.9) 0%, rgba(28, 22, 48, 0.65) 38%, rgba(28, 22, 48, 0.1) 65%, transparent 80%);
 }
 @media (max-width: 767px) {
   /* En celular el texto ocupa todo el ancho: se oscurece también desde abajo */
-  .hero__overlay { background: linear-gradient(180deg, rgb(35 10 54 / 0.4) 0%, transparent 110px), linear-gradient(0deg, rgb(35 10 54 / 0.88) 0%, rgb(35 10 54 / 0.55) 55%, rgb(35 10 54 / 0.2) 100%); }
+  .hero__overlay { background: linear-gradient(180deg, rgb(28 22 48 / 0.4) 0%, transparent 110px), linear-gradient(0deg, rgb(28 22 48 / 0.88) 0%, rgb(28 22 48 / 0.55) 55%, rgb(28 22 48 / 0.2) 100%); }
 }
 /* Producto recortado, sin círculo, abajo a la derecha: brillo naranja detrás, arco de 2 px que lo envuelve,
    sombra elíptica en el piso y etiqueta en píldora pegada a la base */
@@ -364,7 +369,7 @@
   position: relative;
   z-index: 2;
   border-radius: 28px 28px 0 0;
-  box-shadow: 0 -24px 48px -28px rgb(35 10 54 / 0.45);
+  box-shadow: 0 -24px 48px -28px rgb(28 22 48 / 0.45);
 }
 /* Todo lo que va después del hero también tapa al hero fijo */
 .hero ~ * { position: relative; z-index: 2; }

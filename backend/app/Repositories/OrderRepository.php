@@ -75,6 +75,12 @@ class OrderRepository
         return Order::query()->where('customer_id', $customerId)->where('code', $code)->firstOrFail();
     }
 
+    /** Pedido o cotización por código (para el enlace seguro del invitado). */
+    public function findByCodeOrFail(string $code): Order
+    {
+        return Order::query()->where('code', $code)->firstOrFail();
+    }
+
     public function loadDetails(Order $order): Order
     {
         return $order->load([

@@ -120,7 +120,7 @@ class DashboardService
         foreach ($this->repository->purchasesToHandle(6) as $order) {
             $hours = (int) $order->created_at->diffInHours($now);
             $items->push((object) [
-                'kind' => 'order', 'code' => $order->code, 'client' => $order->display_name, 'status_label' => $order->status->label(), 'order' => $order,
+                'kind' => 'order', 'code' => $order->code, 'client' => $order->display_name.($order->is_guest && $order->customer_id === null ? ' (invitado)' : ''), 'status_label' => $order->status->label(), 'order' => $order,
                 'hours' => $hours, 'overdue' => $order->status === OrderStatus::PendingPayment && $hours >= 48,
                 'url' => route('admin.orders.show', $order), 'can_confirm_payment' => $order->status === OrderStatus::PendingPayment,
             ]);

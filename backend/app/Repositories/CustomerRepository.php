@@ -43,6 +43,12 @@ class CustomerRepository
         return $customer->load(['user:id,email,is_active', 'orders' => fn ($q) => $q->latest()->latest('id')]);
     }
 
+    /** ¿Ese NIT o cédula ya está en la ficha de otro cliente? (customers.nit es único) */
+    public function nitTakenByAnother(string $nit, ?int $exceptCustomerId = null): bool
+    {
+        return Customer::query()->where('nit', $nit)->when($exceptCustomerId, fn ($q, int $id) => $q->where('id', '!=', $id))->exists();
+    }
+
     public function createFor(User $user, array $data): Customer
     {
         return $user->customer()->create($data);
