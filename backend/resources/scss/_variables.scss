@@ -4,17 +4,17 @@
 
 // Paleta de marca: tonos del catálogo, pastel y neutros.
 // Para cambiar los colores de todo el panel se editan solo estas variables.
-$brand-primary: #4A3580; // violeta: encabezados, botones principales, íconos
+$brand-primary: #3F2D75; // violeta: encabezados, botones principales, íconos
 $brand-accent: #EE7C36; // naranja del catálogo (tienda); el panel usa solo accent-strong
 $brand-accent-strong: #F26A00; // único naranja del panel: avatar, insignias, líneas, botones y títulos
-$brand-primary-deep: #3A2A68; // violeta oscuro: refuerzo de contraste detrás del texto del login
+$brand-primary-deep: #2F2160; // violeta oscuro: refuerzo de contraste detrás del texto del login
 $brand-lavender-light: #bdb4e3; // lavanda claro: puntos de luz del login
 $brand-ink: #1C1630; // texto y títulos
 $brand-surface: #f6f4fb; // fondo de página y barra lateral
 $brand-lavender: #e6e2f3; // fondo de ítem activo, bordes y franjas
 $brand-muted: #6E6178; // texto secundario
 $brand-white: #FFFFFF;
-$brand-sidebar: #3A2A68; // barra lateral del panel: sólida, sin degradado
+$brand-sidebar: #2F2160; // barra lateral del panel: sólida, sin degradado
 
 // Paleta de gráficos e insignias: cinco colores, independientes de la marca (sin morado ni naranja).
 // Es el único lugar donde se definen; _base.scss la publica como variables CSS --chart-*.

@@ -8,8 +8,8 @@
   --white: #ffffff;
   --lavender: #f6f4fb; /* secciones alternas y degradados */
   --lavender-2: #e6e2f3; /* bordes, chips, fondos de tarjetas */
-  --primary: #4A3580; /* títulos de acento, iconos, enlaces, estados activos */
-  --primary-dark: #3A2A68; /* hover del violeta */
+  --primary: #3F2D75; /* títulos de acento, iconos, enlaces, estados activos */
+  --primary-dark: #2F2160; /* hover del violeta */
   --ink: #1C1630; /* texto principal y secciones oscuras (maqueta aprobada) */
   --ink-2: #2A2247; /* placa de datos y degradados ink */
   --lav-3: #d6d0ea; /* contornos suaves */
@@ -28,9 +28,9 @@
   --grad-light: linear-gradient(180deg, #ffffff 0%, #f6f4fb 100%);
   --grad-lavender: linear-gradient(135deg, #f6f4fb 0%, #e6e2f3 100%);
   --grad-violet: radial-gradient(60% 70% at 92% 0%, rgb(255 255 255 / 0.16) 0%, transparent 70%),
-    linear-gradient(135deg, #4A3580 0%, #3A2A68 100%);
-  --grad-ink: radial-gradient(55% 70% at 88% 0%, rgb(74 53 128 / 0.55) 0%, transparent 70%),
-    linear-gradient(135deg, #1C1630 0%, #3A2A68 100%);
+    linear-gradient(135deg, #3F2D75 0%, #2F2160 100%);
+  --grad-ink: radial-gradient(55% 70% at 88% 0%, rgb(63 45 117 / 0.55) 0%, transparent 70%),
+    linear-gradient(135deg, #1C1630 0%, #2F2160 100%);
   --grad-accent: radial-gradient(60% 80% at 85% 0%, rgb(255 255 255 / 0.15) 0%, transparent 70%),
     linear-gradient(135deg, #f26a00 0%, #f26a00 100%);
 
@@ -44,7 +44,7 @@
   --on-dark-line: rgb(255 255 255 / 0.18);
   --orange-soft: rgb(242 106 0 / 0.3); /* anillos finos y puntos de los arcos de fondo */
   --lavender-soft: rgb(230 226 243 / 0.3);
-  --violet-soft: rgb(74 53 128 / 0.1); /* arcos y destellos sobre fondos claros */
+  --violet-soft: rgb(63 45 117 / 0.1); /* arcos y destellos sobre fondos claros */
   --violet-glow: rgb(230 226 243 / 0.16); /* arcos y destellos sobre fondos oscuros */
   --dots: rgb(230 226 243 / 0.4); /* patrón de puntos */
 
@@ -62,9 +62,9 @@
   --radius-pill: 999px;
 
   /* Sombras teñidas de violeta */
-  --shadow-sm: 0 1px 2px rgb(74 53 128 / 0.06), 0 2px 8px rgb(74 53 128 / 0.05);
-  --shadow: 0 8px 28px rgb(74 53 128 / 0.08);
-  --shadow-lg: 0 20px 56px rgb(74 53 128 / 0.18);
+  --shadow-sm: 0 1px 2px rgb(63 45 117 / 0.06), 0 2px 8px rgb(63 45 117 / 0.05);
+  --shadow: 0 8px 28px rgb(63 45 117 / 0.08);
+  --shadow-lg: 0 20px 56px rgb(63 45 117 / 0.18);
 
   /* Layout */
   --container: 1200px;

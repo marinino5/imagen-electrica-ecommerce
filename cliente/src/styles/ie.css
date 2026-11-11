@@ -5,8 +5,8 @@
    ============================================================ */
 :root {
   --ie-violet-950: #1C1630; /* footer y texto de máximo contraste (= --ink; coincide con ≈#1C1630) */
-  --ie-violet-700: #4A3580; /* bloques extendidos y titulares oscuros (= --primary) */
-  --ie-violet-500: #4A3580; /* iconos, bordes activos y enlaces */
+  --ie-violet-700: #3F2D75; /* bloques extendidos y titulares oscuros (= --primary) */
+  --ie-violet-500: #3F2D75; /* iconos, bordes activos y enlaces */
   --ie-lila-200: #e6e2f3; /* pedestales, bordes de tarjeta, filas alternas */
   --ie-lila-100: #f3f1fa; /* fondos de sección */
   --ie-lila-50: #faf9fd; /* fondos de tarjeta suaves */
@@ -24,7 +24,7 @@
 .bg-lila-fade { background: var(--bg-lila-fade); }
 .bg-lila-soft {
   background-color: var(--ie-lila-100);
-  background-image: radial-gradient(circle, rgb(74 53 128 / 0.05) 0.75px, transparent 0.8px);
+  background-image: radial-gradient(circle, rgb(63 45 117 / 0.05) 0.75px, transparent 0.8px);
   background-size: 24px 24px;
 }
 .bg-lila-arc {
@@ -49,7 +49,7 @@
 .bg-lila-arc--l::after { right: auto; left: calc(min(56vw, 780px) * -0.46); }
 /* Los fondos antiguos pasan a las tres variantes: ninguna sección queda en blanco liso */
 .bg-white, .bg-lav { background: var(--bg-lila-fade); }
-.bg-soft, .bg-warm { background-color: var(--ie-lila-100); background-image: radial-gradient(circle, rgb(74 53 128 / 0.05) 0.75px, transparent 0.8px); background-size: 24px 24px; }
+.bg-soft, .bg-warm { background-color: var(--ie-lila-100); background-image: radial-gradient(circle, rgb(63 45 117 / 0.05) 0.75px, transparent 0.8px); background-size: 24px 24px; }
 .tex-dots::before { display: none; }
 
 /* ---------- Tipografía ---------- */
@@ -103,7 +103,7 @@
 /* ---------- Revelado y tarjetas ---------- */
 .rv--now, .rv--now.is-in { transition: none !important; }
 @media (hover: hover) and (pointer: fine) {
-  .lift:hover { transform: translateY(-4px); box-shadow: 0 22px 40px -20px rgb(74 53 128 / 0.45); }
+  .lift:hover { transform: translateY(-4px); box-shadow: 0 22px 40px -20px rgb(63 45 117 / 0.45); }
   .lift:hover .zoom { transform: scale(1.04); }
 }
 .lift, .lift .zoom { transition-duration: 0.24s; transition-timing-function: ease-out; }
@@ -261,7 +261,7 @@
 .chan__phones a { color: var(--muted); font-size: 0.95rem; text-decoration: none; }
 .chan__phones a:hover { color: var(--ie-violet-950); }
 @media (hover: hover) and (pointer: fine) {
-  a.chan:hover, .chan:hover:not(.chan--wa) { border-color: var(--ie-orange-500); transform: translateY(-3px); box-shadow: 0 16px 30px -18px rgb(74 53 128 / 0.4); }
+  a.chan:hover, .chan:hover:not(.chan--wa) { border-color: var(--ie-orange-500); transform: translateY(-3px); box-shadow: 0 16px 30px -18px rgb(63 45 117 / 0.4); }
   .chan--wa:hover { transform: translateY(-3px); box-shadow: 0 16px 30px -14px rgb(242 106 0 / 0.55); }
 }
 .chan:active { transform: scale(0.98); }

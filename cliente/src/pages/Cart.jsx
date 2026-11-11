@@ -24,17 +24,8 @@ import '../styles/rd-pages.css'
 
 const itemHref = (p) => (p.line_slug ? `/productos/${p.line_slug}${p.sku ? `?ref=${encodeURIComponent(p.sku)}` : ''}` : '/productos')
 
-// IVA incluido en el precio: base = total / (1 + tasa)
-function breakdown(lines) {
-  return lines.reduce(
-    (acc, l) => {
-      const total = l.product.price * l.quantity
-      const base = total / (1 + Number(l.product.tax_rate) / 100)
-      return { total: acc.total + total, base: acc.base + base, tax: acc.tax + (total - base) }
-    },
-    { total: 0, base: 0, tax: 0 },
-  )
-}
+// Los precios ya incluyen IVA: el total de los productos es la suma de precio × cantidad (no se desglosa base e IVA)
+const subtotalOf = (lines) => lines.reduce((sum, l) => sum + l.product.price * l.quantity, 0)
 
 // La miniatura sale SIEMPRE de los datos actuales del catálogo (la línea del producto, por su slug), no de la ruta que quedó guardada
 // en el carrito al agregarlo: si la foto cambió después, la guardada ya no existe. La guardada solo es el último recurso.
@@ -74,7 +65,7 @@ function Item({ line, showPrice }) {
 
 const emptyQuote = { name: '', phone: '', email: '', city: '', company: '', nit: '', message: '', privacy: false, website: '' }
 
-// Cotización sin cuenta: su propio bloque. Los renglones salen del carrito.
+// Cotización: su propio bloque. Los renglones salen del carrito.
 function QuoteBlock({ quoteLines }) {
   const { remove } = useCart()
   const { user, isAuthenticated } = useAuth()
@@ -140,11 +131,11 @@ function QuoteBlock({ quoteLines }) {
   return (
     <Bezel className="cart-quote" id="cotizacion">
       <div className="cart-quote__body">
-        <Eyebrow>Cotización sin cuenta</Eyebrow>
+        <Eyebrow>Cotización</Eyebrow>
         <h2 className="h2-sys">Pide tu <em>cotización</em></h2>
         <p className="cart-quote__lead">
           {quoteLines.length > 0
-            ? 'Un asesor responde con referencias, precios y tiempos de entrega. No necesitas cuenta.'
+            ? 'Un asesor responde con referencias, precios y tiempos de entrega.'
             : 'Agrega referencias desde cada ficha con «Cotizar volumen» o «Solicitar cotización».'}
         </p>
 
@@ -299,7 +290,7 @@ export default function Cart() {
   const [created, setCreated] = useState(null)
   const [shipping, setShipping] = useState(0)
 
-  const money = useMemo(() => breakdown(purchaseLines), [purchaseLines])
+  const subtotal = useMemo(() => subtotalOf(purchaseLines), [purchaseLines])
   // Carrito vacío: 4 fichas destacadas para empezar
   const featured = useMemo(() => catalog.filter((l) => l.is_featured).slice(0, 4), [catalog])
   // Sugerencias: otras líneas de las mismas familias que ya están en el carrito (máximo 3)
@@ -319,7 +310,7 @@ export default function Cart() {
   const empty = lines.length === 0
   const steps = [
     ['Revisa', true],
-    ['Facturación y entrega', purchaseLines.length > 0],
+    ['Tus datos', purchaseLines.length > 0],
     ['Confirma', false],
   ]
 
@@ -328,7 +319,7 @@ export default function Cart() {
       <Cover
         eyebrow="Tu pedido"
         lines={['Tu', { text: 'carrito', accent: true }]}
-        lead={empty ? 'Aún no hay nada aquí. Agrega referencias desde el catálogo para comprarlas en línea o cotizarlas.' : 'Revisa lo que elegiste y compra sin crear una cuenta: te pedimos los datos de facturación y de entrega. Lo que no tiene precio publicado se cotiza.'}
+        lead={empty ? 'Aún no hay nada aquí. Agrega referencias desde el catálogo para comprarlas en línea o cotizarlas.' : 'Revisa lo que elegiste, elige cómo lo recibes y confirma. Lo que no tiene precio publicado se cotiza.'}
         actions={empty ? <Pill as="link" to="/productos" tone="o">Explorar el catálogo</Pill> : null}
       >
         <Bezel className="cart-sum cart-sum--cover">
@@ -341,7 +332,7 @@ export default function Cart() {
             <dl className="cart-sum__rows">
               <div><dt>Para comprar</dt><dd>{purchaseLines.length} {purchaseLines.length === 1 ? 'producto' : 'productos'}</dd></div>
               <div><dt>Para cotizar</dt><dd>{quoteLines.length} {quoteLines.length === 1 ? 'producto' : 'productos'}</dd></div>
-              <div className="is-total"><dt>Total a pagar</dt><dd>{purchaseLines.length > 0 ? formatCOP(money.total + shipping) : '—'}</dd></div>
+              <div className="is-total"><dt>Total a pagar</dt><dd>{purchaseLines.length > 0 ? formatCOP(subtotal + shipping) : '—'}</dd></div>
             </dl>
           </div>
         </Bezel>
@@ -355,7 +346,7 @@ export default function Cart() {
             <div className="cart-sug__img" aria-hidden="true"><img src="/img/catalogo/weg-accesorios-variadores.webp" alt="" width="240" height="240" /></div>
             <div>
               <h2 id="h-sug" className="rd-h2">Empieza por <span className="hl is-in">lo más pedido</span></h2>
-              <p className="rd-lead">Agrega referencias desde el catálogo: lo que tiene precio publicado se compra en línea (sin cuenta) y lo demás se cotiza.</p>
+              <p className="rd-lead">Agrega referencias desde el catálogo: lo que tiene precio publicado se compra en línea y lo demás se cotiza.</p>
             </div>
           </div>
           {featured.length > 0 && <ul className="cart-sug__grid">{featured.map((l) => <li key={l.slug}><LineCard line={l} /></li>)}</ul>}
@@ -365,35 +356,20 @@ export default function Cart() {
       {!empty && (
         <div className="wrap cart-layout">
           <div className="cart-main">
+            {/* Un solo bloque: productos, entrega, total y datos de compra (sin cuadros aparte) */}
             <Reveal>
               <Bezel className="cart-block" id="compra">
                 <div className="cart-block__body">
-                  <h2 className="cart-block__title"><ShoppingCart size={20} aria-hidden="true" /> Compra en línea</h2>
+                  <h2 className="cart-block__title"><ShoppingCart size={20} aria-hidden="true" /> Tu compra</h2>
                   {purchaseLines.length === 0 ? (
                     <p className="cart-empty">No tienes productos de compra en línea. <Link to="/productos?modo=en-linea">Ver lo que se compra en línea</Link></p>
                   ) : (
-                    <ul className="cart-list">{purchaseLines.map((l) => <Item key={l.product.id} line={l} showPrice />)}</ul>
-                  )}
-                </div>
-              </Bezel>
-            </Reveal>
-
-            {/* Resumen de compra debajo de los productos: grande, ancho y con el formulario por pasos */}
-            <Reveal>
-              <Bezel className="cart-pay" id="pagar">
-                <div className="cart-pay__body">
-                  <h2 className="cart-block__title"><Lock size={20} aria-hidden="true" /> Resumen de compra</h2>
-                  {purchaseLines.length === 0 ? (
-                    <p className="cart-empty">Cuando agregues productos de compra en línea verás aquí el total y podrás comprar sin crear una cuenta.</p>
-                  ) : (
                     <>
-                      <dl className="cart-pay__totals">
-                        <div><dt>Base</dt><dd>{formatCOP(money.base)}</dd></div>
-                        <div><dt>IVA incluido</dt><dd>{formatCOP(money.tax)}</dd></div>
-                        <div><dt>Envío</dt><dd>{shipping > 0 ? formatCOP(shipping) : 'Gratis al recoger'}</dd></div>
-                        <div className="is-total"><dt>Total a pagar</dt><dd>{formatCOP(money.total + shipping)}</dd></div>
-                      </dl>
-                      <CheckoutForm purchaseLines={purchaseLines} subtotal={money.total} onShipping={setShipping} onCreated={onCreated} />
+                      <p className="cart-guest"><Lock size={14} aria-hidden="true" /> Puedes comprar sin crear una cuenta.</p>
+                      <ul className="cart-list">{purchaseLines.map((l) => <Item key={l.product.id} line={l} showPrice />)}</ul>
+                      <div id="pagar">
+                        <CheckoutForm purchaseLines={purchaseLines} subtotal={subtotal} onShipping={setShipping} onCreated={onCreated} />
+                      </div>
                       <p className="field-hint">El pago en línea llegará más adelante: hoy un asesor confirma el pago y la entrega contigo.</p>
                     </>
                   )}
@@ -428,7 +404,7 @@ export default function Cart() {
       {!empty && (
         <div className="cart-bar" role="region" aria-label="Resumen del carrito">
           <p>
-            <strong>{purchaseLines.length > 0 ? formatCOP(money.total + shipping) : 'Por cotizar'}</strong>
+            <strong>{purchaseLines.length > 0 ? formatCOP(subtotal + shipping) : 'Por cotizar'}</strong>
             <small>{purchaseLines.length > 0 ? 'IVA incluido' : `${quoteLines.length} para cotizar`}</small>
           </p>
           <Pill as="a" href={purchaseLines.length > 0 ? '#pagar' : '#cotizacion'} tone="o" size="sm">{purchaseLines.length > 0 ? 'Comprar' : 'Cotizar'}</Pill>

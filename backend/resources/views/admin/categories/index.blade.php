@@ -11,7 +11,7 @@
     <div class="page-header d-flex flex-wrap justify-content-between align-items-start gap-3">
         <div>
             <h1>Familias y categorías</h1>
-            <p>Las 10 familias de la tienda y sus categorías: son las mismas que ve el cliente en el menú y el catálogo.</p>
+            <p>Las 9 familias de la tienda y sus categorías: son las mismas que ve el cliente en el menú y el catálogo.</p>
         </div>
         <a href="{{ route('admin.categories.create') }}" class="btn btn-primary"><i class="bi bi-plus-lg me-1" aria-hidden="true"></i>Nueva categoría</a>
     </div>

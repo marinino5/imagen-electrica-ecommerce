@@ -11,7 +11,7 @@ import Squares from '../ui/Squares'
 import '../../styles/home.css'
 import '../../styles/home2.css'
 
-// Las familias (8 en el portafolio original, 10 con Material Eléctrico y Herramientas y Repuestos) en una cuadrícula pareja: todas con la imagen recortada en el mismo formato (mismo tamaño visual y mismo
+// Las 9 familias del portafolio en una cuadrícula pareja: todas con la imagen recortada en el mismo formato (mismo tamaño visual y mismo
 // margen). Al pasar el mouse (o enfocar) aparece la lista de categorías con su contador. Compresores usa la ilustración
 // de marca en el mismo formato (ver docs/imagenes-pendientes.md).
 function FamilyTile({ family, index }) {
@@ -68,7 +68,7 @@ export default function HomeLines() {
         {loading && <div className="skeleton" style={{ height: 520, borderRadius: 8 }} aria-hidden="true" />}
         {error && <ErrorState error={error} onRetry={reload} />}
         {!loading && !error && (
-          <ul className={`fam-grid ${families.length >= 9 ? 'fam-grid--wide' : ''}`}>
+          <ul className={`fam-grid ${families.length === 9 ? 'fam-grid--nine' : families.length > 9 ? 'fam-grid--wide' : ''}`}>
             {families.map((f, i) => <FamilyTile key={f.id} family={f} index={i} />)}
           </ul>
         )}

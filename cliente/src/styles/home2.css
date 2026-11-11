@@ -269,7 +269,7 @@
   gap: 10px;
   padding: 22px 20px 20px;
   transform: rotateY(180deg);
-  background: radial-gradient(70% 50% at 100% 0%, rgb(74 53 128 / 0.6), transparent 70%), var(--night);
+  background: radial-gradient(70% 50% at 100% 0%, rgb(63 45 117 / 0.6), transparent 70%), var(--night);
   color: #fff;
   overflow-y: auto;
 }

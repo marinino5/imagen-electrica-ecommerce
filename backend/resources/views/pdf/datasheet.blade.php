@@ -15,15 +15,15 @@
         table { border-collapse: collapse; width: 100%; }
         .muted { color: #6e6178; }
         .head td { vertical-align: middle; }
-        .brand { font-size: 17px; font-weight: bold; color: #4A3580; text-transform: uppercase; }
+        .brand { font-size: 17px; font-weight: bold; color: #3F2D75; text-transform: uppercase; }
         .doc { text-align: right; font-size: 9.5px; line-height: 1.6; }
-        .doc strong { font-size: 12px; color: #4A3580; }
-        .rule { height: 3px; background: #4A3580; margin: 8px 0 14px; }
+        .doc strong { font-size: 12px; color: #3F2D75; }
+        .rule { height: 3px; background: #3F2D75; margin: 8px 0 14px; }
         h1 { font-size: 19px; margin: 0 0 3px; color: #1C1630; }
         .ref { font-size: 11px; color: #6e6178; margin-bottom: 10px; }
         .photo { text-align: center; padding: 6px 0 10px; }
         .photo img { max-height: 190px; max-width: 260px; }
-        h2 { font-size: 11px; margin: 14px 0 5px; color: #4A3580; text-transform: uppercase; letter-spacing: .5px; }
+        h2 { font-size: 11px; margin: 14px 0 5px; color: #3F2D75; text-transform: uppercase; letter-spacing: .5px; }
         .spec th, .spec td { border: 1px solid #d6ccea; padding: 5px 8px; text-align: left; font-size: 10px; }
         .spec th { width: 34%; background: #f6f4fb; font-weight: bold; }
         .val th, .val td { border: 1px solid #d6ccea; padding: 6px 8px; font-size: 10.5px; }

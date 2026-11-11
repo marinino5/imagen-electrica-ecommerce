@@ -1,4 +1,4 @@
-import { Activity, BatteryCharging, Cable, CircuitBoard, Cog, Fan, Gauge, Lightbulb, PlugZap, Scroll, Settings2, Toolbox, Wrench } from 'lucide-react'
+import { Activity, BatteryCharging, Cable, CircuitBoard, Cog, Fan, Gauge, Lightbulb, PlugZap, Scroll, Settings2, Wrench } from 'lucide-react'
 
 // Icono grande de cada familia: se usa en el diseño de marca cuando una ficha aún no tiene foto.
 const ICONS = {
@@ -10,13 +10,12 @@ const ICONS = {
   iluminacion: Lightbulb,
   compresores: Gauge,
   'medicion-y-testeo': Activity,
-  'material-electrico': PlugZap, // enchufe con rayo
-  'herramientas-y-repuestos': Toolbox, // caja de herramientas
+  'material-electrico-y-repuestos': PlugZap, // enchufe con rayo
 }
 
 export const familyIcon = (slug) => ICONS[slug] ?? Cog
 
-// Icono propio de cada línea de «Herramientas y Repuestos» en el menú y en el acordeón del catálogo (una categoría por producto)
+// Icono propio de cada categoría de repuestos en el menú y en el acordeón del catálogo (una categoría por producto)
 const CATEGORY_ICONS = {
   'cintas-de-enmascarar': Scroll,
   baterias: BatteryCharging,
@@ -36,10 +35,9 @@ export const FAMILY_PHOTO = {
   'cables-y-conductores': cut('centelsa-cable-thhn', 'Rollo de cable THHN/THWN-2 Nexans Línea Plus (Centelsa)'),
   iluminacion: cut('sylvania-start-highbay', 'Campana industrial LED Sylvania START Highbay'),
   'medicion-y-testeo': cut('fluke-multimetro-117', 'Multímetro Fluke 117'),
-  // Compresores, Material Eléctrico y Herramientas y Repuestos: portada con producto recortado igual que las demás
+  // Compresores y Material Eléctrico y Repuestos: portada con producto recortado igual que las demás
   compresores: cut('ferrara-compresor', 'Compresor de pistón Ferrara'),
-  'material-electrico': cut('familia-material-electrico', 'Cinta aislante 3M, toma doble y clavija industrial Leviton'),
-  'herramientas-y-repuestos': cut('familia-herramientas', 'Cinta de enmascarar Cellux, batería y tapón de acero inoxidable'),
+  'material-electrico-y-repuestos': cut('familia-material-electrico-y-repuestos', 'Cinta aislante 3M, toma doble, batería y tapón de acero inoxidable'),
 }
 export const familyPhoto = (slug) => FAMILY_PHOTO[slug] ?? null
 
@@ -53,9 +51,16 @@ export const FAMILY_APP_PHOTO = {
   iluminacion: { src: '/img/fotos/almacen-oscuro.webp', alt: 'Almacén con estanterías' },
   compresores: { src: '/img/aplicaciones/bombeo.webp', alt: 'Tubería y equipos de una planta' },
   'medicion-y-testeo': { src: '/img/aplicaciones/fluke-en-tablero.webp', alt: 'Multímetro Fluke midiendo en un tablero' },
-  'material-electrico': { src: '/img/fotos/tablero-cerca.webp', alt: 'Cableado de un tablero eléctrico' },
-  'herramientas-y-repuestos': { src: '/img/fotos/almacen-cajas.webp', alt: 'Cajas en una estantería del almacén' },
+  'material-electrico-y-repuestos': { src: '/img/fotos/tablero-cerca.webp', alt: 'Cableado de un tablero eléctrico' },
 }
+
+// Familias que se fusionaron y cambiaron de slug: los enlaces guardados (/productos?familia=herramientas-y-repuestos) siguen funcionando.
+// Va igual que `shop.legacy_family_slugs` del backend.
+export const LEGACY_FAMILY_SLUGS = {
+  'material-electrico': 'material-electrico-y-repuestos',
+  'herramientas-y-repuestos': 'material-electrico-y-repuestos',
+}
+export const currentFamilySlug = (slug) => LEGACY_FAMILY_SLUGS[slug] ?? slug
 
 // Qué familias muestran cada filtro técnico (el resto no los ofrece)
 export const HP_FAMILIES = ['motores-electricos']
@@ -74,6 +79,5 @@ export const FAMILY_BLURB = {
   iluminacion: 'Iluminación industrial LED para naves, almacenes y talleres.',
   compresores: 'Compresores de pistón para taller e industria.',
   'medicion-y-testeo': 'Multímetros, instrumentos de panel y equipos de medición para electricistas y técnicos.',
-  'material-electrico': 'Tomas, clavijas, cintas aislantes y puesta a tierra para instalaciones eléctricas.',
-  'herramientas-y-repuestos': 'Cintas, baterías, conexiones y repuestos para el día a día de tu taller o planta.',
+  'material-electrico-y-repuestos': 'Tomas, cintas, baterías, conexiones y repuestos para instalar y mantener tu planta o taller.',
 }

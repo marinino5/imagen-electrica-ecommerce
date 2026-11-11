@@ -50,7 +50,7 @@
   gap: 14px;
   border-radius: 24px;
   background: #fff;
-  box-shadow: 0 16px 40px rgb(74 53 128 / 0.1);
+  box-shadow: 0 16px 40px rgb(63 45 117 / 0.1);
 }
 .fx .pd__name { font-size: clamp(2.25rem, 1.6rem + 1.8vw, 3rem); font-weight: 700; line-height: 0.95; letter-spacing: -0.3px; color: var(--ie-violet-950); }
 .fx .pd__desc { margin: 0; max-width: 52ch; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -122,3 +122,19 @@
 /* ---------- Dónde se usa y tabla de referencias: fila elegida en naranja suave ---------- */
 .fx .pd-table tr.on td { background: var(--ie-orange-100); }
 @media (prefers-reduced-motion: reduce) { .fx .pd-tabs__bar { transition: none; } }
+
+/* ---------- Descargar ficha y cotización: botón destacado bajo los botones de compra (Fase 6) ---------- */
+.fx .pd-dl--hero {
+  display: flex; align-items: center; justify-content: center; gap: 14px; width: 100%; margin-top: 12px; padding: 14px 20px; min-height: 68px;
+  border: 0; border-radius: 14px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: #fff; text-align: left;
+  box-shadow: 0 16px 30px -18px rgb(47 33 96 / 0.9); transition: transform 0.25s var(--ie-ease), box-shadow 0.25s;
+}
+.fx .pd-dl--hero:hover { border-color: transparent; box-shadow: 0 22px 36px -18px rgb(47 33 96 / 0.95); }
+.fx .pd-dl--hero:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.fx .pd-dl--hero .pd-dl__ic { display: grid; place-items: center; flex: none; width: 42px; height: 42px; border-radius: 50%; background: var(--accent); }
+.fx .pd-dl--hero .pd-dl__ic svg { color: var(--ink); }
+.fx .pd-dl--hero .pd-dl__tx { display: grid; gap: 2px; }
+.fx .pd-dl--hero b { font-size: 1.02rem; font-weight: 800; }
+.fx .pd-dl--hero small { color: rgb(255 255 255 / 0.82); font-size: 0.82rem; line-height: 1.3; }
+@media (hover: hover) and (pointer: fine) { .fx .pd-dl--hero:hover { transform: translateY(-2px); } }
+@media (prefers-reduced-motion: reduce) { .fx .pd-dl--hero { transition: none; } .fx .pd-dl--hero:hover { transform: none; } }

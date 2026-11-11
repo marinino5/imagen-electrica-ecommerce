@@ -318,7 +318,7 @@ body::after {
 @media (hover: hover) {
   .lift:hover {
     transform: translateY(-3px);
-    box-shadow: 0 14px 30px -18px rgb(74 53 128 / 0.4);
+    box-shadow: 0 14px 30px -18px rgb(63 45 117 / 0.4);
     border-color: var(--lav-3);
   }
   .lift:hover .zoom {

@@ -9,7 +9,6 @@ import Hl from '../components/ui/Hl'
 import Reveal from '../components/ui/Reveal'
 import Pill from '../components/ui/Pill'
 import { site } from '../config/site'
-import { useMediaQuery } from '../hooks/useMediaQuery'
 import { clamp01, useScrollFrame } from '../hooks/useScrollFrame'
 import '../styles/nosotros.css'
 import '../styles/ie-nosotros.css'
@@ -22,38 +21,22 @@ const STORE = [
   { src: '/img/tienda/compresor-ferrara', cap: 'Compresores de pistón', alt: 'Tanque del compresor de pistón Ferrara', pos: '50% 40%' },
 ]
 
-// Órbita de producto: 12 productos recortados de distintas familias (96–200 px) flotan alrededor del bloque «+1.000 productos».
-// Al llegar la sección a la pantalla se acercan a su órbita, cada uno a su propia velocidad (`v`), y flotan ±6 px.
-// Al pasar el mouse (o enfocar) aparece el nombre; cada uno enlaza con su familia del catálogo.
+// Vitrina de producto: 12 productos recortados de distintas familias, todos al mismo tamaño y en una cuadrícula ordenada, junto al
+// arco con la cifra «+1.000». Cada uno enlaza con su familia del catálogo y dice su nombre sin tener que pasar el mouse.
 const WALL = [
-  { src: 'weg-w22-iec', name: 'Motor trifásico W22', fam: 'Motores Eléctricos', slug: 'motores-electricos', size: 200 },
-  { src: 'weg-cfw500', name: 'Variador CFW500', fam: 'Control y Automatización', slug: 'control-y-automatizacion', size: 130 },
-  { src: 'soler-palau-extractor-axial', name: 'Extractor axial tubular', fam: 'Ventilación y Climatización', slug: 'ventilacion-y-climatizacion', size: 170 },
-  { src: 'weg-cestari-wcg20', name: 'Motorreductor helicoidal', fam: 'Reductores y Motorreductores', slug: 'reductores-y-motorreductores', size: 110 },
-  { src: 'fluke-multimetro-117', name: 'Multímetro Fluke 117', fam: 'Medición y Testeo', slug: 'medicion-y-testeo', size: 160 },
-  { src: 'weg-contactores', name: 'Contactores CWB', fam: 'Control y Automatización', slug: 'control-y-automatizacion', size: 96 },
-  { src: 'centelsa-cable-thhn', name: 'Cable THHN/THWN-2', fam: 'Cables y Conductores', slug: 'cables-y-conductores', size: 190 },
-  { src: 'weg-guardamotores', name: 'Guardamotor MPW', fam: 'Control y Automatización', slug: 'control-y-automatizacion', size: 120 },
-  { src: 'sylvania-start-highbay', name: 'Campana LED START', fam: 'Iluminación', slug: 'iluminacion', size: 150 },
-  { src: 'weg-w21-aluminio', name: 'Motor trifásico W21', fam: 'Motores Eléctricos', slug: 'motores-electricos', size: 180 },
-  { src: 'weg-plc500', name: 'PLC WEG PLC500', fam: 'Control y Automatización', slug: 'control-y-automatizacion', size: 100 },
-  { src: 'weg-ssw05', name: 'Arrancador suave SSW05', fam: 'Control y Automatización', slug: 'control-y-automatizacion', size: 130 },
+  { src: 'weg-w22-iec', name: 'Motor trifásico W22', fam: 'Motores Eléctricos', slug: 'motores-electricos' },
+  { src: 'weg-cfw500', name: 'Variador CFW500', fam: 'Control y Automatización', slug: 'control-y-automatizacion' },
+  { src: 'soler-palau-extractor-axial', name: 'Extractor axial tubular', fam: 'Ventilación y Climatización', slug: 'ventilacion-y-climatizacion' },
+  { src: 'weg-cestari-wcg20', name: 'Motorreductor helicoidal', fam: 'Reductores y Motorreductores', slug: 'reductores-y-motorreductores' },
+  { src: 'fluke-multimetro-117', name: 'Multímetro Fluke 117', fam: 'Medición y Testeo', slug: 'medicion-y-testeo' },
+  { src: 'weg-contactores', name: 'Contactores CWB', fam: 'Control y Automatización', slug: 'control-y-automatizacion' },
+  { src: 'centelsa-cable-thhn', name: 'Cable THHN/THWN-2', fam: 'Cables y Conductores', slug: 'cables-y-conductores' },
+  { src: 'weg-guardamotores', name: 'Guardamotor MPW', fam: 'Control y Automatización', slug: 'control-y-automatizacion' },
+  { src: 'sylvania-start-highbay', name: 'Campana LED START', fam: 'Iluminación', slug: 'iluminacion' },
+  { src: 'weg-w21-aluminio', name: 'Motor trifásico W21', fam: 'Motores Eléctricos', slug: 'motores-electricos' },
+  { src: 'weg-plc500', name: 'PLC WEG PLC500', fam: 'Control y Automatización', slug: 'control-y-automatizacion' },
+  { src: 'weg-ssw05', name: 'Arrancador suave SSW05', fam: 'Control y Automatización', slug: 'control-y-automatizacion' },
 ]
-
-// Posición de cada producto en la elipse (grados desde −90°, de 30° en 30°), velocidad de acercamiento y fase del flotado
-const ORBIT = WALL.map((p, i) => {
-  const a = ((i * 30 - 90) * Math.PI) / 180
-  return {
-    ...p,
-    x: +(50 + 41 * Math.cos(a)).toFixed(2),
-    y: +(50 + 39 * Math.sin(a)).toFixed(2),
-    ox: Math.round(Math.cos(a) * (170 + (i % 3) * 40)), // cuánto más lejos del centro parte (px)
-    oy: Math.round(Math.sin(a) * (150 + (i % 3) * 30)),
-    v: [1, 1.25, 1.1, 1.4, 1.05, 1.2][i % 6], // velocidad relativa del acercamiento
-    fd: [4, 5.2, 4.6, 6, 4.4, 5.6][i % 6], // duración del flotado (s)
-    fl: -((i * 0.7) % 4).toFixed(1), // fase: cada uno flota desfasado
-  }
-})
 
 // Cómo trabajamos: tres paneles de foto que se apilan al bajar (tarjetas apiladas)
 const PILLARS = [
@@ -163,39 +146,32 @@ function Manifesto({ reduced }) {
   )
 }
 
-/* ---------- 6.3 Órbita de producto ---------- */
-function Wall({ reduced }) {
-  const box = useRef(null)
-  const wide = useMediaQuery('(min-width: 900px)')
-  // --p va de 0 (la sección entra por abajo) a 1 (su centro llega al centro de la pantalla): los productos parten más lejos
-  // del bloque central y se acercan a su órbita; el CSS multiplica --p por la velocidad de cada uno
-  useScrollFrame(() => {
-    const el = box.current
-    if (!el) return
-    const r = el.getBoundingClientRect()
-    const vh = window.innerHeight
-    el.style.setProperty('--p', clamp01((vh - r.top) / (vh / 2 + r.height / 2)).toFixed(4))
-  }, !reduced)
-
+/* ---------- 6.3 Vitrina «+1.000 productos» ---------- */
+// A la izquierda, un arco violeta con la cifra grande y su llamado; a la derecha, 12 productos en una cuadrícula pareja (misma escala,
+// misma línea base, un estante bajo cada fila). En celular el arco va arriba y los productos en dos columnas.
+function Wall() {
   return (
     <section className="ab-wall bgt bgt-a" aria-labelledby="h-muro">
       <div className="wrap">
         <h2 id="h-muro" className="sr-only">Productos que distribuimos</h2>
-        <ul className={`orbit ${wide ? '' : 'orbit--sm'}`} ref={box} style={{ '--p': reduced ? 1 : 0 }}>
-          {ORBIT.map((p) => (
-            <li key={p.src} className="orbit__item" style={{ '--x': p.x, '--y': p.y, '--sz': p.size, '--ox': p.ox, '--oy': p.oy, '--v': p.v, '--fd': `${p.fd}s`, '--fl': `${p.fl}s` }}>
-              <Link to={`/productos?familia=${p.slug}`} className="orbit__link" aria-label={`${p.name}, ${p.fam}`}>
-                <span className="orbit__f"><img src={`/img/catalogo/${p.src}-sm.webp`} alt="" width="480" height="480" loading="lazy" decoding="async" /></span>
-                <span className="orbit__cap"><strong>{p.name}</strong>{p.fam}</span>
-              </Link>
-            </li>
-          ))}
-          <li className="orbit__core">
-            <p className="orbit__big">+1.000</p>
-            <p className="orbit__txt">productos de las mejores marcas</p>
+        <div className="vit">
+          <Reveal className="vit__arch">
+            <span className="vit__ring" aria-hidden="true" />
+            <p className="vit__big">+1.000</p>
+            <p className="vit__txt">productos de las mejores marcas</p>
             <Pill as="link" to="/productos" tone="o" icon={ArrowUpRight}>Explorar catálogo</Pill>
-          </li>
-        </ul>
+          </Reveal>
+          <ul className="vit__grid">
+            {WALL.map((p, i) => (
+              <Reveal as="li" i={i % 4} key={p.src} className="vit__cell">
+                <Link to={`/productos?familia=${p.slug}`} className="vit__link" aria-label={`${p.name}, ${p.fam}`}>
+                  <span className="vit__img"><img src={`/img/catalogo/${p.src}-sm.webp`} alt="" width="480" height="480" loading="lazy" decoding="async" /></span>
+                  <span className="vit__name"><strong>{p.name}</strong><small>{p.fam}</small></span>
+                </Link>
+              </Reveal>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   )
@@ -248,7 +224,7 @@ export default function Nosotros() {
     <div className="ab-page">
       <GrowHero reduced={reduced} />
       <Manifesto reduced={reduced} />
-      <Wall reduced={reduced} />
+      <Wall />
       <Stack reduced={reduced} />
 
       {/* 6.5 Nuestra tienda: fotos y videos propios */}

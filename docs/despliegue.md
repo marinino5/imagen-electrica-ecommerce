@@ -207,3 +207,12 @@ KILL <Id de SHOW PROCESSLIST>;
 5. Con la sesión liberada, **Manual Deploy → Deploy latest commit**. Se retoman solas las migraciones que falten.
 
 **Por qué se colgaba:** `2026_11_12_120000` hacía unas 3.400 consultas una por una; contra Aiven (con ~100 ms de red por consulta) son varios minutos, y además corrían antes de abrir el puerto. Ahora hace unas 220 (lecturas en bloque y `UPDATE … CASE` por lotes) y el puerto abre primero.
+
+## Fase 6: fusión de familias y foto del compresor
+
+| Migración | Qué hace | Cómo comprobarla |
+|---|---|---|
+| `2026_11_19_100000_merge_material_and_tools_families` | Fusiona «Material Eléctrico» y «Herramientas y Repuestos» en «Material Eléctrico y Repuestos» (mueve categorías, líneas y productos; borra las familias viejas). Idempotente | `GET /api/v1/families` devuelve 9 familias; `?family=herramientas-y-repuestos` sigue respondiendo (ver `shop.legacy_family_slugs`) |
+| `2026_11_19_110000_replace_ferrara_compressor_photo` | Cambia la foto de la línea del compresor Ferrara solo si todavía tiene la foto propia anterior | La línea `compresor-vertical` apunta a `/img/catalogo/ferrara-compresor.webp` |
+
+El tiempo de respuesta a cotizaciones ahora es «en máximo 3 días hábiles» por defecto (`QUOTE_RESPONSE_TIME` en el backend y `VITE_QUOTE_RESPONSE` en la tienda): si Render tiene esas variables puestas con el texto anterior, hay que actualizarlas.

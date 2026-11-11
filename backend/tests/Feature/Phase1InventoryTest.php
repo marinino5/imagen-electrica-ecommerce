@@ -69,13 +69,39 @@ class Phase1InventoryTest extends TestCase
         $this->assertSame(count($skus), count(array_unique($skus)));
     }
 
-    public function test_las_familias_nuevas_van_al_final_y_otros_productos_es_la_ultima(): void
+    public function test_hay_nueve_familias_y_material_electrico_y_repuestos_es_la_ultima(): void
     {
         $slugs = collect($this->getJson('/api/v1/families')->assertOk()->json('data'))->pluck('slug');
 
-        $this->assertSame('herramientas-y-repuestos', $slugs->last());
-        $this->assertSame('material-electrico', $slugs->slice(-2, 1)->first());
+        $this->assertCount(9, $slugs);
+        $this->assertSame('material-electrico-y-repuestos', $slugs->last());
+        $this->assertNotContains('herramientas-y-repuestos', $slugs);
+        $this->assertNotContains('material-electrico', $slugs);
         $this->assertContains('medicion-y-testeo', $slugs);
+    }
+
+    public function test_los_slugs_viejos_de_las_familias_fusionadas_siguen_respondiendo(): void
+    {
+        $nuevo = $this->getJson('/api/v1/lines?family=material-electrico-y-repuestos&per_page=100')->assertOk()->json('data');
+        $this->assertNotEmpty($nuevo);
+
+        foreach (['material-electrico', 'herramientas-y-repuestos'] as $viejo) {
+            $this->assertCount(count($nuevo), $this->getJson('/api/v1/lines?family='.$viejo.'&per_page=100')->assertOk()->json('data'), $viejo);
+        }
+    }
+
+    public function test_la_fusion_de_familias_mueve_categorias_y_productos_y_es_idempotente(): void
+    {
+        $service = app(\App\Services\CatalogLayoutService::class);
+        $family = \App\Models\Category::where('slug', 'material-electrico-y-repuestos')->firstOrFail();
+        $tools = \App\Models\Category::create(['slug' => 'herramientas-y-repuestos', 'name' => 'Herramientas y Repuestos', 'sort_order' => 999, 'is_active' => true]);
+        $child = $family->children()->first();
+        $child->update(['parent_id' => $tools->id]);
+
+        $this->assertTrue($service->mergeRepuestosFamilies());
+        $this->assertSame($family->id, $child->fresh()->parent_id);
+        $this->assertNull(\App\Models\Category::where('slug', 'herramientas-y-repuestos')->first());
+        $this->assertFalse($service->mergeRepuestosFamilies(), 'la segunda vez no hay nada que hacer');
     }
 
     public function test_medicion_incluye_los_instrumentos_de_panel_y_las_lineas_de_wcg_ya_tienen_referencias(): void

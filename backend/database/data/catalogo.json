@@ -41,14 +41,9 @@
    "description": null
   },
   {
-   "name": "Material Eléctrico",
+   "name": "Material Eléctrico y Repuestos",
    "image": "material-electrico",
-   "description": "Tomas, clavijas, cintas aislantes y puesta a tierra para instalaciones eléctricas."
-  },
-  {
-   "name": "Herramientas y Repuestos",
-   "image": "otros",
-   "description": "Cintas, baterías, conexiones y repuestos para el día a día de tu taller o planta."
+   "description": "Tomas, cintas, baterías, conexiones y repuestos para instalar y mantener tu planta o taller."
   }
  ],
  "lines": [
@@ -9297,7 +9292,7 @@
    "slug": "spot-led-karluz"
   },
   {
-   "family": "Material Eléctrico",
+   "family": "Material Eléctrico y Repuestos",
    "category": "Cintas aislantes",
    "name": "Cinta aislante PVC 3M Temflex",
    "brand_label": "3M",
@@ -9389,7 +9384,7 @@
    "slug": "cinta-aislante-pvc-3m-temflex"
   },
   {
-   "family": "Herramientas y Repuestos",
+   "family": "Material Eléctrico y Repuestos",
    "category": "Cintas de enmascarar",
    "name": "Cinta de enmascarar Cellux 18 mm",
    "brand_label": "Cellux",
@@ -9421,7 +9416,7 @@
    "slug": "cinta-de-enmascarar-cellux-18-mm"
   },
   {
-   "family": "Herramientas y Repuestos",
+   "family": "Material Eléctrico y Repuestos",
    "category": "Baterías",
    "name": "Batería Magna 12 V 5 Ah",
    "brand_label": "Magna",
@@ -9451,7 +9446,7 @@
    "slug": "bateria-magna-12-v-5-ah"
   },
   {
-   "family": "Herramientas y Repuestos",
+   "family": "Material Eléctrico y Repuestos",
    "category": "Tapones y conexiones",
    "name": "Tapón macho Swagelok 3/4 NPT acero inoxidable",
    "brand_label": "Swagelok",
@@ -9484,7 +9479,7 @@
    "slug": "tapon-macho-swagelok-3-4-npt-acero-inoxidable"
   },
   {
-   "family": "Material Eléctrico",
+   "family": "Material Eléctrico y Repuestos",
    "category": "Tomas e interruptores",
    "name": "Interruptor inteligente Ilumax",
    "brand_label": "Ilumax",
@@ -9532,7 +9527,7 @@
    "slug": "interruptor-inteligente-ilumax"
   },
   {
-   "family": "Material Eléctrico",
+   "family": "Material Eléctrico y Repuestos",
    "category": "Tomas e interruptores",
    "name": "Tapa para toma Leviton",
    "brand_label": "Leviton",
@@ -9616,7 +9611,7 @@
    "slug": "tapa-para-toma-leviton"
   },
   {
-   "family": "Material Eléctrico",
+   "family": "Material Eléctrico y Repuestos",
    "category": "Tomas e interruptores",
    "name": "Toma doble Leviton",
    "brand_label": "Leviton",
@@ -9666,7 +9661,7 @@
    "slug": "toma-doble-leviton"
   },
   {
-   "family": "Material Eléctrico",
+   "family": "Material Eléctrico y Repuestos",
    "category": "Tomas e interruptores",
    "name": "Clavija Leviton",
    "brand_label": "Leviton",
@@ -9734,7 +9729,7 @@
    "slug": "clavija-leviton"
   },
   {
-   "family": "Material Eléctrico",
+   "family": "Material Eléctrico y Repuestos",
    "category": "Tomas e interruptores",
    "name": "Toma industrial Leviton",
    "brand_label": "Leviton",

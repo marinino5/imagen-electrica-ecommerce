@@ -29,7 +29,7 @@ function HeaderSearch({ className = '', onDone }) {
   )
 }
 
-// Mega-menú: las 8 familias del portafolio en dos filas de cuatro. Cada una lleva su miniatura (formato único de la
+// Mega-menú: las 9 familias del portafolio en dos filas de cuatro. Cada una lleva su miniatura (formato único de la
 // tienda) y una lista vertical limpia de categorías, una por renglón: nada de categorías que se juntan en la misma línea.
 function Mega({ families, onClose }) {
   return (

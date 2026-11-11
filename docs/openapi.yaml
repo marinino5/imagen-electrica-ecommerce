@@ -479,14 +479,14 @@ paths:
                 example:
                   data:
                     -
-                      id: 63
+                      id: 87
                       parent_id: null
                       name: 'Et animi'
                       slug: et-animi
                       description: 'Et fugiat sunt nihil accusantium.'
                       image_url: null
                     -
-                      id: 64
+                      id: 88
                       parent_id: null
                       name: 'Mollitia modi'
                       slug: mollitia-modi
@@ -504,7 +504,7 @@ paths:
                     links:
                       -
                         url: null
-                        label: pagination.previous
+                        label: Anterior
                         page: null
                         active: false
                       -
@@ -514,7 +514,7 @@ paths:
                         active: true
                       -
                         url: null
-                        label: pagination.next
+                        label: Siguiente
                         page: null
                         active: false
                     path: /
@@ -526,14 +526,14 @@ paths:
                     type: array
                     example:
                       -
-                        id: 63
+                        id: 87
                         parent_id: null
                         name: 'Et animi'
                         slug: et-animi
                         description: 'Et fugiat sunt nihil accusantium.'
                         image_url: null
                       -
-                        id: 64
+                        id: 88
                         parent_id: null
                         name: 'Mollitia modi'
                         slug: mollitia-modi
@@ -544,7 +544,7 @@ paths:
                       properties:
                         id:
                           type: integer
-                          example: 63
+                          example: 87
                         parent_id:
                           type: string
                           example: null
@@ -596,7 +596,7 @@ paths:
                         example:
                           -
                             url: null
-                            label: pagination.previous
+                            label: Anterior
                             page: null
                             active: false
                           -
@@ -606,7 +606,7 @@ paths:
                             active: true
                           -
                             url: null
-                            label: pagination.next
+                            label: Siguiente
                             page: null
                             active: false
                         items:
@@ -618,7 +618,7 @@ paths:
                               nullable: true
                             label:
                               type: string
-                              example: pagination.previous
+                              example: Anterior
                             page:
                               type: string
                               example: null
@@ -674,12 +674,12 @@ paths:
                 example:
                   data:
                     -
-                      id: 53
+                      id: 72
                       name: 'Llorente, Aguirre y Sierra e Hijo'
                       slug: llorente-aguirre-y-sierra-e-hijo
                       logo_url: null
                     -
-                      id: 54
+                      id: 73
                       name: 'Limón de Uribe S. de H.'
                       slug: limon-de-uribe-s-de-h
                       logo_url: null
@@ -695,7 +695,7 @@ paths:
                     links:
                       -
                         url: null
-                        label: pagination.previous
+                        label: Anterior
                         page: null
                         active: false
                       -
@@ -705,7 +705,7 @@ paths:
                         active: true
                       -
                         url: null
-                        label: pagination.next
+                        label: Siguiente
                         page: null
                         active: false
                     path: /
@@ -717,12 +717,12 @@ paths:
                     type: array
                     example:
                       -
-                        id: 53
+                        id: 72
                         name: 'Llorente, Aguirre y Sierra e Hijo'
                         slug: llorente-aguirre-y-sierra-e-hijo
                         logo_url: null
                       -
-                        id: 54
+                        id: 73
                         name: 'Limón de Uribe S. de H.'
                         slug: limon-de-uribe-s-de-h
                         logo_url: null
@@ -731,7 +731,7 @@ paths:
                       properties:
                         id:
                           type: integer
-                          example: 53
+                          example: 72
                         name:
                           type: string
                           example: 'Llorente, Aguirre y Sierra e Hijo'
@@ -776,7 +776,7 @@ paths:
                         example:
                           -
                             url: null
-                            label: pagination.previous
+                            label: Anterior
                             page: null
                             active: false
                           -
@@ -786,7 +786,7 @@ paths:
                             active: true
                           -
                             url: null
-                            label: pagination.next
+                            label: Siguiente
                             page: null
                             active: false
                         items:
@@ -798,7 +798,7 @@ paths:
                               nullable: true
                             label:
                               type: string
-                              example: pagination.previous
+                              example: Anterior
                             page:
                               type: string
                               example: null
@@ -884,7 +884,7 @@ paths:
                 example:
                   data:
                     -
-                      id: 464
+                      id: 481
                       sku: REF-0564-yv
                       name: 'Motor trifásico 4338 HP'
                       slug: motor-trifasico-4338-hp
@@ -905,16 +905,16 @@ paths:
                       sale_mode_label: 'Venta directa'
                       is_featured: false
                       category:
-                        id: 65
+                        id: 89
                         name: 'Quis adipisci'
                         slug: quis-adipisci
                       brand:
-                        id: 55
+                        id: 74
                         name: 'Global Guardado y Asoc.'
                         slug: global-guardado-y-asoc
                         logo_url: null
                     -
-                      id: 465
+                      id: 482
                       sku: REF-7788-qb
                       name: 'Motor trifásico 9148 HP'
                       slug: motor-trifasico-9148-hp
@@ -935,11 +935,11 @@ paths:
                       sale_mode_label: 'Venta directa'
                       is_featured: false
                       category:
-                        id: 66
+                        id: 90
                         name: 'Perspiciatis deserunt'
                         slug: perspiciatis-deserunt
                       brand:
-                        id: 56
+                        id: 75
                         name: 'Grupo Arias-Chacón'
                         slug: grupo-arias-chacon
                         logo_url: null
@@ -955,7 +955,7 @@ paths:
                     links:
                       -
                         url: null
-                        label: pagination.previous
+                        label: Anterior
                         page: null
                         active: false
                       -
@@ -965,7 +965,7 @@ paths:
                         active: true
                       -
                         url: null
-                        label: pagination.next
+                        label: Siguiente
                         page: null
                         active: false
                     path: /
@@ -977,7 +977,7 @@ paths:
                     type: array
                     example:
                       -
-                        id: 464
+                        id: 481
                         sku: REF-0564-yv
                         name: 'Motor trifásico 4338 HP'
                         slug: motor-trifasico-4338-hp
@@ -998,16 +998,16 @@ paths:
                         sale_mode_label: 'Venta directa'
                         is_featured: false
                         category:
-                          id: 65
+                          id: 89
                           name: 'Quis adipisci'
                           slug: quis-adipisci
                         brand:
-                          id: 55
+                          id: 74
                           name: 'Global Guardado y Asoc.'
                           slug: global-guardado-y-asoc
                           logo_url: null
                       -
-                        id: 465
+                        id: 482
                         sku: REF-7788-qb
                         name: 'Motor trifásico 9148 HP'
                         slug: motor-trifasico-9148-hp
@@ -1028,11 +1028,11 @@ paths:
                         sale_mode_label: 'Venta directa'
                         is_featured: false
                         category:
-                          id: 66
+                          id: 90
                           name: 'Perspiciatis deserunt'
                           slug: perspiciatis-deserunt
                         brand:
-                          id: 56
+                          id: 75
                           name: 'Grupo Arias-Chacón'
                           slug: grupo-arias-chacon
                           logo_url: null
@@ -1041,7 +1041,7 @@ paths:
                       properties:
                         id:
                           type: integer
-                          example: 464
+                          example: 481
                         sku:
                           type: string
                           example: REF-0564-yv
@@ -1106,7 +1106,7 @@ paths:
                           properties:
                             id:
                               type: integer
-                              example: 65
+                              example: 89
                             name:
                               type: string
                               example: 'Quis adipisci'
@@ -1118,7 +1118,7 @@ paths:
                           properties:
                             id:
                               type: integer
-                              example: 55
+                              example: 74
                             name:
                               type: string
                               example: 'Global Guardado y Asoc.'
@@ -1163,7 +1163,7 @@ paths:
                         example:
                           -
                             url: null
-                            label: pagination.previous
+                            label: Anterior
                             page: null
                             active: false
                           -
@@ -1173,7 +1173,7 @@ paths:
                             active: true
                           -
                             url: null
-                            label: pagination.next
+                            label: Siguiente
                             page: null
                             active: false
                         items:
@@ -1185,7 +1185,7 @@ paths:
                               nullable: true
                             label:
                               type: string
-                              example: pagination.previous
+                              example: Anterior
                             page:
                               type: string
                               example: null
@@ -1232,7 +1232,7 @@ paths:
                 sale_mode:
                   type: string
                   description: ''
-                  example: direct
+                  example: on_request
                   enum:
                     - direct
                     - quote
@@ -1241,17 +1241,17 @@ paths:
                 featured:
                   type: boolean
                   description: ''
-                  example: true
+                  example: false
                   nullable: true
                 in_stock:
                   type: boolean
                   description: ''
-                  example: true
+                  example: false
                   nullable: true
                 sort:
                   type: string
                   description: ''
-                  example: price_asc
+                  example: name
                   enum:
                     - name
                     - newest
@@ -1279,7 +1279,7 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 466
+                    id: 483
                     sku: REF-0057-nb
                     name: 'Motor trifásico 7075 HP'
                     slug: motor-trifasico-7075-hp
@@ -1300,11 +1300,11 @@ paths:
                     sale_mode_label: 'Venta directa'
                     is_featured: false
                     category:
-                      id: 67
+                      id: 91
                       name: 'Aut deserunt'
                       slug: aut-deserunt
                     brand:
-                      id: 57
+                      id: 76
                       name: 'Nieto y Rico'
                       slug: nieto-y-rico
                       logo_url: null
@@ -1314,7 +1314,7 @@ paths:
                     properties:
                       id:
                         type: integer
-                        example: 466
+                        example: 483
                       sku:
                         type: string
                         example: REF-0057-nb
@@ -1379,7 +1379,7 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 67
+                            example: 91
                           name:
                             type: string
                             example: 'Aut deserunt'
@@ -1391,7 +1391,7 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 57
+                            example: 76
                           name:
                             type: string
                             example: 'Nieto y Rico'
@@ -1429,19 +1429,19 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 9
+                    id: 22
                     name: 'Omar Domínguez'
-                    email: arredondo.juana@example.com
+                    email: icalero@example.org
                     role: cliente
                     customer:
                       type: company
                       type_label: Empresa
-                      company_name: 'Calero de Zamora S.A.S.'
-                      nit: 990122162-7
-                      contact_name: 'Sr. Héctor Zelaya'
-                      phone: '379 091 5066'
-                      city: Girón
-                      address: 'Calle Elizondo, 54, 27º C'
+                      company_name: 'Asociación Colón-Zelaya S.A.S.'
+                      nit: 979091506-6
+                      contact_name: 'Santiago Valles'
+                      phone: '364 310 6432'
+                      city: Floridablanca
+                      address: 'Paseo Isaac, 409, 9º C'
                       id_type: null
                       check_digit: null
                       first_name: null
@@ -1456,20 +1456,20 @@ paths:
                       delivery_addresses: []
                       marketing_opt_in: false
                       marketing_opt_in_at: null
-                      privacy_accepted_at: '2026-11-11T12:41:24.000000Z'
+                      privacy_accepted_at: '2026-11-11T13:55:31.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: integer
-                        example: 9
+                        example: 22
                       name:
                         type: string
                         example: 'Omar Domínguez'
                       email:
                         type: string
-                        example: arredondo.juana@example.com
+                        example: icalero@example.org
                       role:
                         type: string
                         example: cliente
@@ -1484,22 +1484,22 @@ paths:
                             example: Empresa
                           company_name:
                             type: string
-                            example: 'Calero de Zamora S.A.S.'
+                            example: 'Asociación Colón-Zelaya S.A.S.'
                           nit:
                             type: string
-                            example: 990122162-7
+                            example: 979091506-6
                           contact_name:
                             type: string
-                            example: 'Sr. Héctor Zelaya'
+                            example: 'Santiago Valles'
                           phone:
                             type: string
-                            example: '379 091 5066'
+                            example: '364 310 6432'
                           city:
                             type: string
-                            example: Girón
+                            example: Floridablanca
                           address:
                             type: string
-                            example: 'Calle Elizondo, 54, 27º C'
+                            example: 'Paseo Isaac, 409, 9º C'
                           id_type:
                             type: string
                             example: null
@@ -1556,7 +1556,7 @@ paths:
                             nullable: true
                           privacy_accepted_at:
                             type: string
-                            example: '2026-11-11T12:41:24.000000Z'
+                            example: '2026-11-11T13:55:31.000000Z'
       tags:
         - 'Mi cuenta'
     put:
@@ -1573,7 +1573,7 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 10
+                    id: 23
                     name: 'Emilia Murillo'
                     email: juribe@example.org
                     role: cliente
@@ -1600,14 +1600,14 @@ paths:
                       delivery_addresses: []
                       marketing_opt_in: false
                       marketing_opt_in_at: null
-                      privacy_accepted_at: '2026-11-11T12:41:25.000000Z'
+                      privacy_accepted_at: '2026-11-11T13:55:31.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: integer
-                        example: 10
+                        example: 23
                       name:
                         type: string
                         example: 'Emilia Murillo'
@@ -1700,7 +1700,7 @@ paths:
                             nullable: true
                           privacy_accepted_at:
                             type: string
-                            example: '2026-11-11T12:41:25.000000Z'
+                            example: '2026-11-11T13:55:31.000000Z'
       tags:
         - 'Mi cuenta'
       requestBody:
@@ -1757,7 +1757,7 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 11
+                    id: 24
                     name: 'Alexia Sevilla'
                     email: nicolas42@example.com
                     role: cliente
@@ -1784,14 +1784,14 @@ paths:
                       delivery_addresses: []
                       marketing_opt_in: false
                       marketing_opt_in_at: null
-                      privacy_accepted_at: '2026-11-11T12:41:25.000000Z'
+                      privacy_accepted_at: '2026-11-11T13:55:31.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: integer
-                        example: 11
+                        example: 24
                       name:
                         type: string
                         example: 'Alexia Sevilla'
@@ -1884,7 +1884,7 @@ paths:
                             nullable: true
                           privacy_accepted_at:
                             type: string
-                            example: '2026-11-11T12:41:25.000000Z'
+                            example: '2026-11-11T13:55:31.000000Z'
       tags:
         - 'Mi cuenta'
       requestBody:
@@ -1946,7 +1946,7 @@ paths:
                 vat_responsible:
                   type: boolean
                   description: ''
-                  example: false
+                  example: true
                 fiscal_responsibilities:
                   type: array
                   description: 'Códigos: R-99-PN, O-13, O-15, O-23, O-47.'
@@ -2010,7 +2010,7 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 12
+                    id: 25
                     name: 'Dr. Lara Llorente Tercero'
                     email: baeza.anamaria@example.com
                     role: cliente
@@ -2037,14 +2037,14 @@ paths:
                       delivery_addresses: []
                       marketing_opt_in: false
                       marketing_opt_in_at: null
-                      privacy_accepted_at: '2026-11-11T12:41:25.000000Z'
+                      privacy_accepted_at: '2026-11-11T13:55:31.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: integer
-                        example: 12
+                        example: 25
                       name:
                         type: string
                         example: 'Dr. Lara Llorente Tercero'
@@ -2137,7 +2137,7 @@ paths:
                             nullable: true
                           privacy_accepted_at:
                             type: string
-                            example: '2026-11-11T12:41:25.000000Z'
+                            example: '2026-11-11T13:55:31.000000Z'
       tags:
         - 'Mi cuenta'
       requestBody:
@@ -2251,490 +2251,6 @@ paths:
                       status_label: 'Pendiente de pago'
                       customer_type: company
                       company_name: 'Aguirre de Sierra e Hijo S.A.S.'
-                      nit: 931296562-5
-                      contact_name: 'Alexandra Salvador'
-                      email: icalero@example.org
-                      phone: '364 698 0841'
-                      city: Barrancabermeja
-                      address: 'Ruela Santiago, 442, 43º 2º'
-                      is_guest: null
-                      needs_invoice: null
-                      billing: null
-                      delivery: null
-                      privacy_accepted_at: null
-                      privacy_version: null
-                      delivery_method: pickup
-                      delivery_method_label: 'Recoger en tienda'
-                      payment_method: null
-                      subtotal: 840336.13
-                      tax: 159663.87
-                      shipping: 0
-                      total: 1000000
-                      notes: null
-                      expires_at: null
-                      paid_at: null
-                      created_at: '2026-11-11T12:41:25.000000Z'
-                      items:
-                        -
-                          id: 11
-                          product_id: 470
-                          sku: REF-5058-cq
-                          product_name: 'Motor trifásico 6877 HP'
-                          unit: unidad
-                          quantity: 3
-                          unit_price: 3030000
-                          tax_rate: 19
-                          line_total: 9090000
-                          notes: null
-                    -
-                      code: PED-3733
-                      type: purchase
-                      type_label: Pedido
-                      status: pending_payment
-                      status_label: 'Pendiente de pago'
-                      customer_type: company
-                      company_name: 'Santillán de Rosa S.A.S.'
-                      nit: 940939506-2
-                      contact_name: 'Ona Lozano'
-                      email: alarcon.jaime@example.com
-                      phone: '329 242 1642'
-                      city: Piedecuesta
-                      address: 'Carrer Nayara, 342, 1º E'
-                      is_guest: null
-                      needs_invoice: null
-                      billing: null
-                      delivery: null
-                      privacy_accepted_at: null
-                      privacy_version: null
-                      delivery_method: pickup
-                      delivery_method_label: 'Recoger en tienda'
-                      payment_method: null
-                      subtotal: 840336.13
-                      tax: 159663.87
-                      shipping: 0
-                      total: 1000000
-                      notes: null
-                      expires_at: null
-                      paid_at: null
-                      created_at: '2026-11-11T12:41:25.000000Z'
-                      items:
-                        -
-                          id: 12
-                          product_id: 471
-                          sku: REF-9849-tp
-                          product_name: 'Motor trifásico 1703 HP'
-                          unit: unidad
-                          quantity: 2
-                          unit_price: 4569000
-                          tax_rate: 19
-                          line_total: 9138000
-                          notes: null
-                  links:
-                    first: '/?page=1'
-                    last: '/?page=1'
-                    prev: null
-                    next: null
-                  meta:
-                    current_page: 1
-                    from: 1
-                    last_page: 1
-                    links:
-                      -
-                        url: null
-                        label: pagination.previous
-                        page: null
-                        active: false
-                      -
-                        url: '/?page=1'
-                        label: '1'
-                        page: 1
-                        active: true
-                      -
-                        url: null
-                        label: pagination.next
-                        page: null
-                        active: false
-                    path: /
-                    per_page: 10
-                    to: 2
-                    total: 2
-                properties:
-                  data:
-                    type: array
-                    example:
-                      -
-                        code: PED-9171
-                        type: purchase
-                        type_label: Pedido
-                        status: pending_payment
-                        status_label: 'Pendiente de pago'
-                        customer_type: company
-                        company_name: 'Aguirre de Sierra e Hijo S.A.S.'
-                        nit: 931296562-5
-                        contact_name: 'Alexandra Salvador'
-                        email: icalero@example.org
-                        phone: '364 698 0841'
-                        city: Barrancabermeja
-                        address: 'Ruela Santiago, 442, 43º 2º'
-                        is_guest: null
-                        needs_invoice: null
-                        billing: null
-                        delivery: null
-                        privacy_accepted_at: null
-                        privacy_version: null
-                        delivery_method: pickup
-                        delivery_method_label: 'Recoger en tienda'
-                        payment_method: null
-                        subtotal: 840336.13
-                        tax: 159663.87
-                        shipping: 0
-                        total: 1000000
-                        notes: null
-                        expires_at: null
-                        paid_at: null
-                        created_at: '2026-11-11T12:41:25.000000Z'
-                        items:
-                          -
-                            id: 11
-                            product_id: 470
-                            sku: REF-5058-cq
-                            product_name: 'Motor trifásico 6877 HP'
-                            unit: unidad
-                            quantity: 3
-                            unit_price: 3030000
-                            tax_rate: 19
-                            line_total: 9090000
-                            notes: null
-                      -
-                        code: PED-3733
-                        type: purchase
-                        type_label: Pedido
-                        status: pending_payment
-                        status_label: 'Pendiente de pago'
-                        customer_type: company
-                        company_name: 'Santillán de Rosa S.A.S.'
-                        nit: 940939506-2
-                        contact_name: 'Ona Lozano'
-                        email: alarcon.jaime@example.com
-                        phone: '329 242 1642'
-                        city: Piedecuesta
-                        address: 'Carrer Nayara, 342, 1º E'
-                        is_guest: null
-                        needs_invoice: null
-                        billing: null
-                        delivery: null
-                        privacy_accepted_at: null
-                        privacy_version: null
-                        delivery_method: pickup
-                        delivery_method_label: 'Recoger en tienda'
-                        payment_method: null
-                        subtotal: 840336.13
-                        tax: 159663.87
-                        shipping: 0
-                        total: 1000000
-                        notes: null
-                        expires_at: null
-                        paid_at: null
-                        created_at: '2026-11-11T12:41:25.000000Z'
-                        items:
-                          -
-                            id: 12
-                            product_id: 471
-                            sku: REF-9849-tp
-                            product_name: 'Motor trifásico 1703 HP'
-                            unit: unidad
-                            quantity: 2
-                            unit_price: 4569000
-                            tax_rate: 19
-                            line_total: 9138000
-                            notes: null
-                    items:
-                      type: object
-                      properties:
-                        code:
-                          type: string
-                          example: PED-9171
-                        type:
-                          type: string
-                          example: purchase
-                        type_label:
-                          type: string
-                          example: Pedido
-                        status:
-                          type: string
-                          example: pending_payment
-                        status_label:
-                          type: string
-                          example: 'Pendiente de pago'
-                        customer_type:
-                          type: string
-                          example: company
-                        company_name:
-                          type: string
-                          example: 'Aguirre de Sierra e Hijo S.A.S.'
-                        nit:
-                          type: string
-                          example: 931296562-5
-                        contact_name:
-                          type: string
-                          example: 'Alexandra Salvador'
-                        email:
-                          type: string
-                          example: icalero@example.org
-                        phone:
-                          type: string
-                          example: '364 698 0841'
-                        city:
-                          type: string
-                          example: Barrancabermeja
-                        address:
-                          type: string
-                          example: 'Ruela Santiago, 442, 43º 2º'
-                        is_guest:
-                          type: string
-                          example: null
-                          nullable: true
-                        needs_invoice:
-                          type: string
-                          example: null
-                          nullable: true
-                        billing:
-                          type: string
-                          example: null
-                          nullable: true
-                        delivery:
-                          type: string
-                          example: null
-                          nullable: true
-                        privacy_accepted_at:
-                          type: string
-                          example: null
-                          nullable: true
-                        privacy_version:
-                          type: string
-                          example: null
-                          nullable: true
-                        delivery_method:
-                          type: string
-                          example: pickup
-                        delivery_method_label:
-                          type: string
-                          example: 'Recoger en tienda'
-                        payment_method:
-                          type: string
-                          example: null
-                          nullable: true
-                        subtotal:
-                          type: number
-                          example: 840336.13
-                        tax:
-                          type: number
-                          example: 159663.87
-                        shipping:
-                          type: integer
-                          example: 0
-                        total:
-                          type: integer
-                          example: 1000000
-                        notes:
-                          type: string
-                          example: null
-                          nullable: true
-                        expires_at:
-                          type: string
-                          example: null
-                          nullable: true
-                        paid_at:
-                          type: string
-                          example: null
-                          nullable: true
-                        created_at:
-                          type: string
-                          example: '2026-11-11T12:41:25.000000Z'
-                        items:
-                          type: array
-                          example:
-                            -
-                              id: 11
-                              product_id: 470
-                              sku: REF-5058-cq
-                              product_name: 'Motor trifásico 6877 HP'
-                              unit: unidad
-                              quantity: 3
-                              unit_price: 3030000
-                              tax_rate: 19
-                              line_total: 9090000
-                              notes: null
-                          items:
-                            type: object
-                            properties:
-                              id:
-                                type: integer
-                                example: 11
-                              product_id:
-                                type: integer
-                                example: 470
-                              sku:
-                                type: string
-                                example: REF-5058-cq
-                              product_name:
-                                type: string
-                                example: 'Motor trifásico 6877 HP'
-                              unit:
-                                type: string
-                                example: unidad
-                              quantity:
-                                type: integer
-                                example: 3
-                              unit_price:
-                                type: integer
-                                example: 3030000
-                              tax_rate:
-                                type: integer
-                                example: 19
-                              line_total:
-                                type: integer
-                                example: 9090000
-                              notes:
-                                type: string
-                                example: null
-                                nullable: true
-                  links:
-                    type: object
-                    properties:
-                      first:
-                        type: string
-                        example: '/?page=1'
-                      last:
-                        type: string
-                        example: '/?page=1'
-                      prev:
-                        type: string
-                        example: null
-                        nullable: true
-                      next:
-                        type: string
-                        example: null
-                        nullable: true
-                  meta:
-                    type: object
-                    properties:
-                      current_page:
-                        type: integer
-                        example: 1
-                      from:
-                        type: integer
-                        example: 1
-                      last_page:
-                        type: integer
-                        example: 1
-                      links:
-                        type: array
-                        example:
-                          -
-                            url: null
-                            label: pagination.previous
-                            page: null
-                            active: false
-                          -
-                            url: '/?page=1'
-                            label: '1'
-                            page: 1
-                            active: true
-                          -
-                            url: null
-                            label: pagination.next
-                            page: null
-                            active: false
-                        items:
-                          type: object
-                          properties:
-                            url:
-                              type: string
-                              example: null
-                              nullable: true
-                            label:
-                              type: string
-                              example: pagination.previous
-                            page:
-                              type: string
-                              example: null
-                              nullable: true
-                            active:
-                              type: boolean
-                              example: false
-                      path:
-                        type: string
-                        example: /
-                      per_page:
-                        type: integer
-                        example: 10
-                      to:
-                        type: integer
-                        example: 2
-                      total:
-                        type: integer
-                        example: 2
-      tags:
-        - 'Pedidos y cotizaciones (cliente)'
-      requestBody:
-        required: false
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                type:
-                  type: string
-                  description: ''
-                  example: purchase
-                  enum:
-                    - purchase
-                    - quote
-                  nullable: true
-                status:
-                  type: string
-                  description: ''
-                  example: new
-                  enum:
-                    - pending_payment
-                    - paid
-                    - shipped
-                    - delivered
-                    - new
-                    - in_review
-                    - sent
-                    - accepted
-                    - rejected
-                    - cancelled
-                  nullable: true
-                per_page:
-                  type: integer
-                  description: 'El campo value debe ser al menos 1. El campo value no puede ser mayor que 50.'
-                  example: 1
-                  nullable: true
-    post:
-      summary: 'Enviar el carrito'
-      operationId: enviarElCarrito
-      description: "El servidor clasifica cada producto: los de venta directa con precio y stock suficiente forman\nun **pedido** (`purchase`, pendiente de pago); los de cotización, bajo pedido o sin stock\nsuficiente forman una **cotización** (`quote`, nueva y sin precios). Un carrito mixto\ngenera las dos, por eso la respuesta es una lista (pedido primero). Las cantidades\nde cable pueden ser decimales (metros); las demás unidades, enteras. El envío es gratis\nal recoger o al superar la compra mínima configurada."
-      parameters: []
-      responses:
-        201:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  data:
-                    -
-                      code: PED-9775
-                      type: purchase
-                      type_label: Pedido
-                      status: pending_payment
-                      status_label: 'Pendiente de pago'
-                      customer_type: company
-                      company_name: 'Llorente, Aguirre y Sierra e Hijo S.A.S.'
                       nit: 934997057-5
                       contact_name: 'Rosario Cano'
                       email: isaac34@example.net
@@ -2757,11 +2273,11 @@ paths:
                       notes: null
                       expires_at: null
                       paid_at: null
-                      created_at: '2026-11-11T12:41:25.000000Z'
+                      created_at: '2026-11-11T13:55:31.000000Z'
                       items:
                         -
-                          id: 13
-                          product_id: 472
+                          id: 20
+                          product_id: 487
                           sku: REF-7365-sc
                           product_name: 'Motor trifásico 967 HP'
                           unit: unidad
@@ -2800,11 +2316,11 @@ paths:
                       notes: null
                       expires_at: null
                       paid_at: null
-                      created_at: '2026-11-11T12:41:25.000000Z'
+                      created_at: '2026-11-11T13:55:31.000000Z'
                       items:
                         -
-                          id: 14
-                          product_id: 473
+                          id: 21
+                          product_id: 488
                           sku: REF-3531-ob
                           product_name: 'Motor trifásico 6696 HP'
                           unit: unidad
@@ -2813,18 +2329,47 @@ paths:
                           tax_rate: 19
                           line_total: 13086000
                           notes: null
+                  links:
+                    first: '/?page=1'
+                    last: '/?page=1'
+                    prev: null
+                    next: null
+                  meta:
+                    current_page: 1
+                    from: 1
+                    last_page: 1
+                    links:
+                      -
+                        url: null
+                        label: Anterior
+                        page: null
+                        active: false
+                      -
+                        url: '/?page=1'
+                        label: '1'
+                        page: 1
+                        active: true
+                      -
+                        url: null
+                        label: Siguiente
+                        page: null
+                        active: false
+                    path: /
+                    per_page: 10
+                    to: 2
+                    total: 2
                 properties:
                   data:
                     type: array
                     example:
                       -
-                        code: PED-9775
+                        code: PED-9171
                         type: purchase
                         type_label: Pedido
                         status: pending_payment
                         status_label: 'Pendiente de pago'
                         customer_type: company
-                        company_name: 'Llorente, Aguirre y Sierra e Hijo S.A.S.'
+                        company_name: 'Aguirre de Sierra e Hijo S.A.S.'
                         nit: 934997057-5
                         contact_name: 'Rosario Cano'
                         email: isaac34@example.net
@@ -2847,11 +2392,11 @@ paths:
                         notes: null
                         expires_at: null
                         paid_at: null
-                        created_at: '2026-11-11T12:41:25.000000Z'
+                        created_at: '2026-11-11T13:55:31.000000Z'
                         items:
                           -
-                            id: 13
-                            product_id: 472
+                            id: 20
+                            product_id: 487
                             sku: REF-7365-sc
                             product_name: 'Motor trifásico 967 HP'
                             unit: unidad
@@ -2890,11 +2435,11 @@ paths:
                         notes: null
                         expires_at: null
                         paid_at: null
-                        created_at: '2026-11-11T12:41:25.000000Z'
+                        created_at: '2026-11-11T13:55:31.000000Z'
                         items:
                           -
-                            id: 14
-                            product_id: 473
+                            id: 21
+                            product_id: 488
                             sku: REF-3531-ob
                             product_name: 'Motor trifásico 6696 HP'
                             unit: unidad
@@ -2908,7 +2453,7 @@ paths:
                       properties:
                         code:
                           type: string
-                          example: PED-9775
+                          example: PED-9171
                         type:
                           type: string
                           example: purchase
@@ -2926,7 +2471,7 @@ paths:
                           example: company
                         company_name:
                           type: string
-                          example: 'Llorente, Aguirre y Sierra e Hijo S.A.S.'
+                          example: 'Aguirre de Sierra e Hijo S.A.S.'
                         nit:
                           type: string
                           example: 934997057-5
@@ -3005,13 +2550,13 @@ paths:
                           nullable: true
                         created_at:
                           type: string
-                          example: '2026-11-11T12:41:25.000000Z'
+                          example: '2026-11-11T13:55:31.000000Z'
                         items:
                           type: array
                           example:
                             -
-                              id: 13
-                              product_id: 472
+                              id: 20
+                              product_id: 487
                               sku: REF-7365-sc
                               product_name: 'Motor trifásico 967 HP'
                               unit: unidad
@@ -3025,10 +2570,10 @@ paths:
                             properties:
                               id:
                                 type: integer
-                                example: 13
+                                example: 20
                               product_id:
                                 type: integer
-                                example: 472
+                                example: 487
                               sku:
                                 type: string
                                 example: REF-7365-sc
@@ -3050,6 +2595,461 @@ paths:
                               line_total:
                                 type: integer
                                 example: 8865000
+                              notes:
+                                type: string
+                                example: null
+                                nullable: true
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                        example: '/?page=1'
+                      last:
+                        type: string
+                        example: '/?page=1'
+                      prev:
+                        type: string
+                        example: null
+                        nullable: true
+                      next:
+                        type: string
+                        example: null
+                        nullable: true
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      from:
+                        type: integer
+                        example: 1
+                      last_page:
+                        type: integer
+                        example: 1
+                      links:
+                        type: array
+                        example:
+                          -
+                            url: null
+                            label: Anterior
+                            page: null
+                            active: false
+                          -
+                            url: '/?page=1'
+                            label: '1'
+                            page: 1
+                            active: true
+                          -
+                            url: null
+                            label: Siguiente
+                            page: null
+                            active: false
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type: string
+                              example: null
+                              nullable: true
+                            label:
+                              type: string
+                              example: Anterior
+                            page:
+                              type: string
+                              example: null
+                              nullable: true
+                            active:
+                              type: boolean
+                              example: false
+                      path:
+                        type: string
+                        example: /
+                      per_page:
+                        type: integer
+                        example: 10
+                      to:
+                        type: integer
+                        example: 2
+                      total:
+                        type: integer
+                        example: 2
+      tags:
+        - 'Pedidos y cotizaciones (cliente)'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: ''
+                  example: purchase
+                  enum:
+                    - purchase
+                    - quote
+                  nullable: true
+                status:
+                  type: string
+                  description: ''
+                  example: pending_payment
+                  enum:
+                    - pending_payment
+                    - paid
+                    - shipped
+                    - delivered
+                    - new
+                    - in_review
+                    - sent
+                    - accepted
+                    - rejected
+                    - cancelled
+                  nullable: true
+                per_page:
+                  type: integer
+                  description: 'El campo value debe ser al menos 1. El campo value no puede ser mayor que 50.'
+                  example: 1
+                  nullable: true
+    post:
+      summary: 'Enviar el carrito'
+      operationId: enviarElCarrito
+      description: "El servidor clasifica cada producto: los de venta directa con precio y stock suficiente forman\nun **pedido** (`purchase`, pendiente de pago); los de cotización, bajo pedido o sin stock\nsuficiente forman una **cotización** (`quote`, nueva y sin precios). Un carrito mixto\ngenera las dos, por eso la respuesta es una lista (pedido primero). Las cantidades\nde cable pueden ser decimales (metros); las demás unidades, enteras. El envío es gratis\nal recoger o al superar la compra mínima configurada."
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      code: PED-6806
+                      type: purchase
+                      type_label: Pedido
+                      status: pending_payment
+                      status_label: 'Pendiente de pago'
+                      customer_type: company
+                      company_name: 'Sierra, Baeza y Murillo S. de H. S.A.S.'
+                      nit: 969654852-9
+                      contact_name: 'Rosa Guajardo'
+                      email: luna44@example.org
+                      phone: '385 263 1582'
+                      city: Piedecuesta
+                      address: 'Rúa Adrián, 732, 9º C'
+                      is_guest: null
+                      needs_invoice: null
+                      billing: null
+                      delivery: null
+                      privacy_accepted_at: null
+                      privacy_version: null
+                      delivery_method: national
+                      delivery_method_label: 'Envío nacional'
+                      payment_method: null
+                      subtotal: 840336.13
+                      tax: 159663.87
+                      shipping: 0
+                      total: 1000000
+                      notes: null
+                      expires_at: null
+                      paid_at: null
+                      created_at: '2026-11-11T13:55:31.000000Z'
+                      items:
+                        -
+                          id: 22
+                          product_id: 489
+                          sku: REF-5058-cq
+                          product_name: 'Motor trifásico 6877 HP'
+                          unit: unidad
+                          quantity: 3
+                          unit_price: 3030000
+                          tax_rate: 19
+                          line_total: 9090000
+                          notes: null
+                    -
+                      code: PED-3733
+                      type: purchase
+                      type_label: Pedido
+                      status: pending_payment
+                      status_label: 'Pendiente de pago'
+                      customer_type: company
+                      company_name: 'Santillán de Rosa S.A.S.'
+                      nit: 940939506-2
+                      contact_name: 'Ona Lozano'
+                      email: alarcon.jaime@example.com
+                      phone: '329 242 1642'
+                      city: Piedecuesta
+                      address: 'Carrer Nayara, 342, 1º E'
+                      is_guest: null
+                      needs_invoice: null
+                      billing: null
+                      delivery: null
+                      privacy_accepted_at: null
+                      privacy_version: null
+                      delivery_method: pickup
+                      delivery_method_label: 'Recoger en tienda'
+                      payment_method: null
+                      subtotal: 840336.13
+                      tax: 159663.87
+                      shipping: 0
+                      total: 1000000
+                      notes: null
+                      expires_at: null
+                      paid_at: null
+                      created_at: '2026-11-11T13:55:31.000000Z'
+                      items:
+                        -
+                          id: 23
+                          product_id: 490
+                          sku: REF-9849-tp
+                          product_name: 'Motor trifásico 1703 HP'
+                          unit: unidad
+                          quantity: 2
+                          unit_price: 4569000
+                          tax_rate: 19
+                          line_total: 9138000
+                          notes: null
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        code: PED-6806
+                        type: purchase
+                        type_label: Pedido
+                        status: pending_payment
+                        status_label: 'Pendiente de pago'
+                        customer_type: company
+                        company_name: 'Sierra, Baeza y Murillo S. de H. S.A.S.'
+                        nit: 969654852-9
+                        contact_name: 'Rosa Guajardo'
+                        email: luna44@example.org
+                        phone: '385 263 1582'
+                        city: Piedecuesta
+                        address: 'Rúa Adrián, 732, 9º C'
+                        is_guest: null
+                        needs_invoice: null
+                        billing: null
+                        delivery: null
+                        privacy_accepted_at: null
+                        privacy_version: null
+                        delivery_method: national
+                        delivery_method_label: 'Envío nacional'
+                        payment_method: null
+                        subtotal: 840336.13
+                        tax: 159663.87
+                        shipping: 0
+                        total: 1000000
+                        notes: null
+                        expires_at: null
+                        paid_at: null
+                        created_at: '2026-11-11T13:55:31.000000Z'
+                        items:
+                          -
+                            id: 22
+                            product_id: 489
+                            sku: REF-5058-cq
+                            product_name: 'Motor trifásico 6877 HP'
+                            unit: unidad
+                            quantity: 3
+                            unit_price: 3030000
+                            tax_rate: 19
+                            line_total: 9090000
+                            notes: null
+                      -
+                        code: PED-3733
+                        type: purchase
+                        type_label: Pedido
+                        status: pending_payment
+                        status_label: 'Pendiente de pago'
+                        customer_type: company
+                        company_name: 'Santillán de Rosa S.A.S.'
+                        nit: 940939506-2
+                        contact_name: 'Ona Lozano'
+                        email: alarcon.jaime@example.com
+                        phone: '329 242 1642'
+                        city: Piedecuesta
+                        address: 'Carrer Nayara, 342, 1º E'
+                        is_guest: null
+                        needs_invoice: null
+                        billing: null
+                        delivery: null
+                        privacy_accepted_at: null
+                        privacy_version: null
+                        delivery_method: pickup
+                        delivery_method_label: 'Recoger en tienda'
+                        payment_method: null
+                        subtotal: 840336.13
+                        tax: 159663.87
+                        shipping: 0
+                        total: 1000000
+                        notes: null
+                        expires_at: null
+                        paid_at: null
+                        created_at: '2026-11-11T13:55:31.000000Z'
+                        items:
+                          -
+                            id: 23
+                            product_id: 490
+                            sku: REF-9849-tp
+                            product_name: 'Motor trifásico 1703 HP'
+                            unit: unidad
+                            quantity: 2
+                            unit_price: 4569000
+                            tax_rate: 19
+                            line_total: 9138000
+                            notes: null
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          example: PED-6806
+                        type:
+                          type: string
+                          example: purchase
+                        type_label:
+                          type: string
+                          example: Pedido
+                        status:
+                          type: string
+                          example: pending_payment
+                        status_label:
+                          type: string
+                          example: 'Pendiente de pago'
+                        customer_type:
+                          type: string
+                          example: company
+                        company_name:
+                          type: string
+                          example: 'Sierra, Baeza y Murillo S. de H. S.A.S.'
+                        nit:
+                          type: string
+                          example: 969654852-9
+                        contact_name:
+                          type: string
+                          example: 'Rosa Guajardo'
+                        email:
+                          type: string
+                          example: luna44@example.org
+                        phone:
+                          type: string
+                          example: '385 263 1582'
+                        city:
+                          type: string
+                          example: Piedecuesta
+                        address:
+                          type: string
+                          example: 'Rúa Adrián, 732, 9º C'
+                        is_guest:
+                          type: string
+                          example: null
+                          nullable: true
+                        needs_invoice:
+                          type: string
+                          example: null
+                          nullable: true
+                        billing:
+                          type: string
+                          example: null
+                          nullable: true
+                        delivery:
+                          type: string
+                          example: null
+                          nullable: true
+                        privacy_accepted_at:
+                          type: string
+                          example: null
+                          nullable: true
+                        privacy_version:
+                          type: string
+                          example: null
+                          nullable: true
+                        delivery_method:
+                          type: string
+                          example: national
+                        delivery_method_label:
+                          type: string
+                          example: 'Envío nacional'
+                        payment_method:
+                          type: string
+                          example: null
+                          nullable: true
+                        subtotal:
+                          type: number
+                          example: 840336.13
+                        tax:
+                          type: number
+                          example: 159663.87
+                        shipping:
+                          type: integer
+                          example: 0
+                        total:
+                          type: integer
+                          example: 1000000
+                        notes:
+                          type: string
+                          example: null
+                          nullable: true
+                        expires_at:
+                          type: string
+                          example: null
+                          nullable: true
+                        paid_at:
+                          type: string
+                          example: null
+                          nullable: true
+                        created_at:
+                          type: string
+                          example: '2026-11-11T13:55:31.000000Z'
+                        items:
+                          type: array
+                          example:
+                            -
+                              id: 22
+                              product_id: 489
+                              sku: REF-5058-cq
+                              product_name: 'Motor trifásico 6877 HP'
+                              unit: unidad
+                              quantity: 3
+                              unit_price: 3030000
+                              tax_rate: 19
+                              line_total: 9090000
+                              notes: null
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 22
+                              product_id:
+                                type: integer
+                                example: 489
+                              sku:
+                                type: string
+                                example: REF-5058-cq
+                              product_name:
+                                type: string
+                                example: 'Motor trifásico 6877 HP'
+                              unit:
+                                type: string
+                                example: unidad
+                              quantity:
+                                type: integer
+                                example: 3
+                              unit_price:
+                                type: integer
+                                example: 3030000
+                              tax_rate:
+                                type: integer
+                                example: 19
+                              line_total:
+                                type: integer
+                                example: 9090000
                               notes:
                                 type: string
                                 example: null
@@ -3171,11 +3171,11 @@ paths:
                     notes: null
                     expires_at: null
                     paid_at: null
-                    created_at: '2026-11-11T12:41:25.000000Z'
+                    created_at: '2026-11-11T13:55:31.000000Z'
                     items:
                       -
-                        id: 15
-                        product_id: 474
+                        id: 24
+                        product_id: 491
                         sku: REF-2083-jk
                         product_name: 'Motor trifásico 4189 HP'
                         unit: unidad
@@ -3190,7 +3190,7 @@ paths:
                         to_status: pending_payment
                         to_status_label: 'Pendiente de pago'
                         note: null
-                        created_at: '2026-11-11T12:41:25.000000Z'
+                        created_at: '2026-11-11T13:55:31.000000Z'
                 properties:
                   data:
                     type: object
@@ -3294,13 +3294,13 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-11T12:41:25.000000Z'
+                        example: '2026-11-11T13:55:31.000000Z'
                       items:
                         type: array
                         example:
                           -
-                            id: 15
-                            product_id: 474
+                            id: 24
+                            product_id: 491
                             sku: REF-2083-jk
                             product_name: 'Motor trifásico 4189 HP'
                             unit: unidad
@@ -3314,10 +3314,10 @@ paths:
                           properties:
                             id:
                               type: integer
-                              example: 15
+                              example: 24
                             product_id:
                               type: integer
-                              example: 474
+                              example: 491
                             sku:
                               type: string
                               example: REF-2083-jk
@@ -3351,7 +3351,7 @@ paths:
                             to_status: pending_payment
                             to_status_label: 'Pendiente de pago'
                             note: null
-                            created_at: '2026-11-11T12:41:25.000000Z'
+                            created_at: '2026-11-11T13:55:31.000000Z'
                         items:
                           type: object
                           properties:
@@ -3371,7 +3371,7 @@ paths:
                               nullable: true
                             created_at:
                               type: string
-                              example: '2026-11-11T12:41:25.000000Z'
+                              example: '2026-11-11T13:55:31.000000Z'
       tags:
         - 'Pedidos y cotizaciones (cliente)'
     parameters:
@@ -3427,11 +3427,11 @@ paths:
                     notes: null
                     expires_at: null
                     paid_at: null
-                    created_at: '2026-11-11T12:41:25.000000Z'
+                    created_at: '2026-11-11T13:55:31.000000Z'
                     items:
                       -
-                        id: 16
-                        product_id: 475
+                        id: 25
+                        product_id: 492
                         sku: REF-0782-pp
                         product_name: 'Motor trifásico 5685 HP'
                         unit: unidad
@@ -3446,7 +3446,7 @@ paths:
                         to_status: pending_payment
                         to_status_label: 'Pendiente de pago'
                         note: null
-                        created_at: '2026-11-11T12:41:25.000000Z'
+                        created_at: '2026-11-11T13:55:31.000000Z'
                 properties:
                   data:
                     type: object
@@ -3550,13 +3550,13 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-11T12:41:25.000000Z'
+                        example: '2026-11-11T13:55:31.000000Z'
                       items:
                         type: array
                         example:
                           -
-                            id: 16
-                            product_id: 475
+                            id: 25
+                            product_id: 492
                             sku: REF-0782-pp
                             product_name: 'Motor trifásico 5685 HP'
                             unit: unidad
@@ -3570,10 +3570,10 @@ paths:
                           properties:
                             id:
                               type: integer
-                              example: 16
+                              example: 25
                             product_id:
                               type: integer
-                              example: 475
+                              example: 492
                             sku:
                               type: string
                               example: REF-0782-pp
@@ -3607,7 +3607,7 @@ paths:
                             to_status: pending_payment
                             to_status_label: 'Pendiente de pago'
                             note: null
-                            created_at: '2026-11-11T12:41:25.000000Z'
+                            created_at: '2026-11-11T13:55:31.000000Z'
                         items:
                           type: object
                           properties:
@@ -3627,7 +3627,7 @@ paths:
                               nullable: true
                             created_at:
                               type: string
-                              example: '2026-11-11T12:41:25.000000Z'
+                              example: '2026-11-11T13:55:31.000000Z'
         422:
           description: 'Estado que no permite cancelar'
           content:
@@ -3737,7 +3737,7 @@ paths:
                 example:
                   data:
                     -
-                      id: 476
+                      id: 493
                       sku: REF-9365-mi
                       name: 'Motor trifásico 4027 HP'
                       slug: motor-trifasico-4027-hp
@@ -3758,21 +3758,21 @@ paths:
                       sale_mode_label: 'Venta directa'
                       is_featured: false
                       category:
-                        id: 77
+                        id: 101
                         name: 'Perspiciatis quo'
                         slug: perspiciatis-quo
                       brand:
-                        id: 67
+                        id: 86
                         name: 'Empresa Domínguez e Hijo'
                         slug: empresa-dominguez-e-hijo
                         logo_url: null
                       is_active: true
                       price_source: null
-                      created_at: '2026-11-11T12:41:25.000000Z'
-                      updated_at: '2026-11-11T12:41:25.000000Z'
+                      created_at: '2026-11-11T13:55:31.000000Z'
+                      updated_at: '2026-11-11T13:55:31.000000Z'
                       deleted_at: null
                     -
-                      id: 477
+                      id: 494
                       sku: REF-0719-qw
                       name: 'Motor trifásico 8015 HP'
                       slug: motor-trifasico-8015-hp
@@ -3793,18 +3793,18 @@ paths:
                       sale_mode_label: 'Venta directa'
                       is_featured: false
                       category:
-                        id: 78
+                        id: 102
                         name: 'Dolores enim'
                         slug: dolores-enim
                       brand:
-                        id: 68
+                        id: 87
                         name: 'Casanova y Almonte y Asoc.'
                         slug: casanova-y-almonte-y-asoc
                         logo_url: null
                       is_active: true
                       price_source: null
-                      created_at: '2026-11-11T12:41:25.000000Z'
-                      updated_at: '2026-11-11T12:41:25.000000Z'
+                      created_at: '2026-11-11T13:55:31.000000Z'
+                      updated_at: '2026-11-11T13:55:31.000000Z'
                       deleted_at: null
                   links:
                     first: '/?page=1'
@@ -3818,7 +3818,7 @@ paths:
                     links:
                       -
                         url: null
-                        label: pagination.previous
+                        label: Anterior
                         page: null
                         active: false
                       -
@@ -3828,7 +3828,7 @@ paths:
                         active: true
                       -
                         url: null
-                        label: pagination.next
+                        label: Siguiente
                         page: null
                         active: false
                     path: /
@@ -3840,7 +3840,7 @@ paths:
                     type: array
                     example:
                       -
-                        id: 476
+                        id: 493
                         sku: REF-9365-mi
                         name: 'Motor trifásico 4027 HP'
                         slug: motor-trifasico-4027-hp
@@ -3861,21 +3861,21 @@ paths:
                         sale_mode_label: 'Venta directa'
                         is_featured: false
                         category:
-                          id: 77
+                          id: 101
                           name: 'Perspiciatis quo'
                           slug: perspiciatis-quo
                         brand:
-                          id: 67
+                          id: 86
                           name: 'Empresa Domínguez e Hijo'
                           slug: empresa-dominguez-e-hijo
                           logo_url: null
                         is_active: true
                         price_source: null
-                        created_at: '2026-11-11T12:41:25.000000Z'
-                        updated_at: '2026-11-11T12:41:25.000000Z'
+                        created_at: '2026-11-11T13:55:31.000000Z'
+                        updated_at: '2026-11-11T13:55:31.000000Z'
                         deleted_at: null
                       -
-                        id: 477
+                        id: 494
                         sku: REF-0719-qw
                         name: 'Motor trifásico 8015 HP'
                         slug: motor-trifasico-8015-hp
@@ -3896,25 +3896,25 @@ paths:
                         sale_mode_label: 'Venta directa'
                         is_featured: false
                         category:
-                          id: 78
+                          id: 102
                           name: 'Dolores enim'
                           slug: dolores-enim
                         brand:
-                          id: 68
+                          id: 87
                           name: 'Casanova y Almonte y Asoc.'
                           slug: casanova-y-almonte-y-asoc
                           logo_url: null
                         is_active: true
                         price_source: null
-                        created_at: '2026-11-11T12:41:25.000000Z'
-                        updated_at: '2026-11-11T12:41:25.000000Z'
+                        created_at: '2026-11-11T13:55:31.000000Z'
+                        updated_at: '2026-11-11T13:55:31.000000Z'
                         deleted_at: null
                     items:
                       type: object
                       properties:
                         id:
                           type: integer
-                          example: 476
+                          example: 493
                         sku:
                           type: string
                           example: REF-9365-mi
@@ -3980,7 +3980,7 @@ paths:
                           properties:
                             id:
                               type: integer
-                              example: 77
+                              example: 101
                             name:
                               type: string
                               example: 'Perspiciatis quo'
@@ -3992,7 +3992,7 @@ paths:
                           properties:
                             id:
                               type: integer
-                              example: 67
+                              example: 86
                             name:
                               type: string
                               example: 'Empresa Domínguez e Hijo'
@@ -4012,10 +4012,10 @@ paths:
                           nullable: true
                         created_at:
                           type: string
-                          example: '2026-11-11T12:41:25.000000Z'
+                          example: '2026-11-11T13:55:31.000000Z'
                         updated_at:
                           type: string
-                          example: '2026-11-11T12:41:25.000000Z'
+                          example: '2026-11-11T13:55:31.000000Z'
                         deleted_at:
                           type: string
                           example: null
@@ -4054,7 +4054,7 @@ paths:
                         example:
                           -
                             url: null
-                            label: pagination.previous
+                            label: Anterior
                             page: null
                             active: false
                           -
@@ -4064,7 +4064,7 @@ paths:
                             active: true
                           -
                             url: null
-                            label: pagination.next
+                            label: Siguiente
                             page: null
                             active: false
                         items:
@@ -4076,7 +4076,7 @@ paths:
                               nullable: true
                             label:
                               type: string
-                              example: pagination.previous
+                              example: Anterior
                             page:
                               type: string
                               example: null
@@ -4129,7 +4129,7 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 478
+                    id: 495
                     sku: REF-7432-uw
                     name: 'Motor trifásico 7195 HP'
                     slug: motor-trifasico-7195-hp
@@ -4150,18 +4150,18 @@ paths:
                     sale_mode_label: 'Venta directa'
                     is_featured: false
                     category:
-                      id: 79
+                      id: 103
                       name: 'Nostrum omnis'
                       slug: nostrum-omnis
                     brand:
-                      id: 69
+                      id: 88
                       name: 'Asociación Jaramillo e Hija'
                       slug: asociacion-jaramillo-e-hija
                       logo_url: null
                     is_active: true
                     price_source: null
-                    created_at: '2026-11-11T12:41:25.000000Z'
-                    updated_at: '2026-11-11T12:41:25.000000Z'
+                    created_at: '2026-11-11T13:55:31.000000Z'
+                    updated_at: '2026-11-11T13:55:31.000000Z'
                     deleted_at: null
                 properties:
                   data:
@@ -4169,7 +4169,7 @@ paths:
                     properties:
                       id:
                         type: integer
-                        example: 478
+                        example: 495
                       sku:
                         type: string
                         example: REF-7432-uw
@@ -4235,7 +4235,7 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 79
+                            example: 103
                           name:
                             type: string
                             example: 'Nostrum omnis'
@@ -4247,7 +4247,7 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 69
+                            example: 88
                           name:
                             type: string
                             example: 'Asociación Jaramillo e Hija'
@@ -4267,10 +4267,10 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-11T12:41:25.000000Z'
+                        example: '2026-11-11T13:55:31.000000Z'
                       updated_at:
                         type: string
-                        example: '2026-11-11T12:41:25.000000Z'
+                        example: '2026-11-11T13:55:31.000000Z'
                       deleted_at:
                         type: string
                         example: null
@@ -4391,7 +4391,7 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 479
+                    id: 496
                     sku: REF-3724-pw
                     name: 'Motor trifásico 2878 HP'
                     slug: motor-trifasico-2878-hp
@@ -4412,18 +4412,18 @@ paths:
                     sale_mode_label: 'Venta directa'
                     is_featured: false
                     category:
-                      id: 80
+                      id: 104
                       name: 'Aliquam veniam'
                       slug: aliquam-veniam
                     brand:
-                      id: 70
+                      id: 89
                       name: 'Cabán de Llorente S. de H.'
                       slug: caban-de-llorente-s-de-h
                       logo_url: null
                     is_active: true
                     price_source: null
-                    created_at: '2026-11-11T12:41:25.000000Z'
-                    updated_at: '2026-11-11T12:41:25.000000Z'
+                    created_at: '2026-11-11T13:55:31.000000Z'
+                    updated_at: '2026-11-11T13:55:31.000000Z'
                     deleted_at: null
                 properties:
                   data:
@@ -4431,7 +4431,7 @@ paths:
                     properties:
                       id:
                         type: integer
-                        example: 479
+                        example: 496
                       sku:
                         type: string
                         example: REF-3724-pw
@@ -4496,7 +4496,7 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 80
+                            example: 104
                           name:
                             type: string
                             example: 'Aliquam veniam'
@@ -4508,7 +4508,7 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 70
+                            example: 89
                           name:
                             type: string
                             example: 'Cabán de Llorente S. de H.'
@@ -4528,10 +4528,10 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-11T12:41:25.000000Z'
+                        example: '2026-11-11T13:55:31.000000Z'
                       updated_at:
                         type: string
-                        example: '2026-11-11T12:41:25.000000Z'
+                        example: '2026-11-11T13:55:31.000000Z'
                       deleted_at:
                         type: string
                         example: null
@@ -4552,7 +4552,7 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 480
+                    id: 497
                     sku: REF-7680-wp
                     name: 'Motor trifásico 2977 HP'
                     slug: motor-trifasico-2977-hp
@@ -4573,18 +4573,18 @@ paths:
                     sale_mode_label: 'Venta directa'
                     is_featured: false
                     category:
-                      id: 81
+                      id: 105
                       name: 'Corporis dolorem'
                       slug: corporis-dolorem
                     brand:
-                      id: 71
+                      id: 90
                       name: 'Marroquín, Ramírez y Chapa SRL'
                       slug: marroquin-ramirez-y-chapa-srl
                       logo_url: null
                     is_active: true
                     price_source: null
-                    created_at: '2026-11-11T12:41:25.000000Z'
-                    updated_at: '2026-11-11T12:41:25.000000Z'
+                    created_at: '2026-11-11T13:55:31.000000Z'
+                    updated_at: '2026-11-11T13:55:31.000000Z'
                     deleted_at: null
                 properties:
                   data:
@@ -4592,7 +4592,7 @@ paths:
                     properties:
                       id:
                         type: integer
-                        example: 480
+                        example: 497
                       sku:
                         type: string
                         example: REF-7680-wp
@@ -4657,7 +4657,7 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 81
+                            example: 105
                           name:
                             type: string
                             example: 'Corporis dolorem'
@@ -4669,7 +4669,7 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 71
+                            example: 90
                           name:
                             type: string
                             example: 'Marroquín, Ramírez y Chapa SRL'
@@ -4689,10 +4689,10 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-11T12:41:25.000000Z'
+                        example: '2026-11-11T13:55:31.000000Z'
                       updated_at:
                         type: string
-                        example: '2026-11-11T12:41:25.000000Z'
+                        example: '2026-11-11T13:55:31.000000Z'
                       deleted_at:
                         type: string
                         example: null
@@ -4765,11 +4765,11 @@ paths:
                 is_active:
                   type: boolean
                   description: ''
-                  example: false
+                  example: true
                 is_featured:
                   type: boolean
                   description: ''
-                  example: true
+                  example: false
                 specs:
                   type: array
                   description: 'El campo value no puede tener más de 30 elementos.'
@@ -4916,7 +4916,7 @@ paths:
                 example:
                   data:
                     -
-                      id: 82
+                      id: 106
                       parent_id: null
                       name: 'Quos velit'
                       slug: quos-velit
@@ -4924,10 +4924,10 @@ paths:
                       image_url: null
                       sort_order: 19
                       is_active: true
-                      created_at: '2026-11-11T12:41:25.000000Z'
-                      updated_at: '2026-11-11T12:41:25.000000Z'
+                      created_at: '2026-11-11T13:55:31.000000Z'
+                      updated_at: '2026-11-11T13:55:31.000000Z'
                     -
-                      id: 83
+                      id: 107
                       parent_id: null
                       name: 'Deserunt aut'
                       slug: deserunt-aut
@@ -4935,8 +4935,8 @@ paths:
                       image_url: null
                       sort_order: 15
                       is_active: true
-                      created_at: '2026-11-11T12:41:25.000000Z'
-                      updated_at: '2026-11-11T12:41:25.000000Z'
+                      created_at: '2026-11-11T13:55:31.000000Z'
+                      updated_at: '2026-11-11T13:55:31.000000Z'
                   links:
                     first: '/?page=1'
                     last: '/?page=1'
@@ -4949,7 +4949,7 @@ paths:
                     links:
                       -
                         url: null
-                        label: pagination.previous
+                        label: Anterior
                         page: null
                         active: false
                       -
@@ -4959,7 +4959,7 @@ paths:
                         active: true
                       -
                         url: null
-                        label: pagination.next
+                        label: Siguiente
                         page: null
                         active: false
                     path: /
@@ -4971,7 +4971,7 @@ paths:
                     type: array
                     example:
                       -
-                        id: 82
+                        id: 106
                         parent_id: null
                         name: 'Quos velit'
                         slug: quos-velit
@@ -4979,10 +4979,10 @@ paths:
                         image_url: null
                         sort_order: 19
                         is_active: true
-                        created_at: '2026-11-11T12:41:25.000000Z'
-                        updated_at: '2026-11-11T12:41:25.000000Z'
+                        created_at: '2026-11-11T13:55:31.000000Z'
+                        updated_at: '2026-11-11T13:55:31.000000Z'
                       -
-                        id: 83
+                        id: 107
                         parent_id: null
                         name: 'Deserunt aut'
                         slug: deserunt-aut
@@ -4990,14 +4990,14 @@ paths:
                         image_url: null
                         sort_order: 15
                         is_active: true
-                        created_at: '2026-11-11T12:41:25.000000Z'
-                        updated_at: '2026-11-11T12:41:25.000000Z'
+                        created_at: '2026-11-11T13:55:31.000000Z'
+                        updated_at: '2026-11-11T13:55:31.000000Z'
                     items:
                       type: object
                       properties:
                         id:
                           type: integer
-                          example: 82
+                          example: 106
                         parent_id:
                           type: string
                           example: null
@@ -5023,10 +5023,10 @@ paths:
                           example: true
                         created_at:
                           type: string
-                          example: '2026-11-11T12:41:25.000000Z'
+                          example: '2026-11-11T13:55:31.000000Z'
                         updated_at:
                           type: string
-                          example: '2026-11-11T12:41:25.000000Z'
+                          example: '2026-11-11T13:55:31.000000Z'
                   links:
                     type: object
                     properties:
@@ -5061,7 +5061,7 @@ paths:
                         example:
                           -
                             url: null
-                            label: pagination.previous
+                            label: Anterior
                             page: null
                             active: false
                           -
@@ -5071,7 +5071,7 @@ paths:
                             active: true
                           -
                             url: null
-                            label: pagination.next
+                            label: Siguiente
                             page: null
                             active: false
                         items:
@@ -5083,7 +5083,7 @@ paths:
                               nullable: true
                             label:
                               type: string
-                              example: pagination.previous
+                              example: Anterior
                             page:
                               type: string
                               example: null
@@ -5136,7 +5136,7 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 84
+                    id: 108
                     parent_id: null
                     name: 'Nihil accusantium'
                     slug: nihil-accusantium
@@ -5144,15 +5144,15 @@ paths:
                     image_url: null
                     sort_order: 12
                     is_active: true
-                    created_at: '2026-11-11T12:41:25.000000Z'
-                    updated_at: '2026-11-11T12:41:25.000000Z'
+                    created_at: '2026-11-11T13:55:31.000000Z'
+                    updated_at: '2026-11-11T13:55:31.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: integer
-                        example: 84
+                        example: 108
                       parent_id:
                         type: string
                         example: null
@@ -5178,10 +5178,10 @@ paths:
                         example: true
                       created_at:
                         type: string
-                        example: '2026-11-11T12:41:25.000000Z'
+                        example: '2026-11-11T13:55:31.000000Z'
                       updated_at:
                         type: string
-                        example: '2026-11-11T12:41:25.000000Z'
+                        example: '2026-11-11T13:55:31.000000Z'
       tags:
         - 'Categorías (administrador)'
       requestBody:
@@ -5231,7 +5231,7 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 85
+                    id: 109
                     parent_id: null
                     name: 'Aut adipisci'
                     slug: aut-adipisci
@@ -5239,15 +5239,15 @@ paths:
                     image_url: null
                     sort_order: 8
                     is_active: true
-                    created_at: '2026-11-11T12:41:25.000000Z'
-                    updated_at: '2026-11-11T12:41:25.000000Z'
+                    created_at: '2026-11-11T13:55:31.000000Z'
+                    updated_at: '2026-11-11T13:55:31.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: integer
-                        example: 85
+                        example: 109
                       parent_id:
                         type: string
                         example: null
@@ -5273,10 +5273,10 @@ paths:
                         example: true
                       created_at:
                         type: string
-                        example: '2026-11-11T12:41:25.000000Z'
+                        example: '2026-11-11T13:55:31.000000Z'
                       updated_at:
                         type: string
-                        example: '2026-11-11T12:41:25.000000Z'
+                        example: '2026-11-11T13:55:31.000000Z'
       tags:
         - 'Categorías (administrador)'
     put:
@@ -5293,7 +5293,7 @@ paths:
                 type: object
                 example:
                   data:
-                    id: 86
+                    id: 110
                     parent_id: null
                     name: 'Harum mollitia'
                     slug: harum-mollitia
@@ -5301,15 +5301,15 @@ paths:
                     image_url: null
                     sort_order: 0
                     is_active: true
-                    created_at: '2026-11-11T12:41:25.000000Z'
-                    updated_at: '2026-11-11T12:41:25.000000Z'
+                    created_at: '2026-11-11T13:55:31.000000Z'
+                    updated_at: '2026-11-11T13:55:31.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       id:
                         type: integer
-                        example: 86
+                        example: 110
                       parent_id:
                         type: string
                         example: null
@@ -5336,10 +5336,10 @@ paths:
                         example: true
                       created_at:
                         type: string
-                        example: '2026-11-11T12:41:25.000000Z'
+                        example: '2026-11-11T13:55:31.000000Z'
                       updated_at:
                         type: string
-                        example: '2026-11-11T12:41:25.000000Z'
+                        example: '2026-11-11T13:55:31.000000Z'
       tags:
         - 'Categorías (administrador)'
       requestBody:
@@ -5717,62 +5717,19 @@ paths:
                 example:
                   data:
                     -
-                      code: PED-6168
+                      code: PED-9775
                       type: purchase
                       type_label: Pedido
                       status: pending_payment
                       status_label: 'Pendiente de pago'
                       customer_type: company
-                      company_name: 'Air Núñez e Hijos S.A.S.'
-                      nit: 947733951-5
-                      contact_name: 'Alonso Corral'
-                      email: alba.valdez@example.net
-                      phone: '364 749 1652'
-                      city: Piedecuesta
-                      address: 'Ronda Archuleta, 74, 3º E'
-                      is_guest: null
-                      needs_invoice: null
-                      billing: null
-                      delivery: null
-                      privacy_accepted_at: null
-                      privacy_version: null
-                      delivery_method: national
-                      delivery_method_label: 'Envío nacional'
-                      payment_method: null
-                      subtotal: 840336.13
-                      tax: 159663.87
-                      shipping: 0
-                      total: 1000000
-                      notes: null
-                      expires_at: null
-                      paid_at: null
-                      created_at: '2026-11-11T12:41:24.000000Z'
-                      items:
-                        -
-                          id: 8
-                          product_id: 467
-                          sku: REF-0571-qm
-                          product_name: 'Motor trifásico 5720 HP'
-                          unit: unidad
-                          quantity: 3
-                          unit_price: 1549000
-                          tax_rate: 19
-                          line_total: 4647000
-                          notes: null
-                    -
-                      code: PED-2019
-                      type: purchase
-                      type_label: Pedido
-                      status: pending_payment
-                      status_label: 'Pendiente de pago'
-                      customer_type: company
-                      company_name: 'Mata y Velasco S.A.S.'
-                      nit: 933597264-1
-                      contact_name: 'Nora Arredondo'
-                      email: tcenteno@example.org
-                      phone: '396 761 5529'
-                      city: Piedecuesta
-                      address: 'Travessera Hugo, 238, 58º C'
+                      company_name: 'Llorente, Aguirre y Sierra e Hijo S.A.S.'
+                      nit: 931296562-5
+                      contact_name: 'Alexandra Salvador'
+                      email: arredondo.juana@example.com
+                      phone: '364 698 0841'
+                      city: Barrancabermeja
+                      address: 'Ruela Santiago, 442, 43º 2º'
                       is_guest: null
                       needs_invoice: null
                       billing: null
@@ -5789,80 +5746,80 @@ paths:
                       notes: null
                       expires_at: null
                       paid_at: null
-                      created_at: '2026-11-11T12:41:24.000000Z'
+                      created_at: '2026-11-11T13:55:31.000000Z'
                       items:
                         -
-                          id: 9
-                          product_id: 468
-                          sku: REF-7930-xs
-                          product_name: 'Motor trifásico 528 HP'
+                          id: 17
+                          product_id: 484
+                          sku: REF-5744-tc
+                          product_name: 'Motor trifásico 4086 HP'
                           unit: unidad
-                          quantity: 3
-                          unit_price: 2216000
+                          quantity: 5
+                          unit_price: 4793000
                           tax_rate: 19
-                          line_total: 6648000
+                          line_total: 23965000
+                          notes: null
+                    -
+                      code: PED-0170
+                      type: purchase
+                      type_label: Pedido
+                      status: pending_payment
+                      status_label: 'Pendiente de pago'
+                      customer_type: company
+                      company_name: 'Centro Duran-Ordoñez S.A.S.'
+                      nit: 973287370-6
+                      contact_name: 'Lic. Olivia Paredes Segundo'
+                      email: pineiro.marc@example.com
+                      phone: '361 747 3805'
+                      city: Floridablanca
+                      address: 'Travesía María Dolores, 87, 4º E'
+                      is_guest: null
+                      needs_invoice: null
+                      billing: null
+                      delivery: null
+                      privacy_accepted_at: null
+                      privacy_version: null
+                      delivery_method: national
+                      delivery_method_label: 'Envío nacional'
+                      payment_method: null
+                      subtotal: 840336.13
+                      tax: 159663.87
+                      shipping: 0
+                      total: 1000000
+                      notes: null
+                      expires_at: null
+                      paid_at: null
+                      created_at: '2026-11-11T13:55:31.000000Z'
+                      items:
+                        -
+                          id: 18
+                          product_id: 485
+                          sku: REF-3974-og
+                          product_name: 'Motor trifásico 4936 HP'
+                          unit: unidad
+                          quantity: 4
+                          unit_price: 4325000
+                          tax_rate: 19
+                          line_total: 17300000
                           notes: null
                 properties:
                   data:
                     type: array
                     example:
                       -
-                        code: PED-6168
+                        code: PED-9775
                         type: purchase
                         type_label: Pedido
                         status: pending_payment
                         status_label: 'Pendiente de pago'
                         customer_type: company
-                        company_name: 'Air Núñez e Hijos S.A.S.'
-                        nit: 947733951-5
-                        contact_name: 'Alonso Corral'
-                        email: alba.valdez@example.net
-                        phone: '364 749 1652'
-                        city: Piedecuesta
-                        address: 'Ronda Archuleta, 74, 3º E'
-                        is_guest: null
-                        needs_invoice: null
-                        billing: null
-                        delivery: null
-                        privacy_accepted_at: null
-                        privacy_version: null
-                        delivery_method: national
-                        delivery_method_label: 'Envío nacional'
-                        payment_method: null
-                        subtotal: 840336.13
-                        tax: 159663.87
-                        shipping: 0
-                        total: 1000000
-                        notes: null
-                        expires_at: null
-                        paid_at: null
-                        created_at: '2026-11-11T12:41:24.000000Z'
-                        items:
-                          -
-                            id: 8
-                            product_id: 467
-                            sku: REF-0571-qm
-                            product_name: 'Motor trifásico 5720 HP'
-                            unit: unidad
-                            quantity: 3
-                            unit_price: 1549000
-                            tax_rate: 19
-                            line_total: 4647000
-                            notes: null
-                      -
-                        code: PED-2019
-                        type: purchase
-                        type_label: Pedido
-                        status: pending_payment
-                        status_label: 'Pendiente de pago'
-                        customer_type: company
-                        company_name: 'Mata y Velasco S.A.S.'
-                        nit: 933597264-1
-                        contact_name: 'Nora Arredondo'
-                        email: tcenteno@example.org
-                        phone: '396 761 5529'
-                        city: Piedecuesta
-                        address: 'Travessera Hugo, 238, 58º C'
+                        company_name: 'Llorente, Aguirre y Sierra e Hijo S.A.S.'
+                        nit: 931296562-5
+                        contact_name: 'Alexandra Salvador'
+                        email: arredondo.juana@example.com
+                        phone: '364 698 0841'
+                        city: Barrancabermeja
+                        address: 'Ruela Santiago, 442, 43º 2º'
                         is_guest: null
                         needs_invoice: null
                         billing: null
@@ -5879,25 +5836,68 @@ paths:
                         notes: null
                         expires_at: null
                         paid_at: null
-                        created_at: '2026-11-11T12:41:24.000000Z'
+                        created_at: '2026-11-11T13:55:31.000000Z'
                         items:
                           -
-                            id: 9
-                            product_id: 468
-                            sku: REF-7930-xs
-                            product_name: 'Motor trifásico 528 HP'
+                            id: 17
+                            product_id: 484
+                            sku: REF-5744-tc
+                            product_name: 'Motor trifásico 4086 HP'
                             unit: unidad
-                            quantity: 3
-                            unit_price: 2216000
+                            quantity: 5
+                            unit_price: 4793000
                             tax_rate: 19
-                            line_total: 6648000
+                            line_total: 23965000
+                            notes: null
+                      -
+                        code: PED-0170
+                        type: purchase
+                        type_label: Pedido
+                        status: pending_payment
+                        status_label: 'Pendiente de pago'
+                        customer_type: company
+                        company_name: 'Centro Duran-Ordoñez S.A.S.'
+                        nit: 973287370-6
+                        contact_name: 'Lic. Olivia Paredes Segundo'
+                        email: pineiro.marc@example.com
+                        phone: '361 747 3805'
+                        city: Floridablanca
+                        address: 'Travesía María Dolores, 87, 4º E'
+                        is_guest: null
+                        needs_invoice: null
+                        billing: null
+                        delivery: null
+                        privacy_accepted_at: null
+                        privacy_version: null
+                        delivery_method: national
+                        delivery_method_label: 'Envío nacional'
+                        payment_method: null
+                        subtotal: 840336.13
+                        tax: 159663.87
+                        shipping: 0
+                        total: 1000000
+                        notes: null
+                        expires_at: null
+                        paid_at: null
+                        created_at: '2026-11-11T13:55:31.000000Z'
+                        items:
+                          -
+                            id: 18
+                            product_id: 485
+                            sku: REF-3974-og
+                            product_name: 'Motor trifásico 4936 HP'
+                            unit: unidad
+                            quantity: 4
+                            unit_price: 4325000
+                            tax_rate: 19
+                            line_total: 17300000
                             notes: null
                     items:
                       type: object
                       properties:
                         code:
                           type: string
-                          example: PED-6168
+                          example: PED-9775
                         type:
                           type: string
                           example: purchase
@@ -5915,25 +5915,25 @@ paths:
                           example: company
                         company_name:
                           type: string
-                          example: 'Air Núñez e Hijos S.A.S.'
+                          example: 'Llorente, Aguirre y Sierra e Hijo S.A.S.'
                         nit:
                           type: string
-                          example: 947733951-5
+                          example: 931296562-5
                         contact_name:
                           type: string
-                          example: 'Alonso Corral'
+                          example: 'Alexandra Salvador'
                         email:
                           type: string
-                          example: alba.valdez@example.net
+                          example: arredondo.juana@example.com
                         phone:
                           type: string
-                          example: '364 749 1652'
+                          example: '364 698 0841'
                         city:
                           type: string
-                          example: Piedecuesta
+                          example: Barrancabermeja
                         address:
                           type: string
-                          example: 'Ronda Archuleta, 74, 3º E'
+                          example: 'Ruela Santiago, 442, 43º 2º'
                         is_guest:
                           type: string
                           example: null
@@ -5960,10 +5960,10 @@ paths:
                           nullable: true
                         delivery_method:
                           type: string
-                          example: national
+                          example: pickup
                         delivery_method_label:
                           type: string
-                          example: 'Envío nacional'
+                          example: 'Recoger en tienda'
                         payment_method:
                           type: string
                           example: null
@@ -5994,51 +5994,51 @@ paths:
                           nullable: true
                         created_at:
                           type: string
-                          example: '2026-11-11T12:41:24.000000Z'
+                          example: '2026-11-11T13:55:31.000000Z'
                         items:
                           type: array
                           example:
                             -
-                              id: 8
-                              product_id: 467
-                              sku: REF-0571-qm
-                              product_name: 'Motor trifásico 5720 HP'
+                              id: 17
+                              product_id: 484
+                              sku: REF-5744-tc
+                              product_name: 'Motor trifásico 4086 HP'
                               unit: unidad
-                              quantity: 3
-                              unit_price: 1549000
+                              quantity: 5
+                              unit_price: 4793000
                               tax_rate: 19
-                              line_total: 4647000
+                              line_total: 23965000
                               notes: null
                           items:
                             type: object
                             properties:
                               id:
                                 type: integer
-                                example: 8
+                                example: 17
                               product_id:
                                 type: integer
-                                example: 467
+                                example: 484
                               sku:
                                 type: string
-                                example: REF-0571-qm
+                                example: REF-5744-tc
                               product_name:
                                 type: string
-                                example: 'Motor trifásico 5720 HP'
+                                example: 'Motor trifásico 4086 HP'
                               unit:
                                 type: string
                                 example: unidad
                               quantity:
                                 type: integer
-                                example: 3
+                                example: 5
                               unit_price:
                                 type: integer
-                                example: 1549000
+                                example: 4793000
                               tax_rate:
                                 type: integer
                                 example: 19
                               line_total:
                                 type: integer
-                                example: 4647000
+                                example: 23965000
                               notes:
                                 type: string
                                 example: null
@@ -6107,7 +6107,7 @@ paths:
                 delivery_state_code:
                   type: string
                   description: ''
-                  example: 88
+                  example: 11
                   enum:
                     - 91
                     - 5
@@ -6242,7 +6242,7 @@ paths:
                   type: array
                   description: ''
                   example:
-                    - O-23
+                    - O-13
                   items:
                     type: string
                     enum:
@@ -6259,7 +6259,7 @@ paths:
                 billing_same_as_delivery:
                   type: boolean
                   description: ''
-                  example: true
+                  example: false
                 billing_address:
                   type: string
                   description: 'Dirección de facturación.'
@@ -6268,7 +6268,7 @@ paths:
                 billing_state_code:
                   type: string
                   description: ''
-                  example: 5
+                  example: 86
                   enum:
                     - 91
                     - 5
@@ -6429,27 +6429,27 @@ paths:
                 type: object
                 example:
                   data:
-                    code: PED-4346
+                    code: PED-6260
                     type: purchase
                     type_label: Pedido
                     status: pending_payment
                     status_label: 'Pendiente de pago'
                     customer_type: company
-                    company_name: 'Paredes y Salvador y Flia. S.A.S.'
-                    nit: 986217880-8
-                    contact_name: 'Sr. José Muñiz'
-                    email: harmendariz@example.net
-                    phone: '368 447 1366'
-                    city: Piedecuesta
-                    address: 'Camino Eva, 54, 54º D'
+                    company_name: 'Sanabria y Tapia SA S.A.S.'
+                    nit: 930146534-7
+                    contact_name: 'Aaron Arredondo'
+                    email: navas.silvia@example.net
+                    phone: '329 124 6281'
+                    city: Girón
+                    address: 'Calle David, 728, 8º A'
                     is_guest: null
                     needs_invoice: null
                     billing: null
                     delivery: null
                     privacy_accepted_at: null
                     privacy_version: null
-                    delivery_method: local
-                    delivery_method_label: 'Envío local (Bucaramanga y área metropolitana)'
+                    delivery_method: national
+                    delivery_method_label: 'Envío nacional'
                     payment_method: null
                     subtotal: 840336.13
                     tax: 159663.87
@@ -6458,18 +6458,18 @@ paths:
                     notes: null
                     expires_at: null
                     paid_at: null
-                    created_at: '2026-11-11T12:41:24.000000Z'
+                    created_at: '2026-11-11T13:55:31.000000Z'
                     items:
                       -
-                        id: 10
-                        product_id: 469
-                        sku: REF-5617-ci
-                        product_name: 'Motor trifásico 2570 HP'
+                        id: 19
+                        product_id: 486
+                        sku: REF-5083-eq
+                        product_name: 'Motor trifásico 9349 HP'
                         unit: unidad
                         quantity: 5
-                        unit_price: 1593000
+                        unit_price: 4371000
                         tax_rate: 19
-                        line_total: 7965000
+                        line_total: 21855000
                         notes: null
                     status_history:
                       -
@@ -6477,14 +6477,14 @@ paths:
                         to_status: pending_payment
                         to_status_label: 'Pendiente de pago'
                         note: null
-                        created_at: '2026-11-11T12:41:24.000000Z'
+                        created_at: '2026-11-11T13:55:31.000000Z'
                 properties:
                   data:
                     type: object
                     properties:
                       code:
                         type: string
-                        example: PED-4346
+                        example: PED-6260
                       type:
                         type: string
                         example: purchase
@@ -6502,25 +6502,25 @@ paths:
                         example: company
                       company_name:
                         type: string
-                        example: 'Paredes y Salvador y Flia. S.A.S.'
+                        example: 'Sanabria y Tapia SA S.A.S.'
                       nit:
                         type: string
-                        example: 986217880-8
+                        example: 930146534-7
                       contact_name:
                         type: string
-                        example: 'Sr. José Muñiz'
+                        example: 'Aaron Arredondo'
                       email:
                         type: string
-                        example: harmendariz@example.net
+                        example: navas.silvia@example.net
                       phone:
                         type: string
-                        example: '368 447 1366'
+                        example: '329 124 6281'
                       city:
                         type: string
-                        example: Piedecuesta
+                        example: Girón
                       address:
                         type: string
-                        example: 'Camino Eva, 54, 54º D'
+                        example: 'Calle David, 728, 8º A'
                       is_guest:
                         type: string
                         example: null
@@ -6547,10 +6547,10 @@ paths:
                         nullable: true
                       delivery_method:
                         type: string
-                        example: local
+                        example: national
                       delivery_method_label:
                         type: string
-                        example: 'Envío local (Bucaramanga y área metropolitana)'
+                        example: 'Envío nacional'
                       payment_method:
                         type: string
                         example: null
@@ -6581,36 +6581,36 @@ paths:
                         nullable: true
                       created_at:
                         type: string
-                        example: '2026-11-11T12:41:24.000000Z'
+                        example: '2026-11-11T13:55:31.000000Z'
                       items:
                         type: array
                         example:
                           -
-                            id: 10
-                            product_id: 469
-                            sku: REF-5617-ci
-                            product_name: 'Motor trifásico 2570 HP'
+                            id: 19
+                            product_id: 486
+                            sku: REF-5083-eq
+                            product_name: 'Motor trifásico 9349 HP'
                             unit: unidad
                             quantity: 5
-                            unit_price: 1593000
+                            unit_price: 4371000
                             tax_rate: 19
-                            line_total: 7965000
+                            line_total: 21855000
                             notes: null
                         items:
                           type: object
                           properties:
                             id:
                               type: integer
-                              example: 10
+                              example: 19
                             product_id:
                               type: integer
-                              example: 469
+                              example: 486
                             sku:
                               type: string
-                              example: REF-5617-ci
+                              example: REF-5083-eq
                             product_name:
                               type: string
-                              example: 'Motor trifásico 2570 HP'
+                              example: 'Motor trifásico 9349 HP'
                             unit:
                               type: string
                               example: unidad
@@ -6619,13 +6619,13 @@ paths:
                               example: 5
                             unit_price:
                               type: integer
-                              example: 1593000
+                              example: 4371000
                             tax_rate:
                               type: integer
                               example: 19
                             line_total:
                               type: integer
-                              example: 7965000
+                              example: 21855000
                             notes:
                               type: string
                               example: null
@@ -6638,7 +6638,7 @@ paths:
                             to_status: pending_payment
                             to_status_label: 'Pendiente de pago'
                             note: null
-                            created_at: '2026-11-11T12:41:24.000000Z'
+                            created_at: '2026-11-11T13:55:31.000000Z'
                         items:
                           type: object
                           properties:
@@ -6658,7 +6658,7 @@ paths:
                               nullable: true
                             created_at:
                               type: string
-                              example: '2026-11-11T12:41:24.000000Z'
+                              example: '2026-11-11T13:55:31.000000Z'
         403:
           description: 'Enlace inválido o vencido'
           content:
@@ -6863,7 +6863,7 @@ paths:
                   data:
                     message: 'Recibimos tu solicitud. Un asesor te responderá pronto.'
                     reference: LIB-0001
-                    response_time: 'el mismo día hábil'
+                    response_time: 'en máximo 3 días hábiles'
                 properties:
                   data:
                     type: object
@@ -6876,7 +6876,7 @@ paths:
                         example: LIB-0001
                       response_time:
                         type: string
-                        example: 'el mismo día hábil'
+                        example: 'en máximo 3 días hábiles'
       tags:
         - 'Cotización sin cuenta'
       requestBody:
