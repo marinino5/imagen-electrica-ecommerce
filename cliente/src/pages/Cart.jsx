@@ -6,6 +6,7 @@ import { site } from '../config/site'
 import { useAuth } from '../context/AuthContext'
 import { useCart } from '../context/CartContext'
 import { useLines } from '../hooks/useLines'
+import { isDirectPurchase } from '../lib/catalog'
 import { lineImage, lineThumb } from '../lib/lines'
 import { formatCOP } from '../lib/format'
 import Bezel from '../components/ui/Bezel'
@@ -49,7 +50,7 @@ function Item({ line, showPrice }) {
   const thumb = (current && (lineThumb(current) || lineImage(current))) || product.image_url
   // Si una ruta falla se recuerda cuál: al llegar el catálogo actual la miniatura cambia y se vuelve a intentar
   const [brokenSrc, setBrokenSrc] = useState(null)
-  const over = product.sale_mode === 'direct' && product.price !== null && quantity > product.stock
+  const over = product.sale_mode === 'direct' && product.price !== null && !isDirectPurchase(product, quantity)
 
   return (
     <li className="bz cart-item">

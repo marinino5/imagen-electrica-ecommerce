@@ -20,8 +20,8 @@ class PromotionResource extends JsonResource
     {
         $line = $this->line;
         $purchasable = $line->variants->filter(fn ($v) => $v->sale_mode === SaleMode::Direct && $v->price !== null);
-        // Promoción de una referencia: se compra si esa referencia tiene stock; de toda la línea: si alguna lo tiene
-        $stocked = $this->product ? ($purchasable->contains('id', $this->product->id) && $this->product->stock > 0) : $purchasable->contains(fn ($v) => $v->stock > 0);
+        // Promoción de una referencia: se compra si esa referencia está disponible; de toda la línea: si alguna lo está
+        $stocked = $this->product ? ($purchasable->contains('id', $this->product->id) && $this->product->hasAvailability()) : $purchasable->contains(fn ($v) => $v->hasAvailability());
         $base = $this->basePrice();
         $final = $this->special_price !== null
             ? (float) $this->special_price

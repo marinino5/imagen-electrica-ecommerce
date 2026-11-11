@@ -265,7 +265,7 @@ export default function ProductDetail() {
                   <small>{direct ? (current.price_source ? 'IVA incluido · Precio de referencia' : 'IVA incluido') : 'Te respondemos con precio y tiempo de entrega'}</small>
                 </p>
                 {direct && current.price_source && <p className="pd-note pd-note--ref">Precio de referencia: un asesor lo confirma antes de cerrar la compra.</p>}
-                {direct && current.stock <= 0 && <p className="pd-note pd-note--out">Agotado en línea: solicita la cotización y te respondemos con disponibilidad.</p>}
+                {direct && current.stock <= 0 && <p className="pd-avail">Disponibilidad y entrega las confirma tu asesor.</p>}
               </div>
 
               {/* 7 · Cantidad */}
@@ -278,7 +278,7 @@ export default function ProductDetail() {
                 </div>
                 {total !== null && qty > 1 && <span className="pd-total">Total: <strong>{formatCOP(total)}</strong></span>}
               </div>
-              {current.sale_mode === 'direct' && current.stock > 0 && !purchasable && (
+              {current.sale_mode === 'direct' && current.price !== null && !purchasable && (
                 <p className="pd-note">Esta cantidad no se compra en línea: usa «Solicitar cotización» y un asesor te responde con precio.</p>
               )}
 

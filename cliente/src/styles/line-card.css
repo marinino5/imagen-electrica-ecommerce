@@ -206,7 +206,7 @@
 .pc__logos .brandmark { height: 20px; max-width: 64px; }
 .pc__logos .brandmark--text { font-size: 0.9rem; white-space: nowrap; }
 
-/* Acciones de la tarjeta: arriba el botón con texto (Agregar al carrito / Cotizar / Agotado · cotizar), abajo «Ver ficha» */
+/* Acciones de la tarjeta: arriba el botón con texto (Agregar / Cotizar), abajo «Ver ficha» */
 .pc__actions { flex-direction: column-reverse; align-items: stretch; gap: 8px; }
 .pc__actions .pc__more { flex: none; min-height: 38px; border-width: 1px; font-size: 13px; }
 @media (max-width: 599px) { .pc__actions { justify-content: flex-start; } }

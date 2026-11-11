@@ -99,7 +99,7 @@ class ProductRepository
             ->when($filters['brand'] ?? null, fn (Builder $query, string $slug) => $query->whereHas('brand', fn ($q) => $q->where('slug', $slug)))
             ->when($filters['sale_mode'] ?? null, fn (Builder $query, string $mode) => $query->where('sale_mode', $mode))
             ->when($filters['featured'] ?? false, fn (Builder $query) => $query->where('is_featured', true))
-            ->when($filters['in_stock'] ?? false, fn (Builder $query) => $query->where('stock', '>', 0));
+            ->when(($filters['in_stock'] ?? false) && config('shop.track_stock'), fn (Builder $query) => $query->where('stock', '>', 0));
 
         match ($filters['sort'] ?? 'name') {
             'newest' => $query->latest()->latest('id'),

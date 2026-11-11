@@ -36,8 +36,7 @@ const POPOVER_W = 320
  *  - línea con una sola referencia comprable: se agrega directo;
  *  - varias referencias: mini selector (popover en escritorio, hoja inferior en el celular);
  *  - línea solo de cotización: «Cotizar», abre la cotización con esa línea precargada;
- *  - línea con precio pero sin stock: «Agotado · cotizar» (sin compra en línea).
- * El botón lleva texto (Agregar al carrito / Cotizar / Agotado · cotizar), no solo el icono.
+ * El botón lleva ícono de carrito y texto («Agregar» / «Cotizar»), no solo el ícono. Nunca dice «agotado».
  * Al agregar: toast (lo da el carrito), pulso del contador y un check en el botón durante 1,2 s.
  */
 export default function QuickAdd({ line, image, preselect = null }) {
@@ -55,7 +54,7 @@ export default function QuickAdd({ line, image, preselect = null }) {
   const [pos, setPos] = useState(null)
 
   const kind = cardState(line)
-  const quoteOnly = kind !== 'buy' // cotizar: solo cotización o agotada
+  const quoteOnly = kind !== 'buy' // línea de solo cotización
   const quick = line.quick_variant
   const origin = () => ({ rect: btn.current.getBoundingClientRect(), image })
 
@@ -158,8 +157,8 @@ export default function QuickAdd({ line, image, preselect = null }) {
   }
 
   const Icon = quoteOnly ? FileText : done ? Check : ShoppingCart
-  const label = kind === 'out' ? `${line.name}: agotado, cotizar` : quoteOnly ? `Cotizar ${line.name}` : `Agregar ${line.name} al carrito`
-  const text = kind === 'out' ? ['Agotado · cotizar', 'Agotado'] : quoteOnly ? ['Cotizar', 'Cotizar'] : done ? ['Agregado', 'Agregado'] : ['Agregar al carrito', 'Agregar']
+  const label = quoteOnly ? `Cotizar ${line.name}` : `Agregar ${line.name} al carrito`
+  const text = quoteOnly ? 'Cotizar' : done ? 'Agregado' : 'Agregar'
   const fits = chosen ? isDirectPurchase(chosen, qty) : true
 
   const body = (
@@ -211,15 +210,14 @@ export default function QuickAdd({ line, image, preselect = null }) {
       <button
         ref={btn}
         type="button"
-        className={`qa__pill ${done ? 'is-done' : ''} ${quoteOnly ? 'is-quote' : ''} ${kind === 'out' ? 'is-out' : ''}`}
+        className={`qa__pill ${done ? 'is-done' : ''} ${quoteOnly ? 'is-quote' : ''}`}
         aria-label={done ? 'Agregado' : label}
         aria-haspopup={!quoteOnly && !quick ? 'dialog' : undefined}
         aria-expanded={!quoteOnly && !quick ? open : undefined}
         onClick={onClick}
       >
         <Icon size={18} aria-hidden="true" />
-        <span className="qa__long">{text[0]}</span>
-        <span className="qa__short">{text[1]}</span>
+        <span>{text}</span>
       </button>
       {createPortal(
         <AnimatePresence>

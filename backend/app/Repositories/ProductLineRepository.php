@@ -57,7 +57,7 @@ class ProductLineRepository
                 'quote' => $query->whereIn('sale_mode', [SaleMode::Quote->value, SaleMode::OnRequest->value]),
                 default => $query,
             })
-            ->when($filters['in_stock'] ?? false, fn (Builder $query) => $query->whereHas('variants', fn (Builder $v) => $v->where('stock', '>', 0)))
+            ->when(($filters['in_stock'] ?? false) && config('shop.track_stock'), fn (Builder $query) => $query->whereHas('variants', fn (Builder $v) => $v->where('stock', '>', 0)))
             ->when(isset($filters['hp_min']) || isset($filters['hp_max']), fn (Builder $query) => $query->whereIn(
                 'id', $this->lineIdsWithHp($filters['hp_min'] ?? null, $filters['hp_max'] ?? null)
             ))

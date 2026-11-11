@@ -536,4 +536,4 @@
 .pd-table__brand .brandmark { height: 20px; max-width: 72px; }
 
 .pd-note--ref { color: var(--primary); font-weight: 600; }
-.pd-note--out { color: var(--muted); font-weight: 600; }
+.pd-avail { margin: 6px 0 0; color: var(--muted); font-size: 12.5px; line-height: 1.4; }

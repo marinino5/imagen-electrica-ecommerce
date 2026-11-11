@@ -24,10 +24,16 @@ class InventoryService
         return (int) ceil((float) $quantity);
     }
 
-    /** Hay stock suficiente para esa cantidad de un solo producto. */
+    /** ¿El stock manda? Ver config('shop.track_stock'): apagado hasta conectar Siigo. */
+    public function tracksStock(): bool
+    {
+        return (bool) config('shop.track_stock');
+    }
+
+    /** Hay stock suficiente para esa cantidad de un solo producto (siempre, mientras el stock no se use). */
     public function canFulfill(Product $product, float|int|string $quantity): bool
     {
-        return $product->stock >= $this->unitsFor($quantity);
+        return ! $this->tracksStock() || $product->stock >= $this->unitsFor($quantity);
     }
 
     /**
@@ -40,6 +46,11 @@ class InventoryService
      */
     public function deductForOrder(Order $order): void
     {
+        // Sin stock confiable (antes de Siigo) no se valida ni se descuenta: el pago no depende de unidades en bodega
+        if (! $this->tracksStock()) {
+            return;
+        }
+
         $items = $order->items()->get();
         $locked = $this->products->lockMany($items->pluck('product_id')->filter()->all());
 

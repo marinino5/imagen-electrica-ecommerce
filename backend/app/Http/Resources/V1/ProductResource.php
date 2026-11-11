@@ -32,7 +32,9 @@ class ProductResource extends JsonResource
             'price' => $this->price === null ? null : (float) $this->price,
             'tax_rate' => (float) $this->tax_rate,
             'stock' => $this->stock,
-            'in_stock' => $this->stock > 0,
+            'in_stock' => $this->hasAvailability(),
+            // Tope de unidades por compra; nulo mientras el stock no se use (antes de conectar Siigo)
+            'stock_limit' => config('shop.track_stock') ? $this->stock : null,
             'sale_mode' => $this->sale_mode->value,
             'sale_mode_label' => $this->sale_mode->label(),
             'is_featured' => $this->is_featured,
