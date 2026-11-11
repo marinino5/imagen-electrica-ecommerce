@@ -191,7 +191,8 @@ RULES = {
     'Reductores de otras marcas': [L('Reductor Siti', 'Siti', anyv, keep, slug='reductores-de-otras-marcas', tipo='Reductor')],
     'THHN / THWN-2 Centelsa': [L('Cable THHN/THWN-2 Centelsa', 'Centelsa', anyv, keep, slug='thhn-thwn-2-centelsa', tipo='Cable THHN/THWN-2')],
     'START Highbay LED': [L('Campana LED Sylvania START Highbay', 'Sylvania', anyv, keep, slug='start-highbay-led', tipo='Campana LED industrial', serie='START Highbay')],
-    'Compresor vertical': [L('Compresor de pistón vertical ABAC PRO', 'ABAC', anyv, keep, slug='compresor-vertical', tipo='Compresor de pistón', serie='PRO')],
+    # El compresor del inventario es FERRARA (se lee en el tanque), no ABAC: foto propia de la tienda, recortada
+    'Compresor vertical': [L('Compresor de pistón Ferrara', 'Ferrara', anyv, keep, slug='compresor-vertical', image='/img/tienda/compresor-ferrara.webp', tipo='Compresor de pistón')],
     # ------------------------------------------------ Fase 1B: una línea por producto
     'Inversores de giro, estaciones de mando e interruptores': [
         L('Interruptor de pedal Xurui XF', 'Xurui', name_has('pedal'), keep, image=None, tipo='Interruptor de pedal', serie='XF'),
@@ -270,6 +271,14 @@ RULES = {
         L('Amperímetro análogo Chint', 'Chint', brand_is('Chint'), keep, tipo='Amperímetro análogo de panel'),
         L('Analizador de red multifunción Nippen', 'Nippen', anyv, keep, tipo='Analizador de red multifunción'),
     ],
+}
+
+# Marca de referencias que el Excel trae «Sin marca» pero cuya fuente (página del distribuidor o código de fabricante) la dice
+SKU_BRAND = {'47040': 'VCP', '9023': 'VCP', '46983': 'Relpol', '46984': 'Relpol', '25776': 'EBCHQ', 'AP3T72Z11': 'Comepi', '34035': 'SPK', '34051': 'SPK'}
+NAME_FIX = {
+    'Base para relé de 8 pines': 'Base para relé de 8 pines VCP', 'Base para relé de 11 pines': 'Base para relé de 11 pines VCP',
+    'Mini relé slim de 5 pines': 'Mini relé slim de 5 pines Relpol', 'Estación de mando de pulsadores y emergencia': 'Estación de mando EBCHQ de pulsadores y emergencia',
+    'Final de carrera de varilla ajustable': 'Final de carrera Comepi de varilla ajustable', 'Aislador de barraje SM': 'Aislador de barraje SPK SM',
 }
 
 FAMILY_RENAMES = {
@@ -358,6 +367,8 @@ def main():
                 if v['sku'] in ('XZ-15GD-B', 'XV-156-1C25'):
                     nv['brand'] = 'Xurui'
                 # WCG01 y WCG20 son reductores WEG Cestari (catálogo general de WEG Cestari); el inventario los trae sin marca o como WEG
+                if nv['sku'] in SKU_BRAND and nv['brand'] == 'Sin marca':
+                    nv['brand'] = SKU_BRAND[nv['sku']]
                 if rule['serie'] in ('WCG01', 'WCG20'):
                     nv['brand'] = 'WEG Cestari'
                 # La foto de MA5-12 es de otra batería (la etiqueta dice «MA 4-6», de 6 V): se quita hasta tener la foto de la 12 V 5 Ah
@@ -369,6 +380,19 @@ def main():
         if remaining:
             raise SystemExit(f"Variantes sin regla en «{line['name']}»: {[v['sku'] for v in remaining]}")
         removed_slugs.add(old_slug)
+
+    # Marca en todas las líneas: nombre con la marca cuando la hay; «Genérico» cuando el inventario no la dice
+    for l in lines_out:
+        l['name'] = NAME_FIX.get(l['name'], l['name'])
+        for v in l['variants']:
+            if v['brand'] == 'Sin marca':
+                v['brand'] = 'Genérico'
+        brands = []
+        for v in l['variants']:
+            if v['brand'] not in brands:
+                brands.append(v['brand'])
+        if brands:
+            l['brand_label'] = ' · '.join(brands)
 
     # Slug final de cada línea y foto
     final_slugs = {}

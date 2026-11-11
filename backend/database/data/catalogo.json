@@ -7581,8 +7581,8 @@
   {
    "family": "Compresores",
    "category": "Compresores de pistón",
-   "name": "Compresor de pistón vertical ABAC PRO",
-   "brand_label": "ABAC",
+   "name": "Compresor de pistón Ferrara",
+   "brand_label": "Ferrara",
    "image": "compresores",
    "specs": [
     "2–15 HP"
@@ -7858,8 +7858,8 @@
   {
    "family": "Control y Automatización",
    "category": "Mando y maniobra",
-   "name": "Estación de mando de pulsadores y emergencia",
-   "brand_label": null,
+   "name": "Estación de mando EBCHQ de pulsadores y emergencia",
+   "brand_label": "EBCHQ",
    "image": "nuevo",
    "specs": [],
    "mode": "quote",
@@ -7868,7 +7868,7 @@
      "sku": "25776",
      "label": "3 NA + 1 NC · IP54",
      "name": "Estación de mando 3 pulsadores y emergencia",
-     "brand": "Sin marca",
+     "brand": "EBCHQ",
      "stock": 2,
      "hp": null,
      "rpm": null,
@@ -7884,7 +7884,7 @@
      "image": "/img/catalogo/generico-25776.webp"
     }
    ],
-   "slug": "estacion-de-mando-de-pulsadores-y-emergencia"
+   "slug": "estacion-de-mando-ebchq-de-pulsadores-y-emergencia"
   },
   {
    "family": "Control y Automatización",
@@ -7981,8 +7981,8 @@
   {
    "family": "Control y Automatización",
    "category": "Relés de control",
-   "name": "Base para relé de 8 pines",
-   "brand_label": null,
+   "name": "Base para relé de 8 pines VCP",
+   "brand_label": "VCP",
    "image": "nuevo",
    "specs": [],
    "mode": "quote",
@@ -7991,7 +7991,7 @@
      "sku": "47040",
      "label": "8 pines",
      "name": "Base para mini relé 8 pines",
-     "brand": "Sin marca",
+     "brand": "VCP",
      "stock": 16,
      "hp": null,
      "rpm": null,
@@ -8007,7 +8007,7 @@
      "image": "/img/catalogo/generico-47040.webp"
     }
    ],
-   "slug": "base-para-rele-de-8-pines"
+   "slug": "base-para-rele-de-8-pines-vcp"
   },
   {
    "family": "Control y Automatización",
@@ -8044,8 +8044,8 @@
   {
    "family": "Control y Automatización",
    "category": "Relés de control",
-   "name": "Base para relé de 11 pines",
-   "brand_label": null,
+   "name": "Base para relé de 11 pines VCP",
+   "brand_label": "VCP",
    "image": "nuevo",
    "specs": [],
    "mode": "quote",
@@ -8054,7 +8054,7 @@
      "sku": "9023",
      "label": "11 pines · 9023",
      "name": "Base para relé 11 pines",
-     "brand": "Sin marca",
+     "brand": "VCP",
      "stock": 16,
      "hp": null,
      "rpm": null,
@@ -8070,7 +8070,7 @@
      "image": "/img/catalogo/generico-9023.webp"
     }
    ],
-   "slug": "base-para-rele-de-11-pines"
+   "slug": "base-para-rele-de-11-pines-vcp"
   },
   {
    "family": "Control y Automatización",
@@ -8107,7 +8107,7 @@
    "family": "Control y Automatización",
    "category": "Relés de control",
    "name": "Mini relé de 14 pines",
-   "brand_label": null,
+   "brand_label": "Genérico",
    "image": "nuevo",
    "specs": [],
    "mode": "quote",
@@ -8116,7 +8116,7 @@
      "sku": "REV0023",
      "label": "110 VAC · REV0023",
      "name": "Mini relé 14 pines",
-     "brand": "Sin marca",
+     "brand": "Genérico",
      "stock": 15,
      "hp": null,
      "rpm": null,
@@ -8135,7 +8135,7 @@
      "sku": "51165",
      "label": "110 VAC · 51165",
      "name": "Mini relé 14 pines",
-     "brand": "Sin marca",
+     "brand": "Genérico",
      "stock": 1,
      "hp": null,
      "rpm": null,
@@ -8156,8 +8156,8 @@
   {
    "family": "Control y Automatización",
    "category": "Relés de control",
-   "name": "Mini relé slim de 5 pines",
-   "brand_label": null,
+   "name": "Mini relé slim de 5 pines Relpol",
+   "brand_label": "Relpol",
    "image": "nuevo",
    "specs": [],
    "mode": "quote",
@@ -8166,7 +8166,7 @@
      "sku": "46983",
      "label": "12 VDC",
      "name": "Mini relé slim 5 pines",
-     "brand": "Sin marca",
+     "brand": "Relpol",
      "stock": 7,
      "hp": null,
      "rpm": null,
@@ -8185,7 +8185,7 @@
      "sku": "46984",
      "label": "24 VDC · 46984",
      "name": "Mini relé slim 5 pines",
-     "brand": "Sin marca",
+     "brand": "Relpol",
      "stock": 6,
      "hp": null,
      "rpm": null,
@@ -8201,7 +8201,7 @@
      "image": "/img/catalogo/generico-46983.webp"
     }
    ],
-   "slug": "mini-rele-slim-de-5-pines"
+   "slug": "mini-rele-slim-de-5-pines-relpol"
   },
   {
    "family": "Control y Automatización",
@@ -8287,8 +8287,8 @@
   {
    "family": "Control y Automatización",
    "category": "Sensores de posición",
-   "name": "Final de carrera de varilla ajustable",
-   "brand_label": null,
+   "name": "Final de carrera Comepi de varilla ajustable",
+   "brand_label": "Comepi",
    "image": "nuevo",
    "specs": [],
    "mode": "quote",
@@ -8297,7 +8297,7 @@
      "sku": "AP3T72Z11",
      "label": "Varilla ajustable",
      "name": "Final de carrera de varilla ajustable bidireccional",
-     "brand": "Sin marca",
+     "brand": "Comepi",
      "stock": 2,
      "hp": null,
      "rpm": null,
@@ -8312,7 +8312,7 @@
      "image": "/img/catalogo/generico-ap3t72z11.webp"
     }
    ],
-   "slug": "final-de-carrera-de-varilla-ajustable"
+   "slug": "final-de-carrera-comepi-de-varilla-ajustable"
   },
   {
    "family": "Control y Automatización",
@@ -8451,8 +8451,8 @@
   {
    "family": "Control y Automatización",
    "category": "Tableros eléctricos",
-   "name": "Aislador de barraje SM",
-   "brand_label": null,
+   "name": "Aislador de barraje SPK SM",
+   "brand_label": "SPK",
    "image": "nuevo",
    "specs": [],
    "mode": "quote",
@@ -8461,7 +8461,7 @@
      "sku": "34035",
      "label": "35 mm · 10 kV",
      "name": "Aislador de barraje SM-35",
-     "brand": "Sin marca",
+     "brand": "SPK",
      "stock": 9,
      "hp": null,
      "rpm": null,
@@ -8482,7 +8482,7 @@
      "sku": "34051",
      "label": "51 mm · 15 kV",
      "name": "Aislador de barraje SM-51",
-     "brand": "Sin marca",
+     "brand": "SPK",
      "stock": 6,
      "hp": null,
      "rpm": null,
@@ -8500,13 +8500,13 @@
      "image": "/img/catalogo/generico-34035.webp"
     }
    ],
-   "slug": "aislador-de-barraje-sm"
+   "slug": "aislador-de-barraje-spk-sm"
   },
   {
    "family": "Control y Automatización",
    "category": "Tableros eléctricos",
    "name": "Aislador de barraje escalonado",
-   "brand_label": null,
+   "brand_label": "Genérico",
    "image": "nuevo",
    "specs": [],
    "mode": "quote",
@@ -8515,7 +8515,7 @@
      "sku": "34087",
      "label": "H130 · L132 · 30 mm × 2 und",
      "name": "Aislador escalonado H130 × L132",
-     "brand": "Sin marca",
+     "brand": "Genérico",
      "stock": 5,
      "hp": null,
      "rpm": null,
@@ -9099,7 +9099,7 @@
    "family": "Iluminación",
    "category": "Paneles LED",
    "name": "Panel LED cuadrado de incrustar",
-   "brand_label": null,
+   "brand_label": "Genérico",
    "image": "nuevo",
    "specs": [
     "24 W"
@@ -9110,7 +9110,7 @@
      "sku": "IPL20",
      "label": "24 W · luz blanca",
      "name": "Panel LED cuadrado de incrustar",
-     "brand": "Sin marca",
+     "brand": "Genérico",
      "stock": 1,
      "hp": null,
      "rpm": null,
@@ -9132,7 +9132,7 @@
    "family": "Iluminación",
    "category": "Paneles LED",
    "name": "Panel LED redondo de incrustar",
-   "brand_label": null,
+   "brand_label": "Genérico",
    "image": "nuevo",
    "specs": [
     "3 W"
@@ -9143,7 +9143,7 @@
      "sku": "KL-2183",
      "label": "3 W",
      "name": "Panel LED redondo de incrustar",
-     "brand": "Sin marca",
+     "brand": "Genérico",
      "stock": 1,
      "hp": null,
      "rpm": null,

@@ -65,29 +65,29 @@ Resumen: imagen sí 89 · aprox. 20 · no 5 · especificaciones completas 79 · 
 | Extractores AirMax GL y TTT500 | 0 | sí | línea bajo pedido (sin referencias) | sí | nombre |
 | Cable THHN/THWN-2 Centelsa | 0 | sí | línea bajo pedido (sin referencias) | sí | nombre |
 | Campana LED Sylvania START Highbay | 0 | sí | línea bajo pedido (sin referencias) | sí | nombre |
-| Compresor de pistón vertical ABAC PRO | 0 | sí | línea bajo pedido (sin referencias) | sí | nombre |
+| Compresor de pistón Ferrara | 0 | sí | línea bajo pedido (sin referencias) | sí | nombre |
 | Instrumentos de medición Fluke | 0 | sí | línea bajo pedido (sin referencias) | sí | nombre |
 | Interruptor de pedal Xurui XF | 3 | sí | sí (tipo, marca, serie y datos técnicos) | sí | antes «Inversores de giro, estaciones de mando e interruptores»; tipo/serie en especificaciones |
 | Interruptor on/off Margirius | 2 | sí | sí (tipo, marca y datos técnicos) | sí | antes «Inversores de giro, estaciones de mando e interruptores»; tipo en especificaciones |
 | Inversor de giro Merz | 4 | sí | sí (tipo, marca y datos técnicos) | sí | antes «Inversores de giro, estaciones de mando e interruptores»; tipo en especificaciones |
 | Inversor de giro EBCHQ | 1 | sí | sí (tipo, marca y datos técnicos) | sí | antes «Inversores de giro, estaciones de mando e interruptores»; tipo en especificaciones |
-| Estación de mando de pulsadores y emergencia | 1 | sí | sí (tipo, marca y datos técnicos) | sí | antes «Inversores de giro, estaciones de mando e interruptores»; tipo en especificaciones |
+| Estación de mando EBCHQ de pulsadores y emergencia | 1 | sí | sí (tipo, marca y datos técnicos) | sí | antes «Inversores de giro, estaciones de mando e interruptores»; tipo en especificaciones |
 | Selector de muletilla EBCHQ de 3 posiciones | 1 | sí | sí (tipo, marca, serie y datos técnicos) | sí | antes «Inversores de giro, estaciones de mando e interruptores»; tipo/serie en especificaciones |
 | Arrancador on/off con pulsador EBCHQ | 1 | sí | parcial (tipo, marca y referencia; faltan datos técnicos que la empresa no entregó) | sí | antes «Inversores de giro, estaciones de mando e interruptores»; tipo en especificaciones |
 | Protector electrónico de voltaje trifásico Magom | 1 | sí | sí (tipo, marca y datos técnicos) | sí | antes «Inversores de giro, estaciones de mando e interruptores»; tipo en especificaciones |
-| Base para relé de 8 pines | 1 | sí | sí (tipo, marca y datos técnicos) | sí | antes «Relés enchufables y bases»; tipo en especificaciones |
+| Base para relé de 8 pines VCP | 1 | sí | sí (tipo, marca y datos técnicos) | sí | antes «Relés enchufables y bases»; tipo en especificaciones |
 | Base para relé de 11 pines Telemecanique | 1 | sí | sí (tipo, marca, serie y datos técnicos) | sí | antes «Relés enchufables y bases»; tipo/serie en especificaciones |
-| Base para relé de 11 pines | 1 | sí | sí (tipo, marca y datos técnicos) | sí | antes «Relés enchufables y bases»; tipo en especificaciones |
+| Base para relé de 11 pines VCP | 1 | sí | sí (tipo, marca y datos técnicos) | sí | antes «Relés enchufables y bases»; tipo en especificaciones |
 | Mini relé de 14 pines Relpol | 1 | sí | sí (tipo, marca y datos técnicos) | sí | antes «Relés enchufables y bases»; tipo en especificaciones |
 | Mini relé de 14 pines | 2 | sí | sí (tipo, marca y datos técnicos) | sí | antes «Relés enchufables y bases»; tipo en especificaciones |
-| Mini relé slim de 5 pines | 2 | sí | sí (tipo, marca y datos técnicos) | sí | antes «Relés enchufables y bases»; tipo en especificaciones |
+| Mini relé slim de 5 pines Relpol | 2 | sí | sí (tipo, marca y datos técnicos) | sí | antes «Relés enchufables y bases»; tipo en especificaciones |
 | Relé de 8 pines EBCHQ | 2 | sí | sí (tipo, marca y datos técnicos) | sí | antes «Relés enchufables y bases»; tipo en especificaciones |
 | Final de carrera Xurui XZ-8 | 1 | sí | parcial (tipo, marca y referencia; faltan datos técnicos que la empresa no entregó) | sí | antes «Finales de carrera y micro switches»; tipo/serie en especificaciones |
-| Final de carrera de varilla ajustable | 1 | sí | parcial (tipo, marca y referencia; faltan datos técnicos que la empresa no entregó) | sí | antes «Finales de carrera y micro switches»; tipo en especificaciones |
+| Final de carrera Comepi de varilla ajustable | 1 | sí | parcial (tipo, marca y referencia; faltan datos técnicos que la empresa no entregó) | sí | antes «Finales de carrera y micro switches»; tipo en especificaciones |
 | Micro switch KAP | 1 | sí | sí (tipo, marca, serie y datos técnicos) | sí | antes «Finales de carrera y micro switches»; tipo/serie en especificaciones |
 | Micro switch Xurui | 3 | sí | sí (tipo, marca, serie y datos técnicos) | sí | antes «Finales de carrera y micro switches»; tipo/serie en especificaciones |
 | Baliza multivoltaje tricolor SPK | 1 | sí | parcial (tipo, marca y referencia; faltan datos técnicos que la empresa no entregó) | sí | antes «Balizas»; tipo en especificaciones |
-| Aislador de barraje SM | 2 | sí | sí (tipo, marca, serie y datos técnicos) | sí | antes «Aisladores de barraje y distribución»; tipo/serie en especificaciones |
+| Aislador de barraje SPK SM | 2 | sí | sí (tipo, marca, serie y datos técnicos) | sí | antes «Aisladores de barraje y distribución»; tipo/serie en especificaciones |
 | Aislador de barraje escalonado | 1 | sí | parcial (tipo, marca y referencia; faltan datos técnicos que la empresa no entregó) | sí | antes «Aisladores de barraje y distribución»; tipo en especificaciones |
 | Bloque de distribución Onka | 1 | sí | sí (tipo, marca y datos técnicos) | sí | antes «Aisladores de barraje y distribución»; tipo en especificaciones |
 | Transformador de control Wattio | 1 | sí | sí (tipo, marca y datos técnicos) | sí | antes «Transformadores de control»; tipo en especificaciones |

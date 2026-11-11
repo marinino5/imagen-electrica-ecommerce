@@ -34,7 +34,7 @@
 .cz-choice--wa .cz-choice__ic { background: rgb(255 255 255 / 0.3); color: var(--ink); }
 .cz-choice--wa small, .cz-choice--wa .cz-choice__go { color: var(--ink); }
 @media (hover: hover) and (pointer: fine) {
-  .cz-choice:hover { transform: translateY(-3px); box-shadow: 0 20px 36px -22px rgb(75 58 130 / 0.45); }
+  .cz-choice:hover { transform: translateY(-3px); box-shadow: 0 20px 36px -22px rgb(80 0 120 / 0.45); }
   .cz-choice:not(.cz-choice--wa):hover { border-color: var(--ie-orange-500); }
   .cz-choice:hover .cz-choice__go svg { transform: translateX(4px); }
   .cz-choice:active { transform: scale(0.98); }
@@ -46,7 +46,7 @@
 .cz-collapse__in { min-height: 0; overflow: hidden; }
 .cz-collapse:not(.is-open) .cz-collapse__in { visibility: hidden; }
 
-.cz-form { position: relative; padding: clamp(22px, 4vw, 40px); border-radius: 28px; background: #fff; box-shadow: 0 24px 60px rgb(75 58 130 / 0.14); }
+.cz-form { position: relative; padding: clamp(22px, 4vw, 40px); border-radius: 28px; background: #fff; box-shadow: 0 24px 60px rgb(80 0 120 / 0.14); }
 .cz-steps { position: relative; display: flex; gap: 28px; margin: 0 0 26px; padding: 0 0 14px; list-style: none; }
 .cz-steps li { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-weight: 700; }
 .cz-steps li b { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--ie-lila-100); color: var(--ie-violet-700); font-size: 13px; }

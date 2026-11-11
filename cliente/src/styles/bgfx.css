@@ -29,7 +29,7 @@
 .bgfx__grid {
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(rgb(233 227 244 / 0.4) 1px, transparent 1px), linear-gradient(90deg, rgb(233 227 244 / 0.4) 1px, transparent 1px);
+  background-image: linear-gradient(rgb(235 225 242 / 0.4) 1px, transparent 1px), linear-gradient(90deg, rgb(235 225 242 / 0.4) 1px, transparent 1px);
   background-size: 32px 32px;
   -webkit-mask-image: radial-gradient(ellipse at center, transparent 18%, #000 92%);
   mask-image: radial-gradient(ellipse at center, transparent 18%, #000 92%);

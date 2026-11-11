@@ -3,15 +3,17 @@
 @section('title', 'Fichas descargadas')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item">General</li>
+    <li class="breadcrumb-item">Ventas</li>
     <li class="breadcrumb-item active" aria-current="page">Fichas descargadas</li>
 @endsection
 
 @section('content')
     <div class="page-header">
-        <h1>Fichas descargadas</h1>
-        <p>Fichas técnicas con cotización en PDF que descargaron los visitantes de la tienda: qué producto, referencia y cantidad miraron.</p>
+        <h1>Ventas</h1>
+        <p>Pedidos, cotizaciones y fichas descargadas desde la tienda.</p>
     </div>
+
+    @include('admin.partials.tabs', ['group' => 'ventas'])
 
     <div class="card">
         <div class="card-body border-bottom">

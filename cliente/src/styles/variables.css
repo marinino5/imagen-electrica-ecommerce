@@ -6,13 +6,13 @@
 :root {
   /* Marca */
   --white: #ffffff;
-  --lavender: #f6f4f9; /* secciones alternas y degradados */
-  --lavender-2: #e9e3f4; /* bordes, chips, fondos de tarjetas */
-  --primary: #513e84; /* títulos de acento, iconos, enlaces, estados activos */
-  --primary-dark: #463671; /* hover del violeta */
-  --ink: #1e1631; /* texto principal y secciones oscuras (maqueta aprobada) */
-  --ink-2: #2b2145; /* placa de datos y degradados ink */
-  --lav-3: #dcd3ec; /* contornos suaves */
+  --lavender: #f8f3fb; /* secciones alternas y degradados */
+  --lavender-2: #ebe1f2; /* bordes, chips, fondos de tarjetas */
+  --primary: #500078; /* títulos de acento, iconos, enlaces, estados activos */
+  --primary-dark: #3d005c; /* hover del violeta */
+  --ink: #230a36; /* texto principal y secciones oscuras (maqueta aprobada) */
+  --ink-2: #35154a; /* placa de datos y degradados ink */
+  --lav-3: #dccbe8; /* contornos suaves */
   --orange-tint: #ffe6d3; /* etiquetas "Cotización" */
   --ease-sys: cubic-bezier(0.32, 0.72, 0, 1); /* curva de todo el movimiento, de 500 a 900 ms */
   --muted: #5d5672; /* ink al 72 %: texto secundario (contraste AA sobre blanco, lavanda y lavanda 2) */
@@ -24,29 +24,29 @@
   --success-tint: #e3f4e8;
 
   /* Degradados de marca */
-  --page-bg: linear-gradient(180deg, #ffffff 0%, #f6f4f9 50%, #e9e3f4 100%); /* fondo global, como el catálogo */
-  --grad-light: linear-gradient(180deg, #ffffff 0%, #f6f4f9 100%);
-  --grad-lavender: linear-gradient(135deg, #f6f4f9 0%, #e9e3f4 100%);
+  --page-bg: linear-gradient(180deg, #ffffff 0%, #f8f3fb 50%, #ebe1f2 100%); /* fondo global, como el catálogo */
+  --grad-light: linear-gradient(180deg, #ffffff 0%, #f8f3fb 100%);
+  --grad-lavender: linear-gradient(135deg, #f8f3fb 0%, #ebe1f2 100%);
   --grad-violet: radial-gradient(60% 70% at 92% 0%, rgb(255 255 255 / 0.16) 0%, transparent 70%),
-    linear-gradient(135deg, #513e84 0%, #463671 100%);
-  --grad-ink: radial-gradient(55% 70% at 88% 0%, rgb(81 62 132 / 0.55) 0%, transparent 70%),
-    linear-gradient(135deg, #261c3e 0%, #463671 100%);
+    linear-gradient(135deg, #500078 0%, #3d005c 100%);
+  --grad-ink: radial-gradient(55% 70% at 88% 0%, rgb(80 0 120 / 0.55) 0%, transparent 70%),
+    linear-gradient(135deg, #230a36 0%, #3d005c 100%);
   --grad-accent: radial-gradient(60% 80% at 85% 0%, rgb(255 255 255 / 0.15) 0%, transparent 70%),
     linear-gradient(135deg, #f26a00 0%, #f26a00 100%);
 
   /* Transparencias derivadas de la marca */
-  --overlay-ink: rgb(38 28 62 / 0.82);
-  --overlay-hero: linear-gradient(90deg, rgb(38 28 62 / 0.7) 0%, rgb(38 28 62 / 0) 55%); /* máximo 70 % y transparente desde el 55 % del ancho */
-  --overlay-hero-sm: linear-gradient(180deg, rgb(38 28 62 / 0.5) 0%, rgb(38 28 62 / 0.7) 100%);
+  --overlay-ink: rgb(35 10 54 / 0.82);
+  --overlay-hero: linear-gradient(90deg, rgb(35 10 54 / 0.7) 0%, rgb(35 10 54 / 0) 55%); /* máximo 70 % y transparente desde el 55 % del ancho */
+  --overlay-hero-sm: linear-gradient(180deg, rgb(35 10 54 / 0.5) 0%, rgb(35 10 54 / 0.7) 100%);
   --glass-bg: rgb(255 255 255 / 0.12);
   --glass-border: rgb(255 255 255 / 0.3);
   --on-dark-muted: rgb(255 255 255 / 0.78);
   --on-dark-line: rgb(255 255 255 / 0.18);
   --orange-soft: rgb(242 106 0 / 0.3); /* anillos finos y puntos de los arcos de fondo */
-  --lavender-soft: rgb(233 227 244 / 0.3);
-  --violet-soft: rgb(81 62 132 / 0.1); /* arcos y destellos sobre fondos claros */
-  --violet-glow: rgb(233 227 244 / 0.16); /* arcos y destellos sobre fondos oscuros */
-  --dots: rgb(233 227 244 / 0.4); /* patrón de puntos */
+  --lavender-soft: rgb(235 225 242 / 0.3);
+  --violet-soft: rgb(80 0 120 / 0.1); /* arcos y destellos sobre fondos claros */
+  --violet-glow: rgb(235 225 242 / 0.16); /* arcos y destellos sobre fondos oscuros */
+  --dots: rgb(235 225 242 / 0.4); /* patrón de puntos */
 
   /* Tipografía */
   --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
@@ -62,9 +62,9 @@
   --radius-pill: 999px;
 
   /* Sombras teñidas de violeta */
-  --shadow-sm: 0 1px 2px rgb(81 62 132 / 0.06), 0 2px 8px rgb(81 62 132 / 0.05);
-  --shadow: 0 8px 28px rgb(81 62 132 / 0.08);
-  --shadow-lg: 0 20px 56px rgb(81 62 132 / 0.18);
+  --shadow-sm: 0 1px 2px rgb(80 0 120 / 0.06), 0 2px 8px rgb(80 0 120 / 0.05);
+  --shadow: 0 8px 28px rgb(80 0 120 / 0.08);
+  --shadow-lg: 0 20px 56px rgb(80 0 120 / 0.18);
 
   /* Layout */
   --container: 1200px;

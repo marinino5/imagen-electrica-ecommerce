@@ -1,9 +1,10 @@
 @extends('layouts.admin')
 
-@section('title', 'Solicitudes')
+@section('title', 'Pedidos')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item active" aria-current="page">Solicitudes</li>
+    <li class="breadcrumb-item">Ventas</li>
+    <li class="breadcrumb-item active" aria-current="page">Pedidos</li>
 @endsection
 
 @use('App\Support\Money')
@@ -13,27 +14,20 @@
 
 @section('content')
     <div class="page-header">
-        <h1>Solicitudes</h1>
-        <p>Pedidos y cotizaciones de los clientes.</p>
+        <h1>Ventas</h1>
+        <p>Pedidos, cotizaciones y fichas descargadas desde la tienda.</p>
     </div>
+
+    @include('admin.partials.tabs', ['group' => 'ventas'])
 
     <div class="card">
         <div class="card-body border-bottom">
             <x-search-bar :action="route('admin.orders.index')" :value="$filters['q']" placeholder="Buscar por código, empresa, NIT o contacto…">
-                <div class="col-6 col-md-3 col-xl-2">
-                    <label for="type" class="visually-hidden">Tipo</label>
-                    <select id="type" name="type" class="form-select">
-                        <option value="">Pedidos y cotizaciones</option>
-                        @foreach ($types as $type)
-                            <option value="{{ $type->value }}" @selected($filters['type'] === $type->value)>{{ $type->label() }}s</option>
-                        @endforeach
-                    </select>
-                </div>
+                <input type="hidden" name="type" value="purchase">
                 <div class="col-6 col-md-3 col-xl-2">
                     <label for="status" class="visually-hidden">Estado</label>
                     <select id="status" name="status" class="form-select">
                         <option value="">Todos los estados</option>
-                        <option value="new,in_review" @selected($statusValue === 'new,in_review')>Cotizaciones sin responder</option>
                         @foreach ($statuses as $status)
                             <option value="{{ $status->value }}" @selected($statusValue === $status->value)>{{ $status->label() }}</option>
                         @endforeach
@@ -49,8 +43,8 @@
         </div>
 
         @if ($orders->isEmpty())
-            <x-empty-state icon="inboxes" :title="request()->query() ? 'Sin resultados' : 'Aún no hay solicitudes'"
-                :message="request()->query() ? 'Ninguna solicitud cumple esos filtros. Prueba con otros.' : 'Los pedidos y cotizaciones de la tienda aparecerán aquí.'" />
+            <x-empty-state icon="inboxes" :title="request()->query() ? 'Sin resultados' : 'Aún no hay pedidos'"
+                :message="request()->query() ? 'Ningún pedido cumple esos filtros. Prueba con otros.' : 'Los pedidos de la tienda aparecerán aquí.'" />
         @else
             <div class="table-responsive">
                 <table class="table table-dashboard align-middle">

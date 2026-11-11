@@ -26,6 +26,16 @@ class ReportController extends Controller
         ]);
     }
 
+    /** Pestaña «Comercial» de Análisis: qué se cotiza, vende y consulta, conversión y suscriptores. */
+    public function commercial(ReportRequest $request): View
+    {
+        return view('admin.reports.commercial', [
+            'report' => $this->reports->commercial($request->period()),
+            'presets' => ReportPreset::cases(),
+            'preset' => $request->preset(),
+        ]);
+    }
+
     /** CSV con los indicadores y rankings del periodo. */
     public function export(ReportRequest $request): StreamedResponse
     {

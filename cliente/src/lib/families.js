@@ -35,7 +35,6 @@ export const FAMILY_PHOTO = {
   'ventilacion-y-climatizacion': cut('soler-palau-extractor-axial', 'Extractor axial tubular industrial galvanizado Soler & Palau'),
   'cables-y-conductores': cut('centelsa-cable-thhn', 'Rollo de cable THHN/THWN-2 Nexans Línea Plus (Centelsa)'),
   iluminacion: cut('sylvania-start-highbay', 'Campana industrial LED Sylvania START Highbay'),
-  compresores: cut('abac-compresor-vertical', 'Compresor de pistón vertical ABAC de 270 litros'),
   'medicion-y-testeo': cut('fluke-multimetro-117', 'Multímetro Fluke 117'),
   // 09 «Material Eléctrico» y 10 «Herramientas y Repuestos» no llevan foto: su portada es un icono grande en violeta de marca
 }

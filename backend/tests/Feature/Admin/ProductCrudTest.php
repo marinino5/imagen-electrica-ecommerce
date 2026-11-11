@@ -251,6 +251,6 @@ class ProductCrudTest extends TestCase
 
         $this->actingAs($this->admin())->get(route('admin.products.index'))
             ->assertOk()
-            ->assertSee('Simulado', false);
+            ->assertSee('Precio de referencia', false);
     }
 }

@@ -104,12 +104,14 @@ export default function HomeDeals() {
   const trending = lines.filter((l, i) => l.is_featured && !promoted.has(l.slug) && lines.findIndex((x) => x.slug === l.slug) === i)
   const count = promos.length + trending.length
 
-  // Recorrido horizontal total (px), calculado con las mismas medidas del CSS (tarjeta clamp(260, 21vw, 320), hueco de 24 y
-  // margen lateral alineado al contenedor de 1280): así no depende de medir el DOM mientras las tarjetas aún cargan
+  // Recorrido horizontal total (px), calculado con las mismas medidas del CSS (tarjeta clamp(260, 21vw, 320), hueco de 24, relleno
+  // interno de 40 y la tarjeta violeta del ancho del contenedor, máx. 1312 con 16 de margen a cada lado): así no depende de medir
+  // el DOM mientras las tarjetas aún cargan
   const cardW = Math.min(320, Math.max(260, vw * 0.21))
-  const pad = Math.max(16, (vw - 1280) / 2 + 16)
+  const pad = 40
+  const visible = Math.min(1312, vw - 32)
   const n = loading ? 3 : count
-  const dx = Math.max(0, Math.round(pad * 2 + n * cardW + Math.max(0, n - 1) * 24 - vw))
+  const dx = Math.max(0, Math.round(pad * 2 + n * cardW + Math.max(0, n - 1) * 24 - visible))
 
   // Con pocas tarjetas que caben en pantalla no hay nada que recorrer: se muestran quietas
   const mode = !wide ? 'carousel' : reduced || (!loading && dx <= 24) ? 'grid' : 'pin'

@@ -15,15 +15,21 @@ class OrderController extends Controller
 {
     public function __construct(private readonly OrderService $orders) {}
 
-    public function index(OrderIndexRequest $request): View
+    public function index(OrderIndexRequest $request): View|\Illuminate\Http\RedirectResponse
     {
-        $filters = $request->filters();
+        // «Pedidos» es una pestaña de Ventas; las cotizaciones (con y sin cuenta) están juntas en su propia pestaña
+        if ($request->query('type') === OrderType::Quote->value) {
+            return redirect()->route('admin.quotes.index', array_filter(['q' => $request->query('q')]));
+        }
+
+        $filters = ['type' => OrderType::Purchase->value] + $request->filters();
+        $filters['type'] = OrderType::Purchase->value;
 
         return view('admin.orders.index', [
             'filters' => $filters,
             'orders' => $this->orders->paginate($filters),
             'types' => OrderType::cases(),
-            'statuses' => OrderStatus::cases(),
+            'statuses' => [OrderStatus::PendingPayment, OrderStatus::Paid, OrderStatus::Shipped, OrderStatus::Delivered, OrderStatus::Cancelled],
             'overdueHours' => OrderService::QUOTE_RESPONSE_HOURS,
         ]);
     }

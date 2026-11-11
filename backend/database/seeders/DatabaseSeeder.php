@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             CatalogSeeder::class, // líneas y referencias del inventario (351 SKU)
             LineImageSeeder::class, // fotos oficiales de las líneas (database/data/line-images.json)
+            LegacyCategoriesSeeder::class, // pasa las categorías de la primera versión a las 10 familias de la tienda
             OrderSeeder::class,
         ]);
 

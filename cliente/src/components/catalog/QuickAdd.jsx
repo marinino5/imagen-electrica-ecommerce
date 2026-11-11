@@ -8,7 +8,7 @@ import { useCart } from '../../context/CartContext'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
 import { isDirectPurchase } from '../../lib/catalog'
 import { formatCOP } from '../../lib/format'
-import { cartItem, lineQuoteItem } from '../../lib/lines'
+import { cardState, cartItem, lineQuoteItem } from '../../lib/lines'
 import '../../styles/quick-add.css'
 
 // Las referencias de una línea se piden una sola vez y se recuerdan mientras la pestaña esté abierta
@@ -35,7 +35,9 @@ const POPOVER_W = 320
  * Compra rápida de una tarjeta de línea (botón circular de 44 px):
  *  - línea con una sola referencia comprable: se agrega directo;
  *  - varias referencias: mini selector (popover en escritorio, hoja inferior en el celular);
- *  - línea solo de cotización: el botón muestra un documento y abre la cotización con esa línea precargada.
+ *  - línea solo de cotización: «Cotizar», abre la cotización con esa línea precargada;
+ *  - línea con precio pero sin stock: «Agotado · cotizar» (sin compra en línea).
+ * El botón lleva texto (Agregar al carrito / Cotizar / Agotado · cotizar), no solo el icono.
  * Al agregar: toast (lo da el carrito), pulso del contador y un check en el botón durante 1,2 s.
  */
 export default function QuickAdd({ line, image, preselect = null }) {
@@ -52,7 +54,8 @@ export default function QuickAdd({ line, image, preselect = null }) {
   const [qty, setQty] = useState(1)
   const [pos, setPos] = useState(null)
 
-  const quoteOnly = line.price_from === null
+  const kind = cardState(line)
+  const quoteOnly = kind !== 'buy' // cotizar: solo cotización o agotada
   const quick = line.quick_variant
   const origin = () => ({ rect: btn.current.getBoundingClientRect(), image })
 
@@ -155,7 +158,8 @@ export default function QuickAdd({ line, image, preselect = null }) {
   }
 
   const Icon = quoteOnly ? FileText : done ? Check : ShoppingCart
-  const label = quoteOnly ? `Cotizar ${line.name}` : `Agregar ${line.name} al carrito`
+  const label = kind === 'out' ? `${line.name}: agotado, cotizar` : quoteOnly ? `Cotizar ${line.name}` : `Agregar ${line.name} al carrito`
+  const text = kind === 'out' ? ['Agotado · cotizar', 'Agotado'] : quoteOnly ? ['Cotizar', 'Cotizar'] : done ? ['Agregado', 'Agregado'] : ['Agregar al carrito', 'Agregar']
   const fits = chosen ? isDirectPurchase(chosen, qty) : true
 
   const body = (
@@ -207,14 +211,15 @@ export default function QuickAdd({ line, image, preselect = null }) {
       <button
         ref={btn}
         type="button"
-        className={`qa__btn ${done ? 'is-done' : ''} ${quoteOnly ? 'is-quote' : ''}`}
+        className={`qa__pill ${done ? 'is-done' : ''} ${quoteOnly ? 'is-quote' : ''} ${kind === 'out' ? 'is-out' : ''}`}
         aria-label={done ? 'Agregado' : label}
         aria-haspopup={!quoteOnly && !quick ? 'dialog' : undefined}
         aria-expanded={!quoteOnly && !quick ? open : undefined}
         onClick={onClick}
       >
-        <Icon size={20} aria-hidden="true" />
-        {!quoteOnly && !done && <i className="qa__plus" aria-hidden="true"><Plus size={10} strokeWidth={3.5} /></i>}
+        <Icon size={18} aria-hidden="true" />
+        <span className="qa__long">{text[0]}</span>
+        <span className="qa__short">{text[1]}</span>
       </button>
       {createPortal(
         <AnimatePresence>

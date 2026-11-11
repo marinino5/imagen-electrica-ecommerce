@@ -6,14 +6,17 @@ import {
     Chart,
     DoughnutController,
     Legend,
+    LineController,
+    LineElement,
     LinearScale,
+    PointElement,
     Tooltip,
 } from 'chart.js';
 
 import { applyDefaults, css, gridColor, palette, statusColor } from './chart-theme';
 
 // Solo se registran las piezas de Chart.js que usan la dona y las barras.
-Chart.register(ArcElement, BarController, BarElement, CategoryScale, DoughnutController, Legend, LinearScale, Tooltip);
+Chart.register(ArcElement, BarController, BarElement, CategoryScale, DoughnutController, Legend, LineController, LineElement, LinearScale, PointElement, Tooltip);
 
 // Pedidos y cotizaciones son dos series de la misma paleta de categorías
 const colorsByType = { purchase: 0, quote: 1 };
@@ -105,7 +108,37 @@ function dailyChart(canvas, { labels, datasets }) {
     });
 }
 
-const builders = { status: statusChart, daily: dailyChart };
+/** Ventas (barras, en pesos) y cotizaciones recibidas (línea, eje derecho) de los últimos 30 días. */
+function salesChart(canvas, { labels, sales, quotes }) {
+    const [blue, green] = palette();
+    const money = (value) => `$ ${Number(value).toLocaleString('es-CO')}`;
+
+    return new Chart(canvas, {
+        data: {
+            labels,
+            datasets: [
+                { type: 'bar', label: 'Ventas', data: sales, backgroundColor: blue, borderRadius: 4, maxBarThickness: 18, yAxisID: 'y', order: 2 },
+                { type: 'line', label: 'Cotizaciones', data: quotes, borderColor: green, backgroundColor: green, borderWidth: 2, pointRadius: 2, tension: 0.3, yAxisID: 'y1', order: 1 },
+            ],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            scales: {
+                x: { grid: { display: false }, border: { display: false }, ticks: { maxTicksLimit: window.innerWidth < 576 ? 5 : 10, maxRotation: 0 } },
+                y: { beginAtZero: true, grid: { color: gridColor() }, border: { display: false }, ticks: { callback: (v) => (v >= 1000000 ? `${v / 1000000} M` : v >= 1000 ? `${v / 1000} mil` : v) } },
+                y1: { beginAtZero: true, position: 'right', grid: { display: false }, border: { display: false }, ticks: { precision: 0 } },
+            },
+            plugins: {
+                legend: { position: 'bottom', align: 'end' },
+                tooltip: { callbacks: { label: (item) => (item.dataset.yAxisID === 'y' ? `Ventas: ${money(item.parsed.y)}` : `Cotizaciones: ${item.parsed.y}`) } },
+            },
+        },
+    });
+}
+
+const builders = { status: statusChart, daily: dailyChart, sales: salesChart };
 
 export function renderCharts(canvases) {
     applyDefaults();

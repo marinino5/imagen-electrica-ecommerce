@@ -87,7 +87,10 @@ class Phase1InventoryTest extends TestCase
 
     public function test_sin_marca_no_sale_como_marca_en_la_api(): void
     {
-        $product = Product::whereHas('brand', fn ($q) => $q->where('slug', 'sin-marca'))->with('line')->firstOrFail();
+        // El catálogo ya no deja referencias «Sin marca» (pasan a «Genérico»), pero si una llega por el panel no se muestra como marca
+        $product = Product::whereNotNull('line_id')->firstOrFail();
+        $product->update(['brand_id' => \App\Models\Brand::firstOrCreate(['slug' => 'sin-marca'], ['name' => 'Sin marca'])->id]);
+        $product->load('line');
 
         $variants = $this->getJson('/api/v1/lines/'.$product->line->slug)->assertOk()->json('data.variants');
         $variant = collect($variants)->firstWhere('sku', $product->sku);

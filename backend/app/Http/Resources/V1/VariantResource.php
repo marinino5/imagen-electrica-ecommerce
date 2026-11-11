@@ -42,6 +42,8 @@ class VariantResource extends JsonResource
             'stock' => $this->stock,
             'in_stock' => $this->stock > 0,
             'sale_mode' => $this->sale_mode->value,
+            // «referencia» = precio de referencia, sujeto a confirmación por un asesor; nulo = precio confirmado
+            'price_source' => $this->price_source?->value,
             // «Sin marca» (referencias del inventario sin fabricante conocido) no se muestra como marca
             'brand' => $this->whenLoaded('brand', fn () => $this->brand && $this->brand->slug !== 'sin-marca' ? $this->brand->only(['id', 'name', 'slug']) : null),
         ];

@@ -262,8 +262,10 @@ export default function ProductDetail() {
               <div className="pd-pricebox">
                 <p className="pd-price" aria-live="polite">
                   <strong>{direct ? formatCOP(current.price) : 'Precio por cotización'}</strong>
-                  <small>{direct ? 'IVA incluido' : 'Te respondemos con precio y tiempo de entrega'}</small>
+                  <small>{direct ? (current.price_source ? 'IVA incluido · Precio de referencia' : 'IVA incluido') : 'Te respondemos con precio y tiempo de entrega'}</small>
                 </p>
+                {direct && current.price_source && <p className="pd-note pd-note--ref">Precio de referencia: un asesor lo confirma antes de cerrar la compra.</p>}
+                {direct && current.stock <= 0 && <p className="pd-note pd-note--out">Agotado en línea: solicita la cotización y te respondemos con disponibilidad.</p>}
               </div>
 
               {/* 7 · Cantidad */}

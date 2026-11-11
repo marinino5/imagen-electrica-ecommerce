@@ -13,9 +13,19 @@
     <div class="page-header d-flex flex-wrap justify-content-between align-items-start gap-3">
         <div>
             <h1>Productos</h1>
-            <p>Cada referencia de Siigo es un producto.</p>
+            <p>Cada referencia de Siigo es un producto. El stock es de solo lectura: se sincronizará con Siigo.</p>
         </div>
         <a href="{{ route('admin.products.create') }}" class="btn btn-primary"><i class="bi bi-plus-lg me-1" aria-hidden="true"></i>Nuevo producto</a>
+    </div>
+
+    @include('admin.partials.tabs', ['group' => 'catalogo'])
+
+    {{-- Agotados y bajo stock viven aquí (no en el dashboard) --}}
+    <div class="d-flex flex-wrap align-items-center gap-2 mb-3" role="group" aria-label="Disponibilidad">
+        @foreach ([[null, 'Todos'], ['out', 'Agotados'], ['low', 'Stock bajo (≤ '.$lowStockThreshold.')']] as [$value, $label])
+            <a href="{{ request()->fullUrlWithQuery(['stock' => $value, 'page' => null]) }}" @class(['btn', 'btn-sm', 'btn-primary' => ($filters['stock'] ?? null) === $value, 'btn-outline-primary' => ($filters['stock'] ?? null) !== $value])>{{ $label }}</a>
+        @endforeach
+        <span class="small text-body-secondary ms-md-2"><i class="bi bi-arrow-repeat me-1" aria-hidden="true"></i>El stock se sincronizará con Siigo: aquí es de solo lectura.</span>
     </div>
 
     <div class="card">
@@ -97,7 +107,7 @@
                             <tr>
                                 <td>
                                     @if ($product->image_url)
-                                        <img src="{{ $product->image_url }}" alt="" class="thumb thumb-contain" loading="lazy" referrerpolicy="no-referrer">
+                                        <img src="{{ $product->image_src }}" alt="" class="thumb thumb-contain" loading="lazy" referrerpolicy="no-referrer">
                                     @else
                                         <span class="thumb thumb-empty" aria-hidden="true"><i class="bi bi-image"></i></span>
                                     @endif
@@ -116,8 +126,7 @@
                                 </td>
                                 <td class="d-none d-lg-table-cell">{{ $product->category->name }}</td>
                                 <td class="d-none d-xl-table-cell">{{ $product->sale_mode->label() }}</td>
-                                <td class="text-end d-none d-md-table-cell">{{ Money::cop($product->price, 'Cotizar') }}@if ($product->price_is_simulated) <span class="badge text-bg-warning ms-1" title="El precio viene del Excel de inventario y es de prueba">Simulado</span>@endif
-                                    @if ($product->price_source)<div><span class="badge text-bg-info" title="{{ $product->price_source->label() }}">Referencia</span></div>@endif</td>
+                                <td class="text-end d-none d-md-table-cell">{{ Money::cop($product->price, 'Cotizar') }}@if ($product->price_is_simulated || $product->price_source)<div><span class="badge text-bg-info" title="Precio de referencia — confirmar con la empresa">Precio de referencia</span></div>@endif</td>
                                 <td class="text-end text-nowrap">
                                     @if ($product->stock <= 0)
                                         <span class="stock-badge is-out">Agotado</span>

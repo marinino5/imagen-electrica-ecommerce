@@ -7,6 +7,7 @@ use App\Enums\ProductUnit;
 use App\Enums\SaleMode;
 use Database\Factories\ProductFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -50,6 +51,17 @@ class Product extends Model
     }
 
     /** 1:N (inversa) */
+    /**
+     * Foto lista para mostrar en el panel. Las fotos propias del catálogo se guardan como ruta («/img/catalogo/…») y viven en la tienda,
+     * no en el servidor del panel; por eso se les antepone la dirección de la tienda. Las URL completas se dejan como están.
+     */
+    protected function imageSrc(): Attribute
+    {
+        return Attribute::get(fn () => $this->image_url && str_starts_with($this->image_url, '/')
+            ? config('shop.frontend_url').$this->image_url
+            : $this->image_url);
+    }
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);

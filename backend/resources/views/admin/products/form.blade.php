@@ -96,10 +96,11 @@
                         @endforeach
                     </select>
                 </x-form-group>
-                <x-form-group name="stock" label="Stock" class="col-md-4" required>
-                    <input type="number" id="stock" name="stock" value="{{ old('stock', $product->stock) }}" min="0" step="1" required
-                        @class(['form-control', 'is-invalid' => $errors->has('stock')])>
-                </x-form-group>
+                <div class="col-md-4">
+                    <label class="form-label" for="stock-ro">Stock</label>
+                    <input type="text" id="stock-ro" class="form-control" value="{{ $product->exists ? $product->stock : 0 }}" readonly aria-describedby="stock-help">
+                    <div id="stock-help" class="form-text">Solo lectura: se sincronizará con Siigo.</div>
+                </div>
             </div>
             <div class="row">
                 <x-form-group name="price" label="Precio (COP, IVA incluido)" class="col-md-6"

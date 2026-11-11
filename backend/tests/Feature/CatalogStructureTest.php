@@ -55,7 +55,7 @@ class CatalogStructureTest extends TestCase
 
             $this->assertNotContains($line['name'], ['Accesorios de maniobra', 'Contactores', 'Guardamotores', 'Pulsadores, pilotos y selectores']);
             $brand = $line['variants'][0]['brand'];
-            if ($brand !== 'Sin marca') {
+            if (! in_array($brand, ['Sin marca', 'Genérico'], true)) {
                 $this->assertStringContainsString($brand, $line['name'], "«{$line['name']}» debe nombrar la marca {$brand}");
             }
         }

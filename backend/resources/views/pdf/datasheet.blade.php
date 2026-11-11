@@ -11,27 +11,27 @@
     <title>Ficha técnica {{ $number }}</title>
     <style>
         @page { margin: 28px 34px; }
-        body { font-family: DejaVu Sans, sans-serif; font-size: 10.5px; color: #261c3e; margin: 0; }
+        body { font-family: DejaVu Sans, sans-serif; font-size: 10.5px; color: #230a36; margin: 0; }
         table { border-collapse: collapse; width: 100%; }
         .muted { color: #6e6178; }
         .head td { vertical-align: middle; }
-        .brand { font-size: 17px; font-weight: bold; color: #513e84; text-transform: uppercase; }
+        .brand { font-size: 17px; font-weight: bold; color: #500078; text-transform: uppercase; }
         .doc { text-align: right; font-size: 9.5px; line-height: 1.6; }
-        .doc strong { font-size: 12px; color: #513e84; }
-        .rule { height: 3px; background: #513e84; margin: 8px 0 14px; }
-        h1 { font-size: 19px; margin: 0 0 3px; color: #261c3e; }
+        .doc strong { font-size: 12px; color: #500078; }
+        .rule { height: 3px; background: #500078; margin: 8px 0 14px; }
+        h1 { font-size: 19px; margin: 0 0 3px; color: #230a36; }
         .ref { font-size: 11px; color: #6e6178; margin-bottom: 10px; }
         .photo { text-align: center; padding: 6px 0 10px; }
         .photo img { max-height: 190px; max-width: 260px; }
-        h2 { font-size: 11px; margin: 14px 0 5px; color: #513e84; text-transform: uppercase; letter-spacing: .5px; }
+        h2 { font-size: 11px; margin: 14px 0 5px; color: #500078; text-transform: uppercase; letter-spacing: .5px; }
         .spec th, .spec td { border: 1px solid #d6ccea; padding: 5px 8px; text-align: left; font-size: 10px; }
-        .spec th { width: 34%; background: #f6f4f9; font-weight: bold; }
+        .spec th { width: 34%; background: #f8f3fb; font-weight: bold; }
         .val th, .val td { border: 1px solid #d6ccea; padding: 6px 8px; font-size: 10.5px; }
-        .val th { background: #f6f4f9; text-align: left; }
+        .val th { background: #f8f3fb; text-align: left; }
         .val td.r, .val th.r { text-align: right; }
         .total td { font-weight: bold; font-size: 12px; background: #eeeaf7; }
         .note { margin-top: 8px; padding: 8px 10px; border: 1px solid #f0c9a6; background: #fff6ec; font-size: 10px; }
-        .quote { margin-top: 4px; padding: 10px 12px; border: 1px solid #d6ccea; background: #f6f4f9; }
+        .quote { margin-top: 4px; padding: 10px 12px; border: 1px solid #d6ccea; background: #f8f3fb; }
         .foot { margin-top: 18px; padding-top: 8px; border-top: 1px solid #d6ccea; font-size: 9px; color: #6e6178; line-height: 1.6; }
     </style>
 </head>

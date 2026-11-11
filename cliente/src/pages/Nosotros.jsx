@@ -6,7 +6,7 @@ import { withLogos } from '../config/brands'
 import Squares from '../components/ui/Squares'
 import Counter from '../components/ui/Counter'
 import Hl from '../components/ui/Hl'
-import PhotoSlot from '../components/ui/PhotoSlot'
+import OwnVideo from '../components/ui/OwnVideo'
 import Reveal from '../components/ui/Reveal'
 import Pill from '../components/ui/Pill'
 import { site } from '../config/site'
@@ -15,10 +15,14 @@ import { clamp01, useScrollFrame } from '../hooks/useScrollFrame'
 import '../styles/nosotros.css'
 import '../styles/ie-nosotros.css'
 
-// Equipo y almacén: espacios reservados. Cuando lleguen las fotos se ponen en `photo` y `alt` (ver docs/imagenes-pendientes.md).
-const SLOTS = [
-  { id: 'equipo', title: 'Nuestro equipo' },
-  { id: 'almacen', title: 'Nuestro almacén por dentro' },
+// «Nuestra tienda»: material propio de Imagen Eléctrica (fotos y videos hechos en la tienda, corregidos y recortados).
+const STORE = [
+  { kind: 'img', src: '/img/tienda/pendon-weg-mostrador', cap: 'Pendón WEG W22 y mostrador', alt: 'Pendón de motores WEG W22 junto al mostrador con vitrina de la tienda' },
+  { kind: 'img', src: '/img/tienda/vitrina-motorreductores', cap: 'Motorreductores en vitrina', alt: 'Vitrina naranja con motorreductores y motores en estantes' },
+  { kind: 'img', src: '/img/tienda/compresor-ferrara-tienda', cap: 'Compresor Ferrara y ventilador', alt: 'Compresor amarillo Ferrara y ventilador industrial en la tienda' },
+  { kind: 'video', src: 'propio-reductores', cap: 'Motorreductores WEG en estantería', alt: 'Motorreductores WEG azules en un estante' },
+  { kind: 'video', src: 'propio-control', cap: 'Automatización y medición', alt: 'Vitrina de instrumentos de medición y automatización' },
+  { kind: 'video', src: 'propio-compresor', cap: 'Compresores de pistón', alt: 'Compresor amarillo Ferrara en la tienda' },
 ]
 
 // Órbita de producto: 12 productos recortados de distintas familias (96–200 px) flotan alrededor del bloque «+1.000 productos».
@@ -34,7 +38,7 @@ const WALL = [
   { src: 'centelsa-cable-thhn', name: 'Cable THHN/THWN-2', fam: 'Cables y Conductores', slug: 'cables-y-conductores', size: 190 },
   { src: 'weg-guardamotores', name: 'Guardamotor MPW', fam: 'Control y Automatización', slug: 'control-y-automatizacion', size: 120 },
   { src: 'sylvania-start-highbay', name: 'Campana LED START', fam: 'Iluminación', slug: 'iluminacion', size: 150 },
-  { src: 'abac-compresor-vertical', name: 'Compresor vertical', fam: 'Compresores', slug: 'compresores', size: 180 },
+  { src: 'weg-w21-aluminio', name: 'Motor trifásico W21', fam: 'Motores Eléctricos', slug: 'motores-electricos', size: 180 },
   { src: 'weg-plc500', name: 'PLC WEG PLC500', fam: 'Control y Automatización', slug: 'control-y-automatizacion', size: 100 },
   { src: 'weg-ssw05', name: 'Arrancador suave SSW05', fam: 'Control y Automatización', slug: 'control-y-automatizacion', size: 130 },
 ]
@@ -250,13 +254,24 @@ export default function Nosotros() {
       <Wall reduced={reduced} />
       <Stack reduced={reduced} />
 
-      {/* 6.5 Equipo y almacén: dos marcos escalonados, cada uno con un bloque violeta extendido detrás */}
-      <section className="ab-gal bgt bgt-b" aria-label="Nuestro equipo y nuestro almacén">
+      {/* 6.5 Nuestra tienda: fotos y videos propios */}
+      <section className="ab-store bgt bgt-b" aria-labelledby="h-tienda">
         <div className="wrap">
-          <ul className="ab-gal__grid">
-            {SLOTS.map((s, i) => (
-              <li key={s.id} className={i ? 'is-r' : 'is-l'}>
-                <Reveal mask delay={i * 0.12}><PhotoSlot title={s.title} photo={s.photo} alt={s.alt} /></Reveal>
+          <Reveal><h2 id="h-tienda" className="rd-h2">Nuestra <Hl>tienda</Hl></h2></Reveal>
+          <p className="rd-lead ab-store__lead">Así se ve por dentro: motores, motorreductores, compresores y automatización, con asesoría en el mostrador.</p>
+          <ul className="ab-store__grid">
+            {STORE.map((t, i) => (
+              <li key={t.src}>
+                <Reveal mask delay={(i % 3) * 0.08}>
+                  <figure className="ab-store__tile">
+                    {t.kind === 'img' ? (
+                      <img src={`${t.src}-sm.webp`} srcSet={`${t.src}-sm.webp 800w, ${t.src}.webp 1800w`} sizes="(min-width: 900px) 380px, 46vw" alt={t.alt} loading="lazy" decoding="async" />
+                    ) : (
+                      <OwnVideo name={t.src} label={t.alt} />
+                    )}
+                    <figcaption>{t.cap}</figcaption>
+                  </figure>
+                </Reveal>
               </li>
             ))}
           </ul>

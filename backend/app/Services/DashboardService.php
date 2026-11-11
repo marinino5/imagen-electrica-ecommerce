@@ -6,6 +6,7 @@ use App\Enums\OrderStatus;
 use App\Enums\OrderType;
 use App\Models\Order;
 use App\Repositories\DashboardRepository;
+use App\Repositories\ReportRepository;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Collection;
 
@@ -76,6 +77,78 @@ class DashboardService
                 'products' => $this->repository->lowStockProducts(self::LOW_STOCK_THRESHOLD, self::LOW_STOCK_LIST_SIZE),
                 'total' => $this->repository->countLowStockProducts(self::LOW_STOCK_THRESHOLD),
             ],
+        ];
+    }
+
+    /** Días del gráfico de ventas y cotizaciones. */
+    public const CHART_DAYS = 30;
+
+    /**
+     * Inicio rediseñado: lo que requiere atención primero, cuatro indicadores y una gráfica de 30 días. Sin catálogo ni listas largas.
+     *
+     * @return array{kpis: array<string, array>, attention: Collection, chart: array}
+     */
+    public function overview(?CarbonImmutable $now = null): array
+    {
+        $now ??= CarbonImmutable::now();
+        $monthStart = $now->startOfMonth();
+        $reports = app(ReportRepository::class);
+        $sales = $reports->salesTotals($monthStart, $now->addDay()->startOfDay());
+        // Mismo tramo del mes anterior, para comparar
+        $previous = $reports->salesTotals($monthStart->subMonthNoOverflow(), $monthStart->subMonthNoOverflow()->addDays($now->day));
+        $quotes = app(QuoteInboxService::class);
+        $funnel = $reports->quoteFunnel($now->subDays(self::CHART_DAYS)->startOfDay(), $now->addDay()->startOfDay());
+        $pendingOrders = $this->repository->countOrders(OrderType::Purchase, OrderStatus::PendingPayment);
+
+        return [
+            'kpis' => [
+                'sales' => ['label' => 'Ventas del mes', 'value' => $sales->sales, 'format' => 'money', 'previous' => $previous->sales, 'note' => $sales->orders.' pedidos pagados'],
+                'orders' => ['label' => 'Pedidos nuevos', 'value' => $pendingOrders, 'format' => 'number', 'note' => 'Pendientes de pago'],
+                'quotes' => ['label' => 'Cotizaciones pendientes', 'value' => $quotes->countPending(), 'format' => 'number', 'note' => 'Con y sin cuenta, sin responder'],
+                'response' => ['label' => 'Tiempo medio de respuesta', 'value' => $funnel->avg_response_hours, 'format' => 'hours', 'note' => 'Cotizaciones de los últimos 30 días'],
+            ],
+            'attention' => $this->attention($now, $quotes),
+            'chart' => $this->salesAndQuotesChart($now),
+        ];
+    }
+
+    /** Pedidos por atender y cotizaciones sin responder en una sola lista: las atrasadas primero, luego las más antiguas. */
+    private function attention(CarbonImmutable $now, QuoteInboxService $quotes): Collection
+    {
+        $items = collect();
+
+        foreach ($this->repository->purchasesToHandle(6) as $order) {
+            $hours = (int) $order->created_at->diffInHours($now);
+            $items->push((object) [
+                'kind' => 'order', 'code' => $order->code, 'client' => $order->display_name, 'status_label' => $order->status->label(), 'order' => $order,
+                'hours' => $hours, 'overdue' => $order->status === OrderStatus::PendingPayment && $hours >= 48,
+                'url' => route('admin.orders.show', $order), 'can_confirm_payment' => $order->status === OrderStatus::PendingPayment,
+            ]);
+        }
+
+        foreach ($quotes->pending(6) as $q) {
+            $hours = (int) $q->created_at->diffInHours($now);
+            $items->push((object) [
+                'kind' => 'quote', 'code' => $q->code, 'client' => $q->client, 'status_label' => $q->status_label, 'order' => null,
+                'hours' => $hours, 'overdue' => $q->overdue, 'url' => $q->url, 'can_confirm_payment' => false,
+            ]);
+        }
+
+        return $items->sortBy([['overdue', 'desc'], ['hours', 'desc']])->take(8)->values();
+    }
+
+    /** @return array{labels: list<string>, sales: list<float>, quotes: list<int>} */
+    private function salesAndQuotesChart(CarbonImmutable $now): array
+    {
+        $first = $now->startOfDay()->subDays(self::CHART_DAYS - 1);
+        $days = collect(range(0, self::CHART_DAYS - 1))->map(fn (int $i) => $first->addDays($i));
+        $sales = $this->repository->salesPerDaySince($first);
+        $quotes = $this->repository->quotesPerDaySince($first);
+
+        return [
+            'labels' => $days->map(fn (CarbonImmutable $d) => $d->locale('es')->isoFormat('D MMM'))->all(),
+            'sales' => $days->map(fn (CarbonImmutable $d) => round($sales->get($d->toDateString(), 0.0), 2))->all(),
+            'quotes' => $days->map(fn (CarbonImmutable $d) => $quotes->get($d->toDateString(), 0))->all(),
         ];
     }
 

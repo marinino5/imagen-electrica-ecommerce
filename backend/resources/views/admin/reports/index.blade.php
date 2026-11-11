@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
-@section('title', 'Reportes')
+@section('title', 'Análisis financiero')
 
 @section('breadcrumb')
     <li class="breadcrumb-item">Análisis</li>
-    <li class="breadcrumb-item active" aria-current="page">Reportes</li>
+    <li class="breadcrumb-item active" aria-current="page">Financiero</li>
 @endsection
 
 @use('App\Enums\ReportPreset')
@@ -32,6 +32,7 @@
 
     $cards = [
         ['key' => 'sales', 'icon' => 'cash-stack', 'color' => 'primary'],
+        ['key' => 'tax', 'icon' => 'receipt-cutoff', 'color' => 'ink'],
         ['key' => 'gross_profit', 'icon' => 'graph-up-arrow', 'color' => 'accent', 'note' => true],
         ['key' => 'margin', 'icon' => 'percent', 'color' => 'ink', 'note' => true],
         ['key' => 'orders', 'icon' => 'receipt', 'color' => 'primary'],
@@ -46,13 +47,15 @@
 @section('content')
     <div class="page-header animate-in d-flex flex-wrap align-items-start justify-content-between gap-3">
         <div>
-            <h1>Reportes</h1>
+            <h1>Análisis</h1>
             <p>Ventas, ganancia y cotizaciones de <strong>{{ $period->label() }}</strong>, comparadas con {{ $period->previousLabel() }}.</p>
         </div>
         <a href="{{ route('admin.reports.export', $exportParams) }}" class="btn btn-outline-primary">
             <i class="bi bi-download me-1" aria-hidden="true"></i>Exportar CSV
         </a>
     </div>
+
+    @include('admin.partials.tabs', ['group' => 'analisis'])
 
     {{-- Filtro de periodo --}}
     <div class="card mb-4">

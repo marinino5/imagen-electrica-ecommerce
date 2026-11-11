@@ -16,6 +16,8 @@
         <a href="{{ route('admin.brands.create') }}" class="btn btn-primary"><i class="bi bi-plus-lg me-1" aria-hidden="true"></i>Nueva marca</a>
     </div>
 
+    @include('admin.partials.tabs', ['group' => 'catalogo'])
+
     <div class="card">
         <div class="card-body border-bottom">
             <x-search-bar :action="route('admin.brands.index')" :value="$search" placeholder="Buscar por nombre…" />

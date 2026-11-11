@@ -1,259 +1,85 @@
-// Login: pantalla dividida. Izquierda la marca (solo escritorio), derecha el formulario.
+// Login: dos bandas, igual que Ingresar de la tienda. Arriba violeta con la «e» del logo al 6 % y un arco naranja;
+// abajo lila. La tarjeta de 520 px queda a caballo entre las dos.
 
 .login-page {
-    min-height: 100vh;
-    background-color: $brand-white;
-}
-
-/* ---------- Lado de la marca ---------- */
-
-.login-hero {
     position: relative;
     isolation: isolate;
-    display: flex;
-    flex-direction: column;
+    min-height: 100vh;
+    overflow: clip;
+    background: linear-gradient(180deg, $brand-lavender 0%, $brand-surface 100%);
+}
+
+.login-band {
+    position: absolute;
+    inset: 0 0 auto 0;
+    z-index: -1;
+    height: 200px;
     overflow: hidden;
-    color: $brand-white;
-    background-color: $brand-ink;
-}
+    background-color: $brand-primary;
 
-.login-hero-photo {
-    position: absolute;
-    inset: 0;
-    z-index: -3;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-// Sobre la foto, de arriba abajo: puntos de luz difuminados (lavanda arriba a la
-// derecha, naranja abajo a la izquierda y uno pequeño al centro), un refuerzo oscuro
-// solo en el lado izquierdo (donde va el texto) y una capa de primary al 70%
-.login-hero-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: -2;
-    background:
-        radial-gradient(circle at 85% 12%, rgba($brand-lavender-light, .35) 0%, transparent 38%),
-        radial-gradient(circle at 12% 90%, rgba($brand-accent-strong, .22) 0%, transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba($brand-lavender-light, .35) 0%, transparent 16%),
-        linear-gradient(90deg, rgba($brand-primary-deep, .75) 0%, transparent 60%),
-        rgba($brand-primary, .7);
-}
-
-// Trama de puntos que se desvanece hacia abajo
-.login-hero-dots {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    @include dot-pattern(rgba($brand-white, .16));
-    mask-image: linear-gradient(180deg, #000 0%, transparent 70%);
-}
-
-// Arco naranja inspirado en el arco inferior del logo; se "dibuja" al entrar
-.login-hero-arc {
-    position: absolute;
-    right: -6rem;
-    bottom: -7rem;
-    z-index: -1;
-    width: 32rem;
-    opacity: .85;
-    color: $brand-accent-strong;
-    pointer-events: none;
-
-    path {
-        stroke-dasharray: 1000;
-        stroke-dashoffset: 0;
-        animation: ie-draw-arc 1.6s cubic-bezier(.4, 0, .2, 1) .2s both;
+    @include media-breakpoint-up(md) {
+        height: 340px;
     }
 }
 
-@keyframes ie-draw-arc {
-    from { stroke-dashoffset: 1000; }
-    to { stroke-dashoffset: 0; }
-}
-
-.login-hero-content {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    max-width: 38rem;
-    padding: 3rem 3.5rem;
-
-    @include media-breakpoint-up(xl) {
-        padding-inline: 5rem;
-    }
-}
-
-.login-hero-logo {
-    display: block;
-    width: 11rem;
+.login-band-e {
+    position: absolute;
+    top: 50%;
+    right: 4%;
+    width: min(560px, 80vw);
     height: auto;
-    // El logo es blanco: la sombra lo separa de la foto sin usar placa
-    filter: drop-shadow(0 4px 12px rgba($brand-ink, .35));
+    color: rgba($brand-white, .06);
+    transform: translateY(-50%);
 }
 
-.login-hero-title {
-    margin: 1.5rem 0 1rem;
-    color: $brand-white;
-    font-size: clamp(2.5rem, 4vw, 3.75rem);
-    line-height: .98;
-    text-transform: uppercase;
-
-    span {
-        display: block;
-        color: $brand-accent-strong;
-    }
-}
-
-.login-hero-lead {
-    max-width: 30rem;
-    color: rgba($brand-white, .92);
-    font-size: 1.1rem;
-}
-
-// Insignia circular de 25+ años con el mensaje de experiencia al lado
-.login-highlights {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    margin-top: 2.25rem;
-    padding-top: 1.75rem;
-    border-top: 1px solid rgba($brand-white, .15);
-}
-
-.years-badge {
-    display: flex;
-    flex-shrink: 0;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 6.5rem;
-    height: 6.5rem;
+.login-band-arc {
+    position: absolute;
+    left: -14%;
+    bottom: -78%;
+    width: min(520px, 90vw);
+    aspect-ratio: 1;
+    border: 2px solid $brand-accent-strong;
     border-radius: 50%;
-    background-color: $brand-accent-strong;
-    // Texto siempre ink sobre accent, nunca blanco
-    color: $brand-ink;
-    box-shadow: 0 0 0 .4rem rgba($brand-accent-strong, .25);
-    line-height: 1;
+}
 
-    strong {
-        font-family: $headings-font-family;
-        font-size: 2.5rem;
-        font-weight: $headings-font-weight;
-    }
+.login-stage {
+    width: 100%;
+    max-width: 552px;
+    margin-inline: auto;
+    padding: 1.25rem .75rem 3rem;
 
-    span {
-        margin-top: .15rem;
-        font-size: .8rem;
-        font-weight: 600;
-        letter-spacing: .08em;
-        text-transform: uppercase;
+    @include media-breakpoint-up(md) {
+        padding: 2.5rem 1rem 4rem;
     }
 }
 
-.login-highlights-title {
-    font-family: $headings-font-family;
-    font-size: 1.6rem;
-    font-weight: $headings-font-weight;
-    line-height: 1;
-    text-transform: uppercase;
+.login-kicker {
+    margin: 0 0 1.25rem;
     color: $brand-white;
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-align: center;
+    text-transform: uppercase;
 }
 
-.login-highlights-text {
-    color: rgba($brand-white, .8);
-
-    strong {
-        color: $brand-white;
-    }
-}
-
-// Franja de marcas que se desplaza lentamente (la lista va duplicada para el bucle)
-.brand-marquee {
-    position: relative;
-    overflow: hidden;
-    padding: 1.1rem 0;
-    border-top: 1px solid rgba($brand-white, .15);
-    background-color: rgba($brand-primary, .85);
-    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-}
-
-.brand-marquee-track {
-    display: flex;
-    width: max-content;
-    animation: ie-marquee 40s linear infinite;
-}
-
-.brand-marquee-list {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-
-    li {
-        display: flex;
-        align-items: center;
-        gap: 2.5rem;
-        padding-right: 2.5rem;
-        color: rgba($brand-white, .85);
-        font-family: $headings-font-family;
-        font-size: 1.35rem;
-        font-weight: 600;
-        letter-spacing: .08em;
-        text-transform: uppercase;
-        white-space: nowrap;
-
-        &::after {
-            content: '';
-            width: .4rem;
-            height: .4rem;
-            border-radius: 50%;
-            background-color: $brand-accent-strong;
-        }
-    }
-}
-
-@keyframes ie-marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-}
-
-// Con movimiento reducido la franja queda quieta y el arco ya dibujado
-@media (prefers-reduced-motion: reduce) {
-    .brand-marquee-track {
-        animation: none;
-    }
-
-    .login-hero-arc path {
-        animation: none;
-    }
-}
-
-/* ---------- Formulario ---------- */
-
-.login-form-side {
-    display: flex;
-    flex-direction: column;
-    padding: 2rem 1.25rem;
+.login-card {
+    padding: 1.75rem 1.25rem;
+    border: 1px solid rgba($brand-ink, .08);
+    border-radius: 28px;
+    background-color: $brand-white;
+    box-shadow: 0 28px 60px -26px rgba($brand-primary, .45), 0 8px 20px -10px rgba($brand-primary, .2);
 
     @include media-breakpoint-up(sm) {
-        padding: 3rem;
+        padding: 2.5rem 2.75rem;
     }
 }
 
-.login-form-wrap {
-    width: 100%;
-    max-width: 25rem;
-    margin: auto;
-}
-
-.login-mobile-logo {
+.login-logo {
+    display: block;
     width: 6rem;
     height: auto;
+    margin-bottom: 1.5rem;
 }
 
 .login-heading {

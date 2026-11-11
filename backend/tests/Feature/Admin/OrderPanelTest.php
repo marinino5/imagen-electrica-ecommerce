@@ -46,22 +46,13 @@ class OrderPanelTest extends TestCase
             ->get(route('admin.orders.index', $query))
             ->viewData('orders')->total();
 
+        // «Pedidos» solo lista pedidos; las cotizaciones viven en su propia pestaña
         $this->assertSame(2, $total(['type' => 'purchase']));
-        $this->assertSame(2, $total(['type' => 'quote']));
         $this->assertSame(1, $total(['status' => 'paid']));
-        $this->assertSame(1, $total(['type' => 'quote', 'status' => 'new']));
-        $this->assertSame(2, $total(['status' => 'new,in_review']));
-        $this->assertSame(4, $total(['type' => 'nope', 'status' => 'nope']));
-    }
+        $this->assertSame(2, $total(['type' => 'nope', 'status' => 'nope']));
 
-    public function test_index_filters_overdue_quotes(): void
-    {
-        $overdue = Order::factory()->quote()->create(['created_at' => now()->subHours(30)]);
-        Order::factory()->quote()->create(['created_at' => now()->subHours(2)]);
-        Order::factory()->quote()->create(['status' => OrderStatus::Sent, 'created_at' => now()->subDays(5)]);
-
-        $this->actingAs($this->staff())->get(route('admin.orders.index', ['overdue' => 1]))
-            ->assertViewHas('orders', fn ($page) => $page->total() === 1 && $page->first()->is($overdue));
+        $this->actingAs($this->staff())->get(route('admin.orders.index', ['type' => 'quote']))
+            ->assertRedirect(route('admin.quotes.index'));
     }
 
     public function test_index_searches_by_code_company_nit_or_contact(): void

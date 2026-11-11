@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { cardImage, hpText, lineBrands, modeTag, priceNote, priceText } from '../../lib/lines'
+import { cardImage, cardState, hpText, lineBrands, modeTag, priceNote, priceText } from '../../lib/lines'
 import BrandMark from '../ui/BrandMark'
 import LineVisual from './LineVisual'
 import QuickAdd from './QuickAdd'
@@ -25,7 +25,7 @@ export default function LineCard({ line, className = '' }) {
   const all = uniqueChips([...(line.spec_chips ?? []), range])
   const chips = all.slice(0, 2)
   const more = all.length - chips.length
-  const tagClass = line.sale_mode === 'direct' ? 'is-on' : 'is-q'
+  const tagClass = cardState(line) === 'buy' ? 'is-on' : 'is-q'
 
   return (
     <article className={`pc lift ${className}`}>
