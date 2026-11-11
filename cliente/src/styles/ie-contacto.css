@@ -115,9 +115,6 @@ a.chan3__big:hover { text-decoration: underline; text-underline-offset: 4px; }
 .visit2__addr { display: flex; gap: 10px; margin: 0; color: var(--ie-violet-950); line-height: 1.45; }
 .visit2__addr svg { flex: none; margin-top: 3px; color: var(--ie-violet-500); }
 .visit2__hours { margin: 0; color: var(--muted); }
-.visit2__photo { display: grid; place-items: center; align-content: center; gap: 6px; width: 100%; min-height: 150px; margin: 8px 0 0; border: 1.5px dashed var(--ie-violet-500); border-radius: 16px; background: var(--ie-lila-100); color: var(--ie-violet-700); text-align: center; }
-.visit2__photo figcaption { display: grid; font-weight: 700; }
-.visit2__photo small { color: var(--muted); font-weight: 500; }
 
 /* Formulario y mapa */
 .ct-formsec { padding-block: clamp(48px, 6vw, 88px); }

@@ -136,7 +136,6 @@ body .site-header:not(.is-solid) { background: transparent; box-shadow: none; }
 }
 @media (prefers-reduced-motion: reduce) { .cb-recv .cb-card__img, .cb-recv .cb-card__veil { transition: none; } }
 /* Envíos sobre fondo cálido: la tarjeta del mapa sigue blanca */
-.cb-ship.bgt-d .cb-map { border-color: var(--ie-orange-100); }
 
 /* ---------- Contacto ---------- */
 /* El hero oscuro pasa por debajo de la barra transparente */

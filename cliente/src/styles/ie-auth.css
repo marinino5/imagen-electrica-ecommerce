@@ -37,3 +37,6 @@
   .ax2__peek--multimetro { left: 34%; bottom: -112px; width: 220px; transform: rotate(2deg); }
 }
 @media (max-width: 767px) { .ax2__stage { padding-inline: 12px; } }
+
+/* Tarjeta de Ingresar, Crear cuenta y Recuperar: esquinas de 28 px */
+.ax__card { border-radius: 28px; }

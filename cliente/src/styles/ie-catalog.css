@@ -156,3 +156,26 @@
   .fgroup { scroll-margin-top: calc(var(--stack) - var(--header-h) - 12px); } /* el html ya reserva header-h + 12 px (scroll-padding-top) */
   .cat-groups { gap: 48px; }
 }
+
+/* ---------- Buscador integrado: sin caja blanca. La barra es lila-50 con borde fino y sombra suave; el buscador ocupa el
+   espacio libre y los filtros quedan alineados a la derecha, en la misma línea ---------- */
+.cat-fbar {
+  padding: 6px 14px;
+  border: 1px solid var(--ie-lila-200);
+  border-radius: 12px;
+  background: var(--ie-lila-50);
+  box-shadow: 0 8px 22px -14px rgb(81 62 132 / 0.35);
+}
+.cat-fbar .fb { flex-wrap: nowrap; align-items: center; gap: 10px 24px; }
+.cat-fbar .fb__search {
+  flex: 1 1 auto;
+  min-width: 200px;
+  padding: 0 4px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.cat-fbar .fb__search:focus-within { background: transparent; box-shadow: none; }
+.cat-fbar .fb__search:focus-within input { text-decoration: none; }
+.cat-fbar .fb__item { display: flex; flex: none; align-items: center; gap: 8px; }
+.cat-fbar .fb .cat-seg { background: #fff; }

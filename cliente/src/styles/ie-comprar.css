@@ -95,7 +95,6 @@
 .cb-ship { padding-block: clamp(64px, 9vw, 120px); }
 .cb-ship__grid { display: grid; gap: clamp(32px, 5vw, 64px); align-items: center; }
 @media (min-width: 900px) { .cb-ship__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
-.cb-map { padding: 16px; border: 1px solid var(--ie-lila-200); border-radius: 8px; background: #fff; }
 .cb-map__svg { display: block; width: 100%; max-height: 520px; }
 .colombia-map__pulse { transform-box: fill-box; transform-origin: center; animation: map-pulse 2.4s ease-out infinite; opacity: 0; }
 .colombia-map__pulse--b { animation-delay: 1.2s; }
@@ -145,3 +144,6 @@
 .cb-end__in { max-width: 760px; }
 .cb-end .rd-lead { margin: 18px 0 28px; color: var(--muted); }
 .cb-end__btns { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* El mapa de Colombia va integrado al fondo: sin cuadro blanco, sin borde ni relleno */
+.cb-map { padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }

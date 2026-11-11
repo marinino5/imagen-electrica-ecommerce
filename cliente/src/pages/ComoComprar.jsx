@@ -1,7 +1,7 @@
 import { useId, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, MessageCircle, Plus } from 'lucide-react'
-import { FAQ_TABS, ONLINE, QUOTE, RECEIVE, SHIPPING } from '../components/comprar/comprarData'
+import { FAQ, ONLINE, QUOTE, RECEIVE, SHIPPING } from '../components/comprar/comprarData'
 import PhoneMock from '../components/comprar/PhoneMock'
 import Squares from '../components/ui/Squares'
 import ColombiaMap from '../components/ui/ColombiaMap'
@@ -177,31 +177,14 @@ function FaqItem({ q, a, link }) {
 }
 
 function Faq() {
-  const [tab, setTab] = useState(0)
-  const base = useId()
-  // Flechas ← → entre pestañas (patrón de tablist)
-  const onKey = (e) => {
-    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return
-    e.preventDefault()
-    const next = (tab + (e.key === 'ArrowRight' ? 1 : -1) + FAQ_TABS.length) % FAQ_TABS.length
-    setTab(next)
-    document.getElementById(`${base}-t${next}`)?.focus()
-  }
   return (
     <section className="cb-faq bgt bgt-a" aria-labelledby="h-faq">
-      <Squares items={[{ w: 180, h: 200, tone: 'lila', rate: 0.1, top: '10%', right: '-40px' }]} />
+      <Squares items={[{ w: 180, tone: 'lila', rate: 0.1, top: '10%', right: '-40px' }]} />
       <div className="wrap">
         <Reveal><h2 id="h-faq" className="rd-h2">Resolvemos tus <Hl>dudas</Hl></h2></Reveal>
-        <div className="cb-tabs" role="tablist" aria-label="Tema de las preguntas" onKeyDown={onKey}>
-          {FAQ_TABS.map((t, i) => (
-            <button key={t.id} id={`${base}-t${i}`} type="button" role="tab" aria-selected={tab === i} aria-controls={`${base}-p${i}`} tabIndex={tab === i ? 0 : -1} className={tab === i ? 'is-on' : ''} onClick={() => setTab(i)}>{t.label}</button>
-          ))}
+        <div className="faq cb-faq__grid">
+          {FAQ.map((item) => <FaqItem key={item.q} {...item} />)}
         </div>
-        {FAQ_TABS.map((t, i) => (
-          <div key={t.id} id={`${base}-p${i}`} role="tabpanel" aria-labelledby={`${base}-t${i}`} hidden={tab !== i} className="faq cb-faq__grid">
-            {t.items.map((item) => <FaqItem key={item.q} {...item} />)}
-          </div>
-        ))}
       </div>
     </section>
   )

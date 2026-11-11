@@ -21,22 +21,22 @@ const SLOTS = [
   { id: 'almacen', title: 'Nuestro almacén por dentro' },
 ]
 
-// Órbita de producto: 12 productos recortados de distintas familias (64–160 px) flotan alrededor del bloque «+1.000 productos».
+// Órbita de producto: 12 productos recortados de distintas familias (96–200 px) flotan alrededor del bloque «+1.000 productos».
 // Al llegar la sección a la pantalla se acercan a su órbita, cada uno a su propia velocidad (`v`), y flotan ±6 px.
 // Al pasar el mouse (o enfocar) aparece el nombre; cada uno enlaza con su familia del catálogo.
 const WALL = [
-  { src: 'weg-w22-iec', name: 'Motor trifásico W22', fam: 'Motores eléctricos', slug: 'motores-electricos', size: 160 },
-  { src: 'weg-cfw500', name: 'Variador CFW500', fam: 'Control y automatización', slug: 'control-y-automatizacion', size: 104 },
-  { src: 'soler-palau-extractor-axial', name: 'Extractor axial tubular', fam: 'Ventilación y climatización', slug: 'ventilacion-y-climatizacion', size: 132 },
-  { src: 'weg-cestari-wcg20', name: 'Motorreductor helicoidal', fam: 'Reductores y motorreductores', slug: 'reductores-y-motorreductores', size: 84 },
-  { src: 'fluke-multimetro-117', name: 'Multímetro Fluke 117', fam: 'Medición y testeo', slug: 'medicion-y-testeo', size: 124 },
-  { src: 'weg-contactores', name: 'Contactores CWB', fam: 'Control y automatización', slug: 'control-y-automatizacion', size: 64 },
-  { src: 'centelsa-cable-thhn', name: 'Cable THHN/THWN-2', fam: 'Cables y conductores', slug: 'cables-y-conductores', size: 150 },
-  { src: 'weg-guardamotores', name: 'Guardamotor MPW', fam: 'Control y automatización', slug: 'control-y-automatizacion', size: 92 },
-  { src: 'sylvania-start-highbay', name: 'Campana LED START', fam: 'Iluminación', slug: 'iluminacion', size: 116 },
-  { src: 'abac-compresor-vertical', name: 'Compresor vertical', fam: 'Compresores', slug: 'compresores', size: 140 },
-  { src: 'weg-plc500', name: 'PLC WEG PLC500', fam: 'Control y automatización', slug: 'control-y-automatizacion', size: 72 },
-  { src: 'weg-ssw05', name: 'Arrancador suave SSW05', fam: 'Control y automatización', slug: 'control-y-automatizacion', size: 98 },
+  { src: 'weg-w22-iec', name: 'Motor trifásico W22', fam: 'Motores eléctricos', slug: 'motores-electricos', size: 200 },
+  { src: 'weg-cfw500', name: 'Variador CFW500', fam: 'Control y automatización', slug: 'control-y-automatizacion', size: 130 },
+  { src: 'soler-palau-extractor-axial', name: 'Extractor axial tubular', fam: 'Ventilación y climatización', slug: 'ventilacion-y-climatizacion', size: 170 },
+  { src: 'weg-cestari-wcg20', name: 'Motorreductor helicoidal', fam: 'Reductores y motorreductores', slug: 'reductores-y-motorreductores', size: 110 },
+  { src: 'fluke-multimetro-117', name: 'Multímetro Fluke 117', fam: 'Medición y testeo', slug: 'medicion-y-testeo', size: 160 },
+  { src: 'weg-contactores', name: 'Contactores CWB', fam: 'Control y automatización', slug: 'control-y-automatizacion', size: 96 },
+  { src: 'centelsa-cable-thhn', name: 'Cable THHN/THWN-2', fam: 'Cables y conductores', slug: 'cables-y-conductores', size: 190 },
+  { src: 'weg-guardamotores', name: 'Guardamotor MPW', fam: 'Control y automatización', slug: 'control-y-automatizacion', size: 120 },
+  { src: 'sylvania-start-highbay', name: 'Campana LED START', fam: 'Iluminación', slug: 'iluminacion', size: 150 },
+  { src: 'abac-compresor-vertical', name: 'Compresor vertical', fam: 'Compresores', slug: 'compresores', size: 180 },
+  { src: 'weg-plc500', name: 'PLC WEG PLC500', fam: 'Control y automatización', slug: 'control-y-automatizacion', size: 100 },
+  { src: 'weg-ssw05', name: 'Arrancador suave SSW05', fam: 'Control y automatización', slug: 'control-y-automatizacion', size: 130 },
 ]
 
 // Posición de cada producto en la elipse (grados desde −90°, de 30° en 30°), velocidad de acercamiento y fase del flotado
@@ -178,7 +178,6 @@ function Wall({ reduced }) {
 
   return (
     <section className="ab-wall bgt bgt-a" aria-labelledby="h-muro">
-      <Squares items={[{ w: 220, h: 170, tone: 'orange', rate: 0.1, top: '24%', left: '27%' }, { w: 170, tone: 'lila', rate: -0.12, bottom: '20%', right: '26%' }]} />
       <div className="wrap">
         <h2 id="h-muro" className="sr-only">Productos que distribuimos</h2>
         <ul className={`orbit ${wide ? '' : 'orbit--sm'}`} ref={box} style={{ '--p': reduced ? 1 : 0 }}>
