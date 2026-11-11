@@ -1,0 +1,39 @@
+meta {
+  name: Guardar datos de facturacion
+  type: http
+  seq: 9
+}
+
+put {
+  url: {{base_url}}/api/v1/me/billing
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{client_token}}
+}
+
+body:json {
+  {
+    "needs_invoice": true,
+    "person_type": "Company",
+    "identification": "860005224",
+    "check_digit": "6",
+    "company_name": "Bavaria S.A.",
+    "fiscal_responsibilities": ["O-13"],
+    "vat_responsible": true,
+    "billing_address": "Calle 1 # 2-3",
+    "billing_state_code": "68",
+    "billing_city_code": "68001"
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+docs {
+  Los mismos campos del paso de facturacion del pago, con los nombres de la API de clientes de Siigo.
+  Con "needs_invoice": false se borran los datos guardados. Un digito de verificacion que no corresponde al NIT responde 422.
+}

@@ -75,6 +75,8 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:api')->group(function
     // Cliente
     Route::middleware(['auth:sanctum', 'role:cliente'])->group(function () {
         Route::put('me', [ProfileController::class, 'update'])->name('me.update');
+        Route::put('me/billing', [ProfileController::class, 'updateBilling'])->name('me.billing');
+        Route::put('me/addresses', [ProfileController::class, 'updateAddresses'])->name('me.addresses');
 
         Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
         Route::post('orders', [OrderController::class, 'store'])->name('orders.store');

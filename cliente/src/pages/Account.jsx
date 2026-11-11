@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Check, ChevronDown, ClipboardList, FileText, LogOut, MapPin, Pencil, RotateCcw, Truck } from 'lucide-react'
+import { Check, ChevronDown, ClipboardList, FileText, LogOut, Pencil, RotateCcw, Truck, UserRound } from 'lucide-react'
 import { catalogApi, ordersApi } from '../api'
 import { useAuth } from '../context/AuthContext'
 import { useCart } from '../context/CartContext'
@@ -9,6 +9,8 @@ import { useApi } from '../hooks/useApi'
 import { formatCOP, formatDate, formatQty } from '../lib/format'
 import { cartItem } from '../lib/lines'
 import Field from '../components/ui/Field'
+import AddressesCard from '../components/account/AddressesCard'
+import BillingCard from '../components/account/BillingCard'
 import ErrorState from '../components/ui/ErrorState'
 import EmptyState from '../components/ui/EmptyState'
 import Bezel from '../components/ui/Bezel'
@@ -143,24 +145,23 @@ function OrderRow({ order }) {
   )
 }
 
-// Datos editables: los mismos que acepta PUT /me (no cambian el NIT, el tipo ni el correo)
+// Contacto editable (PUT /me): nombre y celular. El correo no se cambia aquí; la factura y las direcciones tienen su propia tarjeta
 function ProfileCard({ user, customer }) {
   const { updateProfile } = useAuth()
   const [editing, setEditing] = useState(false)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState(null)
   const [saved, setSaved] = useState(false)
-  const start = () => ({ name: user.name, company_name: customer.company_name ?? '', phone: customer.phone ?? '', city: customer.city ?? '', address: customer.address ?? '' })
+  const start = () => ({ name: user.name, phone: customer.phone ?? '' })
   const [form, setForm] = useState(start)
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }))
-  const company = customer.type === 'company'
 
   const submit = async (e) => {
     e.preventDefault()
     setBusy(true)
     setError(null)
     try {
-      await updateProfile({ ...form, company_name: company ? form.company_name : undefined, address: form.address || null })
+      await updateProfile(form)
       setEditing(false)
       setSaved(true)
     } catch (err) {
@@ -174,16 +175,14 @@ function ProfileCard({ user, customer }) {
     return (
       <Bezel as="section" className="acc-card" aria-labelledby="h-datos"><div className="acc-card__core">
         <div className="profile-card__head">
-          <h2 id="h-datos" className="block-title">Mis datos</h2>
+          <h2 id="h-datos" className="block-title"><UserRound size={20} aria-hidden="true" /> Mis datos</h2>
           <Pill tone="l" size="sm" icon={Pencil} onClick={() => { setForm(start()); setSaved(false); setEditing(true) }}>Editar</Pill>
         </div>
         {saved && <p className="alert alert--success" role="status">Datos actualizados.</p>}
         <dl className="profile">
           <div><dt>Contacto</dt><dd>{user.name}</dd></div>
           <div><dt>Correo</dt><dd>{user.email}</dd></div>
-          <div><dt>Teléfono</dt><dd>{customer.phone}</dd></div>
-          <div><dt>Ciudad</dt><dd>{customer.city}</dd></div>
-          {customer.address && <div><dt>Dirección</dt><dd>{customer.address}</dd></div>}
+          <div><dt>Celular</dt><dd>{customer.phone}</dd></div>
         </dl>
       </div>
       </Bezel>
@@ -191,15 +190,12 @@ function ProfileCard({ user, customer }) {
   }
 
   return (
-    <Bezel as="div" className="acc-card"><form className="acc-card__core" onSubmit={submit} noValidate>
-      <h2 className="block-title">Editar mis datos</h2>
+    <Bezel as="div" className="acc-card"><form className="acc-card__core acc-form" onSubmit={submit} noValidate>
+      <h2 className="block-title"><UserRound size={20} aria-hidden="true" /> Mis datos</h2>
       {error && <div className="alert alert--error" role="alert">{error.message}</div>}
-      <Field label={company ? 'Nombre de contacto' : 'Nombre completo'} value={form.name} onChange={set('name')} error={error?.fieldError?.('name')} autoComplete="name" required />
-      {company && <Field label="Razón social" value={form.company_name} onChange={set('company_name')} error={error?.fieldError?.('company_name')} autoComplete="organization" required />}
-      <Field label="Teléfono" type="tel" inputMode="tel" value={form.phone} onChange={set('phone')} error={error?.fieldError?.('phone')} autoComplete="tel" required />
-      <Field label="Ciudad" value={form.city} onChange={set('city')} error={error?.fieldError?.('city')} autoComplete="address-level2" required />
-      <Field label="Dirección (opcional)" value={form.address} onChange={set('address')} error={error?.fieldError?.('address')} autoComplete="street-address" />
-      <p className="field-hint">El correo, el tipo de cliente y el NIT no se pueden cambiar aquí: escríbenos si necesitas corregirlos.</p>
+      <Field label="Nombre completo" value={form.name} onChange={set('name')} error={error?.fieldError?.('name')} autoComplete="name" required />
+      <Field label="Celular" type="tel" inputMode="tel" value={form.phone} onChange={set('phone')} error={error?.fieldError?.('phone')} autoComplete="tel" required />
+      <p className="field-hint">El correo no se puede cambiar aquí: escríbenos si necesitas corregirlo.</p>
       <div className="row-actions">
         <button type="submit" className="btn btn--accent" disabled={busy}>{busy ? 'Guardando…' : 'Guardar'}</button>
         <button type="button" className="btn btn--ghost" onClick={() => setEditing(false)}>Cancelar</button>
@@ -225,7 +221,7 @@ export default function Account() {
       <Cover
         eyebrow="Mi cuenta"
         lines={['Hola,', { text: first ?? 'bienvenido', accent: true }]}
-        lead={customer ? (customer.type === 'company' ? `${customer.company_name} · NIT ${customer.nit}` : `${customer.type_label}${customer.nit ? ` · C.C. ${customer.nit}` : ''}`) : undefined}
+        lead={customer?.id_type ? `${customer.type === 'company' ? customer.company_name : [customer.first_name, customer.last_name].filter(Boolean).join(' ')} · ${customer.type === 'company' ? 'NIT' : ({ 13: 'CC', 22: 'CE', 41: 'Pasaporte' }[customer.id_type] ?? 'Doc.')} ${customer.nit}` : user?.email}
         actions={
           <>
             <Pill as="link" to="/productos" tone="o">Ir al catálogo</Pill>
@@ -252,13 +248,8 @@ export default function Account() {
       <div className="wrap acc-grid">
         <div className="acc-side">
           {customer && <ProfileCard user={user} customer={customer} />}
-          <Bezel as="section" className="acc-card" aria-labelledby="h-dir">
-            <div className="acc-card__core">
-              <h2 id="h-dir" className="block-title"><MapPin size={20} aria-hidden="true" /> Direcciones guardadas</h2>
-              <p className="muted-box">Aún no se pueden guardar. Por ahora indicas la dirección de entrega al enviar tu solicitud.</p>
-              <button type="button" className="btn btn--ghost btn--sm" disabled>Agregar dirección</button>
-            </div>
-          </Bezel>
+          {customer && <BillingCard user={user} customer={customer} />}
+          {customer && <AddressesCard customer={customer} />}
         </div>
 
         <section className="acc-orders" aria-labelledby="h-pedidos">

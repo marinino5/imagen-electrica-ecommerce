@@ -118,6 +118,12 @@
                                                                                 <li class="tocify-item level-2" data-unique="mi-cuenta-PUTapi-v1-me">
                                 <a href="#mi-cuenta-PUTapi-v1-me">Actualizar mi perfil</a>
                             </li>
+                                                                                <li class="tocify-item level-2" data-unique="mi-cuenta-PUTapi-v1-me-billing">
+                                <a href="#mi-cuenta-PUTapi-v1-me-billing">Actualizar mis datos de facturación</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="mi-cuenta-PUTapi-v1-me-addresses">
+                                <a href="#mi-cuenta-PUTapi-v1-me-addresses">Actualizar mis direcciones de entrega</a>
+                            </li>
                                                                         </ul>
                             </ul>
                     <ul id="tocify-header-pedidos-y-cotizaciones-cliente" class="tocify-header">
@@ -1348,7 +1354,7 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 1,
+            &quot;id&quot;: 63,
             &quot;parent_id&quot;: null,
             &quot;name&quot;: &quot;Et animi&quot;,
             &quot;slug&quot;: &quot;et-animi&quot;,
@@ -1356,7 +1362,7 @@ fetch(url, {
             &quot;image_url&quot;: null
         },
         {
-            &quot;id&quot;: 2,
+            &quot;id&quot;: 64,
             &quot;parent_id&quot;: null,
             &quot;name&quot;: &quot;Mollitia modi&quot;,
             &quot;slug&quot;: &quot;mollitia-modi&quot;,
@@ -1555,13 +1561,13 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 1,
+            &quot;id&quot;: 53,
             &quot;name&quot;: &quot;Llorente, Aguirre y Sierra e Hijo&quot;,
             &quot;slug&quot;: &quot;llorente-aguirre-y-sierra-e-hijo&quot;,
             &quot;logo_url&quot;: null
         },
         {
-            &quot;id&quot;: 2,
+            &quot;id&quot;: 54,
             &quot;name&quot;: &quot;Lim&oacute;n de Uribe S. de H.&quot;,
             &quot;slug&quot;: &quot;limon-de-uribe-s-de-h&quot;,
             &quot;logo_url&quot;: null
@@ -1725,9 +1731,9 @@ solo se vende por cotización. No requiere token.</p>
     \"q\": \"b\",
     \"category\": \"n\",
     \"brand\": \"g\",
-    \"sale_mode\": \"quote\",
+    \"sale_mode\": \"direct\",
     \"featured\": true,
-    \"in_stock\": false,
+    \"in_stock\": true,
     \"sort\": \"price_asc\",
     \"per_page\": 16
 }"
@@ -1756,9 +1762,9 @@ let body = {
     "q": "b",
     "category": "n",
     "brand": "g",
-    "sale_mode": "quote",
+    "sale_mode": "direct",
     "featured": true,
-    "in_stock": false,
+    "in_stock": true,
     "sort": "price_asc",
     "per_page": 16
 };
@@ -1780,7 +1786,7 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 1,
+            &quot;id&quot;: 464,
             &quot;sku&quot;: &quot;REF-0564-yv&quot;,
             &quot;name&quot;: &quot;Motor trif&aacute;sico 4338 HP&quot;,
             &quot;slug&quot;: &quot;motor-trifasico-4338-hp&quot;,
@@ -1788,8 +1794,8 @@ fetch(url, {
             &quot;description&quot;: &quot;Perspiciatis quo omnis nostrum aut adipisci quidem nostrum qui. Incidunt iure odit et et modi ipsum. Omnis autem et consequatur. Dolores enim non facere tempora.&quot;,
             &quot;image_url&quot;: null,
             &quot;specs&quot;: {
-                &quot;potencia_hp&quot;: 10,
-                &quot;voltaje_v&quot;: 220
+                &quot;voltaje_v&quot;: 220,
+                &quot;potencia_hp&quot;: 10
             },
             &quot;unit&quot;: &quot;unidad&quot;,
             &quot;unit_label&quot;: &quot;Unidad&quot;,
@@ -1802,19 +1808,19 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 1,
+                &quot;id&quot;: 65,
                 &quot;name&quot;: &quot;Quis adipisci&quot;,
                 &quot;slug&quot;: &quot;quis-adipisci&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 1,
+                &quot;id&quot;: 55,
                 &quot;name&quot;: &quot;Global Guardado y Asoc.&quot;,
                 &quot;slug&quot;: &quot;global-guardado-y-asoc&quot;,
                 &quot;logo_url&quot;: null
             }
         },
         {
-            &quot;id&quot;: 2,
+            &quot;id&quot;: 465,
             &quot;sku&quot;: &quot;REF-7788-qb&quot;,
             &quot;name&quot;: &quot;Motor trif&aacute;sico 9148 HP&quot;,
             &quot;slug&quot;: &quot;motor-trifasico-9148-hp&quot;,
@@ -1822,8 +1828,8 @@ fetch(url, {
             &quot;description&quot;: &quot;Blanditiis odio veritatis excepturi doloribus delectus fugit. Repudiandae laboriosam est alias tenetur ratione. Voluptate accusamus ut et recusandae. Rerum ex repellendus assumenda et.&quot;,
             &quot;image_url&quot;: null,
             &quot;specs&quot;: {
-                &quot;potencia_hp&quot;: 5,
-                &quot;voltaje_v&quot;: 440
+                &quot;voltaje_v&quot;: 440,
+                &quot;potencia_hp&quot;: 5
             },
             &quot;unit&quot;: &quot;unidad&quot;,
             &quot;unit_label&quot;: &quot;Unidad&quot;,
@@ -1836,12 +1842,12 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 2,
+                &quot;id&quot;: 66,
                 &quot;name&quot;: &quot;Perspiciatis deserunt&quot;,
                 &quot;slug&quot;: &quot;perspiciatis-deserunt&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 2,
+                &quot;id&quot;: 56,
                 &quot;name&quot;: &quot;Grupo Arias-Chac&oacute;n&quot;,
                 &quot;slug&quot;: &quot;grupo-arias-chacon&quot;,
                 &quot;logo_url&quot;: null
@@ -2038,10 +2044,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="sale_mode"                data-endpoint="GETapi-v1-products"
-               value="quote"
+               value="direct"
                data-component="body">
     <br>
-<p>Example: <code>quote</code></p>
+<p>Example: <code>direct</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>direct</code></li> <li><code>quote</code></li> <li><code>on_request</code></li></ul>
         </div>
@@ -2087,7 +2093,7 @@ Must be one of:
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>sort</code></b>&nbsp;&nbsp;
@@ -2161,36 +2167,36 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 1,
-        &quot;sku&quot;: &quot;REF-6806-zm&quot;,
-        &quot;name&quot;: &quot;Motor trif&aacute;sico 2938 HP&quot;,
-        &quot;slug&quot;: &quot;motor-trifasico-2938-hp&quot;,
-        &quot;short_description&quot;: &quot;Et fugiat sunt nihil accusantium.&quot;,
-        &quot;description&quot;: &quot;Deserunt aut ab provident perspiciatis quo omnis nostrum. Adipisci quidem nostrum qui commodi incidunt iure. Et et modi ipsum nostrum.&quot;,
+        &quot;id&quot;: 466,
+        &quot;sku&quot;: &quot;REF-0057-nb&quot;,
+        &quot;name&quot;: &quot;Motor trif&aacute;sico 7075 HP&quot;,
+        &quot;slug&quot;: &quot;motor-trifasico-7075-hp&quot;,
+        &quot;short_description&quot;: &quot;Impedit molestiae ut rem est esse.&quot;,
+        &quot;description&quot;: &quot;Sunt suscipit doloribus fugiat ut aut deserunt et. Neque recusandae et ipsam dolorem et ut dicta. Assumenda consequatur ut et sunt quisquam. Repellendus ut eaque alias ratione dolores.&quot;,
         &quot;image_url&quot;: null,
         &quot;specs&quot;: {
-            &quot;potencia_hp&quot;: 5,
-            &quot;voltaje_v&quot;: 220
+            &quot;voltaje_v&quot;: 220,
+            &quot;potencia_hp&quot;: 1
         },
         &quot;unit&quot;: &quot;unidad&quot;,
         &quot;unit_label&quot;: &quot;Unidad&quot;,
-        &quot;price&quot;: 1468000,
+        &quot;price&quot;: 1957000,
         &quot;tax_rate&quot;: 19,
-        &quot;stock&quot;: 8,
+        &quot;stock&quot;: 7,
         &quot;in_stock&quot;: true,
         &quot;stock_limit&quot;: null,
         &quot;sale_mode&quot;: &quot;direct&quot;,
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Aut dolores&quot;,
-            &quot;slug&quot;: &quot;aut-dolores&quot;
+            &quot;id&quot;: 67,
+            &quot;name&quot;: &quot;Aut deserunt&quot;,
+            &quot;slug&quot;: &quot;aut-deserunt&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;Manzano de Mendoza&quot;,
-            &quot;slug&quot;: &quot;manzano-de-mendoza&quot;,
+            &quot;id&quot;: 57,
+            &quot;name&quot;: &quot;Nieto y Rico&quot;,
+            &quot;slug&quot;: &quot;nieto-y-rico&quot;,
             &quot;logo_url&quot;: null
         }
     }
@@ -2334,19 +2340,19 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 1,
+        &quot;id&quot;: 9,
         &quot;name&quot;: &quot;Omar Dom&iacute;nguez&quot;,
-        &quot;email&quot;: &quot;icalero@example.org&quot;,
+        &quot;email&quot;: &quot;arredondo.juana@example.com&quot;,
         &quot;role&quot;: &quot;cliente&quot;,
         &quot;customer&quot;: {
             &quot;type&quot;: &quot;company&quot;,
             &quot;type_label&quot;: &quot;Empresa&quot;,
-            &quot;company_name&quot;: &quot;Asociaci&oacute;n Col&oacute;n-Zelaya S.A.S.&quot;,
-            &quot;nit&quot;: &quot;979091506-6&quot;,
-            &quot;contact_name&quot;: &quot;Santiago Valles&quot;,
-            &quot;phone&quot;: &quot;364 310 6432&quot;,
-            &quot;city&quot;: &quot;Floridablanca&quot;,
-            &quot;address&quot;: &quot;Paseo Isaac, 409, 9&ordm; C&quot;,
+            &quot;company_name&quot;: &quot;Calero de Zamora S.A.S.&quot;,
+            &quot;nit&quot;: &quot;990122162-7&quot;,
+            &quot;contact_name&quot;: &quot;Sr. H&eacute;ctor Zelaya&quot;,
+            &quot;phone&quot;: &quot;379 091 5066&quot;,
+            &quot;city&quot;: &quot;Gir&oacute;n&quot;,
+            &quot;address&quot;: &quot;Calle Elizondo, 54, 27&ordm; C&quot;,
             &quot;id_type&quot;: null,
             &quot;check_digit&quot;: null,
             &quot;first_name&quot;: null,
@@ -2361,7 +2367,7 @@ fetch(url, {
             &quot;delivery_addresses&quot;: [],
             &quot;marketing_opt_in&quot;: false,
             &quot;marketing_opt_in_at&quot;: null,
-            &quot;privacy_accepted_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;
+            &quot;privacy_accepted_at&quot;: &quot;2026-11-11T12:41:24.000000Z&quot;
         }
     }
 }</code>
@@ -2473,11 +2479,11 @@ no se modifican desde aquí. Solo clientes.</p>
     --header "Accept: application/json" \
     --data "{
     \"name\": \"Laura Gómez\",
-    \"company_name\": \"Constructora Altos S.A.S.\",
     \"phone\": \"315 555 0202\",
+    \"marketing_opt_in\": true,
+    \"company_name\": \"Constructora Altos S.A.S.\",
     \"city\": \"Girón\",
-    \"address\": \"Carrera 27 # 45-10\",
-    \"marketing_opt_in\": true
+    \"address\": \"Carrera 27 # 45-10\"
 }"
 </code></pre></div>
 
@@ -2495,11 +2501,11 @@ const headers = {
 
 let body = {
     "name": "Laura Gómez",
-    "company_name": "Constructora Altos S.A.S.",
     "phone": "315 555 0202",
+    "marketing_opt_in": true,
+    "company_name": "Constructora Altos S.A.S.",
     "city": "Girón",
-    "address": "Carrera 27 # 45-10",
-    "marketing_opt_in": true
+    "address": "Carrera 27 # 45-10"
 };
 
 fetch(url, {
@@ -2518,7 +2524,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 1,
+        &quot;id&quot;: 10,
         &quot;name&quot;: &quot;Emilia Murillo&quot;,
         &quot;email&quot;: &quot;juribe@example.org&quot;,
         &quot;role&quot;: &quot;cliente&quot;,
@@ -2545,7 +2551,7 @@ fetch(url, {
             &quot;delivery_addresses&quot;: [],
             &quot;marketing_opt_in&quot;: false,
             &quot;marketing_opt_in_at&quot;: null,
-            &quot;privacy_accepted_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;
+            &quot;privacy_accepted_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;
         }
     }
 }</code>
@@ -2648,18 +2654,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Nombre de contacto. Example: <code>Laura Gómez</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>company_name</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="company_name"                data-endpoint="PUTapi-v1-me"
-               value="Constructora Altos S.A.S."
-               data-component="body">
-    <br>
-<p>Razón social. Obligatoria para empresas; las personas naturales no la tienen. Example: <code>Constructora Altos S.A.S.</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>phone</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
  &nbsp;
@@ -2670,6 +2664,40 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="body">
     <br>
 <p>Teléfono. Example: <code>315 555 0202</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>marketing_opt_in</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <label data-endpoint="PUTapi-v1-me" style="display: none">
+            <input type="radio" name="marketing_opt_in"
+                   value="true"
+                   data-endpoint="PUTapi-v1-me"
+                   data-component="body"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="PUTapi-v1-me" style="display: none">
+            <input type="radio" name="marketing_opt_in"
+                   value="false"
+                   data-endpoint="PUTapi-v1-me"
+                   data-component="body"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Acepta recibir promociones. Example: <code>true</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>company_name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="company_name"                data-endpoint="PUTapi-v1-me"
+               value="Constructora Altos S.A.S."
+               data-component="body">
+    <br>
+<p>Razón social. Obligatoria para empresas; las personas naturales no la tienen. Example: <code>Constructora Altos S.A.S.</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>city</code></b>&nbsp;&nbsp;
@@ -2695,27 +2723,786 @@ You can check the Dev Tools console for debugging information.</code></pre>
     <br>
 <p>Dirección de entrega habitual. Example: <code>Carrera 27 # 45-10</code></p>
         </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>marketing_opt_in</code></b>&nbsp;&nbsp;
-<small>boolean</small>&nbsp;
-<i>optional</i> &nbsp;
+        </form>
+
+                    <h2 id="mi-cuenta-PUTapi-v1-me-billing">Actualizar mis datos de facturación</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Los mismos campos del paso de facturación del pago, con los nombres de la API de clientes de Siigo (ver <code>POST /checkout</code>).
+<code>needs_invoice: false</code> borra los datos guardados. Solo clientes.</p>
+
+<span id="example-requests-PUTapi-v1-me-billing">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/me/billing" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"needs_invoice\": true,
+    \"person_type\": \"Company\",
+    \"id_type\": \"31\",
+    \"identification\": \"890903938\",
+    \"check_digit\": \"8\",
+    \"first_name\": \"n\",
+    \"last_name\": \"g\",
+    \"company_name\": \"Constructora Altos S.A.S.\",
+    \"commercial_name\": \"m\",
+    \"vat_responsible\": false,
+    \"fiscal_responsibilities\": [
+        \"O-13\"
+    ],
+    \"billing_email\": \"gulgowski.asia@example.com\",
+    \"billing_same_as_delivery\": false,
+    \"billing_address\": \"Carrera 27 # 45-10\",
+    \"billing_state_code\": \"68\",
+    \"billing_city_code\": \"68001\",
+    \"billing_postal_code\": \"LG4Qbdd\",
+    \"contact_first_name\": \"j\",
+    \"contact_last_name\": \"n\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/me/billing"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "needs_invoice": true,
+    "person_type": "Company",
+    "id_type": "31",
+    "identification": "890903938",
+    "check_digit": "8",
+    "first_name": "n",
+    "last_name": "g",
+    "company_name": "Constructora Altos S.A.S.",
+    "commercial_name": "m",
+    "vat_responsible": false,
+    "fiscal_responsibilities": [
+        "O-13"
+    ],
+    "billing_email": "gulgowski.asia@example.com",
+    "billing_same_as_delivery": false,
+    "billing_address": "Carrera 27 # 45-10",
+    "billing_state_code": "68",
+    "billing_city_code": "68001",
+    "billing_postal_code": "LG4Qbdd",
+    "contact_first_name": "j",
+    "contact_last_name": "n"
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-v1-me-billing">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;id&quot;: 11,
+        &quot;name&quot;: &quot;Alexia Sevilla&quot;,
+        &quot;email&quot;: &quot;nicolas42@example.com&quot;,
+        &quot;role&quot;: &quot;cliente&quot;,
+        &quot;customer&quot;: {
+            &quot;type&quot;: &quot;company&quot;,
+            &quot;type_label&quot;: &quot;Empresa&quot;,
+            &quot;company_name&quot;: &quot;Ayala y Fonseca S.A.S.&quot;,
+            &quot;nit&quot;: &quot;909093372-4&quot;,
+            &quot;contact_name&quot;: &quot;Sra. Alba Fonseca&quot;,
+            &quot;phone&quot;: &quot;359 021 4902&quot;,
+            &quot;city&quot;: &quot;Gir&oacute;n&quot;,
+            &quot;address&quot;: &quot;Calle Paola, 458, 67&ordm; A&quot;,
+            &quot;id_type&quot;: null,
+            &quot;check_digit&quot;: null,
+            &quot;first_name&quot;: null,
+            &quot;last_name&quot;: null,
+            &quot;commercial_name&quot;: null,
+            &quot;vat_responsible&quot;: null,
+            &quot;fiscal_responsibilities&quot;: null,
+            &quot;billing_email&quot;: null,
+            &quot;state_code&quot;: null,
+            &quot;city_code&quot;: null,
+            &quot;postal_code&quot;: null,
+            &quot;delivery_addresses&quot;: [],
+            &quot;marketing_opt_in&quot;: false,
+            &quot;marketing_opt_in_at&quot;: null,
+            &quot;privacy_accepted_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;
+        }
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PUTapi-v1-me-billing" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTapi-v1-me-billing"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-v1-me-billing"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PUTapi-v1-me-billing" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-v1-me-billing">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PUTapi-v1-me-billing" data-method="PUT"
+      data-path="api/v1/me/billing"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-v1-me-billing', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-v1-me-billing"
+                    onclick="tryItOut('PUTapi-v1-me-billing');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-v1-me-billing"
+                    onclick="cancelTryOut('PUTapi-v1-me-billing');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-v1-me-billing"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/v1/me/billing</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
  &nbsp;
-                <label data-endpoint="PUTapi-v1-me" style="display: none">
-            <input type="radio" name="marketing_opt_in"
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PUTapi-v1-me-billing"
+               value="Bearer {YOUR_AUTH_KEY}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_KEY}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PUTapi-v1-me-billing"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PUTapi-v1-me-billing"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>needs_invoice</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <label data-endpoint="PUTapi-v1-me-billing" style="display: none">
+            <input type="radio" name="needs_invoice"
                    value="true"
-                   data-endpoint="PUTapi-v1-me"
+                   data-endpoint="PUTapi-v1-me-billing"
                    data-component="body"             >
             <code>true</code>
         </label>
-        <label data-endpoint="PUTapi-v1-me" style="display: none">
-            <input type="radio" name="marketing_opt_in"
+        <label data-endpoint="PUTapi-v1-me-billing" style="display: none">
+            <input type="radio" name="needs_invoice"
                    value="false"
-                   data-endpoint="PUTapi-v1-me"
+                   data-endpoint="PUTapi-v1-me-billing"
                    data-component="body"             >
             <code>false</code>
         </label>
     <br>
-<p>Acepta recibir promociones. Example: <code>true</code></p>
+<p>Si tiene datos de facturación. Example: <code>true</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>person_type</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="person_type"                data-endpoint="PUTapi-v1-me-billing"
+               value="Company"
+               data-component="body">
+    <br>
+<p><code>Person</code> o <code>Company</code>. Example: <code>Company</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>id_type</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="id_type"                data-endpoint="PUTapi-v1-me-billing"
+               value="31"
+               data-component="body">
+    <br>
+<p>Example: <code>31</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>13</code></li> <li><code>31</code></li> <li><code>22</code></li> <li><code>41</code></li></ul>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>identification</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="identification"                data-endpoint="PUTapi-v1-me-billing"
+               value="890903938"
+               data-component="body">
+    <br>
+<p>Número de documento (NIT sin dígito de verificación). Example: <code>890903938</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>check_digit</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="check_digit"                data-endpoint="PUTapi-v1-me-billing"
+               value="8"
+               data-component="body">
+    <br>
+<p>Dígito de verificación (empresa). Example: <code>8</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>first_name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="first_name"                data-endpoint="PUTapi-v1-me-billing"
+               value="n"
+               data-component="body">
+    <br>
+<p>El campo value no puede tener más de 100 caracteres. Example: <code>n</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>last_name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="last_name"                data-endpoint="PUTapi-v1-me-billing"
+               value="g"
+               data-component="body">
+    <br>
+<p>El campo value no puede tener más de 100 caracteres. Example: <code>g</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>company_name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="company_name"                data-endpoint="PUTapi-v1-me-billing"
+               value="Constructora Altos S.A.S."
+               data-component="body">
+    <br>
+<p>Razón social (empresa). Example: <code>Constructora Altos S.A.S.</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>commercial_name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="commercial_name"                data-endpoint="PUTapi-v1-me-billing"
+               value="m"
+               data-component="body">
+    <br>
+<p>El campo value no puede tener más de 100 caracteres. Example: <code>m</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>vat_responsible</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <label data-endpoint="PUTapi-v1-me-billing" style="display: none">
+            <input type="radio" name="vat_responsible"
+                   value="true"
+                   data-endpoint="PUTapi-v1-me-billing"
+                   data-component="body"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="PUTapi-v1-me-billing" style="display: none">
+            <input type="radio" name="vat_responsible"
+                   value="false"
+                   data-endpoint="PUTapi-v1-me-billing"
+                   data-component="body"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Example: <code>false</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>fiscal_responsibilities</code></b>&nbsp;&nbsp;
+<small>string[]</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="fiscal_responsibilities[0]"                data-endpoint="PUTapi-v1-me-billing"
+               data-component="body">
+        <input type="text" style="display: none"
+               name="fiscal_responsibilities[1]"                data-endpoint="PUTapi-v1-me-billing"
+               data-component="body">
+    <br>
+<p>Códigos: R-99-PN, O-13, O-15, O-23, O-47.</p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>billing_email</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="billing_email"                data-endpoint="PUTapi-v1-me-billing"
+               value="gulgowski.asia@example.com"
+               data-component="body">
+    <br>
+<p>El campo value debe ser un correo válido. El campo value no puede tener más de 100 caracteres. Example: <code>gulgowski.asia@example.com</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>billing_same_as_delivery</code></b>&nbsp;&nbsp;
+<small>boolean</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <label data-endpoint="PUTapi-v1-me-billing" style="display: none">
+            <input type="radio" name="billing_same_as_delivery"
+                   value="true"
+                   data-endpoint="PUTapi-v1-me-billing"
+                   data-component="body"             >
+            <code>true</code>
+        </label>
+        <label data-endpoint="PUTapi-v1-me-billing" style="display: none">
+            <input type="radio" name="billing_same_as_delivery"
+                   value="false"
+                   data-endpoint="PUTapi-v1-me-billing"
+                   data-component="body"             >
+            <code>false</code>
+        </label>
+    <br>
+<p>Example: <code>false</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>billing_address</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="billing_address"                data-endpoint="PUTapi-v1-me-billing"
+               value="Carrera 27 # 45-10"
+               data-component="body">
+    <br>
+<p>Dirección. Example: <code>Carrera 27 # 45-10</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>billing_state_code</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="billing_state_code"                data-endpoint="PUTapi-v1-me-billing"
+               value="68"
+               data-component="body">
+    <br>
+<p>Código DANE del departamento. Example: <code>68</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>billing_city_code</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="billing_city_code"                data-endpoint="PUTapi-v1-me-billing"
+               value="68001"
+               data-component="body">
+    <br>
+<p>Código DANE del municipio. Example: <code>68001</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>billing_postal_code</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="billing_postal_code"                data-endpoint="PUTapi-v1-me-billing"
+               value="LG4Qbdd"
+               data-component="body">
+    <br>
+<p>Must match the regex /^[A-Za-z0-9]{1,10}$/. Example: <code>LG4Qbdd</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>contact_first_name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="contact_first_name"                data-endpoint="PUTapi-v1-me-billing"
+               value="j"
+               data-component="body">
+    <br>
+<p>El campo value no puede tener más de 50 caracteres. Example: <code>j</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>contact_last_name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="contact_last_name"                data-endpoint="PUTapi-v1-me-billing"
+               value="n"
+               data-component="body">
+    <br>
+<p>El campo value no puede tener más de 50 caracteres. Example: <code>n</code></p>
+        </div>
+        </form>
+
+                    <h2 id="mi-cuenta-PUTapi-v1-me-addresses">Actualizar mis direcciones de entrega</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Reemplaza la lista completa de direcciones guardadas (hasta 5); una lista vacía las borra. Autocompletan el paso de entrega del pago.</p>
+
+<span id="example-requests-PUTapi-v1-me-addresses">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/me/addresses" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"addresses\": [
+        {
+            \"state_code\": \"68\",
+            \"city_code\": \"68276\",
+            \"neighborhood\": \"Zona Industrial\",
+            \"road\": \"Carrera 9\",
+            \"number\": \"# 12-30\",
+            \"complement\": \"m\",
+            \"postal_code\": \"LG4Qbdd\",
+            \"notes\": \"j\"
+        }
+    ]
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/me/addresses"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "addresses": [
+        {
+            "state_code": "68",
+            "city_code": "68276",
+            "neighborhood": "Zona Industrial",
+            "road": "Carrera 9",
+            "number": "# 12-30",
+            "complement": "m",
+            "postal_code": "LG4Qbdd",
+            "notes": "j"
+        }
+    ]
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-v1-me-addresses">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;id&quot;: 12,
+        &quot;name&quot;: &quot;Dr. Lara Llorente Tercero&quot;,
+        &quot;email&quot;: &quot;baeza.anamaria@example.com&quot;,
+        &quot;role&quot;: &quot;cliente&quot;,
+        &quot;customer&quot;: {
+            &quot;type&quot;: &quot;company&quot;,
+            &quot;type_label&quot;: &quot;Empresa&quot;,
+            &quot;company_name&quot;: &quot;Cano-Guajardo SA S.A.S.&quot;,
+            &quot;nit&quot;: &quot;944401476-3&quot;,
+            &quot;contact_name&quot;: &quot;Ariadna Gallego&quot;,
+            &quot;phone&quot;: &quot;376 210 2042&quot;,
+            &quot;city&quot;: &quot;Gir&oacute;n&quot;,
+            &quot;address&quot;: &quot;Calle Jos&eacute;, 481, Bajo 2&ordm;&quot;,
+            &quot;id_type&quot;: null,
+            &quot;check_digit&quot;: null,
+            &quot;first_name&quot;: null,
+            &quot;last_name&quot;: null,
+            &quot;commercial_name&quot;: null,
+            &quot;vat_responsible&quot;: null,
+            &quot;fiscal_responsibilities&quot;: null,
+            &quot;billing_email&quot;: null,
+            &quot;state_code&quot;: null,
+            &quot;city_code&quot;: null,
+            &quot;postal_code&quot;: null,
+            &quot;delivery_addresses&quot;: [],
+            &quot;marketing_opt_in&quot;: false,
+            &quot;marketing_opt_in_at&quot;: null,
+            &quot;privacy_accepted_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;
+        }
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PUTapi-v1-me-addresses" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTapi-v1-me-addresses"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-v1-me-addresses"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PUTapi-v1-me-addresses" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-v1-me-addresses">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PUTapi-v1-me-addresses" data-method="PUT"
+      data-path="api/v1/me/addresses"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-v1-me-addresses', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-v1-me-addresses"
+                    onclick="tryItOut('PUTapi-v1-me-addresses');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-v1-me-addresses"
+                    onclick="cancelTryOut('PUTapi-v1-me-addresses');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-v1-me-addresses"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/v1/me/addresses</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PUTapi-v1-me-addresses"
+               value="Bearer {YOUR_AUTH_KEY}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_KEY}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PUTapi-v1-me-addresses"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PUTapi-v1-me-addresses"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+        <details>
+            <summary style="padding-bottom: 10px;">
+                <b style="line-height: 2;"><code>addresses</code></b>&nbsp;&nbsp;
+<small>object[]</small>&nbsp;
+ &nbsp;
+ &nbsp;
+<br>
+<p>Direcciones.</p>
+            </summary>
+                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>state_code</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="addresses.0.state_code"                data-endpoint="PUTapi-v1-me-addresses"
+               value="68"
+               data-component="body">
+    <br>
+<p>Código DANE del departamento. Example: <code>68</code></p>
+                    </div>
+                                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>city_code</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="addresses.0.city_code"                data-endpoint="PUTapi-v1-me-addresses"
+               value="68276"
+               data-component="body">
+    <br>
+<p>Código DANE del municipio. Example: <code>68276</code></p>
+                    </div>
+                                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>neighborhood</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="addresses.0.neighborhood"                data-endpoint="PUTapi-v1-me-addresses"
+               value="Zona Industrial"
+               data-component="body">
+    <br>
+<p>Barrio. Example: <code>Zona Industrial</code></p>
+                    </div>
+                                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>road</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="addresses.0.road"                data-endpoint="PUTapi-v1-me-addresses"
+               value="Carrera 9"
+               data-component="body">
+    <br>
+<p>Vía. Example: <code>Carrera 9</code></p>
+                    </div>
+                                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>number</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="addresses.0.number"                data-endpoint="PUTapi-v1-me-addresses"
+               value="# 12-30"
+               data-component="body">
+    <br>
+<p>Número. Example: <code># 12-30</code></p>
+                    </div>
+                                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>complement</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="addresses.0.complement"                data-endpoint="PUTapi-v1-me-addresses"
+               value="m"
+               data-component="body">
+    <br>
+<p>El campo value no puede tener más de 120 caracteres. Example: <code>m</code></p>
+                    </div>
+                                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>postal_code</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="addresses.0.postal_code"                data-endpoint="PUTapi-v1-me-addresses"
+               value="LG4Qbdd"
+               data-component="body">
+    <br>
+<p>Must match the regex /^[A-Za-z0-9]{1,10}$/. Example: <code>LG4Qbdd</code></p>
+                    </div>
+                                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>notes</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="addresses.0.notes"                data-endpoint="PUTapi-v1-me-addresses"
+               value="j"
+               data-component="body">
+    <br>
+<p>El campo value no puede tener más de 500 caracteres. Example: <code>j</code></p>
+                    </div>
+                                    </details>
         </div>
         </form>
 
@@ -2743,8 +3530,8 @@ muestra las de otros clientes.</p>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"type\": \"quote\",
-    \"status\": \"pending_payment\",
+    \"type\": \"purchase\",
+    \"status\": \"new\",
     \"per_page\": 1
 }"
 </code></pre></div>
@@ -2770,8 +3557,8 @@ const headers = {
 };
 
 let body = {
-    "type": "quote",
-    "status": "pending_payment",
+    "type": "purchase",
+    "status": "new",
     "per_page": 1
 };
 
@@ -2792,27 +3579,27 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;code&quot;: &quot;PED-6806&quot;,
+            &quot;code&quot;: &quot;PED-9171&quot;,
             &quot;type&quot;: &quot;purchase&quot;,
             &quot;type_label&quot;: &quot;Pedido&quot;,
             &quot;status&quot;: &quot;pending_payment&quot;,
             &quot;status_label&quot;: &quot;Pendiente de pago&quot;,
             &quot;customer_type&quot;: &quot;company&quot;,
-            &quot;company_name&quot;: &quot;Sierra, Baeza y Murillo S. de H. S.A.S.&quot;,
-            &quot;nit&quot;: &quot;969654852-9&quot;,
-            &quot;contact_name&quot;: &quot;Rosa Guajardo&quot;,
-            &quot;email&quot;: &quot;luna44@example.org&quot;,
-            &quot;phone&quot;: &quot;385 263 1582&quot;,
-            &quot;city&quot;: &quot;Piedecuesta&quot;,
-            &quot;address&quot;: &quot;R&uacute;a Adri&aacute;n, 732, 9&ordm; C&quot;,
-            &quot;is_guest&quot;: false,
-            &quot;needs_invoice&quot;: false,
+            &quot;company_name&quot;: &quot;Aguirre de Sierra e Hijo S.A.S.&quot;,
+            &quot;nit&quot;: &quot;931296562-5&quot;,
+            &quot;contact_name&quot;: &quot;Alexandra Salvador&quot;,
+            &quot;email&quot;: &quot;icalero@example.org&quot;,
+            &quot;phone&quot;: &quot;364 698 0841&quot;,
+            &quot;city&quot;: &quot;Barrancabermeja&quot;,
+            &quot;address&quot;: &quot;Ruela Santiago, 442, 43&ordm; 2&ordm;&quot;,
+            &quot;is_guest&quot;: null,
+            &quot;needs_invoice&quot;: null,
             &quot;billing&quot;: null,
             &quot;delivery&quot;: null,
             &quot;privacy_accepted_at&quot;: null,
             &quot;privacy_version&quot;: null,
-            &quot;delivery_method&quot;: &quot;national&quot;,
-            &quot;delivery_method_label&quot;: &quot;Env&iacute;o nacional&quot;,
+            &quot;delivery_method&quot;: &quot;pickup&quot;,
+            &quot;delivery_method_label&quot;: &quot;Recoger en tienda&quot;,
             &quot;payment_method&quot;: null,
             &quot;subtotal&quot;: 840336.13,
             &quot;tax&quot;: 159663.87,
@@ -2821,11 +3608,11 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 1,
-                    &quot;product_id&quot;: 1,
+                    &quot;id&quot;: 11,
+                    &quot;product_id&quot;: 470,
                     &quot;sku&quot;: &quot;REF-5058-cq&quot;,
                     &quot;product_name&quot;: &quot;Motor trif&aacute;sico 6877 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
@@ -2851,8 +3638,8 @@ fetch(url, {
             &quot;phone&quot;: &quot;329 242 1642&quot;,
             &quot;city&quot;: &quot;Piedecuesta&quot;,
             &quot;address&quot;: &quot;Carrer Nayara, 342, 1&ordm; E&quot;,
-            &quot;is_guest&quot;: false,
-            &quot;needs_invoice&quot;: false,
+            &quot;is_guest&quot;: null,
+            &quot;needs_invoice&quot;: null,
             &quot;billing&quot;: null,
             &quot;delivery&quot;: null,
             &quot;privacy_accepted_at&quot;: null,
@@ -2867,11 +3654,11 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 2,
-                    &quot;product_id&quot;: 2,
+                    &quot;id&quot;: 12,
+                    &quot;product_id&quot;: 471,
                     &quot;sku&quot;: &quot;REF-9849-tp&quot;,
                     &quot;product_name&quot;: &quot;Motor trif&aacute;sico 1703 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
@@ -3050,10 +3837,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="type"                data-endpoint="GETapi-v1-orders"
-               value="quote"
+               value="purchase"
                data-component="body">
     <br>
-<p>Example: <code>quote</code></p>
+<p>Example: <code>purchase</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>purchase</code></li> <li><code>quote</code></li></ul>
         </div>
@@ -3064,10 +3851,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="status"                data-endpoint="GETapi-v1-orders"
-               value="pending_payment"
+               value="new"
                data-component="body">
     <br>
-<p>Example: <code>pending_payment</code></p>
+<p>Example: <code>new</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>pending_payment</code></li> <li><code>paid</code></li> <li><code>shipped</code></li> <li><code>delivered</code></li> <li><code>new</code></li> <li><code>in_review</code></li> <li><code>sent</code></li> <li><code>accepted</code></li> <li><code>rejected</code></li> <li><code>cancelled</code></li></ul>
         </div>
@@ -3177,8 +3964,8 @@ fetch(url, {
             &quot;phone&quot;: &quot;318 740 4954&quot;,
             &quot;city&quot;: &quot;Gir&oacute;n&quot;,
             &quot;address&quot;: &quot;R&uacute;a Arnau, 798, 4&ordm;&quot;,
-            &quot;is_guest&quot;: false,
-            &quot;needs_invoice&quot;: false,
+            &quot;is_guest&quot;: null,
+            &quot;needs_invoice&quot;: null,
             &quot;billing&quot;: null,
             &quot;delivery&quot;: null,
             &quot;privacy_accepted_at&quot;: null,
@@ -3193,11 +3980,11 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 1,
-                    &quot;product_id&quot;: 1,
+                    &quot;id&quot;: 13,
+                    &quot;product_id&quot;: 472,
                     &quot;sku&quot;: &quot;REF-7365-sc&quot;,
                     &quot;product_name&quot;: &quot;Motor trif&aacute;sico 967 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
@@ -3223,8 +4010,8 @@ fetch(url, {
             &quot;phone&quot;: &quot;316 022 6085&quot;,
             &quot;city&quot;: &quot;Gir&oacute;n&quot;,
             &quot;address&quot;: &quot;Ronda Rold&aacute;n, 754, &Aacute;tico 6&ordm;&quot;,
-            &quot;is_guest&quot;: false,
-            &quot;needs_invoice&quot;: false,
+            &quot;is_guest&quot;: null,
+            &quot;needs_invoice&quot;: null,
             &quot;billing&quot;: null,
             &quot;delivery&quot;: null,
             &quot;privacy_accepted_at&quot;: null,
@@ -3239,11 +4026,11 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 2,
-                    &quot;product_id&quot;: 2,
+                    &quot;id&quot;: 14,
+                    &quot;product_id&quot;: 473,
                     &quot;sku&quot;: &quot;REF-3531-ob&quot;,
                     &quot;product_name&quot;: &quot;Motor trif&aacute;sico 6696 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
@@ -3503,8 +4290,8 @@ fetch(url, {
         &quot;phone&quot;: &quot;324 049 0034&quot;,
         &quot;city&quot;: &quot;Barrancabermeja&quot;,
         &quot;address&quot;: &quot;Traves&iacute;a Cristian, 47, 2&ordm; F&quot;,
-        &quot;is_guest&quot;: false,
-        &quot;needs_invoice&quot;: false,
+        &quot;is_guest&quot;: null,
+        &quot;needs_invoice&quot;: null,
         &quot;billing&quot;: null,
         &quot;delivery&quot;: null,
         &quot;privacy_accepted_at&quot;: null,
@@ -3519,11 +4306,11 @@ fetch(url, {
         &quot;notes&quot;: null,
         &quot;expires_at&quot;: null,
         &quot;paid_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;,
         &quot;items&quot;: [
             {
-                &quot;id&quot;: 1,
-                &quot;product_id&quot;: 1,
+                &quot;id&quot;: 15,
+                &quot;product_id&quot;: 474,
                 &quot;sku&quot;: &quot;REF-2083-jk&quot;,
                 &quot;product_name&quot;: &quot;Motor trif&aacute;sico 4189 HP&quot;,
                 &quot;unit&quot;: &quot;unidad&quot;,
@@ -3540,7 +4327,7 @@ fetch(url, {
                 &quot;to_status&quot;: &quot;pending_payment&quot;,
                 &quot;to_status_label&quot;: &quot;Pendiente de pago&quot;,
                 &quot;note&quot;: null,
-                &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;
             }
         ]
     }
@@ -3706,8 +4493,8 @@ fetch(url, {
         &quot;phone&quot;: &quot;305 913 5052&quot;,
         &quot;city&quot;: &quot;Bucaramanga&quot;,
         &quot;address&quot;: &quot;Passeig Olivia, 232, 4&ordm;&quot;,
-        &quot;is_guest&quot;: false,
-        &quot;needs_invoice&quot;: false,
+        &quot;is_guest&quot;: null,
+        &quot;needs_invoice&quot;: null,
         &quot;billing&quot;: null,
         &quot;delivery&quot;: null,
         &quot;privacy_accepted_at&quot;: null,
@@ -3722,11 +4509,11 @@ fetch(url, {
         &quot;notes&quot;: null,
         &quot;expires_at&quot;: null,
         &quot;paid_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;,
         &quot;items&quot;: [
             {
-                &quot;id&quot;: 1,
-                &quot;product_id&quot;: 1,
+                &quot;id&quot;: 16,
+                &quot;product_id&quot;: 475,
                 &quot;sku&quot;: &quot;REF-0782-pp&quot;,
                 &quot;product_name&quot;: &quot;Motor trif&aacute;sico 5685 HP&quot;,
                 &quot;unit&quot;: &quot;unidad&quot;,
@@ -3743,7 +4530,7 @@ fetch(url, {
                 &quot;to_status&quot;: &quot;pending_payment&quot;,
                 &quot;to_status_label&quot;: &quot;Pendiente de pago&quot;,
                 &quot;note&quot;: null,
-                &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;
             }
         ]
     }
@@ -3931,7 +4718,7 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 1,
+            &quot;id&quot;: 476,
             &quot;sku&quot;: &quot;REF-9365-mi&quot;,
             &quot;name&quot;: &quot;Motor trif&aacute;sico 4027 HP&quot;,
             &quot;slug&quot;: &quot;motor-trifasico-4027-hp&quot;,
@@ -3939,8 +4726,8 @@ fetch(url, {
             &quot;description&quot;: null,
             &quot;image_url&quot;: null,
             &quot;specs&quot;: {
-                &quot;potencia_hp&quot;: 10,
-                &quot;voltaje_v&quot;: 220
+                &quot;voltaje_v&quot;: 220,
+                &quot;potencia_hp&quot;: 10
             },
             &quot;unit&quot;: &quot;unidad&quot;,
             &quot;unit_label&quot;: &quot;Unidad&quot;,
@@ -3953,24 +4740,24 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 1,
+                &quot;id&quot;: 77,
                 &quot;name&quot;: &quot;Perspiciatis quo&quot;,
                 &quot;slug&quot;: &quot;perspiciatis-quo&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 1,
+                &quot;id&quot;: 67,
                 &quot;name&quot;: &quot;Empresa Dom&iacute;nguez e Hijo&quot;,
                 &quot;slug&quot;: &quot;empresa-dominguez-e-hijo&quot;,
                 &quot;logo_url&quot;: null
             },
             &quot;is_active&quot;: true,
             &quot;price_source&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;,
             &quot;deleted_at&quot;: null
         },
         {
-            &quot;id&quot;: 2,
+            &quot;id&quot;: 477,
             &quot;sku&quot;: &quot;REF-0719-qw&quot;,
             &quot;name&quot;: &quot;Motor trif&aacute;sico 8015 HP&quot;,
             &quot;slug&quot;: &quot;motor-trifasico-8015-hp&quot;,
@@ -3978,8 +4765,8 @@ fetch(url, {
             &quot;description&quot;: null,
             &quot;image_url&quot;: null,
             &quot;specs&quot;: {
-                &quot;potencia_hp&quot;: 5,
-                &quot;voltaje_v&quot;: 220
+                &quot;voltaje_v&quot;: 220,
+                &quot;potencia_hp&quot;: 5
             },
             &quot;unit&quot;: &quot;unidad&quot;,
             &quot;unit_label&quot;: &quot;Unidad&quot;,
@@ -3992,20 +4779,20 @@ fetch(url, {
             &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
             &quot;is_featured&quot;: false,
             &quot;category&quot;: {
-                &quot;id&quot;: 2,
+                &quot;id&quot;: 78,
                 &quot;name&quot;: &quot;Dolores enim&quot;,
                 &quot;slug&quot;: &quot;dolores-enim&quot;
             },
             &quot;brand&quot;: {
-                &quot;id&quot;: 2,
+                &quot;id&quot;: 68,
                 &quot;name&quot;: &quot;Casanova y Almonte y Asoc.&quot;,
                 &quot;slug&quot;: &quot;casanova-y-almonte-y-asoc&quot;,
                 &quot;logo_url&quot;: null
             },
             &quot;is_active&quot;: true,
             &quot;price_source&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;,
             &quot;deleted_at&quot;: null
         }
     ],
@@ -4342,7 +5129,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 1,
+        &quot;id&quot;: 478,
         &quot;sku&quot;: &quot;REF-7432-uw&quot;,
         &quot;name&quot;: &quot;Motor trif&aacute;sico 7195 HP&quot;,
         &quot;slug&quot;: &quot;motor-trifasico-7195-hp&quot;,
@@ -4350,8 +5137,8 @@ fetch(url, {
         &quot;description&quot;: null,
         &quot;image_url&quot;: null,
         &quot;specs&quot;: {
-            &quot;potencia_hp&quot;: 5,
-            &quot;voltaje_v&quot;: 220
+            &quot;voltaje_v&quot;: 220,
+            &quot;potencia_hp&quot;: 5
         },
         &quot;unit&quot;: &quot;unidad&quot;,
         &quot;unit_label&quot;: &quot;Unidad&quot;,
@@ -4364,20 +5151,20 @@ fetch(url, {
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 1,
+            &quot;id&quot;: 79,
             &quot;name&quot;: &quot;Nostrum omnis&quot;,
             &quot;slug&quot;: &quot;nostrum-omnis&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 1,
+            &quot;id&quot;: 69,
             &quot;name&quot;: &quot;Asociaci&oacute;n Jaramillo e Hija&quot;,
             &quot;slug&quot;: &quot;asociacion-jaramillo-e-hija&quot;,
             &quot;logo_url&quot;: null
         },
         &quot;is_active&quot;: true,
         &quot;price_source&quot;: null,
-        &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -4719,7 +5506,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/products/16" \
+    --get "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/products/1" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -4727,7 +5514,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/products/16"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/products/1"
 );
 
 const headers = {
@@ -4752,7 +5539,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 1,
+        &quot;id&quot;: 479,
         &quot;sku&quot;: &quot;REF-3724-pw&quot;,
         &quot;name&quot;: &quot;Motor trif&aacute;sico 2878 HP&quot;,
         &quot;slug&quot;: &quot;motor-trifasico-2878-hp&quot;,
@@ -4760,8 +5547,8 @@ fetch(url, {
         &quot;description&quot;: &quot;Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.&quot;,
         &quot;image_url&quot;: null,
         &quot;specs&quot;: {
-            &quot;potencia_hp&quot;: 10,
-            &quot;voltaje_v&quot;: 440
+            &quot;voltaje_v&quot;: 440,
+            &quot;potencia_hp&quot;: 10
         },
         &quot;unit&quot;: &quot;unidad&quot;,
         &quot;unit_label&quot;: &quot;Unidad&quot;,
@@ -4774,20 +5561,20 @@ fetch(url, {
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 1,
+            &quot;id&quot;: 80,
             &quot;name&quot;: &quot;Aliquam veniam&quot;,
             &quot;slug&quot;: &quot;aliquam-veniam&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 1,
+            &quot;id&quot;: 70,
             &quot;name&quot;: &quot;Cab&aacute;n de Llorente S. de H.&quot;,
             &quot;slug&quot;: &quot;caban-de-llorente-s-de-h&quot;,
             &quot;logo_url&quot;: null
         },
         &quot;is_active&quot;: true,
         &quot;price_source&quot;: null,
-        &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -4884,10 +5671,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-v1-admin-products--id-"
-               value="16"
+               value="1"
                data-component="url">
     <br>
-<p>The ID of the product. Example: <code>16</code></p>
+<p>The ID of the product. Example: <code>1</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>product</code></b>&nbsp;&nbsp;
@@ -4918,7 +5705,7 @@ se envían <code>is_active</code>, <code>is_featured</code> o <code>specs</code>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/products/16" \
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/products/1" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -4950,7 +5737,7 @@ se envían <code>is_active</code>, <code>is_featured</code> o <code>specs</code>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/products/16"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/products/1"
 );
 
 const headers = {
@@ -4999,7 +5786,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 1,
+        &quot;id&quot;: 480,
         &quot;sku&quot;: &quot;REF-7680-wp&quot;,
         &quot;name&quot;: &quot;Motor trif&aacute;sico 2977 HP&quot;,
         &quot;slug&quot;: &quot;motor-trifasico-2977-hp&quot;,
@@ -5007,8 +5794,8 @@ fetch(url, {
         &quot;description&quot;: &quot;Ipsum nostrum omnis autem et consequatur aut dolores enim. Facere tempora ex voluptatem laboriosam. Quis adipisci molestias fugit deleniti distinctio eum.&quot;,
         &quot;image_url&quot;: null,
         &quot;specs&quot;: {
-            &quot;potencia_hp&quot;: 10,
-            &quot;voltaje_v&quot;: 440
+            &quot;voltaje_v&quot;: 440,
+            &quot;potencia_hp&quot;: 10
         },
         &quot;unit&quot;: &quot;unidad&quot;,
         &quot;unit_label&quot;: &quot;Unidad&quot;,
@@ -5021,20 +5808,20 @@ fetch(url, {
         &quot;sale_mode_label&quot;: &quot;Venta directa&quot;,
         &quot;is_featured&quot;: false,
         &quot;category&quot;: {
-            &quot;id&quot;: 1,
+            &quot;id&quot;: 81,
             &quot;name&quot;: &quot;Corporis dolorem&quot;,
             &quot;slug&quot;: &quot;corporis-dolorem&quot;
         },
         &quot;brand&quot;: {
-            &quot;id&quot;: 1,
+            &quot;id&quot;: 71,
             &quot;name&quot;: &quot;Marroqu&iacute;n, Ram&iacute;rez y Chapa SRL&quot;,
             &quot;slug&quot;: &quot;marroquin-ramirez-y-chapa-srl&quot;,
             &quot;logo_url&quot;: null
         },
         &quot;is_active&quot;: true,
         &quot;price_source&quot;: null,
-        &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;,
         &quot;deleted_at&quot;: null
     }
 }</code>
@@ -5135,10 +5922,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="PUTapi-v1-admin-products--id-"
-               value="16"
+               value="1"
                data-component="url">
     <br>
-<p>The ID of the product. Example: <code>16</code></p>
+<p>The ID of the product. Example: <code>1</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>product</code></b>&nbsp;&nbsp;
@@ -5405,7 +6192,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/products/16" \
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/products/1" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -5413,7 +6200,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/products/16"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/products/1"
 );
 
 const headers = {
@@ -5529,10 +6316,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="DELETEapi-v1-admin-products--id-"
-               value="16"
+               value="1"
                data-component="url">
     <br>
-<p>The ID of the product. Example: <code>16</code></p>
+<p>The ID of the product. Example: <code>1</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>product</code></b>&nbsp;&nbsp;
@@ -5804,7 +6591,7 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 1,
+            &quot;id&quot;: 82,
             &quot;parent_id&quot;: null,
             &quot;name&quot;: &quot;Quos velit&quot;,
             &quot;slug&quot;: &quot;quos-velit&quot;,
@@ -5812,11 +6599,11 @@ fetch(url, {
             &quot;image_url&quot;: null,
             &quot;sort_order&quot;: 19,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;
         },
         {
-            &quot;id&quot;: 2,
+            &quot;id&quot;: 83,
             &quot;parent_id&quot;: null,
             &quot;name&quot;: &quot;Deserunt aut&quot;,
             &quot;slug&quot;: &quot;deserunt-aut&quot;,
@@ -5824,8 +6611,8 @@ fetch(url, {
             &quot;image_url&quot;: null,
             &quot;sort_order&quot;: 15,
             &quot;is_active&quot;: true,
-            &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
-            &quot;updated_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;
+            &quot;created_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;
         }
     ],
     &quot;links&quot;: {
@@ -6064,7 +6851,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 1,
+        &quot;id&quot;: 84,
         &quot;parent_id&quot;: null,
         &quot;name&quot;: &quot;Nihil accusantium&quot;,
         &quot;slug&quot;: &quot;nihil-accusantium&quot;,
@@ -6072,8 +6859,8 @@ fetch(url, {
         &quot;image_url&quot;: null,
         &quot;sort_order&quot;: 12,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;
     }
 }</code>
  </pre>
@@ -6248,7 +7035,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/categories/16" \
+    --get "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/categories/1" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -6256,7 +7043,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/categories/16"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/categories/1"
 );
 
 const headers = {
@@ -6281,7 +7068,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 1,
+        &quot;id&quot;: 85,
         &quot;parent_id&quot;: null,
         &quot;name&quot;: &quot;Aut adipisci&quot;,
         &quot;slug&quot;: &quot;aut-adipisci&quot;,
@@ -6289,8 +7076,8 @@ fetch(url, {
         &quot;image_url&quot;: null,
         &quot;sort_order&quot;: 8,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;
     }
 }</code>
  </pre>
@@ -6386,10 +7173,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-v1-admin-categories--id-"
-               value="16"
+               value="1"
                data-component="url">
     <br>
-<p>The ID of the category. Example: <code>16</code></p>
+<p>The ID of the category. Example: <code>1</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>category</code></b>&nbsp;&nbsp;
@@ -6419,7 +7206,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/categories/16" \
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/categories/1" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
@@ -6435,7 +7222,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/categories/16"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/categories/1"
 );
 
 const headers = {
@@ -6468,7 +7255,7 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;id&quot;: 1,
+        &quot;id&quot;: 86,
         &quot;parent_id&quot;: null,
         &quot;name&quot;: &quot;Harum mollitia&quot;,
         &quot;slug&quot;: &quot;harum-mollitia&quot;,
@@ -6476,8 +7263,8 @@ fetch(url, {
         &quot;image_url&quot;: null,
         &quot;sort_order&quot;: 0,
         &quot;is_active&quot;: true,
-        &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;
+        &quot;created_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2026-11-11T12:41:25.000000Z&quot;
     }
 }</code>
  </pre>
@@ -6577,10 +7364,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="PUTapi-v1-admin-categories--id-"
-               value="16"
+               value="1"
                data-component="url">
     <br>
-<p>The ID of the category. Example: <code>16</code></p>
+<p>The ID of the category. Example: <code>1</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>category</code></b>&nbsp;&nbsp;
@@ -6681,7 +7468,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/categories/16" \
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/categories/1" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -6689,7 +7476,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/categories/16"
+    "https://imagen-electrica-ecommerce.onrender.com/api/v1/admin/categories/1"
 );
 
 const headers = {
@@ -6814,10 +7601,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="DELETEapi-v1-admin-categories--id-"
-               value="16"
+               value="1"
                data-component="url">
     <br>
-<p>The ID of the category. Example: <code>16</code></p>
+<p>The ID of the category. Example: <code>1</code></p>
             </div>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>category</code></b>&nbsp;&nbsp;
@@ -7083,8 +7870,8 @@ sola referencia comprable, esa referencia lista para agregar al carrito.</p>
     \"family\": \"n\",
     \"category\": \"g\",
     \"brand\": \"z\",
-    \"mode\": \"direct\",
-    \"in_stock\": false,
+    \"mode\": \"quote\",
+    \"in_stock\": true,
     \"hp_min\": 17,
     \"hp_max\": 15,
     \"per_page\": 8
@@ -7121,8 +7908,8 @@ let body = {
     "family": "n",
     "category": "g",
     "brand": "z",
-    "mode": "direct",
-    "in_stock": false,
+    "mode": "quote",
+    "in_stock": true,
     "hp_min": 17,
     "hp_max": 15,
     "per_page": 8
@@ -7384,10 +8171,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="mode"                data-endpoint="GETapi-v1-lines"
-               value="direct"
+               value="quote"
                data-component="body">
     <br>
-<p>Example: <code>direct</code></p>
+<p>Example: <code>quote</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>direct</code></li> <li><code>quote</code></li></ul>
         </div>
@@ -7411,7 +8198,7 @@ Must be one of:
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>hp_min</code></b>&nbsp;&nbsp;
@@ -7809,7 +8596,7 @@ Límite de 10 compras por minuto y 40 por hora por IP. <code>website</code> es u
         }
     ],
     \"delivery_method\": \"local\",
-    \"delivery_state_code\": 86,
+    \"delivery_state_code\": 88,
     \"delivery_city_code\": \"68276\",
     \"delivery_neighborhood\": \"Zona Industrial\",
     \"delivery_road\": \"Carrera 9\",
@@ -7820,9 +8607,9 @@ Límite de 10 compras por minuto y 40 por hora por IP. <code>website</code> es u
     \"name\": \"n\",
     \"phone\": \"3155550202\",
     \"email\": \"mya96@example.com\",
-    \"needs_invoice\": true,
+    \"needs_invoice\": false,
     \"person_type\": \"company\",
-    \"id_type\": \"22\",
+    \"id_type\": \"41\",
     \"identification\": \"3IQY7HV\",
     \"check_digit\": \"5\",
     \"first_name\": \"Laura\",
@@ -7831,12 +8618,12 @@ Límite de 10 compras por minuto y 40 por hora por IP. <code>website</code> es u
     \"commercial_name\": \"m\",
     \"vat_responsible\": true,
     \"fiscal_responsibilities\": [
-        \"O-13\"
+        \"O-23\"
     ],
     \"billing_email\": \"facturacion@constructoraaltos.test\",
-    \"billing_same_as_delivery\": false,
+    \"billing_same_as_delivery\": true,
     \"billing_address\": \"Carrera 27 # 45-10\",
-    \"billing_state_code\": 91,
+    \"billing_state_code\": 5,
     \"billing_city_code\": \"architecto\",
     \"billing_postal_code\": \"LG4Qbdd\",
     \"contact_first_name\": \"j\",
@@ -7877,7 +8664,7 @@ let body = {
         }
     ],
     "delivery_method": "local",
-    "delivery_state_code": 86,
+    "delivery_state_code": 88,
     "delivery_city_code": "68276",
     "delivery_neighborhood": "Zona Industrial",
     "delivery_road": "Carrera 9",
@@ -7888,9 +8675,9 @@ let body = {
     "name": "n",
     "phone": "3155550202",
     "email": "mya96@example.com",
-    "needs_invoice": true,
+    "needs_invoice": false,
     "person_type": "company",
-    "id_type": "22",
+    "id_type": "41",
     "identification": "3IQY7HV",
     "check_digit": "5",
     "first_name": "Laura",
@@ -7899,12 +8686,12 @@ let body = {
     "commercial_name": "m",
     "vat_responsible": true,
     "fiscal_responsibilities": [
-        "O-13"
+        "O-23"
     ],
     "billing_email": "facturacion@constructoraaltos.test",
-    "billing_same_as_delivery": false,
+    "billing_same_as_delivery": true,
     "billing_address": "Carrera 27 # 45-10",
-    "billing_state_code": 91,
+    "billing_state_code": 5,
     "billing_city_code": "architecto",
     "billing_postal_code": "LG4Qbdd",
     "contact_first_name": "j",
@@ -7941,21 +8728,21 @@ fetch(url, {
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: [
         {
-            &quot;code&quot;: &quot;PED-7876&quot;,
+            &quot;code&quot;: &quot;PED-6168&quot;,
             &quot;type&quot;: &quot;purchase&quot;,
             &quot;type_label&quot;: &quot;Pedido&quot;,
             &quot;status&quot;: &quot;pending_payment&quot;,
             &quot;status_label&quot;: &quot;Pendiente de pago&quot;,
             &quot;customer_type&quot;: &quot;company&quot;,
-            &quot;company_name&quot;: &quot;Benito y Duarte y Asoc. S.A.S.&quot;,
-            &quot;nit&quot;: &quot;949599146-1&quot;,
-            &quot;contact_name&quot;: &quot;Helena Montes&quot;,
-            &quot;email&quot;: &quot;aceja@example.net&quot;,
-            &quot;phone&quot;: &quot;376 381 4812&quot;,
-            &quot;city&quot;: &quot;Floridablanca&quot;,
-            &quot;address&quot;: &quot;Plaza Aranda, 19, 86&ordm; B&quot;,
-            &quot;is_guest&quot;: false,
-            &quot;needs_invoice&quot;: false,
+            &quot;company_name&quot;: &quot;Air N&uacute;&ntilde;ez e Hijos S.A.S.&quot;,
+            &quot;nit&quot;: &quot;947733951-5&quot;,
+            &quot;contact_name&quot;: &quot;Alonso Corral&quot;,
+            &quot;email&quot;: &quot;alba.valdez@example.net&quot;,
+            &quot;phone&quot;: &quot;364 749 1652&quot;,
+            &quot;city&quot;: &quot;Piedecuesta&quot;,
+            &quot;address&quot;: &quot;Ronda Archuleta, 74, 3&ordm; E&quot;,
+            &quot;is_guest&quot;: null,
+            &quot;needs_invoice&quot;: null,
             &quot;billing&quot;: null,
             &quot;delivery&quot;: null,
             &quot;privacy_accepted_at&quot;: null,
@@ -7970,44 +8757,44 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-11T12:41:24.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 1,
-                    &quot;product_id&quot;: 1,
-                    &quot;sku&quot;: &quot;REF-4230-sv&quot;,
-                    &quot;product_name&quot;: &quot;Motor trif&aacute;sico 9106 HP&quot;,
+                    &quot;id&quot;: 8,
+                    &quot;product_id&quot;: 467,
+                    &quot;sku&quot;: &quot;REF-0571-qm&quot;,
+                    &quot;product_name&quot;: &quot;Motor trif&aacute;sico 5720 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
-                    &quot;quantity&quot;: 5,
-                    &quot;unit_price&quot;: 3054000,
+                    &quot;quantity&quot;: 3,
+                    &quot;unit_price&quot;: 1549000,
                     &quot;tax_rate&quot;: 19,
-                    &quot;line_total&quot;: 15270000,
+                    &quot;line_total&quot;: 4647000,
                     &quot;notes&quot;: null
                 }
             ]
         },
         {
-            &quot;code&quot;: &quot;PED-2251&quot;,
+            &quot;code&quot;: &quot;PED-2019&quot;,
             &quot;type&quot;: &quot;purchase&quot;,
             &quot;type_label&quot;: &quot;Pedido&quot;,
             &quot;status&quot;: &quot;pending_payment&quot;,
             &quot;status_label&quot;: &quot;Pendiente de pago&quot;,
             &quot;customer_type&quot;: &quot;company&quot;,
-            &quot;company_name&quot;: &quot;Luevano y Guerra e Hijos S.A.S.&quot;,
-            &quot;nit&quot;: &quot;967858218-1&quot;,
-            &quot;contact_name&quot;: &quot;Irene Mor&aacute;n Segundo&quot;,
-            &quot;email&quot;: &quot;raquel.diaz@example.org&quot;,
-            &quot;phone&quot;: &quot;352 357 6500&quot;,
+            &quot;company_name&quot;: &quot;Mata y Velasco S.A.S.&quot;,
+            &quot;nit&quot;: &quot;933597264-1&quot;,
+            &quot;contact_name&quot;: &quot;Nora Arredondo&quot;,
+            &quot;email&quot;: &quot;tcenteno@example.org&quot;,
+            &quot;phone&quot;: &quot;396 761 5529&quot;,
             &quot;city&quot;: &quot;Piedecuesta&quot;,
-            &quot;address&quot;: &quot;Traves&iacute;a S&aacute;nchez, 743, 4&ordm; B&quot;,
-            &quot;is_guest&quot;: false,
-            &quot;needs_invoice&quot;: false,
+            &quot;address&quot;: &quot;Travessera Hugo, 238, 58&ordm; C&quot;,
+            &quot;is_guest&quot;: null,
+            &quot;needs_invoice&quot;: null,
             &quot;billing&quot;: null,
             &quot;delivery&quot;: null,
             &quot;privacy_accepted_at&quot;: null,
             &quot;privacy_version&quot;: null,
-            &quot;delivery_method&quot;: &quot;national&quot;,
-            &quot;delivery_method_label&quot;: &quot;Env&iacute;o nacional&quot;,
+            &quot;delivery_method&quot;: &quot;pickup&quot;,
+            &quot;delivery_method_label&quot;: &quot;Recoger en tienda&quot;,
             &quot;payment_method&quot;: null,
             &quot;subtotal&quot;: 840336.13,
             &quot;tax&quot;: 159663.87,
@@ -8016,18 +8803,18 @@ fetch(url, {
             &quot;notes&quot;: null,
             &quot;expires_at&quot;: null,
             &quot;paid_at&quot;: null,
-            &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+            &quot;created_at&quot;: &quot;2026-11-11T12:41:24.000000Z&quot;,
             &quot;items&quot;: [
                 {
-                    &quot;id&quot;: 2,
-                    &quot;product_id&quot;: 2,
-                    &quot;sku&quot;: &quot;REF-9295-ll&quot;,
-                    &quot;product_name&quot;: &quot;Motor trif&aacute;sico 1143 HP&quot;,
+                    &quot;id&quot;: 9,
+                    &quot;product_id&quot;: 468,
+                    &quot;sku&quot;: &quot;REF-7930-xs&quot;,
+                    &quot;product_name&quot;: &quot;Motor trif&aacute;sico 528 HP&quot;,
                     &quot;unit&quot;: &quot;unidad&quot;,
                     &quot;quantity&quot;: 3,
-                    &quot;unit_price&quot;: 2822000,
+                    &quot;unit_price&quot;: 2216000,
                     &quot;tax_rate&quot;: 19,
-                    &quot;line_total&quot;: 8466000,
+                    &quot;line_total&quot;: 6648000,
                     &quot;notes&quot;: null
                 }
             ]
@@ -8189,10 +8976,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="delivery_state_code"                data-endpoint="POSTapi-v1-checkout"
-               value="86"
+               value="88"
                data-component="body">
     <br>
-<p>Example: <code>86</code></p>
+<p>Example: <code>88</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>91</code></li> <li><code>5</code></li> <li><code>81</code></li> <li><code>88</code></li> <li><code>8</code></li> <li><code>11</code></li> <li><code>13</code></li> <li><code>15</code></li> <li><code>17</code></li> <li><code>18</code></li> <li><code>85</code></li> <li><code>19</code></li> <li><code>20</code></li> <li><code>27</code></li> <li><code>25</code></li> <li><code>23</code></li> <li><code>94</code></li> <li><code>95</code></li> <li><code>41</code></li> <li><code>44</code></li> <li><code>47</code></li> <li><code>50</code></li> <li><code>52</code></li> <li><code>54</code></li> <li><code>86</code></li> <li><code>63</code></li> <li><code>66</code></li> <li><code>68</code></li> <li><code>70</code></li> <li><code>73</code></li> <li><code>76</code></li> <li><code>97</code></li> <li><code>99</code></li></ul>
         </div>
@@ -8336,7 +9123,7 @@ Must be one of:
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>true</code></p>
+<p>Example: <code>false</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>person_type</code></b>&nbsp;&nbsp;
@@ -8357,10 +9144,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="id_type"                data-endpoint="POSTapi-v1-checkout"
-               value="22"
+               value="41"
                data-component="body">
     <br>
-<p>Example: <code>22</code></p>
+<p>Example: <code>41</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>13</code></li> <li><code>31</code></li> <li><code>22</code></li> <li><code>41</code></li></ul>
         </div>
@@ -8506,7 +9293,7 @@ Must be one of:
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>billing_address</code></b>&nbsp;&nbsp;
@@ -8527,10 +9314,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="billing_state_code"                data-endpoint="POSTapi-v1-checkout"
-               value="91"
+               value="5"
                data-component="body">
     <br>
-<p>Example: <code>91</code></p>
+<p>Example: <code>5</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>91</code></li> <li><code>5</code></li> <li><code>81</code></li> <li><code>88</code></li> <li><code>8</code></li> <li><code>11</code></li> <li><code>13</code></li> <li><code>15</code></li> <li><code>17</code></li> <li><code>18</code></li> <li><code>85</code></li> <li><code>19</code></li> <li><code>20</code></li> <li><code>27</code></li> <li><code>25</code></li> <li><code>23</code></li> <li><code>94</code></li> <li><code>95</code></li> <li><code>41</code></li> <li><code>44</code></li> <li><code>47</code></li> <li><code>50</code></li> <li><code>52</code></li> <li><code>54</code></li> <li><code>86</code></li> <li><code>63</code></li> <li><code>66</code></li> <li><code>68</code></li> <li><code>70</code></li> <li><code>73</code></li> <li><code>76</code></li> <li><code>97</code></li> <li><code>99</code></li></ul>
         </div>
@@ -8822,27 +9609,27 @@ fetch(url, {
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;data&quot;: {
-        &quot;code&quot;: &quot;PED-9171&quot;,
+        &quot;code&quot;: &quot;PED-4346&quot;,
         &quot;type&quot;: &quot;purchase&quot;,
         &quot;type_label&quot;: &quot;Pedido&quot;,
         &quot;status&quot;: &quot;pending_payment&quot;,
         &quot;status_label&quot;: &quot;Pendiente de pago&quot;,
         &quot;customer_type&quot;: &quot;company&quot;,
-        &quot;company_name&quot;: &quot;Aguirre de Sierra e Hijo S.A.S.&quot;,
-        &quot;nit&quot;: &quot;931296562-5&quot;,
-        &quot;contact_name&quot;: &quot;Alexandra Salvador&quot;,
-        &quot;email&quot;: &quot;arredondo.juana@example.com&quot;,
-        &quot;phone&quot;: &quot;364 698 0841&quot;,
-        &quot;city&quot;: &quot;Barrancabermeja&quot;,
-        &quot;address&quot;: &quot;Ruela Santiago, 442, 43&ordm; 2&ordm;&quot;,
-        &quot;is_guest&quot;: false,
-        &quot;needs_invoice&quot;: false,
+        &quot;company_name&quot;: &quot;Paredes y Salvador y Flia. S.A.S.&quot;,
+        &quot;nit&quot;: &quot;986217880-8&quot;,
+        &quot;contact_name&quot;: &quot;Sr. Jos&eacute; Mu&ntilde;iz&quot;,
+        &quot;email&quot;: &quot;harmendariz@example.net&quot;,
+        &quot;phone&quot;: &quot;368 447 1366&quot;,
+        &quot;city&quot;: &quot;Piedecuesta&quot;,
+        &quot;address&quot;: &quot;Camino Eva, 54, 54&ordm; D&quot;,
+        &quot;is_guest&quot;: null,
+        &quot;needs_invoice&quot;: null,
         &quot;billing&quot;: null,
         &quot;delivery&quot;: null,
         &quot;privacy_accepted_at&quot;: null,
         &quot;privacy_version&quot;: null,
-        &quot;delivery_method&quot;: &quot;pickup&quot;,
-        &quot;delivery_method_label&quot;: &quot;Recoger en tienda&quot;,
+        &quot;delivery_method&quot;: &quot;local&quot;,
+        &quot;delivery_method_label&quot;: &quot;Env&iacute;o local (Bucaramanga y &aacute;rea metropolitana)&quot;,
         &quot;payment_method&quot;: null,
         &quot;subtotal&quot;: 840336.13,
         &quot;tax&quot;: 159663.87,
@@ -8851,18 +9638,18 @@ fetch(url, {
         &quot;notes&quot;: null,
         &quot;expires_at&quot;: null,
         &quot;paid_at&quot;: null,
-        &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;,
+        &quot;created_at&quot;: &quot;2026-11-11T12:41:24.000000Z&quot;,
         &quot;items&quot;: [
             {
-                &quot;id&quot;: 1,
-                &quot;product_id&quot;: 1,
-                &quot;sku&quot;: &quot;REF-5744-tc&quot;,
-                &quot;product_name&quot;: &quot;Motor trif&aacute;sico 4086 HP&quot;,
+                &quot;id&quot;: 10,
+                &quot;product_id&quot;: 469,
+                &quot;sku&quot;: &quot;REF-5617-ci&quot;,
+                &quot;product_name&quot;: &quot;Motor trif&aacute;sico 2570 HP&quot;,
                 &quot;unit&quot;: &quot;unidad&quot;,
                 &quot;quantity&quot;: 5,
-                &quot;unit_price&quot;: 4793000,
+                &quot;unit_price&quot;: 1593000,
                 &quot;tax_rate&quot;: 19,
-                &quot;line_total&quot;: 23965000,
+                &quot;line_total&quot;: 7965000,
                 &quot;notes&quot;: null
             }
         ],
@@ -8872,7 +9659,7 @@ fetch(url, {
                 &quot;to_status&quot;: &quot;pending_payment&quot;,
                 &quot;to_status_label&quot;: &quot;Pendiente de pago&quot;,
                 &quot;note&quot;: null,
-                &quot;created_at&quot;: &quot;2026-11-11T10:55:09.000000Z&quot;
+                &quot;created_at&quot;: &quot;2026-11-11T12:41:24.000000Z&quot;
             }
         ]
     }
@@ -9568,7 +10355,7 @@ solicitud y el tiempo estimado de respuesta.</p>
     --form "application=Bomba de agua"\
     --form "privacy_accepted=1"\
     --form "website=k"\
-    --form "attachment=@/private/var/folders/cr/7_9z3_7d765bhxff2r4jr80r0000gn/T/phpdc3fobd8op703DOXxXp" </code></pre></div>
+    --form "attachment=@/private/var/folders/cr/7_9z3_7d765bhxff2r4jr80r0000gn/T/phpav5f9pnuqohm5IGJWOd" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -9808,7 +10595,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Foto, placa del equipo o lista de materiales (PDF, JPG o PNG, máx. 5 MB). Example: <code>/private/var/folders/cr/7_9z3_7d765bhxff2r4jr80r0000gn/T/phpdc3fobd8op703DOXxXp</code></p>
+<p>Foto, placa del equipo o lista de materiales (PDF, JPG o PNG, máx. 5 MB). Example: <code>/private/var/folders/cr/7_9z3_7d765bhxff2r4jr80r0000gn/T/phpav5f9pnuqohm5IGJWOd</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>privacy_accepted</code></b>&nbsp;&nbsp;

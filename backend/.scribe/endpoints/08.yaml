@@ -31,7 +31,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":1,"name":"Omar Dom\u00ednguez","email":"icalero@example.org","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Asociaci\u00f3n Col\u00f3n-Zelaya S.A.S.","nit":"979091506-6","contact_name":"Santiago Valles","phone":"364 310 6432","city":"Floridablanca","address":"Paseo Isaac, 409, 9\u00ba C","id_type":null,"check_digit":null,"first_name":null,"last_name":null,"commercial_name":null,"vat_responsible":null,"fiscal_responsibilities":null,"billing_email":null,"state_code":null,"city_code":null,"postal_code":null,"delivery_addresses":[],"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-11-11T10:55:09.000000Z"}}}'
+        content: '{"data":{"id":9,"name":"Omar Dom\u00ednguez","email":"arredondo.juana@example.com","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Calero de Zamora S.A.S.","nit":"990122162-7","contact_name":"Sr. H\u00e9ctor Zelaya","phone":"379 091 5066","city":"Gir\u00f3n","address":"Calle Elizondo, 54, 27\u00ba C","id_type":null,"check_digit":null,"first_name":null,"last_name":null,"commercial_name":null,"vat_responsible":null,"fiscal_responsibilities":null,"billing_email":null,"state_code":null,"city_code":null,"postal_code":null,"delivery_addresses":[],"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-11-11T12:41:24.000000Z"}}}'
         headers: []
         description: ''
     responseFields: []
@@ -79,17 +79,6 @@ endpoints:
         exampleWasSpecified: true
         nullable: false
         deprecated: false
-      company_name:
-        custom: []
-        name: company_name
-        description: 'Razón social. Obligatoria para empresas; las personas naturales no la tienen.'
-        required: false
-        example: 'Constructora Altos S.A.S.'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
-        deprecated: false
       phone:
         custom: []
         name: phone
@@ -100,28 +89,6 @@ endpoints:
         enumValues: []
         exampleWasSpecified: true
         nullable: false
-        deprecated: false
-      city:
-        custom: []
-        name: city
-        description: Ciudad.
-        required: true
-        example: Girón
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      address:
-        custom: []
-        name: address
-        description: 'Dirección de entrega habitual.'
-        required: false
-        example: 'Carrera 27 # 45-10'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: true
         deprecated: false
       marketing_opt_in:
         custom: []
@@ -134,19 +101,480 @@ endpoints:
         exampleWasSpecified: true
         nullable: true
         deprecated: false
+      company_name:
+        custom: []
+        name: company_name
+        description: 'Razón social. Obligatoria para empresas; las personas naturales no la tienen.'
+        required: false
+        example: 'Constructora Altos S.A.S.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      city:
+        custom: []
+        name: city
+        description: Ciudad.
+        required: true
+        example: Girón
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      address:
+        custom: []
+        name: address
+        description: 'Dirección de entrega habitual.'
+        required: false
+        example: 'Carrera 27 # 45-10'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
     cleanBodyParameters:
       name: 'Laura Gómez'
-      company_name: 'Constructora Altos S.A.S.'
       phone: '315 555 0202'
+      marketing_opt_in: true
+      company_name: 'Constructora Altos S.A.S.'
       city: Girón
       address: 'Carrera 27 # 45-10'
-      marketing_opt_in: true
     fileParameters: []
     responses:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":1,"name":"Emilia Murillo","email":"juribe@example.org","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Rivas y Sevilla SA S.A.S.","nit":"968210674-8","contact_name":"Adri\u00e1n Cavazos Hijo","phone":"315 175 7680","city":"Barrancabermeja","address":"Pla\u00e7a Juana, 979, 27\u00ba A","id_type":null,"check_digit":null,"first_name":null,"last_name":null,"commercial_name":null,"vat_responsible":null,"fiscal_responsibilities":null,"billing_email":null,"state_code":null,"city_code":null,"postal_code":null,"delivery_addresses":[],"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-11-11T10:55:09.000000Z"}}}'
+        content: '{"data":{"id":10,"name":"Emilia Murillo","email":"juribe@example.org","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Rivas y Sevilla SA S.A.S.","nit":"968210674-8","contact_name":"Adri\u00e1n Cavazos Hijo","phone":"315 175 7680","city":"Barrancabermeja","address":"Pla\u00e7a Juana, 979, 27\u00ba A","id_type":null,"check_digit":null,"first_name":null,"last_name":null,"commercial_name":null,"vat_responsible":null,"fiscal_responsibilities":null,"billing_email":null,"state_code":null,"city_code":null,"postal_code":null,"delivery_addresses":[],"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-11-11T12:41:25.000000Z"}}}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: api/v1/me/billing
+    metadata:
+      custom: []
+      groupName: 'Mi cuenta'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Actualizar mis datos de facturación'
+      description: |-
+        Los mismos campos del paso de facturación del pago, con los nombres de la API de clientes de Siigo (ver `POST /checkout`).
+        `needs_invoice: false` borra los datos guardados. Solo clientes.
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      needs_invoice:
+        custom: []
+        name: needs_invoice
+        description: 'Si tiene datos de facturación.'
+        required: true
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      person_type:
+        custom: []
+        name: person_type
+        description: '`Person` o `Company`.'
+        required: false
+        example: Company
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      id_type:
+        custom: []
+        name: id_type
+        description: ''
+        required: false
+        example: '31'
+        type: string
+        enumValues:
+          - '13'
+          - '31'
+          - '22'
+          - '41'
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      identification:
+        custom: []
+        name: identification
+        description: 'Número de documento (NIT sin dígito de verificación).'
+        required: false
+        example: '890903938'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      check_digit:
+        custom: []
+        name: check_digit
+        description: 'Dígito de verificación (empresa).'
+        required: false
+        example: '8'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      first_name:
+        custom: []
+        name: first_name
+        description: 'El campo value no puede tener más de 100 caracteres.'
+        required: false
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      last_name:
+        custom: []
+        name: last_name
+        description: 'El campo value no puede tener más de 100 caracteres.'
+        required: false
+        example: g
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      company_name:
+        custom: []
+        name: company_name
+        description: 'Razón social (empresa).'
+        required: false
+        example: 'Constructora Altos S.A.S.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      commercial_name:
+        custom: []
+        name: commercial_name
+        description: 'El campo value no puede tener más de 100 caracteres.'
+        required: false
+        example: m
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      vat_responsible:
+        custom: []
+        name: vat_responsible
+        description: ''
+        required: false
+        example: false
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      fiscal_responsibilities:
+        custom: []
+        name: fiscal_responsibilities
+        description: 'Códigos: R-99-PN, O-13, O-15, O-23, O-47.'
+        required: false
+        example:
+          - O-13
+        type: 'string[]'
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      billing_email:
+        custom: []
+        name: billing_email
+        description: 'El campo value debe ser un correo válido. El campo value no puede tener más de 100 caracteres.'
+        required: false
+        example: gulgowski.asia@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      billing_same_as_delivery:
+        custom: []
+        name: billing_same_as_delivery
+        description: ''
+        required: false
+        example: false
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      billing_address:
+        custom: []
+        name: billing_address
+        description: Dirección.
+        required: false
+        example: 'Carrera 27 # 45-10'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      billing_state_code:
+        custom: []
+        name: billing_state_code
+        description: 'Código DANE del departamento.'
+        required: false
+        example: '68'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      billing_city_code:
+        custom: []
+        name: billing_city_code
+        description: 'Código DANE del municipio.'
+        required: false
+        example: '68001'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: true
+        deprecated: false
+      billing_postal_code:
+        custom: []
+        name: billing_postal_code
+        description: 'Must match the regex /^[A-Za-z0-9]{1,10}$/.'
+        required: false
+        example: LG4Qbdd
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      contact_first_name:
+        custom: []
+        name: contact_first_name
+        description: 'El campo value no puede tener más de 50 caracteres.'
+        required: false
+        example: j
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      contact_last_name:
+        custom: []
+        name: contact_last_name
+        description: 'El campo value no puede tener más de 50 caracteres.'
+        required: false
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      needs_invoice: true
+      person_type: Company
+      id_type: '31'
+      identification: '890903938'
+      check_digit: '8'
+      first_name: 'n'
+      last_name: g
+      company_name: 'Constructora Altos S.A.S.'
+      commercial_name: m
+      vat_responsible: false
+      fiscal_responsibilities:
+        - O-13
+      billing_email: gulgowski.asia@example.com
+      billing_same_as_delivery: false
+      billing_address: 'Carrera 27 # 45-10'
+      billing_state_code: '68'
+      billing_city_code: '68001'
+      billing_postal_code: LG4Qbdd
+      contact_first_name: j
+      contact_last_name: 'n'
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"data":{"id":11,"name":"Alexia Sevilla","email":"nicolas42@example.com","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Ayala y Fonseca S.A.S.","nit":"909093372-4","contact_name":"Sra. Alba Fonseca","phone":"359 021 4902","city":"Gir\u00f3n","address":"Calle Paola, 458, 67\u00ba A","id_type":null,"check_digit":null,"first_name":null,"last_name":null,"commercial_name":null,"vat_responsible":null,"fiscal_responsibilities":null,"billing_email":null,"state_code":null,"city_code":null,"postal_code":null,"delivery_addresses":[],"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-11-11T12:41:25.000000Z"}}}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: api/v1/me/addresses
+    metadata:
+      custom: []
+      groupName: 'Mi cuenta'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Actualizar mis direcciones de entrega'
+      description: 'Reemplaza la lista completa de direcciones guardadas (hasta 5); una lista vacía las borra. Autocompletan el paso de entrega del pago.'
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      addresses:
+        custom: []
+        name: addresses
+        description: Direcciones.
+        required: true
+        example:
+          - []
+        type: 'object[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      'addresses[].state_code':
+        custom: []
+        name: 'addresses[].state_code'
+        description: 'Código DANE del departamento.'
+        required: true
+        example: '68'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'addresses[].city_code':
+        custom: []
+        name: 'addresses[].city_code'
+        description: 'Código DANE del municipio.'
+        required: true
+        example: '68276'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'addresses[].neighborhood':
+        custom: []
+        name: 'addresses[].neighborhood'
+        description: Barrio.
+        required: true
+        example: 'Zona Industrial'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'addresses[].road':
+        custom: []
+        name: 'addresses[].road'
+        description: Vía.
+        required: true
+        example: 'Carrera 9'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'addresses[].number':
+        custom: []
+        name: 'addresses[].number'
+        description: Número.
+        required: true
+        example: '# 12-30'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      'addresses[].complement':
+        custom: []
+        name: 'addresses[].complement'
+        description: 'El campo value no puede tener más de 120 caracteres.'
+        required: false
+        example: m
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      'addresses[].postal_code':
+        custom: []
+        name: 'addresses[].postal_code'
+        description: 'Must match the regex /^[A-Za-z0-9]{1,10}$/.'
+        required: false
+        example: LG4Qbdd
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      'addresses[].notes':
+        custom: []
+        name: 'addresses[].notes'
+        description: 'El campo value no puede tener más de 500 caracteres.'
+        required: false
+        example: j
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      addresses:
+        -
+          state_code: '68'
+          city_code: '68276'
+          neighborhood: 'Zona Industrial'
+          road: 'Carrera 9'
+          number: '# 12-30'
+          complement: m
+          postal_code: LG4Qbdd
+          notes: j
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"data":{"id":12,"name":"Dr. Lara Llorente Tercero","email":"baeza.anamaria@example.com","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Cano-Guajardo SA S.A.S.","nit":"944401476-3","contact_name":"Ariadna Gallego","phone":"376 210 2042","city":"Gir\u00f3n","address":"Calle Jos\u00e9, 481, Bajo 2\u00ba","id_type":null,"check_digit":null,"first_name":null,"last_name":null,"commercial_name":null,"vat_responsible":null,"fiscal_responsibilities":null,"billing_email":null,"state_code":null,"city_code":null,"postal_code":null,"delivery_addresses":[],"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-11-11T12:41:25.000000Z"}}}'
         headers: []
         description: ''
     responseFields: []

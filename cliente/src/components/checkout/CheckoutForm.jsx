@@ -1,39 +1,20 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, Building2, Check, Lock, MapPin, Store, Truck, User } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check, Lock, MapPin, Store, Truck } from 'lucide-react'
 import { checkoutApi, shippingApi } from '../../api'
 import { site } from '../../config/site'
 import { useAuth } from '../../context/AuthContext'
+import { useFields } from '../../hooks/useFields'
 import { useDepartments, useMunicipalities } from '../../hooks/useLocations'
-import { FISCAL_CODES, ID_TYPES, PRIVACY_VERSION, digits, initialForm, nitCheckDigit, stepOfError, toPayload, validateContact, validateDelivery, validateInvoice } from '../../lib/checkout'
+import { ID_TYPES, PRIVACY_VERSION, digits, initialForm, stepOfError, toPayload, validateContact, validateDelivery, validateInvoice } from '../../lib/checkout'
 import { formatCOP } from '../../lib/format'
 import Field from '../ui/Field'
+import InvoiceFields, { InvoiceSwitch } from '../forms/InvoiceFields'
+import PlaceFields from '../forms/PlaceFields'
 import Pill from '../ui/Pill'
 import '../../styles/checkout.css'
 
 const STEPS = ['Entrega', 'Tus datos', 'Facturación', 'Confirmar']
-
-// Departamento → municipio (lista dependiente con código DANE). `prefix` distingue la dirección de entrega de la de facturación.
-function PlaceFields({ stateField, cityField, form, set, errors, serverError }) {
-  const dept = useDepartments()
-  const code = form[stateField]
-  const cities = useMunicipalities(code)
-  const err = (k) => errors[k] ?? serverError?.fieldError?.(k)
-
-  return (
-    <>
-      <Field as="select" label="Departamento" value={code} onChange={set(stateField, { reset: cityField })} error={err(stateField)} autoComplete="address-level1" required>
-        <option value="">{dept.loading ? 'Cargando…' : 'Elige el departamento'}</option>
-        {dept.list.map((d) => <option key={d.code} value={d.code}>{d.name}</option>)}
-      </Field>
-      <Field as="select" label="Municipio" value={form[cityField]} onChange={set(cityField)} error={err(cityField)} disabled={!code || cities.loading} autoComplete="address-level2" required hint={code ? undefined : 'Primero elige el departamento.'}>
-        <option value="">{cities.loading ? 'Cargando…' : 'Elige el municipio'}</option>
-        {cities.list.map((c) => <option key={c.code} value={c.code}>{c.name}</option>)}
-      </Field>
-      {(dept.error || cities.error) && <p className="co-warn" role="alert">No pudimos cargar la lista de ubicaciones. Revisa tu conexión y recarga la página.</p>}
-    </>
-  )
-}
 
 /**
  * Compra por pasos: 1 entrega · 2 tus datos · 3 facturación electrónica (opcional) · 4 confirmar. Sirve para invitados y para quien tiene
@@ -41,9 +22,8 @@ function PlaceFields({ stateField, cityField, form, set, errors, serverError }) 
  */
 export default function CheckoutForm({ purchaseLines, subtotal, onShipping, onCreated }) {
   const { user, isAuthenticated } = useAuth()
-  const [form, setForm] = useState(() => initialForm(user))
+  const { form, setForm, errors, setErrors, set } = useFields(() => initialForm(user))
   const [step, setStep] = useState(1)
-  const [errors, setErrors] = useState({})
   const [busy, setBusy] = useState(false)
   const [serverError, setServerError] = useState(null)
   const [quote, setQuote] = useState(null)
@@ -51,7 +31,6 @@ export default function CheckoutForm({ purchaseLines, subtotal, onShipping, onCr
 
   const company = form.person_type === 'Company'
   const pickup = form.delivery_method === 'pickup'
-  const dvHint = company && digits(form.identification).length >= 3 ? nitCheckDigit(form.identification) : ''
   const states = useDepartments().list
   const billingCities = useMunicipalities(form.billing_state_code)
   const deliveryCities = useMunicipalities(form.delivery_state_code)
@@ -72,26 +51,6 @@ export default function CheckoutForm({ purchaseLines, subtotal, onShipping, onCr
     return () => { alive = false }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pickup, form.delivery_city_code, subtotal])
-
-  // set('campo') maneja inputs y checkboxes; { reset } vacía el campo dependiente (el municipio al cambiar el departamento)
-  const set = (name, { reset } = {}) => (e) => {
-    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
-    setForm((f) => {
-      const next = { ...f, [name]: value, ...(reset ? { [reset]: '' } : {}) }
-      // El DV se calcula solo al escribir el NIT (se puede corregir a mano; el servidor lo valida igual)
-      if (name === 'identification' && f.person_type === 'Company') next.check_digit = nitCheckDigit(value)
-      return next
-    })
-    setErrors((er) => ({ ...er, [name]: undefined }))
-  }
-
-  const setType = (type) => setForm((f) => ({
-    ...f,
-    person_type: type,
-    id_type: type === 'Company' ? '31' : f.id_type === '31' ? '13' : f.id_type,
-    check_digit: type === 'Company' ? nitCheckDigit(f.identification) : '',
-    vat_responsible: type === 'Company' ? true : f.vat_responsible,
-  }))
 
   const useSaved = (index) => {
     const a = savedAddresses[Number(index)]
@@ -237,62 +196,8 @@ export default function CheckoutForm({ purchaseLines, subtotal, onShipping, onCr
       {step === 3 && (
         <fieldset className="co-pane">
           <legend>Facturación electrónica</legend>
-          <label className="co-switch">
-            <input type="checkbox" role="switch" checked={form.needs_invoice} onChange={set('needs_invoice')} />
-            <span className="co-switch__ui" aria-hidden="true" />
-            <span><strong>Necesito factura a nombre de una persona o empresa</strong><small>Si no la necesitas, sigue al paso siguiente: no te pedimos documento.</small></span>
-          </label>
-
-          {form.needs_invoice && (
-            <>
-              <div className="co-seg" role="radiogroup" aria-label="Tipo de persona">
-                <label className={!company ? 'is-on' : ''}><input type="radio" name="person_type" checked={!company} onChange={() => setType('Person')} /><User size={18} aria-hidden="true" /> Persona natural</label>
-                <label className={company ? 'is-on' : ''}><input type="radio" name="person_type" checked={company} onChange={() => setType('Company')} /><Building2 size={18} aria-hidden="true" /> Empresa</label>
-              </div>
-
-              <div className="co-grid">
-                {company ? (
-                  <>
-                    <Field label="NIT (sin dígito de verificación)" inputMode="numeric" value={form.identification} onChange={set('identification')} error={e('identification')} maxLength={13} required />
-                    <Field label="Dígito de verificación" inputMode="numeric" value={form.check_digit} onChange={set('check_digit')} error={e('check_digit')} maxLength={1} required hint={dvHint ? `Calculado para ese NIT: ${dvHint}` : 'Se calcula al escribir el NIT.'} />
-                    <Field label="Razón social" value={form.company_name} onChange={set('company_name')} error={e('company_name')} autoComplete="organization" maxLength={100} required />
-                    <Field label="Nombre comercial (opcional)" value={form.commercial_name} onChange={set('commercial_name')} maxLength={100} />
-                    <Field label="Nombres del contacto" value={form.contact_first_name} onChange={set('contact_first_name')} maxLength={50} hint="Por defecto, quien compra." />
-                    <Field label="Apellidos del contacto" value={form.contact_last_name} onChange={set('contact_last_name')} maxLength={50} />
-                  </>
-                ) : (
-                  <>
-                    <Field as="select" label="Tipo de documento" value={form.id_type} onChange={set('id_type')} error={e('id_type')} required>
-                      {ID_TYPES.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-                    </Field>
-                    <Field label="Número de documento" inputMode={form.id_type === '13' || form.id_type === '31' ? 'numeric' : 'text'} value={form.identification} onChange={set('identification')} error={e('identification')} maxLength={20} required />
-                    <Field label="Nombres" value={form.first_name} onChange={set('first_name')} error={e('first_name')} autoComplete="given-name" maxLength={100} required />
-                    <Field label="Apellidos" value={form.last_name} onChange={set('last_name')} error={e('last_name')} autoComplete="family-name" maxLength={100} required />
-                    <Field label="Nombre comercial (opcional)" value={form.commercial_name} onChange={set('commercial_name')} maxLength={100} wrap="co-span2" />
-                  </>
-                )}
-                <Field as="select" label="Responsabilidad fiscal" value={form.fiscal_responsibility} onChange={set('fiscal_responsibility')} error={e('fiscal_responsibilities')} required>
-                  {FISCAL_CODES.map((o) => <option key={o.value} value={o.value}>{o.label} ({o.value})</option>)}
-                </Field>
-                <label className="check co-vat"><input type="checkbox" checked={form.vat_responsible} onChange={set('vat_responsible')} /><span>Responsable de IVA</span></label>
-                <Field label="Correo de facturación (opcional)" type="email" value={form.billing_email} onChange={set('billing_email')} error={e('billing_email')} hint="Si lo dejas vacío usamos tu correo de contacto." wrap="co-span2" />
-              </div>
-
-              {!pickup && (
-                <label className="check co-same">
-                  <input type="checkbox" checked={form.billing_same_as_delivery} onChange={set('billing_same_as_delivery')} />
-                  <span>Usar la misma dirección de entrega para la factura</span>
-                </label>
-              )}
-              {(pickup || !form.billing_same_as_delivery) && (
-                <div className="co-grid">
-                  <Field label="Dirección de facturación" value={form.billing_address} onChange={set('billing_address')} error={e('billing_address')} autoComplete="street-address" maxLength={256} required wrap="co-span2" />
-                  <PlaceFields stateField="billing_state_code" cityField="billing_city_code" form={form} set={set} errors={errors} serverError={serverError} />
-                  <Field label="Código postal (opcional)" value={form.billing_postal_code} onChange={set('billing_postal_code')} error={e('billing_postal_code')} maxLength={10} />
-                </div>
-              )}
-            </>
-          )}
+          <InvoiceSwitch checked={form.needs_invoice} onChange={set('needs_invoice')} title="Necesito factura a nombre de una persona o empresa" hint="Si no la necesitas, sigue al paso siguiente: no te pedimos documento." />
+          {form.needs_invoice && <InvoiceFields form={form} setForm={setForm} set={set} errors={errors} serverError={serverError} canUseDelivery={!pickup} />}
         </fieldset>
       )}
 

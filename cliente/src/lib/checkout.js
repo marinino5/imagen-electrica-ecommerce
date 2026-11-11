@@ -95,6 +95,17 @@ export function initialForm(user) {
   }
 }
 
+/** Cambia entre persona natural y empresa: ajusta el tipo de documento, el dígito de verificación y el IVA que corresponden. */
+export function withPersonType(f, type) {
+  return {
+    ...f,
+    person_type: type,
+    id_type: type === 'Company' ? '31' : f.id_type === '31' ? '13' : f.id_type,
+    check_digit: type === 'Company' ? nitCheckDigit(f.identification) : '',
+    vat_responsible: type === 'Company' ? true : f.vat_responsible,
+  }
+}
+
 /** Paso 1 · Entrega. Recoger en tienda no pide dirección. */
 export function validateDelivery(f) {
   const e = {}
@@ -158,14 +169,46 @@ export function stepOfError(fields) {
   return 4
 }
 
+const clean = (v) => (typeof v === 'string' ? v.trim() : v)
+const opt = (v) => clean(v) || undefined
+
+/**
+ * Campos de facturación del formulario → cuerpo de la API (nombres de Siigo). Lo usan el pago, Crear cuenta y Mi cuenta.
+ * `same`: la factura va a la dirección de entrega (no se mandan los campos de dirección).
+ */
+export function toInvoicePayload(f, { same = false } = {}) {
+  const company = f.person_type === 'Company'
+  const invoice = f.needs_invoice
+  const own = invoice && !same
+
+  return {
+    needs_invoice: invoice,
+    person_type: invoice ? f.person_type : undefined,
+    id_type: invoice ? (company ? '31' : f.id_type) : undefined,
+    identification: invoice ? clean(f.identification) : undefined,
+    check_digit: invoice && company ? f.check_digit : undefined,
+    first_name: invoice && !company ? clean(f.first_name) : undefined,
+    last_name: invoice && !company ? clean(f.last_name) : undefined,
+    company_name: invoice && company ? clean(f.company_name) : undefined,
+    commercial_name: invoice ? opt(f.commercial_name) : undefined,
+    vat_responsible: invoice ? f.vat_responsible : undefined,
+    fiscal_responsibilities: invoice ? [f.fiscal_responsibility] : undefined,
+    billing_email: invoice ? opt(f.billing_email) : undefined,
+    billing_same_as_delivery: invoice && same ? true : undefined,
+    billing_address: own ? clean(f.billing_address) : undefined,
+    billing_state_code: own ? f.billing_state_code : undefined,
+    billing_city_code: own ? f.billing_city_code : undefined,
+    billing_postal_code: own ? opt(f.billing_postal_code) : undefined,
+    contact_first_name: invoice && company ? opt(f.contact_first_name) : undefined,
+    contact_last_name: invoice && company ? opt(f.contact_last_name) : undefined,
+  }
+}
+
 /** Valores del formulario → cuerpo de POST /checkout. */
 export function toPayload(f, items) {
-  const company = f.person_type === 'Company'
   const delivers = f.delivery_method !== 'pickup'
   const invoice = f.needs_invoice
   const same = invoice && delivers && f.billing_same_as_delivery
-  const clean = (v) => (typeof v === 'string' ? v.trim() : v)
-  const opt = (v) => clean(v) || undefined
 
   return {
     items,
@@ -182,25 +225,7 @@ export function toPayload(f, items) {
     name: clean(f.name),
     phone: clean(f.phone),
     email: clean(f.email),
-    needs_invoice: invoice,
-    person_type: invoice ? f.person_type : undefined,
-    id_type: invoice ? (company ? '31' : f.id_type) : undefined,
-    identification: invoice ? clean(f.identification) : undefined,
-    check_digit: invoice && company ? f.check_digit : undefined,
-    first_name: invoice && !company ? clean(f.first_name) : undefined,
-    last_name: invoice && !company ? clean(f.last_name) : undefined,
-    company_name: invoice && company ? clean(f.company_name) : undefined,
-    commercial_name: invoice ? opt(f.commercial_name) : undefined,
-    vat_responsible: invoice ? f.vat_responsible : undefined,
-    fiscal_responsibilities: invoice ? [f.fiscal_responsibility] : undefined,
-    billing_email: invoice ? opt(f.billing_email) : undefined,
-    billing_same_as_delivery: invoice && delivers ? f.billing_same_as_delivery : undefined,
-    billing_address: invoice && !same ? clean(f.billing_address) : undefined,
-    billing_state_code: invoice && !same ? f.billing_state_code : undefined,
-    billing_city_code: invoice && !same ? f.billing_city_code : undefined,
-    billing_postal_code: invoice && !same ? opt(f.billing_postal_code) : undefined,
-    contact_first_name: invoice && company ? opt(f.contact_first_name) : undefined,
-    contact_last_name: invoice && company ? opt(f.contact_last_name) : undefined,
+    ...toInvoicePayload(f, { delivers, same }),
     privacy_accepted: f.privacy_accepted,
     save_to_profile: f.save_to_profile,
     website: f.website,

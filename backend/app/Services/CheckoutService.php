@@ -208,36 +208,52 @@ class CheckoutService
     private function saveProfile(Customer $customer, array $d): void
     {
         $d = $this->withOptionals($d);
-        $changes = ['contact_name' => $d['name'], 'phone' => $d['phone']];
-
-        if ($d['needs_invoice']) {
-            $delivery = $this->delivery($d);
-            $billing = $this->billing($d, $delivery)['columns'];
-            $company = $d['person_type'] === 'Company';
-            $nit = $d['identification'].($company ? '-'.$d['check_digit'] : '');
-
-            $changes += [
-                'type' => $company ? CustomerType::Company : CustomerType::Natural,
-                'company_name' => $company ? $d['company_name'] : null,
-                'id_type' => $billing['billing_id_type'], 'check_digit' => $billing['billing_check_digit'],
-                'first_name' => $billing['billing_first_name'], 'last_name' => $billing['billing_last_name'],
-                'commercial_name' => $billing['billing_commercial_name'], 'vat_responsible' => $billing['billing_vat_responsible'],
-                'fiscal_responsibilities' => $billing['billing_fiscal_responsibilities'], 'billing_email' => $billing['billing_email'],
-                'address' => $billing['billing_address'], 'city' => Divipola::city($billing['billing_state_code'], $billing['billing_city_code'])['name'],
-                'state_code' => $billing['billing_state_code'], 'department' => $billing['billing_department'],
-                'city_code' => $billing['billing_city_code'], 'postal_code' => $billing['billing_postal_code'],
-            ];
-
-            if (! $this->customers->nitTakenByAnother($nit, $customer->id)) {
-                $changes['nit'] = $nit;
-            }
-        }
+        $changes = $this->customerChanges($d, $customer->id);
 
         if ($d['delivery_method'] !== 'pickup') {
             $changes['delivery_addresses'] = $this->rememberAddress($customer, $d);
         }
 
         $this->customers->update($customer, $changes);
+    }
+
+    /**
+     * Columnas del perfil del cliente a partir de los datos de contacto y (si los hay) de facturación. Lo usan el pago, crear la cuenta y
+     * «Mis datos»: un solo lugar que traduce los nombres de la API de Siigo a la ficha del cliente.
+     *
+     * @param  array<string, mixed>  $d  nombre, celular y, si `needs_invoice`, los campos de la factura
+     * @return array<string, mixed>
+     */
+    public function customerChanges(array $d, ?int $customerId = null): array
+    {
+        $d = $this->withOptionals($d) + ['delivery_method' => 'pickup'];
+        $changes = ['contact_name' => $d['name'], 'phone' => $d['phone']];
+
+        if (! $d['needs_invoice']) {
+            return $changes;
+        }
+
+        $billing = $this->billing($d, $this->delivery($d))['columns'];
+        $company = $d['person_type'] === 'Company';
+        $nit = $d['identification'].($company ? '-'.$d['check_digit'] : '');
+
+        $changes += [
+            'type' => $company ? CustomerType::Company : CustomerType::Natural,
+            'company_name' => $company ? $d['company_name'] : null,
+            'id_type' => $billing['billing_id_type'], 'check_digit' => $billing['billing_check_digit'],
+            'first_name' => $billing['billing_first_name'], 'last_name' => $billing['billing_last_name'],
+            'commercial_name' => $billing['billing_commercial_name'], 'vat_responsible' => $billing['billing_vat_responsible'],
+            'fiscal_responsibilities' => $billing['billing_fiscal_responsibilities'], 'billing_email' => $billing['billing_email'],
+            'address' => $billing['billing_address'], 'city' => Divipola::city($billing['billing_state_code'], $billing['billing_city_code'])['name'],
+            'state_code' => $billing['billing_state_code'], 'department' => $billing['billing_department'],
+            'city_code' => $billing['billing_city_code'], 'postal_code' => $billing['billing_postal_code'],
+        ];
+
+        if (! $this->customers->nitTakenByAnother($nit, $customerId)) {
+            $changes['nit'] = $nit;
+        }
+
+        return $changes;
     }
 
     /** @return list<array<string, mixed>> la dirección usada primero, sin repetirla, hasta 5 */

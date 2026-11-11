@@ -1,0 +1,38 @@
+meta {
+  name: Guardar direcciones
+  type: http
+  seq: 10
+}
+
+put {
+  url: {{base_url}}/api/v1/me/addresses
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{client_token}}
+}
+
+body:json {
+  {
+    "addresses": [
+      {
+        "state_code": "68",
+        "city_code": "68276",
+        "neighborhood": "Zona Industrial",
+        "road": "Carrera 9",
+        "number": "# 12-30"
+      }
+    ]
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.data.customer.delivery_addresses: isDefined
+}
+
+docs {
+  Reemplaza la lista completa (hasta 5). Una lista vacia las borra. Autocompletan el paso de entrega del pago.
+}
