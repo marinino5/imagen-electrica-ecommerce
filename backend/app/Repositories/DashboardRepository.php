@@ -52,13 +52,14 @@ class DashboardRepository
      *
      * @return Collection<string, float> día (Y-m-d) => total
      */
-    public function salesPerDaySince(CarbonInterface $since): Collection
+    public function salesPerDaySince(CarbonInterface $since, ?CarbonInterface $until = null): Collection
     {
         return Order::query()
             ->selectRaw('date(coalesce(paid_at, created_at)) as day, sum(total) as total')
             ->where('type', OrderType::Purchase->value)
             ->whereIn('status', [OrderStatus::Paid->value, OrderStatus::Shipped->value, OrderStatus::Delivered->value])
             ->whereRaw('coalesce(paid_at, created_at) >= ?', [$since])
+            ->when($until, fn ($q) => $q->whereRaw('coalesce(paid_at, created_at) < ?', [$until]))
             ->groupByRaw('date(coalesce(paid_at, created_at))')
             ->toBase()
             ->get()
@@ -66,14 +67,30 @@ class DashboardRepository
     }
 
     /**
+     * Pedidos creados por día en el rango (de cualquier estado).
+     *
+     * @return Collection<string, int> día => cantidad
+     */
+    public function purchasesPerDay(CarbonInterface $from, CarbonInterface $to): Collection
+    {
+        return Order::query()
+            ->selectRaw('date(created_at) as day, count(*) as total')
+            ->where('type', OrderType::Purchase->value)
+            ->where('created_at', '>=', $from)->where('created_at', '<', $to)
+            ->groupByRaw('date(created_at)')
+            ->toBase()->get()
+            ->mapWithKeys(fn (object $row) => [(string) $row->day => (int) $row->total]);
+    }
+
+    /**
      * Cotizaciones recibidas por día (con cuenta y sin cuenta) desde la fecha dada.
      *
      * @return Collection<string, int> día => cantidad
      */
-    public function quotesPerDaySince(CarbonInterface $since): Collection
+    public function quotesPerDaySince(CarbonInterface $since, ?CarbonInterface $until = null): Collection
     {
-        $orders = \Illuminate\Support\Facades\DB::table('orders')->where('type', OrderType::Quote->value)->where('created_at', '>=', $since)->selectRaw('date(created_at) as day');
-        $free = \Illuminate\Support\Facades\DB::table('quote_requests')->where('created_at', '>=', $since)->selectRaw('date(created_at) as day');
+        $orders = \Illuminate\Support\Facades\DB::table('orders')->where('type', OrderType::Quote->value)->where('created_at', '>=', $since)->when($until, fn ($q) => $q->where('created_at', '<', $until))->selectRaw('date(created_at) as day');
+        $free = \Illuminate\Support\Facades\DB::table('quote_requests')->where('created_at', '>=', $since)->when($until, fn ($q) => $q->where('created_at', '<', $until))->selectRaw('date(created_at) as day');
 
         return \Illuminate\Support\Facades\DB::query()->fromSub($orders->unionAll($free), 'q')->selectRaw('day, count(*) as total')->groupBy('day')->get()
             ->mapWithKeys(fn (object $row) => [(string) $row->day => (int) $row->total]);

@@ -6,6 +6,7 @@ import { initConfirmForms } from './panel/confirm';
 import { initLoginForm } from './panel/login';
 import { initReportFilter } from './panel/report-filter';
 import { initSidebar } from './panel/sidebar';
+import { initSearchShortcut, initSkeleton } from './panel/skeleton';
 import { initSpecsEditor } from './panel/specs-editor';
 import { initToasts } from './panel/toasts';
 
@@ -15,6 +16,8 @@ initConfirmForms();
 initSpecsEditor();
 initLoginForm();
 initReportFilter();
+initSkeleton();
+initSearchShortcut();
 
 // Chart.js solo se descarga en las páginas que tienen gráficos.
 const charts = document.querySelectorAll('canvas[data-chart]');

@@ -56,6 +56,21 @@ class OrderRepository
      * @param  array{type?: ?string, status?: ?string}  $filters
      * @return LengthAwarePaginator<int, Order>
      */
+    /**
+     * Búsqueda rápida del buscador global: pedidos y cotizaciones por código, empresa, contacto, documento o correo.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection<int, Order>
+     */
+    public function searchQuick(string $term, int $limit): \Illuminate\Database\Eloquent\Collection
+    {
+        $like = $this->likePattern($term);
+
+        return Order::query()
+            ->where(fn (Builder $q) => $q->where('code', 'like', $like)->orWhere('company_name', 'like', $like)->orWhere('contact_name', 'like', $like)
+                ->orWhere('nit', 'like', $like)->orWhere('billing_identification', 'like', $like)->orWhere('email', 'like', $like))
+            ->latest()->limit($limit)->get();
+    }
+
     public function paginateForCustomer(int $customerId, array $filters, int $perPage): LengthAwarePaginator
     {
         return Order::query()

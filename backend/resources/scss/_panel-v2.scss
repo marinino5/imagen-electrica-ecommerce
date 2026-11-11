@@ -1,0 +1,379 @@
+// Panel, segunda vuelta (Fase 5): fondo lila con grilla, barra lateral compacta, indicadores con minigráfica, embudo, chips de filtro,
+// esqueletos de carga y la identidad propia de cada análisis. Todo con las variables de marca de _variables.scss.
+
+$sidebar-width-v2: 14.5rem;
+$grid-line: rgba($brand-primary, .07);
+
+// ---------- Fondo: lila suave con una grilla muy tenue (como papel milimetrado) ----------
+.admin-body {
+    background-color: mix($brand-lavender, $brand-white, 55%);
+    background-image:
+        linear-gradient(to right, $grid-line 1px, transparent 1px),
+        linear-gradient(to bottom, $grid-line 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-attachment: fixed;
+}
+
+.card {
+    box-shadow: $box-shadow-sm;
+}
+
+// ---------- Barra lateral compacta ----------
+.admin-sidebar {
+    --bs-offcanvas-width: #{$sidebar-width-v2};
+
+    @include media-breakpoint-up(lg) {
+        width: $sidebar-width-v2;
+    }
+
+    .sidebar-header {
+        padding-top: 1rem !important;
+        padding-bottom: .25rem !important;
+    }
+
+    .sidebar-logo {
+        width: 3.4rem;
+        height: auto;
+    }
+
+    .sidebar-brand-text {
+        font-size: .62rem;
+        letter-spacing: .14em;
+    }
+
+    .nav-link,
+    .sidebar-link {
+        padding-block: .5rem;
+        font-size: .92rem;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .sidebar-collapsed .admin-sidebar {
+        width: $sidebar-collapsed-width;
+    }
+}
+
+// ---------- Barra superior: buscador y período ----------
+.topbar-kbd {
+    position: absolute;
+    top: 50%;
+    right: .6rem;
+    padding: .05rem .4rem;
+    border: 1px solid $brand-lavender;
+    border-radius: .35rem;
+    background: $brand-white;
+    color: $brand-muted;
+    font-size: .72rem;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.period-filter {
+    .period-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        min-height: 2.5rem;
+        padding: .25rem .75rem;
+        border: 1px solid $brand-lavender;
+        border-radius: $border-radius;
+        background: $brand-white;
+        color: $brand-primary;
+        text-align: left;
+        line-height: 1.1;
+
+        &:hover,
+        &[aria-expanded='true'] {
+            border-color: $brand-primary;
+        }
+
+        small {
+            display: block;
+            color: $brand-muted;
+            font-size: .64rem;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+        }
+
+        strong {
+            display: block;
+            color: $brand-ink;
+            font-size: .82rem;
+            white-space: nowrap;
+        }
+    }
+
+    .period-btn-text {
+        display: none;
+
+        @include media-breakpoint-up(md) {
+            display: block;
+        }
+    }
+
+    .period-menu {
+        min-width: 14rem;
+
+        .dropdown-item {
+            border-radius: .35rem;
+
+            &.active {
+                background: $brand-primary;
+                color: $brand-white;
+            }
+        }
+    }
+}
+
+// ---------- Indicadores con variación y minigráfica ----------
+.kpi-card {
+    .stat-icon-sm {
+        width: 2rem;
+        height: 2rem;
+        font-size: 1rem;
+    }
+
+    // Cifra arriba y minigráfica debajo, a todo el ancho: así una cifra larga ($ 7.761.700) no se parte en dos líneas
+    .kpi-main {
+        display: grid;
+        gap: .35rem;
+        margin: .1rem 0 .6rem;
+    }
+
+    .stat-value {
+        font-size: clamp(1.7rem, 1.2rem + 1vw, 2.25rem);
+        overflow-wrap: anywhere;
+    }
+
+    .stat-trend {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .25rem .5rem;
+    }
+
+    .trend-chip {
+        margin-right: 0;
+    }
+
+    .kpi-note {
+        color: $brand-muted;
+    }
+}
+
+.sparkline {
+    width: 100%;
+    height: 2.25rem;
+    overflow: visible;
+}
+
+.sparkline-line {
+    stroke: $chart-blue;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+}
+
+.sparkline-area {
+    fill: rgba($chart-blue, .1);
+}
+
+.sparkline-dot {
+    fill: $chart-blue;
+}
+
+// Variación: verde si es buena, roja si es mala, gris si no cambia (colores de gráficos, nunca violeta ni naranja)
+.trend-chip.trend-up { background: rgba($chart-green, .12); color: darken($chart-green, 8%); }
+.trend-chip.trend-down { background: rgba($chart-red, .1); color: darken($chart-red, 8%); }
+.trend-chip.trend-flat { background: rgba($chart-gray, .08); color: $chart-gray; }
+
+// ---------- Embudo cotización → pedido ----------
+.funnel {
+    display: grid;
+    gap: 1rem;
+    margin: 0 0 1rem;
+    padding: 0;
+    list-style: none;
+}
+
+.funnel-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: .5rem;
+    margin-bottom: .3rem;
+    font-size: .9rem;
+    font-weight: 600;
+
+    strong {
+        font-family: $headings-font-family;
+        font-size: 1.4rem;
+        line-height: 1;
+    }
+}
+
+.funnel-bar {
+    height: .6rem;
+    margin-bottom: .25rem;
+    border-radius: 1rem;
+    background: rgba($chart-gray, .08);
+    overflow: hidden;
+
+    span {
+        display: block;
+        width: var(--w);
+        height: 100%;
+        border-radius: 1rem;
+        background: $chart-blue;
+        transition: width .5s ease;
+    }
+}
+
+.funnel-stage:nth-child(3) .funnel-bar span { background: $chart-green; }
+.funnel-stage:nth-child(4) .funnel-bar span { background: $chart-green; }
+
+@media (prefers-reduced-motion: reduce) {
+    .funnel-bar span { transition: none; }
+}
+
+// ---------- Documento del cliente (CC / NIT) ----------
+.doc-chip {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .35rem;
+}
+
+.doc-kind {
+    padding: .05rem .5rem;
+    border-radius: 1rem;
+    background: $brand-lavender;
+    color: $brand-primary;
+    font-size: .7rem;
+    font-weight: 700;
+
+    &.is-company {
+        background: rgba($chart-blue, .1);
+        color: darken($chart-blue, 4%);
+    }
+}
+
+// ---------- Chips de filtro ----------
+.chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    margin-bottom: .75rem;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.25rem;
+    padding: .2rem .85rem;
+    border: 1px solid $brand-lavender;
+    border-radius: 2rem;
+    background: $brand-white;
+    color: $brand-ink;
+    font-size: .85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color .15s ease, border-color .15s ease;
+
+    &:hover {
+        border-color: $brand-primary;
+        color: $brand-primary;
+    }
+
+    &.is-on {
+        border-color: $brand-primary;
+        background: $brand-primary;
+        color: $brand-white;
+    }
+}
+
+// ---------- Esqueleto de carga de las tablas ----------
+.skeleton-rows {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: grid;
+    align-content: start;
+    gap: .9rem;
+    padding: 7rem 1.25rem 1.25rem;
+    background: rgba($brand-white, .92);
+}
+
+.skeleton-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 1rem;
+
+    span {
+        height: 1.1rem;
+        border-radius: .35rem;
+        background: linear-gradient(90deg, $brand-lavender 25%, mix($brand-lavender, $brand-white, 40%) 50%, $brand-lavender 75%);
+        background-size: 200% 100%;
+        animation: skeleton-shimmer 1.2s linear infinite;
+    }
+}
+
+[data-skeleton-target] {
+    position: relative;
+}
+
+@keyframes skeleton-shimmer {
+    to { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skeleton-row span { animation: none; }
+}
+
+// ---------- Análisis: cada pestaña con su identidad ----------
+// Financiero: azul (dinero). Comercial: verde (qué se mueve). La barra de color y el chip del encabezado los distinguen de un vistazo.
+.analysis-head {
+    --analysis-color: #{$chart-blue};
+    position: relative;
+    padding-left: 1rem;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: .25rem;
+        bottom: .25rem;
+        left: 0;
+        width: .3rem;
+        border-radius: .3rem;
+        background: var(--analysis-color);
+    }
+
+    &.is-commercial {
+        --analysis-color: #{$chart-green};
+    }
+
+    .analysis-kind {
+        display: inline-flex;
+        align-items: center;
+        gap: .35rem;
+        margin-bottom: .25rem;
+        padding: .1rem .6rem;
+        border-radius: 1rem;
+        background: rgba($chart-blue, .1);
+        color: darken($chart-blue, 4%);
+        font-size: .72rem;
+        font-weight: 700;
+        letter-spacing: .06em;
+        text-transform: uppercase;
+    }
+
+    &.is-commercial .analysis-kind {
+        background: rgba($chart-green, .12);
+        color: darken($chart-green, 10%);
+    }
+}
+
+.analysis-financial .stat-card { border-left-color: $chart-blue; }
+.analysis-commercial .card { border-top: 3px solid $chart-green; }

@@ -20,8 +20,10 @@
 
     @include('admin.partials.tabs', ['group' => 'ventas'])
 
-    <div class="card">
+    <div class="card" data-skeleton-target>
         <div class="card-body border-bottom">
+            <x-filter-chips param="status" label="Filtrar por estado"
+                :options="['' => 'Todos'] + collect($statuses)->mapWithKeys(fn ($s) => [$s->value => $s->label()])->all()" />
             <x-search-bar :action="route('admin.orders.index')" :value="$filters['q']" placeholder="Buscar por código, empresa, NIT o contacto…">
                 <input type="hidden" name="type" value="purchase">
                 <div class="col-6 col-md-3 col-xl-2">

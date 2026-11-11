@@ -108,17 +108,43 @@ function dailyChart(canvas, { labels, datasets }) {
     });
 }
 
-/** Ventas (barras, en pesos) y cotizaciones recibidas (línea, eje derecho) de los últimos 30 días. */
-function salesChart(canvas, { labels, sales, quotes }) {
+/** Línea vertical que sigue al cursor sobre la gráfica, para leer el día completo con su tooltip. */
+const crosshair = {
+    id: 'crosshair',
+    afterDatasetsDraw(chart) {
+        const active = chart.tooltip?.getActiveElements?.() ?? [];
+
+        if (active.length === 0) {
+            return;
+        }
+
+        const { ctx, chartArea } = chart;
+        const x = active[0].element.x;
+
+        ctx.save();
+        ctx.strokeStyle = css('--chart-text');
+        ctx.globalAlpha = 0.35;
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(x, chartArea.top);
+        ctx.lineTo(x, chartArea.bottom);
+        ctx.stroke();
+        ctx.restore();
+    },
+};
+
+/** Ventas (barras, en pesos) y cotizaciones recibidas (línea, eje derecho) del período elegido; por mes si el período es largo. */
+function salesChart(canvas, { labels, sales, quotes, monthly }) {
     const [blue, green] = palette();
     const money = (value) => `$ ${Number(value).toLocaleString('es-CO')}`;
 
     return new Chart(canvas, {
+        plugins: [crosshair],
         data: {
             labels,
             datasets: [
-                { type: 'bar', label: 'Ventas', data: sales, backgroundColor: blue, borderRadius: 4, maxBarThickness: 18, yAxisID: 'y', order: 2 },
-                { type: 'line', label: 'Cotizaciones', data: quotes, borderColor: green, backgroundColor: green, borderWidth: 2, pointRadius: 2, tension: 0.3, yAxisID: 'y1', order: 1 },
+                { type: 'bar', label: 'Ventas', data: sales, backgroundColor: blue, borderRadius: 4, maxBarThickness: monthly ? 36 : 18, yAxisID: 'y', order: 2, hoverBackgroundColor: blue },
+                { type: 'line', label: 'Cotizaciones', data: quotes, borderColor: green, backgroundColor: green, borderWidth: 2, pointRadius: labels.length > 40 ? 0 : 2, pointHoverRadius: 5, tension: 0.3, yAxisID: 'y1', order: 1 },
             ],
         },
         options: {

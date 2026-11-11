@@ -29,40 +29,28 @@
 @endphp
 
 @section('content')
-    <div class="page-header animate-in">
-        <h1>Análisis</h1>
-        <p>Lo que se cotiza, se vende y se consulta en la tienda durante <strong>{{ $period->label() }}</strong>.</p>
+<div class="analysis-commercial">
+    <div class="analysis-head is-commercial page-header animate-in d-flex flex-wrap align-items-start justify-content-between gap-3">
+        <div>
+            <span class="analysis-kind"><i class="bi bi-bullseye" aria-hidden="true"></i> Análisis comercial</span>
+            <h1>Mercado</h1>
+            <p>Lo que se cotiza, se vende y se consulta en la tienda durante <strong>{{ $period->label() }}</strong>.</p>
+        </div>
+        <div class="btn-group" role="group" aria-label="Exportar el análisis comercial">
+            <a href="{{ route('admin.reports.commercial.export', $exportParams) }}" class="btn btn-outline-success"><i class="bi bi-filetype-csv me-1" aria-hidden="true"></i>CSV</a>
+            <a href="{{ route('admin.reports.commercial.pdf', $exportParams) }}" class="btn btn-outline-success"><i class="bi bi-file-earmark-pdf me-1" aria-hidden="true"></i>PDF</a>
+        </div>
     </div>
 
     @include('admin.partials.tabs', ['group' => 'analisis'])
 
-    <div class="card mb-4">
-        <div class="card-body">
-            <form method="GET" action="{{ route('admin.reports.commercial') }}" class="row g-2 align-items-end" data-report-filter>
-                <div class="col-12 col-sm-6 col-md-4 col-xl-3">
-                    <label for="period" class="form-label small mb-1">Periodo</label>
-                    <select id="period" name="period" class="form-select" data-report-period>
-                        @foreach ($presets as $option)
-                            <option value="{{ $option->value }}" @selected($preset === $option)>{{ $option->label() }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-6 col-md-3 col-xl-2" data-report-custom @if ($preset !== ReportPreset::Custom) hidden @endif>
-                    <label for="from" class="form-label small mb-1">Desde</label>
-                    <input type="date" id="from" name="from" value="{{ old('from', $period->start->toDateString()) }}" class="form-control">
-                </div>
-                <div class="col-6 col-md-3 col-xl-2" data-report-custom @if ($preset !== ReportPreset::Custom) hidden @endif>
-                    <label for="to" class="form-label small mb-1">Hasta</label>
-                    <input type="date" id="to" name="to" value="{{ old('to', $period->lastDay()->toDateString()) }}" class="form-control">
-                </div>
-                <div class="col-auto"><button type="submit" class="btn btn-primary">Aplicar</button></div>
-            </form>
-            <p class="small text-body-secondary mt-3 mb-0">
-                Lo «más consultado» se mide con las fichas descargadas (la tienda no registra visitas a cada ficha). Cotizado = cotizaciones con cuenta
-                creadas en el periodo; vendido = pedidos pagados, enviados y entregados.
-            </p>
-        </div>
-    </div>
+    @if ($errors->any())
+        <div class="alert alert-danger" role="alert">{{ $errors->first() }}</div>
+    @endif
+    <p class="small text-body-secondary mb-3">
+        El período se cambia arriba a la derecha y vale para todo el panel. Lo «más consultado» se mide con las fichas descargadas (la tienda no registra visitas a cada ficha).
+        Cotizado = cotizaciones con cuenta creadas en el período; vendido = pedidos pagados, enviados y entregados.
+    </p>
 
     <div class="row g-3 mb-4">
         @foreach ($kpis as $i => [$label, $value, $note, $icon])
@@ -126,4 +114,5 @@
             </div>
         </div>
     </div>
+</div>
 @endsection

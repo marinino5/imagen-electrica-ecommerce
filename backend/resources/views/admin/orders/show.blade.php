@@ -51,10 +51,11 @@
                         <dd class="col-sm-8"><span class="badge text-bg-light border">{{ $order->customer_type->label() }}</span></dd>
                         @if ($order->customer_type->requiresCompanyData())
                             <dt class="col-sm-4">Empresa</dt>
-                            <dd class="col-sm-8">{{ $order->company_name }} <small class="text-body-secondary">· NIT {{ $order->nit }}</small></dd>
-                        @elseif ($order->nit)
+                            <dd class="col-sm-8">{{ $order->company_name }}</dd>
+                        @endif
+                        @if ($order->document)
                             <dt class="col-sm-4">Documento</dt>
-                            <dd class="col-sm-8">{{ $order->billing_id_type?->short() }} {{ $order->nit }}</dd>
+                            <dd class="col-sm-8"><x-document :document="$order->document" /></dd>
                         @endif
                         <dt class="col-sm-4">{{ $order->customer_type->requiresCompanyData() ? 'Contacto' : 'Nombre' }}</dt>
                         <dd class="col-sm-8">{{ $order->contact_name }}</dd>

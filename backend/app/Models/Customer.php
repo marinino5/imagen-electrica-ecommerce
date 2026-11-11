@@ -5,7 +5,10 @@ namespace App\Models;
 use App\Enums\CustomerType;
 use App\Enums\IdType;
 use Database\Factories\CustomerFactory;
+use App\Support\Document;
+use App\Support\TextCase;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -38,6 +41,38 @@ class Customer extends Model
             'marketing_opt_in_at' => 'datetime',
             'privacy_accepted_at' => 'datetime',
         ];
+    }
+
+    // Nombres y ciudades siempre con mayúscula inicial (si llegan todo en minúscula o todo en mayúscula)
+    protected function contactName(): Attribute
+    {
+        return Attribute::set(fn (?string $v) => TextCase::person($v));
+    }
+
+    protected function firstName(): Attribute
+    {
+        return Attribute::set(fn (?string $v) => TextCase::person($v));
+    }
+
+    protected function lastName(): Attribute
+    {
+        return Attribute::set(fn (?string $v) => TextCase::person($v));
+    }
+
+    protected function city(): Attribute
+    {
+        return Attribute::set(fn (?string $v) => TextCase::place($v));
+    }
+
+    protected function companyName(): Attribute
+    {
+        return Attribute::set(fn (?string $v) => TextCase::company($v));
+    }
+
+    /** Documento para el panel: «CC 1097490864» o «NIT 900123456-7» (ver App\Support\Document). */
+    protected function document(): Attribute
+    {
+        return Attribute::get(fn () => Document::describe($this->id_type, $this->nit, $this->check_digit, $this->type?->value));
     }
 
     /** Usuario con el que inicia sesión. 1:1 (inversa) */

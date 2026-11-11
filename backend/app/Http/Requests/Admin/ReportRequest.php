@@ -11,7 +11,7 @@ use Illuminate\Validation\Rule;
 /**
  * Filtro de periodo de Reportes, aplicable desde la URL:
  * ?period=this_month|last_month|this_year|last_year|custom&from=2026-03-01&to=2026-03-31
- * Sin periodo se usa "este mes". Si algo es inválido, se vuelve a la página
+ * Sin periodo se usa «últimos 30 días» (o el que la persona eligió en el filtro global de la barra superior, ver RememberPanelPeriod). Si algo es inválido, se vuelve a la página
  * sin filtros y se muestra el error junto al formulario.
  */
 class ReportRequest extends FormRequest
@@ -58,7 +58,7 @@ class ReportRequest extends FormRequest
 
     public function preset(): ReportPreset
     {
-        return $this->enum('period', ReportPreset::class) ?? ReportPreset::ThisMonth;
+        return $this->enum('period', ReportPreset::class) ?? ReportPreset::Last30;
     }
 
     public function period(): ReportPeriod

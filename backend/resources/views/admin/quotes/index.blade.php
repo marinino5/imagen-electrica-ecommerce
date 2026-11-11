@@ -17,8 +17,10 @@
 
     @include('admin.partials.tabs', ['group' => 'ventas'])
 
-    <div class="card">
+    <div class="card" data-skeleton-target>
         <div class="card-body border-bottom">
+            <x-filter-chips param="state" label="Filtrar por estado" :options="['' => 'Todas', 'pending' => 'Sin responder', 'answered' => 'Respondidas', 'cancelled' => 'Canceladas']" />
+            <x-filter-chips param="origin" label="Filtrar por origen" :options="['' => 'Con y sin cuenta', 'account' => 'Con cuenta', 'free' => 'Sin cuenta']" />
             <x-search-bar :action="route('admin.quotes.index')" :value="$filters['q']" placeholder="Buscar por código, empresa, contacto o correo…">
                 <div class="col-6 col-md-3 col-xl-2">
                     <label for="origin" class="visually-hidden">Origen</label>

@@ -67,12 +67,16 @@
                 {{-- Buscador global: por ahora busca productos --}}
                 <form method="GET" action="{{ route('admin.search') }}" role="search" class="topbar-search">
                     <i class="bi bi-search" aria-hidden="true"></i>
-                    <label for="global-search" class="visually-hidden">Buscar productos</label>
+                    <label for="global-search" class="visually-hidden">Buscar productos, pedidos, cotizaciones y clientes</label>
                     <input type="search" id="global-search" name="q" value="{{ request()->routeIs('admin.search') ? request('q') : '' }}"
-                        class="form-control" placeholder="Buscar productos por nombre o referencia…" maxlength="100" autocomplete="off">
+                        class="form-control" placeholder="Buscar productos, pedidos, clientes…" maxlength="100" autocomplete="off">
+                    <kbd class="topbar-kbd d-none d-xl-inline" aria-hidden="true">/</kbd>
                 </form>
 
-                <div class="ms-auto ms-lg-0 d-flex align-items-center gap-3">
+                <div class="ms-auto ms-lg-0 d-flex align-items-center gap-2 gap-md-3">
+                    @if (request()->routeIs('admin.dashboard', 'admin.reports.*'))
+                        <x-period-filter />
+                    @endif
                     <div class="topbar-greeting d-none d-xl-block">
                         <strong>{{ $greeting }}, {{ \Illuminate\Support\Str::before($user->name, ' ') }}</strong><br>
                         <small>{{ $todayLabel }}</small>

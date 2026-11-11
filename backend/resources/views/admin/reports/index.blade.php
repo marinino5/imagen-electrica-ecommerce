@@ -45,53 +45,28 @@
 @endphp
 
 @section('content')
-    <div class="page-header animate-in d-flex flex-wrap align-items-start justify-content-between gap-3">
+<div class="analysis-financial">
+    <div class="analysis-head page-header animate-in d-flex flex-wrap align-items-start justify-content-between gap-3">
         <div>
-            <h1>Análisis</h1>
-            <p>Ventas, ganancia y cotizaciones de <strong>{{ $period->label() }}</strong>, comparadas con {{ $period->previousLabel() }}.</p>
+            <span class="analysis-kind"><i class="bi bi-cash-stack" aria-hidden="true"></i> Análisis financiero</span>
+            <h1>Dinero</h1>
+            <p>Ventas, ganancia y margen de <strong>{{ $period->label() }}</strong>, comparados con {{ $period->previousLabel() }}.</p>
         </div>
-        <a href="{{ route('admin.reports.export', $exportParams) }}" class="btn btn-outline-primary">
-            <i class="bi bi-download me-1" aria-hidden="true"></i>Exportar CSV
-        </a>
+        <div class="btn-group" role="group" aria-label="Exportar el análisis financiero">
+            <a href="{{ route('admin.reports.export', $exportParams) }}" class="btn btn-outline-primary"><i class="bi bi-filetype-csv me-1" aria-hidden="true"></i>CSV</a>
+            <a href="{{ route('admin.reports.pdf', $exportParams) }}" class="btn btn-outline-primary"><i class="bi bi-file-earmark-pdf me-1" aria-hidden="true"></i>PDF</a>
+        </div>
     </div>
 
     @include('admin.partials.tabs', ['group' => 'analisis'])
 
-    {{-- Filtro de periodo --}}
-    <div class="card mb-4">
-        <div class="card-body">
-            <form method="GET" action="{{ route('admin.reports.index') }}" class="row g-2 align-items-end" data-report-filter>
-                <div class="col-12 col-sm-6 col-md-4 col-xl-3">
-                    <label for="period" class="form-label small mb-1">Periodo</label>
-                    <select id="period" name="period" @class(['form-select', 'is-invalid' => $errors->has('period')]) data-report-period>
-                        @foreach ($presets as $option)
-                            <option value="{{ $option->value }}" @selected($preset === $option)>{{ $option->label() }}</option>
-                        @endforeach
-                    </select>
-                    @error('period')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                </div>
-                <div class="col-6 col-md-3 col-xl-2" data-report-custom @if ($preset !== ReportPreset::Custom) hidden @endif>
-                    <label for="from" class="form-label small mb-1">Desde</label>
-                    <input type="date" id="from" name="from" value="{{ old('from', $period->start->toDateString()) }}"
-                        @class(['form-control', 'is-invalid' => $errors->has('from')])>
-                    @error('from')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                </div>
-                <div class="col-6 col-md-3 col-xl-2" data-report-custom @if ($preset !== ReportPreset::Custom) hidden @endif>
-                    <label for="to" class="form-label small mb-1">Hasta</label>
-                    <input type="date" id="to" name="to" value="{{ old('to', $period->lastDay()->toDateString()) }}"
-                        @class(['form-control', 'is-invalid' => $errors->has('to')])>
-                    @error('to')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                </div>
-                <div class="col-auto">
-                    <button type="submit" class="btn btn-primary">Aplicar</button>
-                </div>
-            </form>
-            <p class="small text-body-secondary mt-3 mb-0">
-                Se cuentan los pedidos pagados, enviados y entregados, fechados al momento del pago. Los valores incluyen IVA;
-                la ganancia y el margen se calculan sobre la base sin IVA frente al costo de cada producto.
-            </p>
-        </div>
-    </div>
+    @if ($errors->any())
+        <div class="alert alert-danger" role="alert">{{ $errors->first() }}</div>
+    @endif
+    <p class="small text-body-secondary mb-3">
+        El período se cambia arriba a la derecha y vale para todo el panel. Se cuentan los pedidos pagados, enviados y entregados, fechados al momento del pago. Los valores incluyen IVA;
+        la ganancia y el margen se calculan sobre la base sin IVA frente al costo de cada producto.
+    </p>
 
     {{-- Indicadores --}}
     <div class="row g-3 mb-4">
@@ -302,7 +277,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Cliente</th>
-                            <th scope="col" class="d-none d-sm-table-cell">NIT / cédula</th>
+                            <th scope="col" class="d-none d-sm-table-cell">Documento</th>
                             <th scope="col" class="text-end">Pedidos</th>
                             <th scope="col" class="text-end">Comprado</th>
                         </tr>
@@ -311,7 +286,7 @@
                         @foreach ($tables['top_customers'] as $row)
                             <tr>
                                 <td class="fw-semibold">{{ $row->company }}</td>
-                                <td class="d-none d-sm-table-cell font-monospace">{{ $row->nit ?? '—' }}</td>
+                                <td class="d-none d-sm-table-cell"><x-document :document="$row->document" /></td>
                                 <td class="text-end">{{ $row->orders }}</td>
                                 <td class="text-end text-nowrap fw-semibold">{{ Money::cop($row->total) }}</td>
                             </tr>
@@ -321,4 +296,5 @@
             </div>
         @endif
     </div>
+</div>
 @endsection

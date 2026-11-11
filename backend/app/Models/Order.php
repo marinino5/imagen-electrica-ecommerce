@@ -7,6 +7,8 @@ use App\Enums\DeliveryMethod;
 use App\Enums\IdType;
 use App\Enums\OrderStatus;
 use App\Enums\OrderType;
+use App\Support\Document;
+use App\Support\TextCase;
 use Database\Factories\OrderFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -67,6 +69,34 @@ class Order extends Model
     protected function displayName(): Attribute
     {
         return Attribute::get(fn () => $this->company_name ?: $this->contact_name);
+    }
+
+    protected function contactName(): Attribute
+    {
+        return Attribute::set(fn (?string $v) => TextCase::person($v));
+    }
+
+    protected function billingFirstName(): Attribute
+    {
+        return Attribute::set(fn (?string $v) => TextCase::person($v));
+    }
+
+    protected function billingLastName(): Attribute
+    {
+        return Attribute::set(fn (?string $v) => TextCase::person($v));
+    }
+
+    protected function city(): Attribute
+    {
+        return Attribute::set(fn (?string $v) => TextCase::place($v));
+    }
+
+    /** Documento para el panel: el de la factura si pidió, y si no el de la ficha (ver App\Support\Document). */
+    protected function document(): Attribute
+    {
+        return Attribute::get(fn () => $this->billing_identification
+            ? Document::describe($this->billing_id_type, $this->billing_identification, $this->billing_check_digit, $this->customer_type?->value)
+            : Document::describe(null, $this->nit, null, $this->customer_type?->value));
     }
 
     /** 1:N (inversa) */
