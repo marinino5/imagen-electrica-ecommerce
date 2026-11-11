@@ -69,7 +69,7 @@ class QuoteRequestController extends Controller
      * @bodyParam attachment file Foto, placa del equipo o lista de materiales (PDF, JPG o PNG, máx. 5 MB).
      * @bodyParam privacy_accepted boolean required Autoriza el tratamiento de datos (Ley 1581 de 2012). Example: true
      *
-     * @response 201 {"data":{"message":"Recibimos tu solicitud. Un asesor te responderá pronto.","reference":"LIB-0001","response_time":"el mismo día hábil"}}
+     * @response 201 {"data":{"message":"Recibimos tu solicitud. Un asesor te responderá pronto.","reference":"LIB-0001","response_time":"en máximo 3 días hábiles"}}
      */
     public function storeFree(StoreFreeQuoteRequestRequest $request): JsonResponse
     {

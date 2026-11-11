@@ -31,7 +31,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":9,"name":"Omar Dom\u00ednguez","email":"arredondo.juana@example.com","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Calero de Zamora S.A.S.","nit":"990122162-7","contact_name":"Sr. H\u00e9ctor Zelaya","phone":"379 091 5066","city":"Gir\u00f3n","address":"Calle Elizondo, 54, 27\u00ba C","id_type":null,"check_digit":null,"first_name":null,"last_name":null,"commercial_name":null,"vat_responsible":null,"fiscal_responsibilities":null,"billing_email":null,"state_code":null,"city_code":null,"postal_code":null,"delivery_addresses":[],"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-11-11T12:41:24.000000Z"}}}'
+        content: '{"data":{"id":22,"name":"Omar Dom\u00ednguez","email":"icalero@example.org","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Asociaci\u00f3n Col\u00f3n-Zelaya S.A.S.","nit":"979091506-6","contact_name":"Santiago Valles","phone":"364 310 6432","city":"Floridablanca","address":"Paseo Isaac, 409, 9\u00ba C","id_type":null,"check_digit":null,"first_name":null,"last_name":null,"commercial_name":null,"vat_responsible":null,"fiscal_responsibilities":null,"billing_email":null,"state_code":null,"city_code":null,"postal_code":null,"delivery_addresses":[],"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-11-11T13:55:31.000000Z"}}}'
         headers: []
         description: ''
     responseFields: []
@@ -146,7 +146,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":10,"name":"Emilia Murillo","email":"juribe@example.org","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Rivas y Sevilla SA S.A.S.","nit":"968210674-8","contact_name":"Adri\u00e1n Cavazos Hijo","phone":"315 175 7680","city":"Barrancabermeja","address":"Pla\u00e7a Juana, 979, 27\u00ba A","id_type":null,"check_digit":null,"first_name":null,"last_name":null,"commercial_name":null,"vat_responsible":null,"fiscal_responsibilities":null,"billing_email":null,"state_code":null,"city_code":null,"postal_code":null,"delivery_addresses":[],"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-11-11T12:41:25.000000Z"}}}'
+        content: '{"data":{"id":23,"name":"Emilia Murillo","email":"juribe@example.org","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Rivas y Sevilla SA S.A.S.","nit":"968210674-8","contact_name":"Adri\u00e1n Cavazos Hijo","phone":"315 175 7680","city":"Barrancabermeja","address":"Pla\u00e7a Juana, 979, 27\u00ba A","id_type":null,"check_digit":null,"first_name":null,"last_name":null,"commercial_name":null,"vat_responsible":null,"fiscal_responsibilities":null,"billing_email":null,"state_code":null,"city_code":null,"postal_code":null,"delivery_addresses":[],"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-11-11T13:55:31.000000Z"}}}'
         headers: []
         description: ''
     responseFields: []
@@ -291,7 +291,7 @@ endpoints:
         name: vat_responsible
         description: ''
         required: false
-        example: false
+        example: true
         type: boolean
         enumValues: []
         exampleWasSpecified: false
@@ -407,7 +407,7 @@ endpoints:
       last_name: g
       company_name: 'Constructora Altos S.A.S.'
       commercial_name: m
-      vat_responsible: false
+      vat_responsible: true
       fiscal_responsibilities:
         - O-13
       billing_email: gulgowski.asia@example.com
@@ -423,7 +423,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":11,"name":"Alexia Sevilla","email":"nicolas42@example.com","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Ayala y Fonseca S.A.S.","nit":"909093372-4","contact_name":"Sra. Alba Fonseca","phone":"359 021 4902","city":"Gir\u00f3n","address":"Calle Paola, 458, 67\u00ba A","id_type":null,"check_digit":null,"first_name":null,"last_name":null,"commercial_name":null,"vat_responsible":null,"fiscal_responsibilities":null,"billing_email":null,"state_code":null,"city_code":null,"postal_code":null,"delivery_addresses":[],"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-11-11T12:41:25.000000Z"}}}'
+        content: '{"data":{"id":24,"name":"Alexia Sevilla","email":"nicolas42@example.com","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Ayala y Fonseca S.A.S.","nit":"909093372-4","contact_name":"Sra. Alba Fonseca","phone":"359 021 4902","city":"Gir\u00f3n","address":"Calle Paola, 458, 67\u00ba A","id_type":null,"check_digit":null,"first_name":null,"last_name":null,"commercial_name":null,"vat_responsible":null,"fiscal_responsibilities":null,"billing_email":null,"state_code":null,"city_code":null,"postal_code":null,"delivery_addresses":[],"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-11-11T13:55:31.000000Z"}}}'
         headers: []
         description: ''
     responseFields: []
@@ -574,7 +574,7 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"data":{"id":12,"name":"Dr. Lara Llorente Tercero","email":"baeza.anamaria@example.com","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Cano-Guajardo SA S.A.S.","nit":"944401476-3","contact_name":"Ariadna Gallego","phone":"376 210 2042","city":"Gir\u00f3n","address":"Calle Jos\u00e9, 481, Bajo 2\u00ba","id_type":null,"check_digit":null,"first_name":null,"last_name":null,"commercial_name":null,"vat_responsible":null,"fiscal_responsibilities":null,"billing_email":null,"state_code":null,"city_code":null,"postal_code":null,"delivery_addresses":[],"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-11-11T12:41:25.000000Z"}}}'
+        content: '{"data":{"id":25,"name":"Dr. Lara Llorente Tercero","email":"baeza.anamaria@example.com","role":"cliente","customer":{"type":"company","type_label":"Empresa","company_name":"Cano-Guajardo SA S.A.S.","nit":"944401476-3","contact_name":"Ariadna Gallego","phone":"376 210 2042","city":"Gir\u00f3n","address":"Calle Jos\u00e9, 481, Bajo 2\u00ba","id_type":null,"check_digit":null,"first_name":null,"last_name":null,"commercial_name":null,"vat_responsible":null,"fiscal_responsibilities":null,"billing_email":null,"state_code":null,"city_code":null,"postal_code":null,"delivery_addresses":[],"marketing_opt_in":false,"marketing_opt_in_at":null,"privacy_accepted_at":"2026-11-11T13:55:31.000000Z"}}}'
         headers: []
         description: ''
     responseFields: []

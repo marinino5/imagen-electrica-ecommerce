@@ -374,7 +374,7 @@ endpoints:
       -
         custom: []
         status: 201
-        content: '{"data":{"message":"Recibimos tu solicitud. Un asesor te responderá pronto.","reference":"LIB-0001","response_time":"el mismo día hábil"}}'
+        content: '{"data":{"message":"Recibimos tu solicitud. Un asesor te responderá pronto.","reference":"LIB-0001","response_time":"en máximo 3 días hábiles"}}'
         headers: []
         description: ''
     responseFields: []

@@ -126,6 +126,6 @@ return [
     */
 
     'quote_to' => env('QUOTE_NOTIFY_EMAIL', 'imagenelectrica@gmail.com'),
-    'quote_response_time' => env('QUOTE_RESPONSE_TIME', 'el mismo día hábil'),
+    'quote_response_time' => env('QUOTE_RESPONSE_TIME', 'en máximo 3 días hábiles'),
 
 ];
