@@ -9,7 +9,7 @@
   --accent-text: #b84800; /* naranja para texto pequeño sobre claro: 5,3:1 sobre blanco y lavanda */
   --night: #170f29; /* violeta casi negro, para capas sobre fotos */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --lav-soft: #f4f1fa; /* lavanda muy suave: fondo de las secciones alternas (ver DESIGN.md) */
+  --lav-soft: #f6f0fa; /* lavanda muy suave: fondo de las secciones alternas (ver DESIGN.md) */
   --header-h: 84px;
   --header-gap: 0px;
   --header-space: var(--header-h);
@@ -318,7 +318,7 @@ body::after {
 @media (hover: hover) {
   .lift:hover {
     transform: translateY(-3px);
-    box-shadow: 0 14px 30px -18px rgb(81 62 132 / 0.4);
+    box-shadow: 0 14px 30px -18px rgb(80 0 120 / 0.4);
     border-color: var(--lav-3);
   }
   .lift:hover .zoom {

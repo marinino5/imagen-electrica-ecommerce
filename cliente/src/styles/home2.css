@@ -269,7 +269,7 @@
   gap: 10px;
   padding: 22px 20px 20px;
   transform: rotateY(180deg);
-  background: radial-gradient(70% 50% at 100% 0%, rgb(81 62 132 / 0.6), transparent 70%), var(--night);
+  background: radial-gradient(70% 50% at 100% 0%, rgb(80 0 120 / 0.6), transparent 70%), var(--night);
   color: #fff;
   overflow-y: auto;
 }
@@ -386,7 +386,7 @@
   padding-top: 56px;
   overflow: clip;
   border-radius: 40px 40px 0 0;
-  box-shadow: 0 -22px 40px -22px rgb(20 16 36 / 0.45);
+  box-shadow: 0 -22px 40px -22px rgb(35 10 54 / 0.45);
 }
 @media (max-width: 767px) { .hm-fams { border-radius: 28px 28px 0 0; } }
 

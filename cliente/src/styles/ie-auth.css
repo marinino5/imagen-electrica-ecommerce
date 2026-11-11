@@ -20,7 +20,7 @@
 /* «Tu cuenta Imagen Eléctrica»: blanco, pequeño, justo encima de la tarjeta; en celular, centrado en la banda de 160 px */
 .ax2__kicker { display: flex; align-items: center; justify-content: center; height: var(--kick-h); margin: 0; color: #fff; font-size: 12.5px; font-weight: 700; letter-spacing: 0.18em; text-align: center; text-transform: uppercase; }
 .ax2__wrap { position: relative; width: 100%; max-width: 520px; margin-inline: auto; }
-.ax2__wrap .ax__card { position: relative; z-index: 1; max-width: none; box-shadow: 0 28px 60px -26px rgb(81 62 132 / 0.45), 0 8px 20px -10px rgb(81 62 132 / 0.2); }
+.ax2__wrap .ax__card { position: relative; z-index: 1; max-width: none; box-shadow: 0 28px 60px -26px rgb(80 0 120 / 0.45), 0 8px 20px -10px rgb(80 0 120 / 0.2); }
 
 @media (min-width: 768px) {
   .ax.ax2 { --kick-h: 150px; }

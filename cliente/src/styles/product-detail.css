@@ -517,7 +517,7 @@
   background: rgb(255 255 255 / 0.96);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 -14px 30px -22px rgb(38 28 62 / 0.6);
+  box-shadow: 0 -14px 30px -22px rgb(35 10 54 / 0.6);
 }
 .pd-mbuy p { flex: 1; min-width: 0; margin: 0; }
 .pd-mbuy strong { display: block; color: var(--ink); font-family: var(--font-display); font-size: 1.45rem; line-height: 1.05; }

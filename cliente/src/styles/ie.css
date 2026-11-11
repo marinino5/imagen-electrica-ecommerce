@@ -4,15 +4,15 @@
    Se carga después de rd.css y lo sobrescribe. Colores solo aquí y en variables.css.
    ============================================================ */
 :root {
-  --ie-violet-950: #1e1631; /* footer y texto de máximo contraste (= --ink; coincide con ≈#1C1630) */
-  --ie-violet-700: #513e84; /* bloques extendidos y titulares oscuros (= --primary de marca; el ≈#4B3A82 no coincide: manda la marca) */
-  --ie-violet-500: #6e5bb0; /* iconos, bordes activos y enlaces */
-  --ie-lila-200: #e9e3f4; /* pedestales, bordes de tarjeta, filas alternas */
-  --ie-lila-100: #f4f1fa; /* fondos de sección */
-  --ie-lila-50: #faf8fd; /* fondos de tarjeta suaves */
+  --ie-violet-950: #230a36; /* footer y texto de máximo contraste (= --ink; coincide con ≈#1C1630) */
+  --ie-violet-700: #500078; /* bloques extendidos y titulares oscuros (= --primary de marca; el ≈#4B3A82 no coincide: manda la marca) */
+  --ie-violet-500: #500078; /* iconos, bordes activos y enlaces */
+  --ie-lila-200: #ebe1f2; /* pedestales, bordes de tarjeta, filas alternas */
+  --ie-lila-100: #f6f0fa; /* fondos de sección */
+  --ie-lila-50: #fbf8fd; /* fondos de tarjeta suaves */
   --ie-orange-500: #f26a00; /* CTAs, arcos, etiquetas, subrayados (naranja del logo) */
   --ie-orange-100: #ffe6d3; /* etiquetas de descuento y filas seleccionadas */
-  --ie-shadow-photo: 0 24px 48px rgb(28 22 48 / 0.18);
+  --ie-shadow-photo: 0 24px 48px rgb(35 10 54 / 0.18);
   --ie-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --edge: calc((100vw - min(100vw, 1280px)) / 2 + 16px); /* distancia del borde de la pantalla al borde del contenido */
 
@@ -24,7 +24,7 @@
 .bg-lila-fade { background: var(--bg-lila-fade); }
 .bg-lila-soft {
   background-color: var(--ie-lila-100);
-  background-image: radial-gradient(circle, rgb(110 91 176 / 0.05) 0.75px, transparent 0.8px);
+  background-image: radial-gradient(circle, rgb(80 0 120 / 0.05) 0.75px, transparent 0.8px);
   background-size: 24px 24px;
 }
 .bg-lila-arc {
@@ -49,7 +49,7 @@
 .bg-lila-arc--l::after { right: auto; left: calc(min(56vw, 780px) * -0.46); }
 /* Los fondos antiguos pasan a las tres variantes: ninguna sección queda en blanco liso */
 .bg-white, .bg-lav { background: var(--bg-lila-fade); }
-.bg-soft, .bg-warm { background-color: var(--ie-lila-100); background-image: radial-gradient(circle, rgb(110 91 176 / 0.05) 0.75px, transparent 0.8px); background-size: 24px 24px; }
+.bg-soft, .bg-warm { background-color: var(--ie-lila-100); background-image: radial-gradient(circle, rgb(80 0 120 / 0.05) 0.75px, transparent 0.8px); background-size: 24px 24px; }
 .tex-dots::before { display: none; }
 
 /* ---------- Tipografía ---------- */
@@ -103,7 +103,7 @@
 /* ---------- Revelado y tarjetas ---------- */
 .rv--now, .rv--now.is-in { transition: none !important; }
 @media (hover: hover) and (pointer: fine) {
-  .lift:hover { transform: translateY(-4px); box-shadow: 0 22px 40px -20px rgb(75 58 130 / 0.45); }
+  .lift:hover { transform: translateY(-4px); box-shadow: 0 22px 40px -20px rgb(80 0 120 / 0.45); }
   .lift:hover .zoom { transform: scale(1.04); }
 }
 .lift, .lift .zoom { transition-duration: 0.24s; transition-timing-function: ease-out; }
@@ -200,7 +200,7 @@
   border-radius: 50%;
   background: var(--ie-lila-200);
   border-top: 1px solid rgb(255 255 255 / 0.6);
-  box-shadow: 0 10px 14px -6px rgb(28 22 48 / 0.3);
+  box-shadow: 0 10px 14px -6px rgb(35 10 54 / 0.3);
   transform: translateX(-50%);
 }
 @media (hover: hover) and (pointer: fine) {
@@ -261,7 +261,7 @@
 .chan__phones a { color: var(--muted); font-size: 0.95rem; text-decoration: none; }
 .chan__phones a:hover { color: var(--ie-violet-950); }
 @media (hover: hover) and (pointer: fine) {
-  a.chan:hover, .chan:hover:not(.chan--wa) { border-color: var(--ie-orange-500); transform: translateY(-3px); box-shadow: 0 16px 30px -18px rgb(75 58 130 / 0.4); }
+  a.chan:hover, .chan:hover:not(.chan--wa) { border-color: var(--ie-orange-500); transform: translateY(-3px); box-shadow: 0 16px 30px -18px rgb(80 0 120 / 0.4); }
   .chan--wa:hover { transform: translateY(-3px); box-shadow: 0 16px 30px -14px rgb(242 106 0 / 0.55); }
 }
 .chan:active { transform: scale(0.98); }
